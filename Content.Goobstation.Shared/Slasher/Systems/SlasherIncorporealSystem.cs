@@ -16,7 +16,6 @@ using Content.Shared.Damage.Events;
 using Content.Shared.Tag;
 using Content.Shared.Doors.Systems;
 using Content.Shared.Hands;
-using Content.Goobstation.Common.Footprints;
 using Content.Shared.Movement.Components;
 using Content.Shared.Speech.Muting;
 using Content.Shared.Emoting;
@@ -78,7 +77,6 @@ public sealed class SlasherIncorporealSystem : EntitySystem
         SubscribeLocalEvent<SlasherIncorporealComponent, BeforeStaminaDamageEvent>(OnBeforeStaminaDamage);
         SubscribeLocalEvent<SlasherIncorporealComponent, BeforeEmoteEvent>(OnBeforeEmote);
         SubscribeLocalEvent<SlasherIncorporealComponent, EmoteAttemptEvent>(OnEmoteAttempt);
-        SubscribeLocalEvent<SlasherIncorporealComponent, FootprintLeaveAttemptEvent>(OnFootprintLeaveAttempt);
         SubscribeLocalEvent<SlasherIncorporealComponent, GettingInteractedWithAttemptEvent>(OnGettingInteractedWithAttempt);
         SubscribeLocalEvent<SlasherIncorporealComponent, ElectrocutionAttemptEvent>(OnElectrocutionAttempt);
         SubscribeLocalEvent<SlasherIncorporealComponent, DownAttemptEvent>(OnDownAttempt);
@@ -461,11 +459,6 @@ public sealed class SlasherIncorporealSystem : EntitySystem
             args.Cancelled = true;
     }
 
-    private void OnFootprintLeaveAttempt(EntityUid uid, SlasherIncorporealComponent comp, ref FootprintLeaveAttemptEvent args)
-    {
-        if (comp.IsIncorporeal)
-            args.Cancel();
-    }
 
     private void OnAnyActionAttempt(Entity<ActionComponent> action, ref ActionAttemptEvent args)
     {

@@ -112,7 +112,6 @@
         Heat: 1
   - type: Hunger
   - type: Thirst
-  - type: FootprintOwner
   - type: WraithAbsorbable # Goobstation - wraith
 # Corvax-Goob-GreySpecies-end
 

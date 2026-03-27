@@ -3,7 +3,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Goobstation.Common.Footprints;
 using Content.Goobstation.Maths.FixedPoint;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Decals;
@@ -62,7 +61,7 @@ public sealed class FloorCleanerSystem : EntitySystem
 
         foundEntities.RemoveWhere(ent =>
             !_interaction.InRangeUnobstructed(user, ent, floorCleaner.Comp.Radius)
-            || !HasComp<FootprintComponent>(ent)); // Otherwise you can mop people :P
+            );
 
         foundDecals.RemoveWhere(decal =>
             !decal.Decal.Cleanable);
