@@ -778,3 +778,6 @@ binds:
 - function: OfferItem # CorvaxGoob-Offer
   type: State
   key: H
+- function: OpenPhraseWheel
+  type: State
+  key: J

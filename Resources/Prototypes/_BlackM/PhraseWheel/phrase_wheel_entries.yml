@@ -1,0 +1,262 @@
+# HECU категория
+- type: phraseWheelEntry
+  id: PhraseRunWhere
+  text: "Подтверждаю"
+  chatType: Speak
+  label: "Подтверждаю"
+  category: HECU
+  icon: /Textures/Interface/hecu.png
+  sound: /Audio/Voice/Phrasewheel/accept.ogg
+
+- type: phraseWheelEntry
+  id: PhraseGamesOver
+  text: "ВИЖУ ЦЕЛЬ!!"
+  chatType: Speak
+  label: "ВИЖУ ЦЕЛЬ"
+  category: HECU
+  icon: /Textures/Interface/hecu.png
+  sound: /Audio/Voice/Phrasewheel/warning.ogg
+
+- type: phraseWheelEntry
+  id: PhraseBeholdMyPower
+  text: "давай, ПОШЁЛ ПОШЁЛ!!"
+  chatType: Shout
+  label: "ПОШЁЛ!"
+  category: HECU
+  icon: /Textures/Interface/hecu.png
+  sound: /Audio/Voice/Phrasewheel/poshelposhel.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack
+  text: "Мы тебе жопу кочергой порвём"
+  chatType: Speak
+  label: "Кочерга"
+  category: HECU
+  icon: /Textures/Interface/hecu.png
+  sound: /Audio/Voice/Phrasewheel/jopykaj.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack1
+  text: "ЭМЭ... Так точно Сэр!"
+  chatType: Speak
+  label: "Так точно Сэр!"
+  category: HECU
+  icon: /Textures/Interface/hecu.png
+  sound: /Audio/Voice/Phrasewheel/hg_answer07.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack2
+  text: "Я попал в него!! ТОЧНО ПОПАЛ В НЕГО"
+  chatType: Speak
+  label: "Я попал в него"
+  category: HECU
+  icon: /Textures/Interface/hecu.png
+  sound: /Audio/Voice/Phrasewheel/hg_taunt07_var01.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack3
+  text: "ТВОЮ МАТЬ!!"
+  chatType: Speak
+  label: "ТВОЮ МАТЬ!!"
+  category: HECU
+  icon: /Textures/Interface/hecu.png
+  sound: /Audio/Voice/Phrasewheel/hg_cover07.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack4
+  text: "Мы можем идти?"
+  chatType: Speak
+  label: "Мы можем идти?"
+  category: HECU
+  icon: /Textures/Interface/hecumask.png
+  sound: /Audio/Voice/Phrasewheel/hg_check08.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack5
+  text: "Я РАНЕН!!"
+  chatType: Speak
+  label: "Я РАНЕН!!"
+  category: HECU
+  icon: /Textures/Interface/hecumask.png
+  sound: /Audio/Voice/Phrasewheel/hg_hit01.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack6
+  text: "Чую здесь нам надо больше людей..."
+  chatType: Speak
+  label: "нам надо больше людей"
+  category: HECU
+  icon: /Textures/Interface/hecumask.png
+  sound: /Audio/Voice/Phrasewheel/hg_idle13.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack7
+  text: "Тут ничего нет..."
+  chatType: Speak
+  label: "Тут ничего нет"
+  category: HECU
+  icon: /Textures/Interface/hecumask.png
+  sound: /Audio/Voice/Phrasewheel/hg_question12.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack8
+  text: "Ищите фримена"
+  chatType: Speak
+  label: "Ищите фримена"
+  category: HECU
+  icon: /Textures/Interface/hecumask.png
+  sound: /Audio/Voice/Phrasewheel/hg_question14.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack9
+  text: "Он может быть рядом! Осторожно..."
+  chatType: Speak
+  label: "Он может быть рядом"
+  category: HECU
+  icon: /Textures/Interface/hecumask.png
+  sound: /Audio/Voice/Phrasewheel/hg_question15.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack10
+  text: "ВСЕМ ЛЕЧЬ!!"
+  chatType: Speak
+  label: "ВСЕМ ЛЕЧЬ"
+  category: HECU
+  icon: /Textures/Interface/hecumask.png
+  sound: /Audio/Voice/Phrasewheel/hg_throw05.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack11
+  text: "ВСЕ НА ЗЕМЛЮ!!"
+  chatType: Speak
+  label: "ВСЕ НА ЗЕМЛЮ"
+  category: HECU
+  icon: /Textures/Interface/hecumask.png
+  sound: /Audio/Voice/Phrasewheel/hg_throw05_var01.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack12
+  text: "Уродцы наступают..."
+  chatType: Speak
+  label: "Уродцы наступают"
+  category: HECU
+  icon: /Textures/Interface/hecumask.png
+  sound: /Audio/Voice/Phrasewheel/hg_monst14.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCrushingAttack13
+  text: "Всё чисто..."
+  chatType: Speak
+  label: "Всё чисто"
+  category: HECU
+  icon: /Textures/Interface/hecumask.png
+  sound: /Audio/Voice/Phrasewheel/hg_clear02.ogg
+
+- type: phraseWheelEntry
+  id: PhraseUnstoppable
+  text: "САНИТАААААР!!"
+  chatType: Speak
+  label: "САНИТАР"
+  category: HECU
+  icon: /Textures/Interface/hecu.png
+  sound: /Audio/Voice/Phrasewheel/sanitar.ogg
+
+# Общее категория
+- type: phraseWheelEntry
+  id: PhraseEndOfAll
+  text: "Поиск подозреваемого..."
+  chatType: Speak
+  label: "Поиск"
+  category: Общее
+  icon: /Textures/Interface/halflife.png
+  sound: /Audio/Voice/Phrasewheel/poispodozrev.ogg
+
+- type: phraseWheelEntry
+  id: PhraseIAmNuclear
+  text: "КОД 100"
+  chatType: Speak
+  label: "КОД 100"
+  category: Общее
+  icon: /Textures/Interface/halflife.png
+  sound: /Audio/Voice/Phrasewheel/cod100.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCod1
+  text: "1199, Помощь"
+  chatType: Speak
+  label: "1199"
+  category: Общее
+  icon: /Textures/Interface/halflife.png
+  sound: /Audio/Voice/Phrasewheel/1199.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCod2
+  text: "Блокировать"
+  chatType: Speak
+  label: "Блок"
+  category: Общее
+  icon: /Textures/Interface/halflife.png
+  sound: /Audio/Voice/Phrasewheel/blockirovat.ogg
+
+- type: phraseWheelEntry
+  id: PhraseCod3
+  text: "Подсчёт мёртвых тел..."
+  chatType: Speak
+  label: "Тела"
+  category: Общее
+  icon: /Textures/Interface/halflife.png
+  sound: /Audio/Voice/Phrasewheel/deathtela.ogg
+
+- type: phraseWheelEntry
+  id: PhraseMambo
+  text: "Mambo"
+  chatType: Speak
+  label: "Mambo"
+  category: meme
+  icon: /Textures/Interface/info.svg.192dpi.png
+  sound: /Audio/Voice/Phrasewheel/mambo.ogg
+
+- type: phraseWheelEntry
+  id: PhraseMeme1
+  text: "Досвидание"
+  chatType: Speak
+  label: "Досвидание"
+  category: meme
+  icon: /Textures/Interface/info.svg.192dpi.png
+  sound: /Audio/Voice/Phrasewheel/meme1.ogg
+
+- type: phraseWheelEntry
+  id: PhraseMeme2
+  text: "Спасибо за сотрудничество..."
+  chatType: Speak
+  label: "Спасибо за сотрудничество"
+  category: meme
+  icon: /Textures/Interface/info.svg.192dpi.png
+  sound: /Audio/Voice/Phrasewheel/meme2.ogg
+
+- type: phraseWheelEntry
+  id: PhraseMeme3
+  text: "Здравствуйте, если вы не продиктуете код на обратной стороне карточки, я взорву ваш дом..."
+  chatType: Speak
+  label: "Здравствуйте, если вы"
+  category: meme
+  icon: /Textures/Interface/info.svg.192dpi.png
+  sound: /Audio/Voice/Phrasewheel/meme3.ogg
+
+- type: phraseWheelEntry
+  id: PhraseMeme4
+  text: "Вы ослушались, теперь ждите своей трагичной учести!"
+  chatType: Speak
+  label: "Вы ослушались"
+  category: meme
+  icon: /Textures/Interface/info.svg.192dpi.png
+  sound: /Audio/Voice/Phrasewheel/meme4.ogg
+
+- type: phraseWheelEntry
+  id: PhraseMeme5
+  text: "Если вы ослушаетес, вы и ваша семья, очень сильно пострадают!"
+  chatType: Speak
+  label: "Если вы ослушаетесь"
+  category: meme
+  icon: /Textures/Interface/info.svg.192dpi.png
+  sound: /Audio/Voice/Phrasewheel/meme5.ogg

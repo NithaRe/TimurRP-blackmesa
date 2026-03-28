@@ -128,4 +128,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         HorizontalExpand="True"
         AppendStyleClass="{x:Static style:StyleBase.ButtonOpenLeft}"
         />
+    <ui:MenuButton
+        Name="PhraseWheelButton"
+        Access="Internal"
+        BoundKey="{x:Static is:ContentKeyFunctions.OpenPhraseWheel}"
+        Icon="{xe:Tex '/Textures/Interface/phrasewheel.png'}"
+        ToolTip="Меню фраз"
+        MinSize="42 64"
+        HorizontalExpand="True"
+        Visible="False" 
+        AppendStyleClass="{x:Static style:StyleBase.ButtonSquare}"
+        />
 </widgets:GameTopMenuBar>
+
