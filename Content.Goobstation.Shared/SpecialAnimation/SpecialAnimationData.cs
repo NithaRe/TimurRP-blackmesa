@@ -85,7 +85,7 @@ public sealed partial class SpecialAnimationData
     /// Font for the text to use.
     /// </summary>
     [DataField]
-    public string TextFontPath = "/Fonts/NotoSans/NotoSans-Regular.ttf";
+    public string TextFontPath = "/Fonts/_BlackM/Tektur-Regular.ttf";
 
     /// <summary>
     /// Text font size.

@@ -167,6 +167,8 @@ namespace Content.Client.Lobby
             //Lobby.CharacterPreview.PatronPerks.OnPressed += OnPatronPerksPressed; CorvaxGoob-Coins
             Lobby.ReadyButton.OnPressed += OnReadyPressed;
             Lobby.ReadyButton.OnToggled += OnReadyToggled;
+            Lobby.DiscordButton.OnPressed += _ => IoCManager.Resolve<IUriOpener>().OpenUri("https://discord.gg/G8fEjuEZxg");
+            Lobby.BoustyButton.OnPressed += _ => IoCManager.Resolve<IUriOpener>().OpenUri("https://boosty.to/sweekyl");
 
             _gameTicker.InfoBlobUpdated += UpdateLobbyUi;
             _gameTicker.LobbyStatusUpdated += LobbyStatusUpdated;

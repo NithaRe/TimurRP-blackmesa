@@ -8,7 +8,7 @@
 
 - type: font
   id: Default
-  path: /Fonts/NotoSans/NotoSans-Regular.ttf
+  path: /Fonts/_BlackM/Tektur-Regular.ttf
 
 - type: font
   id: DefaultItalic

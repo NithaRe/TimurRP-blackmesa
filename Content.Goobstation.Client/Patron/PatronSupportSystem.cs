@@ -17,6 +17,7 @@ public sealed class PatronSupportUIController : UIController, IOnStateEntered<Lo
 
     public void OnStateEntered(LobbyState state)
     {
+        return; // BlackM - disabled patron window
         if (_hasShownThisSession)
             return;
 

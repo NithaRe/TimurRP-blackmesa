@@ -175,7 +175,7 @@ namespace Content.Client.Stylesheets
                 // Ew, but ok
                 new[]
                 {
-                    $"/Fonts/NotoSans{ds}/NotoSans{ds}-{sv}.ttf",
+                    sv == "Bold" ? "/Fonts/_BlackM/Tektur-Bold.ttf" : "/Fonts/_BlackM/Tektur-Regular.ttf",
                     $"/Fonts/NotoSans/NotoSansSymbols-{sv}.ttf",
                     "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf",
                     "/Fonts/NotoSans/NotoSansSC-Regular.ttf",
@@ -183,14 +183,14 @@ namespace Content.Client.Stylesheets
                 size
             );
         }
-        public static Font NotoStack2ElectricBoogaloo(this IResourceCache resCache, string path = "/Fonts/NotoSans/NotoSans-Regular.ttf", int size = 10)
+        public static Font NotoStack2ElectricBoogaloo(this IResourceCache resCache, string path = "/Fonts/_BlackM/Tektur-Regular.ttf", int size = 10)
         {
             return resCache.GetFont
             (
                 // Ew, but ok
                 new[]
                 {
-                    path,
+                    "/Fonts/_BlackM/Tektur-Regular.ttf",
                     $"/Fonts/NotoSans/NotoSansSymbols-Regular.ttf",
                     "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf",
                     "/Fonts/NotoSans/NotoSansSC-Regular.ttf",
@@ -1706,7 +1706,7 @@ namespace Content.Client.Stylesheets
                 // Different Background shapes ---
                 Element<PanelContainer>().Class(ClassAngleRect)
                     .Prop(PanelContainer.StylePropertyPanel, BaseAngleRect)
-                    .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#25252A")),
+                    .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#00000080")),
 
                 Element<PanelContainer>().Class("BackgroundOpenRight")
                     .Prop(PanelContainer.StylePropertyPanel, BaseButtonOpenRight)

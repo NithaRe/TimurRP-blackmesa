@@ -56,7 +56,7 @@ public sealed partial class AtmosAlarmEntryContainer : BoxContainer
         // Load fonts
         var headerFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Bold.ttf"), 11);
         var normalFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"), 11);
-        var smallFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Regular.ttf"), 10);
+        var smallFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/_BlackM/Tektur-Regular.ttf"), 10);
 
         // Set fonts
         TemperatureHeaderLabel.FontOverride = headerFont;

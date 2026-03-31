@@ -94,7 +94,7 @@ public sealed class HTNOverlay : Overlay
     public HTNOverlay(IEntityManager entManager, IResourceCache resourceCache)
     {
         _entManager = entManager;
-        _font = new VectorFont(resourceCache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Regular.ttf"), 10);
+        _font = new VectorFont(resourceCache.GetResource<FontResource>("/Fonts/_BlackM/Tektur-Regular.ttf"), 10);
         _transformSystem = _entManager.System<SharedTransformSystem>();
     }
 
