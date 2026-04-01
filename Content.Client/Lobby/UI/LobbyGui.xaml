@@ -82,7 +82,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     <Control VerticalExpand="True" />
                     <!-- Left Bot Panel -->
                     <!-- BlackM Info Panel -->
-                    <PanelContainer StyleClasses="AngleRect" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 0 0 720">
+                    <PanelContainer StyleClasses="AngleRect" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 0 0 200">
                         <BoxContainer Orientation="Vertical" Margin="8 8 8 8" MinWidth="250">
                             <BoxContainer Orientation="Horizontal" SeparationOverride="8">
                                 <TextureRect TexturePath="/Textures/_BlackM/server_icon.png" MinSize="48 48" Stretch="KeepAspectCovered" />
