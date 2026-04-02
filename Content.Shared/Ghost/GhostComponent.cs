@@ -58,6 +58,14 @@ public sealed partial class GhostComponent : Component
     [DataField, AutoNetworkedField]
     public EntityUid? BooActionEntity;
 
+    //BlackM Respawn System
+    [DataField]
+    public EntProtoId RespawnAction = "ActionRespawn";
+
+    [DataField, AutoNetworkedField]
+    public EntityUid? RespawnActionEntity;
+    //BlackM Respawn System
+
     // End actions
 
     /// <summary>
@@ -127,5 +135,7 @@ public sealed partial class ToggleLightingActionEvent : InstantActionEvent { }
 public sealed partial class ToggleGhostHearingActionEvent : InstantActionEvent { }
 
 public sealed partial class ToggleGhostVisibilityToAllEvent : InstantActionEvent { }
+
+public sealed partial class RespawnActionEvent : InstantActionEvent { } //BlackM Respawn System
 
 public sealed partial class BooActionEvent : InstantActionEvent { }
