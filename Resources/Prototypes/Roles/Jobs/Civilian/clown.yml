@@ -127,7 +127,6 @@
   startingGear: ClownGear
   icon: "JobIconClown"
   supervisors: job-supervisors-hop
-  setPreference: false # Bmesa Roles
   #goobcoins: 15 #Goob content Corvax-Goob-coins
   access:
   - Theatre

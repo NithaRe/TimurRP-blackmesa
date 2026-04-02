@@ -62,7 +62,6 @@
   startingGear: ZookeeperGear
   icon: "JobIconZookeeper"
   supervisors: job-supervisors-hop
-  setPreference: false # Bmesa Roles
   #goobcoins: 15 #Goob content Corvax-Goob-coins
   access:
   - Service

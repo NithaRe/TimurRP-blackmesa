@@ -192,7 +192,7 @@
   parent: JobIcon
   id: JobIconSecurityOfficer
   icon:
-    sprite: /Textures/_BlackM/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Interface/Misc/job_icons.rsi
     state: SecurityOfficer
   jobName: job-name-security
 
@@ -216,7 +216,7 @@
   parent: JobIcon
   id: JobIconRoboticist
   icon:
-    sprite: /Textures/_BlackM/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Interface/Misc/job_icons.rsi
     state: Roboticist
   jobName: job-name-roboticist
 
@@ -264,7 +264,7 @@
   parent: JobIcon
   id: JobIconScientist
   icon:
-    sprite: /Textures/_BlackM/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Interface/Misc/job_icons.rsi
     state: Scientist
   jobName: job-name-scientist
 
@@ -272,7 +272,7 @@
   parent: JobIcon
   id: JobIconResearchAssistant
   icon:
-    sprite: /Textures/_BlackM/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Interface/Misc/job_icons.rsi
     state: ResearchAssistant
   jobName: job-name-research-assistant
 
@@ -304,7 +304,7 @@
   parent: JobIcon
   id: JobIconCaptain
   icon:
-    sprite: /Textures/_BlackM/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Interface/Misc/job_icons.rsi
     state: Captain
   jobName: job-name-captain
 
@@ -360,7 +360,7 @@
   parent: JobIcon
   id: JobIconHeadOfSecurity
   icon:
-    sprite: /Textures/_BlackM/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Interface/Misc/job_icons.rsi
     state: HeadOfSecurity
   jobName: job-name-hos
 
@@ -368,7 +368,7 @@
   parent: JobIcon
   id: JobIconBrigmedic
   icon:
-    sprite: /Textures/_BlackM/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Interface/Misc/job_icons.rsi
     state: Brigmedic
   jobName: job-name-brigmedic
 
@@ -400,7 +400,7 @@
   parent: JobIcon
   id: JobIconWarden
   icon:
-    sprite: /Textures/_BlackM/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Interface/Misc/job_icons.rsi
     state: Warden
   jobName: job-name-warden
 
@@ -408,7 +408,7 @@
   parent: JobIcon
   id: JobIconResearchDirector
   icon:
-    sprite: /Textures/_BlackM/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Interface/Misc/job_icons.rsi
     state: ResearchDirector
   jobName: job-name-rd
 
@@ -472,7 +472,7 @@
   parent: JobIcon
   id: JobIconSecurityCadet
   icon:
-    sprite: /Textures/_BlackM/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Interface/Misc/job_icons.rsi
     state: SecurityCadet
   jobName: job-name-cadet
 

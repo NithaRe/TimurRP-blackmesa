@@ -3,7 +3,6 @@
   name: job-name-wardenHelper
   description: job-description-wardenHelper
   playTimeTracker: JobWardenHelper
-  setPreference: false # Bmesa Roles
   requirements:
     - !type:DepartmentTimeRequirement
       department: Security

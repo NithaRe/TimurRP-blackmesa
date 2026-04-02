@@ -3,7 +3,6 @@
   name: job-name-pilot
   description: job-description-pilot
   playTimeTracker: JobPilot
-  setPreference: false # Bmesa Roles
   requirements:
   - !type:DepartmentTimeRequirement
     department: Security

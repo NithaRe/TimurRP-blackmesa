@@ -3,7 +3,6 @@
   name: job-name-virologist
   description: job-description-virologist
   playTimeTracker: JobVirologist
-  setPreference: false # Bmesa Roles
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical

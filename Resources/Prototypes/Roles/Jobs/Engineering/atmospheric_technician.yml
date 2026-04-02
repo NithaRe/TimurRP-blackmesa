@@ -64,7 +64,6 @@
   name: job-name-atmostech
   description: job-description-atmostech
   playTimeTracker: JobAtmosphericTechnician
-  setPreference: false # Bmesa Roles
   requirements:
   - !type:DepartmentTimeRequirement
     department: Engineering
