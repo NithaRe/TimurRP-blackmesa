@@ -80,7 +80,6 @@
   startingGear: LawyerGear
   icon: "JobIconLawyer"
   supervisors: job-supervisors-hop
-  setPreference: false # Bmesa Roles
   # guides: # goobstation Hidden by CorvaxGoob
   # - SpaceLaw
   # - Legal SOP

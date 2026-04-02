@@ -80,7 +80,6 @@
   name: job-name-paramedic
   description: job-description-paramedic
   playTimeTracker: JobParamedic
-  setPreference: false # Bmesa Roles
   requirements:
   - !type:DepartmentTimeRequirement
     department: Medical

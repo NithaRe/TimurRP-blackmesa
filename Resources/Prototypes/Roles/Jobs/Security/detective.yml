@@ -68,7 +68,6 @@
   name: job-name-detective
   description: job-description-detective
   playTimeTracker: JobDetective
-  setPreference: false # Bmesa Roles
   requirements:
   - !type:RoleTimeRequirement
     role: JobSecurityOfficer

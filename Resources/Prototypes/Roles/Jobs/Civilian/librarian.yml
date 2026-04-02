@@ -71,7 +71,6 @@
   startingGear: LibrarianGear
   icon: "JobIconLibrarian"
   supervisors: job-supervisors-hop
-  setPreference: false # Bmesa Roles
   #goobcoins: 10 #Goob content Corvax-Goob-coins
   access:
   - Service

@@ -15,7 +15,6 @@
   icon: "JobIconHECU"
   joinNotifyCrew: false
   supervisors: job-supervisors-hecu
-  setPreference: false # Bmesa Roles
   canBeAntag: false
   # Без ограничения слотов — убери строку если не нужна
   # maxPlayers: 5

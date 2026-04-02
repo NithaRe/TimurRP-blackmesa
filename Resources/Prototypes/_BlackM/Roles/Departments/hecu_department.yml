@@ -2,7 +2,6 @@
   id: HECU
   name: department-hecu
   description: department-hecu-description
-  editorHidden: true # Bmesa Roles
   color: "#3a5c3a"
   roles:
   - HECU

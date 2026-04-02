@@ -136,7 +136,6 @@
   name: job-name-hop
   description: job-description-hop
   playTimeTracker: JobHeadOfPersonnel
-  setPreference: false # Bmesa Roles
   requirements:
     - !type:DepartmentTimeRequirement
       department: Engineering

@@ -32,7 +32,6 @@
   name: job-name-bs
   description: job-description-bs
   playTimeTracker: JobBlueshieldOfficer
-  setPreference: false # Bmesa Roles
   requirements:
     - !type:DepartmentTimeRequirement
       department: Command

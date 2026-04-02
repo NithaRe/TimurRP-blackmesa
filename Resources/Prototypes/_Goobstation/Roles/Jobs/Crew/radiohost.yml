@@ -2,7 +2,6 @@
   id: RadioHost
   name: job-name-radiohost
   description: job-description-radiohost
-  setPreference: false # Bmesa Roles
   playTimeTracker: JobRadioHost
   startingGear: RadioHostGear
   icon: "JobIconRadioHost"
