@@ -115,6 +115,7 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
 using Content.Shared.NameModifier.EntitySystems;
+using Robust.Shared.Network;
 using Content.Shared.Popups;
 using Content.Shared.Storage.Components;
 using Content.Shared.Tag;
@@ -128,6 +129,7 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Robust.Server.Player;
 
 // Shitmed Change
 using Content.Shared.Body.Components;
@@ -195,6 +197,8 @@ namespace Content.Server.Ghost
             SubscribeLocalEvent<GhostComponent, PlayerDetachedEvent>(OnPlayerDetached);
 
             SubscribeLocalEvent<GhostOnMoveComponent, MoveInputEvent>(OnRelayMoveInput);
+
+            SubscribeLocalEvent<GhostComponent, RespawnActionEvent>(OnActionRespawn);
 
             SubscribeNetworkEvent<GhostWarpsRequestEvent>(OnGhostWarpsRequest);
             SubscribeNetworkEvent<GhostReturnToBodyRequest>(OnGhostReturnToBodyRequest);
@@ -270,6 +274,21 @@ namespace Content.Server.Ghost
             args.Handled = true;
         }
 
+        //BlackM Respawn System
+        private void OnActionRespawn(EntityUid uid, GhostComponent component, RespawnActionEvent args)
+        {
+            if (!TryComp<ActorComponent>(uid, out var actor))
+                return;
+            var playerMgr = IoCManager.Resolve<IPlayerManager>();
+            NetUserId userId;
+            userId = actor.PlayerSession.UserId;
+            if (!playerMgr.TryGetSessionById(userId, out var targetPlayer))
+                return;
+            _gameTicker.Respawn(targetPlayer);
+        }
+        //BlackM end Respawn System
+
+
         private void OnRelayMoveInput(EntityUid uid, GhostOnMoveComponent component, ref MoveInputEvent args)
         {
             // If they haven't actually moved then ignore it.
@@ -335,6 +354,15 @@ namespace Content.Server.Ghost
             _actions.AddAction(uid, ref component.ToggleLightingActionEntity, component.ToggleLightingAction);
             _actions.AddAction(uid, ref component.ToggleFoVActionEntity, component.ToggleFoVAction);
             _actions.AddAction(uid, ref component.ToggleGhostsActionEntity, component.ToggleGhostsAction);
+            //BlackM Respawn System
+            if (_actions.AddAction(uid, ref component.RespawnActionEntity, out var actResp, component.RespawnAction)
+                && actResp.UseDelay != null)
+            {
+                var start = _gameTiming.CurTime;
+                var end = start + actResp.UseDelay.Value;
+                _actions.SetCooldown(component.RespawnActionEntity.Value, start, end);
+            }
+            //BlackM end Respawn System
         }
 
         private void OnGhostExamine(EntityUid uid, GhostComponent component, ExaminedEvent args)

@@ -1,0 +1,11 @@
+- type: entity
+  id: ActionRespawn
+  name: Возродиться
+  description: Мгновенно вернуться в лобби. Вы обязаны выбрать другого персонажа и потерять память о прошлой жизни.
+  components:
+  - type: Action
+    icon: _BlackM/Interface/Actions/respawn.png
+    checkCanInteract: false
+    useDelay: 600
+  - type: InstantAction
+    event: !type:RespawnActionEvent
