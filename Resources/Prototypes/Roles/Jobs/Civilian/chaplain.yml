@@ -68,6 +68,7 @@
   name: job-name-chaplain
   description: job-description-chaplain
   playTimeTracker: JobChaplain
+  setPreference: false # Bmesa Roles
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 72000 # CorvaxGoob 5 hours -> 20 hours
