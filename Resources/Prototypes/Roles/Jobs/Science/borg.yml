@@ -34,6 +34,7 @@
   name: job-name-station-ai
   description: job-description-station-ai
   playTimeTracker: JobStationAi
+  setPreference: false # Bmesa Roles
   requirements:
   - !type:RoleTimeRequirement
     role: JobBorg
@@ -54,6 +55,7 @@
   name: job-name-borg
   description: job-description-borg
   playTimeTracker: JobBorg
+  setPreference: false # Bmesa Roles
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 36000 # 10 hrs

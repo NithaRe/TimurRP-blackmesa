@@ -60,6 +60,7 @@
   playTimeTracker: JobReporter
   startingGear: ReporterGear
   icon: "JobIconReporter"
+  setPreference: false # Bmesa Roles
   #goobcoins: 15 #Goob content Corvax-Goob-coins
   supervisors: job-supervisors-hop
   access:

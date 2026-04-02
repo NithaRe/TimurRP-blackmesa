@@ -5,6 +5,7 @@
   id: BmesaResearchDirector
   fallbackSpawnGroup: Passenger
   name: job-name-bmesa-research-director
+  setPreference: false # Bmesa Roles
   description: job-description-bmesa-research-director
   playTimeTracker: JobBmesaResearchDirector
   weight: 10
@@ -25,6 +26,7 @@
   id: BmesaScientist
   fallbackSpawnGroup: Passenger
   name: job-name-bmesa-scientist
+  setPreference: false # Bmesa Roles
   description: job-description-bmesa-scientist
   playTimeTracker: JobBmesaScientist
   weight: 20
@@ -42,6 +44,7 @@
   id: BmesaSecurity
   fallbackSpawnGroup: Passenger
   name: job-name-bmesa-security
+  setPreference: false # Bmesa Roles
   description: job-description-bmesa-security
   playTimeTracker: JobBmesaSecurity
   weight: 20
@@ -59,6 +62,7 @@
   id: GordonFreeman
   fallbackSpawnGroup: Passenger
   name: job-name-gordon-freeman
+  setPreference: false # Bmesa Roles
   description: job-description-gordon-freeman
   playTimeTracker: JobGordonFreeman
   weight: 100
