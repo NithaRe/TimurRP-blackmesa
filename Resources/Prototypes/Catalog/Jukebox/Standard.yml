@@ -17,43 +17,13 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: jukebox
-  id: FlipFlap
-  name: X-CEED - Flip Flap
+  id: YouWillNeverKnow
+  name: Katana Zero OST - You Will Never Know
   path:
-    path: /Audio/Lobby/mod.flip-flap.ogg # Goobstation
+    path: /Audio/Lobby/You_Will_Never_Know.ogg
 
 - type: jukebox
   id: Tintin
-  name: Jeroen Tel - Tintin on the Moon
+  name: Joel Nielsen - Black Mesa Soundtrack Anomalous Materials
   path:
-    path: /Audio/Lobby/title3.ogg # Goobstation
-
-- type: jukebox
-  id: Thunderdome
-  name: MashedByMachines - Sector 11 / Thunderdome # Goobstation
-  path:
-    path: /Audio/Lobby/thunderdome.ogg # Goobstation
-
-- type: jukebox
-  id: Constellations
-  name: Qwertyquerty - Constellations
-  path:
-    path: /Audio/Ambience/constellations.ogg # Goobstation
-
-- type: jukebox
-  id: Drifting
-  name: Qwertyquerty - Drifting
-  path:
-    path: /Audio/Ambience/drifting.ogg # Goobstation
-
-- type: jukebox
-  id: starlight
-  name: Qwertyquerty - Starlight
-  path:
-    path: /Audio/Ambience/starlight.ogg # Goobstation
-
-- type: jukebox
-  id: sunset
-  name: PigeonBeans - Sunset
-  path:
-    path: /Audio/Jukebox/sunset.ogg
+    path: /Audio/Lobby/Anomalous_Materials.ogg
