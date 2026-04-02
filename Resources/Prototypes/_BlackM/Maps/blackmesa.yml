@@ -1,0 +1,22 @@
+- type: gameMap
+  id: BlackMesa
+  mapName: 'Black Mesa Research Facility'
+  mapPath: /Maps/_BlackM/BlackMesa/blackmesa.yml
+  minPlayers: 0
+  maxPlayers: 80
+  fallback: true
+  stations:
+    BlackMesa:
+      stationProto: StandardNanotrasenStation
+      components:
+      - type: StationNameSetup
+        mapNameTemplate: 'Black Mesa Research Facility'
+      - type: StationJobs
+        overflowJobs:
+        - BmesaScientist
+        availableJobs:
+          HECU: [ 5, 10 ]
+          BmesaResearchDirector: [ 1, 1 ]
+          BmesaScientist: [ 8, 8 ]
+          BmesaSecurity: [ 4, 6 ]
+          GordonFreeman: [ 1, 1 ]

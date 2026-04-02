@@ -1,0 +1,11 @@
+- type: department
+  id: HECU
+  name: department-hecu
+  description: department-hecu-description
+  color: "#3a5c3a"
+  roles:
+  - HECU
+  - BmesaResearchDirector
+  - BmesaScientist
+  - BmesaSecurity
+  - GordonFreeman

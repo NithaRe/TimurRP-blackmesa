@@ -1,0 +1,152 @@
+# SPDX-FileCopyrightText: 2026 BlackM Project
+# SPDX-License-Identifier: CC-BY-SA-3.0
+
+# ==============================
+# КОВАК - Солдат
+# ==============================
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitKovakSoldier
+  name: униформа солдата КОВАК
+  description: Стандартная униформа солдата организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Uniforms/kovak_soldier.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Uniforms/kovak_soldier.rsi
+
+- type: entity
+  parent: ClothingOuterArmorBase
+  id: ClothingOuterArmorKovakSoldier
+  name: бронежилет солдата КОВАК
+  description: Защитный бронежилет солдата организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/OuterClothing/Armor/kovak_soldier_armor.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/OuterClothing/Armor/kovak_soldier_armor.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Slash: 0.85
+        Piercing: 0.90
+
+- type: entity
+  parent: ClothingShoesBaseButcherable
+  id: ClothingShoesKovakSoldier
+  name: ботинки солдата КОВАК
+  description: Прочные ботинки солдата организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Boots/kovak_soldier_boots.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Boots/kovak_soldier_boots.rsi
+
+# ==============================
+# КОВАК - Глава
+# ==============================
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitKovakChief
+  name: китель главы КОВАК
+  description: Парадный китель высшего руководства организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Uniforms/kovak_chief.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Uniforms/kovak_chief.rsi
+
+- type: entity
+  parent: ClothingOuterBase
+  id: ClothingOuterCoatKovakChief
+  name: плащ главы КОВАК
+  description: Представительский плащ высшего руководства организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_chief_coat.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_chief_coat.rsi
+
+- type: entity
+  parent: ClothingOuterBase
+  id: ClothingOuterCapeKovakChief
+  name: накидка главы КОВАК
+  description: Церемониальная накидка высшего руководства организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_chief_cape.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_chief_cape.rsi
+
+# Шлем солдата КОВАК - пример с новым компонентом
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHelmetKovakSoldier
+  name: шлем солдата КОВАК
+  description: Шлем солдата организации КОВАК. Оснащён защитным забралом.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Head/Helmets/kovak_soldier_helmet.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Head/Helmets/kovak_soldier_helmet.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.90
+        Slash: 0.90
+  - type: KovakHelmet
+    toggleDelay: 2.5
+    isOpen: false
+    closedEquippedPrefix: ""
+    openEquippedPrefix: open
+    closedIconState: icon
+    openIconState: open-icon
+    closeMessage: "[КОВАК] Забрало опущено."
+    openMessage: "[КОВАК] Забрало поднято."
+    messageColor: "#7B2FBE"
+    closeSound:
+      path: /Audio/_BlackM/Kovak/helmet_close.ogg
+    openSound:
+      path: /Audio/_BlackM/Kovak/helmet_open.ogg
+
+# Шлем главы КОВАК
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHelmetKovakChief
+  name: шлем главы КОВАК
+  description: Командирский шлем высшего руководства организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Head/Helmets/kovak_chief_helmet.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Head/Helmets/kovak_chief_helmet.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.80
+        Slash: 0.80
+  - type: KovakHelmet
+    toggleDelay: 2.5
+    isOpen: false
+    closedEquippedPrefix: ""
+    openEquippedPrefix: open
+    closedIconState: icon
+    openIconState: open-icon
+    closeMessage: "[КОВАК] Забрало командира опущено."
+    openMessage: "[КОВАК] Забрало командира поднято."
+    messageColor: "#9B30FF"
+    closeSound:
+      path: /Audio/_BlackM/Kovak/helmet_close.ogg
+    openSound:
+      path: /Audio/_BlackM/Kovak/helmet_open.ogg

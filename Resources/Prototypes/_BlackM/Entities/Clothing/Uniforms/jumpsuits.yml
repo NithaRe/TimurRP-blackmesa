@@ -1,0 +1,11 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitHecu
+  name: HECU uniform
+  description: Hunt down the Freeman.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/hecu.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/hecu.rsi

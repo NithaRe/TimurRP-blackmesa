@@ -1,0 +1,70 @@
+# ================================
+# НАУЧНЫЙ РУКОВОДИТЕЛЬ
+# ================================
+- type: job
+  id: BmesaResearchDirector
+  fallbackSpawnGroup: Passenger
+  name: job-name-bmesa-research-director
+  description: job-description-bmesa-research-director
+  playTimeTracker: JobBmesaResearchDirector
+  weight: 10
+  slots: 1
+  requireAdminNotify: true
+  supervisedBy: []
+  access:
+  - Research
+  - Command
+  - Maintenance
+  startingGear: BmesaResearchDirectorGear
+  icon: "JobIconBmesaResearchDirector"
+
+# ================================
+# УЧЁНЫЙ
+# ================================
+- type: job
+  id: BmesaScientist
+  fallbackSpawnGroup: Passenger
+  name: job-name-bmesa-scientist
+  description: job-description-bmesa-scientist
+  playTimeTracker: JobBmesaScientist
+  weight: 20
+  slots: 8
+  access:
+  - Research
+  - Maintenance
+  startingGear: BmesaScientistGear
+  icon: "JobIconBmesaScientist"
+
+# ================================
+# ОХРАННИК
+# ================================
+- type: job
+  id: BmesaSecurity
+  fallbackSpawnGroup: Passenger
+  name: job-name-bmesa-security
+  description: job-description-bmesa-security
+  playTimeTracker: JobBmesaSecurity
+  weight: 20
+  slots: 6
+  access:
+  - Security
+  - Maintenance
+  startingGear: BmesaSecurityGear
+  icon: "JobIconBmesaSecurity"
+
+# ================================
+# ГОРДОН ФРИМЕН
+# ================================
+- type: job
+  id: GordonFreeman
+  fallbackSpawnGroup: Passenger
+  name: job-name-gordon-freeman
+  description: job-description-gordon-freeman
+  playTimeTracker: JobGordonFreeman
+  weight: 100
+  slots: 1
+  access:
+  - Research
+  - Maintenance
+  startingGear: GordonFreemanGear
+  icon: "JobIconGordonFreeman"

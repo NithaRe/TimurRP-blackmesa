@@ -1,0 +1,9 @@
+- type: speechSounds
+  id: HecuRadio
+  saySound:
+    path: /Audio/_Goobstation/Effects/radio_click.ogg
+  askSound:
+    path: /Audio/_Goobstation/Effects/radio_click.ogg
+  exclaimSound:
+    path: /Audio/_Goobstation/Effects/radio_click.ogg
+  variation: 0.05

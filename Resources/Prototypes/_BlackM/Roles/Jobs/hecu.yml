@@ -1,0 +1,58 @@
+# =====================
+# HECU Job Definition
+# =====================
+
+- type: job
+  id: HECU
+  fallbackSpawnGroup: Passenger
+  name: job-name-hecu
+  description: job-description-hecu
+  playTimeTracker: JobHECU
+  # Без требований по времени — любой может взять
+  requirements: []
+  weight: 20
+  startingGear: HECUGear
+  icon: "JobIconHECU"
+  joinNotifyCrew: false
+  supervisors: job-supervisors-hecu
+  canBeAntag: false
+  # Без ограничения слотов — убери строку если не нужна
+  # maxPlayers: 5
+  department: HECU
+  skills:
+  - Shooting
+  accessGroups:
+  - AllAccess
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: Speech
+      speechSounds: HecuRadio
+    - type: PhraseWheel
+      allowedCategories:
+      - HECU
+
+- type: startingGear
+  id: HECUGear
+  equipment:
+    outerClothing: ClothingArmorHecuUnit
+    head: ClothingHeadHelmetBasicHecu
+    jumpsuit: ClothingUniformJumpsuitHecu
+    mask: ClothingMaskGasHECU
+    shoes: ClothingShoesBootsJack
+    back: ClothingBackpackMercFilledHECU
+    id: HecuPDA
+    ears: ClothingHeadsetAltCentCom
+    hand: WeaponSubMachineGunDrozd
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - Brutepack
+    pocket1:
+    - Handcuffs
+    pocket2:
+    - FlashlightSeclite

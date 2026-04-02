@@ -1,0 +1,27 @@
+# _BlackM HECU Science Backpack
+- type: entity
+  parent: ClothingBackpack
+  id: ClothingBackpackHecuScience
+  name: HECU science backpack
+  description: A sturdy HECU backpack designed for researchers in the field.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Back/Backpacks/hecu_backpack.rsi
+  - type: Item
+    size: Huge
+  - type: Clothing
+    quickEquip: false
+    slots:
+    - back
+  - type: Storage
+    grid:
+    - 0,0,7,0
+    - 0,2,7,3
+    - 0,5,7,5
+    - 0,0,0,5
+    - 7,0,7,5
+  - type: ExplosionResistance
+    damageCoefficient: 0.8
+  - type: Tag
+    tags:
+    - Backpack

@@ -1,0 +1,11 @@
+- type: lobbyBackground
+  id: blackmBackground
+  background: /Textures/_BlackM/LobbyScreens/blackmesa.webp
+  name: BMesa Container
+  artist: BMESA Station
+
+- type: lobbyBackground
+  id: blackmBackground4
+  background: /Textures/_BlackM/LobbyScreens/blackmesawater.webp
+  name: BMesa Water
+  artist: BMESA Station

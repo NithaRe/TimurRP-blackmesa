@@ -1,0 +1,37 @@
+# Моб для ghost role — с ghost role компонентом
+- type: entity
+  save: false
+  name: HECU Soldier
+  parent: MobHumanHECU
+  id: MobHumanHECUGhostRole
+  components:
+  - type: GhostRole
+    name: ghost-role-name-hecu
+    description: ghost-role-description-hecu
+    rules: ghost-role-rules-hecu
+  - type: GhostTakeoverAvailable
+  - type: Loadout
+    prototypes: [ HECUGhostLoadout ]
+
+- type: startingGear
+  id: HECUGhostLoadout
+  equipment:
+    outerClothing: ClothingArmorHecuUnit
+    head: ClothingHeadHelmetBasicHecu
+    jumpsuit: ClothingUniformJumpsuitHecu
+    mask: ClothingMaskGasHECU
+    shoes: ClothingShoesBootsJack
+    back: ClothingBackpackMercFilledHECU
+    id: HecuPDA
+    ears: ClothingHeadsetAltCentCom
+    hand: WeaponSubMachineGunDrozd
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - Brutepack
+    pocket1:
+    - Handcuffs
+    pocket2:
+    - FlashlightSeclite

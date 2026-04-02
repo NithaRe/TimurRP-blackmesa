@@ -1,0 +1,20 @@
+# Базовый моб HECU
+- type: entity
+  save: false
+  name: HECU Soldier
+  parent: MobHuman
+  id: MobHumanHECU
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: RandomHumanoidAppearance
+    randomizeName: false
+  - type: RandomMetadata
+    nameSegments: [NamesDeathCommando]
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
+  - type: Speech
+    speechSounds: HecuRadio
+  - type: PhraseWheel
+    allowedCategories:
+    - HECU

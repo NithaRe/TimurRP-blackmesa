@@ -1,0 +1,22 @@
+- type: entity
+  parent: [ClothingMaskGas, BaseSecurityContraband]
+  id: ClothingMaskGasHECU
+  name: Противогаз HECU
+  description: Стандартный противогаз бойца.
+  components:
+  - type: Item
+    size: Tiny
+  - type: Sprite
+    sprite: _BlackM/Clothing/Mask/hecugasmask.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Mask/hecugasmask.rsi
+  - type: Armor
+    coverage:
+    - Head
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9

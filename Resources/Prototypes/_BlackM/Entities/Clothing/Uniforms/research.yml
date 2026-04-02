@@ -1,0 +1,36 @@
+# _BlackM Scientist Jumpsuits
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitBmesaWoman
+  name: bmesa suit woman
+  description: Black Mesa woman suit.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/scientistmesawoman.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/scientistmesawoman.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitHighScienceBmesa
+  name: bmesa suit high scientist
+  description: Black Mesa high scientist suit.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/scientistmesahigh.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/scientistmesahigh.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitDefaultScienceBmesa
+  name: bmesa suit default scientist
+  description: Black Mesa default scientist suit.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/scientistmesadefault.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/scientistmesadefault.rsi

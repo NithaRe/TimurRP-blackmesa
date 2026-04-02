@@ -1,0 +1,17 @@
+# _BlackM HECU Science Headset
+- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltHecuScience
+  name: HECU science headset
+  description: A research headset for HECU field operators.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Ears/Headsets/scienceheadset.rsi
+  - type: Clothing
+    sprite: _BlackM/Clothing/Ears/Headsets/scienceheadset.rsi
+  - type: Headset
+  - type: EncryptionKeyHolder
+    keySlots: 3
+  - type: Tag
+    tags:
+    - WhitelistChameleon

@@ -1,0 +1,11 @@
+- type: entity
+  parent: [ClothingHeadHelmetArmoredBase, BaseSecurityContraband, ClothingHeadHelmetBaseFoldable]
+  id: ClothingHeadHelmetBasicHecu
+  name: Шлем бойца HECU
+  description: Стандартный шлем бойца.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Head/Helmets/hecuhelmet.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Head/Helmets/hecuhelmet.rsi
