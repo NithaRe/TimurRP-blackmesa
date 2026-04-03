@@ -138,9 +138,11 @@
 - type: startingGear
   id: SecurityCadetGear
   equipment:
+    jumpsuit: ClothingUniformJumpsuitKovakSoldier #BlackM
     eyes: ClothingEyesGlassesSecurity #Goobstation
-    shoes: ClothingShoesBootsJack # Goobstation edit
-    #outerClothing: ClothingOuterArmorBasic # Goobstation
+    shoes: ClothingShoesKovakSoldier #BlackM
+    outerClothing: ClothingOuterArmorKovakSoldier #BlackM
+    head: ClothingHeadHelmetKovakSoldier #BlackM
     id: SecurityCadetPDA
     ears: ClothingHeadsetAltSecurityRegular # Goobstation
     belt: ClothingBeltSecurityFilled

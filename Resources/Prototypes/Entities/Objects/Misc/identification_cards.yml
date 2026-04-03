@@ -241,6 +241,7 @@
   - type: PresetIdCard
     job: ResearchAssistant
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idintern-sci
@@ -253,6 +254,7 @@
   - type: PresetIdCard
     job: SecurityCadet
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idintern-cadet
@@ -297,6 +299,7 @@
   name: security ID card
   components:
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idsecurityofficer
@@ -309,6 +312,7 @@
   name: warden ID card
   components:
     - type: Sprite
+      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
       layers:
         - state: default
         - state: idwarden
@@ -410,6 +414,7 @@
   name: research ID card
   components:
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idscientist
@@ -588,9 +593,10 @@
   name: research director ID card
   components:
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
-    - state: silver
-    - state: idresearchdirector
+    - state: default
+    - state: idseniorresearcher
   - type: Item
     heldPrefix: silver
   - type: PresetIdCard
@@ -602,8 +608,9 @@
   name: head of security ID card
   components:
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
-    - state: silver
+    - state: default
     - state: idheadofsecurity
   - type: Item
     heldPrefix: silver
@@ -631,6 +638,7 @@
   name: brigmedic ID card
   components:
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idbrigmedic
@@ -1004,6 +1012,7 @@
   name: senior researcher ID card
   components:
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idseniorresearcher

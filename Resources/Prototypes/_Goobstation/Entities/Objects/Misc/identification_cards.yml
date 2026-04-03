@@ -338,6 +338,7 @@
   name: roboticist ID card
   components:
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idroboticist
@@ -350,6 +351,7 @@
   name: radio host ID card
   components:
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idradiohost
@@ -362,6 +364,7 @@
   name: virology ID card
   components:
   - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idvirologist
