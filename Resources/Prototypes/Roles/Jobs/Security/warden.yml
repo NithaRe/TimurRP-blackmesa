@@ -185,7 +185,10 @@
 - type: startingGear
   id: WardenGear
   equipment:
+    jumpsuit: ClothingUniformJumpsuitKovakWarden #BlackM
     eyes: ClothingEyesGlassesSecurityContraDetect # Goobstation
+    outerClothing: ClothingOuterCapeKovakWarden #BlackM
+    head: ClothingHeadHelmetKovakWarden #BlackM
     id: WardenPDA
     ears: ClothingHeadsetAltWarden # Goobstation
     pocket1: WeaponPistolMk58

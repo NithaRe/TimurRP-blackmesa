@@ -126,7 +126,11 @@
 - type: startingGear
   id: SecurityOfficerGear
   equipment:
+    jumpsuit: ClothingUniformJumpsuitKovakSoldier #BlackM
     eyes: ClothingEyesGlassesSecurity
+    shoes: ClothingShoesKovakSoldier #BlackM
+    outerClothing: ClothingOuterArmorKovakSoldier #BlackM
+    head: ClothingHeadHelmetKovakSoldier #BlackM
     ears: ClothingHeadsetAltSecurityRegular # Goobstation
     pocket1: WeaponPistolMk58
   storage:

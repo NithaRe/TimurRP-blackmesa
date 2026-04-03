@@ -203,7 +203,10 @@
 - type: startingGear
   id: HoSGear
   equipment:
+    jumpsuit: ClothingUniformJumpsuitKovakChief #BlackM
     eyes: ClothingEyesGlassesSecurity
+    outerClothing: ClothingOuterCoatKovakChief #BlackM
+    head: ClothingHeadHelmetKovakChief #BlackM
     id: HoSPDA
     #gloves: ClothingHandsGlovesCombat - Goobstation, moved to loadouts
     ears: ClothingHeadsetAltSecurity
