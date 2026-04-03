@@ -436,6 +436,24 @@
   name: research assistant PDA
   description: Why isn't it purple?
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
+    layers:
+    - map: [ "enum.PdaVisualLayers.Base" ]
+      state: "pda-internsci"
+    - sprite: "/Textures/Objects/Devices/pda.rsi"
+      state: "light_overlay"
+      map: [ "enum.PdaVisualLayers.Flashlight" ]
+      shader: "unshaded"
+      visible: false
+    - sprite: "/Textures/Objects/Devices/pda.rsi"
+      state: "id_overlay"
+      map: [ "enum.PdaVisualLayers.IdLight" ]
+      shader: "unshaded"
+      visible: false
+    - sprite: "/Textures/Objects/Devices/pda.rsi"
+      state: "insert_overlay"
+      map: [ "enum.PdaVisualLayers.Pen" ]
   - type: Pda
     id: ResearchAssistantIDCard
   - type: Appearance
@@ -447,6 +465,7 @@
     borderColor: "#717059"
     accentVColor: "#8900c9"
   - type: Icon
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
     state: pda-internsci
 
 - type: entity
@@ -1032,6 +1051,24 @@
   name: science PDA
   description: It's covered with an unknown gooey substance.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
+    layers:
+    - map: [ "enum.PdaVisualLayers.Base" ]
+      state: "pda-science"
+    - sprite: "/Textures/Objects/Devices/pda.rsi"
+      state: "light_overlay"
+      map: [ "enum.PdaVisualLayers.Flashlight" ]
+      shader: "unshaded"
+      visible: false
+    - sprite: "/Textures/Objects/Devices/pda.rsi"
+      state: "id_overlay"
+      map: [ "enum.PdaVisualLayers.IdLight" ]
+      shader: "unshaded"
+      visible: false
+    - sprite: "/Textures/Objects/Devices/pda.rsi"
+      state: "insert_overlay"
+      map: [ "enum.PdaVisualLayers.Pen" ]
   - type: Pda
     id: ResearchIDCard
   - type: Appearance
@@ -1043,6 +1080,7 @@
     borderColor: "#d7d7d0"
     accentVColor: "#8900c9"
   - type: Icon
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
     state: pda-science
 
 - type: entity

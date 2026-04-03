@@ -1,6 +1,3 @@
-# ================================
-# BMESA / HECU ID CARDS
-# ================================
 - type: entity
   parent: PassengerIDCard
   id: BmesaResearchAssistantIDCard
@@ -10,11 +7,11 @@
   - type: PresetIdCard
     job: BmesaScientist
   - type: Sprite
-    sprite: "/Textures/Objects/Misc/id_cards.rsi"
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idintern-sci
-      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi"
+      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
   - type: Tag
     tags:
     - WhitelistChameleonIdCard
@@ -28,11 +25,11 @@
   - type: PresetIdCard
     job: BmesaResearchDirector
   - type: Sprite
-    sprite: "/Textures/Objects/Misc/id_cards.rsi"
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idintern-sci
-      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi"
+      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
   - type: Tag
     tags:
     - WhitelistChameleonIdCard
@@ -46,11 +43,11 @@
   - type: PresetIdCard
     job: BmesaSecurity
   - type: Sprite
-    sprite: "/Textures/Objects/Misc/id_cards.rsi"
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idintern-sci
-      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi"
+      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
   - type: Tag
     tags:
     - WhitelistChameleonIdCard
@@ -64,11 +61,11 @@
   - type: PresetIdCard
     job: GordonFreeman
   - type: Sprite
-    sprite: "/Textures/Objects/Misc/id_cards.rsi"
+    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
     - state: idintern-sci
-      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi"
+      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
   - type: Tag
     tags:
     - WhitelistChameleonIdCard

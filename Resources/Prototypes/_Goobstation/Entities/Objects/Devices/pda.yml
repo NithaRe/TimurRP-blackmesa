@@ -334,6 +334,24 @@
   name: roboticist PDA
   description: It's covered with failed ambitions.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
+    layers:
+    - map: [ "enum.PdaVisualLayers.Base" ]
+      state: "pda-roboticist"
+    - sprite: "/Textures/Objects/Devices/pda.rsi"
+      state: "light_overlay"
+      map: [ "enum.PdaVisualLayers.Flashlight" ]
+      shader: "unshaded"
+      visible: false
+    - sprite: "/Textures/Objects/Devices/pda.rsi"
+      state: "id_overlay"
+      map: [ "enum.PdaVisualLayers.IdLight" ]
+      shader: "unshaded"
+      visible: false
+    - sprite: "/Textures/Objects/Devices/pda.rsi"
+      state: "insert_overlay"
+      map: [ "enum.PdaVisualLayers.Pen" ]
   - type: Pda
     id: RoboticistIDCard
   - type: Appearance
@@ -345,6 +363,7 @@
     borderColor: "#161616"
     accentVColor: "#cc4d03"
   - type: Icon
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
     state: pda-roboticist
 
 - type: entity
