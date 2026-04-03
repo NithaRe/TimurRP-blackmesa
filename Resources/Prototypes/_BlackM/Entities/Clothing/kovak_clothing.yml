@@ -1,10 +1,6 @@
 # SPDX-FileCopyrightText: 2026 BlackM Project
 # SPDX-License-Identifier: CC-BY-SA-3.0
-
-# ==============================
-# КОВАК - Солдат
-# ==============================
-
+#clothing униформы и плащи и тд
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitKovakSoldier
@@ -16,6 +12,30 @@
     state: icon
   - type: Clothing
     sprite: _BlackM/Clothing/Uniforms/kovak_soldier.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitKovakMed
+  name: униформа медика КОВАК
+  description: Стандартная униформа медика организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Uniforms/kovak_med.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Uniforms/kovak_med.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitKovakWarden
+  name: униформа смотрителя КОВАК
+  description: Стандартная униформа смотрителя организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Uniforms/kovak_warden.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Uniforms/kovak_warden.rsi
 
 - type: entity
   parent: ClothingOuterArmorBase
@@ -46,10 +66,6 @@
     state: icon
   - type: Clothing
     sprite: _BlackM/Clothing/Boots/kovak_soldier_boots.rsi
-
-# ==============================
-# КОВАК - Глава
-# ==============================
 
 - type: entity
   parent: ClothingUniformBase
@@ -87,7 +103,32 @@
   - type: Clothing
     sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_chief_cape.rsi
 
-# Шлем солдата КОВАК - пример с новым компонентом
+- type: entity
+  parent: ClothingOuterBase
+  id: ClothingOuterCapeKovakMed
+  name: накидка медика КОВАК
+  description: накидка медика организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_med_coat.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_med_coat.rsi
+
+- type: entity
+  parent: ClothingOuterBase
+  id: ClothingOuterCapeKovakWarden
+  name: накидка смотрителя КОВАК
+  description: накидка смотрителя организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_warden_coat.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_warden_coat.rsi
+
+#helmets kovak
+
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHelmetKovakSoldier
@@ -119,7 +160,6 @@
     openSound:
       path: /Audio/_BlackM/Kovak/helmet_open.ogg
 
-# Шлем главы КОВАК
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHelmetKovakChief
@@ -145,6 +185,68 @@
     openIconState: open-icon
     closeMessage: "[КОВАК] Забрало командира опущено."
     openMessage: "[КОВАК] Забрало командира поднято."
+    messageColor: "#9B30FF"
+    closeSound:
+      path: /Audio/_BlackM/Kovak/helmet_close.ogg
+    openSound:
+      path: /Audio/_BlackM/Kovak/helmet_open.ogg
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHelmetKovakMed
+  name: шлем медика КОВАК
+  description: Шлем медика организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Head/Helmets/kovak_med_helmet.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Head/Helmets/kovak_med_helmet.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.80
+        Slash: 0.80
+  - type: KovakHelmet
+    toggleDelay: 2.5
+    isOpen: false
+    closedEquippedPrefix: ""
+    openEquippedPrefix: open
+    closedIconState: icon
+    openIconState: open-icon
+    closeMessage: "[КОВАК] Забрало медика опущено."
+    openMessage: "[КОВАК] Забрало медика поднято."
+    messageColor: "#9B30FF"
+    closeSound:
+      path: /Audio/_BlackM/Kovak/helmet_close.ogg
+    openSound:
+      path: /Audio/_BlackM/Kovak/helmet_open.ogg
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHelmetKovakWarden
+  name: шлем смотрителя КОВАК
+  description: Шлем смотрителя организации КОВАК.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Head/Helmets/kovak_warden_helmet.rsi
+    state: icon
+  - type: Clothing
+    sprite: _BlackM/Clothing/Head/Helmets/kovak_warden_helmet.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.80
+        Slash: 0.80
+  - type: KovakHelmet
+    toggleDelay: 2.5
+    isOpen: false
+    closedEquippedPrefix: ""
+    openEquippedPrefix: open
+    closedIconState: icon
+    openIconState: open-icon
+    closeMessage: "[КОВАК] Забрало смотрителя опущено."
+    openMessage: "[КОВАК] Забрало смотрителя поднято."
     messageColor: "#9B30FF"
     closeSound:
       path: /Audio/_BlackM/Kovak/helmet_close.ogg
