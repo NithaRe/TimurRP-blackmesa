@@ -13,7 +13,7 @@
   id: Heretic
   name: roles-antag-heretic-name
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM traitors
   objective: roles-antag-heretic-description
   requirements:
   - !type:OverallPlaytimeRequirement

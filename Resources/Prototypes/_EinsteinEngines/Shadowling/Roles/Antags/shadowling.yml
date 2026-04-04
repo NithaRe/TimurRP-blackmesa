@@ -2,7 +2,7 @@
   id: Shadowling
   name: roles-antag-shadowling-name
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM traitors
   objective: roles-antag-shadowling-description
   requirements:
   - !type:OverallPlaytimeRequirement

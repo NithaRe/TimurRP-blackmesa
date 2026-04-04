@@ -31,7 +31,7 @@
   id: Wizard
   name: roles-antag-wizard-name
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM traitors
   objective: roles-antag-wizard-description
   requirements:
   - !type:OverallPlaytimeRequirement

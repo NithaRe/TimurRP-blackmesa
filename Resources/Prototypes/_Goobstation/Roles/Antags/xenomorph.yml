@@ -2,7 +2,7 @@
   id: XenomorphsInfestationRoundstart
   name: roles-antag-xenomorph-name
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM traitors
   objective: roles-antag-xenomorph-objective
   guides: [ Xenomorphs ]
   requirements:

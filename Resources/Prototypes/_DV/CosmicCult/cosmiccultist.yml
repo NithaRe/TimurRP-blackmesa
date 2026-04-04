@@ -2,7 +2,7 @@
   id: CosmicAntagCultist
   name: roles-antag-cosmiccult-name
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM traitors
   objective: roles-antag-cosmiccult-description
   requirements:
   - !type:OverallPlaytimeRequirement

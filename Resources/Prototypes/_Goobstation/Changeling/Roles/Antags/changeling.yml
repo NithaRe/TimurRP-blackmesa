@@ -13,7 +13,7 @@
   id: Changeling
   name: roles-antag-changeling-name
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM traitors
   objective: roles-antag-changeling-description
   requirements:
   - !type:OverallPlaytimeRequirement
