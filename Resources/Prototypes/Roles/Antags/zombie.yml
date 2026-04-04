@@ -13,7 +13,7 @@
   id: InitialInfected
   name: roles-antag-initial-infected-name
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM traitors
   objective: roles-antag-initial-infected-objective
   requirements:
   - !type:SpeciesRequirement

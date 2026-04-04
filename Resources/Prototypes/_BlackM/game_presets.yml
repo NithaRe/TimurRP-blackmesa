@@ -1,0 +1,13 @@
+- type: gamePreset
+  id: BlackM
+  alias:
+  - extended
+  - shittersafari
+  name: Черная меза
+  showInVote: true
+  description: Добро пожаловать на научно-исследовательскую станцию Черная Меза!
+  rules:
+  - BasicStationEventScheduler
+  - BasicBlackMEventScheduler
+  - SpaceTrafficControlEventScheduler
+  - BasicRoundstartVariation

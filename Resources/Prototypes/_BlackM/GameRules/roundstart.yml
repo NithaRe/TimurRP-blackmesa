@@ -1,0 +1,19 @@
+- type: entityTable
+  id: BasicBlackMRulesTable
+  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
+    children:
+      - !type:NestedSelector
+        tableId: BasicBlackMRulesTable
+      - !type:NestedSelector
+        tableId: CargoGiftsTable
+      - !type:NestedSelector
+        tableId: CalmPestEventsTable
+
+
+- type: entity
+  id: BasicBlackMEventScheduler
+  parent: BaseGameRule
+  components:
+  - type: BasicStationEventScheduler
+    scheduledGameRules: !type:NestedSelector
+      tableId: BasicBlackMRulesTable

@@ -8,7 +8,7 @@
   id: CorporateAgent
   name: roles-antag-corporate-agent-name
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM traitors
   objective: roles-antag-corporate-agent-description
   guides: [ CorporateAgents ]
   requirements:

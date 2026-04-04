@@ -86,7 +86,7 @@
   id: Thief
   name: roles-antag-thief-name
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM traitors
   objective: roles-antag-thief-objective
   guides: [ Thieves ]
   requirements:
