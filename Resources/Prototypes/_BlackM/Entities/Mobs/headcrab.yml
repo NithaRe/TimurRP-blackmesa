@@ -1,0 +1,95 @@
+- type: entity
+  name: Хедкраб
+  id: MobHeadcrabBlackM
+  parent: SimpleMobBase
+  description: Паразит из другого измерения. Ищет новый череп.
+  components:
+  - type: Headcrab
+  - type: Actions
+  - type: Muted
+  - type: GhostRole
+    name: ghost-role-information-headcrab-name
+    description: ghost-role-information-headcrab-description
+    rules: ghost-role-information-headcrab-rules
+    mindRoles:
+    - MindRoleGhostRoleAntagonist
+    raffle:
+      settings: short
+  - type: GhostTakeoverAvailable
+  - type: Sprite
+    netsync: false
+    noRot: true
+    drawdepth: Mobs
+    sprite: Mobs/_BlackM/headcrab.rsi
+    layers:
+    - state: idle
+      map: [ "enum.DamageStateVisualLayers.Base", "movement" ]
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: idle
+      Dead:
+        Base: dead
+  - type: SpriteMovement
+    noMovementLayers:
+      movement:
+        state: idle
+    movementLayers:
+      movement:
+        state: walking
+  - type: MobState
+    allowedStates:
+    - Alive
+    - Dead
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      60: Dead
+  - type: Damageable
+    damageContainer: Biological
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  - type: MeleeWeapon
+    hidden: true
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    angle: 0
+    animation: WeaponArcBite
+    damage:
+      types:
+        Slash: 8
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 3.5
+    baseSprintSpeed: 4.5
+  - type: Physics
+    bodyType: KinematicController
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.25
+        density: 80
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+
+- type: entity
+  name: спавнер хедкраба
+  id: SpawnPointHeadcrab
+  parent: MarkerBase
+  description: Точка появления хедкраба.
+  components:
+  - type: Sprite
+    sprite: Mobs/_BlackM/headcrab.rsi
+    state: idle
+  - type: SpawnPoint
+    job: null
+  - type: TimedDespawn
+    lifetime: 0.1

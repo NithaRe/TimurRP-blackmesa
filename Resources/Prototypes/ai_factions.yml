@@ -116,6 +116,7 @@
   - Wizard
   - Shadowling # Einstein Engines - Shadowlings
   - Wraith # Goobstation - Wraith
+  - HeadcrabCaptured #BlackM
 
 - type: npcFaction
   id: SimpleNeutral
@@ -294,3 +295,6 @@
   - PirateFaction # goob - pirates
   friendly:
   - Dragon
+
+- type: npcFaction #BlackM
+  id: HeadcrabCaptured #BlackM
