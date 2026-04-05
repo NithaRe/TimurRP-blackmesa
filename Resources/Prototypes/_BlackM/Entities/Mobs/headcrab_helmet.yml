@@ -1,0 +1,18 @@
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHeadcrab
+  name: хедкраб
+  description: Паразит сидит у вас на голове.
+  noSpawn: true
+  components:
+  - type: Sprite
+    sprite: Mobs/_BlackM/headcrab_helmet.rsi
+    state: icon
+  - type: Clothing
+    sprite: Mobs/_BlackM/headcrab_helmet.rsi
+  - type: Unremoveable
+  - type: HideLayerClothing
+    slots:
+    - Hair
+    - HeadTop
+    - HeadSide

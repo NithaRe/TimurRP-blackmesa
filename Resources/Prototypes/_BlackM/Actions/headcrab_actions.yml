@@ -1,0 +1,37 @@
+- type: entity
+  parent: BaseAction
+  id: ActionHeadcrabLeap
+  name: Прыжок
+  description: Прыгнуть на цель и нанести урон по стамине.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 3
+    icon:
+      sprite: Mobs/_BlackM/headcrab.rsi
+      state: idle
+    itemIconStyle: NoItem
+  - type: TargetAction
+    checkCanAccess: false
+    range: 0
+  - type: WorldTargetAction
+    event: !type:HeadcrabLeapEvent {}
+
+- type: entity
+  parent: BaseAction
+  id: ActionHeadcrabGrab
+  name: Захват
+  description: Захватить контроль над упавшим игроком.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 1
+    icon:
+      sprite: Mobs/_BlackM/headcrab.rsi
+      state: idle
+    itemIconStyle: NoItem
+  - type: TargetAction
+    checkCanAccess: false
+    range: 0
+  - type: WorldTargetAction
+    event: !type:HeadcrabGrabEvent {}

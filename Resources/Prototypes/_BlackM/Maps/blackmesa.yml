@@ -1,6 +1,6 @@
 - type: gameMap
   id: BlackMesa
-  mapName: 'Black Mesa Research Facility'
+  mapName: 'Комплекс Черная Меза'
   mapPath: /Maps/_BlackM/BlackMesa/blackmesa.yml
   minPlayers: 0
   maxPlayers: 80
@@ -10,13 +10,28 @@
       stationProto: StandardNanotrasenStation
       components:
       - type: StationNameSetup
-        mapNameTemplate: 'Black Mesa Research Facility'
+        mapNameTemplate: 'Комплекс Черная Меза'
       - type: StationJobs
         overflowJobs:
-        - BmesaScientist
+        - Passenger
         availableJobs:
-          HECU: [ 5, 10 ]
-          BmesaResearchDirector: [ 1, 1 ]
-          BmesaScientist: [ 8, 8 ]
-          BmesaSecurity: [ 4, 6 ]
-          GordonFreeman: [ 1, 1 ]
+          Captain: [ 1, 1 ]
+          HeadOfSecurity: [ 1, 1 ]
+          Warden: [ 1, 1 ]
+          SecurityOfficer: [ 3, 6 ]
+          Cadet: [ 2, 4 ]
+          ResearchDirector: [ 1, 1 ]
+          Scientist: [ 4, 8 ]
+          ChiefMedicalOfficer: [ 1, 1 ]
+          MedicalDoctor: [ 3, 6 ]
+          Quartermaster: [ 1, 1 ]
+          CargoTechnician: [ 2, 4 ]
+          SalvageSpecialist: [ 2, 4 ]
+          ChiefEngineer: [ 1, 1 ]
+          StationEngineer: [ 3, 6 ]
+          Roboticist: [ 2, 4 ]
+          Chef: [ 1, 2 ]
+          Botanist: [ 1, 2 ]
+          Bartender: [ 1, 1 ]
+          Janitor: [ 1, 2 ]
+          Passenger: [ 0, 10 ]
