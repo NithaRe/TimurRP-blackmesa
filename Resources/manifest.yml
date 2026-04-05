@@ -8,7 +8,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 defaultWindowTitle: Space Station 14 - Bmesa Station [RU]
-windowIconSet: /Textures/Logo/icon-ru # Corvax-Theme
+windowIconSet: /Textures/_BlackM/Logo/icon-ru # Corvax-Theme
 splashLogo: /Textures/_BlackM/Logo/logo.png # BMesa Station Logo
 
 # PJB PLEASE
