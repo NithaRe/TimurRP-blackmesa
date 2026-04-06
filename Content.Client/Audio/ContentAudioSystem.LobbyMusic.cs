@@ -52,6 +52,8 @@ public sealed partial class ContentAudioSystem
 
     private Action<LobbySoundtrackChangedEvent>? _lobbySoundtrackChanged;
 
+    private bool _rulesShowing; // #BlackM
+
     /// <summary>
     /// Event for subscription on lobby soundtrack changes.
     /// </summary>
@@ -98,7 +100,11 @@ public sealed partial class ContentAudioSystem
         switch (args.NewState)
         {
             case LobbyState:
-                StartLobbyMusic();
+                Timer.Spawn(500, () =>
+                {
+                    if (!_rulesShowing && _lobbySoundtrackInfo == null && _state.CurrentState is LobbyState) // #BlackM
+                        StartLobbyMusic();
+                });
                 break;
             default:
                 EndLobbyMusic();
@@ -273,6 +279,23 @@ public sealed partial class ContentAudioSystem
         }
 
         return playlist[nextTrackIndex];
+    }
+
+    // #BlackM
+    public void PauseForRules()
+    {
+        _rulesShowing = true;
+        EndLobbyMusic();
+    }
+
+    // #BlackM
+    public void ResumeAfterRules()
+    {
+        _rulesShowing = false;
+        if (_state.CurrentState is not LobbyState)
+            return;
+        EndLobbyMusic();
+        StartLobbyMusic();
     }
 
     /// <summary> Container for lobby soundtrack information. </summary>

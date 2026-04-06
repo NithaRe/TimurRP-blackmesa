@@ -13,13 +13,18 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Client.Audio;
 using Content.Client.Gameplay;
 using Content.Client.Info;
 using Content.Shared.Guidebook;
 using Content.Shared.Info;
+using Robust.Client.Audio;
 using Robust.Client.Console;
+using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Client.UserInterface.Controls;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Sources;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
@@ -30,9 +35,13 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
     [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
     [Dependency] private readonly INetManager _netManager = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly IAudioManager _audioManager = default!; // #BlackM
+    [Dependency] private readonly IResourceCache _resourceCache = default!; // #BlackM
+    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!; // #BlackM
 
     private RulesPopup? _rulesPopup;
     private RulesAndInfoWindow? _infoWindow;
+    private IAudioSource? _rulesMusic; // #BlackM
 
     private static readonly ProtoId<GuideEntryPrototype> DefaultRuleset = "DefaultRuleset";
 
@@ -61,7 +70,10 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         RulesEntryId = message.CoreRules;
 
         if (message.ShouldShowRules)
+        {
+            _entitySystemManager.GetEntitySystem<ContentAudioSystem>().PauseForRules(); // #BlackM
             ShowRules(message.PopupTime);
+        }
     }
 
     public void OnStateExited(GameplayState state)
@@ -87,17 +99,41 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         _rulesPopup.OnAcceptPressed += OnAcceptPressed;
         UIManager.WindowRoot.AddChild(_rulesPopup);
         LayoutContainer.SetAnchorPreset(_rulesPopup, LayoutContainer.LayoutPreset.Wide);
+        StartRulesMusic(); // #BlackM
+    }
+
+    // #BlackM
+    private void StartRulesMusic()
+    {
+        var resource = _resourceCache.GetResource<AudioResource>("/Audio/_BlackM/rules_theme.ogg");
+        var stream = _audioManager.CreateAudioSource(resource);
+        if (stream == null) return;
+        stream.Looping = true;
+        stream.Gain = 0.3f;
+        stream.StartPlaying();
+        _rulesMusic = stream;
+    }
+
+    // #BlackM
+    private void StopRulesMusic()
+    {
+        if (_rulesMusic == null) return;
+        _rulesMusic.StopPlaying();
+        _rulesMusic.Dispose();
+        _rulesMusic = null;
+        _entitySystemManager.GetEntitySystem<ContentAudioSystem>().ResumeAfterRules();
     }
 
     private void OnQuitPressed()
     {
+        StopRulesMusic(); // #BlackM
         _consoleHost.ExecuteCommand("quit");
     }
 
     private void OnAcceptPressed()
     {
         _netManager.ClientSendMessage(new RulesAcceptedMessage());
-
+        StopRulesMusic(); // #BlackM
         _rulesPopup?.Orphan();
         _rulesPopup = null;
     }
