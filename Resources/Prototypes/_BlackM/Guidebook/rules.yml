@@ -1,0 +1,21 @@
+- type: guideEntry
+  id: BlackMRuleset
+  name: guide-entry-BlackM-Rules
+  text: "/ServerInfo/_BlackM/ServerRules/Defaultrules.xml"
+  priority: -2
+  ruleEntry: true
+  children:
+    - BlackMRule0
+    - BlackMRule1
+
+- type: guideEntry
+  id: BlackMRule0
+  name: guide-entry-BlackM-rule-1
+  text: "/ServerInfo/_BlackM/ServerRules/rule0.xml"
+  ruleEntry: true
+
+- type: guideEntry
+  id: BlackMRule1
+  name: guide-entry-BlackM-ruler-2
+  text: "/ServerInfo/_BlackM/ServerRules/rule2.xml"
+  ruleEntry: true
