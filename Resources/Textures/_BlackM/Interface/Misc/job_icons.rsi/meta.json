@@ -32,6 +32,9 @@
             "name": "SecurityOfficer"
         },
         {
+            "name": "Captain"
+        },
+        {
             "name": "Warden"
         }
     ]
