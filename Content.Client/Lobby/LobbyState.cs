@@ -96,14 +96,21 @@ using Content.Client.UserInterface.Systems.Chat;
 using Content.Client.Voting;
 using Content.Goobstation.Common.ServerCurrency;
 using Content.Shared.CCVar;
+using Content.Shared._BlackM.CCVar; //blackM
+using Content.Shared._BlackM.Lobby; //blackM
 using Robust.Client;
 using Robust.Client.Console;
+using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
+using System.Numerics;
+using Robust.Shared.Graphics.RSI; //blackM
+using ClientRsi = Robust.Client.Graphics.RSI; //blackM
 
 namespace Content.Client.Lobby
 {
@@ -127,6 +134,12 @@ namespace Content.Client.Lobby
         private ISawmill _sawmill = default!; // Goobstation
         private ClientGameTicker _gameTicker = default!;
         private ContentAudioSystem _contentAudioSystem = default!;
+
+        //blackM
+        private ClientRsi.State? _currentLocalAnimationState;
+        private int _currentAnimationFrame;
+        private float _currentAnimationFrameTime;
+        //blackM
 
         protected override Type? LinkedScreenType { get; } = typeof(LobbyGui);
         public LobbyGui? Lobby;
@@ -163,6 +176,10 @@ namespace Content.Client.Lobby
 
             UpdateLobbyUi();
 
+            //blackM
+            LoadBlackMLobbyBackground();
+            //blackM
+
             Lobby.CharacterPreview.CharacterSetupButton.OnPressed += OnSetupPressed;
             //Lobby.CharacterPreview.PatronPerks.OnPressed += OnPatronPerksPressed; CorvaxGoob-Coins
             Lobby.ReadyButton.OnPressed += OnReadyPressed;
@@ -194,6 +211,8 @@ namespace Content.Client.Lobby
             Lobby!.ReadyButton.OnPressed -= OnReadyPressed;
             Lobby!.ReadyButton.OnToggled -= OnReadyToggled;
 
+            _currentLocalAnimationState = null; //blackM
+
             Lobby = null;
         }
 
@@ -209,11 +228,43 @@ namespace Content.Client.Lobby
             Lobby?.SwitchState(LobbyGui.LobbyGuiState.CharacterSetup);
         }
 
+        //blackM
+        private void LoadBlackMLobbyBackground()
+        {
+            var typeString = _cfg.GetCVar(BlackMCVars.LobbyBackgroundType);
+            if (!Enum.TryParse<LobbyBackgroundType>(typeString, true, out var type) || type != LobbyBackgroundType.Animation)
+            {
+                UpdateLobbyBackground();
+                return;
+            }
+
+            var rsiPath = _cfg.GetCVar(BlackMCVars.LobbyAnimation);
+            const string stateId = "animation"; 
+
+            if (!_resourceCache.TryGetResource<RSIResource>(new ResPath(rsiPath), out var rsiResource))
+            {
+                _sawmill.Warning($"lobbyanim: RSI {rsiPath} not found!");
+                UpdateLobbyBackground();
+                return;
+            }
+
+            if (!rsiResource.RSI.TryGetState(stateId, out var state) || !state.IsAnimated)
+            {
+                UpdateLobbyBackground();
+                return;
+            }
+
+            _currentLocalAnimationState = state;
+            _currentAnimationFrame = 0;
+            _currentAnimationFrameTime = state.GetDelay(0);
+
+            if (Lobby != null)
+                Lobby.Background.Texture = state.Frame0;
+        }
+        //blackM
+
         /* CorvaxGoob-Coins-start
         private void OnPatronPerksPressed(BaseButton.ButtonEventArgs obj)
-        {
-            _userInterfaceManager.GetUIController<LinkAccountUIController>().TogglePatronPerksWindow();
-        }
         CorvaxGoob-Coins-end */
 
         private void OnReadyPressed(BaseButton.ButtonEventArgs args)
@@ -233,6 +284,25 @@ namespace Content.Client.Lobby
 
         public override void FrameUpdate(FrameEventArgs e)
         {
+            //blackM
+            if (_currentLocalAnimationState != null && _currentLocalAnimationState.IsAnimated && Lobby != null)
+            {
+                var oldFrame = _currentAnimationFrame;
+                _currentAnimationFrameTime -= e.DeltaSeconds;
+
+                while (_currentAnimationFrameTime <= 0f)
+                {
+                    _currentAnimationFrame = (_currentAnimationFrame + 1) % _currentLocalAnimationState.DelayCount;
+                    _currentAnimationFrameTime += _currentLocalAnimationState.GetDelay(_currentAnimationFrame);
+                }
+
+                if (_currentAnimationFrame != oldFrame)
+                {
+                    Lobby.Background.Texture = _currentLocalAnimationState.GetFrame(RsiDirection.South, _currentAnimationFrame);
+                }
+            }
+            //blackM
+
             if (_gameTicker.IsGameStarted)
             {
                 Lobby!.StartTime.Text = string.Empty;
@@ -276,6 +346,10 @@ namespace Content.Client.Lobby
 
         private void LobbyStatusUpdated()
         {
+            //blackM
+            if (_cfg.GetCVar(BlackMCVars.LobbyBackgroundType) == "Animation")
+                return;
+
             UpdateLobbyBackground();
             UpdateLobbyUi();
         }
@@ -339,11 +413,10 @@ namespace Content.Client.Lobby
             if (ev.SoundtrackFilename == null)
             {
                 Lobby!.LobbySong.SetMarkup(Loc.GetString("lobby-state-song-no-song-text"));
+                return;
             }
-            else if (
-                ev.SoundtrackFilename != null
-                && _resourceCache.TryGetResource<AudioResource>(ev.SoundtrackFilename, out var lobbySongResource)
-                )
+
+            if (_resourceCache.TryGetResource<AudioResource>(ev.SoundtrackFilename, out var lobbySongResource))
             {
                 var lobbyStream = lobbySongResource.AudioStream;
 
