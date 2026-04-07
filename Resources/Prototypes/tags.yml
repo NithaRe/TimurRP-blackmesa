@@ -1806,3 +1806,8 @@
 - type: Tag
   id: XenoborgModuleStealth
 # ALPHABETICAL
+
+
+# BlackM
+- type: Tag
+  id: HecuTeleportTarget
