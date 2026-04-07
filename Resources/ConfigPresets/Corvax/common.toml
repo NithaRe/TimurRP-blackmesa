@@ -27,7 +27,7 @@ defaultpreset = "secret"
 enabled = true
 
 [server]
-rules_file = "CorvaxRuleset"
+rules_file = "BlackMRuleset"
 
 [discord]
 rich_main_icon_id = "corvax"
