@@ -66,8 +66,8 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hrs
-      inverted: true # stop playing intern if you're good at med!
+      time: 0 # BlackM 36000 # 10 hrs
+      inverted: false # stop playing intern if you're good at med!
   startingGear: MedicalInternGear
   icon: "JobIconMedicalIntern"
   supervisors: job-supervisors-medicine

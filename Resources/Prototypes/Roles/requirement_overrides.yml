@@ -9,13 +9,13 @@
     Captain:
     - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 3600 # 1 hours
+      time: 0 # BlackM 3600 # 1 hours
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 3600 # 1 hours
+      time: 0 # BlackM 3600 # 1 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 3600 # 1 hours
+      time: 0 # BlackM 3600 # 1 hours
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 3600 # 1 hour
+      time: 0 # BlackM 3600 # 1 hour
