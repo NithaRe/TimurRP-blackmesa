@@ -139,21 +139,20 @@
   description: job-description-captain
   playTimeTracker: JobCaptain
   requirements:
-    - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 14400 # 4 hours
+    - !type:OverallPlaytimeRequirement
+      time: 3600 # BlackM 3600 #1 hour
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 14400 # 4 hours
+      time: 0 # BlackM 14400 # 4 hours
     - !type:DepartmentTimeRequirement
       department: Science
-      time: 14400 # 4 hours
+      time: 0 # BlackM 14400 # 4 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 21600 # 6 hours
+      time: 0 # BlackM 21600 # 6 hours
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 50400 # CorvaxGoob 8 hours -> 14 hours
+      time: 0 # BlackM 50400 # CorvaxGoob 8 hours -> 14 hours
     - !type:SpeciesRequirement # Goob - None Felinid
       inverted: true
       species:

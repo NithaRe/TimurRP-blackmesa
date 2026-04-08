@@ -11,10 +11,10 @@
   requirements:
   - !type:DepartmentTimeRequirement
     department: Medical
-    time: 18000 # 5 hrs
+    time: 0 # BlackM 18000 # 5 hrs
   - !type:DepartmentTimeRequirement
     department: Security
-    time: 18000 # 10 hrs
+    time: 0 # BlackM 18000 # 10 hrs
   - !type:SpeciesRequirement # CorvaxGoob-Species
     inverted: true
     species:

@@ -7,7 +7,7 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 #20 hrs
+      time: 0 # BlackM 72000 #20 hrs
     - !type:SpeciesRequirement # CorvaxGoob-Species
       inverted: true
       species:

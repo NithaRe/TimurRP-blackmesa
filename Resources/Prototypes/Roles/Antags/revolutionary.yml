@@ -20,7 +20,7 @@
   requirements:
   - !type:DepartmentTimeRequirement # was  - !type:OverallPlaytimeRequirement, Goob change
       department: Command
-      time: 36000 # 10h
+      time: 0 # BlackM 36000 # 10h
   - !type:SpeciesRequirement # CorvaxGoob-Species
       inverted: true
       species:
