@@ -108,6 +108,7 @@
         layer:
         - MobLayer
   - type: Clickable
+  - type: NoSlip
   - type: InteractionOutline
   - type: InputMover
   - type: Input
