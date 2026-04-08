@@ -172,9 +172,6 @@
   - type: SpeedModifierContactCapClothing
     maxContactSprintSlowdown: 0.7
     maxContactWalkSlowdown: 0.7
-  - type: ClothingGrantComponent # Goobstation
-    component:
-    - type: NoFootprints
 
 
 - type: entity
