@@ -64,11 +64,11 @@ namespace Content.Shared.CombatMode
         //CorvaxGoob-CombatMode-Sound-Start
         [DataField]
         public SoundSpecifier? CombatActivationSound = new SoundPathSpecifier
-            ("/Audio/_CorvaxGoob/Effects/Actions/CombatMode/ui_togglecombat.ogg");
+            ("/Audio/_BlackM/Effects/Actions/CombatMode/ui_togglecombat.ogg"); // BlackM
 
         [DataField]
         public SoundSpecifier? CombatDeactivationSound = new SoundPathSpecifier
-            ("/Audio/_CorvaxGoob/Effects/Actions/CombatMode/ui_toggleoffcombat.ogg");
+            ("/Audio/_BlackM/Effects/Actions/CombatMode/ui_toggleoffcombat.ogg"); // BlackM
         //CorvaxGoob-CombatMode-Sound-End
 
         [ViewVariables(VVAccess.ReadWrite), DataField("isInCombatMode"), AutoNetworkedField]
