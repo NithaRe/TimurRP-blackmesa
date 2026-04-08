@@ -12,7 +12,7 @@ public sealed class BattleMusicClientSystem : EntitySystem
 {
     [Dependency] private readonly SharedAudioSystem _audio = default!;
 
-    private static readonly SoundSpecifier BattleMusicPath = new SoundPathSpecifier("/_BlackM/Battlemusic/battle_music.ogg");
+    private static readonly SoundSpecifier BattleMusicPath = new SoundPathSpecifier("/Audio/_BlackM/Battlemusic/battle_music.ogg");
 
     private const float MaxVolumeDb = -15f;
 
