@@ -140,6 +140,10 @@
     state: icon
   - type: Clothing
     sprite: _BlackM/Clothing/Head/Helmets/kovak_soldier_helmet.rsi
+  - type: HideLayerClothing
+    slots:
+    - Hair
+    - FacialHair
   - type: Armor
     modifiers:
       coefficients:
@@ -171,6 +175,10 @@
     state: icon
   - type: Clothing
     sprite: _BlackM/Clothing/Head/Helmets/kovak_chief_helmet.rsi
+  - type: HideLayerClothing
+    slots:
+    - Hair
+    - FacialHair
   - type: Armor
     modifiers:
       coefficients:
@@ -202,6 +210,10 @@
     state: icon
   - type: Clothing
     sprite: _BlackM/Clothing/Head/Helmets/kovak_med_helmet.rsi
+  - type: HideLayerClothing
+    slots:
+    - Hair
+    - FacialHair
   - type: Armor
     modifiers:
       coefficients:
@@ -233,6 +245,10 @@
     state: icon
   - type: Clothing
     sprite: _BlackM/Clothing/Head/Helmets/kovak_warden_helmet.rsi
+  - type: HideLayerClothing
+    slots:
+    - Hair
+    - FacialHair
   - type: Armor
     modifiers:
       coefficients:
