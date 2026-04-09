@@ -105,15 +105,15 @@
   category: cargoproduct-category-name-service
   group: market
 
-- type: cargoProduct
-  id: ServiceTheatre
-  icon:
-    sprite: Clothing/Mask/mime.rsi
-    state: icon
-  product: CrateServiceTheatre
-  cost: 1800
-  category: cargoproduct-category-name-service
-  group: market
+#- type: cargoProduct
+#  id: ServiceTheatre
+#  icon:
+#    sprite: Clothing/Mask/mime.rsi
+#    state: icon
+#  product: CrateServiceTheatre
+#  cost: 1800
+#  category: cargoproduct-category-name-service
+#  group: market
 
 - type: cargoProduct
   id: ServiceSmokeables
