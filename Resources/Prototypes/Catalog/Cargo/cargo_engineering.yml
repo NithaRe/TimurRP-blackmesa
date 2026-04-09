@@ -125,15 +125,15 @@
   category: cargoproduct-category-name-engineering
   group: market
 
-- type: cargoProduct
-  id: EvaKit
-  icon:
-    sprite: Clothing/Head/Helmets/eva.rsi
-    state: icon
-  product: CrateEvaKit
-  cost: 5000
-  category: cargoproduct-category-name-engineering
-  group: market
+#- type: cargoProduct
+#  id: EvaKit
+#  icon:
+#    sprite: Clothing/Head/Helmets/eva.rsi
+#    state: icon
+#  product: CrateEvaKit
+#  cost: 5000
+#  category: cargoproduct-category-name-engineering
+#  group: market
 
 - type: cargoProduct
   id: EngineeringRCDAmmo
@@ -155,15 +155,15 @@
   category: cargoproduct-category-name-engineering
   group: market
 
-- type: cargoProduct
-  id: EngineeringParticleDecelerators
-  icon:
-    sprite: Objects/Weapons/Guns/Battery/particle_decelerator.rsi
-    state: base
-  product: CrateParticleDecelerators
-  cost: 15000
-  category: cargoproduct-category-name-engineering
-  group: market
+#- type: cargoProduct
+#  id: EngineeringParticleDecelerators
+#  icon:
+#    sprite: Objects/Weapons/Guns/Battery/particle_decelerator.rsi
+#    state: base
+#  product: CrateParticleDecelerators
+#  cost: 15000
+#  category: cargoproduct-category-name-engineering
+#  group: market
 
 - type: cargoProduct
   id: EngineeringSpaceHeater
