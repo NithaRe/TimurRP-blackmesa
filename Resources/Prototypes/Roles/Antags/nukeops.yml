@@ -96,10 +96,10 @@
 
 - type: antag
   id: Nukeops
-  name: roles-antag-nuclear-operative-name
+  name: Агент HECU
   antagonist: true
-  setPreference: false # BlackM traitors
-  objective: roles-antag-nuclear-operative-objective
+  setPreference: true
+  objective: Вы — могильщик, посланный правительством, чтобы уничтожить всех свидетелей и замести следы каскадного резонанса.
   requirements:
   - !type:OverallPlaytimeRequirement
     time: 0 # BlackM 36000 # 10 hours - Goobstation
@@ -111,13 +111,13 @@
     species:
     - Plasmaman
     - Abductor # CorvaxGoob-Species
-  guides: [ NuclearOperatives ]
+#  guides: [ NuclearOperatives ] #BlackM
 
 - type: antag
   id: NukeopsMedic
   name: roles-antag-nuclear-operative-agent-name
   antagonist: true
-  setPreference: false # BlackM traitors
+  setPreference: false
   objective: roles-antag-nuclear-operative-agent-objective
   requirements:
   - !type:OverallPlaytimeRequirement
@@ -137,10 +137,10 @@
 
 - type: antag
   id: NukeopsCommander
-  name: roles-antag-nuclear-operative-commander-name
+  name: Капитан отряда HECU
   antagonist: true
-  setPreference: false # BlackM traitors
-  objective: roles-antag-nuclear-operative-commander-objective
+  setPreference: true
+  objective: Вы — командир карательной группы HECU, получивший приказ не только зачистить комплекс, но и гарантировать, что ни один ваш подчинённый не покинет Чёрную Мезу живым.
   requirements:
   - !type:OverallPlaytimeRequirement
     time: 0 # BlackM 90000 # 25 hours - Goobstation
@@ -156,7 +156,7 @@
     species:
     - Plasmaman
     - Abductor # CorvaxGoob-Species
-  guides: [ NuclearOperatives ]
+#  guides: [ NuclearOperatives ] #BlackM
 
 - type: startingGear
   id: SyndicateOperativeGearFullNoUplink
