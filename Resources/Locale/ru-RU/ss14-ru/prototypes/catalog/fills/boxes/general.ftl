@@ -54,7 +54,7 @@ ent-BoxEncryptionKeyService = коробка ключей шифрования �
 # Corvax-HiddenDesc-Start
 ent-BoxEncryptionKeySyndie = коробка ключей шифрования пассажиров
     .desc = { ent-BoxEncryptionKeyPassenger.desc }
-    .suffix = коробка ключей шифрования Синдиката
+    .suffix = коробка ключей шифрования Aperture Science
 # Corvax-HiddenDesc-End
 ent-BoxLeadLined = освинцованная коробка
     .desc = Эта коробка препятствует распространению радиации.

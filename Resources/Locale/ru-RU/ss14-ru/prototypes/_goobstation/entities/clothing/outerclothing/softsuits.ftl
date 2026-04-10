@@ -1,2 +1,2 @@
-ent-ClothingOuterHardsuitSyndicateDurathread = ВКД-костюм синдиката
+ent-ClothingOuterHardsuitSyndicateDurathread = ВКД-костюм Aperture Science
     .desc = Лёгкий, хорошо сшитый ВКД-костюм из ткани дуротрэд с лёгкой защитой и встроенной антирадиационной защитой. На спине висит бирка с надписью: «Совершенно не собственность враждебной корпорации, честно!»

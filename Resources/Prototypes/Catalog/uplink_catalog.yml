@@ -295,22 +295,22 @@
       - ContractorUplink
 
 
-- type: listing
-  id: UplinkThrowingKnivesKit
-  name: uplink-knives-kit-name
-  description: uplink-knives-kit-desc
-  icon: { sprite: /Textures/Objects/Storage/boxicons.rsi, state: throwing_knives }
-  productEntity: ThrowingKnivesKit
-  cost:
-    Telecrystal: 20 # goob - Pretty weak, but resusable ranged crit potential shouldn't be less.
-  categories:
-    - UplinkWeaponry
-    #Goobstation
-  conditions:
-  - !type:StoreWhitelistCondition
-    blacklist:
-      tags:
-      - ContractorUplink
+# - type: listing
+#   id: UplinkThrowingKnivesKit
+#   name: uplink-knives-kit-name
+#   description: uplink-knives-kit-desc
+#   icon: { sprite: /Textures/Objects/Storage/boxicons.rsi, state: throwing_knives }
+#   productEntity: ThrowingKnivesKit
+#   cost:
+#     Telecrystal: 20 # goob - Pretty weak, but resusable ranged crit potential shouldn't be less.
+#   categories:
+#     - UplinkWeaponry
+#     #Goobstation
+#   conditions:
+#   - !type:StoreWhitelistCondition
+#     blacklist:
+#       tags:
+#       - ContractorUplink
 
 
 - type: listing
@@ -1083,21 +1083,21 @@
   - UplinkDeception
 
 
-- type: listing
-  id: UplinkHeadsetEncryptionKey
-  name: uplink-encryption-key-name
-  description: uplink-encryption-key-desc
-  icon: { sprite: /Textures/Objects/Devices/encryption_keys.rsi, state: synd_label }
-  productEntity: EncryptionKeySyndie # One for the price of one, but cheaper
-  cost:
-    Telecrystal: 3 # goob
-  categories:
-  - UplinkDeception
-  conditions:
-  - !type:StoreWhitelistCondition
-    blacklist:
-      tags:
-      - ContravendUplink
+# - type: listing
+#   id: UplinkHeadsetEncryptionKey
+#   name: uplink-encryption-key-name
+#   description: uplink-encryption-key-desc
+#   icon: { sprite: /Textures/Objects/Devices/encryption_keys.rsi, state: synd_label }
+#   productEntity: EncryptionKeySyndie # One for the price of one, but cheaper
+#   cost:
+#     Telecrystal: 3 # goob
+#   categories:
+#   - UplinkDeception
+#   conditions:
+#   - !type:StoreWhitelistCondition
+#     blacklist:
+#       tags:
+#       - ContravendUplink
 
 # Goobstation - replaced with collective mind
 #- type: listing
@@ -1968,37 +1968,37 @@
   - UplinkWearables
 
 
-- type: listing
-  id: UplinkClothingOuterVestWebElite
-  name: uplink-clothing-outer-vest-web-elite-name
-  description: uplink-clothing-outer-vest-web-elite-desc
-  productEntity: ClothingOuterVestWebElite
-  cost:
-    Telecrystal: 25 # goob
-  categories:
-  - UplinkWearables
+# - type: listing
+#   id: UplinkClothingOuterVestWebElite
+#   name: uplink-clothing-outer-vest-web-elite-name
+#   description: uplink-clothing-outer-vest-web-elite-desc
+#   productEntity: ClothingOuterVestWebElite
+#   cost:
+#     Telecrystal: 25 # goob
+#   categories:
+#   - UplinkWearables
 
-- type: listing
-  id: UplinkClothingShoesBootsMagSyndie
-  name: uplink-clothing-shoes-boots-mag-syndie-name
-  description: uplink-clothing-shoes-boots-mag-syndie-desc
-  productEntity: ClothingShoesBootsMagSyndie
-  cost:
-    Telecrystal: 20 # goob
-  categories:
-  - UplinkWearables
+# - type: listing
+#   id: UplinkClothingShoesBootsMagSyndie
+#   name: uplink-clothing-shoes-boots-mag-syndie-name
+#   description: uplink-clothing-shoes-boots-mag-syndie-desc
+#   productEntity: ClothingShoesBootsMagSyndie
+#   cost:
+#     Telecrystal: 20 # goob
+#   categories:
+#   - UplinkWearables
 
 
-- type: listing
-  id: UplinkEVASyndie
-  name: uplink-eva-syndie-name
-  description: uplink-eva-syndie-desc
-  icon: { sprite: /Textures/Clothing/OuterClothing/Suits/eva_syndicate.rsi, state: icon }
-  productEntity: ClothingBackpackDuffelSyndicateEVABundle
-  cost:
-    Telecrystal: 20 # goob - Meh protection no slowdown. Can definitely take a hit or two extra however.
-  categories:
-  - UplinkWearables
+# - type: listing
+#   id: UplinkEVASyndie
+#   name: uplink-eva-syndie-name
+#   description: uplink-eva-syndie-desc
+#   icon: { sprite: /Textures/Clothing/OuterClothing/Suits/eva_syndicate.rsi, state: icon }
+#   productEntity: ClothingBackpackDuffelSyndicateEVABundle
+#   cost:
+#     Telecrystal: 20 # goob - Meh protection no slowdown. Can definitely take a hit or two extra however.
+#   categories:
+#   - UplinkWearables
 
 
 - type: listing
@@ -2019,22 +2019,22 @@
       - ContractorUplink
 
 
-- type: listing
-  id: UplinkHardsuitSyndie
-  name: uplink-hardsuit-syndie-name
-  description: uplink-hardsuit-syndie-desc
-  icon: { sprite: /Textures/Clothing/OuterClothing/Hardsuits/syndicate.rsi, state: icon }
-  productEntity: ClothingBackpackDuffelSyndicateHardsuitBundle
-  cost:
-    Telecrystal: 50 # goob
-  categories:
-  - UplinkWearables
-  #Goobstation
-  conditions:
-  - !type:StoreWhitelistCondition
-    blacklist:
-      tags:
-      - ContractorUplink
+# - type: listing
+#   id: UplinkHardsuitSyndie
+#   name: uplink-hardsuit-syndie-name
+#   description: uplink-hardsuit-syndie-desc
+#   icon: { sprite: /Textures/Clothing/OuterClothing/Hardsuits/syndicate.rsi, state: icon }
+#   productEntity: ClothingBackpackDuffelSyndicateHardsuitBundle
+#   cost:
+#     Telecrystal: 50 # goob
+#   categories:
+#   - UplinkWearables
+#   #Goobstation
+#   conditions:
+#   - !type:StoreWhitelistCondition
+#     blacklist:
+#       tags:
+#       - ContractorUplink
 
 
 - type: listing
@@ -2054,50 +2054,50 @@
       - NukeOpsUplink
 
 
-- type: listing
-  id: UplinkHardsuitSyndieElite
-  name: uplink-hardsuit-syndieelite-name
-  description: uplink-hardsuit-syndieelite-desc
-  icon: { sprite: /Textures/Clothing/OuterClothing/Hardsuits/syndieelite.rsi, state: icon }
-  productEntity: ClothingBackpackDuffelSyndicateEliteHardsuitBundle
-  cost:
-    Telecrystal: 75 # goob
-  categories:
-  - UplinkWearables
-  #Goobstation
-  conditions:
-  - !type:StoreWhitelistCondition
-    blacklist:
-      tags:
-      - ContractorUplink
-  #conditions: # Goobstation - no fuck you
-  #- !type:StoreWhitelistCondition
-  #  whitelist:
-  #    tags:
-  #    - NukeOpsUplink
+# - type: listing
+#   id: UplinkHardsuitSyndieElite
+#   name: uplink-hardsuit-syndieelite-name
+#   description: uplink-hardsuit-syndieelite-desc
+#   icon: { sprite: /Textures/Clothing/OuterClothing/Hardsuits/syndieelite.rsi, state: icon }
+#   productEntity: ClothingBackpackDuffelSyndicateEliteHardsuitBundle
+#   cost:
+#     Telecrystal: 75 # goob
+#   categories:
+#   - UplinkWearables
+#   #Goobstation
+#   conditions:
+#   - !type:StoreWhitelistCondition
+#     blacklist:
+#       tags:
+#       - ContractorUplink
+#   #conditions: # Goobstation - no fuck you
+#   #- !type:StoreWhitelistCondition
+#   #  whitelist:
+#   #    tags:
+#   #    - NukeOpsUplink
 
 
-- type: listing
-  id: UplinkClothingOuterHardsuitJuggernaut
-  name: uplink-clothing-outer-hardsuit-juggernaut-name
-  description: uplink-clothing-outer-hardsuit-juggernaut-desc
-  icon: { sprite: /Textures/Clothing/OuterClothing/Hardsuits/cybersun.rsi, state: icon } # goobstation - duke nukies
-  productEntity: CrateCybersunJuggernautBundle
-  cost:
-    Telecrystal: 75 # goob
-  categories:
-  - UplinkWearables
-  #Goobstation
-  conditions:
-  - !type:StoreWhitelistCondition
-    blacklist:
-      tags:
-      - ContractorUplink
-  #conditions: # Goobstation - no fuck you
-  #- !type:StoreWhitelistCondition
-  # whitelist:
-  #    tags:
-  #    - NukeOpsUplink
+# - type: listing
+#   id: UplinkClothingOuterHardsuitJuggernaut
+#   name: uplink-clothing-outer-hardsuit-juggernaut-name
+#   description: uplink-clothing-outer-hardsuit-juggernaut-desc
+#   icon: { sprite: /Textures/Clothing/OuterClothing/Hardsuits/cybersun.rsi, state: icon } # goobstation - duke nukies
+#   productEntity: CrateCybersunJuggernautBundle
+#   cost:
+#     Telecrystal: 75 # goob
+#   categories:
+#   - UplinkWearables
+#   #Goobstation
+#   conditions:
+#   - !type:StoreWhitelistCondition
+#     blacklist:
+#       tags:
+#       - ContractorUplink
+#   #conditions: # Goobstation - no fuck you
+#   #- !type:StoreWhitelistCondition
+#   # whitelist:
+#   #    tags:
+#   #    - NukeOpsUplink
 
 
 - type: listing

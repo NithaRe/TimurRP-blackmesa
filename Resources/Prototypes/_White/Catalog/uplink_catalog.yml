@@ -9,36 +9,36 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # Weaponry
 
-- type: listing
-  id: UplinkExperimentalSyndicateTeleporter
-  name: uplink-experimental-syndicate-teleporter-name
-  description: uplink-experimental-syndicate-teleporter-desc
-  productEntity: ExperimentalSyndicateTeleporter
-  cost:
-    Telecrystal: 50 # Goob
-  categories:
-    - UplinkDisruption
-  conditions:
-  - !type:StoreWhitelistCondition
-    blacklist:
-      tags:
-      - NukeOpsUplink
+# - type: listing
+#   id: UplinkExperimentalSyndicateTeleporter
+#   name: uplink-experimental-syndicate-teleporter-name
+#   description: uplink-experimental-syndicate-teleporter-desc
+#   productEntity: ExperimentalSyndicateTeleporter
+#   cost:
+#     Telecrystal: 50 # Goob
+#   categories:
+#     - UplinkDisruption
+#   conditions:
+#   - !type:StoreWhitelistCondition
+#     blacklist:
+#       tags:
+#       - NukeOpsUplink
 
-- type: listing
-  id: UplinkBetrayalKnife
-  name: uplink-betrayal-knife-name
-  description: uplink-betrayal-knife-desc
-  icon: { sprite: /Textures/_White/Objects/Weapons/Melee/Daggers/betrayal_knife.rsi, state: icon }
-  productEntity: BetrayalKnife
-  cost:
-    Telecrystal: 30 # goob
-  categories:
-  - UplinkWeaponry
-  conditions:
-  - !type:StoreWhitelistCondition
-    blacklist:
-      tags:
-      - NukeOpsUplink
+# - type: listing
+#   id: UplinkBetrayalKnife
+#   name: uplink-betrayal-knife-name
+#   description: uplink-betrayal-knife-desc
+#   icon: { sprite: /Textures/_White/Objects/Weapons/Melee/Daggers/betrayal_knife.rsi, state: icon }
+#   productEntity: BetrayalKnife
+#   cost:
+#     Telecrystal: 30 # goob
+#   categories:
+#   - UplinkWeaponry
+#   conditions:
+#   - !type:StoreWhitelistCondition
+#     blacklist:
+#       tags:
+#       - NukeOpsUplink
 
 # Night Vision
 

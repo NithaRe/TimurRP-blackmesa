@@ -1,9 +1,9 @@
 ent-MailRobustToolsSpam = Робаст Тулбокс - Специальное предложение!
     .desc = Реклама робаст тулбоксов.
-ent-MailNanotrasenSpam = Причины выбрать NanoTrasen!
-    .desc = Реклама NanoTrasen.
-ent-MailSyndicateSpam = Причины выбрать Синдикат!
-    .desc = Реклама Синдиката.
+ent-MailNanotrasenSpam = Причины выбрать Black Mesa!
+    .desc = Реклама Black Mesa.
+ent-MailSyndicateSpam = Причины выбрать Aperture Science!
+    .desc = Реклама Aperture Science.
 ent-MailAlternativeDimensionSpam = Отправьте подкрепление!
     .desc = Официальное уведомление из... альтернативной временной линии?
 ent-MailNarsieCultSpam = Дети Нар'Си

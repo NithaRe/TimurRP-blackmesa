@@ -1,6 +1,6 @@
 ent-CardBaseNanotrasen = card
     .desc = { ent-CardBase.desc }
-ent-CardBoxNanotrasen = nanotrasen deck box
+ent-CardBoxNanotrasen = Black Mesa deck box
     .desc = { ent-CardBoxBase.desc }
 ent-CardDeckNanotrasen = deck of cards
     .desc = { ent-CardDeckBase.desc }

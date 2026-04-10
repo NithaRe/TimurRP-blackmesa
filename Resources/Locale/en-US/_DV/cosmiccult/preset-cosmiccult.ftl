@@ -74,7 +74,7 @@ cosmiccult-elimination-announcement = Based on scans from our long-range sensors
 ## BRIEFINGS
 
 cosmiccult-role-roundstart-fluff =
-    As you ready yourself for yet another shift aboard yet another NanoTrasen station, untold knowledge suddenly floods your mind!
+    As you ready yourself for yet another shift aboard yet another Black Mesa station, untold knowledge suddenly floods your mind!
     A revelation beyond compare. An end to cyclic, sisyphean suffering.
     A gentle curtain call.
 

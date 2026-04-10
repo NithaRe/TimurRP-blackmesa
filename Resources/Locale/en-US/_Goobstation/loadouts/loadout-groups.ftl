@@ -165,11 +165,11 @@ loadout-group-lawyer-envirohelm = Lawyer envirohelm
 loadout-group-lawyer-envirosuit = Lawyer envirosuit
 loadout-group-lawyer-envirogloves = Lawyer envirogloves
 
-# Nanotrasen Representative
-loadout-group-ntr-envirohelm = Nanotrasen Representative envirohelm
-loadout-group-ntr-envirosuit = Nanotrasen Representative envirosuit
-loadout-group-ntr-envirogloves = Nanotrasen Representative envirogloves
-loadout-group-ntr-gloves = Nanotrasen Representative gloves
+# Black Mesa Representative
+loadout-group-ntr-envirohelm = Black Mesa Representative envirohelm
+loadout-group-ntr-envirosuit = Black Mesa Representative envirosuit
+loadout-group-ntr-envirogloves = Black Mesa Representative envirogloves
+loadout-group-ntr-gloves = Black Mesa Representative gloves
 
 # Blueshield Officer
 loadout-group-bso-envirohelm = Blueshield Officer envirohelm

@@ -8,25 +8,25 @@ ntr-scan-success = Successfully credited {$amount} loyalty points.
 # station
 
 ntr-executive-spesos-small-name = Small spesos grant
-ntr-executive-spesos-small-desc = Receive a small monetary bonus from NanoTrasen for your hard work. As a good employee, you should give this to the quartermaster, right?
+ntr-executive-spesos-small-desc = Receive a small monetary bonus from Black Mesa for your hard work. As a good employee, you should give this to the quartermaster, right?
 
 ntr-executive-disk-small-name = Small research grant
-ntr-executive-disk-small-desc = Receive a small research grant from NanoTrasen's lead research team, containing 10 data disks with research points.
+ntr-executive-disk-small-desc = Receive a small research grant from Black Mesa's lead research team, containing 10 data disks with research points.
 
 ntr-executive-emergency-meds-name = Emergency medical supplies
 ntr-executive-emergency-meds-desc = A small crate containing trauma medkits. Be prepared to explain yourself after purchasing this.
 
 ntr-executive-disablers-name = Disablers crate
-ntr-executive-disablers-desc = A crate containing 3 disablers and 1 disabler SMG. NanoTrasen is not liable for any damages caused by these weapons.
+ntr-executive-disablers-desc = A crate containing 3 disablers and 1 disabler SMG. Black Mesa is not liable for any damages caused by these weapons.
 
 ntr-executive-mats-name = Order materials
-ntr-executive-mats-desc = Order construction materials from NanoTrasen's global cargo department.
+ntr-executive-mats-desc = Order construction materials from Black Mesa's global cargo department.
 
 ntr-executive-tools-small-name = Generic tools crate
 ntr-executive-tools-small-desc = A crate containing basic engineering tools.
 
 ntr-executive-pizza-small-name = Order a small pizza party
-ntr-executive-pizza-small-desc = Order a small pizza party bundle from NanoTrasen. As a good employee, you should share this with your coworkers... or eat it all yourself.
+ntr-executive-pizza-small-desc = Order a small pizza party bundle from Black Mesa. As a good employee, you should share this with your coworkers... or eat it all yourself.
 
 # personal
 
@@ -40,7 +40,7 @@ ntr-executive-hardsuit-name = Order a hardsuit
 ntr-executive-hardsuit-desc = A durable hardsuit for extreme environments. Are you sure this purchase is justified?
 
 ntr-experimental-hardsuit-name = Order a hardsuit
-ntr-experimental-hardsuit-desc = Nanotrasen is testing an experimental exosuit built from Bluespace-conductive plates reverse-engineered from Cybersun’s Redspace Dread Suit, with live trials conducted under your supervision.
+ntr-experimental-hardsuit-desc = Black Mesa is testing an experimental exosuit built from Bluespace-conductive plates reverse-engineered from Cybersun’s Redspace Dread Suit, with live trials conducted under your supervision.
 
 ntr-executive-cigar-name = Premium cigar case
 ntr-executive-cigar-desc = A standard premium cigar case. Only executives are permitted to smoke these in public areas.
@@ -52,7 +52,7 @@ ntr-executive-glasses-name = CentComm glasses
 ntr-executive-glasses-desc = For when you need to look more important than you actually are.
 
 ntr-executive-savaliniaharunianisimious-name = Svalinn laser pistol
-ntr-executive-savaliniaharunianisimious-desc = A standard Svalinn laser pistol, commonly used in NanoTrasen self-defense training programs.
+ntr-executive-savaliniaharunianisimious-desc = A standard Svalinn laser pistol, commonly used in Black Mesa self-defense training programs.
 
 ntr-executive-1984-name = Deckard revolver
 ntr-executive-1984-desc = A standard Deckard sidearm for personal defense.
@@ -95,7 +95,7 @@ ntr-executive-grav-name = Mini gravity generator
 ntr-executive-grav-desc = Machine board for a compact gravity generator.
 
 ntr-executive-teleporter-name = Cargo teleporter machine board
-ntr-executive-teleporter-desc = Cargo teleporter machine board, for easier transportation of supplies via teleportation. Unauthorized use constitutes theft under NanoTrasen policy.
+ntr-executive-teleporter-desc = Cargo teleporter machine board, for easier transportation of supplies via teleportation. Unauthorized use constitutes theft under Black Mesa policy.
 
 ntr-executive-holopad-name = Holopad machine boards
 ntr-executive-holopad-desc = Contains 2 holopad machine boards. Cheaper than installing them at shift start.

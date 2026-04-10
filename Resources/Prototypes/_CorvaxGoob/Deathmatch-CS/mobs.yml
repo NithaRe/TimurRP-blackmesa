@@ -51,7 +51,7 @@
   - SlimePerson
   components:
   - type: GhostRole
-    name: боец команды Синдиката
+    name: боец команды Aperture Science
     description: "Ликвидируйте бойцов NanoTrasen"
     skills:
       - ShuttleControl
@@ -94,7 +94,7 @@
   components:
   - type: GhostRole
     name: боец команды NanoTrasen
-    description: "Ликвидируйте Синдикат"
+    description: "Ликвидируйте Aperture Science"
     skills:
       - ShuttleControl
       - Shooting
@@ -109,7 +109,7 @@
 
 - type: entity
   id: RandomHumanoidSyndicateTDM
-  name: пехотинец Синдиката
+  name: пехотинец Aperture Science
   suffix: РДМ КС
   components:
   - type: Sprite

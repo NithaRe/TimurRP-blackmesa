@@ -145,17 +145,17 @@ ghost-role-information-centcom-official-name = Представитель Цен
 ghost-role-information-centcom-official-description = Выполняйте обязанности, связанные с Центком, такие как инспекция станции, составление служебных характеристик на руководителей и работа с факсом.
 ghost-role-information-nukeop-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с другими Ядерными оперативниками. Помощь агентов на станции не гарантируется.
 ghost-role-information-loneop-name = Одинокий оперативник
-ghost-role-information-loneop-description = Вы - одинокий ядерный оперативник. Уничтожьте станцию.
+ghost-role-information-loneop-description = Вы - одинокий Оперативник HECU. Уничтожьте станцию.
 ghost-role-information-loneop-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-solo-antagonist-name }[/bold][/color]. Помощь агентов на станции не гарантируется.
 ghost-role-information-behonker-name = Бехонкер
 ghost-role-information-behonker-description = Вы - антагонист, несущий смерть и хонки всем, кто не следует за хонкоматерью.
 ghost-role-information-hellspawn-name = Адское отродье
 ghost-role-information-hellspawn-description = Несите смерть всем, кто не повинуется великой богине Нар'Си.
 ghost-role-information-Death-Squad-name = Оперативник Эскадрона Смерти
-ghost-role-information-Death-Squad-description = Один из лучших агентов внутренних дел NanoTrasen. Ожидайте приказов от Центкома или представителя Центкома.
+ghost-role-information-Death-Squad-description = Один из лучших агентов внутренних дел Black Mesa. Ожидайте приказов от Центкома или представителя Центкома.
 ghost-role-information-Death-Squad-rules = Вы обязаны подчиняться приказам своего командира, вы фактически его [color={ role-type-familiar-color }][bold]{ role-type-familiar-name }[/bold][/color].
 ghost-role-information-SyndiCat-name = СиндиКот
-ghost-role-information-SyndiCat-description = Вы - верный дрессированный питомец ядерных оперативников с микробомбой. Служите своему хозяину до самой смерти!
+ghost-role-information-SyndiCat-description = Вы - верный дрессированный питомец Оперативников HECU с микробомбой. Служите своему хозяину до самой смерти!
 ghost-role-information-SyndiCat-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с агентом, который вас призвал.
 ghost-role-information-Cak-name = Корт
 ghost-role-information-Cak-description = Вы - любимое дитя шеф-повара. Вы - живой торт-кот.
@@ -165,25 +165,25 @@ ghost-role-information-space-ninja-name = Космический ниндзя
 ghost-role-information-space-ninja-description = Используйте хитрость и скрытность, чтобы устроить диверсию на станции.
 ghost-role-information-paradox-clone-name = Парадоксальный клон
 ghost-role-information-paradox-clone-description = Странная пространственно-временная аномалия телепортировала вас в другую реальность! Теперь вам предстоит найти своего двойника, убить и заменить его.
-ghost-role-information-syndicate-reinforcement-name = Агент Синдиката
-ghost-role-information-syndicate-reinforcement-description = Кому-то нужно подкрепление. Вы первый, кого Синдикат смог найти и послать на помощь.
+ghost-role-information-syndicate-reinforcement-name = Агент Aperture Science
+ghost-role-information-syndicate-reinforcement-description = Кому-то нужно подкрепление. Вы первый, кого Aperture Science смог найти и послать на помощь.
 ghost-role-information-syndicate-reinforcement-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с агентом, который вас призвал.
-ghost-role-information-syndicate-reinforcement-medic-name = Медик Синдиката
+ghost-role-information-syndicate-reinforcement-medic-name = Медик Aperture Science
 ghost-role-information-syndicate-reinforcement-medic-description = Кому-то нужно подкрепление. Ваша задача - сохранить жизнь вызвавшему вас агенту.
-ghost-role-information-syndicate-reinforcement-spy-name = Шпион Синдиката
+ghost-role-information-syndicate-reinforcement-spy-name = Шпион Aperture Science
 ghost-role-information-syndicate-reinforcement-spy-description = Кому-то нужно подкрепление. Ваша специализация - шпионаж, постарайтесь не быть обнаруженными.
-ghost-role-information-syndicate-reinforcement-thief-name = Вор Синдиката
+ghost-role-information-syndicate-reinforcement-thief-name = Вор Aperture Science
 ghost-role-information-syndicate-reinforcement-thief-description = Кому-то нужно подкрепление. Ваша задача - проникнуть и забрать что-то ценное для своего агента.
-ghost-role-information-nukeop-reinforcement-name = Ядерный оперативник
-ghost-role-information-nukeop-reinforcement-description = Ядерным оперативникам нужно подкрепление. Вы, резервный агент, поможете им.
+ghost-role-information-nukeop-reinforcement-name = Оперативник HECU
+ghost-role-information-nukeop-reinforcement-description = Оперативникам HECU нужно подкрепление. Вы, резервный агент, поможете им.
 ghost-role-information-nukeop-reinforcement-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с ядернымы оперативниками, которые призвали вас.
-ghost-role-information-syndicate-monkey-reinforcement-name = Агент Синдиката-обезьяна
+ghost-role-information-syndicate-monkey-reinforcement-name = Агент Aperture Science-обезьяна
 ghost-role-information-syndicate-monkey-reinforcement-description = Кому-то нужно подкрепление. Вы, специально обученная обезьяна, поможете им.
-ghost-role-information-syndicate-kobold-reinforcement-name = Агент Синдиката-кобольд
+ghost-role-information-syndicate-kobold-reinforcement-name = Агент Aperture Science-кобольд
 ghost-role-information-syndicate-kobold-reinforcement-description = Кому-то нужно подкрепление. Вы, специально обученный кобольд, поможете им.
-ghost-role-information-syndicate-cyborg-assault-name = Штурмовой борг Синдиката
-ghost-role-information-syndicate-cyborg-saboteur-name = Саботажный борг Синдиката
-ghost-role-information-syndicate-cyborg-description = Синдикату нужно подкрепление. Вы, холодная кремниевая машина для убийства, поможете им.
+ghost-role-information-syndicate-cyborg-assault-name = Штурмовой борг Aperture Science
+ghost-role-information-syndicate-cyborg-saboteur-name = Саботажный борг Aperture Science
+ghost-role-information-syndicate-cyborg-description = Aperture Science нужно подкрепление. Вы, холодная кремниевая машина для убийства, поможете им.
 ghost-role-information-derelict-cyborg-name = Заброшенный борг
 ghost-role-information-derelict-cyborg-description = Вы - обычный борг, который заблудился в космосе. После долгих лет воздействия ионных бурь вы оказываетесь рядом с космической станцией.
 ghost-role-information-security-name = Служба безопасности
@@ -219,10 +219,10 @@ ghost-role-information-lost-challenge-cargo-technican-rules =
     Вы не помните ничего из своей предыдущей жизни и не помните ничего из того, что узнали, будучи призраком.
     Вам разрешается помнить знания об игре в целом, например, как готовить, как использовать предметы и т.д.
     Вам [color=red]НЕ[/color] разрешается помнить, имя, внешность и т.д. вашего предыдущего персонажа.
-ghost-role-information-syndie-soldier-name = Солдат Синдиката
-ghost-role-information-syndie-soldier-description = Вы солдат Синдиката
-ghost-role-information-syndie-soldier-teamlead-name = Командир команды Синдиката
-ghost-role-information-syndie-soldier-teamlead-description = Вы - командир огневой группы в оперативном отряде Синдиката.
+ghost-role-information-syndie-soldier-name = Солдат Aperture Science
+ghost-role-information-syndie-soldier-description = Вы солдат Aperture Science
+ghost-role-information-syndie-soldier-teamlead-name = Командир команды Aperture Science
+ghost-role-information-syndie-soldier-teamlead-description = Вы - командир огневой группы в оперативном отряде Aperture Science.
 ghost-role-information-blackmarketeer-name = Торговец чёрного рынка
 ghost-role-information-blackmarketeer-description = Заключайте сделки или беритесь за непосильную работу, чтобы к концу смены собрать самые интересные предметы.
 ghost-role-information-cossack-name = Древний путешественник
@@ -238,8 +238,8 @@ ghost-role-information-pirate-irs-description = Конфискуйте ценн�
 ghost-role-information-pirate-irs-captain-name = Капитан космических пиратов
 ghost-role-information-pirate-irs-captain-description = Руководите раскулачиванием. Арестуйте капитана за уклонение от налоговой службы.
 ghost-role-information-pirate-irs-rules = Вы [color=red][bold]Командный антагонист[/bold][/color] вместе с другими пиратами.
-ghost-role-information-syndie-disaster-victim-name = Жертва катастрофы из Синдиката
-ghost-role-information-syndie-disaster-victim-description = Вы - обычный пассажир со станции Синдиката. К несчастью, спасательная капсула закинула вас во вражеский сектор...
+ghost-role-information-syndie-disaster-victim-name = Жертва катастрофы из Aperture Science
+ghost-role-information-syndie-disaster-victim-description = Вы - обычный пассажир со станции Aperture Science. К несчастью, спасательная капсула закинула вас во вражеский сектор...
 ghost-role-information-artifact-name = Разумный артефакт
 ghost-role-information-artifact-description = Осуществляйте свои инопланетные прихоти. Принудительно активируйте свои узлы во благо или во зло.
 ghost-role-information-tomatokiller-name = Томат-убийца

@@ -1,4 +1,4 @@
-ent-RadioLeadIntern = телепортер главы студентов NanoTrasen
+ent-RadioLeadIntern = телепортер главы студентов Black Mesa
     .desc = Рация, одобренная NT, призывающая главу студентов, используя специальные монеты
 ent-LeadIntern = глава студентов
     .suffix = Человек

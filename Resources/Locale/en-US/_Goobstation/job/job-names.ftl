@@ -9,7 +9,7 @@
 
 job-name-futureagent = Future Agent
 job-name-salvagediver = Salvage Diver
-job-name-ntr = Nanotrasen Representative
+job-name-ntr = Black Mesa Representative
 job-name-bs = Blueshield
 job-name-overall = Overall
 job-name-tider = Tider
@@ -23,7 +23,7 @@ job-name-navy-officer-undercover = Undercover Navy Officer
 job-name-navy-captain = Navy Captain
 job-name-diplomat = Diplomat
 job-name-inspector = Central Command Auditor
-job-name-nct = Nanotrasen Career Trainer
+job-name-nct = Black Mesa Career Trainer
 job-name-outercommander = Outer Commander
 
 # Syndicate
@@ -44,8 +44,8 @@ job-name-radiohost = Radio Host
 # Role timers - Make these alphabetical or I cut you (dont listen to upstream, i copied and pasted this, make it very un-alphabetical :godo:)
 
 JobBlueshieldOfficer = Blueshield Officer
-JobNanotrasenRepresentative = Nanotrasen Representative
-JobNanotrasenCareerTrainer = Nanotrasen Career Trainer
+JobNanotrasenRepresentative = Black Mesa Representative
+JobNanotrasenCareerTrainer = Black Mesa Career Trainer
 JobHecuOperative = HECU Operative
 JobNavyOfficer = Navy Officer
 JobNavyOfficerUndercover = Undercover Navy Officer

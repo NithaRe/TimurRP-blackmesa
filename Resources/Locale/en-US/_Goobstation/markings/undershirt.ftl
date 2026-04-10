@@ -13,8 +13,8 @@ marking-UndershirtGrossSleeveless = Tanktop (Gross)
 marking-UndershirtRolledSleeveless-rolled_undershirt_sleeveless = Tanktop
 marking-UndershirtRolledSleeveless = Tanktop (Rolled)
 
-marking-UndershirtNanotrasen-nanotrasen = Undershirt
-marking-UndershirtNanotrasen = Undershirt (Nanotrasen)
+marking-UndershirtNanotrasenNanoTrasen = Undershirt
+marking-UndershirtNanotrasen = Undershirt (Black Mesa)
 
 marking-UndershirtBinder-binder = Binder
 marking-UndershirtBinder = Binder

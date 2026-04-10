@@ -132,10 +132,10 @@ loadout-group-bartender-envirosuit = Экокостюм бармена
 loadout-group-lawyer-envirohelm = Экошлем адвоката
 loadout-group-lawyer-envirosuit = Экокостюм адвоката
 loadout-group-lawyer-envirogloves = Экоперчатки адвоката
-# NanoTrasen Representative
-loadout-group-ntr-envirohelm = Экошлем представителя NanoTrasen
-loadout-group-ntr-envirosuit = Экокостюм представителя NanoTrasen
-loadout-group-ntr-envirogloves = Экоперчатки представителя NanoTrasen
+# Black Mesa Representative
+loadout-group-ntr-envirohelm = Экошлем представителя Black Mesa
+loadout-group-ntr-envirosuit = Экокостюм представителя Black Mesa
+loadout-group-ntr-envirogloves = Экоперчатки представителя Black Mesa
 loadout-group-ntr-gloves = ПNT, перчатки
 # Blueshield Officer
 loadout-group-bso-envirohelm = Экошлем офицера синего щита

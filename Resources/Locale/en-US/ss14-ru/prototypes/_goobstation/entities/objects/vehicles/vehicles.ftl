@@ -18,4 +18,4 @@ ent-VehicleHoverchair = hoverchair
 ent-VehicleForkliftOverlay = forklift overlay
     .desc = { "" }
 ent-VehicleForklift = forklift
-    .desc = NanoTrasen approved Forklift Certification required.
+    .desc = Black Mesa approved Forklift Certification required.

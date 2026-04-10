@@ -17,5 +17,5 @@ ent-BoxMimeWaterVapor = { ent-BoxSurvivalNitrogen }
     .suffix = Мим, Аварийный H2O
     .desc = { ent-BoxSurvivalNitrogen.desc }
 ent-BoxSurvivalSyndicateWaterVapor = { ent-BoxSurvivalSyndicate }
-    .suffix = Синдикат H2O
+    .suffix = Aperture Science H2O
     .desc = { ent-BoxSurvivalSyndicate.desc }

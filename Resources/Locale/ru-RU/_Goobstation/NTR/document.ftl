@@ -2,7 +2,7 @@
 # service
 ntr-document-service-starting-text1 = [color=#b8972d]███[/color][color=#1d7a1d]░███░░░░██░░░░[/color][color=#b8972d]                          ★ ★ ★[/color][color=#1d7a1d]
     ░██░████░░░██░░░░           [head=3]Бланк документа[/head]
-    ░░█░██░██░░██░█░░                   [head=3]NanoTrasen[/head]
+    ░░█░██░██░░██░█░░                   [head=3]Black Mesa[/head]
     ░░░░██░░██░██░██░                        [bold]ЦК-СРВ[/bold]
     ░░░░██░░░████░[/color][color=#b8972d]███[/color][color=#b8972d]                          ★ ★ ★[/color]
     ==================================================[bold]
@@ -10,7 +10,7 @@ ntr-document-service-starting-text1 = [color=#b8972d]███[/color][color=#1d
 # security
 ntr-document-security-starting-text1 = [color=#b8972d]███[/color][color=#1d7a1d]░███░░░░██░░░░[/color][color=#b8972d]                          ★ ★ ★[/color][color=#1d7a1d]
     ░██░████░░░██░░░░           [head=3]Бланк документа[/head]
-    ░░█░██░██░░██░█░░                   [head=3]NanoTrasen[/head]
+    ░░█░██░██░░██░█░░                   [head=3]Black Mesa[/head]
     ░░░░██░░██░██░██░                        [bold]ЦК-СБ[/bold]
     ░░░░██░░░████░[/color][color=#b8972d]███[/color][color=#b8972d]                          ★ ★ ★[/color]
     ==================================================[bold]
@@ -18,7 +18,7 @@ ntr-document-security-starting-text1 = [color=#b8972d]███[/color][color=#1
 # cargo
 ntr-document-cargo-starting-text1 = [color=#b8972d]███[/color][color=#1d7a1d]░███░░░░██░░░░[/color][color=#b8972d]                          ★ ★ ★[/color][color=#1d7a1d]
     ░██░████░░░██░░░░           [head=3]Бланк документа[/head]
-    ░░█░██░██░░██░█░░                   [head=3]NanoTrasen[/head]
+    ░░█░██░██░░██░█░░                   [head=3]Black Mesa[/head]
     ░░░░██░░██░██░██░                        [bold]ЦК-СНБ[/bold]
     ░░░░██░░░████░[/color][color=#b8972d]███[/color][color=#b8972d]                          ★ ★ ★[/color]
     ==================================================[bold]
@@ -26,7 +26,7 @@ ntr-document-cargo-starting-text1 = [color=#b8972d]███[/color][color=#1d7a
 # medical
 ntr-document-medical-starting-text1 = [color=#b8972d]███[/color][color=#1d7a1d]░███░░░░██░░░░[/color][color=#b8972d]                          ★ ★ ★[/color][color=#1d7a1d]
     ░██░████░░░██░░░░           [head=3]Бланк документа[/head]
-    ░░█░██░██░░██░█░░                   [head=3]NanoTrasen[/head]
+    ░░█░██░██░░██░█░░                   [head=3]Black Mesa[/head]
     ░░░░██░░██░██░██░                        [bold]ЦК-МЕД[/bold]
     ░░░░██░░░████░[/color][color=#b8972d]███[/color][color=#b8972d]                          ★ ★ ★[/color]
     ==================================================[bold]
@@ -34,7 +34,7 @@ ntr-document-medical-starting-text1 = [color=#b8972d]███[/color][color=#1d
 # engineering
 ntr-document-engineering-starting-text1 = [color=#b8972d]███[/color][color=#1d7a1d]░███░░░░██░░░░[/color][color=#b8972d]                          ★ ★ ★[/color][color=#1d7a1d]
     ░██░████░░░██░░░░           [head=3]Бланк документа[/head]
-    ░░█░██░██░░██░█░░                   [head=3]NanoTrasen[/head]
+    ░░█░██░██░░██░█░░                   [head=3]Black Mesa[/head]
     ░░░░██░░██░██░██░                        [bold]ЦК-ИНЖ[/bold]
     ░░░░██░░░████░[/color][color=#b8972d]███[/color][color=#b8972d]                          ★ ★ ★[/color]
     ==================================================[bold]
@@ -42,19 +42,19 @@ ntr-document-engineering-starting-text1 = [color=#b8972d]███[/color][color
 # science
 ntr-document-science-starting-text1 = [color=#b8972d]███[/color][color=#1d7a1d]░███░░░░██░░░░[/color][color=#b8972d]                          ★ ★ ★[/color][color=#1d7a1d]
     ░██░████░░░██░░░░           [head=3]Бланк документа[/head]
-    ░░█░██░██░░██░█░░                   [head=3]NanoTrasen[/head]
+    ░░█░██░██░░██░█░░                   [head=3]Black Mesa[/head]
     ░░░░██░░██░██░██░                        [bold]ЦК-НИО[/bold]
     ░░░░██░░░████░[/color][color=#b8972d]███[/color][color=#b8972d]                          ★ ★ ★[/color]
     ==================================================[bold]
     Время от начала смены: { $date }
 ntr-document-service-document-text =
     { $start }
-    NanoTrasen хочет, чтобы вы знали, что вы не { $text1 } { $text2 }
-    NanoTrasen будет удовлетворена, если вы { $text3 }
+    Black Mesa хочет, чтобы вы знали, что вы не { $text1 } { $text2 }
+    Black Mesa будет удовлетворена, если вы { $text3 }
     Подписи ниже подтверждают, что { $text4 }
 ntr-document-security-document-text =
     { $start }
-    NanoTrasen хочет, чтобы вы проверили некоторые вещи перед тем, как поставить печать, убедитесь, что { $text1 } { $text2 }
+    Black Mesa хочет, чтобы вы проверили некоторые вещи перед тем, как поставить печать, убедитесь, что { $text1 } { $text2 }
     { $text3 }
     { $text4 }
 ntr-document-cargo-document-text =

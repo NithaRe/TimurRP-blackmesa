@@ -163013,7 +163013,7 @@ entities:
       pos: 33.5,141.5
       parent: 1
     - type: WarpPoint
-      location: Центральное Командование
+      location: Командование Комплекса
 - proto: WarpPointBombing
   entities:
   - uid: 22131

@@ -19,7 +19,7 @@ patron-support-window-tier3-perk1 = = Всё за предыдущий уров�
 patron-support-window-tier3-perk2 = • 🟡 Синий цвет ника в OOC
 patron-support-window-tier3-perk3 = • 🎬 Уникальная тема призрака
 patron-support-window-tier3-perk4 = • 🔓 Вход на заполненый сервер без очереди
-patron-support-window-tier4-name = 🩸 Синдикат (1000RUB/месяц)
+patron-support-window-tier4-name = 🩸 Aperture Science (1000RUB/месяц)
 patron-support-window-tier4-perk1 = = Всё за предыдущий уровень
 patron-support-window-tier4-perk2 = • 🟡 Красный цвет ника в OOC
 patron-support-window-tier4-perk3 = • 🎬 Уникальная тема призрака

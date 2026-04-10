@@ -255,7 +255,7 @@ ghost-role-information-hellspawn-description = Bring death to those who do not f
 # Goob Station - Deathsquad Revamp
 
 ghost-role-information-Death-Squad-name = Death Squad Operative
-ghost-role-information-Death-Squad-description = We need the Nanotrasen Representative alive to tell us what happened. The rest? Well... they're witnesses.
+ghost-role-information-Death-Squad-description = We need the Black Mesa Representative alive to tell us what happened. The rest? Well... they're witnesses.
 ghost-role-information-Death-Squad-rules = Your objectives are simple: [color=red][bold]Terminate[/bold][/color] everyone who isn't Central Command staff. Executive orders may change this.
 
 ghost-role-information-SyndiCat-name = SyndiCat

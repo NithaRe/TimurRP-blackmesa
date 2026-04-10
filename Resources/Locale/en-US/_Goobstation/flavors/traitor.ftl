@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 traitor-arcterrorist-intro = You are the ARC terrorist.
-traitor-arcterrorist-goal = The creatures of this world must be freed from the iron grasp of Nanotrasen, and you are their only hope!
+traitor-arcterrorist-goal = The creatures of this world must be freed from the iron grasp of Black Mesa, and you are their only hope!
 traitor-arcterrorist-allies = You may cooperate with other syndicate agents if you support our cause. Maybe you can convince the Bee Liberation Front agents to cooperate for once?
 traitor-arcterrorist-uplink = The Syndicate have graciously given one of their uplinks for your task.
 traitor-arcterrorist-roundend = [color=green]an activist from the Animal Rights Consortium[/color]
@@ -65,7 +65,7 @@ traitor-wafflecorporation-uplink = You have been provided with a syndicate uplin
 traitor-wafflecorporation-roundend = [color=orange]an employee from Waffle Corporation[/color]
 
 traitor-wafflecorporationterrorist-intro = You are the Waffle Corporation terrorist.
-traitor-wafflecorporationterrorist-goal = Our investors need a demonstration of our pledge to destroying Nanotrasen. Let's give them a loud one!
+traitor-wafflecorporationterrorist-goal = Our investors need a demonstration of our pledge to destroying Black Mesa. Let's give them a loud one!
 traitor-wafflecorporationterrorist-allies = Most other syndicate agents are not to be trusted, except for members of the Gorlex Marauders.
 traitor-wafflecorporationterrorist-uplink = You have been provided with a syndicate uplink to accomplish your task.
 traitor-wafflecorporationterrorist-roundend = [color=red]a terrorist from Waffle Corporation[/color]
@@ -77,7 +77,7 @@ traitor-neulithivfederationvisionary-uplink = The federation has granted you an 
 traitor-neulithivfederationvisionary-roundend = [color=violet]a Federation Visionary[/color]
 
 traitor-postal-intro = You have Gone Postal.
-traitor-postal-goal = The preparations are finally complete. Today is the day you go postal. You're going to hijack the emergency shuttle and live a new life free of Nanotrasen.
+traitor-postal-goal = The preparations are finally complete. Today is the day you go postal. You're going to hijack the emergency shuttle and live a new life free of Black Mesa.
 traitor-postal-allies = If the syndicate learns of your plan, they're going to kill you and take your uplink. Take no chances.
 traitor-postal-uplink = You've actually managed to steal a full uplink a month ago. This should certainly help accomplish your goals.
 traitor-postal-roundend = [color=white]simply going completely Postal[/color]
@@ -88,5 +88,5 @@ traitor-evilchampion-allies = Anyone who sees as you see, feels as you feel, may
 traitor-evilchampion-uplink = The Champions of Evil is well connected to the black market. Your uplink has been provided for utmost evil!
 traitor-evilchampion-roundend = [color=red]a Champion of Evil[/color]
 
-issuers-corporate-flavor-1 = NanoTrasen
+issuers-corporate-flavor-1 = Black Mesa
 issuers-corporate-flavor-2 = Central Command

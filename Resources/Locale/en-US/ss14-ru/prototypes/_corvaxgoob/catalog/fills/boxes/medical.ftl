@@ -1,6 +1,6 @@
 ent-BoxBodyBagBluespace = bluespace body bag box
     .desc = Contains body bags.
-ent-BoxBodyBagNanoTrasen = NanoTrasen body bag box
+ent-BoxBodyBagNanoTrasen = Black Mesa body bag box
     .desc = Contains body bags.
 ent-BoxBodyBagPrisoner = prisoner body bag box
     .desc = Contains body bags.

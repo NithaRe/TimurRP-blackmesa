@@ -58,5 +58,5 @@ ent-SyndiCdDisk = { ent-BaseSyndicateContraband }
     .desc = Берите диск!
 ent-JVNECdDiskNumber = CD "Числа"
     .desc = Вокруг тутового куста обезьяна гонялась за лаской...
-ent-JVNECdDiskSyndicate = CD "Синдикат"
-    .desc = 102.9 Синдикат радио
+ent-JVNECdDiskSyndicate = CD "Aperture Science"
+    .desc = 102.9 Aperture Science радио

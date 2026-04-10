@@ -11,17 +11,17 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-ghost-role-information-nukie-reinforcement-name = Ядерный Оперативник
-ghost-role-information-nukie-reinforcement-description = Ядерным оперативникам требуется подкрепление. Вы — агент подкрепления, который им поможет.
+ghost-role-information-nukie-reinforcement-name = Оперативник HECU
+ghost-role-information-nukie-reinforcement-description = Оперативникам HECU требуется подкрепление. Вы — агент подкрепления, который им поможет.
 ghost-role-information-nukie-reinforcement-rules = Вы — [color=red][bold]командный антагонист[/bold][/color], помогайте оперативникам, которые вас вызвали.
 ghost-role-information-SyndiRoach-name = СиндиМоль
-ghost-role-information-SyndiRoach-description = Вы — верный, обученный питомец ядерных оперативников с макробомбой. Служи хозяину самой до смерти!
+ghost-role-information-SyndiRoach-description = Вы — верный, обученный питомец Оперативников HECU с макробомбой. Служи хозяину самой до смерти!
 ghost-role-information-SyndiRoach-rules = Вы — [color=red][bold]командный антагонист[/bold][/color] с агентом, который тебя вызвал.
 ghost-role-information-skibidi-toilet-name = дать пизды ГМу
 ghost-role-information-skibidi-toilet-description = ...
 ghost-role-information-skibidi-toilet-rules = ...
 ghost-role-information-Hecu-name = Оперативник HECU
-ghost-role-information-Hecu-description = Центральное Командование поручило задание.
+ghost-role-information-Hecu-description = Командование Комплекса поручило задание.
 ghost-role-information-Hecu-rules = Вы обязаны выполнять приказы своего начальника, фактически являясь его [color=#6495ed][bold]личным агентом[/bold][/color].
 ghost-role-information-lootbug-name = Жук-сборщик
 ghost-role-information-lootbug-description = Постарайтесь не стать жертвой грейтайдов.
@@ -33,19 +33,19 @@ ghost-role-information-huborg-name = Урист МакБорг
 ghost-role-information-huborg-description = Вы отвратительный борг.
 ghost-role-information-c4-name = Композиция C-4
 ghost-role-information-c4-description = Помогайте своему пользователю взрывать вещи.
-ghost-role-information-derelict-cyborg-syndicate-name = Заброшенный борг Синдиката
+ghost-role-information-derelict-cyborg-syndicate-name = Заброшенный борг Aperture Science
 ghost-role-information-derelict-cyborg-syndicate-description = Вы потерялись во время штурма станции. После долгих лет под воздействием ионных бурь оказались рядом со станцией.
 ghost-role-information-navy-captain-name = Капитан ВМС
 ghost-role-information-navy-captain-description = Секретно.
 ghost-role-information-navy-captain-rules = Вы ни перед кем не в ответе.
 ghost-role-information-special-operations-officer-name = Офицер Спецопераций
-ghost-role-information-special-operations-officer-description = Отправляйте, инструктируйте и управляйте отрядами быстрого реагирования и другими силами NanoTrasen.
-ghost-role-information-special-operations-officer-rules = Доставьте представителя NanoTrasen живым, остальные — цифра в статистике. Приказы [color=#yellow][bold]Капитана ВМС[/bold][/color] могут изменить это.
+ghost-role-information-special-operations-officer-description = Отправляйте, инструктируйте и управляйте отрядами быстрого реагирования и другими силами Black Mesa.
+ghost-role-information-special-operations-officer-rules = Доставьте представителя Black Mesa живым, остальные — цифра в статистике. Приказы [color=#yellow][bold]Капитана ВМС[/bold][/color] могут изменить это.
 ghost-role-information-navy-officer-name = Офицер ВМС
 ghost-role-information-navy-officer-description = Отвечайте на факсы и радиосообщения Центрального Командования. Проводите расследования над станцией и её экипажем.
 ghost-role-information-navy-officer-rules = Следуйте приказам [color=#yellow][bold]Капитана ВМС[/bold][/color]. При его отсутствии принимайте решения самостоятельно.
 ghost-role-information-navy-officer-undercover-name = Офицер ВМС под прикрытием
-ghost-role-information-navy-officer-undercover-description = Выполняйте задачи и ликвидируйте назначенные цели. Слава NanoTrasen!
+ghost-role-information-navy-officer-undercover-description = Выполняйте задачи и ликвидируйте назначенные цели. Слава Black Mesa!
 ghost-role-information-navy-officer-undercover-rules = Следуйте приказам [color=#yellow][bold]Капитана ВМС[/bold][/color] или другого представителя Центрального Командования.
 ghost-role-information-diplomat-name = Дипломат Центрального Командования
 ghost-role-information-diplomat-description = Представляй интересы Центрального Командования, управляй отношениями с другими фракциями на станции. Устраняй проблемы, вызванные Капитаном.
@@ -61,23 +61,23 @@ ghost-role-information-trevor-description = Боевой конь Службы �
 
 ghost-role-information-Gman-name = G-Man
 ghost-role-information-Gman-description = Правильный человек в неправильном месте может изменить весь мир.
-ghost-role-information-Gman-rules = Вы не подчиняешься никаким правилам или ограничениям. Смерть не властна над вами, как и NanoTrasen.
+ghost-role-information-Gman-rules = Вы не подчиняешься никаким правилам или ограничениям. Смерть не властна над вами, как и Black Mesa.
 
 # Blueshild Deputy
 
 ghost-role-information-bsd-name = Представитель Синего Щита
-ghost-role-information-bsd-description = Вас вызвал на станцию Представитель NanoTrasen. Подчиняйтесь ему, защищайте командование, следуйте Корпоративному Закону.
-ghost-role-information-bsd-rules = Следуйте приказам, данными вам [color=yellow][bold]Представителем NanoTrasen[/bold][/color], защищайте командование.
+ghost-role-information-bsd-description = Вас вызвал на станцию Представитель Black Mesa. Подчиняйтесь ему, защищайте командование, следуйте Корпоративному Закону.
+ghost-role-information-bsd-rules = Следуйте приказам, данными вам [color=yellow][bold]Представителем Black Mesa[/bold][/color], защищайте командование.
 # interns
 ghost-role-intern-name = Стажёр ЦентКом
 ghost-role-nerd-intern-name = Нёрд стажёр ЦентКом
 ghost-role-lead-intern-name = Глава стажёров ЦентКом
 ghost-role-intern-desc = Вы — стажёр ЦентКом, плохо оплачиваемый, голодный, с большой студенческой задолженностью, но других вариантов нет, так что лучше слушайтесь!
-ghost-role-intern-rules = Следуйте приказам, данными вами [color=yellow][bold]Представителем NanoTrasen[/bold][/color] и ЦК. Защищайте командование, слушайтесь Главу стажёров.
-ghost-role-lead-intern-rules = Следуйте приказам, данными вами [color=yellow][bold]Представителем NanoTrasen[/bold][/color] и ЦК. Защищай командование, отдавайте приказы другим стажёрам.
+ghost-role-intern-rules = Следуйте приказам, данными вами [color=yellow][bold]Представителем Black Mesa[/bold][/color] и ЦК. Защищайте командование, слушайтесь Главу стажёров.
+ghost-role-lead-intern-rules = Следуйте приказам, данными вами [color=yellow][bold]Представителем Black Mesa[/bold][/color] и ЦК. Защищай командование, отдавайте приказы другим стажёрам.
 # cargo bingle
 ghost-role-cargo-bingle-name = Бингл снабжения
-ghost-role-cargo-bingle-desc = Служите Представителю Nanotrasen и его интересам, не причиняйте вред членам экипажа, помогайте отделу снабжения и станции.
+ghost-role-cargo-bingle-desc = Служите Представителю Black Mesa и его интересам, не причиняйте вред членам экипажа, помогайте отделу снабжения и станции.
 
 # shuttle roles
 
@@ -139,15 +139,15 @@ ghost-role-information-Singuloth-Knight-description = Некогда ведущ�
 Singuloth-Knight-role-greeting = Вы — [color=#880808]Рыцарь Сингулота[/color], преданный последователь Лорда Сингулота. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
 objective-issuer-lord-singuloth = [color=#320022]Лорд Сингулот[/color]
 ghost-role-information-dark-lord-name = Тёмный лорд
-ghost-role-information-dark-lord-description = Агент Синдиката в образе лорда. Используйте свою силу и энергетический меч для выполнения целей.
-dark-lord-role-greeting = Вы — [color=#880808]Тёмный лорд[/color], посланный Синдикатом на эту станцию для выполнения их грязной работёнки. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
+ghost-role-information-dark-lord-description = Агент Aperture Science в образе лорда. Используйте свою силу и энергетический меч для выполнения целей.
+dark-lord-role-greeting = Вы — [color=#880808]Тёмный лорд[/color], посланный Aperture Science на эту станцию для выполнения их грязной работёнки. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
 ghost-role-information-chosen-one-name = Избранный
-ghost-role-information-chosen-one-description = Особый агент, отправленный NanoTrasen на станцию, чтобы противостоять Тёмному лорду.
+ghost-role-information-chosen-one-description = Особый агент, отправленный Black Mesa на станцию, чтобы противостоять Тёмному лорду.
 chosen-one-role-greeting = Вы — [color=#0087FF]Избранный[/color]. Вы были отправлены на станцию для победы над Тёмным лордом. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
 objective-condition-dark-lord-kill-title = Убедитесь, что Тёмный лорд { $targetName } пал.
 ghost-role-information-mime-Assassin-name = Ассамим
 ghost-role-information-mime-Assassin-description = Ассасин, облачённый в одежду мима, предпочитающий тихие убийства. Как его зовут? Вероятно, он вам не скажет. Типа... он же мим.
-mime-Assassin-role-greeting = Вы — [color=#880808]Ассамим[/color], отправленный Синдикатом на станцию, чтобы устранить некоторых членов командования. Синдикат снабдил вас инструментами, чтобы сделать это максимально ти-и-ихо... Ознакомьтесь с панелью персонажа, чтобы узнать свои цели и не позвольте вас поймать.
+mime-Assassin-role-greeting = Вы — [color=#880808]Ассамим[/color], отправленный Aperture Science на станцию, чтобы устранить некоторых членов командования. Aperture Science снабдил вас инструментами, чтобы сделать это максимально ти-и-ихо... Ознакомьтесь с панелью персонажа, чтобы узнать свои цели и не позвольте вас поймать.
 ghost-role-information-dark-priest-name = Тёмный жрец
 ghost-role-information-dark-priest-description = Агент тёмных богов, посланный чтобы убить кого-то, защитить кого-то и посвятить кого-то в ученики, кто пробудил интерес богов. Имеет "благословение жреца".
 dark-priest-role-greeting = Вы — [color=#880808]Тёмный жрец[/color], посланный на эту станцию, чтобы выбрать ученика, убить одного и защитить другого. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
@@ -166,7 +166,7 @@ ghost-role-information-sentientanimal-rules =
     Вы не помните ничего из своей прошлой жизни, и не помните ничего, что могли увидеть в виде призрака.
     Вам разрешено помнить общие знания об игре. Например, как готовить, использовать предметы и т.п.
     Вам категорически [color=red]ЗАПРЕЩЕНО[/color] помнить имя, внешний вид, и прочее своего прошлого персонажа.
-ghost-role-information-contractor-name = Наёмник Синдиката
-ghost-role-information-contractor-token = Наёмник Синдиката (Токен)
+ghost-role-information-contractor-name = Наёмник Aperture Science
+ghost-role-information-contractor-token = Наёмник Aperture Science (Токен)
 ghost-role-information-contractor-description = Берите... пассажира?..
-contractor-role-greeting = Вы — [color=#611b2b]Наёмник Синдиката[/color], охотник за головами. Вам необходимо похитить цель со станции, живой или мёртвой.
+contractor-role-greeting = Вы — [color=#611b2b]Наёмник Aperture Science[/color], охотник за головами. Вам необходимо похитить цель со станции, живой или мёртвой.

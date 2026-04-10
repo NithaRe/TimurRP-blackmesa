@@ -1,7 +1,7 @@
 station-report-text =
     {"["}color=#1b67a5]░░██░░ [head=2]Offical Document[/head]
     ▀████▀ [head=3]Subject: Station Report[/head]
-    ▄█▀▀█▄ [head=3]Reviewer: NanoTrasen Representative[/head]
+    ▄█▀▀█▄ [head=3]Reviewer: Black Mesa Representative[/head]
     {"["}/color]──────────────────────────────────────────
     • [color=#9fed58][bold]General Report[/bold][/color]
     >[mono][/mono]
@@ -15,4 +15,4 @@ station-report-text =
     >[mono][/mono]
     • [color=#c96dbf][bold]Research Department Report[/bold][/color]
     >[mono][/mono]
-    Signed by: [color=Green]Nanotrasen Representative name here[/color]
+    Signed by: [color=Green]Black Mesa Representative name here[/color]

@@ -1,5 +1,5 @@
-marking-TattooNanotrasenChest-tattoo_nanotrasen_chest = Chest Tattoo (Nanotrasen)
-marking-TattooNanotrasenChest = Chest Tattoo (Nanotrasen)
+marking-TattooNanotrasenChest-tattoo_nanotrasen_chest = Chest Tattoo (Black Mesa)
+marking-TattooNanotrasenChest = Chest Tattoo (Black Mesa)
 
 marking-TattooLoops-tattoo_loops = Loops
 marking-TattooLoops = Loops

@@ -18,5 +18,5 @@ gemini-projector-reboot-verb-text = Перекалибровать личнос�
 ghost-role-information-gemini-clone-name = Голограмма Близнеца
 ghost-role-information-gemini-clone-description = Помогайте научному руководителю во всех его задачах. Может быть, сожгите пару городов, если он попросит.
 ghost-role-information-monozygotic-clone-name = Заготная голограмма
-ghost-role-information-monozygotic-clone-description = Помогай центральному командованию в выполнении любых задач.
+ghost-role-information-monozygotic-clone-description = Помогай Командованию Комплекса в выполнении любых задач.
 monozygotic-projector-clone-name-suffix = - Зигота

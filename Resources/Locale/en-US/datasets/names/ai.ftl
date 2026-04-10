@@ -114,7 +114,7 @@ names-ai-dataset-76 = Mugsy3000
 names-ai-dataset-77 = Multivac
 names-ai-dataset-78 = NCH
 
-# A play on both NT as in NanoTrasen and NT as in windows NT, of which version 6.0 is windows vista
+# A play on both NT as in Black Mesa and NT as in windows NT, of which version 6.0 is windows vista
 names-ai-dataset-79 = NT v6.0
 
 names-ai-dataset-80 = Packard Bell

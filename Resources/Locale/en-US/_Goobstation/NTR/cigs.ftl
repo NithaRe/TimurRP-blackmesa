@@ -1,6 +1,6 @@
 advertisement-cigs-deluxe-1 = SMOKE KING FILTERS!!
 advertisement-cigs-deluxe-2 = LIGHT UP LUCKY STRIKES!!
-advertisement-cigs-deluxe-3 = NANOTRASEN SATISFACTION!
+advertisement-cigs-deluxe-3 = Black Mesa SATISFACTION!
 advertisement-cigs-deluxe-4 = PALL MALL PLEASURE!!
 advertisement-cigs-deluxe-5 = GET YOUR NANOLBORO BLUES!!
 advertisement-cigs-deluxe-6 = SPACE CAMEL FILTERS ARE HERE!!

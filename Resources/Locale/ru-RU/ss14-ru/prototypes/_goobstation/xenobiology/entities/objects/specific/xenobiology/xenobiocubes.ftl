@@ -1,10 +1,10 @@
 ent-SlimeCubeBox = коробка кубиков слаймов
     .desc = Кубики слаймов фирмы Drymate. Просто добавь воды!
-ent-SlimeCubeBoxSyndie = коробка кубиков слаймов Синдиката
+ent-SlimeCubeBoxSyndie = коробка кубиков слаймов Aperture Science
     .desc = Кубики слаймов фирмы Interdyne. Просто добавь воды!
 ent-SlimeCubeWrapped = кубик слайма
     .desc = Разверните его, чтобы получить кубик слайма.
-ent-SlimeCubeWrappedSyndie = кубик слайма Синдиката
+ent-SlimeCubeWrappedSyndie = кубик слайма Aperture Science
     .desc = Разверните его, чтобы получить кубик слайма.
 ent-SlimeCube = слаймовый кубик
     .desc = { ent-RehydratableAnimalCube.desc }
