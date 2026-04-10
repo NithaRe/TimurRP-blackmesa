@@ -65,8 +65,6 @@ namespace Content.Shared.Movement.Systems
     {
         public bool CameraRotationLocked { get; set; }
 
-        public static ProtoId<AlertPrototype> WalkingAlert = "Walking";
-
         private void InitializeInput()
         {
             var moveUpCmdHandler = new MoverDirInputCmdHandler(this, Direction.North);

@@ -266,8 +266,8 @@
   - type: IgnoreSkills # CorvaxGoob-Skills
   # Corvax-Goob-start
   - type: MovementSpeedModifier
-    baseSprintSpeed: 30
-    baseWalkSpeed: 12
+    baseSprintSpeed: 16
+    baseWalkSpeed: 8
   # Corvax-Goob-end
   - type: OwnInteractionVerbs
     allowedVerbs: []
