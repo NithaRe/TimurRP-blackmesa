@@ -1,0 +1,39 @@
+- type: entity
+  id: PortalMachine
+  parent: BaseMachine
+  name: экспериментальный портал Black Mesa
+  description: Наш специальный портал. Цель всей станции.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/gateway.rsi
+    noRot: true
+    layers:
+    - state: frame
+    - state: portal
+      shader: unshaded
+      map: ["portal"]
+      visible: false
+    - state: on
+      shader: unshaded
+      map: ["powered"]
+      visible: false
+
+  - type: Machine
+    board: PortalMachineBoard
+
+  - type: Construction
+    graph: Machine
+    node: machine
+
+  - type: Anchorable
+  - type: Pullable
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        powered:
+          True: { visible: true }
+          False: { visible: false }
+        portal:
+          True: { visible: true }
+          False: { visible: false }
