@@ -1,3 +1,3 @@
 ent-ClosetCursed = closet
-    .desc = A standard-issue Nanotrasen storage unit.
+    .desc = A standard-issue Black Mesa storage unit.
     .suffix = cursed

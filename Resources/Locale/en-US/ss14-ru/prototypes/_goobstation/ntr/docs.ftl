@@ -1,5 +1,5 @@
 ent-CorporateDocument = Corporate Document
-    .desc = An official NanoTrasen document. Looks like a ton of spam, as always.
+    .desc = An official Black Mesa document. Looks like a ton of spam, as always.
 ent-ServiceDocument = { ent-CorporateDocument }
     .desc = { ent-CorporateDocument.desc }
 ent-SecurityDocument = { ent-CorporateDocument }

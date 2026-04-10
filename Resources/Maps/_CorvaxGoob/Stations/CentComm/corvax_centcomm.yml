@@ -88588,7 +88588,7 @@ entities:
       pos: 11.5,49.5
       parent: 1
     - type: WarpPoint
-      location: Факс Синдиката
+      location: Факс Aperture Science
     missingComponents:
     - WizardTeleportWarpPoint
   - uid: 11396

@@ -1,6 +1,6 @@
 ent-CentcomAgentSkirt = centcom agent skirt
     .desc = A skirt worn by CentComs legal team. Smells of burnt coffee.
-ent-ClothingUniformJumpskirtNanotrasenRepresentative = nanotrasen representative skirt
+ent-ClothingUniformJumpskirtNanotrasenRepresentative = Black Mesa representative skirt
     .desc = A black skirt worn by officials.
 ent-ClothingUniformJumpskirtBlueshieldOfficer = blueshield officer jumpskirt
     .desc = A short-sleeved grey and blue jumpskirt, made out of a sturdy material. Blueshield standard issue.
@@ -9,6 +9,6 @@ ent-ClothingUniformSkirtMailCarrier = mail carrier's jumpskirt
 ent-ClothingUniformJumpskirtReporter = reporter's dress
     .desc = An extravagant black dress designed to catch the attention of as many people as possible.
 ent-ClothingUniformJumpskirtTrainer = NCT Jumpskirt
-    .desc = A jumpskirt issued to Nanotrasen Career Trainers. Fills you with a feeling of pride.
+    .desc = A jumpskirt issued to Black Mesa Career Trainers. Fills you with a feeling of pride.
 ent-ClothingUniformJumpskirtCommandMaid = command maid uniform
     .desc = A stylish maid uniform specially designed for elite Command Maids. Combines professionalism with a touch of elegance.

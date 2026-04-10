@@ -1,7 +1,7 @@
 ent-Soap = soap
     .desc = A cheap bar of soap. Doesn't smell.
 ent-SoapNT = soap
-    .desc = A Nanotrasen brand bar of soap. Smells of plasma.
+    .desc = A Black Mesa brand bar of soap. Smells of plasma.
 ent-SoapDeluxe = soap
     .desc = A deluxe Waffle Co. brand bar of soap. Smells of strawberries.
 ent-SoapSyndie = soap
@@ -13,4 +13,4 @@ ent-SoapHomemade = soap
 ent-SoapOmega = omega soap
     .desc = The most advanced soap known to mankind. Smells of bluespace.
 ent-SoapBorg = soap
-    .desc = A Nanotrasen brand bar of soap. Smells of plasma and machines.
+    .desc = A Black Mesa brand bar of soap. Smells of plasma and machines.

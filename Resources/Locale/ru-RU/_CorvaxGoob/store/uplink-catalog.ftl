@@ -2,7 +2,7 @@ uplink-syndicate-capture-device-scd-name = Захватное устройств
 uplink-syndicate-capture-device-scd-desc = Пусковое устройство захвата, выпускающее привязанную головку, утягивающую и шокирующую цель. Стоит отпустить обе руки - и захват втягивается обратно.
 uplink-cat-maid-bundle-name = Набор кошко-горничных
 uplink-cat-maid-bundle-desc = OwO UwU :3 Няяяя~
-uplink-omnimed-tool-syndie-name = Хирургический мультитул Синдиката
+uplink-omnimed-tool-syndie-name = Хирургический мультитул Aperture Science
 uplink-omnimed-tool-syndie-desc = Компактный хирургический инструмент, удобно упакованный, как швейцарский армейский нож, за исключением того, что его пользователю, вероятно, нужно будет нарушить несколько швейцарских конвенций. Может выполнять хирургические операции через одежду.
 
 uplink-appearance-converter-name = Преобразователь внешности

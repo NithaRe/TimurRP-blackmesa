@@ -9,7 +9,7 @@
 
 job-name-futureagent = агент будущего
 job-name-salvagediver = спасатель
-job-name-ntr = представитель NanoTrasen
+job-name-ntr = представитель Black Mesa
 job-name-bs = офицер Синего Щита
 job-name-overall = общее
 job-name-tider = грейтайд
@@ -22,14 +22,14 @@ job-name-navyofficer = офицер ЦК
 job-name-navy-captain = капитан ВКФ
 job-name-navy-officer-undercover = офицер под прикрытием
 job-name-navycaptain = капитан ВКФ
-job-name-diplomat = дипломат NanoTrasen
+job-name-diplomat = дипломат Black Mesa
 job-name-inspector = инспектор ЦК
 job-name-nct = наставник ЦК
 job-name-special-operations-officer = офицер спецопераций
 
 # Syndicate
 
-job-name-highcommander = Офицер Синдиката
+job-name-highcommander = Офицер Aperture Science
 
 # Half Life
 
@@ -45,13 +45,13 @@ job-name-mercenarycaptain = капитан Наёмников
 # Role timers - Make these alphabetical or I cut you (dont listen to upstream, i copied and pasted this, make it very un-alphabetical :godo:)
 
 JobBlueshieldOfficer = офицер Синего Щита
-JobNanotrasenRepresentative = представитель NanoTrasen
+JobNanotrasenRepresentative = представитель Black Mesa
 JobNanotrasenCareerTrainer = наставник ЦК
 JobHecuOperative = агент HECU
 JobNavyOfficer = офицер ЦК
 JobNavyOfficerUndercover = офицер под прикрытием
 JobNavyCaptain = капитан ВКФ
-JobDiplomat = дипломат NanoTrasen
+JobDiplomat = дипломат Black Mesa
 JobRoboticist = робототехник
 JobGovernmentMan = G-Man
 JobRadioHost = радиоведущий

@@ -1,6 +1,6 @@
 ent-CardBaseSyndicate = карта
     .desc = { ent-CardBase.desc }
-ent-CardBoxSyndicate = коробка для колоды синдиката
+ent-CardBoxSyndicate = коробка для колоды Aperture Science
     .desc = { ent-CardBoxBase.desc }
 ent-CardDeckSyndicate = колода карт
     .desc = { ent-CardDeckBase.desc }

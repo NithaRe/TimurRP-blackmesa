@@ -18,8 +18,8 @@ rmc-ui-lobby-message-description = Displayed to players before the game starts.
   Make sure the message you choose doesn't break the rules.
   If you aren't sure, ask in AHelp! (F1)
 rmc-ui-shoutout = Round-end shoutout
-rmc-ui-shoutout-nt-title = Name to use for the round-end Nanotrasen shoutout.
-rmc-ui-shoutout-nt-description = Displayed at round end as "Nanotrasen funded by: " then your name.
+rmc-ui-shoutout-nt-title = Name to use for the round-end Black Mesa shoutout.
+rmc-ui-shoutout-nt-description = Displayed at round end as "Black Mesa funded by: " then your name.
 rmc-ui-shoutout-example = Example:
 rmc-ui-shoutout-info = Each name is randomly chosen between all the Patrons of this tier.
   Make sure the names you choose are in-character and don't break the rules.
@@ -29,7 +29,7 @@ rmc-ui-save = Save
 rmc-ui-ghost-color = Ghost Color
 rmc-ui-ghost-color-clear = Clear
 
-rmc-ui-shoutout-nt = [bold]Nanotrasen funded by: [color=green]{$name}[/color]![/bold]
+rmc-ui-shoutout-nt = [bold]Black Mesa funded by: [color=green]{$name}[/color]![/bold]
 
 rmc-ui-discord = Discord
 rmc-ui-patreon = Patreon

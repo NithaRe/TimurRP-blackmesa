@@ -1,5 +1,5 @@
 ent-BriefcaseSyndieDualettaBundleFilled = { ent-BriefcaseSyndie }
-    .suffix = Синдикат, комплект Дуалетта
+    .suffix = Aperture Science, комплект Дуалетта
     .desc = { ent-BriefcaseSyndie.desc }
 ent-BriefcaseCentcomm = { ent-BriefcaseBrown }
     .suffix = Адмем, НЕ МАППИТЬ

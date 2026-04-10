@@ -1,2 +1,2 @@
-ent-MobSyndicateSmuggler = контрабандист Синдиката
+ent-MobSyndicateSmuggler = контрабандист Aperture Science
     .desc = { ent-BaseMobHuman.desc }

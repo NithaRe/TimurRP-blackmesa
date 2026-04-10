@@ -52,4 +52,4 @@ ent-BarSignSpacebucks = Spacebucks
 ent-BarSignMaltroach = The Maltroach
     .desc = Squeak!
 ent-BarSignWhiskeyEchoes = Whiskey Echoes
-    .desc = An elite bar for elite oper-wait, this is a Nanotrasen station. Why's this sign in the database?
+    .desc = An elite bar for elite oper-wait, this is a Black Mesa station. Why's this sign in the database?

@@ -50,8 +50,8 @@ ghost-role-information-navy-captain-description = Classified.
 ghost-role-information-navy-captain-rules = You are beholden to no rules.
 
 ghost-role-information-special-operations-officer-name = Special Operations Officer
-ghost-role-information-special-operations-officer-description = Send, brief, and direct emergency response teams or other Nanotrasen forces. Release the nuclear codes, or don't.
-ghost-role-information-special-operations-officer-rules = Bring the Nanotrasen Representative in alive, the rest are just collateral. [color=#yellow][bold]Navy Captain[/bold][/color] orders may change this.
+ghost-role-information-special-operations-officer-description = Send, brief, and direct emergency response teams or other Black Mesa forces. Release the nuclear codes, or don't.
+ghost-role-information-special-operations-officer-rules = Bring the Black Mesa Representative in alive, the rest are just collateral. [color=#yellow][bold]Navy Captain[/bold][/color] orders may change this.
 
 ghost-role-information-navy-officer-name = Navy Officer
 ghost-role-information-navy-officer-description = Answer faxes and radio communications directed at Central Command. Perform investigations on the station and it's crew.
@@ -78,25 +78,25 @@ ghost-role-information-trevor-description = Securities trusted battle steed.
 
 ghost-role-information-Gman-name = The G-Man
 ghost-role-information-Gman-description = The right man in the wrong place can make all the difference in the world.
-ghost-role-information-Gman-rules = You are beholden to no rules or boundaries. Death cannot hold you, and neither can Nanotrasen.
+ghost-role-information-Gman-rules = You are beholden to no rules or boundaries. Death cannot hold you, and neither can Black Mesa.
 
 # Blueshild Deputy
 
 ghost-role-information-bsd-name = Blueshield Deputy
 ghost-role-information-bsd-description = You were called onto the station by the NTR, obey him, protect Command, follow the law.
-ghost-role-information-bsd-rules = Follow the orders given you by the [color=yellow][bold]NanoTrasen Representative[/bold][/color], protect command.
+ghost-role-information-bsd-rules = Follow the orders given you by the [color=yellow][bold]Black Mesa Representative[/bold][/color], protect command.
 
 # interns
 ghost-role-intern-name = CentComm intern
 ghost-role-nerd-intern-name = CentComm Nerd Intern
 ghost-role-lead-intern-name = CentComm Lead Intern
 ghost-role-intern-desc = You are a CentComm intern, you're underpaid, hungry, with a large student debt to pay off, but you have no other options so you better listen up!
-ghost-role-intern-rules = Follow the orders given you by the [color=yellow][bold]NanoTrasen Representative[/bold][/color] & CentComm, protect command, listen to the Lead intern.
-ghost-role-lead-intern-rules = Follow the orders given you by the [color=yellow][bold]NanoTrasen Representative[/bold][/color] & CentComm, protect command, give orders to other interns.
+ghost-role-intern-rules = Follow the orders given you by the [color=yellow][bold]Black Mesa Representative[/bold][/color] & CentComm, protect command, listen to the Lead intern.
+ghost-role-lead-intern-rules = Follow the orders given you by the [color=yellow][bold]Black Mesa Representative[/bold][/color] & CentComm, protect command, give orders to other interns.
 
 # cargo bingle
 ghost-role-cargo-bingle-name = Cargo bingle
-ghost-role-cargo-bingle-desc = Serve the Nanotrasen Representative and their interests, do not injure crew members, help cargo and the station.
+ghost-role-cargo-bingle-desc = Serve the Black Mesa Representative and their interests, do not injure crew members, help cargo and the station.
 
 # shuttle roles
 
@@ -171,7 +171,7 @@ ghost-role-information-dark-lord-description = A syndicate agent themed after a 
 dark-lord-role-greeting = You are a [color=#880808]Dark Lord[/color] sent by the syndicate to this station to do their dirty work, check your character sheet for your objectives.
 
 ghost-role-information-chosen-one-name = The Chosen One
-ghost-role-information-chosen-one-description = A special agent sent to the station by Nanotrasen to defeat a dark lord.
+ghost-role-information-chosen-one-description = A special agent sent to the station by Black Mesa to defeat a dark lord.
 chosen-one-role-greeting = You are the [color=#0087FF]Chosen One[/color], you have been sent to this station to defeat a Dark Lord sent by the syndicate, check your character sheet for your objectives.
 objective-condition-dark-lord-kill-title = Ensure Dark Lord {$targetName} dies.
 

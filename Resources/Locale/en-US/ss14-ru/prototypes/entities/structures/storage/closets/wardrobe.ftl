@@ -1,5 +1,5 @@
 ent-WardrobeBase = { ent-ClosetSteelBase }
-    .desc = It's a storage unit for standard-issue Nanotrasen attire.
+    .desc = It's a storage unit for standard-issue Black Mesa attire.
 ent-WardrobeBlue = blue wardrobe
     .desc = A wardrobe packed with stylish blue clothing.
 ent-WardrobePink = pink wardrobe
@@ -29,7 +29,7 @@ ent-WardrobeFormal = formal closet
 ent-ClosetChef = chef's closet
     .desc = It's a storage unit for foodservice garments and mouse traps.
 ent-WardrobeChapel = chaplain's wardrobe
-    .desc = It's a storage unit for Nanotrasen-approved religious attire.
+    .desc = It's a storage unit for NanoTrasenapproved religious attire.
 ent-ClosetLegal = legal closet
     .desc = It's a storage unit for courtroom apparel and items.
 ent-WardrobeCargo = cargo wardrobe

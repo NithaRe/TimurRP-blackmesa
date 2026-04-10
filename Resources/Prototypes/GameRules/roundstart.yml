@@ -252,14 +252,14 @@
   id: Nukeops
   components:
   - type: GameRule
-    minPlayers: 20
+    minPlayers: 15 # BlackM
   - type: LoadMapRule
     mapPath: /Maps/_Goobstation/Nonstations/nukieplanet.yml # goob edit
   - type: AntagSelection
     selectionTime: PrePlayerSpawn
     definitions:
     - prefRoles: [ NukeopsCommander ]
-      fallbackRoles: [ Nukeops, NukeopsMedic ]
+      fallbackRoles: [ Nukeops ]
       spawnerPrototype: SpawnPointNukeopsCommander
       startingGear: SyndicateCommanderGearFull
       unequipOldGear: true
@@ -279,31 +279,8 @@
         - Syndicate
       mindRoles:
       - MindRoleNukeopsCommander
-    - prefRoles: [ NukeopsMedic ]
-      fallbackRoles: [ Nukeops, NukeopsCommander ]
-      spawnerPrototype: SpawnPointNukeopsMedic
-      startingGear: SyndicateOperativeMedicFull
-      unequipOldGear: true
-      chaosScore: 300 # Goobstation
-      skills: # CorvaxGoob-Skills
-      - All
-      roleLoadout:
-      - RoleSurvivalNukie
-      components:
-      - type: NukeOperative
-      - type: RandomMetadata
-        nameSegments:
-        - NamesSyndicateNormal
-        nameFormat: name-format-nukie-agent
-      - type: NpcFactionMember
-        factions:
-        - Syndicate
-      - type: SurgerySpeedModifier # shitmed
-        speedModifier: 2
-      mindRoles:
-      - MindRoleNukeopsMedic
     - prefRoles: [ Nukeops ]
-      fallbackRoles: [ NukeopsCommander, NukeopsMedic ]
+      fallbackRoles: [ NukeopsCommander ]
       spawnerPrototype: SpawnPointNukeopsOperative
       max: 10 # Goobstation / 古布空间站 - 没有限制的核特工
       playerRatio: 16 # Goobstation
@@ -373,7 +350,7 @@
   id: Traitor
   components:
   - type: GameRule
-    minPlayers: 5
+    minPlayers: 5 # BlackM
   - type: AntagSelection
     selectionTime: IntraPlayerSpawn # Goobstation
     definitions:
@@ -397,7 +374,7 @@
   parent: BaseGameRule
   components:
   - type: GameRule
-    minPlayers: 15
+    minPlayers: 9999 # BlackM shitcode
     chaosScore: 1000 # Goobstation - intentionally not per-antag
   - type: RevolutionaryRule
   - type: AntagSelection
@@ -491,7 +468,7 @@
   parent: BaseGameRule
   components:
   - type: GameRule
-    minPlayers: 20
+    minPlayers: 9999 # BlackM shitcode
     delay:
       min: 600
       max: 900
@@ -534,7 +511,7 @@
   parent: BaseGameRule
   components:
   - type: GameRule
-    minPlayers: 5
+    minPlayers: 5 # BlackM
   - type: AntagSelection
     selectionTime: IntraPlayerSpawn # Pre-selection before jobs; assignment doesn't really matter though, we only care about the pre-selection to block other antags.
     removeUponFailedSpawn: false
@@ -618,7 +595,7 @@
   parent: BaseGameRule
   components:
   - type: GameRule # CorvaxGoob-GameRulesTweak
-    minPlayers: 30
+    minPlayers: 9999 # BlackM shitcode
   - type: RampingStationEventScheduler
     scheduledGameRules: !type:NestedSelector
       tableId: BasicGameRulesTable

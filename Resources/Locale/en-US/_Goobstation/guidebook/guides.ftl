@@ -71,7 +71,7 @@ guide-entry-sop-cargotech = Cargo Tech
 guide-entry-sop-salvage = Salvage Specialist
 guide-entry-sop-shaft-miner = Shaft Miner
 # - Command
-guide-entry-sop-ntr = Nanotrasen Rep.
+guide-entry-sop-ntr = Black Mesa Rep.
 guide-entry-sop-bso = Blueshield Officer
 guide-entry-sop-captain = Captain
 guide-entry-sop-hop = Head of Personnel

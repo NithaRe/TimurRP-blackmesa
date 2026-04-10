@@ -123,7 +123,7 @@ uplink-estoc-name = Estoc
 uplink-estoc-desc = A burst-fire designated marksman rifle fitted with an expensive tritium optic. Feeds from .20 Rifle magazines.
 
 uplink-syndicate-disabler-name = Syndicate Disabler
-uplink-syndicate-disabler-desc = A sleek disabler designed from a reverse-engineered NanoTrasen prototype. While it lacks stopping power, it makes up for it with a self-recharging cell.
+uplink-syndicate-disabler-desc = A sleek disabler designed from a reverse-engineered Black Mesa prototype. While it lacks stopping power, it makes up for it with a self-recharging cell.
 
 uplink-dualetta-bundle-name = Dualetta Bundle
 uplink-dualetta-bundle-desc = Comes with 2 Dualetta pistols, 2 machine pistol magazines, combat gloves, noir suit, detectives trenchcoat, and laceup shoes.

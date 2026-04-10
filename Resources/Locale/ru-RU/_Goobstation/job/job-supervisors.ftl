@@ -6,8 +6,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-job-supervisors-ntr-centcom = Представитель NanoTrasen
+job-supervisors-ntr-centcom = Представитель Black Mesa
 job-supervisors-commander = Капитан ВКФ
 job-supervisors-null = никто, кроме тебя самого.
-job-supervisor-syndicate = Представитель Синдиката
+job-supervisor-syndicate = Представитель Aperture Science
 job-supervisors-credits = Представитель Спинварда

@@ -338,7 +338,7 @@
     state: icon
   content:
   - EncryptionKeySyndie
-  - BetrayalKnife
+#  - BetrayalKnife
   - MiniatureEnergyCrossbow
   - ClothingUniformJumpsuitAtmosSyndieAdvanced
   - ClothingBackpackDuffelSyndicateStealthHardsuitBundle

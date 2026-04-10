@@ -1,9 +1,9 @@
 ent-BlankHandyFlag = пустой ручной флажок
     .desc = Кусок белой ткани, намотанный на палку.
-ent-NTHandyFlag = ручной флажок NanoTrasen
-    .desc = Слава NanoTrasen! Подождите, они реально сделали ручной флажок для корпорации?
-ent-SyndieHandyFlag = ручной флажок Синдиката
-    .desc = Для настоящих патриотов-бунтарей. Смерть NanoTrasen!
+ent-NTHandyFlag = ручной флажок Black Mesa
+    .desc = Слава Black Mesa! Подождите, они реально сделали ручной флажок для корпорации?
+ent-SyndieHandyFlag = ручной флажок Aperture Science
+    .desc = Для настоящих патриотов-бунтарей. Смерть Black Mesa!
 ent-LGBTQHandyFlag = разноцветный ручной флажок
     .desc = Кусок разноцветной ткани, намотанный на палку.
 ent-PirateHandyFlag = пиратский ручной флажок

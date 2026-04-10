@@ -105,8 +105,8 @@ marking-UndershirtDefaultA-undershirt = Undershirt
 marking-UndershirtGrossSleevelessA = Tanktop (Gross)
 marking-UndershirtGrossSleevelessA-grosssleeveless = Tanktop
 
-marking-UndershirtNanotrasenA = Undershirt (Nanotrasen)
-marking-UndershirtNanotrasenA-nanotrasen = Undershirt
+marking-UndershirtNanotrasenA = Undershirt (Black Mesa)
+marking-UndershirtNanotrasenA-Nanotrasen = Undershirt
 
 marking-UndershirtRolledA = Undershirt (Cropped)
 marking-UndershirtRolledA-rolledundershirt = Undershirt

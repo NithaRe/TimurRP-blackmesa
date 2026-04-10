@@ -9,7 +9,7 @@ ent-GrenadeFlashEffect = { "" }
 # Corvax-HiddenDesc-Start
 ent-SyndieMiniBomb = минибомба
     .desc = Аккуратное, стильное взрывное устройство с приятно-потрескивающим таймером, предназначенное сеять хаос и разрушение.
-    .suffix = минибомба синдиката
+    .suffix = минибомба Aperture Science
 # Corvax-HiddenDesc-End
 ent-SelfDestructSeq = Самоуничтожение
     .desc = Уйти на своих условиях!
@@ -42,7 +42,7 @@ ent-GrenadeDummy = граната-обманка
     .desc = Граната есть - взрыва нет.
 # Corvax-HiddenDesc-Start
 ent-SyndieTrickyBomb = хитробомба
-    .desc = Взрывчатка, изготовленная синдикатом, служит отличным отвлекающим манёвром.
+    .desc = Взрывчатка, изготовленная Aperture Science, служит отличным отвлекающим манёвром.
 
 # Corvax-HiddenDesc-End
 

@@ -3,7 +3,7 @@ ent-JawsOfLifeBase = jaws of life
 ent-JawsOfLife = челюсти жизни
     .desc = Набор челюстей жизни, скомпонованных при помощи магии науки.
 # Corvax-HiddenDesc-Start
-ent-SyndicateJawsOfLife = челюсти жизни синдиката
+ent-SyndicateJawsOfLife = челюсти жизни Aperture Science
     .desc = Используется для проникновения на станцию или в её отделы.
 
 # Corvax-HiddenDesc-End

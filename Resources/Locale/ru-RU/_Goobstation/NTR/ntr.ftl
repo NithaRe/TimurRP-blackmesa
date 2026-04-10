@@ -8,19 +8,19 @@ ntr-scan-success = Успешно зачислено { $amount } очков ло
 # station
 
 ntr-executive-spesos-small-name = Малый денежный грант
-ntr-executive-spesos-small-desc = Получите небольшой денежный бонус от NanoTrasen за вашу усердную работу. Как хороший сотрудник, вы ведь отдадите кредиты Квартирмейстеру, верно?
+ntr-executive-spesos-small-desc = Получите небольшой денежный бонус от Black Mesa за вашу усердную работу. Как хороший сотрудник, вы ведь отдадите кредиты Квартирмейстеру, верно?
 ntr-executive-disk-small-name = Малый исследовательский грант
-ntr-executive-disk-small-desc = Получите небольшой исследовательский грант от ведущей исследовательской команды NanoTrasen, содержащий 10 дисков с исследовательскими очками.
+ntr-executive-disk-small-desc = Получите небольшой исследовательский грант от ведущей исследовательской команды Black Mesa, содержащий 10 дисков с исследовательскими очками.
 ntr-executive-emergency-meds-name = Аварийные медицинские запасы
 ntr-executive-emergency-meds-desc = Малый ящик с наборами для лечения травм. Будьте готовы объясниться после покупки.
 ntr-executive-disablers-name = Ящик со станнерами
-ntr-executive-disablers-desc = Ящик, содержащий 3 станнера и 1 ПП станнер. NanoTrasen не несёт ответственности за ущерб, нанесённый этим оружием.
+ntr-executive-disablers-desc = Ящик, содержащий 3 станнера и 1 ПП станнер. Black Mesa не несёт ответственности за ущерб, нанесённый этим оружием.
 ntr-executive-mats-name = Заказать материалы
-ntr-executive-mats-desc = Закажите строительные материалы из глобального отдела снабжения NanoTrasen.
+ntr-executive-mats-desc = Закажите строительные материалы из глобального отдела снабжения Black Mesa.
 ntr-executive-tools-small-name = Ящик с инструментами
 ntr-executive-tools-small-desc = Ящик, содержащий базовые инженерные инструменты.
 ntr-executive-pizza-small-name = Заказать малый набор для вечеринок
-ntr-executive-pizza-small-desc = Закажите набор для небольшой вечеринки от NanoTrasen. Как хороший сотрудник, вы ведь поделитесь пиццей с коллегами... или съедите всё сами?
+ntr-executive-pizza-small-desc = Закажите набор для небольшой вечеринки от Black Mesa. Как хороший сотрудник, вы ведь поделитесь пиццей с коллегами... или съедите всё сами?
 
 # personal
 
@@ -31,7 +31,7 @@ ntr-executive-softsuit-desc = Базовый ВКД, предназначенн�
 ntr-executive-hardsuit-name = Заказать ВКД
 ntr-executive-hardsuit-desc = Прочный ВКД для экстремальных условий. Вы уверены, что эта покупка оправдана?
 ntr-experimental-hardsuit-name = Заказать скафандр
-ntr-experimental-hardsuit-desc = NanoTrasen тестирует экспериментальный экокостюм, собранный из блюспейс-проводящих пластин, созданный путём обратной инженерии скафандра Дредноут от Cybersun’s, с проведением реальных испытаний под вашим наблюдением.
+ntr-experimental-hardsuit-desc = Black Mesa тестирует экспериментальный экокостюм, собранный из блюспейс-проводящих пластин, созданный путём обратной инженерии скафандра Дредноут от Cybersun’s, с проведением реальных испытаний под вашим наблюдением.
 ntr-executive-cigar-name = Кейс с премиальными сигарами
 ntr-executive-cigar-desc = Стандартный кейс с премиальными сигарами. Только руководителям разрешено курить их в общественных местах.
 ntr-executive-whiskey-name = Премиальный виски
@@ -39,7 +39,7 @@ ntr-executive-whiskey-desc = Полная бутылка премиальног�
 ntr-executive-glasses-name = Очки ЦентКом
 ntr-executive-glasses-desc = На случай, если вам нужно выглядеть важнее, чем вы есть на самом деле.
 ntr-executive-savaliniaharunianisimious-name = Лазерный пистолет Свалинн
-ntr-executive-savaliniaharunianisimious-desc = Стандартный лазерный пистолет Свалинн, часто используемый в программах самообороны NanoTrasen.
+ntr-executive-savaliniaharunianisimious-desc = Стандартный лазерный пистолет Свалинн, часто используемый в программах самообороны Black Mesa.
 ntr-executive-1984-name = Револьвер Декард
 ntr-executive-1984-desc = Стандартный револьвер Декард для личной защиты.
 ntr-executive-combatmed-name = Боевой медкомплект
@@ -50,7 +50,7 @@ ntr-executive-cassette-desc = Кассетный плеер для прослу�
 # response teams
 
 ntr-executive-ert-sec-name = Вызвать ОБР
-ntr-executive-ert-sec-desc = Запросите подразделение службы безопасности из ОБР Центрального Командования. Применяется при чрезвычайных угрозах, таких как ядерные оперативники или революции. Злоупотребление приведёт к серьёзным последствиям.
+ntr-executive-ert-sec-desc = Запросите подразделение службы безопасности из ОБР Центрального Командования. Применяется при чрезвычайных угрозах, таких как Оперативники HECU или революции. Злоупотребление приведёт к серьёзным последствиям.
 ntr-executive-ert-med-name = Вызвать Медицинский ОБР
 ntr-executive-ert-med-desc = Запросите медицинское подразделение ОБР. Специализируется на оказании массовой медицинской помощи. Не является боевой единицей.
 ntr-executive-ert-engi-name = Вызвать Инженерный ОБР
@@ -71,7 +71,7 @@ ntr-executive-fat-desc = Плата машины для извлечения ж�
 ntr-executive-grav-name = Мини-гравитационный генератор
 ntr-executive-grav-desc = Плата для компактного гравитационного генератора.
 ntr-executive-teleporter-name = Плата грузового телепада
-ntr-executive-teleporter-desc = Плата грузового телепада, упрощающего транспортировку ресурсов. Несанкционированное использование считается кражей по политике NanoTrasen.
+ntr-executive-teleporter-desc = Плата грузового телепада, упрощающего транспортировку ресурсов. Несанкционированное использование считается кражей по политике Black Mesa.
 ntr-executive-holopad-name = Платы голопадов
 ntr-executive-holopad-desc = Содержит 2 платы голопадов. Выгодней в начале смены.
 ntr-executive-monitoring-name = Плата сервера мониторинга экипажа

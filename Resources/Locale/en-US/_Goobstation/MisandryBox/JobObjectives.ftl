@@ -1,5 +1,5 @@
-﻿objective-issuer-nanotrasen = NanoTrasen
-objective-issuer-nanotrasen-central-command = NanoTrasen Central Command
+﻿objective-issuer-NanoTrasen = Black Mesa
+objective-issuer-NanoTrasen-central-command = Black Mesa Central Command
 
 objective-condition-other-head-alive-title = Ensure command staff member {$targetName}, {CAPITALIZE($job)} stays alive.
 

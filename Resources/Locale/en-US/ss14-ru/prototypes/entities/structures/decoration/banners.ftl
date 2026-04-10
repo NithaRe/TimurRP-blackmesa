@@ -1,7 +1,7 @@
 ent-BannerBase = base banner
     .desc = It's the concept of a banner, you shouldn't be seeing this.
-ent-BannerNanotrasen = nanotrasen banner
-    .desc = A banner displaying the Nanotrasen logo. It looks rather cheap.
+ent-BannerNanotrasen = Black Mesa banner
+    .desc = A banner displaying the Black Mesa logo. It looks rather cheap.
 ent-BannerCargo = cargo banner
     .desc = A banner displaying the colors of the cargo department. Not. Cargonia.
 ent-BannerEngineering = engineering banner

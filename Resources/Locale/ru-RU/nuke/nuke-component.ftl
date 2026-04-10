@@ -32,7 +32,7 @@ nuke-user-interface-second-status-cooldown-time = ОЖИДАНИЕ: { $time }
 
 ## Nuke labels
 
-nuke-label-nanotrasen = NT-{ $serial }
+nuke-labelNanoTrasen = NT-{ $serial }
 # do you even need this one? It's more funnier to say that
 # the Syndicate stole a NT nuke
 nuke-label-syndicate = SYN-{ $serial }

@@ -92,8 +92,8 @@ marking-UndershirtDefaultA = Майка (под одежду)
 marking-UndershirtDefaultA-undershirt = Майка
 marking-UndershirtGrossSleevelessA = Майка (грязная)
 marking-UndershirtGrossSleevelessA-grosssleeveless = Майка
-marking-UndershirtNanotrasenA = Майка (NanoTrasen)
-marking-UndershirtNanotrasenA-nanotrasen = Майка
+marking-UndershirtNanotrasenA = Майка (Black Mesa)
+marking-UndershirtNanotrasenA-NanoTrasen = Майка
 marking-UndershirtRolledA = Майка (короткая)
 marking-UndershirtRolledA-rolledundershirt = Майка
 

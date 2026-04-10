@@ -1,2 +1,2 @@
-ent-RubberStampNanorep = nanotrasen representative rubber stamp
+ent-RubberStampNanorep = Black Mesa representative rubber stamp
     .desc = { ent-RubberStampBase.desc }

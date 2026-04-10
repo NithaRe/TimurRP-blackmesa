@@ -1,4 +1,4 @@
-ent-BorgChassisDerelictSyndicateAssault = брошенный штурмовой синдикатский борг
+ent-BorgChassisDerelictSyndicateAssault = брошенный штурмовой Aperture Scienceский борг
     .desc = Худощавый, смертоносный механизм с доступом к разнообразным смертоносным модулям. Этот находится в состоянии сильного износа.
 ent-BorgChassisUrist = Урист МакБорг
     .desc = Отродье, которое якобы помогает в работе станции.

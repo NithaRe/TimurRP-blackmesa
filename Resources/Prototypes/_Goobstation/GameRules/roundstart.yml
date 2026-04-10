@@ -48,7 +48,7 @@
   components:
   - type: ChangelingRule
   - type: GameRule
-    minPlayers: 15
+    minPlayers: 9999 # BlackM shitcode
   - type: AntagRandomObjectives
     sets:
     - groups: ChangelingObjectiveGroups
@@ -91,7 +91,7 @@
     - groups: CorporateObjectiveGroups
     maxDifficulty: 8 # Very rare antag so they should get a lot of objectives
   - type: GameRule
-    minPlayers: 30
+    minPlayers: 9999 # BlackM shitcode
     delay:
       min: 465
       max: 665 # Delay is so the heads help their department get set up.
@@ -117,7 +117,7 @@
   id: CalmTraitor # For Dual Antag Gamemodes
   components:
   - type: GameRule
-    minPlayers: 30
+    minPlayers: 9999 # BlackM shitcode
   - type: AntagSelection
     selectionTime: IntraPlayerSpawn
     definitions:
@@ -141,7 +141,7 @@
   id: CalmLing # For Dual Antag Gamemodes
   components:
   - type: GameRule
-    minPlayers: 30
+    minPlayers: 9999 # BlackM shitcode
   - type: AntagSelection
     selectionTime: IntraPlayerSpawn
     agentName: changeling-roundend-name
@@ -164,7 +164,7 @@
   id: Calmops # For Dual Antag Gamemodes
   components:
   - type: GameRule
-    minPlayers: 30
+    minPlayers: 9999 # BlackM shitcode
   - type: LoadMapRule
     mapPath: /Maps/_Goobstation/Nonstations/nukieplanet.yml
   - type: AntagSelection
@@ -233,7 +233,7 @@
   parent: BaseGameRule
   components:
   - type: GameRule
-    minPlayers: 30
+    minPlayers: 9999 # BlackM shitcode
   - type: RevolutionaryRule
   - type: AntagSelection
     selectionTime: IntraPlayerSpawn
@@ -274,7 +274,7 @@
   components:
   - type: BlobRule
   - type: GameRule
-    minPlayers: 20
+    minPlayers: 10 # BlackM
     chaosScore: 1000
   - type: AntagSelection
     selectionTime: IntraPlayerSpawn
@@ -400,7 +400,7 @@
   components:
   - type: DevilRule
   - type: GameRule
-    minPlayers: 15
+    minPlayers: 9999 # BlackM
   - type: AntagObjectives
     objectives:
     - DevilContractObjective
@@ -428,7 +428,7 @@
   id: OopsAllThieves
   components:
   - type: GameRule
-    minPlayers: 30
+    minPlayers: 9999 # BlackM
     chaosScore: 1200
   - type: AntagSelection
     agentName: thief-round-end-agent-name

@@ -11,12 +11,12 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-loadout-group-ntr-head = Nanotrasen Representative head
-loadout-group-ntr-backpack = Nanotrasen Representative backpack
-loadout-group-ntr-neck = Nanotrasen Representative neck
-loadout-group-ntr-jumpsuit = Nanotrasen Representative jumpsuit
-loadout-group-ntr-belt = Nanotrasen Representative belt
-loadout-group-ntr-shoes = Nanotrasen Representative shoes
+loadout-group-ntr-head = Black Mesa Representative head
+loadout-group-ntr-backpack = Black Mesa Representative backpack
+loadout-group-ntr-neck = Black Mesa Representative neck
+loadout-group-ntr-jumpsuit = Black Mesa Representative jumpsuit
+loadout-group-ntr-belt = Black Mesa Representative belt
+loadout-group-ntr-shoes = Black Mesa Representative shoes
 
 loadout-group-bso-head = Blueshield Officer head
 loadout-group-bso-backpack = Blueshield Officer backpack
@@ -26,13 +26,13 @@ loadout-group-bso-outer = Blueshield Officer armor
 loadout-group-bso-neck = Blueshield Officer neck
 loadout-group-bso-shoes = Blueshield Officer shoes
 
-loadout-group-nct-head = Nanotrasen Career Trainer head
-loadout-group-nct-backpack = Nanotrasen Career Trainer backpack
-loadout-group-nct-jumpsuit = Nanotrasen Career Trainer jumpsuit
-loadout-group-nct-outerclothing = Nanotrasen Career Trainer outerclothing
-loadout-group-nct-belt = Nanotrasen Career Trainer belt
-loadout-group-nct-gloves = Nanotrasen Career Trainer gloves
-loadout-group-nct-shoes = Nanotrasen Career Trainer shoes
+loadout-group-nct-head = Black Mesa Career Trainer head
+loadout-group-nct-backpack = Black Mesa Career Trainer backpack
+loadout-group-nct-jumpsuit = Black Mesa Career Trainer jumpsuit
+loadout-group-nct-outerclothing = Black Mesa Career Trainer outerclothing
+loadout-group-nct-belt = Black Mesa Career Trainer belt
+loadout-group-nct-gloves = Black Mesa Career Trainer gloves
+loadout-group-nct-shoes = Black Mesa Career Trainer shoes
 
 loadout-group-reporter-outerclothing = Reporter outer clothing
 

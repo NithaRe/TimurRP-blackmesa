@@ -7,14 +7,14 @@
 
 - type: antag
   id: Blob
-  name: roles-antag-blob-name
+  name: Биомасса # BlackM
   antagonist: true
-  setPreference: false # BlackM traitors
-  objective: roles-antag-blob-objective
-  guides: [ Blob ]
+  setPreference: true
+  objective: Образец кристалла из мира "Зен", вызвал катастрофу. Создавайте зен-существ, расширяйтесь и захватите комплекс. Не дайте разрушить ваше сердце.
+#  guides: [ Blob ] #BlackM
   requirements:
   - !type:OverallPlaytimeRequirement
-    time: 18000 # 5h # Goobstation-RoleTime
+    time: 0 # BlackM
   - !type:SpeciesRequirement # CorvaxGoob-Species
     inverted: true
     species:

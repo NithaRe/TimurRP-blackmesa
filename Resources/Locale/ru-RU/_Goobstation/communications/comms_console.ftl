@@ -5,4 +5,4 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 shuttle-call-error = Шаттл невозможно вызвать из-за ОШИБКИ.
-shuttle-call-warops-nukies-present = Устраните оставшихся Ядерных Оперативников.
+shuttle-call-warops-nukies-present = Устраните оставшихся Оперативников HECU.

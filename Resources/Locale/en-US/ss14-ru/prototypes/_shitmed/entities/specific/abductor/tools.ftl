@@ -1,9 +1,9 @@
 ent-CrowbarAbductor = high-tech crowbar
-    .desc = Made out of metal more durable than anything Nanotrasen could dream of.
+    .desc = Made out of metal more durable than anything Black Mesa could dream of.
 ent-WirecutterAbductor = high-tech wirecutter
     .desc = Cuts through wires like a hot knife through butter.
 ent-ScrewdriverAbductor = high-tech screwdriver
-    .desc = More efficient than anything Nanotrasen could dream of. Not to be confused with a sonic screwdriver.
+    .desc = More efficient than anything Black Mesa could dream of. Not to be confused with a sonic screwdriver.
 ent-WrenchAbductor = high-tech wrench
     .desc = Can take a bolt off in a single turn. Not intended for melee combat.
 ent-WelderAbductor = high-tech welding tool
