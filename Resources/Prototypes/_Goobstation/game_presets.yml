@@ -160,7 +160,7 @@
   name: sleeper-title
   description: sleeper-description
   showInVote: false
-  minPlayers: 5
+  minPlayers: 9999 # BlackM shitcode
   rules:
     - CalmDynamic
     - SubGamemodesRule
@@ -175,7 +175,7 @@
   name: guide-title
   description: guide-description
   showInVote: false
-  minPlayers: 25
+  minPlayers: 9999 # BlackM shitcode
   rules:
     - CombatDynamic
     - SubGamemodesRule
@@ -238,7 +238,7 @@
   name: xenomorph-title
   description: xenomorph-description
   showInVote: false
-  minPlayers: 1
+  minPlayers: 9999 # BlackM shitcode
   rules:
   - XenomorphsInfestationRoundstart
   - SubGamemodesRule
