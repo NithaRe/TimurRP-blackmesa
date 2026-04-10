@@ -36,10 +36,8 @@ public sealed class EvacPortalSystem : EntitySystem
         var portalQuery = EntityQueryEnumerator<EvacPortalComponent, TransformComponent>();
         while (portalQuery.MoveNext(out var portalUid, out var portal, out var portalXform))
         {
-            // Портал активен только если есть LinkedEntityComponent с хотя бы одной ссылкой
             if (!TryComp<LinkedEntityComponent>(portalUid, out var link) || link.LinkedEntities.Count == 0)
             {
-                // Портал неактивен — сбрасываем активные DoAfter
                 portal.ActiveDoAfters.Clear();
                 continue;
             }
