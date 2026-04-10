@@ -1,0 +1,10 @@
+- type: latheRecipe
+  id: PortalMachineBoard
+  result: PortalMachineBoard
+  completetime: 12
+  materials:
+    Steel: 600
+    Glass: 400
+    Plasma: 150
+    Gold: 80
+  # categories: закомментировали, чтобы не крашило

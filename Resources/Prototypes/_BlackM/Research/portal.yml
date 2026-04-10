@@ -1,0 +1,17 @@
+# Black Mesa Portal - Главная цель станции
+- type: technology
+  id: Portal
+  name: research-technology-portal
+  description: research-technology-portal-desc
+  icon:
+    sprite: Structures/Machines/gateway.rsi
+    state: portal
+  discipline: Experimental
+  tier: 3
+  cost: 30000
+  recipeUnlocks:
+  - PortalMachineBoard
+  position: -6,3
+  technologyPrerequisites:
+  - BluespaceTimeManipulation
+  - QuantumLeaping

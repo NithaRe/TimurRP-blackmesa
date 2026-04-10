@@ -1,0 +1,35 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                     xmlns:local="clr-namespace:Content.Client._BlackM.Evac.UI"
+                     Title="{Loc 'evac-console-menu-title'}"
+                     MinWidth="300">
+    <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="8">
+
+        <!-- Статус -->
+        <PanelContainer StyleClasses="LowDivider">
+            <BoxContainer Orientation="Vertical" Margin="4" SeparationOverride="4">
+                <Label Text="{Loc 'evac-console-menu-status-label'}" StyleClasses="LabelSubText"/>
+                <Label Name="StatusLabel" Text="—"/>
+            </BoxContainer>
+        </PanelContainer>
+
+        <!-- Таймер -->
+        <PanelContainer StyleClasses="LowDivider">
+            <BoxContainer Orientation="Vertical" Margin="4" SeparationOverride="4">
+                <Label Text="{Loc 'evac-console-menu-timer-label'}" StyleClasses="LabelSubText"/>
+                <Label Name="TimerLabel" Text="—"/>
+            </BoxContainer>
+        </PanelContainer>
+
+        <!-- Кнопки -->
+        <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+            <Button Name="OpenButton"
+                    Text="{Loc 'evac-console-menu-open-button'}"
+                    HorizontalExpand="True"/>
+            <Button Name="CancelButton"
+                    Text="{Loc 'evac-console-menu-close-button'}"
+                    HorizontalExpand="True"/>
+        </BoxContainer>
+
+    </BoxContainer>
+</controls:FancyWindow>

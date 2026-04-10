@@ -1,0 +1,16 @@
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: PortalMachineBoard
+  name: плата портала Black Mesa
+  description: Плата для сборки экспериментального межпространственного портала.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: std_mod
+  - type: MachineBoard
+    prototype: PortalMachine          # ← должно быть именно так
+    requirements:
+      Capacitor: 5
+      PowerCell: 3
+      PlasmaGlass: 2
+      MatterBin: 1
