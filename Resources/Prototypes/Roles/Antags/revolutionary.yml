@@ -15,7 +15,7 @@
   id: HeadRev
   name: roles-antag-rev-head-name
   antagonist: true
-  setPreference: true
+  setPreference: false #BlackM
   objective: roles-antag-rev-head-objective
   requirements:
   - !type:DepartmentTimeRequirement # was  - !type:OverallPlaytimeRequirement, Goob change
@@ -31,7 +31,7 @@
   id: Rev
   name: roles-antag-rev-name
   antagonist: true
-  setPreference: false
+  setPreference: false #BlackM
   objective: roles-antag-rev-objective
   guides: [ Revolutionaries ]
 

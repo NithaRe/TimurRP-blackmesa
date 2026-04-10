@@ -96,11 +96,11 @@
 
 - type: antag
   id: Traitor
-  name: roles-antag-syndicate-agent-name
+  name: Агент Aperture Science
   antagonist: true
-  setPreference: false # BlackM traitors
-  objective: roles-antag-syndicate-agent-objective
-  guides: [ Traitors ]
+  setPreference: true
+  objective: Ваша корпорация проиграла технологическую гонку и повергла мир в хаос. Вы проникли в «Чёрную Мезу» для проведения диверсий и, возможно, ради мести.
+#  guides: [ Traitors ] #BlackM
   requirements:
   - !type:SpeciesRequirement # CorvaxGoob-Species
       inverted: true
