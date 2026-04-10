@@ -1,6 +1,6 @@
 - type: gameMap
   id: BlackMesa
-  mapName: 'Комплекс Черная Меза'
+  mapName: 'Комплекс Черная Меза(НЕ СТАРТОВАТЬ)'
   mapPath: /Maps/_BlackM/BlackMesa/blackmesa.yml
   minPlayers: 0
   maxPlayers: 80
@@ -34,4 +34,3 @@
           Botanist: [ 1, 2 ]
           Bartender: [ 1, 1 ]
           Janitor: [ 1, 2 ]
-          Passenger: [ 0, 10 ]
