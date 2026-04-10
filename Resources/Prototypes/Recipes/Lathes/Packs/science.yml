@@ -110,7 +110,6 @@
   - ArtifactAnalyzerMachineCircuitboard
   - ArtifactCrusherMachineCircuitboard
   - QuantumTelepadMachineCircuitboard # CorvaxGoob-QuantumTelepad
-  - PortalMachineBoard #BlackM portal
 
 - type: latheRecipePack
   id: CameraBoards

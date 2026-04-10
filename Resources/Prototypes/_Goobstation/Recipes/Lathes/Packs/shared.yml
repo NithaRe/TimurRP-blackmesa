@@ -16,7 +16,6 @@
   - AutolatheMachineCircuitboard
   - CircuitImprinterMachineCircuitboard
   - CivilianFlatpackerMachineCircuitboard # CorvaxGoob
-  - PortalMachineBoard   # Black Mesa Portal
 
 - type: latheRecipePack
   id: GrenadeTriggersStatic
