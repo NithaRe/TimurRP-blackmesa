@@ -1,17 +1,23 @@
 - type: entity
-  parent: BaseWall
+  parent: WallRock
   id: WallBmesaIndestructible
   name: Каменная стена
   description: "Эээ, вы же под землей, что вы ожидали тут увидеть?"
   suffix: Indestructible
   components:
+  - type: Godmode
   - type: Sprite
-    sprite: Structures/Walls/necropolis.rsi
-  - type: Icon
-    sprite: Structures/Walls/necropolis.rsi
-  - type: IconSmooth
-    key: walls
-    base: necropolis
+    layers:
+      - state: rock
+      - map: [ "enum.EdgeLayer.South" ]
+        state: rock_south
+      - map: [ "enum.EdgeLayer.East" ]
+        state: rock_east
+      - map: [ "enum.EdgeLayer.North" ]
+        state: rock_north
+      - map: [ "enum.EdgeLayer.West" ]
+        state: rock_west
   - type: Destructible
   - type: RustRequiresPathStage
     pathStage: 11
+
