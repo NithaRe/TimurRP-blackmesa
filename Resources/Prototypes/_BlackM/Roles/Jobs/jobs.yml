@@ -1,17 +1,24 @@
-# ================================
-# НАУЧНЫЙ РУКОВОДИТЕЛЬ
-# ================================
+# PlayTimeTracker прототипы
+- type: playTimeTracker
+  id: JobBmesaResearchDirector
+
+- type: playTimeTracker
+  id: JobBmesaScientist
+
+- type: playTimeTracker
+  id: JobBmesaSecurity
+
+- type: playTimeTracker
+  id: JobGordonFreeman
+
 - type: job
   id: BmesaResearchDirector
-  fallbackSpawnGroup: Passenger
   name: job-name-bmesa-research-director
   setPreference: false # Bmesa Roles
   description: job-description-bmesa-research-director
   playTimeTracker: JobBmesaResearchDirector
   weight: 10
-  slots: 1
   requireAdminNotify: true
-  supervisedBy: []
   access:
   - Research
   - Command
@@ -19,54 +26,39 @@
   startingGear: BmesaResearchDirectorGear
   icon: "JobIconBmesaResearchDirector"
 
-# ================================
-# УЧЁНЫЙ
-# ================================
 - type: job
   id: BmesaScientist
-  fallbackSpawnGroup: Passenger
   name: job-name-bmesa-scientist
   setPreference: false # Bmesa Roles
   description: job-description-bmesa-scientist
   playTimeTracker: JobBmesaScientist
   weight: 20
-  slots: 8
   access:
   - Research
   - Maintenance
   startingGear: BmesaScientistGear
   icon: "JobIconBmesaScientist"
 
-# ================================
-# ОХРАННИК
-# ================================
 - type: job
   id: BmesaSecurity
-  fallbackSpawnGroup: Passenger
   name: job-name-bmesa-security
   setPreference: false # Bmesa Roles
   description: job-description-bmesa-security
   playTimeTracker: JobBmesaSecurity
   weight: 20
-  slots: 6
   access:
   - Security
   - Maintenance
   startingGear: BmesaSecurityGear
   icon: "JobIconBmesaSecurity"
 
-# ================================
-# ГОРДОН ФРИМЕН
-# ================================
 - type: job
   id: GordonFreeman
-  fallbackSpawnGroup: Passenger
   name: job-name-gordon-freeman
   setPreference: false # Bmesa Roles
   description: job-description-gordon-freeman
   playTimeTracker: JobGordonFreeman
   weight: 100
-  slots: 1
   access:
   - Research
   - Maintenance

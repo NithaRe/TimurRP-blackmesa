@@ -2,7 +2,6 @@
 - type: technology
   id: Portal
   name: research-technology-portal
-  description: research-technology-portal-desc
   icon:
     sprite: Structures/Machines/gateway.rsi
     state: portal
