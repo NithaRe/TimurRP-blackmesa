@@ -12,7 +12,7 @@
     description: ghost-role-information-headcrab-description
     rules: ghost-role-information-headcrab-rules
     mindRoles:
-    - MindRoleAntagonist
+    - MindRoleGhostRoleSoloAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable

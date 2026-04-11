@@ -29,7 +29,7 @@
     - id: GiftsSecurityGuns
     - id: GiftsSecurityRiot
     - id: GiftsSpacingSupplies
-    - id: GiftsVendingRestock
+    #- id: GiftsVendingRestock
 
 # Game Rules
 
@@ -71,7 +71,7 @@
       FoodPizza: 2              # 8 pizzas
       FoodBarSupply: 1
       FoodSoftdrinks: 2
-      CrateVendingMachineRestockRobustSoftdrinks: 1
+      #CrateVendingMachineRestockRobustSoftdrinks: 1
 
 - type: entity
   id: GiftsPizzaPartyLarge
@@ -122,34 +122,34 @@
       MaterialSteel: 1
       MaterialPlasteel: 1
       MaterialGlass: 1
-      CrateVendingMachineRestockEngineering: 1
+      #CrateVendingMachineRestockEngineering: 1
 
-- type: entity
-  id: GiftsVendingRestock
-  parent: CargoGiftsBase
-  components:
-  - type: StationEvent
-    weight: 4
-    duration: 120
-    minimumPlayers: 40
-    earliestStart: 30
-    chaos: # Goobstation
-      Hunger: -100
-      Thirst: -100
-    eventType: FreeStuff # Goobstation
+#- type: entity
+#  id: GiftsVendingRestock
+#  parent: CargoGiftsBase
+#  components:
+#  - type: StationEvent
+#    weight: 4
+#    duration: 120
+#    minimumPlayers: 40
+#    earliestStart: 30
+#    chaos: # Goobstation
+#      Hunger: -100
+#      Thirst: -100
+#    eventType: FreeStuff # Goobstation
   # Goobstation
-  - type: GameRule
-    chaosScore: -20
-  - type: CargoGiftsRule
-    description: cargo-gift-vending
-    dest: cargo-gift-dest-supp
-    gifts:
-      CrateVendingMachineRestockHotDrinks: 3
-      CrateVendingMachineRestockBooze: 1
-      CrateVendingMachineRestockNutriMax: 1
-      CrateVendingMachineRestockRobustSoftdrinks: 2
-      CrateVendingMachineRestockVendomat: 1
-      CrateVendingMachineRestockGetmoreChocolateCorp: 1
+#  - type: GameRule
+#    chaosScore: -20
+#  - type: CargoGiftsRule
+#    description: cargo-gift-vending
+#    dest: cargo-gift-dest-supp
+#gifts:
+      #CrateVendingMachineRestockHotDrinks: 3
+      #CrateVendingMachineRestockBooze: 1
+      #CrateVendingMachineRestockNutriMax: 1
+      #CrateVendingMachineRestockRobustSoftdrinks: 2
+      #CrateVendingMachineRestockVendomat: 1
+      #CrateVendingMachineRestockGetmoreChocolateCorp: 1
 
 - type: entity
   id: GiftsJanitor

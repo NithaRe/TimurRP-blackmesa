@@ -3,8 +3,6 @@
   id: ClothingHeadHeadcrab
   name: хедкраб
   description: Паразит сидит у вас на голове.
-  tags:
-  - HideSpawnMenu
   components:
   - type: Sprite
     sprite: Mobs/_BlackM/headcrab_helmet.rsi
