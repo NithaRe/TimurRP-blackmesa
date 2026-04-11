@@ -106,11 +106,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         <PanelContainer StyleClasses="AngleRect">
                             <RichTextLabel Name="LobbySong" Access="Public" HorizontalAlignment="Center" />
                         </PanelContainer>
-                        <!-- Goobstation start -->
-                        <PanelContainer StyleClasses="AngleRect">
+                        <!-- Goobstation start
+                        <PanelContainer StyleClasses="AngleRect" Visible="False">
                             <RichTextLabel Name="LobbyBackground" Access="Public" HorizontalAlignment="Center" />
                         </PanelContainer>
-                        <!-- Goobstation end -->
+                         Goobstation end -->
                     </BoxContainer>
                 </Control>
                 <!-- Character setup state -->

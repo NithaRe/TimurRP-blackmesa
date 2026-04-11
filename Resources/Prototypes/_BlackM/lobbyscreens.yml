@@ -1,5 +1,5 @@
-- type: lobbyBackground
-  id: blackmBackground
-  background: /Textures/_BlackM/LobbyScreens/lobbyscreen.rsi
-  name: BMesa Background
-  artist: BMESA Station
+#- type: lobbyBackground
+#  id: blackmBackground
+#  background: /Textures/_BlackM/LobbyScreens/lobbyscreen.rsi
+#  name: BMesa Background
+#  artist: BMESA Station
