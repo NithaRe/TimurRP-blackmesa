@@ -1,14 +1,8 @@
-# =====================
-# HECU Job Definition
-# =====================
-
 - type: job
   id: HECU
-  fallbackSpawnGroup: Passenger
   name: job-name-hecu
   description: job-description-hecu
   playTimeTracker: JobHECU
-  # Без требований по времени — любой может взять
   requirements: []
   weight: 20
   startingGear: HECUGear
@@ -17,11 +11,6 @@
   supervisors: job-supervisors-hecu
   setPreference: false # Bmesa Roles
   canBeAntag: false
-  # Без ограничения слотов — убери строку если не нужна
-  # maxPlayers: 5
-  department: HECU
-  skills:
-  - Shooting
   accessGroups:
   - AllAccess
   special:
@@ -34,6 +23,9 @@
     - type: PhraseWheel
       allowedCategories:
       - HECU
+
+- type: playTimeTracker
+  id: JobHECU
 
 - type: startingGear
   id: HECUGear

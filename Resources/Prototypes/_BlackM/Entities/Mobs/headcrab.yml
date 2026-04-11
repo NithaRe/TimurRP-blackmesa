@@ -12,7 +12,7 @@
     description: ghost-role-information-headcrab-description
     rules: ghost-role-information-headcrab-rules
     mindRoles:
-    - MindRoleGhostRoleAntagonist
+    - MindRoleAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -90,6 +90,5 @@
     sprite: Mobs/_BlackM/headcrab.rsi
     state: idle
   - type: SpawnPoint
-    job: null
   - type: TimedDespawn
     lifetime: 0.1

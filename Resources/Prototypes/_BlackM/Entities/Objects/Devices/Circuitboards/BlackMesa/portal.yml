@@ -8,9 +8,4 @@
     sprite: Objects/Misc/module.rsi
     state: std_mod
   - type: MachineBoard
-    prototype: PortalMachine          # ← должно быть именно так
-    requirements:
-      Capacitor: 5
-      PowerCell: 3
-      PlasmaGlass: 2
-      MatterBin: 1
+    prototype: PortalMachine
