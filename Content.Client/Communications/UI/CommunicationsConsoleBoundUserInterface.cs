@@ -112,6 +112,7 @@ namespace Content.Client.Communications.UI
                 _menu.UpdateAlertLevels(commsState.AlertLevels, _menu.CurrentLevel);
                 _menu.AlertLevelButton.Disabled = !_menu.AlertLevelSelectable;
                 _menu.EmergencyShuttleButton.Disabled = !_menu.CanCall;
+                _menu.EmergencyShuttleButton.Visible = _menu.CanCall; //blackM
                 _menu.AnnounceButton.Disabled = !_menu.CanAnnounce;
                 _menu.BroadcastButton.Disabled = !_menu.CanBroadcast;
             }

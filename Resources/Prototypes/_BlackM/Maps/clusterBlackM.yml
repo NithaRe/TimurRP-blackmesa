@@ -92,14 +92,11 @@
         - type: StationNameSetup
           mapNameTemplate: 'Комплекс Черная Меза'
         - type: StationJobs
-          overflowJobs:
-          - Passenger
           availableJobs:
             Captain: [ 1, 1 ]
             HeadOfSecurity: [ 1, 1 ]
             Warden: [ 1, 1 ]
             SecurityOfficer: [ 3, 6 ]
-            Cadet: [ 2, 4 ]
             ResearchDirector: [ 1, 1 ]
             Scientist: [ 4, 8 ]
             ChiefMedicalOfficer: [ 1, 1 ]
@@ -114,7 +111,7 @@
             Botanist: [ 1, 2 ]
             Bartender: [ 1, 1 ]
             Janitor: [ 1, 2 ]
-
+ 
         # Goobstation blob-config-start SMALL+
         - type: StationBlobConfig
           stageBegin: 25
