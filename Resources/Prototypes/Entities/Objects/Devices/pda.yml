@@ -186,7 +186,7 @@
        !type:String
        pda
   - type: Sprite
-    sprite: Objects/Devices/pda.rsi
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
     layers:
     - map: [ "enum.PdaVisualLayers.Base" ]
       state: "pda"
@@ -201,7 +201,7 @@
     - state: "insert_overlay" # Goob
       map: [ "enum.PdaVisualLayers.Pen" ]
   - type: Icon
-    sprite: Objects/Devices/pda.rsi
+    sprite: /Textures/_BlackM/Objects/Devices/pda.rsi
     state: pda
   - type: Pda
     paiSlot:
@@ -417,6 +417,8 @@
   name: security cadet PDA
   description: Why isn't it red?
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: SecurityCadetIDCard
   - type: Appearance
@@ -673,6 +675,8 @@
   id: QuartermasterPDA
   description: PDA for the guy that orders the guns.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: QuartermasterIDCard
   - type: Appearance
@@ -701,6 +705,8 @@
   name: cargo PDA
   description: PDA for the guys that order the pizzas.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: CargoIDCard
   - type: Appearance
@@ -719,6 +725,8 @@
   name: salvage PDA
   description: Smells like ash.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: SalvageIDCard
   - type: Appearance
@@ -835,6 +843,8 @@
   name: janitor PDA
   description: Smells like bleach.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: JanitorIDCard
   - type: Appearance
@@ -853,6 +863,8 @@
   name: captain PDA
   description: Surprisingly no different from your PDA.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: CaptainIDCard
     penSlot:
@@ -902,6 +914,8 @@
   name: chief engineer PDA
   description: Looks like it's barely been used.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: CEIDCard
   - type: Appearance
@@ -940,6 +954,8 @@
   name: chief medical officer PDA
   description: Extraordinarily shiny and sterile.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: CMOIDCard
   - type: Appearance
@@ -960,6 +976,8 @@
   name: medical PDA
   description: Shiny and sterile.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: MedicalIDCard
   - type: Appearance
@@ -993,6 +1011,8 @@
   name: paramedic PDA
   description: Shiny and sterile.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: ParamedicIDCard
   - type: Appearance
@@ -1012,6 +1032,8 @@
   name: chemistry PDA
   description: It has a few discolored blotches here and there.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: ChemistIDCard
   - type: Appearance
@@ -1089,6 +1111,8 @@
   name: head of security PDA
   description: Whosoever bears this PDA is the law.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: HoSIDCard
   - type: Appearance
@@ -1117,6 +1141,8 @@
   name: warden PDA
   description: The OS appears to have been jailbroken.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: WardenIDCard
   - type: Appearance
@@ -1136,6 +1162,8 @@
   name: security PDA
   description: Red to hide the stains of passenger blood.
   components:
+  - type: Sprite
+    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi" #BlackM
   - type: Pda
     id: SecurityIDCard
   - type: Appearance

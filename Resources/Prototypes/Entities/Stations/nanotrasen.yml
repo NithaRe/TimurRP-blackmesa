@@ -58,7 +58,7 @@
     - BaseStationNtrTasks
     - BaseStationArrivals
     - BaseStationGateway
-    - BaseStationShuttles
+#    - BaseStationShuttles #blackM off
     - BaseStationCentcomm
     - BaseStationEvacuation
     - BaseStationAlertLevels

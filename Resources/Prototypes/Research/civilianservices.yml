@@ -151,27 +151,27 @@
 
 # Tier 2
 
-- type: technology
-  id: FauxAstroTiles
-  name: research-technology-faux-astro-tiles
-  icon:
-    sprite: Objects/Tiles/tile.rsi
-    state: astroice
-  discipline: CivilianServices
-  tier: 2
-  cost: 5000
-  recipeUnlocks:
-  - FauxTileAstroGrass
-  - FauxTileMowedAstroGrass
-  - FauxTileJungleAstroGrass
-  - FauxTileAstroIce
-  - FauxTileAstroSnow
-  - FauxTileAstroAsteroidSand
-  # Goobstation R&D Console rework start
-  position: 1,5
-  technologyPrerequisites:
-  - AudioVisualCommunication
-  # Goobstation R&D Console rework end
+#- type: technology
+#  id: FauxAstroTiles
+#  name: research-technology-faux-astro-tiles
+#  icon:
+#    sprite: Objects/Tiles/tile.rsi
+#    state: astroice
+#  discipline: CivilianServices
+#  tier: 2
+#  cost: 5000
+#  recipeUnlocks:
+#  - FauxTileAstroGrass
+#  - FauxTileMowedAstroGrass
+#  - FauxTileJungleAstroGrass
+#  - FauxTileAstroIce
+#  - FauxTileAstroSnow
+#  - FauxTileAstroAsteroidSand
+#  # Goobstation R&D Console rework start
+#  position: 1,5
+#  technologyPrerequisites:
+#  - AudioVisualCommunication
+#  # Goobstation R&D Console rework end
 
 - type: technology
   id: BiochemicalStasis
@@ -281,23 +281,23 @@
   - AdvancedCleaning
   # Goobstation R&D Console rework end
 
-- type: technology
-  id: BluespaceCargoTransport
-  name: research-technology-bluespace-cargo-transport
-  icon:
-    sprite: Structures/cargo_telepad.rsi
-    state: display
-  discipline: CivilianServices
-  tier: 2
-  cost: 15000
-  recipeUnlocks:
-  - CargoTelepadMachineCircuitboard
-  # Goobstation R&D Console rework start
-  position: 1,8
-  technologyPrerequisites:
-  - MeatManipulation
-  - FauxAstroTiles
-  # Goobstation R&D Console rework end
+#- type: technology
+#  id: BluespaceCargoTransport
+#  name: research-technology-bluespace-cargo-transport
+#  icon:
+#    sprite: Structures/cargo_telepad.rsi
+#    state: display
+#  discipline: CivilianServices
+#  tier: 2
+#  cost: 15000
+#  recipeUnlocks:
+#  - CargoTelepadMachineCircuitboard
+#  # Goobstation R&D Console rework start
+#  position: 1,8
+#  technologyPrerequisites:
+#  - MeatManipulation
+#  - FauxAstroTiles
+#  # Goobstation R&D Console rework end
 
 - type: technology
   id: PushHorn

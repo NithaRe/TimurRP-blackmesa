@@ -1,0 +1,77 @@
+# SPDX-FileCopyrightText: 2026 BlackM Project
+# SPDX-License-Identifier: CC-BY-SA-3.0
+
+- type: loadout
+  id: ClothingHeadHelmetKovakSoldier
+  equipment:
+    head: ClothingHeadHelmetKovakSoldier
+
+- type: loadout
+  id: ClothingHeadHelmetKovakChief
+  equipment:
+    head: ClothingHeadHelmetKovakChief
+
+- type: loadout
+  id: ClothingHeadHelmetKovakMed
+  equipment:
+    head: ClothingHeadHelmetKovakMed
+
+- type: loadout
+  id: ClothingHeadHelmetKovakWarden
+  equipment:
+    head: ClothingHeadHelmetKovakWarden
+
+- type: loadout
+  id: ClothingShoesKovakSoldier
+  equipment:
+    shoes: ClothingShoesKovakSoldier
+
+- type: loadout
+  id: ClothingUniformJumpsuitKovakSoldier
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitKovakSoldier
+
+- type: loadout
+  id: ClothingUniformJumpsuitKovakMed
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitKovakMed
+
+- type: loadout
+  id: ClothingUniformJumpsuitKovakWarden
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitKovakWarden
+
+- type: loadout
+  id: ClothingUniformJumpsuitKovakChief
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitKovakChief
+
+- type: loadout
+  id: ClothingOuterArmorKovakSoldier
+  equipment:
+    outerClothing: ClothingOuterArmorKovakSoldier
+
+- type: loadout
+  id: ClothingOuterCoatKovakChief
+  equipment:
+    outerClothing: ClothingOuterCoatKovakChief
+
+- type: loadout
+  id: ClothingOuterCapeKovakChief
+  equipment:
+    outerClothing: ClothingOuterCapeKovakChief
+
+- type: loadout
+  id: ClothingOuterCapeKovakMed
+  equipment:
+    outerClothing: ClothingOuterCapeKovakMed
+
+- type: loadout
+  id: ClothingOuterCapeKovakWarden
+  equipment:
+    outerClothing: ClothingOuterCapeKovakWarden
+
+- type: loadout
+  id: ClothingOuterBioScientist
+  equipment:
+    outerClothing: ClothingOuterBioScientist

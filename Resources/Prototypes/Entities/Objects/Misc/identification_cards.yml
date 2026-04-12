@@ -156,11 +156,11 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: Objects/Misc/id_cards.rsi
+    sprite: /Textures/_BlackM/Objects/Misc/id_cards.rsi #BlackM
   - type: Clothing
     slots:
     - idcard
-    sprite: Objects/Misc/id_cards.rsi
+    sprite: /Textures/_BlackM/Objects/Misc/id_cards.rsi #BlackM
   - type: Item
     size: Small
     heldPrefix: default

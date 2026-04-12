@@ -208,11 +208,11 @@
   - OffsetCaneWood
   - OffsetCaneClown
   - OffsetCaneMime
-  - OffsetCaneNT
+#  - OffsetCaneNT
   - Cane
   # GoobStation Start
   - CardBoxBlack
-  - CardBoxNanotrasen
+#  - CardBoxNanotrasen
   - FoodSnackLollypopWrapped
   - FoodSnackLollypopWrappedRainbow
   - FoodSnackLollypopWrappedCarp
@@ -264,22 +264,22 @@
   - GlassesJamjar
   - GlassesJensen
 
-- type: loadoutGroup
-  id: Animals  # Goobstation
-  name: loadout-group-animals
-  minLimit: 0
-  maxLimit: 1
-  loadouts:
-  - Squackroach
-  - Mouse
-  - Mothroach
-  - Goldfish
-  # CorvaxGoob-loadouts-start
-  - Cockroach
-  - Butterfly
-  - Hamster
-  - Moproach
-  # CorvaxGoob-loadouts-end
+#- type: loadoutGroup
+#  id: Animals  # Goobstation
+#  name: loadout-group-animals
+#  minLimit: 0
+#  maxLimit: 1
+#  loadouts:
+#  - Squackroach
+#  - Mouse
+#  - Mothroach
+#  - Goldfish
+#  # CorvaxGoob-loadouts-start
+#  - Cockroach
+#  - Butterfly
+#  - Hamster
+#  - Moproach
+#  # CorvaxGoob-loadouts-end
 
 - type: loadoutGroup
   id: GroupTankHarness
@@ -1152,68 +1152,69 @@
   - EmergencySilicon
 
 # Science
-- type: loadoutGroup
-  id: ResearchDirectorHead
-  name: loadout-group-research-director-head
-  minLimit: 0
-  loadouts:
-  - ResearchDirectorBeret
+#- type: loadoutGroup
+#  id: ResearchDirectorHead
+#  name: loadout-group-research-director-head
+#  minLimit: 0
+#  loadouts:
+#  - ResearchDirectorBeret
 
-- type: loadoutGroup
-  id: ResearchDirectorNeck
-  name: loadout-group-research-director-neck
-  minLimit: 0
-  loadouts:
-  - ResearchDirectorMantle
-  - ResearchDirectorCloak
-  - ResearchDirectorEnsemble # goob
+#- type: loadoutGroup
+#  id: ResearchDirectorNeck
+#  name: loadout-group-research-director-neck
+#  minLimit: 0
+#  loadouts:
+#  - ResearchDirectorMantle
+#  - ResearchDirectorCloak
+#  - ResearchDirectorEnsemble # goob
 
 - type: loadoutGroup
   id: ResearchDirectorJumpsuit
   name: loadout-group-research-director-jumpsuit
   loadouts:
   - ResearchDirectorJumpsuit
-  - ResearchDirectorJumpsuitAlt # goob
-  - ResearchDirectorJumpskirt
-  - ResearchDirectorJumpskirtAlt # goob
-  - ResearchDirectorMJ # goob
+#  - ResearchDirectorJumpsuitAlt # goob
+#  - ResearchDirectorJumpskirt
+#  - ResearchDirectorJumpskirtAlt # goob
+#  - ResearchDirectorMJ # goob
   # CorvaxGoob-Loadouts-Start
-  - ResearchDirectorJumpsuitClassical
-  - ResearchDirectorJumpskirtClassical
+#  - ResearchDirectorJumpsuitClassical
+#  - ResearchDirectorJumpskirtClassical
   # CorvaxGoob-Loadouts-End
-  - RDSummerShirt # goob
+#  - RDSummerShirt # goob
 
 - type: loadoutGroup
   id: ResearchDirectorOuterClothing
   name: loadout-group-research-director-outerclothing
   minLimit: 0
   loadouts:
-  - ResearchDirectorLabCoat
-  - ResearchDirectorWintercoat
-  - ResearchDirectorLabCoatPurple #goob
+  - ClothingOuterBioScientist #BlackM
+#  - ResearchDirectorLabCoat
+#  - ResearchDirectorWintercoat
+#  - ResearchDirectorLabCoatPurple #goob
 
 - type: loadoutGroup
   id: ResearchDirectorShoes
   name: loadout-group-research-director-shoes
   loadouts:
   - BrownShoes
-  - ScienceWinterBoots
+#  - ScienceWinterBoots
 
-- type: loadoutGroup
-  id: ScientistHead
-  name: loadout-group-scientist-head
-  minLimit: 0
-  loadouts:
+#- type: loadoutGroup
+#  id: ScientistHead
+#  name: loadout-group-scientist-head
+#  minLimit: 0
+#  loadouts:
   #- RoboticistCap
   #- SkullBandana
-  - ScientificBeret
+#  - ScientificBeret
 
-- type: loadoutGroup
-  id: ScientistNeck
-  name: loadout-group-scientist-neck
-  minLimit: 0
-  loadouts:
-  - ScientistTie
+#- type: loadoutGroup
+#  id: ScientistNeck
+#  name: loadout-group-scientist-neck
+#  minLimit: 0
+#  loadouts:
+#  - ScientistTie
 
 - type: loadoutGroup
   id: ScientistJumpsuit
@@ -1224,29 +1225,30 @@
   #- RoboticistJumpsuit
   #- RoboticistJumpskirt
   - SeniorResearcherJumpsuit
-  - SeniorResearcherJumpskirt
-  - ResearchMJ # goob
+#  - SeniorResearcherJumpskirt
+#  - ResearchMJ # goob
 
 - type: loadoutGroup
   id: ScientistBackpack
   name: loadout-group-scientist-backpack
   loadouts:
   - ScientistBackpack
-  - ScientistSatchel
-  - ScientistDuffel
-  - ScientistMessenger # Frontier
+#  - ScientistSatchel
+#  - ScientistDuffel
+#  - ScientistMessenger # Frontier
 
 - type: loadoutGroup
   id: ScientistOuterClothing
   name: loadout-group-scientist-outerclothing
   minLimit: 0
   loadouts:
-  - RegularLabCoat
-  - ScienceLabCoat
-  - ScienceWintercoat
-  - RoboticistLabCoat
-  - RoboticistWintercoat
-  - SeniorResearcherLabCoat
+  - ClothingOuterBioScientist #BlackM
+#  - RegularLabCoat
+#  - ScienceLabCoat
+#  - ScienceWintercoat
+#  - RoboticistLabCoat
+#  - RoboticistWintercoat
+#  - SeniorResearcherLabCoat
 
 - type: loadoutGroup
   id: ScientistShoes
@@ -1254,7 +1256,7 @@
   loadouts:
   - WhiteShoes
   - BlackShoes
-  - ScienceWinterBoots
+#  - ScienceWinterBoots
 
 - type: loadoutGroup
   id: ScientistGloves
@@ -1262,7 +1264,7 @@
   minLimit: 0
   loadouts:
   - LatexGloves
-  - PurpleGloves
+#  - PurpleGloves
   - RobohandsGloves
 
 - type: loadoutGroup
@@ -1270,7 +1272,7 @@
   name: loadout-group-scientist-id
   loadouts:
   - ScientistPDA
-  - SeniorResearcherPDA
+#  - SeniorResearcherPDA
 
 - type: loadoutGroup
   id: ResearchAssistantJumpsuit
@@ -1278,7 +1280,7 @@
   loadouts:
   - WhiteJumpsuit
   - WhiteJumpskirt
-  - ResearchMJ # goob
+#  - ResearchMJ # goob
 
 # Security
 - type: loadoutGroup
@@ -1286,138 +1288,138 @@
   name: loadout-group-head-of-security-head
   minLimit: 0
   loadouts:
-  - HeadofSecurityHead
-  - HeadofSecurityBeret
-  - HeadofSecuritySpecialBeret # Goobstation
+  - ClothingHeadHelmetKovakChief #BlackM
+#  - HeadofSecurityBeret
+#  - HeadofSecuritySpecialBeret # Goobstation
 
 - type: loadoutGroup
   id: HeadofSecurityJumpsuit
   name: loadout-group-head-of-security-jumpsuit
   loadouts:
-  - HeadofSecurityJumpsuit
-  - HeadofSecurityJumpskirt
-  - HeadofSecurityTurtleneck
-  - HeadofSecurityTurtleneckSkirt
-  - HeadofSecurityFormalSuit
-  - HeadofSecurityFormalSkirt
+  - ClothingUniformJumpsuitKovakChief #BlackM
+#  - HeadofSecurityJumpskirt
+#  - HeadofSecurityTurtleneck
+#  - HeadofSecurityTurtleneckSkirt
+#  - HeadofSecurityFormalSuit
+#  - HeadofSecurityFormalSkirt
   # CorvaxGoob-Loadouts-Start
-  - HeadofSecurityJumpsuitBlack
-  - HeadofSecurityJumpskirtBlack
+#  - HeadofSecurityJumpsuitBlack
+#  - HeadofSecurityJumpskirtBlack
   # CorvaxGoob-Loadouts-End
-  - HoSSummerShirt # goob
+#  - HoSSummerShirt # goob
 
 - type: loadoutGroup
   id: HeadofSecurityNeck
   name: loadout-group-head-of-security-neck
   minLimit: 0
   loadouts:
-  - HeadofSecurityCloak
-  - HeadofSecurityMantle
-  - HeadofSecurityCloakExperimental # CorvaxGoob
+  - ClothingOuterCapeKovakChief #BlackM
+#  - HeadofSecurityMantle
+#  - HeadofSecurityCloakExperimental # CorvaxGoob
   - Bodycam # Goobstation - Body cameras
-  - HeadOfSecurityEnsemble # goob
-  - ClothingNeckMantleHOSShoulder #CorvaxGoob
+#  - HeadOfSecurityEnsemble # goob
+#  - ClothingNeckMantleHOSShoulder #CorvaxGoob
 
 - type: loadoutGroup
   id: HeadofSecurityOuterClothing
   name: loadout-group-head-of-security-outerclothing
   loadouts:
-  - HeadofSecurityCoat
-  - HeadofSecurityWinterCoat
-  - HeadofSecurityGreatCoat # Goobstation
-  - HeadofSecurityVestWeb # Goobstation
+  - ClothingOuterCoatKovakChief #BlackM
+#  - HeadofSecurityWinterCoat
+#  - HeadofSecurityGreatCoat # Goobstation
+#  - HeadofSecurityVestWeb # Goobstation
 
 - type: loadoutGroup
   id: WardenHead
   name: loadout-group-warden-head
   minLimit: 0
   loadouts:
-  - WardenHead
-  - WardenBeret
+  - ClothingHeadHelmetKovakWarden #BlackM
+#  - WardenBeret
 # CorvaxGoob-Loadouts-Start
-  - WardenCap
-  - WardenHeadAlt
+#  - WardenCap
+#  - WardenHeadAlt
 # CorvaxGoob-Loadouts-End
 
 - type: loadoutGroup
   id: WardenJumpsuit
   name: loadout-group-warden-jumpsuit
   loadouts:
-  - WardenJumpsuit
-  - WardenJumpskirt
+  - ClothingUniformJumpsuitKovakWarden #BlackM
+#  - WardenJumpskirt
 
 - type: loadoutGroup
   id: WardenOuterClothing
   name: loadout-group-warden-outerclothing
   loadouts:
-  - WardenCoat
-  - WardenArmoredWinterCoat
-  - WardenCoatBlue #goob
+  - ClothingOuterCapeKovakWarden #BlackM
+#  - WardenArmoredWinterCoat
+#  - WardenCoatBlue #goob
 
 - type: loadoutGroup
   id: SecurityHead
   name: loadout-group-security-head
   minLimit: 0
   loadouts:
-  - SecurityHelmet
-  - SecurityHelmetAlt # Goobstation
-  - SecurityBeret
-  - SecurityHat
-  - TrooperHat
+  - ClothingHeadHelmetKovakSoldier #BlackM
+#  - SecurityHelmetAlt # Goobstation
+#  - SecurityBeret
+#  - SecurityHat
+#  - TrooperHat
 
 - type: loadoutGroup
   id: SecurityJumpsuit
   name: loadout-group-security-jumpsuit
   loadouts:
-  - SecurityJumpsuit
-  - SecurityJumpskirt
-  - SecurityJumpsuitGrey
-  - SecurityJumpskirtGrey
-  - SeniorOfficerJumpsuit
-  - SeniorOfficerJumpskirt
-  - TrooperUniform
-  - UniformJumpsuitDSS # _CorvaxGoob
+  - ClothingUniformJumpsuitKovakSoldier #BlackM
+ # - SecurityJumpskirt
+ # - SecurityJumpsuitGrey
+ # - SecurityJumpskirtGrey
+ # - SeniorOfficerJumpsuit
+ # - SeniorOfficerJumpskirt
+#  - TrooperUniform
+#  - UniformJumpsuitDSS # _CorvaxGoob
 
 - type: loadoutGroup
   id: SecurityBackpack
   name: loadout-group-security-backpack
   loadouts:
   - SecurityBackpack
-  - SecuritySatchel
-  - SecurityDuffel
-  - SecurityMessenger # Frontier
+#  - SecuritySatchel
+#  - SecurityDuffel
+#  - SecurityMessenger # Frontier
 
 - type: loadoutGroup
   id: SecurityBelt
   name: loadout-group-security-belt
   loadouts:
   - SecurityBelt
-  - SecurityWebbing
-  - SecurityJudoBelt # Goobstation - Martial Arts
+#  - SecurityWebbing
+#  - SecurityJudoBelt # Goobstation - Martial Arts
 
 - type: loadoutGroup
   id: SecurityOuterClothing
   name: loadout-group-security-outerclothing
   loadouts:
-  - ArmorVest
-  - ArmorVestSlim
-  - SecurityOfficerWintercoat
-  - WinterCoatSeniorSecArmored # Goobstation
+  - ClothingOuterArmorKovakSoldier #BlackM
+#  - ArmorVestSlim
+#  - SecurityOfficerWintercoat
+#  - WinterCoatSeniorSecArmored # Goobstation
 
 - type: loadoutGroup
   id: SecurityShoes
   name: loadout-group-security-shoes
   loadouts:
-  - JackBoots
-  - CombatBoots # Goobstation
-  - SecurityWinterBoots
+  - ClothingShoesKovakSoldier #BlackM
+#  - CombatBoots # Goobstation
+#  - SecurityWinterBoots
 
 - type: loadoutGroup
   id: SecurityPDA
   name: loadout-group-security-id
   loadouts:
   - SecurityPDA
-  - SeniorOfficerPDA
+#  - SeniorOfficerPDA
 
 - type: loadoutGroup
   id: DetectiveHead
@@ -1456,8 +1458,8 @@
   id: SecurityCadetJumpsuit
   name: loadout-group-security-cadet-jumpsuit
   loadouts:
-  - RedJumpsuit
-  - RedJumpskirt
+  - ClothingUniformJumpsuitKovakSoldier #BlackM
+#  - RedJumpskirt
 
 - type: loadoutGroup
   id: SurvivalSecurity
@@ -1473,12 +1475,12 @@
   - EmergencyWaterVaporSecurity # Delta-V
   - EmergencySilicon
 
-- type: loadoutGroup
-  id: SecurityStar
-  name: loadout-group-security-star
-  minLimit: 0
-  loadouts:
-  - SecStar
+#- type: loadoutGroup
+#  id: SecurityStar
+#  name: loadout-group-security-star
+#  minLimit: 0
+#  loadouts:
+#  - SecStar
 
 # Medical
 - type: loadoutGroup
@@ -1494,33 +1496,34 @@
   id: ChiefMedicalOfficerJumpsuit
   name: loadout-group-chief-medical-officer-jumpsuit
   loadouts:
-  - ChiefMedicalOfficerJumpsuit
-  - ChiefMedicalOfficerJumpskirt
-  - ChiefMedicalOfficerTurtleneckJumpsuit
-  - ChiefMedicalOfficerTurtleneckJumpskirt
-  - CMOMJ # goob
+  - ClothingUniformJumpsuitKovakMed # BlackM
+#  - ChiefMedicalOfficerJumpskirt
+#  - ChiefMedicalOfficerTurtleneckJumpsuit
+#  - ChiefMedicalOfficerTurtleneckJumpskirt
+#  - CMOMJ # goob
 
 - type: loadoutGroup
   id: ChiefMedicalOfficerOuterClothing
   name: loadout-group-chief-medical-officer-outerclothing
   minLimit: 0
   loadouts:
-  - ChiefMedicalOfficerLabCoat
-  - ChiefMedicalOfficerWintercoat
+  - ClothingOuterCapeKovakMed # BlackM
+#  - ChiefMedicalOfficerWintercoat
 
-- type: loadoutGroup
-  id: ChiefMedicalOfficerNeck
-  name: loadout-group-chief-medical-officer-neck
-  minLimit: 0
-  loadouts:
-  - ChiefMedicalOfficerCloak
-  - ChiefMedicalOfficerMantle
-  - ChiefMedicalOfficerEnsemble # goob
+#- type: loadoutGroup
+#  id: ChiefMedicalOfficerNeck
+#  name: loadout-group-chief-medical-officer-neck
+#  minLimit: 0
+#  loadouts:
+#  - ChiefMedicalOfficerCloak
+#  - ChiefMedicalOfficerMantle
+#  - ChiefMedicalOfficerEnsemble # goob
 
 - type: loadoutGroup
   id: ChiefMedicalOfficerShoes
   name: loadout-group-chief-medical-officer-shoes
   loadouts:
+  - ChiefMedicalOfficerShoes
   - BrownShoes
   - MedicalWinterBoots
 
@@ -1529,13 +1532,14 @@
   name: loadout-group-medical-doctor-head
   minLimit: 0
   loadouts:
-  - MedicalBeret
-  - SeniorPhysicianBeret
-  - MedicalHeadMirror
-  - BlueSurgeryCap
-  - GreenSurgeryCap
-  - PurpleSurgeryCap
-  - NurseHat
+  - ClothingHeadHelmetKovakMed # BlackM
+#  - MedicalBeret
+#  - SeniorPhysicianBeret
+#  - MedicalHeadMirror
+#  - BlueSurgeryCap
+#  - GreenSurgeryCap
+#  - PurpleSurgeryCap
+#  - NurseHat
 
 - type: loadoutGroup
   id: MedicalDoctorJumpsuit
