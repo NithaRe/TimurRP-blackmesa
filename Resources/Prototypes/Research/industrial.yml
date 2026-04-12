@@ -128,58 +128,58 @@
   # Goobstation R&D Console rework start
   position: 1,-6
   technologyPrerequisites:
-  - IndustrialEngineering
+  - AdvancedToolsTechnology
   # Goobstation R&D Console rework end
 
-- type: technology
-  id: MechanicalCompression
-  name: research-technology-mechanical-compression
-  icon:
-    sprite: Structures/Machines/flatpacker.rsi
-    state: base
-  discipline: Industrial
-  tier: 1
-  cost: 10000
-  recipeUnlocks:
-  - FlatpackerMachineCircuitboard
-  # Goobstation R&D Console rework start
-  position: 1,-4
-  technologyPrerequisites:
-  - SpaceScanning
-  # Goobstation R&D Console rework end
+#- type: technology
+#  id: MechanicalCompression
+#  name: research-technology-mechanical-compression
+#  icon:
+#    sprite: Structures/Machines/flatpacker.rsi
+#    state: base
+#  discipline: Industrial
+#  tier: 1
+#  cost: 10000
+#  recipeUnlocks:
+#  - FlatpackerMachineCircuitboard
+#  # Goobstation R&D Console rework start
+#  position: 1,-4
+#  technologyPrerequisites:
+#  - SpaceScanning
+#  # Goobstation R&D Console rework end
 
-- type: technology
-  id: IndustrialEngineering
-  name: research-technology-industrial-engineering
-  icon:
-    sprite: Structures/Machines/protolathe_hypercon.rsi
-    state: building
-  discipline: Industrial
-  tier: 1
-  cost: 10000
-  recipeUnlocks:
-  # Begin DeltaV Removals - replaced by upgrade kits + departmental techfabs
-  #- AutolatheHyperConvectionMachineCircuitboard
-  #- ProtolatheHyperConvectionMachineCircuitboard
-  #- CircuitImprinterHyperConvectionMachineCircuitboard
-  # End DeltaV Removals
-  # Begin DeltaV Additions
-  - LatheUpgradeKitHyper
-  - LatheUpgradeKitCryo
-  # End DeltaV Additions
-  # Begin Goobstation Additions
-  - UpgradeKitAutomation
-  - RoboticArmCircuitboard
-  - ConstructorCircuitboard
-  - StorageBinCircuitboard
-  - InteractorCircuitboard
-  # End Goobstation Additions
-  - SheetifierMachineCircuitboard
-  # Goobstation R&D Console rework start
-  position: 1,-5
-  technologyPrerequisites:
-  - MechanicalCompression
-  # Goobstation R&D Console rework end
+#- type: technology
+#  id: IndustrialEngineering
+#  name: research-technology-industrial-engineering
+#  icon:
+#    sprite: Structures/Machines/protolathe_hypercon.rsi
+#    state: building
+#  discipline: Industrial
+#  tier: 1
+#  cost: 10000
+#  recipeUnlocks:
+#  # Begin DeltaV Removals - replaced by upgrade kits + departmental techfabs
+#  #- AutolatheHyperConvectionMachineCircuitboard
+#  #- ProtolatheHyperConvectionMachineCircuitboard
+#  #- CircuitImprinterHyperConvectionMachineCircuitboard
+#  # End DeltaV Removals
+#  # Begin DeltaV Additions
+#  - LatheUpgradeKitHyper
+# - LatheUpgradeKitCryo
+# # End DeltaV Additions
+# # Begin Goobstation Additions
+# - UpgradeKitAutomation
+# - RoboticArmCircuitboard
+# - ConstructorCircuitboard
+# - StorageBinCircuitboard
+# - InteractorCircuitboard
+# # End Goobstation Additions
+#  - SheetifierMachineCircuitboard
+#  # Goobstation R&D Console rework start
+#  position: 1,-5
+#  technologyPrerequisites:
+#  - MechanicalCompression
+#  # Goobstation R&D Console rework end
 
 - type: technology
   id: PowerGeneration
@@ -199,23 +199,23 @@
   - EmitterCircuitboard
   position: 0,-2
 
-- type: technology
-  id: AtmosphericTech
-  name: research-technology-atmospheric-tech
-  icon:
-    sprite: Structures/Piping/Atmospherics/thermomachine.rsi
-    state: freezerOff
-  discipline: Industrial
-  tier: 1
-  cost: 7500
-  recipeUnlocks:
-  - ThermomachineFreezerMachineCircuitBoard
-  - GasRecyclerMachineCircuitboard
-  # Goobstation R&D Console rework start
-  position: -2,-4
-  technologyPrerequisites:
-  - SpaceScanning
-  # Goobstation R&D Console rework end
+#- type: technology
+#  id: AtmosphericTech
+#  name: research-technology-atmospheric-tech
+#  icon:
+#    sprite: Structures/Piping/Atmospherics/thermomachine.rsi
+#    state: freezerOff
+#  discipline: Industrial
+#  tier: 1
+#  cost: 7500
+#  recipeUnlocks:
+#  - ThermomachineFreezerMachineCircuitBoard
+#  - GasRecyclerMachineCircuitboard
+#  # Goobstation R&D Console rework start
+#  position: -2,-4
+#  technologyPrerequisites:
+#  - SpaceScanning
+#  # Goobstation R&D Console rework end
 
 - type: technology
   id: RipleyAPLU
@@ -243,47 +243,47 @@
 
 # Tier 2
 
-- type: technology
-  id: Shuttlecraft
-  name: research-technology-shuttlecraft
-  icon:
-    sprite: Structures/Shuttles/gyroscope.rsi
-    state: base
-  discipline: Industrial
-  tier: 2
-  cost: 10000
-  recipeUnlocks:
-  - ShuttleRemoteControlSystemCircuitboard # CorvaxGoob-LinkableDrones
-  - ComputerIFFCircuitboard # CorvaxGoob-IIF-Improves
-  - ShuttleConsoleCircuitboard
-  - ThrusterMachineCircuitboard
-  - GyroscopeMachineCircuitboard
-  - MiniGravityGeneratorCircuitboard
-  - MachineFTLDriveCircuitboard # Frontier
-  # Goobstation R&D Console rework start
-  position: 2,-4
-  technologyPrerequisites:
-  - MechanicalCompression
-  # Goobstation R&D Console rework end
+#- type: technology
+#  id: Shuttlecraft
+#  name: research-technology-shuttlecraft
+#  icon:
+#    sprite: Structures/Shuttles/gyroscope.rsi
+#    state: base
+#  discipline: Industrial
+#  tier: 2
+#  cost: 10000
+#  recipeUnlocks:
+#  - ShuttleRemoteControlSystemCircuitboard # CorvaxGoob-LinkableDrones
+#  - ComputerIFFCircuitboard # CorvaxGoob-IIF-Improves
+#  - ShuttleConsoleCircuitboard
+#  - ThrusterMachineCircuitboard
+#  - GyroscopeMachineCircuitboard
+#  - MiniGravityGeneratorCircuitboard
+#  - MachineFTLDriveCircuitboard # Frontier
+#  # Goobstation R&D Console rework start
+#  position: 2,-4
+#  technologyPrerequisites:
+#  - MechanicalCompression
+#  # Goobstation R&D Console rework end
 
-- type: technology
-  id: AdvancedAtmospherics
-  name: research-technology-advanced-atmospherics
-  icon:
-    sprite: Objects/Devices/Holoprojectors/atmos.rsi
-    state: icon
-  discipline: Industrial
-  tier: 2
-  cost: 7500
-  recipeUnlocks:
-  - HellfireFreezerMachineCircuitBoard
-  - PortableScrubberMachineCircuitBoard
-  - HolofanProjector
-  technologyPrerequisites:
-  - AtmosphericTech
-  # Goobstation R&D Console rework start
-  position: -2,-5
-  # Goobstation R&D Console rework end
+#- type: technology
+#  id: AdvancedAtmospherics
+#  name: research-technology-advanced-atmospherics
+#  icon:
+#    sprite: Objects/Devices/Holoprojectors/atmos.rsi
+#    state: icon
+#  discipline: Industrial
+#  tier: 2
+#  cost: 7500
+#  recipeUnlocks:
+#  - HellfireFreezerMachineCircuitBoard
+#  - PortableScrubberMachineCircuitBoard
+#  - HolofanProjector
+#  technologyPrerequisites:
+#  - AtmosphericTech
+#  # Goobstation R&D Console rework start
+#  position: -2,-5
+#  # Goobstation R&D Console rework end
 
 - type: technology
   id: AdvancedToolsTechnology
@@ -303,7 +303,7 @@
   # Goobstation R&D Console rework start
   position: 2,-5
   technologyPrerequisites:
-  - Shuttlecraft
+  - AdvancedToolsTechnology
   # Goobstation R&D Console rework end
 
 - type: technology
