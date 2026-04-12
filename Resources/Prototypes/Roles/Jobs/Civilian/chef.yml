@@ -116,7 +116,6 @@
   equipment:
     shoes: ClothingShoesColorBlack
     id: ChefPDA
-    ears: ClothingHeadsetService
     belt: ClothingBeltChefFilled
   #storage:
     #back:

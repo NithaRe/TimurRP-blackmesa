@@ -94,7 +94,6 @@
   equipment:
     shoes: ClothingShoesColorBlack
     id: ChaplainPDA
-    ears: ClothingHeadsetService
   storage:
     back:
     - ChaplainUndeterminedBible

@@ -37,7 +37,6 @@
     shoes: ClothingShoesBootsJack
     back: ClothingBackpackMercFilledHECU
     id: HecuPDA
-    ears: ClothingHeadsetAltCentCom
     hand: WeaponSubMachineGunDrozd
   storage:
     back:

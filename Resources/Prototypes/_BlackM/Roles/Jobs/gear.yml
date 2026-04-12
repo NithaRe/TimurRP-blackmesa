@@ -10,7 +10,6 @@
     shoes: ClothingShoesBootsWinterEngi
     back: ClothingBackpackHecuScience
     id: BmesaResearchPDA
-    ears: ClothingHeadsetAltHecuScience
     belt: ClothingBeltUtilityFilled
   storage:
     back:
@@ -47,7 +46,6 @@
     shoes: ClothingShoesBootsCombatFilled
     back: ClothingBackpackSatchel
     id: GordonFreemanPDA
-    ears: ClothingHeadsetAltHecuScience
     belt: ClothingBeltMercWebbingHelldiverFilled
     suitstorage: WeaponRifleLecter
   storage:

@@ -147,7 +147,6 @@
     shoes: ClothingShoesColorWhite
     id: MimePDA
     pocket1: CrayonMime
-    ears: ClothingHeadsetService
   storage:
     back:
     - RubberStampMime

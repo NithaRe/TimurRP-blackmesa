@@ -113,7 +113,6 @@
   id: ParamedicGear
   equipment:
     id: ParamedicPDA
-    ears: ClothingHeadsetMedical
     belt: ClothingBeltMedicalEMTFilled
   storage:
     back:

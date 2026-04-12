@@ -28,7 +28,6 @@
 - type: startingGear
   id: SurgeonGear
   equipment:
-    ears: ClothingHeadsetMedical
     belt: ClothingBeltSurgicalBoardFilled
     shoes: ClothingShoesColorWhite
     id: SurgeonPDA
@@ -41,7 +40,6 @@
     head: ClothingHeadHatBeretMedic
     eyes: ClothingEyesHudMedical
     mask: ClothingMaskBreath
-    ears: ClothingHeadsetMedical
     outerClothing: ClothingOuterCoatLab
     gloves: ClothingHandsGlovesNitrile
     jumpsuit: ClothingUniformJumpsuitMedicalDoctor
