@@ -65,6 +65,7 @@
   name: job-name-chemist
   description: job-description-chemist
   playTimeTracker: JobChemist
+  setPreference: false # BlackM Roles
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical

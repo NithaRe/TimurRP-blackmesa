@@ -191,6 +191,8 @@
     back:
     - Flash
     - TelescopicBaton # Goobstation
+  inhand:
+    - BookCargoGuide # BlackM
 
 - type: chameleonOutfit
   id: QuartermasterChameleonOutfit

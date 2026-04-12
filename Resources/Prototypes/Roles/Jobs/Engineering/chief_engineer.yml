@@ -164,10 +164,6 @@
   antagAdvantage: 75 # Goobstation
   guides: # goobstation
   - Engineering
-  # - ChiefEngineer SOP Hidden by CorvaxGoob
-  # - Engineering SOP Hidden by CorvaxGoob
-  - Command
-  # - Emergencies SOP Hidden by CorvaxGoob
   access:
   - Maintenance
   - Engineering
@@ -196,6 +192,8 @@
     back:
     - Flash
     - TelescopicBaton # Goobstation
+  inhand:
+    - BookEngineerGuide # BlackM
 
 - type: chameleonOutfit
   id: ChiefEngineerChameleonOutfit

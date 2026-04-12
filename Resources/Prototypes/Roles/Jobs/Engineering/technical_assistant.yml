@@ -62,6 +62,7 @@
   name: job-name-technical-assistant
   description: job-description-technical-assistant
   playTimeTracker: JobTechnicalAssistant
+  setPreference: false # BlackM Roles
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 0 # BlackM 7200 # 2 hrs
