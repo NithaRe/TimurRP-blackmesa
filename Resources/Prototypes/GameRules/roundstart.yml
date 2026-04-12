@@ -641,7 +641,7 @@
   - type: RoundstartStationVariationRule
     rules:
     - id: BasicPoweredLightVariationPass
-    - id: BasicTrashVariationPass
+#    - id: BasicTrashVariationPass #blackm off trash
     - id: SolidWallRustingVariationPass
     - id: ReinforcedWallRustingVariationPass
     - id: BasicPuddleMessVariationPass
@@ -655,7 +655,7 @@
     - id: SolarPanelDamageVariationPass
     - id: SolarPanelEmptyVariationPass
     - id: BasicDecalDirtVariationPass
-    - id: BasicDecalGraffitiVariationPass
+#    - id: BasicDecalGraffitiVariationPass #blackm off trash
     - id: BasicDecalBrunsVariationPass
       prob: 0.50
       orGroup: monospaceDecals
