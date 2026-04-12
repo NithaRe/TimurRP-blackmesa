@@ -175,12 +175,6 @@
   - Shooting
   guides: # goobstation
   - Security
-  # - SpaceLaw Hidden by CorvaxGoob
-  # - Legal SOP Hidden by CorvaxGoob
-  - Command
-  # - HeadOfSecurity SOP Hidden by CorvaxGoob
-  # - Security SOP Hidden by CorvaxGoob
-  # - Alert Levels Hidden by CorvaxGoob
   access:
   - HeadOfSecurity
   - Command
@@ -215,6 +209,8 @@
     back:
     - Flash
     - MagazinePistol
+  inhand:
+    - BookSecurityGuide # BlackM
 
 - type: chameleonOutfit
   id: HeadOfSecurityChameleonOutfit

@@ -203,6 +203,8 @@
     - Flash
     - TelescopicBaton # Goobstation
     # - StationCharter
+  inhand:
+    - BookCaptainGuide # BlackM
 
 - type: chameleonOutfit
   id: CaptainChameleonOutfit
