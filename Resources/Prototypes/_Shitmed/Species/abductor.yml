@@ -7,7 +7,7 @@
 - type: species
   id: Abductor
   name: species-name-abductor
-  roundStart: true # CorvaxGoob-Species : from false
+  roundStart: false
   prototype: MobAbductor
   sprites: MobAbductorSprites
   markingLimits: MobAbductorMarkingLimits # CorvaxGoob-Species : from MobHumanMarkingLimits
