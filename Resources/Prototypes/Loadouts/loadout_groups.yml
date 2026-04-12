@@ -1523,7 +1523,6 @@
   id: ChiefMedicalOfficerShoes
   name: loadout-group-chief-medical-officer-shoes
   loadouts:
-  - ChiefMedicalOfficerShoes
   - BrownShoes
   - MedicalWinterBoots
 
