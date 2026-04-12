@@ -116,48 +116,48 @@
   components:
     - type: GatewayGenerator
 
-- type: entity
-  id: BaseStationShuttles
-  abstract: true
-  components:
-    - type: StationCargoShuttle
-      path: /Maps/Shuttles/cargo.yml
-    - type: GridSpawn
-      groups:
-        trade: !type:GridSpawnGroup
-          addComponents:
-            - type: ProtectedGrid
-            - type: TradeStation
-          paths:
-            - /Maps/_Goobstation/Shuttles/trading_outpost.yml #Goobstation
-          nameDataset: TradeStationNames
-        # Spawn last
-        ruins: !type:GridSpawnGroup
-          hide: true
-          nameGrid: true
-          minCount: 1
-          maxCount: 2
-          stationGrid: false
-          paths:
-          # Corvax-Goob-Mapping-start
-          - /Maps/_CorvaxGoob/Ruins/corvax_accident.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_adventurer.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_aplink.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_battleship.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_gas_station.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_bss_unluck.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_hotel_trivago.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_kamikaze.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_ore.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_research_station.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_rnd_debris.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_sanctus.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_ussp_debris.yml
-          - /Maps/_CorvaxGoob/Ruins/corvax_ussp_asteroid.yml
-        mining: !type:GridSpawnGroup
-          paths:
-          - /Maps/_CorvaxGoob/Base/Shuttles/corvax_mining.yml
-          nameDataset: CorvaxShuttleMiningNames
+#- type: entity
+#  id: BaseStationShuttles
+#  abstract: true
+#  components:
+#    - type: StationCargoShuttle
+#      path: /Maps/Shuttles/cargo.yml
+#    - type: GridSpawn
+#      groups:
+#        trade: !type:GridSpawnGroup
+#          addComponents:
+#            - type: ProtectedGrid
+#            - type: TradeStation
+#          paths:
+#            - /Maps/_Goobstation/Shuttles/trading_outpost.yml #Goobstation
+#          nameDataset: TradeStationNames
+#        # Spawn last
+#        ruins: !type:GridSpawnGroup
+#          hide: true
+#          nameGrid: true
+#          minCount: 1
+#          maxCount: 2
+#          stationGrid: false
+#          paths:
+#          # Corvax-Goob-Mapping-start
+#          - /Maps/_CorvaxGoob/Ruins/corvax_accident.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_adventurer.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_aplink.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_battleship.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_gas_station.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_bss_unluck.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_hotel_trivago.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_kamikaze.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_ore.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_research_station.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_rnd_debris.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_sanctus.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_ussp_debris.yml
+#          - /Maps/_CorvaxGoob/Ruins/corvax_ussp_asteroid.yml
+#        mining: !type:GridSpawnGroup
+#          paths:
+#          - /Maps/_CorvaxGoob/Base/Shuttles/corvax_mining.yml
+#          nameDataset: CorvaxShuttleMiningNames
         #wrecks: !type:DungeonSpawnGroup
         #  minimumDistance: 150
         #  maximumDistance: 300
