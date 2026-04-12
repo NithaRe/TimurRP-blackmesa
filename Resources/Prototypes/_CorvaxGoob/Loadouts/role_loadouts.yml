@@ -10,7 +10,7 @@
   - MedicalShoes
   - SurgeonScalpel
   - Trinkets
-  - Animals
+#  - Animals #blackM
   - SurvivalMedical
   - GroupSpeciesBreathToolMedical
   - MedicalDoctorEnvirohelm
@@ -30,7 +30,7 @@
   - WardenOuterClothing
   - SecurityShoes
   - SurvivalSecurity
-  - SecurityStar
+#  - SecurityStar #blackM
   - Trinkets
   - Animals
   - GroupSpeciesBreathToolSecurity

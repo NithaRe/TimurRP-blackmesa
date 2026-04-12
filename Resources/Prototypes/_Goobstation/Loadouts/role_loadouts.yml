@@ -103,7 +103,7 @@
   - NanotrasenRepresentativeGloves
   - Glasses
   - Trinkets
-  - Animals
+#  - Animals #blackM
   - GroupSpeciesBreathTool
   - Survival
   # Goobstation - EE Plasmeme Change.
@@ -167,7 +167,7 @@
   - GroupTankHarness
   - RoboticistHead
   - RoboticistGlasses # CorvaxGoob-loadouts: Glasses > RoboticistGlasses
-  - ScientistNeck
+#  - ScientistNeck  #blackM
   - RoboticistJumpsuit
   - RoboticistBackpack
   - RoboticistOuterClothing
@@ -200,7 +200,7 @@
   - SurvivalSecurity
   - Trinkets
   - Animals
-  - SecurityStar
+#  - SecurityStar #blackM
   - GroupSpeciesBreathToolSecurity
   # Goobstation - EE Plasmeme Change.
   - BrigmedicEnvirohelm

@@ -129,7 +129,7 @@
   - CaptainGloves
   - Survival
   - Trinkets
-  - Animals
+#  - Animals #blackm
   - GroupSpeciesBreathTool
   # Goobstation - EE Plasmeme Change.
   - CaptainEnvirohelm
@@ -551,8 +551,8 @@
   groups:
   - Inventory # CorvaxGoob-loadouts
   - GroupTankHarness
-  - ResearchDirectorHead
-  - ResearchDirectorNeck
+#  - ResearchDirectorHead #BlackM
+#  - ResearchDirectorNeck #blackM
   - ResearchDirectorJumpsuit
   - ScientistBackpack
   - ResearchDirectorOuterClothing
@@ -573,8 +573,8 @@
   groups:
   - Inventory # CorvaxGoob-loadouts
   - GroupTankHarness
-  - ScientistHead
-  - ScientistNeck
+#  - ScientistHead #blackM
+#  - ScientistNeck #blackM
   - ScientistJumpsuit
   - ScientistBackpack
   - ScientistOuterClothing
@@ -624,7 +624,7 @@
   - HeadofSecurityGloves
   - SurvivalSecurity
   - Trinkets
-  - SecurityStar
+#  - SecurityStar #blackM
   - Animals
   - GroupSpeciesBreathToolSecurity
   # Goobstation - EE Plasmeme Change.
@@ -729,7 +729,7 @@
   - MedicalGloves
   - MedicalBackpack
   - ChiefMedicalOfficerOuterClothing
-  - ChiefMedicalOfficerNeck
+#  - ChiefMedicalOfficerNeck #blackM
   - ChiefMedicalOfficerShoes
   - SurvivalMedical
   - Trinkets
