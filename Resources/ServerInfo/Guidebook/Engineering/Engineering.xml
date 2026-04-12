@@ -1,45 +1,66 @@
-<!--
-SPDX-FileCopyrightText: 2023 Julian Giebel <juliangiebel@live.de>
-SPDX-FileCopyrightText: 2023 Leon Friedrich <60421075+ElectroJr@users.noreply.github.com>
-SPDX-FileCopyrightText: 2023 end <72604018+laok233@users.noreply.github.com>
-SPDX-FileCopyrightText: 2024 Iztok Bajcar <50874197+iztokbajcar@users.noreply.github.com>
-SPDX-FileCopyrightText: 2024 Kira Bridgeton <161087999+Verbalase@users.noreply.github.com>
-SPDX-FileCopyrightText: 2024 Terraspark4941 <terraspark4941@gmail.com>
-SPDX-FileCopyrightText: 2024 UBlueberry <161545003+UBlueberry@users.noreply.github.com>
-SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-SPDX-FileCopyrightText: 2025 ArtisticRoomba <145879011+ArtisticRoomba@users.noreply.github.com>
-
-SPDX-License-Identifier: AGPL-3.0-or-later
--->
-
 <Document>
-  # Инженерное дело
-  [color=#f39f27]Инженерное дело[/color] сочетает в себе работу по [textlink="строительству" link="Construction"], [textlink="починке" link="ExpandingRepairingStation"], поддержание смертоносной машины, которая при этом производит [textlink="энергию" link="Power"], и обеспечение станции [textlink="пригодным для дыхания воздухом" link="Atmospherics"].
+# Командование: Старший Инженер
 
-  ## Персонал
-  В штате [color=#f39f27]Инженерного отдела[/color] состоят технические ассистенты, инженеры и атмосферные техники.
-  Инженерный отдел возглавляет Старший Инженер.
+[color=#ff4444]=== ВАЖНО: ПРОЧТИТЕ ЭТОТ ДОКУМЕНТ ПЕРЕД НАЧАЛОМ СМЕНЫ ===[/color]
+
+Вы — [color=#f39f27]Старший Инженер[/color]. Вы отвечаете за электричество, ДАМ, строительство АМС и всю техническую инфраструктуру комплекса.
+
+[color=#ff4444]ВНИМАНИЕ: У вас ОДИН подчинённый (помощник инженера). Разгерметизации в комплексе быть НЕ МОЖЕТ[/color]
+
+Ваша главная цель: [color=#a4885c]ПОДДЕРЖИВАТЬ РАБОТУ ДАМ И ПОСТРОИТЬ АНТИМАСС СПЕКТРОМЕТР (АМС)[/color].
+
+## Ваша книга регламента
+
+У вас при спавне есть книга [color=#a4885c]«Регламент Инженерного Отдела»[/color]. Следуйте этому плану смены.
+
+### Этап 1: Начало смены
+
+  <Box>
+    <GuideEntityEmbed Entity="LockerChiefEngineer" Caption="Ваш шкафчик"/>
+  </Box>
+
+[color=#a4885c]Ваши действия:[/color]
+- Проверьте [color=#a4885c]реактор[/color]. Топлива мало, учитывайте это.
+- Свяжитесь с [color=#1b67a5]Главой Комплекса[/color] — узнайте план строительства АМС.
+- [color=#a4885c]Не уходите оба в Зен одновременно[/color] — комплекс должен кто-то чинить.
+
+### Этап 2: ДАМ и топливо
+
+[color=#a4885c]Ваши действия:[/color]
+- [color=#a4885c]Всеми правдами и неправдами вы должны добиться покупки топлива для ДАМ, иначе комплекс останется без света.[/color]
+
+### Этап 3: Строительство Антимасс спектрометра
+
+[color=#ff4444]КЛЮЧЕВАЯ ЗАДАЧА:[/color] Построить АМС.
+
+[color=#a4885c]Ваши действия:[/color]
+- Координируйте заказ деталей с [color=#b18644]Квартирмейстером[/color].
+- [color=#a4885c]Ресурсы на АМС должны быть заказаны до того, как зен-кристаллы обесценятся настолько, что вы не сможете позволить себе ресурсы[/color] — иначе вы не сможете закончить смену.
+
+### Этап 4: Каскадный Резонанс и эвакуация
+
+[color=#ff4444]ПРИ ЧРЕЗВЫЧАЙНОЙ СИТУАЦИИ:[/color]
+
+- При ЧС ваша работа как инженера [color=#a4885c]почти закончена[/color].
+- [color=#a4885c]ДАМ можно бросить[/color] — всё равно эвакуация.
+- Ваша новая цель: [color=#a4885c]ВЫЖИТЬ И ЭВАКУИРОВАТЬСЯ[/color].
+
+## Ваш подчинённый
 
   <Box>
     <GuideEntityEmbed Entity="ToyFigurineEngineer" Caption="Инженер"/>
-    <GuideEntityEmbed Entity="ToyFigurineAtmosTech" Caption="Атмосник"/>
-    <GuideEntityEmbed Entity="ToyFigurineChiefEngineer" Caption="Главный инженер"/>
   </Box>
 
-  ## Инструменты
-  <Box>
-    <GuideEntityEmbed Entity="Wrench"/>
-    <GuideEntityEmbed Entity="Crowbar"/>
-    <GuideEntityEmbed Entity="Screwdriver"/>
-    <GuideEntityEmbed Entity="Wirecutter"/>
-  </Box>
-  <Box>
-    <GuideEntityEmbed Entity="Welder"/>
-    <GuideEntityEmbed Entity="Multitool"/>
-    <GuideEntityEmbed Entity="NetworkConfigurator"/>
-  </Box>
-  Ваш основной набор инструментов состоит из небольшого набора предметов.
-  Если вы инженер, на поясе у вас должен быть один экземпляр каждого; если нет, их можно найти в технических шахтах, в хранилищах инструментов, а также в различных ящиках и автоматах с инструментами.
+[color=#a4885c]Инженер:[/color] Ваш единственный подчинённый. Он может:
+- Следить за станцией, пока вы в Зене.
+- Ходить в Зен, пока вы на станции.
+- Помогать вам строить АМС.
+- Другие поручения на ваше усмотрение.
 
-  Большинство задач будут содержать подсказки по их выполнению при осмотре; например, если вы [textlink="строите" link="Construction"] стену, она подскажет следующий шаг, если внимательно посмотреть на неё.
+## Советы по игре
+
+- [color=#a4885c]Не умирайте в Зене.[/color] Если вас убьют, подчинённый останется один. А если он тоже умрёт — комплекс останется без инженеров и вы не сможете закончить смену, вы все умрёте.
+- Не тратьте много времени на реализацию ваших собственных идей. [color=#a4885c]Зен-кристаллы дешевеют[/color] и вам может просто не хватить денег.
+
+[color=#ff4444]Помните: вы держите в руках свет всей станции. Погаснете вы — погаснет всё. Берегите себя и ДАМ.[/color]
 </Document>

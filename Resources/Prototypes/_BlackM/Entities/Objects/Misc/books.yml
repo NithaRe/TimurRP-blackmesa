@@ -1,0 +1,75 @@
+- type: entity
+  id: BookCaptainGuide
+  parent: BaseGuidebook
+  name: регламент "Чёрная меза"
+  description: Выдается каждому новому главе комплекса "Чёрная меза". Обязательно к прочтению.
+  components:
+  - type: Sprite
+    layers:
+    - state: paper
+    - state: cover_old
+      color: "#6c4718"
+    - state: decor_wingette
+      color: "#b5913c"
+    - state: icon_glow
+      color: blue
+  - type: GuideHelp
+    guides:
+    - Command
+
+- type: entity
+  id: BookSecurityGuide
+  parent: BaseGuidebook
+  name: регламент "Чёрная меза"
+  description: Выдается каждому новому члену командования "Чёрная меза". Обязательно к прочтению.
+  components:
+  - type: Sprite
+    layers:
+    - state: paper
+    - state: cover_old
+      color: "#6c4718"
+    - state: decor_wingette
+      color: "#b5913c"
+    - state: icon_glow
+      color: red
+  - type: GuideHelp
+    guides:
+    - Security
+
+- type: entity
+  id: BookEngineerGuide
+  parent: BaseGuidebook
+  name: регламент "Чёрная меза"
+  description: Выдается каждому новому члену командования "Чёрная меза". Обязательно к прочтению.
+  components:
+  - type: Sprite
+    layers:
+    - state: paper
+    - state: cover_old
+      color: "#6c4718"
+    - state: decor_wingette
+      color: "#b5913c"
+    - state: icon_glow
+      color: white
+  - type: GuideHelp
+    guides:
+    - Engineering
+
+- type: entity
+  id: BookCargoGuide
+  parent: BaseGuidebook
+  name: регламент "Чёрная меза"
+  description: Выдается каждому новому члену командования "Чёрная меза". Обязательно к прочтению.
+  components:
+  - type: Sprite
+    layers:
+    - state: paper
+    - state: cover_old
+      color: "#6c4718"
+    - state: decor_wingette
+      color: "#b5913c"
+    - state: icon_glow
+      color: orange
+  - type: GuideHelp
+    guides:
+    - Cargo
