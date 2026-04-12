@@ -781,3 +781,6 @@ binds:
 - function: OpenPhraseWheel
   type: State
   key: J
+- function: BMHoldToFace #BlackM
+  type: State
+  key: Shift
