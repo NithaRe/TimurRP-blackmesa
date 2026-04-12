@@ -86,7 +86,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         <BoxContainer Orientation="Vertical" Margin="8 8 8 8" MinWidth="250">
                             <BoxContainer Orientation="Horizontal" SeparationOverride="8">
                                 <TextureRect TexturePath="/Textures/_BlackM/server_icon.png" MinSize="48 48" Stretch="KeepAspectCovered" />
-                                <Label Text="Black Mesa Station" StyleClasses="LabelHeading" VAlign="Center" />
+                                <Label Text="Тимур РП" StyleClasses="LabelHeading" VAlign="Center" />
                             </BoxContainer>
                             <BoxContainer Orientation="Horizontal" SeparationOverride="4" Margin="0 6 0 0">
                                 <Button Name="DiscordButton" Access="Public" Text="Discord" StyleClasses="ButtonBig" />
