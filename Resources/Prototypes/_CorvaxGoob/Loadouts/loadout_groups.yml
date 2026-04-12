@@ -104,10 +104,10 @@
   name: loadout-group-warden-backpack
   loadouts:
   - SecurityBackpack
-  - SecuritySatchel
-  - SecurityDuffel
-  - SecurityMessenger
-  - WardenBackpackAlt
+#  - SecuritySatchel #blackm
+#  - SecurityDuffel #blackm
+#  - SecurityMessenger #blackm
+#  - WardenBackpackAlt #blackm
 
 # Science
 - type: loadoutGroup

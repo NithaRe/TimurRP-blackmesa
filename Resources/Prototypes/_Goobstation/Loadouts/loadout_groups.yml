@@ -1344,9 +1344,9 @@
   id: HeadofSecurityShoes
   name: loadout-group-hos-shoes
   loadouts:
-  - JackBoots
-  - SecurityWinterBoots
-  - AdvancedJackBoots
+  - ClothingShoesKovakSoldier #BlackM
+#  - SecurityWinterBoots
+#  - AdvancedJackBoots
 
 - type: loadoutGroup
   id: HeadofSecurityEnvirohelm
@@ -1385,34 +1385,39 @@
   id: BrigmedicJumpsuit
   name: loadout-group-brigmedic-jumpsuit
   loadouts:
-  - BrigmedicJumpsuit
-  - BrigmedicJumpskirt
+  - ClothingUniformJumpsuitKovakMed #BlackM
+#  - BrigmedicJumpsuit
+#  - BrigmedicJumpskirt
 
 - type: loadoutGroup
   id: BrigmedicHead
   name: loadout-group-brigmedic-head
   minLimit: 0
   loadouts:
-  - BrigmedicSecurityHat #Corvax-Goob-brigmedic-loadout-update
-  - BrigmedicBeret
-  - CMOMedicalHeadMirror
-  - SecurityBeret
-  - SecurityHat
-  - TrooperHat
+  - ClothingHeadHelmetKovakMed #BlackM
+#  - BrigmedicSecurityHat #Corvax-Goob-brigmedic-loadout-update
+#  - BrigmedicBeret #bl
+#  - CMOMedicalHeadMirror #blackm
+#  - SecurityBeret #blackm
+#  - SecurityHat #blackm
+#  - TrooperHat #BlackM
 
 - type: loadoutGroup
   id: BrigmedicOuterClothing
   name: loadout-group-brigmedic-outer
   loadouts:
-  - BrigmedicAMG
-  - ArmorVest
-  - ArmorVestSlim
-  - SecurityOfficerWintercoat
+#  - BrigmedicAMG
+  - ClothingOuterCapeKovakMed #BlackM
+  - ClothingOuterArmorKovakSoldier #BlackM
+#  - BrigmedicAMG
+#  - ArmorVest
+#  - ArmorVestSlim
+#  - SecurityOfficerWintercoat
   #Corvax-Goob-brigmedic-loadout-update-start
-  - BrigmedicCoatLab
-  - BrigmedicVest
-  - BrigmedicOuterWinterSec
-  - BrigmedicVestArmor
+#  - BrigmedicCoatLab
+#  - BrigmedicVest
+#  - BrigmedicOuterWinterSec
+#  - BrigmedicVestArmor
   #Corvax-Goob-brigmedic-loadout-update-end
 
 - type: loadoutGroup
@@ -1420,9 +1425,9 @@
   name: loadout-group-brigmedic-backpack
   loadouts:
   - BrigmedicBackpack
-  - BrigmedicSatchel
-  - BrigmedicDuffel
-  - BrigmedicMessenger
+#  - BrigmedicSatchel #blackm 
+#  - BrigmedicDuffel #blackm
+#  - BrigmedicMessenger #blackm   
 
 - type: loadoutGroup
   id: BrigmedicEnvirohelm
