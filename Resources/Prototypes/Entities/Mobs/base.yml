@@ -127,6 +127,9 @@
   - type: ContentEye
   - type: CameraRecoil
   - type: MindContainer
+  - type: BMViewcone
+  - type: BMViewconeOccludable
+  - type: BMHoldToFace
   - type: TTS # CorvaxGoob-TTS
   - type: MovementSpeedModifier
   - type: RequireProjectileTarget
