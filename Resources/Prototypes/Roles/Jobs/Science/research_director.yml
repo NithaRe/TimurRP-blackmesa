@@ -185,7 +185,6 @@
   id: ResearchDirectorGear
   equipment:
     id: RnDPDA
-    ears: ClothingHeadsetAltScience # Goobstation
   storage:
     back:
     - Flash

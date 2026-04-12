@@ -28,7 +28,6 @@
     back: ClothingBackpackMercFilledHECU
     mask: ClothingMaskGasExplorer
     eyes: ClothingEyesGlassesMedSec
-    ears: ClothingHeadsetAltCentCom
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterVestWeb
     shoes: ClothingShoesBootsCombatFilled

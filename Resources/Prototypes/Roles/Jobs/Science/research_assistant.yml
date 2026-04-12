@@ -75,7 +75,6 @@
   equipment:
     shoes: ClothingShoesColorWhite
     id: ResearchAssistantPDA
-    ears: ClothingHeadsetScience
     pocket2: BookScientistsGuidebook
   #storage:
     #back:

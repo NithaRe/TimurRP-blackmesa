@@ -97,7 +97,6 @@
   equipment:
     shoes: ClothingShoesGaloshes
     id: JanitorPDA
-    ears: ClothingHeadsetService
     belt: ClothingBeltJanitorFilled
     pocket1: KeyRingJanitor # Goobstation
 
@@ -108,7 +107,6 @@
     id: JanitorPDA
     gloves: ClothingHandsCatPawsBlack # CorvaxGoob
     head: ClothingHeadHatCatEars
-    ears: ClothingHeadsetService
     belt: ClothingBeltJanitorFilled
     pocket1: KeyRingJanitor # Goobstation
 

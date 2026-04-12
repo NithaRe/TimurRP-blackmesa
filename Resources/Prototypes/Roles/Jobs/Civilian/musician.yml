@@ -79,7 +79,6 @@
 #   eyes: ClothingEyesGlassesSunglasses # CorvaxGoob-loadouts: replaced on a MusicianGlasses loadout
     shoes: ClothingShoesBootsLaceup
     id: MusicianPDA
-    ears: ClothingHeadsetService
   #storage:
     #back:
     #- Stuff
