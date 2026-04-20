@@ -1,0 +1,45 @@
+- type: entity
+  id: OneWayTeleportBase
+  abstract: true
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: Transform
+      anchored: true
+    - type: Marker
+    - type: Clickable
+    - type: InteractionOutline
+    - type: Tag
+      tags:
+        - ForceFixRotations
+    - type: Sprite
+      drawdepth: Overdoors
+      sprite: Markers/cross.rsi
+
+- type: entity
+  id: OneWayTeleportTrigger
+  name: зона телепортации ЛИФТА
+  description: Невидимая зона Лифта. Игрок подошедший сюда будет телепортирован без возможности вернуться.
+  parent: OneWayTeleportBase
+  components:
+    - type: OneWayTeleport
+      delay: 10
+      destinationId: "default"
+      range: 1.5
+    - type: Sprite
+      drawdepth: Overdoors
+      sprite: Markers/cross.rsi
+      state: red
+
+- type: entity
+  id: OneWayTeleportDestination
+  name: маркер назначения телепортации ЛИФТА
+  description: Невидимая точка Лифта. Игрок телепортируется сюда из зоны телепортации.
+  parent: OneWayTeleportBase
+  components:
+    - type: OneWayTeleportDestination
+      destinationId: "default"
+    - type: Sprite
+      drawdepth: Overdoors
+      sprite: Markers/cross.rsi
+      state: green
