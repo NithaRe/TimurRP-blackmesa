@@ -1,0 +1,39 @@
+- type: tile
+  id: FloorPoolsi
+  name: Пол Чёрной Мезы
+  sprite: /Textures/_BlackM/Tiles/poolsi.png
+  variants: 1
+  placementVariants:
+    - 1.0
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [Prying]
+  footstepSounds:
+    collection: FootstepFloor
+  itemDrop: FloorTileItemPoolsi
+  heatCapacity: 10000
+  tileRipResistance: 4500
+
+- type: entity
+  name: Пол Чёрной Мезы
+  parent: FloorTileItemBase
+  id: FloorTileItemPoolsi
+  components:
+    - type: Sprite
+      sprite: _BlackM/Tiles/poolsi.rsi
+      state: poolsi
+    - type: FloorTile
+      outputs:
+        - Plating
+        - FloorPoolsi
+    - type: Stack
+      stackType: FloorTileItemPoolsi
+
+- type: stack
+  id: FloorTileItemPoolsi
+  name: Пол Чёрной Мезы
+  icon:
+    sprite: _BlackM/Tiles/poolsi.rsi
+    state: poolsi
+  maxCount: 30
+  spawn: FloorTileItemPoolsi
