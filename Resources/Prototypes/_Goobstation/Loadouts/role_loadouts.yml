@@ -92,185 +92,179 @@
 - type: roleLoadout
   id: JobNanotrasenRepresentative
   groups:
-  - Inventory # CorvaxGoob-loadouts
-  - GroupTankHarness
-  - NanotrasenRepresentativeHead
-  - NanotrasenRepresentativeJumpsuit
-  - NanotrasenRepresentativeBackpack
-  - NanotrasenRepresentativeNeck
-  - NanotrasenRepresentativeShoes
-  - NanotrasenRepresentativeBelt
-  - NanotrasenRepresentativeGloves
-  - Glasses
-  - Trinkets
-#  - Animals #blackM
-  - GroupSpeciesBreathTool
-  - Survival
-  # Goobstation - EE Plasmeme Change.
-  - NanotrasenRepresentativeEnvirohelm
-  - NanotrasenRepresentativeEnvirosuit
-  - NanotrasenRepresentativeEnvirogloves
+    - Inventory # CorvaxGoob-loadouts
+    - GroupTankHarness
+    - NanotrasenRepresentativeHead
+    - NanotrasenRepresentativeJumpsuit
+    - NanotrasenRepresentativeBackpack
+    - NanotrasenRepresentativeNeck
+    - NanotrasenRepresentativeShoes
+    - NanotrasenRepresentativeBelt
+    - NanotrasenRepresentativeGloves
+    - Glasses
+    - Trinkets
+    - GroupSpeciesBreathTool
+    - Survival
+    # Goobstation - EE Plasmeme Change.
+    - NanotrasenRepresentativeEnvirohelm
+    - NanotrasenRepresentativeEnvirosuit
+    - NanotrasenRepresentativeEnvirogloves
 
 - type: roleLoadout
   id: JobBlueshieldOfficer
   groups:
-  - Inventory # CorvaxGoob-loadouts
-  - BlueshieldOfficerHead
-  - BlueshieldOfficerJumpsuit
-  - BlueshieldOfficerBackpack
-  - BlueshieldOfficerOuter
-  - BlueshieldOfficerNeck
-  - BlueshieldOfficerMask
-  - BlueshieldOfficerShoes
-  - BlueshieldOfficerGloves
-  - Trinkets
-  - Animals
-  - GroupSpeciesBreathTool
-  - SurvivalSecurity
-  # Goobstation - EE Plasmeme Change.
-  - BlueshieldOfficerEnvirohelm
-  - BlueshieldOfficerEnvirosuit
-  - BlueshieldOfficerEnvirogloves
+    - Inventory # CorvaxGoob-loadouts
+    - BlueshieldOfficerHead
+    - BlueshieldOfficerJumpsuit
+    - BlueshieldOfficerBackpack
+    - BlueshieldOfficerOuter
+    - BlueshieldOfficerNeck
+    - BlueshieldOfficerMask
+    - BlueshieldOfficerShoes
+    - BlueshieldOfficerGloves
+    - Trinkets
+    - GroupSpeciesBreathTool
+    - SurvivalSecurity
+    # Goobstation - EE Plasmeme Change.
+    - BlueshieldOfficerEnvirohelm
+    - BlueshieldOfficerEnvirosuit
+    - BlueshieldOfficerEnvirogloves
 
 - type: roleLoadout
   id: JobNanotrasenCareerTrainer
   groups:
-  - Inventory # CorvaxGoob-loadouts
-  - GroupTankHarness
-  - NanotrasenTrainerHead
-  - NanotrasenTrainerJumpsuit
-  - NanotrasenTrainerOuterClothing
-  - NanotrasenTrainerBackpack
-  - NanotrasenTrainerShoes
-  - NanotrasenTrainerGloves
-  - NanotrasenTrainerBelt
-  - Trinkets
-  - Animals
-  - GroupSpeciesBreathTool
-  - Survival
-  # Goobstation - EE Plasmeme Change.
-  - CentComOfficerEnvirohelm
-  - CentComOfficerEnvirosuit
-  - CentComOfficerEnvirogloves
+    - Inventory # CorvaxGoob-loadouts
+    - GroupTankHarness
+    - NanotrasenTrainerHead
+    - NanotrasenTrainerJumpsuit
+    - NanotrasenTrainerOuterClothing
+    - NanotrasenTrainerBackpack
+    - NanotrasenTrainerShoes
+    - NanotrasenTrainerGloves
+    - NanotrasenTrainerBelt
+    - Trinkets
+    - GroupSpeciesBreathTool
+    - Survival
+    # Goobstation - EE Plasmeme Change.
+    - CentComOfficerEnvirohelm
+    - CentComOfficerEnvirosuit
+    - CentComOfficerEnvirogloves
 
 - type: roleLoadout
   id: RoleSurvivalNukieHonkops
   groups:
-  - SurvivalSyndicate
-  - GroupHonkopsMask
-  - GroupPocketTankDouble
+    - SurvivalSyndicate
+    - GroupHonkopsMask
+    - GroupPocketTankDouble
 
 - type: roleLoadout
   id: JobRoboticist
   groups:
-  - Inventory # CorvaxGoob-loadouts
-  - GroupTankHarness
-  - RoboticistHead
-  - RoboticistGlasses # CorvaxGoob-loadouts: Glasses > RoboticistGlasses
-#  - ScientistNeck  #blackM
-  - RoboticistJumpsuit
-  - RoboticistBackpack
-  - RoboticistOuterClothing
-  - RoboticistGloves
-  - RoboticistShoes
-  - RoboticistPDA
-  - Survival
-  - Trinkets
-  - GroupSpeciesBreathTool
-  # Plasmaman
-  - ScientistEnvirohelm
-  - ScientistEnvirosuit
-  - ScientistEnvirogloves
+    - Inventory # CorvaxGoob-loadouts
+    - GroupTankHarness
+    - RoboticistHead
+    - RoboticistGlasses # CorvaxGoob-loadouts: Glasses > RoboticistGlasses
+    #  - ScientistNeck  #blackM
+    - RoboticistJumpsuit
+    - RoboticistBackpack
+    - RoboticistOuterClothing
+    - RoboticistGloves
+    - RoboticistShoes
+    - RoboticistPDA
+    - Survival
+    - Trinkets
+    - GroupSpeciesBreathTool
+    # Plasmaman
+    - ScientistEnvirohelm
+    - ScientistEnvirosuit
+    - ScientistEnvirogloves
 
 - type: roleLoadout
   id: JobBrigmedic
   groups:
-  - Inventory # CorvaxGoob-loadouts
-  - BrigmedicHead
-  #- MedicalMask
-  - BrigmedicMask # CorvaxGoob-Brigmedic-Loadout : Replaced from MedicalMask
-  - BrigmedicGlasses # CorvaxGoob-loadouts
-  - BrigmedicJumpsuit
-  - BrigmedicOuterClothing
-  - MedicalGloves
-  - BrigmedicBackpack
-  - SecurityMelee # EE parity, make corpsman able to carry weapons like the rest of security
-  - SecurityShoes
-  - SecurityNeck
-  - SurvivalSecurity
-  - Trinkets
-  - Animals
-#  - SecurityStar #blackM
-  - GroupSpeciesBreathToolSecurity
-  # Goobstation - EE Plasmeme Change.
-  - BrigmedicEnvirohelm
-  - BrigmedicEnvirosuit
-  - BrigmedicEnvirogloves
+    - Inventory # CorvaxGoob-loadouts
+    - BrigmedicHead
+    #- MedicalMask
+    - BrigmedicMask # CorvaxGoob-Brigmedic-Loadout : Replaced from MedicalMask
+    - BrigmedicGlasses # CorvaxGoob-loadouts
+    - BrigmedicJumpsuit
+    - BrigmedicOuterClothing
+    - MedicalGloves
+    - BrigmedicBackpack
+    - SecurityMelee # EE parity, make corpsman able to carry weapons like the rest of security
+    - SecurityShoes
+    - SecurityNeck
+    - SurvivalSecurity
+    - Trinkets
+    - GroupSpeciesBreathToolSecurity
+    # Goobstation - EE Plasmeme Change.
+    - BrigmedicEnvirohelm
+    - BrigmedicEnvirosuit
+    - BrigmedicEnvirogloves
 
 - type: roleLoadout
   id: JobRadioHost
   groups:
-  - Inventory # CorvaxGoob-loadouts
-  - RadioHostJumpsuit
-  - RadiohostGlasses # CorvaxGoob-loadouts
-  - CommonBackpack
-  - Survival
-  - Trinkets
-  - Animals
-  - GroupSpeciesBreathTool
-  - Glasses
-  - GroupTankHarness
-  - ServiceWorkerEnvirohelm
-  - ServiceWorkerEnvirosuit
-  - ServiceWorkerEnvirogloves
+    - Inventory # CorvaxGoob-loadouts
+    - RadioHostJumpsuit
+    - RadiohostGlasses # CorvaxGoob-loadouts
+    - CommonBackpack
+    - Survival
+    - Trinkets
+    - GroupSpeciesBreathTool
+    - Glasses
+    - GroupTankHarness
+    - ServiceWorkerEnvirohelm
+    - ServiceWorkerEnvirosuit
+    - ServiceWorkerEnvirogloves
 
 # gives plasmaman a plasma breathing tank
 # other species get nothing
 - type: roleLoadout
   id: RoleSurvivalPlasmaTank
   groups:
-  - GroupEVATankPlasma
+    - GroupEVATankPlasma
 
 # Event-restricted roles
 
 - type: roleLoadout
   id: JobSecurityClown
   groups:
-  - ClownBackpack
-  - SurvivalSecurity
-  - GroupSpeciesBreathToolSecurity
+    - ClownBackpack
+    - SurvivalSecurity
+    - GroupSpeciesBreathToolSecurity
 
 - type: roleLoadout
   id: JobCommandMaid
   groups:
-  - CommonBackpack
-  - Survival
-  - GroupSpeciesBreathTool
+    - CommonBackpack
+    - Survival
+    - GroupSpeciesBreathTool
 
 - type: roleLoadout
   id: JobPartyMaker
   groups:
-  - GroupTankHarness
-  - CommonBackpack
-  - Survival
-  - GroupSpeciesBreathTool
+    - GroupTankHarness
+    - CommonBackpack
+    - Survival
+    - GroupSpeciesBreathTool
 
 - type: roleLoadout
   id: JobVirologist
   groups:
-   - Inventory # CorvaxGoob-loadouts
-   - GroupTankHarness
-   - MedicalDoctorHead
-   - MedicalMask
-   - VirologistJumpsuit
-   - MedicalGloves
-   - VirologistBackpack
-   - VirologistOuterClothing
-   - MedicalShoes
-   - VirologistPDA
-   - SurvivalMedical
-   - Trinkets
-   - GroupSpeciesBreathToolMedical
-   - VirologyEnvirohelm
-   - VirologyEnvirosuit
-   - VirologyEnvirogloves
+    - Inventory # CorvaxGoob-loadouts
+    - GroupTankHarness
+    - MedicalDoctorHead
+    - MedicalMask
+    - VirologistJumpsuit
+    - MedicalGloves
+    - VirologistBackpack
+    - VirologistOuterClothing
+    - MedicalShoes
+    - VirologistPDA
+    - SurvivalMedical
+    - Trinkets
+    - GroupSpeciesBreathToolMedical
+    - VirologyEnvirohelm
+    - VirologyEnvirosuit
+    - VirologyEnvirogloves

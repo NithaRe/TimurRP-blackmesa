@@ -1,6 +1,6 @@
 - type: tile
   id: FloorPoolsi
-  name: Пол Чёрной Мезы
+  name: tiles-poolsi
   sprite: /Textures/_BlackM/Tiles/poolsi.png
   variants: 1
   placementVariants:
@@ -15,7 +15,7 @@
   tileRipResistance: 4500
 
 - type: entity
-  name: Пол Чёрной Мезы
+  name: floor-tile-item-poolsi
   parent: FloorTileItemBase
   id: FloorTileItemPoolsi
   components:
@@ -31,7 +31,7 @@
 
 - type: stack
   id: FloorTileItemPoolsi
-  name: Пол Чёрной Мезы
+  name: floor-tile-item-poolsi
   icon:
     sprite: _BlackM/Tiles/poolsi.rsi
     state: poolsi

@@ -1,59 +1,55 @@
 - type: roleLoadout
   id: JobSurgeon
   groups:
-  - Inventory
-  - SurgeonHead
-  - MedicalEyewear
-  - SurgeonJumpsuit
-  - MedicalGloves
-  - MedicalBackpack
-  - MedicalShoes
-  - SurgeonScalpel
-  - Trinkets
-#  - Animals #blackM
-  - SurvivalMedical
-  - GroupSpeciesBreathToolMedical
-  - MedicalDoctorEnvirohelm
-  - MedicalDoctorEnvirosuit
-  - MedicalDoctorEnvirogloves
+    - Inventory
+    - SurgeonHead
+    - MedicalEyewear
+    - SurgeonJumpsuit
+    - MedicalGloves
+    - MedicalBackpack
+    - MedicalShoes
+    - SurgeonScalpel
+    - Trinkets
+    - SurvivalMedical
+    - GroupSpeciesBreathToolMedical
+    - MedicalDoctorEnvirohelm
+    - MedicalDoctorEnvirosuit
+    - MedicalDoctorEnvirogloves
 
 - type: roleLoadout
   id: JobWardenHelper
   groups:
-  - Inventory
-  - WardenHead
-  - WardenJumpsuit
-  - WardenBackpack
-  - SecurityMelee
-  - SecurityNeck
-  - SecurityBelt
-  - WardenOuterClothing
-  - SecurityShoes
-  - SurvivalSecurity
-#  - SecurityStar #blackM
-  - Trinkets
-  - Animals
-  - GroupSpeciesBreathToolSecurity
-  - WardenEnvirohelm
-  - WardenEnvirosuit
-  - WardenEnvirogloves
+    - Inventory
+    - WardenHead
+    - WardenJumpsuit
+    - WardenBackpack
+    - SecurityMelee
+    - SecurityNeck
+    - SecurityBelt
+    - WardenOuterClothing
+    - SecurityShoes
+    - SurvivalSecurity
+    - Trinkets
+    - GroupSpeciesBreathToolSecurity
+    - WardenEnvirohelm
+    - WardenEnvirosuit
+    - WardenEnvirogloves
 
 - type: roleLoadout
   id: JobPilot
   groups:
-  - Inventory
-  - PilotHead
-  - PilotJumpsuit
-  - SecurityBackpack
-  - SecurityMelee
-  - SecurityNeck
-  - PilotOuterClothing
-  - SecurityBelt
-  - SecurityShoes
-  - SurvivalSecurity
-  - Trinkets
-  - Animals
-  - GroupSpeciesBreathToolSecurity
-  - SecurityOfficerEnvirohelm
-  - SecurityOfficerEnvirosuit
-  - SecurityOfficerEnvirogloves
+    - Inventory
+    - PilotHead
+    - PilotJumpsuit
+    - SecurityBackpack
+    - SecurityMelee
+    - SecurityNeck
+    - PilotOuterClothing
+    - SecurityBelt
+    - SecurityShoes
+    - SurvivalSecurity
+    - Trinkets
+    - GroupSpeciesBreathToolSecurity
+    - SecurityOfficerEnvirohelm
+    - SecurityOfficerEnvirosuit
+    - SecurityOfficerEnvirogloves
