@@ -1,0 +1,55 @@
+- type: entity
+  name: зен кристалл
+  parent: BaseStructure
+  id: ZenCrystal
+  description: Дорогостоящий ресурс из мира зен. Тусклеет со временем, из-за чего становится менее ценным.
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Sprite
+    sprite: Structures/Decoration/crystal.rsi
+    state: crystal_grey
+    color: "#FFFF00"
+    noRot: true
+  - type: PointLight
+    radius: 4
+    energy: 6
+    color: "#FFFF00"
+  - type: Pullable
+  - type: Anchorable
+  - type: Transform
+    anchored: false
+  - type: Physics
+    bodyType: Dynamic
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+        - !type:DoActsBehavior
+          acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: StaticPrice
+    price: 4000
+
+  - type: PriceDecay
+    initialPrice: 4000
+    minPrice: 100
+    targetMinutes: 40
+    curvePower: 1
+
+  - type: Tag
+    tags:
+    - ZenCrystal
