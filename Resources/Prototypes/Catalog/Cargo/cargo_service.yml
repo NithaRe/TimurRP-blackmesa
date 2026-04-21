@@ -51,7 +51,7 @@
     sprite: Objects/Specific/Janitorial/janitorial.rsi
     state: cleaner
   product: CrateServiceJanitorialSupplies
-  cost: 560
+  cost: 600
   category: cargoproduct-category-name-service
   group: market
 
@@ -61,7 +61,7 @@
     sprite: Objects/Weapons/Grenades/janitor.rsi
     state: icon
   product: CrateServiceCleanerGrenades
-  cost: 400
+  cost: 600
   category: cargoproduct-category-name-service
   group: market
 
@@ -101,7 +101,7 @@
     sprite: Objects/Devices/mousetrap.rsi
     state: mousetrap
   product: CrateMousetrapBoxes
-  cost: 500
+  cost: 800
   category: cargoproduct-category-name-service
   group: market
 

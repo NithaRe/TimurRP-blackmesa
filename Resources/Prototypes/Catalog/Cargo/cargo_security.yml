@@ -31,7 +31,7 @@
     sprite: Clothing/OuterClothing/Armor/bulletproof.rsi
     state: icon
   product: CrateSecurityArmor
-  cost: 1000 # Goobstation - less of a nerf
+  cost: 1500 # Goobstation - less of a nerf
   category: cargoproduct-category-name-security
   group: market
 
@@ -41,7 +41,7 @@
     sprite: Clothing/Head/Helmets/security.rsi
     state: icon
   product: CrateSecurityHelmet
-  cost: 550
+  cost: 1000
   category: cargoproduct-category-name-security
   group: market
 
@@ -51,7 +51,7 @@
     sprite: Objects/Weapons/Guns/Battery/disabler.rsi
     state: base
   product: CrateSecurityNonlethal
-  cost: 4000
+  cost: 5000
   category: cargoproduct-category-name-security
   group: market
 
@@ -61,7 +61,7 @@
     sprite: Objects/Storage/boxes.rsi
     state: box_security
   product: CrateSecuritySupplies
-  cost: 500
+  cost: 1000
   category: cargoproduct-category-name-security
   group: market
 
@@ -72,16 +72,6 @@
     state: handcuff
   product: CrateRestraints
   cost: 1000
-  category: cargoproduct-category-name-security
-  group: market
-
-- type: cargoProduct
-  id: SecurityBiosuit
-  icon:
-    sprite: Clothing/Head/Hoods/Bio/security.rsi
-    state: icon
-  product: CrateSecurityBiosuit
-  cost: 1105 # goob - cargo order arbitrage // CorvaxGoob-test-fix //1100
   category: cargoproduct-category-name-security
   group: market
 
