@@ -45,6 +45,6 @@
     sprite: Objects/Weapons/Melee/crusher_dagger.rsi
     state: icon
   product: CrateCrusherDagger
-  cost: 2500
+  cost: 3500
   category: cargoproduct-category-name-cargo
   group: market

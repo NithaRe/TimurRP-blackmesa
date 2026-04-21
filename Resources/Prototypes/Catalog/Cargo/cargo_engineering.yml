@@ -31,7 +31,7 @@
     sprite: Objects/Tools/cable-coils.rsi
     state: coillv-30
   product: CrateEngineeringCableLV
-  cost: 300
+  cost: 600
   category: cargoproduct-category-name-engineering
   group: market
 
@@ -41,7 +41,7 @@
     sprite: Objects/Tools/cable-coils.rsi
     state: coilmv-30
   product: CrateEngineeringCableMV
-  cost: 300
+  cost: 600
   category: cargoproduct-category-name-engineering
   group: market
 
@@ -51,7 +51,7 @@
     sprite: Objects/Tools/cable-coils.rsi
     state: coilhv-30
   product: CrateEngineeringCableHV
-  cost: 300
+  cost: 600
   category: cargoproduct-category-name-engineering
   group: market
 
@@ -66,32 +66,12 @@
   group: market
 
 - type: cargoProduct
-  id: EngineeringCableBulk
-  icon:
-    sprite: Objects/Tools/cable-coils.rsi
-    state: coilall-30
-  product: CrateEngineeringCableBulk
-  cost: 600
-  category: cargoproduct-category-name-engineering
-  group: market
-
-- type: cargoProduct
   id: EngineeringElectricalSupplies
   icon:
     sprite: Objects/Tools/Toolboxes/toolbox_yellow.rsi
     state: icon
   product: CrateEngineeringElectricalSupplies
-  cost: 4500
-  category: cargoproduct-category-name-engineering
-  group: market
-
-- type: cargoProduct
-  id: StationBeaconBundle
-  icon:
-    sprite: Objects/Devices/station_beacon.rsi
-    state: icon
-  product: CrateEngineeringStationBeaconBundle
-  cost: 500
+  cost: 3500
   category: cargoproduct-category-name-engineering
   group: market
 
@@ -101,7 +81,7 @@
     sprite: Objects/Tanks/Jetpacks/blue.rsi
     state: icon
   product: CrateEngineeringJetpack
-  cost: 1000
+  cost: 2000
   category: cargoproduct-category-name-engineering
   group: market
 
@@ -111,7 +91,7 @@
     sprite: Objects/Tanks/Jetpacks/mini.rsi
     state: icon
   product: CrateEngineeringMiniJetpack
-  cost: 750
+  cost: 1500
   category: cargoproduct-category-name-engineering
   group: market
 
@@ -121,7 +101,7 @@
     sprite: Objects/Tools/Toolboxes/toolbox_yellow.rsi
     state: icon
   product: CrateAirlockKit
-  cost: 1100
+  cost: 1500
   category: cargoproduct-category-name-engineering
   group: market
 
@@ -164,35 +144,3 @@
 #  cost: 15000
 #  category: cargoproduct-category-name-engineering
 #  group: market
-
-- type: cargoProduct
-  id: EngineeringSpaceHeater
-  icon:
-    sprite: Structures/Piping/Atmospherics/Portable/portable_sheater.rsi
-    state: sheaterOff
-  product: CrateEngineeringSpaceHeater
-  cost: 350
-  category: cargoproduct-category-name-engineering
-  group: market
-
-# RPD
-- type: cargoProduct
-  id: EngineeringRPD
-  icon:
-    sprite: Objects/Tools/rpd.rsi
-    state: icon
-  product: CrateRPD
-  cost: 800
-  category: cargoproduct-category-name-engineering
-  group: market
-
-# Assmos - Extinguisher Nozzle
-- type: cargoProduct 
-  id: EngineeringFirefighterBackpackTank
-  icon:
-    sprite: Clothing/Back/Backpacks/atmosbackpacktank.rsi
-    state: icon
-  product: CrateEngineeringFirefighterBackpackTank
-  cost: 1000
-  category: cargoproduct-category-name-engineering
-  group: market

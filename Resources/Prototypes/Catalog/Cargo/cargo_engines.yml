@@ -30,7 +30,7 @@
     sprite: Objects/Power/AME/ame_jar.rsi
     state: jar
   product: CrateEngineeringAMEJar
-  cost: 2000
+  cost: 5000
   category: cargoproduct-category-name-engineering
   group: market
 
@@ -83,16 +83,6 @@
 #  cost: 2000
 #  category: cargoproduct-category-name-engineering
 #  group: market
-
-- type: cargoProduct
-  id: EngineSolar
-  icon:
-    sprite: Objects/Devices/flatpack.rsi
-    state: solar-assembly-part
-  product: CrateEngineeringSolar
-  cost: 1250
-  category: cargoproduct-category-name-engineering
-  group: market
 
 #- type: cargoProduct
 #  id: EngineTeslaGenerator
