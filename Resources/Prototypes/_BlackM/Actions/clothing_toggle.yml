@@ -1,0 +1,11 @@
+- type: entity
+  id: ActionClothingStateToggle
+  parent: BaseAction
+  name: Toggle State
+  description: Toggle the clothing state.
+  components:
+    - type: Action
+      useDelay: 0.5
+      itemIconStyle: BigItem
+    - type: InstantAction
+      event: !type:ClothingStateToggleActionEvent

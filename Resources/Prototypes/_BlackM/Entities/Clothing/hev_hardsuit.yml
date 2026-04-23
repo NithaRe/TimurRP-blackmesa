@@ -1,0 +1,70 @@
+- type: entity
+  parent: ClothingOuterHardsuitBase
+  id: ClothingOuterHardsuitHEV
+  name: Защитный костюм HEV
+  description: закрывающий всё тело защитный костюм, разработанный в Чёрной Мезе для защиты учёных, работающих в опасных условиях.
+  components:
+    - type: Sprite
+      sprite: _BlackM/Clothing/OuterClothing/Hardsuits/hev.rsi
+    - type: Clothing
+      sprite: _BlackM/Clothing/OuterClothing/Hardsuits/hev.rsi
+    - type: PressureProtection
+      highPressureMultiplier: 0.02
+      lowPressureMultiplier: 1000
+    - type: TemperatureProtection
+      heatingCoefficient: 0.001
+      coolingCoefficient: 0.001
+    - type: ExplosionResistance
+      damageCoefficient: 0.3
+    - type: FireProtection
+      reduction: 0.6
+    - type: Armor
+      modifiers:
+        coefficients:
+          Blunt: 0.6
+          Slash: 0.6
+          Piercing: 0.6
+          Heat: 0.3
+          Radiation: 0.05
+          Caustic: 0.5
+    - type: Item
+      size: Huge
+    - type: ClothingSpeedModifier
+      walkModifier: 1.0
+      sprintModifier: 0.9
+    - type: HeldSpeedModifier
+    - type: Tag
+      tags:
+        - Hardsuit
+    - type: ToggleableClothing
+      clothingPrototypes:
+        head: ClothingHeadHelmetHardsuitHEV
+
+- type: entity
+  parent: ClothingHeadHardsuitBase
+  id: ClothingHeadHelmetHardsuitHEV
+  name: HEV helmet
+  description: The helmet for the HEV suit.
+  components:
+    - type: Sprite
+      sprite: _BlackM/Clothing/Head/Helmets/hev_helmet.rsi
+    - type: Clothing
+      sprite: _BlackM/Clothing/Head/Helmets/hev_helmet.rsi
+    - type: PressureProtection
+      highPressureMultiplier: 0.02
+      lowPressureMultiplier: 1000
+    - type: TemperatureProtection
+      heatingCoefficient: 0.001
+      coolingCoefficient: 0.001
+    - type: Armor
+      modifiers:
+        coefficients:
+          Blunt: 0.6
+          Slash: 0.6
+          Piercing: 0.6
+          Heat: 0.3
+          Radiation: 0.05
+          Caustic: 0.5
+    - type: Tag
+      tags:
+        - Hardsuit
