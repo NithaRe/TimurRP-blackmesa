@@ -1,0 +1,98 @@
+# ──────────────────────────────────────────
+#  SPAWN MARKERS BASE
+# ──────────────────────────────────────────
+- type: entity
+  id: SpawnMarkerBase
+  abstract: true
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: Transform
+      anchored: true
+    - type: Marker
+    - type: Clickable
+    - type: InteractionOutline
+    - type: Tag
+      tags:
+        - ForceFixRotations
+    - type: Sprite
+      drawdepth: Overdoors
+      sprite: Markers/cross.rsi
+
+# ──────────────────────────────────────────
+#  МОБ — точно на метке
+# ──────────────────────────────────────────
+- type: entity
+  id: MobSpawnMarker
+  name: ЗЕН-ТЕХИ спавнер
+  description: Спавнит моба на этом месте при старте раунда. При смерти — респавнит через respawnDelay секунд.
+  parent: SpawnMarkerBase
+  components:
+    - type: MobSpawnMarker
+      prototype: MobHeadcrabBlackM # <-- меняй на нужный прототип
+      count: 1
+      respawnDelay: 60 # <-- задержка респавна в секундах
+    - type: Sprite
+      drawdepth: Overdoors
+      sprite: Markers/cross.rsi
+      state: red
+
+# ──────────────────────────────────────────
+#  МОБ — в радиусе от метки
+# ──────────────────────────────────────────
+- type: entity
+  id: MobSpawnRadiusMarker
+  name: ЗЕН-ТЕХИ спавнер РАДИУС
+  description: Спавнит моба в радиусе от этого места при старте раунда. При смерти — респавнит через respawnDelay секунд.
+  parent: SpawnMarkerBase
+  components:
+    - type: MobSpawnRadiusMarker
+      prototype: Chicken # <-- меняй на нужный прототип
+      count: 1
+      radius: 3.0
+      respawnDelay: 60 # <-- задержка респавна в секундах
+    - type: Sprite
+      drawdepth: Overdoors
+      sprite: Markers/cross.rsi
+      state: pink
+
+# ──────────────────────────────────────────
+#  ВЕЩЬ — точно на метке (рандом из группы)
+# ──────────────────────────────────────────
+- type: entity
+  id: ItemSpawnMarker
+  name: ЗЕН спавнер вещей в точке
+  description: Спавнит случайную вещь из списка на этом месте при старте раунда.
+  parent: SpawnMarkerBase
+  components:
+    - type: ItemSpawnMarker
+      prototypes: # <-- список прототипов, выбирается рандомно
+        - Wrench
+        - Crowbar
+        - Screwdriver
+      count: 1
+    - type: Sprite
+      drawdepth: Overdoors
+      sprite: Markers/cross.rsi
+      state: green
+
+# ──────────────────────────────────────────
+#  ВЕЩЬ — в радиусе от метки (рандом из группы)
+# ──────────────────────────────────────────
+- type: entity
+  id: ItemSpawnRadiusMarker
+  name: ЗЕН спавнер вещей в радиусе
+  description: Спавнит случайную вещь из списка в радиусе от этого места при старте раунда.
+  parent: SpawnMarkerBase
+  components:
+    - type: ItemSpawnRadiusMarker
+      prototypes: # <-- список прототипов, выбирается рандомно
+        - Wrench
+        - Crowbar
+        - Screwdriver
+      count: 1
+      radius: 3.0
+    - type: Sprite
+      drawdepth: Overdoors
+      sprite: Markers/cross.rsi
+      state: blue
