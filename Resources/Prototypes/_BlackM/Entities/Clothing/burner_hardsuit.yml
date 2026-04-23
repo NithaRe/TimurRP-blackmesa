@@ -1,0 +1,44 @@
+- type: entity
+  parent: ClothingOuterHardsuitBase
+  id: ClothingOuterHardsuitBurner
+  name: Тяжелый костюм Крематора
+  description: Кто это?
+  components:
+    - type: Sprite
+      sprite: _BlackM/Clothing/OuterClothing/Hardsuits/burner_hardsuit.rsi
+    - type: Clothing
+      sprite: _BlackM/Clothing/OuterClothing/Hardsuits/burner_hardsuit.rsi
+    - type: PressureProtection
+      highPressureMultiplier: 0.02
+      lowPressureMultiplier: 1000
+    - type: TemperatureProtection
+      heatingCoefficient: 0.0005
+      coolingCoefficient: 0.001
+    - type: ExplosionResistance
+      damageCoefficient: 0.3
+    - type: FireProtection
+      reduction: 0.95
+    - type: Armor
+      modifiers:
+        coefficients:
+          Blunt: 0.6
+          Slash: 0.6
+          Piercing: 0.6
+          Heat: 0.05
+          Radiation: 0.1
+          Caustic: 0.5
+    - type: ClothingSpeedModifier
+      walkModifier: 1.0
+      sprintModifier: 0.9
+    - type: HeldSpeedModifier
+    - type: Tag
+      tags:
+        - Hardsuit
+    - type: ClothingStateToggle
+      isOpen: false
+      closedPrefix: null
+      openPrefix: "open"
+      action: ActionClothingStateToggle
+      toggleCooldown: 1.5
+    - type: SlotBlock
+      slots: HEAD, MASK
