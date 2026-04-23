@@ -7,13 +7,12 @@
     mode: PlaceFree
   components:
   - type: Sprite
-    sprite: Structures/Decoration/crystal.rsi
-    state: crystal_grey
-    color: "#FFFF00"
+    sprite: _BlackM/Objects/Zen/crystal.rsi
+    state: crystal_zen
     noRot: true
   - type: PointLight
-    radius: 4
-    energy: 6
+    radius: 2
+    energy: 3
     color: "#FFFF00"
   - type: Pullable
   - type: Anchorable
