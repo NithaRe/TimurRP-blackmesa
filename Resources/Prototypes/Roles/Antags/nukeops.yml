@@ -98,7 +98,7 @@
   id: Nukeops
   name: Агент HECU
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM
   objective: Вы — могильщик, посланный правительством, чтобы уничтожить всех свидетелей и замести следы каскадного резонанса.
   requirements:
   - !type:OverallPlaytimeRequirement
@@ -139,7 +139,7 @@
   id: NukeopsCommander
   name: Капитан отряда HECU
   antagonist: true
-  setPreference: true
+  setPreference: false # BlackM
   objective: Вы — командир карательной группы HECU, получивший приказ не только зачистить комплекс, но и гарантировать, что ни один ваш подчинённый не покинет Чёрную Мезу живым.
   requirements:
   - !type:OverallPlaytimeRequirement
