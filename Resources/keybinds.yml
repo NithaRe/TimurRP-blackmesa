@@ -174,12 +174,17 @@ binds:
 - function: MoveDown
   type: State
   key: S
-- function: Walk
-  type: State
-  key: Shift
+
+# BlackM start
+# - function: Walk
+#   type: State
+#   key: Shift
+
 - function: Sprint
   type: State
-  key: Space
+  key: Shift
+# BlackM end
+
 - function: ResistGrab
   type: State
   key: B
