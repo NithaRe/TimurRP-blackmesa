@@ -5,17 +5,17 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 roles-antag-wizard-name = Маг
-roles-antag-wizard-description = Семь бед и разрушений на станции.
+roles-antag-wizard-description = Семь бед и разрушений в комплексе.
 roles-antag-apprentice-name = Подмастерье
 roles-antag-apprentice-description = Помогай магу, который тебя призвал, и защищай его жизнь.
 wizard-roundend-name = маг
 apprentice-roundend-name = подмастерье
 roles-wizard-name = Маг
-roles-wizard-objective = Семь бед и разрушений на станции.
+roles-wizard-objective = Семь бед и разрушений в комплексе.
 dynamic-gamerule-wizard-title = [color=cyan]Маг[/color]
 objective-issuer-wizard-federation = [color=cyan]Конфедерация магов[/color]
 wizard-role-greeting = Вы — могущественный космический маг. Ваша цель — сеять хаос и разрушения на { $station } и выжить. Конфедерация магов предоставила вам волшебный гримуар, с помощью которого вы можешь изучать разрушительные заклинания.
-wizard-role-briefing = Вы — могущественный космический маг. Выживи и посей хаос на станции.
+wizard-role-briefing = Вы — могущественный космический маг. Выживи и посей хаос в комплексе.
 apprentice-role-briefing = Вы — подмастерье космического мага. Сохраняй в живых того, кто тебя призвал.
 admin-verb-make-wizard = Сделать цель магом.
 admin-verb-text-make-wizard = Сделать магом

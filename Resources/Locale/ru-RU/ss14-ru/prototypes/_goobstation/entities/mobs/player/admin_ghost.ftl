@@ -1,2 +1,2 @@
-ent-ActionAGhostShowStationMap = Интерфейс карты станции
-    .desc = Просмотр интерфейса карты станции.
+ent-ActionAGhostShowStationMap = Интерфейс карты комплекса
+    .desc = Просмотр интерфейса карты комплекса.

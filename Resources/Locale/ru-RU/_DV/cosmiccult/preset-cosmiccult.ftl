@@ -35,7 +35,7 @@ cosmiccult-roundend-cultist-count =
        *[other] Было { $initialCount } [color=#4cabb3]Космических культистов[/color].
     }
 cosmiccult-roundend-entropy-count = Культ поглотил { $count } энтропии.
-cosmiccult-roundend-cultpop-count = Культисты составляли { $count }% от всего экипажа станции.
+cosmiccult-roundend-cultpop-count = Культисты составляли { $count }% от всего экипажа комплекса.
 cosmiccult-roundend-monument-stage =
     { $stage ->
         [1] Увы, Монумент остался заброшенным.
@@ -63,7 +63,7 @@ cosmiccult-elimination-announcement = Согласно сканированию 
 ## BRIEFINGS
 
 cosmiccult-role-roundstart-fluff =
-    Пока вы готовитесь к ещё одной смене на очередной станции Black Mesa, в ваш разум врывается поток неисчислимых запретных знаний!
+    Пока вы готовитесь к ещё одной смене на очередной комплекса Black Mesa, в ваш разум врывается поток неисчислимых запретных знаний!
     Откровения, не имеющее равных. Конец циклическим, сизифовым страданиям.
     
     Всё, что вам остаётся — лишь впустить это.
@@ -129,7 +129,7 @@ objective-issuer-cosmiccult = [bold][color=#cae8e8]Неизвестно[/color][
 objective-cosmiccult-charactermenu = Вы должны привести всё к концу. Выполняйте задания, чтобы продвигать культ.
 objective-cosmiccult-steward-charactermenu = Вы должны направлять культ к концу всего сущего. Контролируйте и обеспечьте прогресс культа.
 objective-condition-entropy-title = ПОГЛОТИТЕ ЭНТРОПИЮ
-objective-condition-entropy-desc = Совместно поглотите как минимум { $count } энтропии с экипажа станции.
+objective-condition-entropy-desc = Совместно поглотите как минимум { $count } энтропии с экипажа комплекса.
 objective-condition-culttier-title = УКРЕПИТЕ МОHУМЕНТ
 objective-condition-culttier-desc = Сделайте всё возможное, чтобы Монумент достиг своей полной силы.
 objective-condition-victory-title = НАЧНИТЕ КОНЕЦ
@@ -139,8 +139,8 @@ objective-condition-victory-desc = Призовите ЕГО, и обрекит�
 
 cosmiccult-radio-tier1-progress = Монумент был призван на станцию...
 cosmiccult-announce-tier2-progress = Тревожное оцепенение пробирает вас насквозь.
-cosmiccult-announce-tier2-warning = Сканеры фиксируют значительное увеличение Лямбда-CDM! Разломы реальности могут появиться в ближайшее время. Пожалуйста, уведомите священника станции.
-cosmiccult-announce-tier3-progress = Дуговые разряды ноосферной энергии потрескивают по скрипящей структуре станции. Конец близок.
+cosmiccult-announce-tier2-warning = Сканеры фиксируют значительное увеличение Лямбда-CDM! Разломы реальности могут появиться в ближайшее время. Пожалуйста, уведомите священника комплекса.
+cosmiccult-announce-tier3-progress = Дуговые разряды ноосферной энергии потрескивают по скрипящей структуре комплекса. Конец близок.
 cosmiccult-announce-tier3-warning = Зафиксировано критическое увеличение Лямбда-CDM. Инфицированный персонал подлежит немедленной нейтрализации.
 cosmiccult-announce-finale-warning = Внимание всему экипажу. Аномалия Лямбда-CDM переходит в сверхкритическую фазу, приборы отказывают; переход горизонта событий из ноосферы в реальность НЕИЗБЕЖЕН. Если вы не задействованы в контрмерах — немедленно вмешайтесь. Повторяю: вмешайтесь немедленно или погибнете.
 cosmiccult-announce-victory-summon = ЧАСТИЦА КОСМИЧЕСКОЙ СИЛЫ ПРИЗВАНА.
@@ -153,4 +153,4 @@ cosmiccult-entropy-unavailable = Вы не можете сделать это п
 cosmiccult-astral-ascendant = { $name }, Вознесённый
 cosmiccult-gear-pickup-rejection = { $ITEM } сопротивляется прикосновению { CAPITALIZE($TARGET) }!
 cosmiccult-gear-pickup = Вы чувствуете, как ваше Я расплетается, пока вы держите { $ITEM }!
-cult-alert-recall-shuttle = Обнаружены высокие концентрации Лямбда-CDM неизвестного происхождения на станции. Все аномальные присутствия должны быть устранены до эвакуации.
+cult-alert-recall-shuttle = Обнаружены высокие концентрации Лямбда-CDM неизвестного происхождения в комплексе. Все аномальные присутствия должны быть устранены до эвакуации.

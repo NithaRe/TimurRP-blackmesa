@@ -26,7 +26,7 @@ traitor-corporateclimber-uplink = У тебя есть связи на чёрн�
 traitor-corporateclimber-roundend = [color=yellow]корпоративная крыса.[/color]
 traitor-donkcorporation-intro = Вы — внедрённый агент Donk Co.
 traitor-donkcorporation-goal = Мы не одобряем бессмысленные убийства невинных работников. Наш девиз: прийти, сделать дело, уйти.
-traitor-donkcorporation-allies = Убивайте сотрудников Waffle Co. на месте. Пока мы здесь, им не место на станции.
+traitor-donkcorporation-allies = Убивайте сотрудников Waffle Co. на месте. Пока мы здесь, им не место в комплексе.
 traitor-donkcorporation-uplink = Вам выдали аплинк Aperture Science в КПК для выполнения задания.
 traitor-donkcorporation-roundend = [color=orange]сотрудник Donk Corporation[/color]
 traitor-gorlexmarauders-intro = Вы — мародёр Gorlex.
@@ -51,7 +51,7 @@ traitor-tigercooperative-uplink = Друзья из Cybersun выдали вам
 traitor-tigercooperative-roundend = [color=crimson]фанатик Tiger Cooperative[/color]
 traitor-wafflecorporation-intro = Вы — внедрённый агент Waffle Co.
 traitor-wafflecorporation-goal = Вы не здесь не для того, чтобы устраивать показательную резню. Может, другие агенты Waffle Co. и будут этим заниматься, но ваша задача — просто выполнить цели.
-traitor-wafflecorporation-allies = Убивайте сотрудников Donk Co. Им не место на станции, пока мы здесь.
+traitor-wafflecorporation-allies = Убивайте сотрудников Donk Co. Им не место в комплексе, пока мы здесь.
 traitor-wafflecorporation-uplink = Вам выдали аплинк Aperture Science в КПК для выполнения задания.
 traitor-wafflecorporation-roundend = [color=orange]сотрудник Waffle Corporation[/color]
 traitor-wafflecorporationterrorist-intro = Вы — террорист Waffle Co.

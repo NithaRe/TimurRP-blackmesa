@@ -41,7 +41,7 @@ cargo-console-menu-account-action-option-withdraw = Обналичить
 cargo-console-menu-account-action-option-transfer = Перевести деньги на { $code }
 # Orders
 cargo-console-order-not-allowed = Доступ запрещён
-cargo-console-station-not-found = Нет доступной станции
+cargo-console-station-not-found = Нет доступной комплекса
 cargo-console-invalid-product = Неверный ID продукта
 cargo-console-too-many = Слишком много одобренных заказов
 cargo-console-snip-snip = Заказ урезан до вместимости

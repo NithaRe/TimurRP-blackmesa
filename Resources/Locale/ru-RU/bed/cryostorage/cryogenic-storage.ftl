@@ -9,5 +9,5 @@ earlyleave-cryo-announcement =
         [epicene] были перемещены
        *[neuter] было перемещено
     } в криогенное хранилище!
-earlyleave-cryo-sender = Станция
+earlyleave-cryo-sender = комплекс
 cryostorage-paused-map-name = Карта хранения тел криосна

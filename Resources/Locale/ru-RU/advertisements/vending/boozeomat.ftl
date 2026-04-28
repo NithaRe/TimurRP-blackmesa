@@ -1,7 +1,7 @@
 advertisement-boozeomat-1 = Надеюсь, никто не попросит у меня чёртову чашку чая...
 advertisement-boozeomat-2 = Алкоголь - друг человечества. Вы бы отказались от друга?
 advertisement-boozeomat-3 = Очень рад вас обслужить!
-advertisement-boozeomat-4 = Никто на этой станции не хочет выпить?
+advertisement-boozeomat-4 = Никто в этом комплексе не хочет выпить?
 advertisement-boozeomat-5 = Выпьем!
 advertisement-boozeomat-6 = Бухло пойдёт вам на пользу!
 advertisement-boozeomat-7 = Алкоголь — друг человека.

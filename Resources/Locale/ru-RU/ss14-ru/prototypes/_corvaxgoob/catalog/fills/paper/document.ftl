@@ -1,6 +1,6 @@
 ent-PrintedDocument = { ent-Paper }
     .desc = Бюрократическая единица. Документ, распечатанный на принтере.
-ent-PrintedDocumentReportStation = Отчёт о ситуации на станции
+ent-PrintedDocumentReportStation = Отчёт о ситуации в комплексе
     .desc = { ent-PrintedDocument.desc }
 ent-PrintedDocumentReportOnEliminationOfViolations = Отчёт об устранении нарушений
     .desc = { ent-PrintedDocument.desc }

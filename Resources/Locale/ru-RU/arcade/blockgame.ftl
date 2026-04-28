@@ -19,5 +19,5 @@ blockgame-menu-label-highscores = Рекорды
 blockgame-menu-button-back = Назад
 blockgame-menu-label-next = Следующее
 blockgame-menu-label-hold = Удерживать
-blockgame-menu-text-station = Станция
+blockgame-menu-text-station = комплекс
 blockgame-menu-textNanoTrasen = Black Mesa

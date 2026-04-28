@@ -1,2 +1,2 @@
-ent-StationRadioReceiver = станционное радио
+ent-StationRadioReceiver = радио комплекса
     .desc = Слушайте лучшие хиты вашей станционной радиоволны! Ну или рекламу...

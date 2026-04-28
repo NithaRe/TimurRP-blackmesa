@@ -1,5 +1,5 @@
 ent-BaseAutosurgeon = { ent-BaseStructure }
-    .desc = Одноразовая автооперация для замены или улучшения ваших частей кибернетическими имплантами. Разорвите эту станцию и сделайте её частью себя.
+    .desc = Одноразовая автооперация для замены или улучшения ваших частей кибернетическими имплантами. Разорвите этот комплекс и сделайте её частью себя.
 ent-BaseAutosurgeonSingle = { ent-BaseAutosurgeon }
     .desc = A single-use autosurgeon for replacing or upgrading your parts with cybernetic implants. Rip that station apart and make it a part of you.
 ent-BaseAutosurgeonMultiple = { ent-BaseAutosurgeon }

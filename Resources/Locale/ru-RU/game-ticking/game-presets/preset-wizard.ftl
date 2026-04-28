@@ -15,8 +15,8 @@ survivor-round-end-dead-count =
     }
 survivor-round-end-alive-count =
     { $aliveCount ->
-        [one] [color=yellow]{ $aliveCount }[/color] выживший остался на станции.
-       *[other] [color=yellow]{ $aliveCount }[/color] выживших осталось на станции.
+        [one] [color=yellow]{ $aliveCount }[/color] выживший остался в комплексе.
+       *[other] [color=yellow]{ $aliveCount }[/color] выживших осталось в комплексе.
     }
 survivor-round-end-alive-on-shuttle-count =
     { $aliveCount ->

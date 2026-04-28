@@ -7,8 +7,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-revolutionaries-lose-announcement-shuttle-call = По нашим данным, вражеские революционные ячейки на станции подавлены и нейтрализованы.
-revolutionaries-lose-announcement = По нашим данным, вражеские революционные ячейки на станции подавлены и нейтрализованы.
+revolutionaries-lose-announcement-shuttle-call = По нашим данным, вражеские революционные ячейки в комплексе подавлены и нейтрализованы.
+revolutionaries-lose-announcement = По нашим данным, вражеские революционные ячейки в комплексе подавлены и нейтрализованы.
 revolutionaries-win-announcement-shuttle-call =
     Согласно отчетам Глав Революции, командование корпорации было свергнуто, и мы захватили контроль над станцией.
     

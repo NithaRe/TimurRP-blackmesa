@@ -1,2 +1,2 @@
-ent-PosterMapMetaRight = карта станции Meta
-    .desc = Карта станции Meta. Выглядит очень старой.
+ent-PosterMapMetaRight = карта комплекса Meta
+    .desc = Карта комплекса Meta. Выглядит очень старой.

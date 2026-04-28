@@ -91,7 +91,7 @@ ntr-executive-id-desc = Высококачественная плата для �
 
 # tiers
 
-ntr-executive-tier-1-name = Станция
+ntr-executive-tier-1-name = комплекс
 ntr-executive-tier-2-name = Команды реагирования
 ntr-executive-tier-3-name = Персональное
 ntr-executive-tier-4-name = Зловещее

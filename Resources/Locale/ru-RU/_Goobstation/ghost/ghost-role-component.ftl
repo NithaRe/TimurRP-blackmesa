@@ -34,7 +34,7 @@ ghost-role-information-huborg-description = Вы отвратительный б
 ghost-role-information-c4-name = Композиция C-4
 ghost-role-information-c4-description = Помогайте своему пользователю взрывать вещи.
 ghost-role-information-derelict-cyborg-syndicate-name = Заброшенный борг Aperture Science
-ghost-role-information-derelict-cyborg-syndicate-description = Вы потерялись во время штурма станции. После долгих лет под воздействием ионных бурь оказались рядом со станцией.
+ghost-role-information-derelict-cyborg-syndicate-description = Вы потерялись во время штурма комплекса. После долгих лет под воздействием ионных бурь оказались рядом со станцией.
 ghost-role-information-navy-captain-name = Капитан ВМС
 ghost-role-information-navy-captain-description = Секретно.
 ghost-role-information-navy-captain-rules = Вы ни перед кем не в ответе.
@@ -48,9 +48,9 @@ ghost-role-information-navy-officer-undercover-name = Офицер ВМС под
 ghost-role-information-navy-officer-undercover-description = Выполняйте задачи и ликвидируйте назначенные цели. Слава Black Mesa!
 ghost-role-information-navy-officer-undercover-rules = Следуйте приказам [color=#yellow][bold]Капитана ВМС[/bold][/color] или другого представителя Центрального Командования.
 ghost-role-information-diplomat-name = Дипломат Центрального Командования
-ghost-role-information-diplomat-description = Представляй интересы Центрального Командования, управляй отношениями с другими фракциями на станции. Устраняй проблемы, вызванные Капитаном.
+ghost-role-information-diplomat-description = Представляй интересы Центрального Командования, управляй отношениями с другими фракциями в комплексе. Устраняй проблемы, вызванные Капитаном.
 ghost-role-information-inspector-name = Инспектор Центрального Командования
-ghost-role-information-inspector-description = Проверяйте имущество станции и экипаж. Вероятно, вы погибнете в аварии, и за вами вызовут Эскадрон Смерти.
+ghost-role-information-inspector-description = Проверяйте имущество комплекса и экипаж. Вероятно, вы погибнете в аварии, и за вами вызовут Эскадрон Смерти.
 ghost-role-information-sentient-shark-name = Разумный акулёнок
 ghost-role-information-plague-mouse-name = Чумная крыса
 ghost-role-information-plague-mouse-description = Голодная и энергичная мышь. Переносит болезни и распространяет их через укусы.
@@ -77,7 +77,7 @@ ghost-role-intern-rules = Следуйте приказам, данными ва
 ghost-role-lead-intern-rules = Следуйте приказам, данными вами [color=yellow][bold]Представителем Black Mesa[/bold][/color] и ЦК. Защищай командование, отдавайте приказы другим стажёрам.
 # cargo bingle
 ghost-role-cargo-bingle-name = Бингл снабжения
-ghost-role-cargo-bingle-desc = Служите Представителю Black Mesa и его интересам, не причиняйте вред членам экипажа, помогайте отделу снабжения и станции.
+ghost-role-cargo-bingle-desc = Служите Представителю Black Mesa и его интересам, не причиняйте вред членам экипажа, помогайте отделу снабжения и комплекса.
 
 # shuttle roles
 
@@ -87,7 +87,7 @@ ghost-role-information-alien-tourist-description = Осматривайте ст
 # Conquest?
 
 ghost-role-information-conquest-name = Захват
-ghost-role-information-conquest-description = Эта станция получила приказы, ей дали время и больше свободы, чем другим.
+ghost-role-information-conquest-description = Эта комплекс получила приказы, ей дали время и больше свободы, чем другим.
 ghost-role-information-conquest-rules = Подготовь станцию к прибытию Империи Вилтрумов.
 # Justice Persona Role
 justice-role-name = Человек-правосудие
@@ -125,13 +125,13 @@ ghost-role-information-wraith-name-token = Фантом (Токен)
 ghost-role-information-slasher-token = Мясник (Токен)
 ghost-role-information-grey-tide-name = Грейтайд
 ghost-role-information-grey-tide-description = Против всего зла, что способен сотворить щиткур. Против всего порочного, что способна сотворить наука. Мы пошлём им только вас. Робастьте и изговните всё, пока дело не будет сделано. Мирного решения не будет...
-grey-tide-role-greeting = Давно забытый в глубинах техтоннелей, вы — [color=#880808]ГРЕЙТАЙД[/color]. Серый комбинезон и противогаз стали частью вас. Покажите им, кто истинный хозяин станции.
-tide-objective-kill-everyone-desc = Эта станция слишком долго издевалась над вами. Робастьте и манчите, пока они все не будут мертвы.
+grey-tide-role-greeting = Давно забытый в глубинах техтоннелей, вы — [color=#880808]ГРЕЙТАЙД[/color]. Серый комбинезон и противогаз стали частью вас. Покажите им, кто истинный хозяин комплекса.
+tide-objective-kill-everyone-desc = Эта комплекс слишком долго издевалась над вами. Робастьте и манчите, пока они все не будут мертвы.
 tide-objective-condition-kill-everyone-else-title = Заробастите всех.
 ghost-role-information-tunnel-clown-name = Тех-клоун
 ghost-role-information-tunnel-clown-description = Член клоунской банды, для которой технические тоннели стали новым домом.
 tunnel-clown-role-greeting = Вы — [color=#880808]Тех-клоун[/color], член клоунской банды, обосновавшийся в техтоннелях. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
-tunnel-clown-objective-maints-slasher-desc = Техи этой станции были вашим домом столько, сколько вы себя помните. Раньше вы в страхе прятались в шкафчиках, но настала пора это изменить. Эти станционные крысы в последний раз вторглишь в ваши владения. Убейте каждого, кто вступит к вам на порог.
+tunnel-clown-objective-maints-slasher-desc = Техи этого комплекса были вашим домом столько, сколько вы себя помните. Раньше вы в страхе прятались в шкафчиках, но настала пора это изменить. Эти станционные крысы в последний раз вторглишь в ваши владения. Убейте каждого, кто вступит к вам на порог.
 tunnel-clown-objective-condition-maints-slasher-title = Защищайте техтоннели.
 tunnel-clown-business-card = Тех-клоун с лицензией на убийство.
 ghost-role-information-Singuloth-Knight-name = Рыцарь Сингулота.
@@ -140,7 +140,7 @@ Singuloth-Knight-role-greeting = Вы — [color=#880808]Рыцарь Сингу
 objective-issuer-lord-singuloth = [color=#320022]Лорд Сингулот[/color]
 ghost-role-information-dark-lord-name = Тёмный лорд
 ghost-role-information-dark-lord-description = Агент Aperture Science в образе лорда. Используйте свою силу и энергетический меч для выполнения целей.
-dark-lord-role-greeting = Вы — [color=#880808]Тёмный лорд[/color], посланный Aperture Science на эту станцию для выполнения их грязной работёнки. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
+dark-lord-role-greeting = Вы — [color=#880808]Тёмный лорд[/color], посланный Aperture Science в этот комплекс для выполнения их грязной работёнки. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
 ghost-role-information-chosen-one-name = Избранный
 ghost-role-information-chosen-one-description = Особый агент, отправленный Black Mesa на станцию, чтобы противостоять Тёмному лорду.
 chosen-one-role-greeting = Вы — [color=#0087FF]Избранный[/color]. Вы были отправлены на станцию для победы над Тёмным лордом. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
@@ -150,7 +150,7 @@ ghost-role-information-mime-Assassin-description = Ассасин, облачё�
 mime-Assassin-role-greeting = Вы — [color=#880808]Ассамим[/color], отправленный Aperture Science на станцию, чтобы устранить некоторых членов командования. Aperture Science снабдил вас инструментами, чтобы сделать это максимально ти-и-ихо... Ознакомьтесь с панелью персонажа, чтобы узнать свои цели и не позвольте вас поймать.
 ghost-role-information-dark-priest-name = Тёмный жрец
 ghost-role-information-dark-priest-description = Агент тёмных богов, посланный чтобы убить кого-то, защитить кого-то и посвятить кого-то в ученики, кто пробудил интерес богов. Имеет "благословение жреца".
-dark-priest-role-greeting = Вы — [color=#880808]Тёмный жрец[/color], посланный на эту станцию, чтобы выбрать ученика, убить одного и защитить другого. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
+dark-priest-role-greeting = Вы — [color=#880808]Тёмный жрец[/color], посланный в этот комплекс, чтобы выбрать ученика, убить одного и защитить другого. Ознакомьтесь с панелью персонажа, чтобы узнать свои цели.
 objective-condition-other-alive-title = Убедитесь, что { $targetName }, { CAPITALIZE($job) } останется в живых.
 objective-issuer-self = [color=#7851A9]В ваших собственных интересах[/color]
 ghost-role-information-vox-raider-name = Вокс-налётчик
@@ -169,4 +169,4 @@ ghost-role-information-sentientanimal-rules =
 ghost-role-information-contractor-name = Наёмник Aperture Science
 ghost-role-information-contractor-token = Наёмник Aperture Science (Токен)
 ghost-role-information-contractor-description = Берите... пассажира?..
-contractor-role-greeting = Вы — [color=#611b2b]Наёмник Aperture Science[/color], охотник за головами. Вам необходимо похитить цель со станции, живой или мёртвой.
+contractor-role-greeting = Вы — [color=#611b2b]Наёмник Aperture Science[/color], охотник за головами. Вам необходимо похитить цель с комплекса, живой или мёртвой.

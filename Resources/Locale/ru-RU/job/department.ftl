@@ -7,5 +7,5 @@ department-Medical = Медицинский отдел
 department-Security = Отдел контроля и подавления (Ковак)
 department-Science = Научный отдел
 department-Silicon = Синтетики
-department-Specific = На определённых станциях
+department-Specific = На определённых комплексх
 department-Unknown = Неизвестно

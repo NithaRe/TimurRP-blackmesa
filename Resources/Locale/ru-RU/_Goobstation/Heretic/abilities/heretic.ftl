@@ -48,7 +48,7 @@ heretic-manselink-start-target = Вы чувствуете, как ваш раз
 ## living heart
 
 heretic-livingheart-notargets = Нет доступных целей, посетите руну.
-heretic-livingheart-offstation = Оно { $state }, вне станции, { $direction }!
+heretic-livingheart-offstation = Оно { $state }, вне комплекса, { $direction }!
 heretic-livingheart-onstation = Оно { $state }, { $direction }!
 heretic-livingheart-unknown = Оно... не в этом измерении.
 heretic-livingheart-faraway = Оно { $state }, невероятно далеко!
