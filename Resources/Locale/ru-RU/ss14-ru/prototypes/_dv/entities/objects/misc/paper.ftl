@@ -1,4 +1,4 @@
-ent-PaperStationWarrant = ордер станции
+ent-PaperStationWarrant = ордер комплекса
     .desc = Бумажный ордер, выданный судебным департаментом.
 ent-PaperFugitiveReport = отчет о беглеце
     .desc = Ордер на арест космического беглеца, отправленный из GalPol.

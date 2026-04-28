@@ -1,7 +1,7 @@
 power-monitoring-window-title = Консоль контроля питания
 power-monitoring-window-label-sources = Источники
 power-monitoring-window-label-smes = СМЭС
-power-monitoring-window-label-substation = Подстанции
+power-monitoring-window-label-substation = Подкомплекса
 power-monitoring-window-label-apc = ЛКП
 power-monitoring-window-label-misc = Разное
 power-monitoring-window-object-array = { $name } массив [{ $count }]

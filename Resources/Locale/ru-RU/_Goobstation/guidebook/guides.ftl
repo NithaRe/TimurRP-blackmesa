@@ -54,7 +54,7 @@ guide-entry-sop-confirmedrevs = Революция
 guide-entry-sop-containmentfail = Нарушение содержания
 guide-entry-sop-firegasspill = Пожары/утечки газа
 guide-entry-sop-meteorstorm = Метеоритный шторм
-guide-entry-sop-stationdamage = Повреждения станции
+guide-entry-sop-stationdamage = Повреждения комплекса
 guide-entry-sop-supermatterdelam = Распад Суперматерии
 guide-entry-sop-wardeclaration = Объявление войны
 guide-entry-sop-zombieoutbreak = Вспышка зомби
@@ -80,7 +80,7 @@ guide-entry-sop-ce = Старший Инженер
 guide-entry-sop-qm = Квартирмейстер
 # - Инженерия
 guide-entry-sop-atmostech = Атмосферный техник
-guide-entry-sop-stationengineer = Инженер станции
+guide-entry-sop-stationengineer = Инженер комплекса
 # - Медицина
 guide-entry-sop-chemist = Химик
 guide-entry-sop-doctorintern = Врач/Интерн

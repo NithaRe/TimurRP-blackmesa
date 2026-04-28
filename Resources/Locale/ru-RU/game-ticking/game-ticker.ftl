@@ -40,7 +40,7 @@ latejoin-arrival-announcement =
        *[neuter] прибыло
     } на станцию!
 latejoin-arrival-announcement-special = { $job } { $character } на палубе!
-latejoin-arrival-sender = Станции
+latejoin-arrival-sender = комплекса
 latejoin-arrivals-direction = Вскоре прибудет шаттл, который доставит вас на станцию.
 latejoin-arrivals-direction-time = Шаттл, который доставит вас на станцию, прибудет через { $time }.
 latejoin-arrivals-dumped-from-shuttle = Таинственная сила не позволяет вам улететь на шаттле прибытия.

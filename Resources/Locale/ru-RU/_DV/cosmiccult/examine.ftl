@@ -1,11 +1,11 @@
 ## REGULAR EXAMINES
 
 cosmic-examine-text-contraband = [color=#4cabb3]Это крайне незаконный контрабандный предмет с неизвестными свойствами![/color]
-cosmic-examine-text-structures = [color=#4cabb3]Этот объект не должен находиться на станции![/color]
+cosmic-examine-text-structures = [color=#4cabb3]Этот объект не должен находиться в комплексе![/color]
 cosmic-examine-text-glyphs = [color=#4cabb3]Выгравированные линии вызывают глубокое беспокойство при взгляде на них.[/color]
 cosmic-examine-text-abilityblank = [color=#4cabb3]Их кататонические глаза пульсируют злым светом![/color]
 cosmic-examine-text-abilitylapse = [color=#4cabb3]Они выглядят так, будто увидели то, что никто не должен был увидеть.[/color]
-cosmic-examine-text-malignecho = [color=#4cabb3]Эхо в мембране реального пространства быстро исчезает. На станции что-то не так![/color]
+cosmic-examine-text-malignecho = [color=#4cabb3]Эхо в мембране реального пространства быстро исчезает. в комплексе что-то не так![/color]
 cosmic-examine-text-forthecult = [color=#4cabb3]Это наше дело. Как и должно быть.[/color]
 cosmic-examine-text-imposition = [color=#4cabb3]Барьер астральной энергии защищает их от повреждений![/color]
 cosmic-examine-text-god = [color=#4cabb3]это конец это конец это конец это конец это конец это конец это конец это конец это конец это конец это конец [/color]

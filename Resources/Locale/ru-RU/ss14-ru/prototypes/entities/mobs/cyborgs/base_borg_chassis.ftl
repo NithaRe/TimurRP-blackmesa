@@ -1,5 +1,5 @@
 ent-BaseBorgChassisNotIonStormable = борг
-    .desc = Гибрид машины и человека, помогающий в работе станции. Они обожают, когда их снова и снова просят назвать свои законы.
+    .desc = Гибрид машины и человека, помогающий в работе комплекса. Они обожают, когда их снова и снова просят назвать свои законы.
 ent-BaseBorgChassis = { ent-BaseBorgChassisNotIonStormable }
     .desc = { ent-BaseBorgChassisNotIonStormable.desc }
 ent-BaseBorgTransponder = { "" }

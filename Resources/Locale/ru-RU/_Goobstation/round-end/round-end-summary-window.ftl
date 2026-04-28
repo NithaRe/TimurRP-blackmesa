@@ -1,5 +1,5 @@
-round-end-summary-window-station-report-tab-title = Станционный отчёт
-no-station-report-summited = Не было получено станционных отчётов. ПNT вашей станции был оштрафован на 2000 кредитов.
+round-end-summary-window-station-report-tab-title = отчёт комплекса
+no-station-report-summited = Не было получено станционных отчётов. ПNT вашим комплексом был оштрафован на 2000 кредитов.
 round-end-summary-window-player-name-role = в роли { $role }, играл { $player }.
 round-end-summary-window-player-name = сыграл { $player }.
 round-end-summary-window-last-words = [italic][color=gray]"{ $lastWords }"[/color][/italic]

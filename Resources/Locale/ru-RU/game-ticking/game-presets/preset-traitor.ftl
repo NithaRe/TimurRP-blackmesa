@@ -14,7 +14,7 @@ traitor-no-one-ready = Нет готовых игроков! Нельзя зап
 
 traitor-death-match-title = Бой насмерть предателей
 traitor-death-match-description = Все — предатели. Все хотят смерти друг друга.
-traitor-death-match-station-is-too-unsafe-announcement = На станции слишком опасно, чтобы продолжать. У вас есть одна минута.
+traitor-death-match-station-is-too-unsafe-announcement = в комплексе слишком опасно, чтобы продолжать. У вас есть одна минута.
 traitor-death-match-end-round-description-first-line = КПК были восстановлены...
 traitor-death-match-end-round-description-entry = КПК { $originalName }, с { $tcBalance } ТК
 
@@ -33,7 +33,7 @@ traitor-role-codewords =
     Прислушивайтесь к ним и храните их в тайне.
 traitor-role-uplink-code =
     Установите рингтон Вашего КПК на [color = lightgray]{ $code }[/color] чтобы заблокировать или разблокировать аплинк.
-    Не забудьте заблокировать его и сменить код, иначе кто угодно из экипажа станции сможет открыть аплинк!
+    Не забудьте заблокировать его и сменить код, иначе кто угодно из экипажа комплекса сможет открыть аплинк!
 # don't need all the flavour text for character menu
 traitor-role-codewords-short =
     Кодовые слова:

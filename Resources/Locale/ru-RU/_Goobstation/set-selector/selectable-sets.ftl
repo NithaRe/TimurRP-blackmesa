@@ -31,8 +31,8 @@ selectable-set-thief-sleeper-description =
 selectable-set-thief-communicator-name = Набор коммуникатора
 selectable-set-thief-communicator-description =
     Деньги — это власть, а секреты — деньги. Используйте своё красноречие
-    и богатство, чтобы подорвать структуру станции.
-    Включает: мастер-ключ для всех каналов станции, ручку CyberSun,
+    и богатство, чтобы подорвать структуру комплекса.
+    Включает: мастер-ключ для всех каналов комплекса, ручку CyberSun,
     маску хамелеона и 20000 кредитов в чемодане.
 selectable-set-thief-smuggler-name = Набор контрабандиста
 selectable-set-thief-smuggler-description =
@@ -63,7 +63,7 @@ selectable-set-syndicate-implants-description =
     Ну и крутая кожанка, конечно.
 selectable-set-syndicate-hacker-name = Набор хакера
 selectable-set-syndicate-hacker-description =
-    Все, что нужно для взлома и саботажа станции,
+    Все, что нужно для взлома и саботажа комплекса,
     её ИИ, боргов и команды безопасности. ВЗЛОМИ ПЛАНЕТУ!
     Включает: плату законов Антимова, разрушитель аутентификации, криптографический секвенсор,
     глушитель связи, заполненный ящик инструментов, экспериментальный телепортер Aperture Science,

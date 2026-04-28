@@ -1,5 +1,5 @@
 ent-IDCardStandard = ID-карта
-    .desc = Карта, необходимая для доступа к различным областям станции.
+    .desc = Карта, необходимая для доступа к различным областям комплекса.
 ent-PassengerIDCard = ID-карта пассажира
     .desc = { ent-IDCardStandard.desc }
 ent-TechnicalAssistantIDCard = ID-карта ассистента-техника

@@ -11,11 +11,11 @@ nukeops-crewminor = [color=green]Малая победа экипажа![/color]
 nukeops-crewmajor = [color=green]Разгромная победа экипажа![/color]
 nukeops-cond-nukeexplodedoncorrectstation = Оперативникам HECU удалось взорвать станцию.
 nukeops-cond-nukeexplodedonnukieoutpost = Аванпост Оперативников HECU был уничтожен ядерным взрывом.
-nukeops-cond-nukeexplodedonincorrectlocation = Ядерная бомба взорвалась вне станции.
-nukeops-cond-nukeactiveinstation = Ядерная бомба была оставлена взведённой на станции.
+nukeops-cond-nukeexplodedonincorrectlocation = Ядерная бомба взорвалась вне комплекса.
+nukeops-cond-nukeactiveinstation = Ядерная бомба была оставлена взведённой в комплексе.
 nukeops-cond-nukeactiveatcentcom = Ядерная бомба была доставлена Командованию Комплекса!
 nukeops-cond-nukediskoncentcom = Экипаж улетел с диском ядерной аутентификации.
-nukeops-cond-nukedisknotoncentcom = Экипаж оставил диск ядерной аутентификации на станции.
+nukeops-cond-nukedisknotoncentcom = Экипаж оставил диск ядерной аутентификации в комплексе.
 nukeops-cond-nukiesabandoned = Оперативники HECU были брошены.
 nukeops-cond-allnukiesdead = Все Оперативники HECU погибли.
 nukeops-cond-somenukiesalive = Несколько Оперативников HECU погибли.

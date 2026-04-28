@@ -12,6 +12,6 @@ cosmicability-lapse-success = Вы разрываете физическую о�
 cosmicability-monument-move-confirm = ЭТО ДЕЙСТВИЕ МОЖНО ИСПОЛЬЗОВАТЬ ТОЛЬКО РАЗ В 10 МИНУТ! Используйте снова, чтобы подтвердить.
 cosmicability-monument-spawn-confirm = ЭТО ДЕЙСТВИЕ МОЖНО ИСПОЛЬЗОВАТЬ ТОЛЬКО ОДИН РАЗ! Используйте снова, чтобы подтвердить.
 cosmicability-monument-spawn-error-grid = Недопустимое место! Монумент может быть призван только на устойчивой поверхности.
-cosmicability-monument-spawn-error-station = Недопустимое место! Монумент может быть призван только на станции.
+cosmicability-monument-spawn-error-station = Недопустимое место! Монумент может быть призван только в комплексе.
 cosmicability-monument-spawn-error-intersection = Слишком тесно! Для призыва Монумента требуется свободная область 3x1.
 cosmicability-monument-spawn-error-space = Слишком близко к космосу! Монумент должен находиться как минимум в { $DISTANCE } м. отсюда.

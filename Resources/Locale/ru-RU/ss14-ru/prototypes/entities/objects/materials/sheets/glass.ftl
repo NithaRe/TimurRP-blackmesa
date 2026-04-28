@@ -1,5 +1,5 @@
 ent-SheetGlassBase = стекло
-    .desc = Лист стекла, широко применяемого на станции в различных целях.
+    .desc = Лист стекла, широко применяемого в комплексе в различных целях.
 ent-SheetGlass = { ent-SheetGlassBase }
     .suffix = Полный
     .desc = { ent-SheetGlassBase.desc }

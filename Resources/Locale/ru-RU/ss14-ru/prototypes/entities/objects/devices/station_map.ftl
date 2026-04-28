@@ -1,5 +1,5 @@
-ent-BaseHandheldStationMap = портативная карта станции
-    .desc = Отображает схему текущей станции.
+ent-BaseHandheldStationMap = портативная карта комплекса
+    .desc = Отображает схему текущей комплекса.
 ent-HandheldStationMap = { ent-BaseHandheldStationMap }
     .desc = { ent-BaseHandheldStationMap.desc }
     .suffix = Ручной, Заряжен

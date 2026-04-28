@@ -9,6 +9,6 @@ lathe-menu-connected-to-silo-message = Подключено к сило.
 lathe-menu-mining-points-no-connection-warning = [bold][color=red]ВНИМАНИЕ:[/color][/bold] Это устройство не подключено к рудному сило. При сбросе руды вы НЕ получите очки руды.
 lathe-menu-mining-points-silo-not-on-same-grid = [bold][color=red]ВНИМАНИЕ:[/color][/bold] Это устройство находится на другой карте, чем сило. При сбросе руды вы НЕ получите очки руды.
 signal-port-name-material-silo = Сило материалов
-signal-port-description-material-silo = Пространственное хранилище материалов станции
+signal-port-description-material-silo = Пространственное хранилище материалов комплекса
 signal-port-name-material-silo-utilizer = Использователь сило
-signal-port-description-material-silo-utilizer = Использователь материалного сило станции
+signal-port-description-material-silo-utilizer = Использователь материалного сило комплекса

@@ -13,7 +13,7 @@ roundend-prepend-heretic-ascension-fail = { $name }, [color=red]потерпел
 roundend-prepend-heretic-ascension-fail-owls = { $name }, [color=red]отрекся от вознесения и потерпел неудачу![/color]
 roundend-prepend-heretic-knowledge-named = [color=white]{ $name }[/color] изучил всего [color=purple]{ $number }[/color] знаний.
 heretic-gamemode-title = Еретики
-heretic-gamemode-description = Обнаружена измерительная аномалия на станции. Дополнительных данных нет.
+heretic-gamemode-description = Обнаружена измерительная аномалия в комплексе. Дополнительных данных нет.
 heretic-role-greeting-fluff =
     Ещё один день бессмысленной работы. Вы ощущаете лёгкое мерцание. Вы заглядываете внутрь себя и обнаруживаете нечто, что изменит вашу жизнь.
     
