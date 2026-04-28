@@ -4,4 +4,4 @@
   showInVote: true
   description: Добро пожаловать на научно-исследовательскую станцию Черная Меза!
   rules:
-  - Secret
+  - Extended
