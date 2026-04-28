@@ -39,7 +39,7 @@ public sealed partial class SprinterComponent : Component
     ///     How much stamina is drained per second?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float StaminaDrainRate = 9f;
+    public float StaminaDrainRate = 15f;
 
     /// <summary>
     ///     By how much do we multiply stamina recovery while sprinting?
@@ -49,7 +49,7 @@ public sealed partial class SprinterComponent : Component
     ///     Could be made a CVAR but durk takes ages to update those so eh.
     /// </remarks>
     [DataField, AutoNetworkedField]
-    public float StaminaRegenMultiplier = 0.75f;
+    public float StaminaRegenMultiplier = 0f;
 
     /// <summary>
     ///     How much do we multiply stamina drains while theres a StaminaModifierComponent?
@@ -67,7 +67,7 @@ public sealed partial class SprinterComponent : Component
     ///     How long do we have to wait between sprints?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan TimeBetweenSprints = TimeSpan.FromSeconds(3);
+    public TimeSpan TimeBetweenSprints = TimeSpan.FromSeconds(2);
 
     /// <summary>
     ///     When did we last sprint?
