@@ -1,0 +1,34 @@
+- type: entity
+  parent: BaseAction
+  id: ActionHoundeyeScream
+  name: Вой
+  description: Издать оглушающий вой — замедляет и наносит урон всем в радиусе 5 тайлов.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 30
+    icon:
+      sprite: _BlackM/Mobs/houndeye.rsi
+      state: walking
+    itemIconStyle: NoItem
+  - type: InstantAction
+    event: !type:HoundeyeScreamEvent {}
+
+- type: entity
+  parent: BaseAction
+  id: ActionHoundeyeCharge
+  name: Таран
+  description: Броситься на цель и отбросить её при столкновении.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 30
+    icon:
+      sprite: _BlackM/Mobs/houndeye.rsi
+      state: walking
+    itemIconStyle: NoItem
+  - type: TargetAction
+    checkCanAccess: false
+    range: 0
+  - type: WorldTargetAction
+    event: !type:HoundeyeChargeEvent {}
