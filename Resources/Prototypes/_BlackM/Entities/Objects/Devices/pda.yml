@@ -1,14 +1,14 @@
 - type: entity
   parent: BasePDA
-  id: BmesaResearchDirectorPDA
-  name: research director PDA
-  description: Black Mesa research director PDA.
+  id: BmesaHecuPda
+  name: КПК оперативника HECU
+  description: Надёжное устройство армии США, адаптированное для работы в опасных условиях. Оснащено защищённым интерфейсом и системой допуска..
   components:
   - type: Sprite
     sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi"
     layers:
     - map: [ "enum.PdaVisualLayers.Base" ]
-      state: "pda-seniorresearcher"
+      state: "pda-hecu"
     - sprite: "/Textures/Objects/Devices/pda.rsi"
       state: "light_overlay"
       map: [ "enum.PdaVisualLayers.Flashlight" ]
@@ -23,7 +23,7 @@
       state: "insert_overlay"
       map: [ "enum.PdaVisualLayers.Pen" ]
   - type: Pda
-    id: BmesaResearchDirectorIDCard
+    id: BmesaHecuIdcard
     penSlot:
       startingItem: Pen
       whitelist:
@@ -33,139 +33,10 @@
     appearanceDataInit:
       enum.PdaVisuals.PdaType:
         !type:String
-        pda-seniorresearcher
+        pda-hecu
   - type: PdaBorderColor
     borderColor: "#aa00ff"
     accentVColor: "#44aaee"
   - type: Icon
     sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi"
-    state: pda-seniorresearcher
-
-- type: entity
-  parent: BasePDA
-  id: BmesaSecurityPDA
-  name: security PDA
-  description: Black Mesa security PDA.
-  components:
-  - type: Sprite
-    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi"
-    layers:
-    - map: [ "enum.PdaVisualLayers.Base" ]
-      state: "pda-seniorresearcher"
-    - sprite: "/Textures/Objects/Devices/pda.rsi"
-      state: "light_overlay"
-      map: [ "enum.PdaVisualLayers.Flashlight" ]
-      shader: "unshaded"
-      visible: false
-    - sprite: "/Textures/Objects/Devices/pda.rsi"
-      state: "id_overlay"
-      map: [ "enum.PdaVisualLayers.IdLight" ]
-      shader: "unshaded"
-      visible: false
-    - sprite: "/Textures/Objects/Devices/pda.rsi"
-      state: "insert_overlay"
-      map: [ "enum.PdaVisualLayers.Pen" ]
-  - type: Pda
-    id: BmesaSecurityIDCard
-    penSlot:
-      startingItem: Pen
-      whitelist:
-        tags:
-        - Write
-  - type: Appearance
-    appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-seniorresearcher
-  - type: PdaBorderColor
-    borderColor: "#cc0000"
-    accentVColor: "#ffaa00"
-  - type: Icon
-    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi"
-    state: pda-seniorresearcher
-
-- type: entity
-  parent: BasePDA
-  id: GordonFreemanPDA
-  name: Gordon Freeman PDA
-  description: Dr. Freeman's PDA.
-  components:
-  - type: Sprite
-    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi"
-    layers:
-    - map: [ "enum.PdaVisualLayers.Base" ]
-      state: "pda-seniorresearcher"
-    - sprite: "/Textures/Objects/Devices/pda.rsi"
-      state: "light_overlay"
-      map: [ "enum.PdaVisualLayers.Flashlight" ]
-      shader: "unshaded"
-      visible: false
-    - sprite: "/Textures/Objects/Devices/pda.rsi"
-      state: "id_overlay"
-      map: [ "enum.PdaVisualLayers.IdLight" ]
-      shader: "unshaded"
-      visible: false
-    - sprite: "/Textures/Objects/Devices/pda.rsi"
-      state: "insert_overlay"
-      map: [ "enum.PdaVisualLayers.Pen" ]
-  - type: Pda
-    id: GordonFreemanIDCard
-    penSlot:
-      startingItem: Pen
-      whitelist:
-        tags:
-        - Write
-  - type: Appearance
-    appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-seniorresearcher
-  - type: PdaBorderColor
-    borderColor: "#ff6600"
-    accentVColor: "#ffcc00"
-  - type: Icon
-    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi"
-    state: pda-seniorresearcher
-
-- type: entity
-  parent: BasePDA
-  id: BmesaResearchPDA
-  name: research scientist PDA
-  description: Black Mesa research scientist PDA.
-  components:
-  - type: Sprite
-    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi"
-    layers:
-    - map: [ "enum.PdaVisualLayers.Base" ]
-      state: "pda-science"
-    - sprite: "/Textures/Objects/Devices/pda.rsi"
-      state: "light_overlay"
-      map: [ "enum.PdaVisualLayers.Flashlight" ]
-      shader: "unshaded"
-      visible: false
-    - sprite: "/Textures/Objects/Devices/pda.rsi"
-      state: "id_overlay"
-      map: [ "enum.PdaVisualLayers.IdLight" ]
-      shader: "unshaded"
-      visible: false
-    - sprite: "/Textures/Objects/Devices/pda.rsi"
-      state: "insert_overlay"
-      map: [ "enum.PdaVisualLayers.Pen" ]
-  - type: Pda
-    id: BmesaResearchAssistantIDCard
-    penSlot:
-      startingItem: Pen
-      whitelist:
-        tags:
-        - Write
-  - type: Appearance
-    appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-seniorresearcher
-  - type: PdaBorderColor
-    borderColor: "#aa00ff"
-    accentVColor: "#44aaee"
-  - type: Icon
-    sprite: "/Textures/_BlackM/Objects/Devices/pda.rsi"
-    state: pda-seniorresearcher
+    state: pda-hecu

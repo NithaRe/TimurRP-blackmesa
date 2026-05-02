@@ -1,14 +1,18 @@
-# Моб для ghost role — с ghost role компонентом
+- type: ghostRole
+  id: HECUSoldier
+  name: ghost-role-name-hecu
+  description: ghost-role-description-hecu
+  rules: ghost-role-rules-hecu
+  roleType: TeamAntagonist
+  entityPrototype: MobHumanHECUGhostRole
+
 - type: entity
   save: false
   name: HECU Soldier
   parent: MobHumanHECU
   id: MobHumanHECUGhostRole
+  categories: [ HideSpawnMenu ]
   components:
-  - type: GhostRole
-    name: ghost-role-name-hecu
-    description: ghost-role-description-hecu
-    rules: ghost-role-rules-hecu
   - type: GhostTakeoverAvailable
   - type: Loadout
     prototypes: [ HECUGhostLoadout ]
@@ -21,17 +25,14 @@
     jumpsuit: ClothingUniformJumpsuitHecu
     mask: ClothingMaskGasHECU
     shoes: ClothingShoesBootsJack
-    back: ClothingBackpackMercFilledHECU
-    id: HecuPDA
+    back: ClothingBackpackMerc
+    id: BmesaHecuPda
     ears: ClothingHeadsetAltCentCom
     hand: WeaponSubMachineGunDrozd
+    gloves: ClothingHandsGlovesMercFingerless
   storage:
     back:
     - MagazinePistolSubMachineGun
     - MagazinePistolSubMachineGun
     - MagazinePistolSubMachineGun
     - Brutepack
-    pocket1:
-    - Handcuffs
-    pocket2:
-    - FlashlightSeclite

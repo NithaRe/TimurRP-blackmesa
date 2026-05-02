@@ -5,35 +5,3 @@
     sprite: /Textures/Interface/Misc/job_icons.rsi
     state: SecurityOfficer
   jobName: job-name-hecu
-
-- type: jobIcon
-  parent: JobIcon
-  id: JobIconBmesaResearchDirector
-  icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: ResearchDirector
-  jobName: job-name-bmesa-research-director
-
-- type: jobIcon
-  parent: JobIcon
-  id: JobIconBmesaScientist
-  icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Scientist
-  jobName: job-name-bmesa-scientist
-
-- type: jobIcon
-  parent: JobIcon
-  id: JobIconBmesaSecurity
-  icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: SecurityOfficer
-  jobName: job-name-bmesa-security
-
-- type: jobIcon
-  parent: JobIcon
-  id: JobIconGordonFreeman
-  icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Scientist
-  jobName: job-name-gordon-freeman

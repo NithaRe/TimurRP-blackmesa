@@ -1,70 +1,16 @@
 - type: entity
   parent: PassengerIDCard
-  id: BmesaResearchAssistantIDCard
-  name: Bmesa research assistant ID card
-  description: Identification card for Bmesa research personnel.
+  id: BmesaHecuIdcard
+  name: ID-карта HECU
+  description: Тактическая карта доступа, закреплённая за оперативником HECU. Позволяет взаимодействовать с оборудованием станции, однако доступы здесь явно урезаны.
   components:
   - type: PresetIdCard
-    job: BmesaScientist
+    job: Passenger
   - type: Sprite
     sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
     layers:
     - state: default
-    - state: idintern-sci
-      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
-  - type: Tag
-    tags:
-    - WhitelistChameleonIdCard
-
-- type: entity
-  parent: PassengerIDCard
-  id: BmesaResearchDirectorIDCard
-  name: Bmesa research director ID card
-  description: Identification card for the head of Black Mesa research.
-  components:
-  - type: PresetIdCard
-    job: BmesaResearchDirector
-  - type: Sprite
-    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
-    layers:
-    - state: default
-    - state: idintern-sci
-      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
-  - type: Tag
-    tags:
-    - WhitelistChameleonIdCard
-
-- type: entity
-  parent: PassengerIDCard
-  id: BmesaSecurityIDCard
-  name: Bmesa security ID card
-  description: Identification card for Black Mesa security personnel.
-  components:
-  - type: PresetIdCard
-    job: BmesaSecurity
-  - type: Sprite
-    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
-    layers:
-    - state: default
-    - state: idintern-sci
-      sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
-  - type: Tag
-    tags:
-    - WhitelistChameleonIdCard
-
-- type: entity
-  parent: PassengerIDCard
-  id: GordonFreemanIDCard
-  name: Gordon Freeman ID card
-  description: Identification card for Dr. Gordon Freeman, anomalous materials lab.
-  components:
-  - type: PresetIdCard
-    job: GordonFreeman
-  - type: Sprite
-    sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
-    layers:
-    - state: default
-    - state: idintern-sci
+    - state: hecu
       sprite: "/Textures/_BlackM/Objects/Misc/id_cards.rsi" #BlackM
   - type: Tag
     tags:
