@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 04/16/2026 16:16:17
-  entityCount: 492
+  time: 05/02/2026 10:15:41
+  entityCount: 498
 maps:
 - 1
 grids:
@@ -32,7 +32,33 @@ entities:
     - type: Broadphase
     - type: OccluderTree
     - type: Parallax
-      parallax: Void
+      parallax: BlackM
+    - type: Gravity
+      enabled: true
+      inherent: true
+    - type: MapAtmosphere
+      space: False
+      mixture:
+        volume: 2500
+        immutable: True
+        temperature: 293.15
+        moles:
+        - 21.824879
+        - 82.10312
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
   - uid: 2
     components:
     - type: MetaData
@@ -172,28 +198,29 @@ entities:
           4,1:
             0: 15
           -3,0:
-            0: 136
+            0: 49288
+          -3,1:
+            0: 3276
           -3,-1:
             0: 32768
           -2,0:
-            0: 32959
+            0: 45247
+          -2,1:
+            0: 955
           -2,-1:
             0: 45192
-          -2,1:
-            0: 136
           -1,-1:
             0: 63931
           0,-2:
-            0: 61440
+            0: 61951
           -1,-2:
-            0: 45056
+            0: 45192
           1,-2:
-            0: 45056
+            0: 45107
           2,-2:
             0: 61440
           2,-1:
-            0: 3583
-            1: 512
+            0: 4095
           3,-2:
             0: 12288
           4,-1:
@@ -220,25 +247,6 @@ entities:
           - 0
           - 0
           - 0
-        - volume: 2500
-          temperature: 293.14975
-          moles:
-          - 20.078888
-          - 75.53487
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
         chunkSize: 4
     - type: GasTileOverlay
     - type: RadiationGridResistance
@@ -249,31 +257,43 @@ entities:
     - type: Transform
       pos: 6.5,0.5
       parent: 2
+    missingComponents:
+    - AccessReader
   - uid: 69
     components:
     - type: Transform
       pos: 14.5,0.5
       parent: 2
+    missingComponents:
+    - AccessReader
   - uid: 70
     components:
     - type: Transform
       pos: 14.5,1.5
       parent: 2
+    missingComponents:
+    - AccessReader
   - uid: 115
     components:
     - type: Transform
       pos: -3.5,2.5
       parent: 2
+    missingComponents:
+    - AccessReader
   - uid: 116
     components:
     - type: Transform
       pos: -5.5,0.5
       parent: 2
+    missingComponents:
+    - AccessReader
   - uid: 117
     components:
     - type: Transform
       pos: -3.5,-1.5
       parent: 2
+    missingComponents:
+    - AccessReader
 - proto: AirlockMaint
   entities:
   - uid: 283
@@ -281,6 +301,8 @@ entities:
     - type: Transform
       pos: 7.5,-0.5
       parent: 2
+    missingComponents:
+    - AccessReader
   - uid: 355
     components:
     - type: Transform
@@ -1550,6 +1572,33 @@ entities:
       rot: 3.141592653589793 rad
       pos: 3.5,-5.5
       parent: 2
+- proto: HecuSpawnPoint
+  entities:
+  - uid: 494
+    components:
+    - type: Transform
+      pos: -7.5,0.5
+      parent: 2
+  - uid: 495
+    components:
+    - type: Transform
+      pos: -2.5,0.5
+      parent: 2
+  - uid: 496
+    components:
+    - type: Transform
+      pos: 0.5,0.5
+      parent: 2
+  - uid: 497
+    components:
+    - type: Transform
+      pos: 3.5,0.5
+      parent: 2
+  - uid: 498
+    components:
+    - type: Transform
+      pos: 8.5,0.5
+      parent: 2
 - proto: KitchenReagentGrinder
   entities:
   - uid: 140
@@ -1570,6 +1619,13 @@ entities:
     components:
     - type: Transform
       pos: 3.1077685,5.5879474
+      parent: 2
+- proto: OneWayTeleportTrigger
+  entities:
+  - uid: 493
+    components:
+    - type: Transform
+      pos: 16.5,0.5
       parent: 2
 - proto: PaintingSaturn
   entities:
