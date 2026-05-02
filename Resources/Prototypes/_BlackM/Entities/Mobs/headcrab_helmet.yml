@@ -5,10 +5,10 @@
   description: Паразит сидит у вас на голове.
   components:
   - type: Sprite
-    sprite: Mobs/_BlackM/headcrab_helmet.rsi
+    sprite: _BlackM/Mobs/headcrab_helmet.rsi
     state: icon
   - type: Clothing
-    sprite: Mobs/_BlackM/headcrab_helmet.rsi
+    sprite: _BlackM/Mobs/headcrab_helmet.rsi
   - type: Unremoveable
   - type: HideLayerClothing
     slots:
