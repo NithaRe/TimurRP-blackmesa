@@ -1,0 +1,53 @@
+- type: entity
+  id: KultapkaZenInfected
+  name: kultapka-zen-infected
+  description: zen.
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: Transform
+      anchored: true
+    - type: Sprite
+      sprite: _BlackM/Structures/kultapka_zen_infected.rsi
+      layers:
+        - state: kultapka_zen_infected
+    - type: Physics
+      bodyType: Static
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape:
+            !type:PhysShapeAabb
+            bounds: "-0.25,-0.25,0.25,0.25"
+          density: 20
+          mask:
+            - MobMask
+          layer:
+            - WallLayer
+
+- type: entity
+  id: KultapkaZen2
+  name: kultapka-zen
+  description: zen.
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: Transform
+      anchored: true
+    - type: Sprite
+      sprite: _BlackM/Structures/kultapka_zen_2.rsi
+      layers:
+        - state: kultapka_zen_2
+    - type: Physics
+      bodyType: Static
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape:
+            !type:PhysShapeAabb
+            bounds: "-0.25,-0.25,0.25,0.25"
+          density: 20
+          mask:
+            - MobMask
+          layer:
+            - WallLayer
