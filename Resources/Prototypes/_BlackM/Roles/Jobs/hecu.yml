@@ -1,3 +1,10 @@
+- type: antag
+  id: HECU
+  name: antag-name-hecu
+  objective: antag-objective-hecu
+  roleType: TeamAntagonist
+  antagonistRole: true
+
 - type: job
   id: HECU
   name: job-name-hecu
@@ -9,7 +16,7 @@
   icon: "JobIconHECU"
   joinNotifyCrew: false
   supervisors: job-supervisors-hecu
-  setPreference: false # Bmesa Roles
+  setPreference: false
   canBeAntag: false
   accessGroups:
   - AllAccess

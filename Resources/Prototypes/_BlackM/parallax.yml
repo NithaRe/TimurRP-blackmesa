@@ -1,0 +1,13 @@
+- type: parallax
+  id: BlackM
+  layers:
+  - texture:
+      !type:ImageParallaxTextureSource
+        path: /Textures/_BlackM/Parallaxes/blackm.png
+
+- type: parallax
+  id: Zen
+  layers:
+  - texture:
+      !type:ImageParallaxTextureSource
+        path: /Textures/Parallaxes/space_map3.png

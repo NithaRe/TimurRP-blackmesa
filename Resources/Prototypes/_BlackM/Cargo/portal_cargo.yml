@@ -1,0 +1,70 @@
+- type: entity
+  id: CrateEvacPortalBoard
+  parent: CrateGenericSteel
+  name: evacuation portal board crate
+  description: Contains a machine board for assembling an evacuation portal. Requires separately purchased portal components.
+  components:
+  - type: StorageFill
+    contents:
+    - id: MachineEvacPortalCircuitboard
+      amount: 1
+
+- type: cargoProduct
+  id: PortalPartResonatorProduct
+  icon:
+    sprite: _BlackM/Objects/Portal/parts.rsi
+    state: resonator
+  product: PortalPartResonator
+  cost: 2500
+  category: cargoproduct-category-name-portal
+  group: market
+
+- type: cargoProduct
+  id: PortalPartSynchronizerProduct
+  icon:
+    sprite: _BlackM/Objects/Portal/parts.rsi
+    state: synchronizer
+  product: PortalPartSynchronizer
+  cost: 2500
+  category: cargoproduct-category-name-portal
+  group: market
+
+- type: cargoProduct
+  id: PortalPartStabilizerProduct
+  icon:
+    sprite: _BlackM/Objects/Portal/parts.rsi
+    state: stabilizer
+  product: PortalPartStabilizer
+  cost: 2500
+  category: cargoproduct-category-name-portal
+  group: market
+
+- type: cargoProduct
+  id: PortalPartConverterProduct
+  icon:
+    sprite: _BlackM/Objects/Portal/parts.rsi
+    state: converter
+  product: PortalPartConverter
+  cost: 2500
+  category: cargoproduct-category-name-portal
+  group: market
+
+- type: cargoProduct
+  id: PortalPartMatrixProduct
+  icon:
+    sprite: _BlackM/Objects/Portal/parts.rsi
+    state: matrix
+  product: PortalPartMatrix
+  cost: 2500
+  category: cargoproduct-category-name-portal
+  group: market
+
+- type: cargoProduct
+  id: EvacPortalBoardProduct
+  icon:
+    sprite: _BlackM/Objects/Portal/module.rsi
+    state: portal_board
+  product: CrateEvacPortalBoard
+  cost: 3500
+  category: cargoproduct-category-name-portal
+  group: market

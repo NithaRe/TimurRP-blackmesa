@@ -20,7 +20,7 @@
     netsync: false
     noRot: true
     drawdepth: Mobs
-    sprite: Mobs/_BlackM/headcrab.rsi
+    sprite: _BlackM/Mobs/headcrab.rsi
     layers:
     - state: idle
       map: [ "enum.DamageStateVisualLayers.Base", "movement" ]
@@ -87,7 +87,7 @@
   description: Точка появления хедкраба.
   components:
   - type: Sprite
-    sprite: Mobs/_BlackM/headcrab.rsi
+    sprite: _BlackM/Mobs/headcrab.rsi
     state: idle
   - type: SpawnPoint
   - type: TimedDespawn

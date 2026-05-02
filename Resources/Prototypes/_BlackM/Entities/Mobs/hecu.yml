@@ -1,4 +1,3 @@
-# Базовый моб HECU
 - type: entity
   save: false
   name: HECU Soldier
@@ -18,3 +17,47 @@
   - type: PhraseWheel
     allowedCategories:
     - HECU
+
+- type: entity
+  id: RandomHumanoidHECUSoldierSpawner
+  name: HECU Soldier
+  suffix: BlackMesa
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+    state: full
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryFirst
+    - NamesMilitaryLast
+    nameFormat: name-format-standard
+  - type: RandomHumanoidSpawner
+    settings: HECUSoldierSettings
+
+- type: randomHumanoidSettings
+  id: HECUSoldierSettings
+  parent: EventHumanMindShielded
+  components:
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
+  - type: Speech
+    speechSounds: HecuRadio
+  - type: PhraseWheel
+    allowedCategories:
+    - HECU
+  - type: GhostRole
+    name: ghost-role-name-hecu
+    description: ghost-role-description-hecu
+    rules: ghost-role-rules-hecu
+    roleType: TeamAntagonist
+    raffle:
+      settings: short
+  - type: GhostTakeoverAvailable
+  - type: Loadout
+    prototypes: [ HECUGhostLoadout ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryFirst
+    - NamesMilitaryLast
+    nameFormat: name-format-standard

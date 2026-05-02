@@ -1,0 +1,116 @@
+- type: stack
+  id: PortalResonatorStack
+  name: space resonator
+  icon:
+    sprite: _BlackM/Objects/Portal/parts.rsi
+    state: resonator
+  spawn: PortalPartResonator
+  maxCount: 1
+
+- type: stack
+  id: PortalSynchronizerStack
+  name: dimensional synchronizer
+  icon:
+    sprite: _BlackM/Objects/Portal/parts.rsi
+    state: synchronizer
+  spawn: PortalPartSynchronizer
+  maxCount: 1
+
+- type: stack
+  id: PortalStabilizerStack
+  name: rift stabilizer
+  icon:
+    sprite: _BlackM/Objects/Portal/parts.rsi
+    state: stabilizer
+  spawn: PortalPartStabilizer
+  maxCount: 1
+
+- type: stack
+  id: PortalConverterStack
+  name: energy converter
+  icon:
+    sprite: _BlackM/Objects/Portal/parts.rsi
+    state: converter
+  spawn: PortalPartConverter
+  maxCount: 1
+
+- type: stack
+  id: PortalMatrixStack
+  name: transition matrix
+  icon:
+    sprite: _BlackM/Objects/Portal/parts.rsi
+    state: matrix
+  spawn: PortalPartMatrix
+  maxCount: 1
+
+- type: entity
+  id: BasePortalPart
+  parent: BaseItem
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Portal/parts.rsi
+  - type: Item
+    size: Small
+  - type: StaticPrice
+    price: 0
+
+- type: entity
+  id: PortalPartResonator
+  parent: BasePortalPart
+  name: space resonator
+  description: A device that resonates with the fabric of space. Required for portal assembly.
+  components:
+  - type: Sprite
+    state: resonator
+  - type: Stack
+    stackType: PortalResonatorStack
+    count: 1
+
+- type: entity
+  id: PortalPartSynchronizer
+  parent: BasePortalPart
+  name: dimensional synchronizer
+  description: Synchronizes two portals across different locations. Required for portal assembly.
+  components:
+  - type: Sprite
+    state: synchronizer
+  - type: Stack
+    stackType: PortalSynchronizerStack
+    count: 1
+
+- type: entity
+  id: PortalPartStabilizer
+  parent: BasePortalPart
+  name: rift stabilizer
+  description: Prevents the portal rift from collapsing. Required for portal assembly.
+  components:
+  - type: Sprite
+    state: stabilizer
+  - type: Stack
+    stackType: PortalStabilizerStack
+    count: 1
+
+- type: entity
+  id: PortalPartConverter
+  parent: BasePortalPart
+  name: energy converter
+  description: Converts station power into bluespace energy. Required for portal assembly.
+  components:
+  - type: Sprite
+    state: converter
+  - type: Stack
+    stackType: PortalConverterStack
+    count: 1
+
+- type: entity
+  id: PortalPartMatrix
+  parent: BasePortalPart
+  name: transition matrix
+  description: The core computational matrix that controls portal targeting. Required for portal assembly.
+  components:
+  - type: Sprite
+    state: matrix
+  - type: Stack
+    stackType: PortalMatrixStack
+    count: 1

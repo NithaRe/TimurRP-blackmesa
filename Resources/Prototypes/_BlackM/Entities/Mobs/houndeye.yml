@@ -1,0 +1,71 @@
+- type: entity
+  name: Хаундай
+  id: MobHoundeyeBlackM
+  parent: SimpleMobBase
+  description: Стайное существо из Зен. Воет — замедляет. Таранит — отбрасывает.
+  components:
+  - type: Houndeye
+  - type: Actions
+  - type: GhostRole
+    name: ghost-role-information-houndeye-name
+    description: ghost-role-information-houndeye-description
+    rules: ghost-role-information-houndeye-rules
+    mindRoles:
+    - MindRoleGhostRoleSoloAntagonist
+    raffle:
+      settings: short
+  - type: GhostTakeoverAvailable
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: walking
+      sprite: _BlackM/Mobs/houndeye.rsi
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: walking
+      Dead:
+        Base: dead
+  - type: MobState
+    allowedStates:
+    - Alive
+    - Dead
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      120: Dead
+  - type: Damageable
+    damageContainer: Biological
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  - type: MeleeWeapon
+    hidden: true
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    angle: 0
+    animation: WeaponArcSmash
+    damage:
+      types:
+        Blunt: 12
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 3.0
+    baseSprintSpeed: 5.5
+  - type: Physics
+    bodyType: KinematicController
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 120
+        mask:
+        - MobMask
+        layer:
+        - MobLayer

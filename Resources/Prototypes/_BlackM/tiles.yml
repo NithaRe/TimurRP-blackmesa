@@ -37,3 +37,83 @@
     state: poolsi
   maxCount: 30
   spawn: FloorTileItemPoolsi
+
+- type: tile
+  id: FloorInfected1
+  name: tiles-infected1
+  sprite: /Textures/_BlackM/Tiles/floor-infected1.png
+  variants: 1
+  placementVariants:
+    - 1.0
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [Prying]
+  footstepSounds:
+    collection: FootstepFloor
+  itemDrop: FloorTileItemInfected1
+  heatCapacity: 10000
+  tileRipResistance: 4500
+
+- type: entity
+  name: floor-tile-item-infected1
+  parent: FloorTileItemBase
+  id: FloorTileItemInfected1
+  components:
+    - type: Sprite
+      sprite: _BlackM/Tiles/floor-infected1.rsi
+      state: floor-infected1
+    - type: FloorTile
+      outputs:
+        - Plating
+        - FloorInfected1
+    - type: Stack
+      stackType: FloorTileItemInfected1
+
+- type: stack
+  id: FloorTileItemInfected1
+  name: floor-tile-item-infected1
+  icon:
+    sprite: _BlackM/Tiles/floor-infected1.rsi
+    state: floor-infected1
+  maxCount: 30
+  spawn: FloorTileItemInfected1
+
+- type: tile
+  id: FloorInfected2
+  name: tiles-infected2
+  sprite: /Textures/_BlackM/Tiles/Floor-infected2.png
+  variants: 1
+  placementVariants:
+    - 1.0
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [Prying]
+  footstepSounds:
+    collection: FootstepFloor
+  itemDrop: FloorTileItemInfected2
+  heatCapacity: 10000
+  tileRipResistance: 4500
+
+- type: entity
+  name: floor-tile-item-infected2
+  parent: FloorTileItemBase
+  id: FloorTileItemInfected2
+  components:
+    - type: Sprite
+      sprite: _BlackM/Tiles/Floor-infected2.rsi
+      state: Floor-infected2
+    - type: FloorTile
+      outputs:
+        - Plating
+        - FloorInfected2
+    - type: Stack
+      stackType: FloorTileItemInfected2
+
+- type: stack
+  id: FloorTileItemInfected2
+  name: floor-tile-item-infected2
+  icon:
+    sprite: _BlackM/Tiles/Floor-infected2.rsi
+    state: Floor-infected2
+  maxCount: 30
+  spawn: FloorTileItemInfected2
