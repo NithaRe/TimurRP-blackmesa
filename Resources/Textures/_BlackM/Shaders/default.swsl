@@ -1,0 +1,28 @@
+uniform sampler2D SCREEN_TEXTURE;
+
+const highp float Gamma = 0.85;
+const highp float Exposure = 1.1;
+const highp vec3 ColorTone = vec3(0.98, 1.0, 1.03);
+
+const highp float AberrationScale = 0.0006;
+const highp float VignetteStrength = 0.2;
+
+void fragment() {
+    highp float r = zTextureSpec(SCREEN_TEXTURE, UV + vec2(AberrationScale, 0.0)).r;
+    highp float g = zTextureSpec(SCREEN_TEXTURE, UV).g;
+    highp float b = zTextureSpec(SCREEN_TEXTURE, UV - vec2(AberrationScale, 0.0)).b;
+    highp vec3 color = vec3(r, g, b);
+
+    color = pow(color, vec3(Gamma));
+    color *= Exposure * ColorTone;
+
+    highp vec2 centered_uv = UV - 0.5;
+    highp float dist = length(centered_uv);
+    highp float vignette = smoothstep(1.1, 0.6, dist);
+    color = mix(color, color * vignette, VignetteStrength);
+
+    highp float gray = zGrayscale(color);
+    color = mix(color, vec3(gray), 0.07);
+
+    COLOR = vec4(clamp(color, 0.0, 1.0), 1.0);
+}
