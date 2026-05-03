@@ -1,8 +1,11 @@
+<!--
+phrasewheel
+-->
 <ui:FancyWindow xmlns="https://spacestation14.io"
     xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
     Title="Меню Фраз"
-    MinSize="480 400"
-    SetSize="480 500">
+    MinSize="480 420"
+    SetSize="480 520">
     <BoxContainer Orientation="Vertical" Margin="4" SeparationOverride="4">
         <!-- Табы разделов -->
         <TabContainer Name="CategoryTabs" VerticalExpand="True"/>

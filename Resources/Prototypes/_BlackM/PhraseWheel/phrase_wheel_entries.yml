@@ -1,4 +1,4 @@
-# HECU категория
+# HECU
 - type: phraseWheelEntry
   id: PhraseRunWhere
   text: "Подтверждаю"
@@ -62,6 +62,16 @@
   icon: /Textures/Interface/hecu.png
   sound: /Audio/Voice/Phrasewheel/hg_cover07.ogg
 
+- type: phraseWheelEntry
+  id: PhraseUnstoppable
+  text: "САНИТАААААР!!"
+  chatType: Speak
+  label: "САНИТАР"
+  category: HECU
+  icon: /Textures/Interface/hecu.png
+  sound: /Audio/Voice/Phrasewheel/sanitar.ogg
+
+# HECU (hecumask.png)
 - type: phraseWheelEntry
   id: PhraseCrushingAttack4
   text: "Мы можем идти?"
@@ -152,22 +162,13 @@
   icon: /Textures/Interface/hecumask.png
   sound: /Audio/Voice/Phrasewheel/hg_clear02.ogg
 
-- type: phraseWheelEntry
-  id: PhraseUnstoppable
-  text: "САНИТАААААР!!"
-  chatType: Speak
-  label: "САНИТАР"
-  category: HECU
-  icon: /Textures/Interface/hecu.png
-  sound: /Audio/Voice/Phrasewheel/sanitar.ogg
-
-# Общее категория
+# global (halflife.png)
 - type: phraseWheelEntry
   id: PhraseEndOfAll
   text: "Поиск подозреваемого..."
   chatType: Speak
   label: "Поиск"
-  category: Общее
+  category: global
   icon: /Textures/Interface/halflife.png
   sound: /Audio/Voice/Phrasewheel/poispodozrev.ogg
 
@@ -176,7 +177,7 @@
   text: "КОД 100"
   chatType: Speak
   label: "КОД 100"
-  category: Общее
+  category: global
   icon: /Textures/Interface/halflife.png
   sound: /Audio/Voice/Phrasewheel/cod100.ogg
 
@@ -185,7 +186,7 @@
   text: "1199, Помощь"
   chatType: Speak
   label: "1199"
-  category: Общее
+  category: global
   icon: /Textures/Interface/halflife.png
   sound: /Audio/Voice/Phrasewheel/1199.ogg
 
@@ -194,7 +195,7 @@
   text: "Блокировать"
   chatType: Speak
   label: "Блок"
-  category: Общее
+  category: global
   icon: /Textures/Interface/halflife.png
   sound: /Audio/Voice/Phrasewheel/blockirovat.ogg
 
@@ -203,10 +204,11 @@
   text: "Подсчёт мёртвых тел..."
   chatType: Speak
   label: "Тела"
-  category: Общее
+  category: global
   icon: /Textures/Interface/halflife.png
   sound: /Audio/Voice/Phrasewheel/deathtela.ogg
 
+# meme (info.svg.192dpi.png)
 - type: phraseWheelEntry
   id: PhraseMambo
   text: "Mambo"
