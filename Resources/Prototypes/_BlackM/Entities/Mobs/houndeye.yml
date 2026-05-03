@@ -7,6 +7,7 @@
   - type: Houndeye
   - type: Actions
   - type: GhostRole
+  - type: Muted
     name: ghost-role-information-houndeye-name
     description: ghost-role-information-houndeye-description
     rules: ghost-role-information-houndeye-rules
@@ -55,7 +56,7 @@
         Blunt: 12
   - type: MovementSpeedModifier
     baseWalkSpeed: 3.0
-    baseSprintSpeed: 5.5
+    baseSprintSpeed: 3.0
   - type: Physics
     bodyType: KinematicController
   - type: Fixtures

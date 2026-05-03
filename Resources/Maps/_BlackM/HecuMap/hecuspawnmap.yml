@@ -24,7 +24,7 @@ entities:
   - uid: 1
     components:
     - type: MetaData
-      name: Map Entity
+      name: HECU LOBBY
     - type: Transform
     - type: Map
       mapPaused: True
@@ -62,7 +62,7 @@ entities:
   - uid: 2
     components:
     - type: MetaData
-      name: grid
+      name: HECU LOBBY GRID
     - type: Transform
       pos: -0.5668793,-0.52229947
       parent: 1

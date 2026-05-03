@@ -1,0 +1,91 @@
+- type: entity
+  id: PortalA
+  name: Портал в мир ZEN
+  description: Похоже на той стороне нету воздуха.
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: Fixtures
+    fixtures:
+      portalFixture:
+        shape:
+          !type:PhysShapeCircle
+          radius: 1.0
+        hard: false
+        mask:
+        - Impassable
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
+  - type: Portal
+    canTeleportToOtherMaps: true
+    randomTeleport: false
+  - type: TeleportGateway
+    pairKey: "alpha"
+  - type: Sprite
+    sprite: Structures/Machines/gateway.rsi
+    snapGrid: true
+    layers:
+    - state: frame
+      map: ["enum.TeleportGatewayVisualLayers.Frame"]
+    - state: on
+      map: ["enum.TeleportGatewayVisualLayers.On"]
+      visible: false
+    - state: portal
+      map: ["enum.TeleportGatewayVisualLayers.Portal"]
+      visible: false
+  - type: Appearance
+  - type: PointLight
+    radius: 2.5
+    energy: 1.5
+    color: "#00ffff"
+    enabled: true
+
+- type: entity
+  id: PortalB
+  name: Портал обратно в комплекс
+  description: Портал возвращает в комплекс "Black Mesa".
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: Fixtures
+    fixtures:
+      portalFixture:
+        shape:
+          !type:PhysShapeCircle
+          radius: 1.0
+        hard: false
+        mask:
+        - Impassable
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
+  - type: Portal
+    canTeleportToOtherMaps: true
+    randomTeleport: false
+  - type: TeleportGateway
+    pairKey: "alpha"
+  - type: Sprite
+    sprite: Structures/Machines/gateway.rsi
+    snapGrid: true
+    layers:
+    - state: frame
+      map: ["enum.TeleportGatewayVisualLayers.Frame"]
+    - state: on
+      map: ["enum.TeleportGatewayVisualLayers.On"]
+      visible: false
+    - state: portal
+      map: ["enum.TeleportGatewayVisualLayers.Portal"]
+      visible: false
+  - type: Appearance
+  - type: PointLight
+    radius: 2.5
+    energy: 1.5
+    color: "#00ffff"
+    enabled: true

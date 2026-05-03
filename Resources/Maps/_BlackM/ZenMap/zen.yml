@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 05/01/2026 13:39:31
-  entityCount: 899
+  time: 05/03/2026 13:55:21
+  entityCount: 900
 maps:
 - 1
 grids:
@@ -35,7 +35,7 @@ entities:
   - uid: 1
     components:
     - type: MetaData
-      name: Map Entity
+      name: ZEN WORLD
     - type: Transform
     - type: Map
       mapPaused: True
@@ -43,10 +43,11 @@ entities:
     - type: Broadphase
     - type: OccluderTree
     - type: Parallax
+      parallax: Zen
   - uid: 2
     components:
     - type: MetaData
-      name: grid
+      name: ZEN WORLD GRID
     - type: Transform
       pos: -0.52229434,-0.52229947
       parent: 1
@@ -2163,6 +2164,13 @@ entities:
     components:
     - type: Transform
       pos: -3.2877138,2.5581605
+      parent: 2
+- proto: PortalB
+  entities:
+  - uid: 900
+    components:
+    - type: Transform
+      pos: 0.5,0.5
       parent: 2
 - proto: PosterContrabandFreeDrone
   entities:

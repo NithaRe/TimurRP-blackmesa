@@ -96,4 +96,4 @@
   - type: ContainerFill
     containers:
       ItemCabinet:
-      - ClothingOuterSuitHEV
+      - ClothingOuterHardsuitHEV #BlackM edit
