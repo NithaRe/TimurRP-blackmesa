@@ -21,3 +21,34 @@
   - type: RustRequiresPathStage
     pathStage: 11
 
+- type: entity
+  parent: BaseWall
+  id: WallReinforcedInfectedBlackM
+  name: Заражённая укреплённая стена
+  description: Толстый слой металла, покрытый неизвестной биомассой.
+  suffix: BlackM
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Walls/solid-infected.rsi
+  - type: Icon
+    sprite: _BlackM/Structures/Walls/solid-infected.rsi
+  - type: RCDDeconstructable
+    cost: 12
+    delay: 10
+    fx: EffectRCDDeconstruct8
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 600
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          GirderReinforced:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: solid
