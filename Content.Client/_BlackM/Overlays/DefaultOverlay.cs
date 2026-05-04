@@ -1,6 +1,8 @@
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
+using Robust.Shared.IoC;
+using Robust.Shared.Maths;
 
 namespace Content.Client._BlackM.Overlays;
 
@@ -8,7 +10,8 @@ public sealed class DefaultOverlay : Overlay
 {
     [Dependency] private readonly IPrototypeManager _prototype = default!;
 
-    public override OverlaySpace Space => OverlaySpace.ScreenSpace;
+    // use WorldSpace
+    public override OverlaySpace Space => OverlaySpace.WorldSpace;
     public override bool RequestScreenTexture => true;
 
     private readonly ShaderInstance _shader;
@@ -24,10 +27,14 @@ public sealed class DefaultOverlay : Overlay
         if (ScreenTexture == null)
             return;
 
-        var handle = args.ScreenHandle;
+        // WorldSpace use WorldHandle
+        var handle = args.WorldHandle;
+        
         _shader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
+        
         handle.UseShader(_shader);
-        handle.DrawRect(args.ViewportBounds, Color.White);
+        // WorldBounds
+        handle.DrawRect(args.WorldBounds, Color.White);
         handle.UseShader(null);
     }
 }
