@@ -22,4 +22,10 @@ public sealed class BlackMCVars
 
     public static readonly CVarDef<string> LobbyBackgroundPreset =
         CVarDef.Create("blackm.lobby.background_preset", "default", CVar.CLIENT | CVar.ARCHIVE);
+    
+    public static readonly CVarDef<bool> EchoEnabled =
+        CVarDef.Create("blackm.echo_enabled", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    public static readonly CVarDef<bool> EchoStrongPreset =
+        CVarDef.Create("blackm.echo_strong_preset", false, CVar.CLIENTONLY | CVar.ARCHIVE);
 }

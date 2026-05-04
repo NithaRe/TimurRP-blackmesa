@@ -1,0 +1,11 @@
+- type: entity
+  parent: AirlockMaint
+  id: AirlockMaintInfectedBlackM
+  name: Заражённый шлюз в тех помещения
+  description: Эта дверь выглядит так, будто за ней скрывается что-то ужасное.
+  suffix: BlackM
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Doors/infected_door.rsi
+  - type: Wires
+    layoutId: AirlockMaint
