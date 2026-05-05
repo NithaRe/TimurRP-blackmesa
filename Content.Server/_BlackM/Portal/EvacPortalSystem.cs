@@ -4,6 +4,8 @@ using Content.Server.RoundEnd;
 using Content.Shared._BlackM.Portal;
 using Content.Shared.Nuke;
 using Content.Server.Light.Components;
+using Content.Server.Light.EntitySystems;
+using Content.Shared.Light.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.GameObjects;
@@ -20,6 +22,7 @@ public sealed class EvacPortalSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly NukeSystem _nuke = default!;
     [Dependency] private readonly RoundEndSystem _roundEnd = default!;
+    [Dependency] private readonly PoweredLightSystem _poweredLight = default!;
     [Dependency] private readonly PointLightSystem _pointLight = default!;
 
     private static readonly SoundPathSpecifier SyncSound =
@@ -31,7 +34,7 @@ public sealed class EvacPortalSystem : EntitySystem
     private static readonly SoundPathSpecifier HecuSound =
         new("/Audio/_BlackM/Announcements/hecucrack.ogg");
 
-    // save light state
+    // Saved states for blackout/restore.
     private readonly Dictionary<EntityUid, bool> _savedLightState = new();
     private readonly Dictionary<EntityUid, Color> _savedEmergencyColors = new();
 
@@ -86,7 +89,6 @@ public sealed class EvacPortalSystem : EntitySystem
                         UpdateUi(uid, portal);
                         SendAnnouncement(Loc.GetString("evac-portal-announce-sync-ready"), SyncSound);
 
-                        // sync done back state
                         RestoreLights();
                         return;
                     }
@@ -146,7 +148,6 @@ public sealed class EvacPortalSystem : EntitySystem
                 portal.HecuSpawned = false;
                 SendAnnouncement(Loc.GetString("evac-portal-announce-sync-started"), SyncSound);
 
-                // start sync off light grid pointlight
                 TurnOffAllLights(ent.Owner);
                 break;
 
@@ -184,9 +185,6 @@ public sealed class EvacPortalSystem : EntitySystem
         _transform.SetCoordinates(player, destCoords);
     }
 
-    /// <summary>
-    /// off all pointlight on grid
-    /// </summary>
     private void TurnOffAllLights(EntityUid portalUid)
     {
         _savedLightState.Clear();
@@ -196,46 +194,54 @@ public sealed class EvacPortalSystem : EntitySystem
         if (portalGrid == null)
             return;
 
-        var query = EntityQueryEnumerator<PointLightComponent>();
-        while (query.MoveNext(out var uid, out var light))
+        var lampQuery = EntityQueryEnumerator<PoweredLightComponent>();
+        while (lampQuery.MoveNext(out var uid, out var lamp))
         {
-            // checker grid light
             if (Transform(uid).GridUid != portalGrid)
                 continue;
 
             if (HasComp<EmergencyLightComponent>(uid))
                 continue;
 
-            _savedLightState[uid] = light.Enabled;
-            _pointLight.SetEnabled(uid, false, light);
+            _savedLightState[uid] = lamp.On;
+
+            if (lamp.On)
+                _poweredLight.SetState(uid, false, lamp);
         }
 
-        // alarm light
         var emergencyQuery = EntityQueryEnumerator<EmergencyLightComponent, PointLightComponent>();
-        while (emergencyQuery.MoveNext(out var eUid, out _, out var eLigh))
+        while (emergencyQuery.MoveNext(out var eUid, out _, out var eLight))
         {
             if (Transform(eUid).GridUid != portalGrid)
                 continue;
 
-            _savedEmergencyColors[eUid] = eLigh.Color;
-            _pointLight.SetEnabled(eUid, true, eLigh);
-            _pointLight.SetColor(eUid, Color.Red, eLigh);
+            _savedEmergencyColors[eUid] = eLight.Color;
+            _pointLight.SetEnabled(eUid, true, eLight);
+            _pointLight.SetColor(eUid, Color.Red, eLight);
         }
     }
 
-    /// <summary>
-    /// reset pointlight
-    /// </summary>
     private void RestoreLights()
     {
-        var query = EntityQueryEnumerator<PointLightComponent>();
-        while (query.MoveNext(out var uid, out var light))
+        // Restore powered lamps to their previous On/Off state.
+        var lampQuery = EntityQueryEnumerator<PoweredLightComponent>();
+        while (lampQuery.MoveNext(out var uid, out var lamp))
         {
-            if (_savedLightState.TryGetValue(uid, out var wasEnabled))
-                _pointLight.SetEnabled(uid, wasEnabled, light);
+            if (!_savedLightState.TryGetValue(uid, out var wasOn))
+                continue;
 
-            if (_savedEmergencyColors.TryGetValue(uid, out var savedColor))
-                _pointLight.SetColor(uid, savedColor, light);
+            if (wasOn && !lamp.On)
+                _poweredLight.SetState(uid, true, lamp);
+            else if (!wasOn && lamp.On)
+                _poweredLight.SetState(uid, false, lamp);
+        }
+
+        // Restore emergency light colors.
+        var emergencyQuery = EntityQueryEnumerator<EmergencyLightComponent, PointLightComponent>();
+        while (emergencyQuery.MoveNext(out var eUid, out _, out var eLight))
+        {
+            if (_savedEmergencyColors.TryGetValue(eUid, out var savedColor))
+                _pointLight.SetColor(eUid, savedColor, eLight);
         }
 
         _savedLightState.Clear();
