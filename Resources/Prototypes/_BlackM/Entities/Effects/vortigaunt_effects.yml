@@ -1,0 +1,52 @@
+- type: entity
+  id: VortigauntLightningBeamEffect
+  name: vortigaunt lightning beam
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: OverMobs
+    noRot: false
+    layers:
+    - state: beam
+      sprite: _BlackM/Effects/vortigaunt_lightning.rsi
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 0.22
+  - type: Transform
+    anchored: false
+
+- type: entity
+  id: VortigauntStunWaveEffect
+  name: vortigaunt stun wave
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: OverMobs
+    noRot: true
+    layers:
+    - state: wave
+      sprite: _BlackM/Effects/vortigaunt_stunwave.rsi
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 0.38
+  - type: Transform
+    anchored: false
+
+- type: entity
+  id: VortigauntHealRingEffect
+  name: vortigaunt heal ring
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: OverMobs
+    noRot: true
+    layers:
+    - state: ring
+      sprite: _BlackM/Effects/vortigaunt_heal.rsi
+      shader: unshaded
+      animationTime: 0.0
+      loop: true
+  - type: TimedDespawn
+    lifetime: 2.5
+  - type: Transform
+    anchored: false

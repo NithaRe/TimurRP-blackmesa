@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "size": {
+    "x": 64,
+    "y": 8
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "_BlackM",
+  "states": [
+    {
+      "name": "beam",
+      "delays": [
+        [
+          0.05,
+          0.05,
+          0.05,
+          0.05
+        ]
+      ]
+    }
+  ]
+}

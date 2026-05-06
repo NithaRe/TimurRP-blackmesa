@@ -1,0 +1,58 @@
+- type: entity
+  parent: BaseAction
+  id: ActionVortigauntLightning
+  name: Цепная молния
+  description: Выпустить зелёную молнию, которая прыгает между врагами.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 6
+    icon:
+      sprite: _BlackM/Mobs/vortigaunt.rsi
+      state: walking
+    itemIconStyle: NoItem
+  - type: TargetAction
+    checkCanAccess: false
+    range: 7
+  - type: WorldTargetAction
+    event: !type:VortigauntLightningEvent
+      damage: 18
+      chainCount: 3
+      chainRange: 4.5
+
+- type: entity
+  parent: BaseAction
+  id: ActionVortigauntHeal
+  name: Самолечение
+  description: Направить энергию Зен внутрь и восстановить здоровье.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 20
+    icon:
+      sprite: _BlackM/Mobs/vortigaunt.rsi
+      state: walking
+    itemIconStyle: NoItem
+  - type: InstantAction
+    event: !type:VortigauntHealEvent
+      healAmount: 30
+      channelTime: 2.5
+
+- type: entity
+  parent: BaseAction
+  id: ActionVortigauntStunWave
+  name: Стан-волна
+  description: Испустить волну зенской энергии — станит всех в радиусе.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 12
+    icon:
+      sprite: _BlackM/Mobs/vortigaunt.rsi
+      state: walking
+    itemIconStyle: NoItem
+  - type: InstantAction
+    event: !type:VortigauntStunWaveEvent
+      range: 5
+      stunDuration: 2.5
+      damage: 8
