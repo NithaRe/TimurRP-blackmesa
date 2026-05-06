@@ -1,0 +1,92 @@
+- type: entity
+  name: Вортигонт
+  id: MobVortigauntBlackM
+  parent: SimpleMobBase
+  description: пришелец из Зен. Его изумрудные молнии — последнее, что видят многие.
+  components:
+  - type: Vortigaunt
+    lightningDamage: 18
+    lightningChainCount: 3
+    lightningChainRange: 4.5
+    healAmount: 30
+    healChannelTime: 2.5
+    stunWaveRange: 5
+    stunDuration: 2.5
+    stunWaveDamage: 8
+  - type: Actions
+  - type: GhostRole
+    name: ghost-role-information-vortigaunt-name
+    description: ghost-role-information-vortigaunt-description
+    rules: ghost-role-information-vortigaunt-rules
+    mindRoles:
+    - MindRoleGhostRoleSoloAntagonist
+    raffle:
+      settings: short
+  - type: GhostTakeoverAvailable
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: walking
+      sprite: _BlackM/Mobs/vortigaunt.rsi
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: walking
+      Dead:
+        Base: dead
+  - type: MobState
+    allowedStates:
+    - Alive
+    - Dead
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      150: Dead
+  - type: Damageable
+    damageContainer: Biological
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  - type: MeleeWeapon
+    hidden: true
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    angle: 0
+    animation: WeaponArcSmash
+    damage:
+      types:
+        Slash: 10
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.8
+    baseSprintSpeed: 3.5
+  - type: Physics
+    bodyType: KinematicController
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 130
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+
+- type: entity
+  name: спавнер вортигонта
+  id: SpawnPointVortigaunt
+  parent: MarkerBase
+  description: Точка появления вортигонта.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Mobs/vortigaunt.rsi
+    state: walking
+  - type: SpawnPoint
+  - type: TimedDespawn
+    lifetime: 0.1
