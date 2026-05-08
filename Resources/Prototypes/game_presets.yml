@@ -154,9 +154,9 @@
   description: extended-description
   rules:
   - BasicStationEventScheduler
-  - MeteorSwarmScheduler
-  - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
+#  - MeteorSwarmScheduler
+#  - SpaceTrafficControlEventScheduler
 
 - type: gamePreset
   id: Greenshift

@@ -15,9 +15,10 @@
   tileRipResistance: 4500
 
 - type: entity
-  name: floor-tile-item-poolsi
   parent: FloorTileItemBase
   id: FloorTileItemPoolsi
+  name: ent-FloorTileItemPoolsi # Добавлено
+  description: ent-FloorTileItemPoolsi-desc # Добавлено
   components:
     - type: Sprite
       sprite: _BlackM/Tiles/poolsi.rsi
@@ -31,7 +32,7 @@
 
 - type: stack
   id: FloorTileItemPoolsi
-  name: floor-tile-item-poolsi
+  name: ent-FloorTileItemPoolsi # Исправлено
   icon:
     sprite: _BlackM/Tiles/poolsi.rsi
     state: poolsi
@@ -55,9 +56,10 @@
   tileRipResistance: 4500
 
 - type: entity
-  name: floor-tile-item-infected1
   parent: FloorTileItemBase
   id: FloorTileItemInfected1
+  name: ent-FloorTileItemInfected1 # Добавлено
+  description: ent-FloorTileItemInfected1-desc # Добавлено
   components:
     - type: Sprite
       sprite: _BlackM/Tiles/floor-infected1.rsi
@@ -71,7 +73,7 @@
 
 - type: stack
   id: FloorTileItemInfected1
-  name: floor-tile-item-infected1
+  name: ent-FloorTileItemInfected1 # Исправлено
   icon:
     sprite: _BlackM/Tiles/floor-infected1.rsi
     state: floor-infected1
@@ -81,7 +83,7 @@
 - type: tile
   id: FloorInfected2
   name: tiles-infected2
-  sprite: /Textures/_BlackM/Tiles/Floor-infected2.png
+  sprite: /Textures/_BlackM/Tiles/floor-infected2.png # Исправлен регистр
   variants: 1
   placementVariants:
     - 1.0
@@ -95,13 +97,14 @@
   tileRipResistance: 4500
 
 - type: entity
-  name: floor-tile-item-infected2
   parent: FloorTileItemBase
   id: FloorTileItemInfected2
+  name: ent-FloorTileItemInfected2 # Добавлено
+  description: ent-FloorTileItemInfected2-desc # Добавлено
   components:
     - type: Sprite
-      sprite: _BlackM/Tiles/Floor-infected2.rsi
-      state: Floor-infected2
+      sprite: _BlackM/Tiles/floor-infected2.rsi # Исправлен регистр
+      state: floor-infected2 # Исправлен регистр
     - type: FloorTile
       outputs:
         - Plating
@@ -111,9 +114,9 @@
 
 - type: stack
   id: FloorTileItemInfected2
-  name: floor-tile-item-infected2
+  name: ent-FloorTileItemInfected2 # Исправлено
   icon:
-    sprite: _BlackM/Tiles/Floor-infected2.rsi
-    state: Floor-infected2
+    sprite: _BlackM/Tiles/floor-infected2.rsi # Исправлен регистр
+    state: floor-infected2 # Исправлен регистр
   maxCount: 30
   spawn: FloorTileItemInfected2

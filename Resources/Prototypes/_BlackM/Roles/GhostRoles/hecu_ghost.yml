@@ -3,7 +3,6 @@
   name: ghost-role-name-hecu
   description: ghost-role-description-hecu
   rules: ghost-role-rules-hecu
-  roleType: TeamAntagonist
   entityPrototype: MobHumanHECUGhostRole
 
 - type: entity

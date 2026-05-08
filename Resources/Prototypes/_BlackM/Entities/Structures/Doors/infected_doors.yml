@@ -8,4 +8,4 @@
   - type: Sprite
     sprite: _BlackM/Structures/Doors/infected_door.rsi
   - type: Wires
-    layoutId: AirlockMaint
+    layoutId: Airlock

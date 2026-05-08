@@ -27,7 +27,6 @@
     pairKey: "alpha"
   - type: Sprite
     sprite: Structures/Machines/gateway.rsi
-    snapGrid: true
     layers:
     - state: frame
       map: ["enum.TeleportGatewayVisualLayers.Frame"]
@@ -73,7 +72,6 @@
     pairKey: "alpha"
   - type: Sprite
     sprite: Structures/Machines/gateway.rsi
-    snapGrid: true
     layers:
     - state: frame
       map: ["enum.TeleportGatewayVisualLayers.Frame"]
