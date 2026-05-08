@@ -8,7 +8,7 @@
   - type: Action
     useDelay: 3
     icon:
-      sprite: Mobs/_BlackM/headcrab.rsi
+      sprite: _BlackM/Mobs/headcrab.rsi
       state: idle
     itemIconStyle: NoItem
   - type: TargetAction
@@ -27,7 +27,7 @@
   - type: Action
     useDelay: 1
     icon:
-      sprite: Mobs/_BlackM/headcrab.rsi
+      sprite: _BlackM/Mobs/headcrab.rsi
       state: idle
     itemIconStyle: NoItem
   - type: TargetAction

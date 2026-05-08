@@ -1,6 +1,6 @@
 - type: stack
   id: PortalResonatorStack
-  name: space resonator
+  name: ent-PortalPartResonator
   icon:
     sprite: _BlackM/Objects/Portal/parts.rsi
     state: resonator
@@ -9,7 +9,7 @@
 
 - type: stack
   id: PortalSynchronizerStack
-  name: dimensional synchronizer
+  name: ent-PortalPartSynchronizer
   icon:
     sprite: _BlackM/Objects/Portal/parts.rsi
     state: synchronizer
@@ -18,7 +18,7 @@
 
 - type: stack
   id: PortalStabilizerStack
-  name: rift stabilizer
+  name: ent-PortalPartStabilizer
   icon:
     sprite: _BlackM/Objects/Portal/parts.rsi
     state: stabilizer
@@ -27,7 +27,7 @@
 
 - type: stack
   id: PortalConverterStack
-  name: energy converter
+  name: ent-PortalPartConverter
   icon:
     sprite: _BlackM/Objects/Portal/parts.rsi
     state: converter
@@ -36,7 +36,7 @@
 
 - type: stack
   id: PortalMatrixStack
-  name: transition matrix
+  name: ent-PortalPartMatrix
   icon:
     sprite: _BlackM/Objects/Portal/parts.rsi
     state: matrix
@@ -47,6 +47,8 @@
   id: BasePortalPart
   parent: BaseItem
   abstract: true
+  name: ent-BasePortalPart
+  description: ent-BasePortalPart-desc
   components:
   - type: Sprite
     sprite: _BlackM/Objects/Portal/parts.rsi
@@ -58,8 +60,8 @@
 - type: entity
   id: PortalPartResonator
   parent: BasePortalPart
-  name: space resonator
-  description: A device that resonates with the fabric of space. Required for portal assembly.
+  name: ent-PortalPartResonator
+  description: ent-PortalPartResonator-desc
   components:
   - type: Sprite
     state: resonator
@@ -70,8 +72,8 @@
 - type: entity
   id: PortalPartSynchronizer
   parent: BasePortalPart
-  name: dimensional synchronizer
-  description: Synchronizes two portals across different locations. Required for portal assembly.
+  name: ent-PortalPartSynchronizer
+  description: ent-PortalPartSynchronizer-desc
   components:
   - type: Sprite
     state: synchronizer
@@ -82,8 +84,8 @@
 - type: entity
   id: PortalPartStabilizer
   parent: BasePortalPart
-  name: rift stabilizer
-  description: Prevents the portal rift from collapsing. Required for portal assembly.
+  name: ent-PortalPartStabilizer
+  description: ent-PortalPartStabilizer-desc
   components:
   - type: Sprite
     state: stabilizer
@@ -94,8 +96,8 @@
 - type: entity
   id: PortalPartConverter
   parent: BasePortalPart
-  name: energy converter
-  description: Converts station power into bluespace energy. Required for portal assembly.
+  name: ent-PortalPartConverter
+  description: ent-PortalPartConverter-desc
   components:
   - type: Sprite
     state: converter
@@ -106,8 +108,8 @@
 - type: entity
   id: PortalPartMatrix
   parent: BasePortalPart
-  name: transition matrix
-  description: The core computational matrix that controls portal targeting. Required for portal assembly.
+  name: ent-PortalPartMatrix
+  description: ent-PortalPartMatrix-desc
   components:
   - type: Sprite
     state: matrix

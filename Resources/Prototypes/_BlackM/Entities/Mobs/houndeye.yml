@@ -7,7 +7,6 @@
   - type: Houndeye
   - type: Actions
   - type: GhostRole
-  - type: Muted
     name: ghost-role-information-houndeye-name
     description: ghost-role-information-houndeye-description
     rules: ghost-role-information-houndeye-rules
@@ -15,6 +14,7 @@
     - MindRoleGhostRoleSoloAntagonist
     raffle:
       settings: short
+  - type: Muted
   - type: GhostTakeoverAvailable
   - type: Sprite
     drawdepth: Mobs

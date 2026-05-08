@@ -54,8 +54,6 @@
         type: EvacPortalBoundUserInterface
   - type: ActivatableUI
     key: enum.EvacPortalUiKey.Key
-    requireHands: false
-    inHandsOnly: false
   - type: Sprite
     sprite: _BlackM/Structures/Portal/portal.rsi
     noRot: true
