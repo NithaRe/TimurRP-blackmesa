@@ -1,0 +1,34 @@
+- type: entity
+  parent: BaseStructure
+  id: MusicRadio
+  name: старое радио
+  description: Старое радио. Играет музыку, пока включено.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Misc/radio.rsi
+    state: radio_off
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.MusicRadioVisuals.Playing:
+        sprite:
+          True:  { state: radio }
+          False: { state: radio_off }
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 50
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: MusicRadio
+    sound:
+      path: /Audio/_BlackM/radio_track.ogg
+    volume: -7
+    range: 10
