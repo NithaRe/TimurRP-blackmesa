@@ -25,8 +25,10 @@ using Content.Client.UserInterface.Systems.Gameplay;
 using Content.Client.UserInterface.Systems.Ghost.Widgets;
 using Content.Goobstation.Shared.MisandryBox.Thunderdome;
 using Content.Shared.Ghost;
+using Content.Shared._CorvaxGoob.CCCVars; // CorvaxGoob-GhostBar
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
+using Robust.Shared.Configuration; // CorvaxGoob-GhostBar
 
 namespace Content.Client.UserInterface.Systems.Ghost;
 
@@ -34,6 +36,7 @@ namespace Content.Client.UserInterface.Systems.Ghost;
 public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSystem>
 {
     [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IConfigurationManager _cfg = default!; // CorvaxGoob-GhostBar
     [Dependency] private readonly IEntityNetworkManager _net = default!;
     [UISystemDependency] private readonly GhostSystem? _system = default;
 
@@ -153,6 +156,7 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         Gui.GhostRolesPressed += GhostRolesPressed;
         Gui.GhostBarPressed += GhostBarPressed; // CorvaxGoob-GhostBar
         Gui.GhostBarWindow.SpawnButtonPressed += GhostBarSpawnPressed; // CorvaxGoob-GhostBar
+        Gui.GhostBarButton.Visible = _cfg.GetCVar(CCCVars.GhostBarEnabled); // CorvaxGoob-GhostBar
         Gui.ThunderdomePressed += ThunderdomePressed; // Goobstation - Thunderdome
         Gui.TargetWindow.WarpClicked += OnWarpClicked;
         Gui.TargetWindow.OnGhostnadoClicked += OnGhostnadoClicked;
