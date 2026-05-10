@@ -13,6 +13,7 @@ using Content.Shared.Mind.Components;
 using Content.Shared.Mindshield.Components;
 using Content.Shared.Players;
 using Content.Shared.Roles;
+using Content.Shared._CorvaxGoob.CCCVars;
 using Robust.Server.Player;
 using Robust.Shared.EntitySerialization;
 using Robust.Shared.EntitySerialization.Systems;
@@ -20,6 +21,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
+using Robust.Shared.Configuration;
 
 namespace Content.Server._CorvaxGoob.Ghostbar;
 
@@ -35,6 +37,7 @@ public sealed class GhostBarSystem : EntitySystem
     [Dependency] private readonly ActionsSystem _actions = default!;
     [Dependency] private readonly GhostRoleSystem _ghostRole = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IConfigurationManager _cfg = default!;
 
     private static readonly List<ProtoId<JobPrototype>> _jobComponents = new()
     {
@@ -52,6 +55,8 @@ public sealed class GhostBarSystem : EntitySystem
     const string MapPath = "Maps/_Goobstation/Nonstations/ghostbar.yml";
     private void OnRoundStart(RoundStartingEvent ev)
     {
+        if (!_cfg.GetCVar(CCCVars.GhostBarEnabled))
+        return;
         var resPath = new ResPath(MapPath);
 
         if (_mapLoader.TryLoadMap(resPath, out var map, out _, new DeserializationOptions { InitializeMaps = true }))
@@ -60,6 +65,8 @@ public sealed class GhostBarSystem : EntitySystem
 
     public void SpawnPlayer(GhostBarSpawnEvent msg, EntitySessionEventArgs args)
     {
+        if (!_cfg.GetCVar(CCCVars.GhostBarEnabled))
+        return;
         var player = args.SenderSession;
 
         if (!_mindSystem.TryGetMind(player, out var mindId, out var mind))
