@@ -1,0 +1,95 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               MinSize="340 500"
+               Resizable="False"
+               Title="{Loc passport-title-label}">
+    
+    <PanelContainer MinSize="340 500" MaxSize="340 500">
+        <TextureRect Name="PassportBackground"
+                     Stretch="Keep"
+                     TexturePath="/Textures/_BlackM/Interface/Passport/passport_bg.png"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"/>
+                     
+        <BoxContainer Orientation="Vertical" SeparationOverride="0">
+            <Control MinSize="0 52"/>
+            
+            <BoxContainer Orientation="Horizontal"
+                          MinSize="0 18"
+                          Margin="12 0 10 0">
+                <Label Text="№" FontColorOverride="#5F4E2A" Margin="0 2 2 0"/>
+                <Label Name="PassportNumberLabel"
+                       FontColorOverride="#5F4E2A"
+                       HorizontalExpand="True"
+                       VerticalAlignment="Center"/>
+                <Label Name="IssuedDateLabel"
+                       FontColorOverride="#5F4E2A"
+                       VerticalAlignment="Center"/>
+            </BoxContainer>
+            
+            <BoxContainer Orientation="Horizontal" MinSize="0 190">
+                <SpriteView Name="OwnerSpriteView"
+                            MinSize="110 190"
+                            MaxSize="110 190"
+                            OverrideDirection="South"
+                            Scale="3.5 3.5"
+                            Margin="10 4 0 4"/>
+                            
+                <BoxContainer Orientation="Vertical"
+                              HorizontalExpand="True"
+                              Margin="4 6 8 0"
+                              SeparationOverride="0">
+                    <Label Text="{Loc passport-surname-label}"
+                           FontColorOverride="#5F4E2A"/>
+                    <Label Name="SurnameLabel"
+                           FontColorOverride="#14100A"
+                           Margin="2 1 0 10"/>
+                           
+                    <Label Text="{Loc passport-name-label}"
+                           FontColorOverride="#5F4E2A"/>
+                    <Label Name="NameLabel"
+                           FontColorOverride="#14100A"
+                           Margin="2 1 0 10"/>
+                           
+                    <Label Text="{Loc passport-position-label}"
+                           FontColorOverride="#5F4E2A"/>
+                    <Label Name="JobLabel"
+                           FontColorOverride="#14100A"
+                           Margin="2 1 0 10"/>
+                           
+                    <Label Text="{Loc passport-city-label}"
+                           FontColorOverride="#5F4E2A"/>
+                    <Label Name="CityLabel"
+                           FontColorOverride="#14100A"
+                           Margin="2 1 0 0"/>
+                </BoxContainer>
+            </BoxContainer>
+            
+            <BoxContainer Orientation="Vertical"
+                          MinSize="0 104"
+                          Margin="12 8 0 0"
+                          SeparationOverride="2">
+                <Label Text="{Loc passport-signature-label}"
+                       FontColorOverride="#5F4E2A"/>
+                <Label Name="SignatureLabel"
+                       FontColorOverride="#14100A"
+                       Margin="2 4 0 0"/>
+            </BoxContainer>
+            
+            <BoxContainer Orientation="Vertical"
+                          VerticalExpand="True"
+                          Margin="12 8 12 8"
+                          SeparationOverride="2">
+                <Label Text="{Loc passport-mrz-label}"
+                       FontColorOverride="#5F4E2A"
+                       ClipText="True"/>
+                <Label Name="MrzLine1Label"
+                       FontColorOverride="#373016"
+                       Margin="0 4 0 0"
+                       ClipText="True"/>
+                <Label Name="MrzLine2Label"
+                       FontColorOverride="#373016"
+                       ClipText="True"/>
+            </BoxContainer>
+        </BoxContainer>
+    </PanelContainer>
+</DefaultWindow>
