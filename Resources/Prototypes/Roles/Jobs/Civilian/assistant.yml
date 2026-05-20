@@ -99,6 +99,7 @@
   id: PassengerGear
   equipment:
     id: PassengerPDA
+    passport: PassportBM #BlackM pass
     ears: ClothingHeadsetGrey
   #storage:
     #back:

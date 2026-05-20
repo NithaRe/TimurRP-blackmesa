@@ -184,6 +184,7 @@
   id: QuartermasterGear
   equipment:
     id: QuartermasterPDA
+    passport: PassportBM #BlackM pass
     ears: ClothingHeadsetAltCargo # Goobstation
     belt: BoxFolderClipboard
     pocket1: AppraisalTool

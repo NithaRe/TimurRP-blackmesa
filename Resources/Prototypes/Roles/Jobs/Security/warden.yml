@@ -186,6 +186,7 @@
   equipment:
     eyes: ClothingEyesGlassesSecurityContraDetect # Goobstation
     id: WardenPDA
+    passport: PassportBM #BlackM pass
     ears: ClothingHeadsetAltWarden # Goobstation
     pocket1: WeaponPistolMk58
   storage:

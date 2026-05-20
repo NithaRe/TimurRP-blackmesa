@@ -214,6 +214,7 @@
   equipment:
     shoes: ClothingShoesColorBrown
     id: HoPPDA
+    passport: PassportBM #BlackM pass
     #gloves: ClothingHandsGlovesHop
     belt: BoxFolderClipboard
     eyes: ClothingEyesHudCommand

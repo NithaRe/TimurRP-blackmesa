@@ -99,6 +99,7 @@
   id: StationEngineerGear
   equipment:
     eyes: ClothingEyesGlassesMeson
+    passport: PassportBM #BlackM pass
     belt: ClothingBeltUtilityEngineering
   #storage:
     #back:

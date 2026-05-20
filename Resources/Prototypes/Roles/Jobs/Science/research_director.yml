@@ -185,6 +185,7 @@
   id: ResearchDirectorGear
   equipment:
     id: RnDPDA
+    passport: PassportBM #BlackM pass
   storage:
     back:
     - Flash

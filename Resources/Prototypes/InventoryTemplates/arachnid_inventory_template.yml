@@ -133,6 +133,15 @@
       blacklist:
         tags:
         - PetOnly
+    - name: passport #BlackM pass slot
+      slotTexture: pass
+      fullTextureName: template_small
+      slotFlags: PASSPORT
+      slotGroup: SecondHotbar
+      stripTime: 6
+      uiWindowPos: 4,1
+      strippingWindowPos: 3,4
+      displayName: Passport
 
     - name: pocket4
       slotTexture: web

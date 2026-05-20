@@ -199,6 +199,7 @@
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: HoSPDA
+    passport: PassportBM #BlackM pass
     #gloves: ClothingHandsGlovesCombat - Goobstation, moved to loadouts
     ears: ClothingHeadsetAltSecurity
     pocket1: WeaponPistolMk58

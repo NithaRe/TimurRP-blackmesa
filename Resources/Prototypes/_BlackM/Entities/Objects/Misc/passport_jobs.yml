@@ -1,0 +1,96 @@
+- type: passportJobs
+  id: PassportJobsDefault
+  jobs:
+    - Captain
+    - Chemist
+    - ChiefMedicalOfficer
+    - MedicalDoctor
+    - MedicalIntern
+    - Psychologist
+    - Paramedic
+    - Surgeon # CorvaxGoob-Surgeon
+    - Virologist # Gooby goob ba gooby goob ba
+    - HeadOfSecurity
+    - SecurityCadet
+    - SecurityOfficer
+    - Detective
+    - Warden
+    - Brigmedic # Goob
+    - Pilot # Corvax-Pilot
+    - WardenHelper # CorvaxGoob-WardenHelper
+    - SecurityClown # event-restricted, Goob
+    - ResearchDirector
+    - Scientist
+    - ResearchAssistant
+    - Roboticist #Goob
+    - RadioHost # Goobstation
+    - Boxer
+    - Reporter
+    - Zookeeper
+    - Psychologist
+    - AtmosphericTechnician
+    - ChiefEngineer
+    - StationEngineer
+    - TechnicalAssistant
+    - Captain
+    - ChiefEngineer
+    - ChiefMedicalOfficer
+    - HeadOfPersonnel
+    - HeadOfSecurity
+    - ResearchDirector
+    - Quartermaster
+    - BlueshieldOfficer # Goobstation
+    - NanotrasenRepresentative # Goobstation
+    - NanotrasenCareerTrainer # Goobstation
+    - CentralCommandOfficial
+    - CBURN
+    - ERTLeader
+    - ERTChaplain
+    - ERTJanitor
+    - ERTMedical
+    - ERTSecurity
+    - ERTEngineer
+    - DeathSquad
+    - HecuOperative
+    - CommandMaid # event-restricted, Goobstation
+    - CentralCommandOfficial
+    - CBURN
+    - ERTLeader
+    - ERTChaplain
+    - ERTJanitor
+    - ERTMedical
+    - ERTSecurity
+    - ERTEngineer
+    - DeathSquad
+    - HecuOperative
+    - BlueshieldOfficer # Goobstation - Start
+    - NanotrasenRepresentative
+    - NanotrasenCareerTrainer
+    - NavyOfficer
+    - NavyCaptain
+    - NavyOfficerUndercover
+    - SpecialOperationsOfficer
+    - Diplomat
+    - GovernmentMan # Goobstation - End
+    - Bartender
+    - Botanist
+    - Boxer
+    - Chaplain
+    - Chef
+    - Clown
+    - HeadOfPersonnel
+    - Janitor
+    - Lawyer
+    - Librarian
+    - Mime
+    - Musician
+    - Passenger
+    - Reporter
+    - Visitor
+    - Zookeeper
+    - ServiceWorker
+    - PartyMaker # event-restricted, Goobstation
+    - CargoTechnician
+    - Quartermaster
+    - SalvageSpecialist
+    - ShaftMiner # Lavaland Change

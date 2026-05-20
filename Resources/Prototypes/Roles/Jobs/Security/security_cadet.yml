@@ -140,6 +140,7 @@
     shoes: ClothingShoesKovakSoldier #BlackM
     head: ClothingHeadHelmetKovakSoldier #BlackM
     id: SecurityCadetPDA
+    passport: PassportBM #BlackM pass
     ears: ClothingHeadsetAltSecurityRegular # Goobstation
     belt: ClothingBeltSecurityFilled
     #pocket1: WeaponDisabler #Goobstation (Disablers in belts)

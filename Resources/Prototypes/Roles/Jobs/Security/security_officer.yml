@@ -118,6 +118,7 @@
 - type: startingGear
   id: SecurityOfficerGear
   equipment:
+    passport: PassportBM #BlackM pass
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetAltSecurityRegular # Goobstation
     pocket1: WeaponPistolMk58

@@ -98,6 +98,7 @@
   id: SalvageSpecialistGear
   equipment:
     id: SalvagePDA
+    passport: PassportBM #BlackM pass
 ## Goob comment out - jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
     ears: ClothingHeadsetCargo
   storage: # DeltaV: Add mining voucher

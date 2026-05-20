@@ -113,6 +113,7 @@
   id: ParamedicGear
   equipment:
     id: ParamedicPDA
+    passport: PassportBM #BlackM pass
     belt: ClothingBeltMedicalEMTFilled
   storage:
     back:
