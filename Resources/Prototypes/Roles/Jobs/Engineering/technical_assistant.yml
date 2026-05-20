@@ -95,6 +95,7 @@
   equipment:
     shoes: ClothingShoesBootsWork
     id: TechnicalAssistantPDA
+    passport: PassportBM #BlackM pass
     belt: ClothingBeltUtilityEngineering
     pocket2: BookEngineersHandbook
   #storage:

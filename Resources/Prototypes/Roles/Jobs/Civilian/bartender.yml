@@ -95,6 +95,7 @@
   equipment:
     shoes: ClothingShoesColorBlack
     id: BartenderPDA
+    passport: PassportBM #BlackM pass
   #storage:
     #back:
     #- Stuff

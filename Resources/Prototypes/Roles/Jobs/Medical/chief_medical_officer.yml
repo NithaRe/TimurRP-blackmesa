@@ -197,6 +197,7 @@
   id: CMOGear
   equipment:
     id: CMOPDA
+    passport: PassportBM #BlackM pass
 #   eyes: ClothingEyesGlassesMed # Goobstation # CorvaxGoob-loadouts: replaced on a ChiefMedicalOfficerGlasses loadout
     belt: ClothingBeltMedicalFilled
   storage:

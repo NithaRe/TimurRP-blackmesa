@@ -97,6 +97,7 @@
   equipment:
     shoes: ClothingShoesGaloshes
     id: JanitorPDA
+    passport: PassportBM #BlackM pass
     belt: ClothingBeltJanitorFilled
     pocket1: KeyRingJanitor # Goobstation
 

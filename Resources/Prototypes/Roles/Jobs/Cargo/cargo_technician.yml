@@ -97,6 +97,7 @@
   id: CargoTechGear
   equipment:
     id: CargoPDA
+    passport: PassportBM #BlackM pass
     pocket1: AppraisalTool
   #storage:
     #back:

@@ -85,6 +85,7 @@
   equipment:
     shoes: ClothingShoesBootsLaceup
     id: LibrarianPDA
+    passport: PassportBM #BlackM pass
     ears: ClothingHeadsetService
     pocket1: d20Dice
     pocket2: HandLabeler # for making named bestsellers

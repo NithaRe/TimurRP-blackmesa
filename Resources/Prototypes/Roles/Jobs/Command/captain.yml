@@ -193,6 +193,7 @@
 - type: startingGear
   id: CaptainGear
   equipment:
+    passport: PassportBM #BlackM pass
     shoes: ClothingShoesBootsLaceup
     eyes: ClothingEyesGlassesCommand
     #gloves: ClothingHandsGlovesCaptain - Goobstation, moved to loadouts

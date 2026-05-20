@@ -94,6 +94,7 @@
   equipment:
     shoes: ClothingShoesColorBlack
     id: ChaplainPDA
+    passport: PassportBM #BlackM pass
   storage:
     back:
     - ChaplainUndeterminedBible

@@ -90,6 +90,8 @@
 
 - type: startingGear
   id: ScientistGear
+  equipment:
+    passport: PassportBM #BlackM pass
   #storage:
     #back:
     #- Stuff

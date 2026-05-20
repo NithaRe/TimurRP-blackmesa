@@ -1,0 +1,23 @@
+- type: entity
+  name: удостоверение личности
+  id: PassportBM
+  parent: BaseItem
+  description: Официальное удостоверение личности сотрудника научно-исследовательского комплекса «Чёрная Меза».
+  components:
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/passport.rsi
+      state: icon
+    - type: Item
+      size: Small
+      sprite: _BlackM/Objects/Misc/passport.rsi
+    - type: Clothing
+      slots:
+        - PASSPORT
+    - type: Passport
+    - type: UserInterface
+      interfaces:
+        enum.PassportUiKey.Key:
+          type: PassportBoundUserInterface
+    - type: ActivatableUI
+      key: enum.PassportUiKey.Key
+      singleUser: false

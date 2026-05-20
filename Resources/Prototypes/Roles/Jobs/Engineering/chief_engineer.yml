@@ -185,6 +185,7 @@
   id: ChiefEngineerGear
   equipment:
     id: CEPDA
+    passport: PassportBM #BlackM pass
     eyes: ClothingEyesGlassesMeson
     belt: ClothingBeltUtilityEngineering
   storage:

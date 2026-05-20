@@ -101,6 +101,7 @@
   equipment:
     shoes: ClothingShoesBootsLaceup
     id: LawyerPDA
+    passport: PassportBM #BlackM pass
     ears: ClothingHeadsetLawyer # CorvaxGoob: ClothingHeadsetSecurity > ClothingHeadsetLawyer
   inhand:
     - BriefcaseBrownFilled

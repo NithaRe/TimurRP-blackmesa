@@ -79,6 +79,7 @@
 #   eyes: ClothingEyesGlassesSunglasses # CorvaxGoob-loadouts: replaced on a MusicianGlasses loadout
     shoes: ClothingShoesBootsLaceup
     id: MusicianPDA
+    passport: PassportBM #BlackM pass
   #storage:
     #back:
     #- Stuff

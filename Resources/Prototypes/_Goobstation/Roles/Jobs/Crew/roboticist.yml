@@ -24,6 +24,7 @@
   id: RoboticistGear
   equipment:
     ears: ClothingHeadsetRobotics
+    passport: PassportBM #BlackM pass
 #   eyes: ClothingEyesHudDiagnostic # CorvaxGoob-loadouts: replaced on a RoboticistGlasses loadout
 
 - type: chameleonOutfit

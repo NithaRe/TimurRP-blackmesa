@@ -95,6 +95,7 @@
   id: ChemistGear
   equipment:
     id: ChemistryPDA
+    passport: PassportBM #BlackM pass
     belt: ChemBagFilled
     pocket1: HandLabeler
     eyes: ClothingEyesGlassesChemical

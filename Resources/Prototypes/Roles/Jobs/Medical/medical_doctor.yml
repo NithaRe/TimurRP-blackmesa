@@ -111,6 +111,7 @@
   id: DoctorGear
   equipment:
     belt: ClothingBeltMedicalFilled
+    passport: PassportBM #BlackM pass
   #storage:
     #back:
     #- Stuff

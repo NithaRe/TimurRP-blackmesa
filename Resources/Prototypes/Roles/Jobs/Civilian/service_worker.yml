@@ -104,6 +104,7 @@
   equipment:
     shoes: ClothingShoesColorBlack
     id: ServiceWorkerPDA
+    passport: PassportBM #BlackM pass
   #storage:
     #back:
     #- Stuff

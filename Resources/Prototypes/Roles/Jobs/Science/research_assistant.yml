@@ -75,6 +75,7 @@
   equipment:
     shoes: ClothingShoesColorWhite
     id: ResearchAssistantPDA
+    passport: PassportBM #BlackM pass
     pocket2: BookScientistsGuidebook
   #storage:
     #back:
