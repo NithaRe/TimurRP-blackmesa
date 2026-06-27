@@ -18,6 +18,6 @@ public sealed class EvacPortalVisualizerSystem : VisualizerSystem<EvacPortalComp
             args.Sprite.LayerSetVisible(portalLayer, isActive);
 
         if (args.Sprite.LayerMapTryGet(EvacPortalVisualLayers.Active, out var activeLayer))
-            args.Sprite.LayerSetVisible(activeLayer, isActive || isSyncing);
+            args.Sprite.LayerSetVisible(activeLayer, isSyncing);
     }
 }

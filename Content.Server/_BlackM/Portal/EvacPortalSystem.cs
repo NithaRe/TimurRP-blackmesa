@@ -24,6 +24,7 @@ public sealed class EvacPortalSystem : EntitySystem
     [Dependency] private readonly RoundEndSystem _roundEnd = default!;
     [Dependency] private readonly PoweredLightSystem _poweredLight = default!;
     [Dependency] private readonly PointLightSystem _pointLight = default!;
+    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
 
     private static readonly SoundPathSpecifier SyncSound =
         new("/Audio/_BlackM/Announcements/announcesync.ogg");
@@ -296,6 +297,8 @@ public sealed class EvacPortalSystem : EntitySystem
 
     private void UpdateUi(EntityUid uid, EvacPortalComponent portal)
     {
+        _appearance.SetData(uid, EvacPortalVisuals.Active, portal.Status);
+
         TimeSpan? countdown = portal.Status switch
         {
             EvacPortalStatus.Synchronizing => portal.SyncStartTime.HasValue
