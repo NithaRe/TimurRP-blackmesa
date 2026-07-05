@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 05/09/2026 20:27:42
-  entityCount: 10772
+  time: 07/05/2026 11:35:21
+  entityCount: 10771
 maps:
 - 1
 grids:
@@ -5548,7 +5548,7 @@ entities:
       pos: -37.5,0.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -22498.645
+      secondsUntilStateChange: -22535.611
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -5689,7 +5689,7 @@ entities:
       pos: -42.5,2.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -21285.494
+      secondsUntilStateChange: -21322.46
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -5876,7 +5876,7 @@ entities:
       access:
       - - Maintenance
     - type: Door
-      secondsUntilStateChange: -2356.5103
+      secondsUntilStateChange: -2393.4773
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -5999,7 +5999,7 @@ entities:
       access:
       - - Maintenance
     - type: Door
-      secondsUntilStateChange: -2378.6436
+      secondsUntilStateChange: -2415.6106
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -6357,7 +6357,7 @@ entities:
       pos: 10.5,13.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -11995.551
+      secondsUntilStateChange: -12032.518
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -30570,7 +30570,7 @@ entities:
       pos: 15.5,7.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -28861.695
+      secondsUntilStateChange: -28898.662
       state: Closing
     - type: Firelock
       emergencyCloseCooldown: 3393.65
@@ -31138,7 +31138,7 @@ entities:
       pos: 24.5,10.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -26683.344
+      secondsUntilStateChange: -26720.31
       state: Closing
     - type: Firelock
       emergencyCloseCooldown: 5571.15
@@ -44612,7 +44612,7 @@ entities:
       pos: -29.5,-9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -1974.1774
+      secondsUntilStateChange: -2011.1444
       state: Opening
 - proto: IntercomAll
   entities:
@@ -46295,13 +46295,6 @@ entities:
     components:
     - type: Transform
       pos: -5.580178,-15.315853
-      parent: 2
-- proto: MusicRadio
-  entities:
-  - uid: 8259
-    components:
-    - type: Transform
-      pos: 46.5,28.5
       parent: 2
 - proto: NetworkConfigurator
   entities:
