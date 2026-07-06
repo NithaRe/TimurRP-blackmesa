@@ -17,8 +17,8 @@
 - type: entity
   parent: FloorTileItemBase
   id: FloorTileItemPoolsi
-  name: ent-FloorTileItemPoolsi # Добавлено
-  description: ent-FloorTileItemPoolsi-desc # Добавлено
+  name: ent-FloorTileItemPoolsi
+  description: ent-FloorTileItemPoolsi-desc
   components:
     - type: Sprite
       sprite: _BlackM/Tiles/poolsi.rsi
@@ -32,7 +32,7 @@
 
 - type: stack
   id: FloorTileItemPoolsi
-  name: ent-FloorTileItemPoolsi # Исправлено
+  name: ent-FloorTileItemPoolsi
   icon:
     sprite: _BlackM/Tiles/poolsi.rsi
     state: poolsi
@@ -41,8 +41,8 @@
 
 - type: tile
   id: FloorInfected1
-  name: tiles-infected1
-  sprite: /Textures/_BlackM/Tiles/floor-infected1.png
+  name: tilesinfected1
+  sprite: /Textures/_BlackM/Tiles/floorinfected1.png
   variants: 1
   placementVariants:
     - 1.0
@@ -58,12 +58,12 @@
 - type: entity
   parent: FloorTileItemBase
   id: FloorTileItemInfected1
-  name: ent-FloorTileItemInfected1 # Добавлено
-  description: ent-FloorTileItemInfected1-desc # Добавлено
+  name: ent-FloorTileItemInfected1
+  description: ent-FloorTileItemInfected1-desc
   components:
     - type: Sprite
-      sprite: _BlackM/Tiles/floor-infected1.rsi
-      state: floor-infected1
+      sprite: _BlackM/Tiles/floorinfected1.rsi
+      state: floorinfected1
     - type: FloorTile
       outputs:
         - Plating
@@ -73,17 +73,17 @@
 
 - type: stack
   id: FloorTileItemInfected1
-  name: ent-FloorTileItemInfected1 # Исправлено
+  name: ent-FloorTileItemInfected1
   icon:
-    sprite: _BlackM/Tiles/floor-infected1.rsi
-    state: floor-infected1
+    sprite: _BlackM/Tiles/floorinfected1.rsi
+    state: floorinfected1
   maxCount: 30
   spawn: FloorTileItemInfected1
 
 - type: tile
   id: FloorInfected2
   name: tiles-infected2
-  sprite: /Textures/_BlackM/Tiles/floor-infected2.png # Исправлен регистр
+  sprite: /Textures/_BlackM/Tiles/floorinfected2.png
   variants: 1
   placementVariants:
     - 1.0
@@ -99,12 +99,12 @@
 - type: entity
   parent: FloorTileItemBase
   id: FloorTileItemInfected2
-  name: ent-FloorTileItemInfected2 # Добавлено
-  description: ent-FloorTileItemInfected2-desc # Добавлено
+  name: ent-FloorTileItemInfected2
+  description: ent-FloorTileItemInfected2-desc
   components:
     - type: Sprite
-      sprite: _BlackM/Tiles/floor-infected2.rsi # Исправлен регистр
-      state: floor-infected2 # Исправлен регистр
+      sprite: _BlackM/Tiles/floorinfected2.rsi
+      state: floorinfected2
     - type: FloorTile
       outputs:
         - Plating
@@ -114,9 +114,9 @@
 
 - type: stack
   id: FloorTileItemInfected2
-  name: ent-FloorTileItemInfected2 # Исправлено
+  name: ent-FloorTileItemInfected2
   icon:
-    sprite: _BlackM/Tiles/floor-infected2.rsi # Исправлен регистр
-    state: floor-infected2 # Исправлен регистр
+    sprite: _BlackM/Tiles/floorinfected2.rsi
+    state: floorinfected2
   maxCount: 30
   spawn: FloorTileItemInfected2
