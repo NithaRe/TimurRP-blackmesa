@@ -1,0 +1,26 @@
+- type: entity
+  parent: BaseComputer
+  id: PassportCheckerTerminal
+  name: терминал проверки паспортов
+  description: Сканирует паспорт и сообщает о найденных ошибках.
+  components:
+  - type: PassportChecker
+  - type: ItemSlots
+    slots:
+      passportChecker-slot:
+        name: passport
+        whitelist:
+          components:
+          - Passport
+        insertSound: /Audio/Machines/id_swipe.ogg
+        ejectSound: /Audio/Machines/id_swipe.ogg
+  - type: ActivatableUI
+    key: enum.PassportCheckerUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.PassportCheckerUiKey.Key:
+        type: PassportCheckerBoundUserInterface
+  - type: Sprite
+    sprite: _BlackM/Structures/passportread.rsi
+    layers:
+    - state: icon
