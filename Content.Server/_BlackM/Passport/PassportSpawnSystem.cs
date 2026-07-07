@@ -61,7 +61,7 @@ public sealed class PassportSpawnSystem : EntitySystem
 
         var done = new List<EntityUid>();
 
-        foreach (var mob in _pending)
+        foreach (var mob in _pending.ToArray())
         {
             if (!Exists(mob))
             {
