@@ -1,0 +1,59 @@
+<controls:DefaultWindow xmlns="https://spacestation14.io"
+                         xmlns:controls="clr-namespace:Robust.Client.UserInterface.CustomControls;assembly=Robust.Client"
+                         Title="Терминал проверки паспортов"
+                         MinSize="560 400">
+    <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="False">
+        <BoxContainer Orientation="Vertical" Margin="12 10 12 10" SeparationOverride="6">
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="12">
+                <Label Text="" MinSize="110 0" />
+                <Label Text="БАЗА ДАННЫХ" StyleClasses="LabelSubText" HorizontalExpand="True" />
+                <Label Text="ПАСПОРТ" StyleClasses="LabelSubText" HorizontalExpand="True" />
+            </BoxContainer>
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="12">
+                <Label Text="Фамилия" MinSize="110 0" />
+                <Label Name="RefSurnameLabel" HorizontalExpand="True" />
+                <Button Name="DocSurnameButton" HorizontalExpand="True" />
+            </BoxContainer>
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="12">
+                <Label Text="Имя" MinSize="110 0" />
+                <Label Name="RefNameLabel" HorizontalExpand="True" />
+                <Button Name="DocNameButton" HorizontalExpand="True" />
+            </BoxContainer>
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="12">
+                <Label Text="Город" MinSize="110 0" />
+                <Label Name="RefCityLabel" HorizontalExpand="True" />
+                <Button Name="DocCityButton" HorizontalExpand="True" />
+            </BoxContainer>
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="12">
+                <Label Text="Должность" MinSize="110 0" />
+                <Label Name="RefJobLabel" HorizontalExpand="True" />
+                <Button Name="DocJobButton" HorizontalExpand="True" />
+            </BoxContainer>
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="12">
+                <Label Text="№ паспорта" MinSize="110 0" />
+                <Label Name="RefNumberLabel" HorizontalExpand="True" />
+                <Button Name="DocNumberButton" HorizontalExpand="True" />
+            </BoxContainer>
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="12">
+                <Label Text="Дата выдачи" MinSize="110 0" />
+                <Label Name="RefDateLabel" HorizontalExpand="True" />
+                <Button Name="DocDateButton" HorizontalExpand="True" />
+            </BoxContainer>
+
+            <Label Name="VerdictLabel" Text="" Align="Center" Margin="0 10 0 6" />
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+                <Button Name="AccuseButton" Text="Нарушение" HorizontalExpand="True" />
+                <Button Name="CleanButton" Text="Всё чисто" HorizontalExpand="True" />
+                <Button Name="EjectButton" Text="Извлечь" HorizontalExpand="True" />
+            </BoxContainer>
+        </BoxContainer>
+    </ScrollContainer>
+</controls:DefaultWindow>
