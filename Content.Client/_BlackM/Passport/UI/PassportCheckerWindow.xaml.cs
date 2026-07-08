@@ -11,11 +11,11 @@ namespace Content.Client._BlackM.Passport.UI;
 [GenerateTypedNameReferences]
 public sealed partial class PassportCheckerWindow : DefaultWindow
 {
-    private static readonly Color NormalBg   = Color.FromHex("#3A3A3A");
+    private static readonly Color NormalBg   = Color.FromHex("#6B5B36");
     private static readonly Color SelectedBg = Color.FromHex("#F1C40F");
     private static readonly Color ErrorBg    = Color.FromHex("#C0392B");
 
-    private static readonly Color NormalText   = Color.White;
+    private static readonly Color NormalText   = Color.FromHex("#EFE6C8");
     private static readonly Color SelectedText = Color.Black;
     private static readonly Color ErrorText    = Color.White;
 
@@ -24,7 +24,7 @@ public sealed partial class PassportCheckerWindow : DefaultWindow
 
     private static readonly Color AccuseBg = Color.FromHex("#8B2E2E");
     private static readonly Color CleanBg  = Color.FromHex("#2E6B3E");
-    private static readonly Color EjectBg  = Color.FromHex("#3A3A3A");
+    private static readonly Color EjectBg  = Color.FromHex("#4A3F26");
 
     public event Action<string>? OnFieldSelected;
     public event Action? OnAccusePressed;
@@ -61,6 +61,7 @@ public sealed partial class PassportCheckerWindow : DefaultWindow
             button.OnPressed += _ => OnFieldSelected?.Invoke(field);
             button.StyleBoxOverride = MakeBox(NormalBg);
             button.Label.FontColorOverride = NormalText;
+            button.Label.ClipText = true;
         }
 
         AccuseButton.OnPressed += _ => OnAccusePressed?.Invoke();
