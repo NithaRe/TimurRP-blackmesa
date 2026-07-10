@@ -17,6 +17,8 @@ public sealed partial class PassportComponent : Component
     [DataField, AutoNetworkedField] public bool HasBureaucraticError { get; set; } = false;
     [DataField, AutoNetworkedField] public string ErrorField { get; set; } = string.Empty;
     [DataField, AutoNetworkedField] public string ErrorValue { get; set; } = string.Empty;
+    [DataField, AutoNetworkedField] public bool Checked { get; set; } = false;
+    [DataField, AutoNetworkedField] public string CheckedBy { get; set; } = string.Empty;
 }
 
 [Serializable, NetSerializable]

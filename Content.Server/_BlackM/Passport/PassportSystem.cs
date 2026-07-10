@@ -1,5 +1,9 @@
 using Content.Server.Hands.Systems;
+using Content.Server.Popups;
 using Content.Shared._BlackM.Passport;
+using Content.Shared.Examine;
+using Content.Shared.Humanoid;
+using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory;
@@ -7,8 +11,11 @@ using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Jobs;
+using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
+using Robust.Server.GameStates;
 using Robust.Shared.Localization;
+using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
@@ -22,6 +29,9 @@ public sealed class PassportSystem : EntitySystem
     [Dependency] private readonly ILocalizationManager _loc    = default!;
     [Dependency] private readonly IPrototypeManager    _proto  = default!;
     [Dependency] private readonly IRobustRandom        _random = default!;
+    [Dependency] private readonly PopupSystem          _popup  = default!;
+    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
+    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
 
     private const float BureaucraticErrorChance = 0.10f;
 
@@ -59,6 +69,9 @@ public sealed class PassportSystem : EntitySystem
         SubscribeLocalEvent<PassportComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<PassportComponent, ActivateInWorldEvent>(OnActivate);
         SubscribeLocalEvent<PassportComponent, UseInHandEvent>(OnUseInHand);
+        SubscribeLocalEvent<PassportComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAltVerbs);
+        SubscribeLocalEvent<PassportComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<PassportComponent, ComponentShutdown>(OnPassportShutdown);
     }
 
     private void OnUiOpened(EntityUid uid, PassportComponent comp, BoundUIOpenedEvent args)
@@ -80,6 +93,92 @@ public sealed class PassportSystem : EntitySystem
         UpdateUiState(uid, comp);
         _ui.TryToggleUi(uid, PassportUiKey.Key, args.User);
         args.Handled = true;
+    }
+
+    private void OnGetAltVerbs(EntityUid uid, PassportComponent comp, GetVerbsEvent<AlternativeVerb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract)
+            return;
+
+        var user = args.User;
+        args.Verbs.Add(new AlternativeVerb
+        {
+            Text = Loc.GetString("passport-verb-check"),
+            Priority = 10,
+            Act = () => SignPassport(uid, comp, user),
+        });
+    }
+
+    private void SignPassport(EntityUid uid, PassportComponent comp, EntityUid user)
+    {
+        if (comp.Checked)
+        {
+            var already = Loc.GetString("passport-check-already", ("name", comp.CheckedBy));
+            _popup.PopupEntity(already, uid, user);
+            return;
+        }
+
+        comp.Checked   = true;
+        comp.CheckedBy = MetaData(user).EntityName;
+        Dirty(uid, comp);
+
+        _popup.PopupEntity(Loc.GetString("passport-check-result"), uid, user);
+    }
+
+    private void OnExamined(EntityUid uid, PassportComponent comp, ExaminedEvent args)
+    {
+        if (!comp.Checked)
+            return;
+
+        args.PushMarkup(Loc.GetString("passport-examine-checked-by", ("name", comp.CheckedBy)));
+    }
+
+    private EntityUid? CreatePreviewDoll(EntityUid characterUid)
+    {
+        if (!TryComp<HumanoidAppearanceComponent>(characterUid, out var appearance))
+            return null;
+
+        if (!_proto.TryIndex<SpeciesPrototype>(appearance.Species, out var species))
+            return null;
+
+        var doll = Spawn(species.DollPrototype, MapCoordinates.Nullspace);
+        _humanoid.CloneAppearance(characterUid, doll);
+        CopyClothing(characterUid, doll);
+
+        _pvsOverride.AddGlobalOverride(doll);
+
+        return doll;
+    }
+
+    private void CopyClothing(EntityUid source, EntityUid target)
+    {
+        if (!_inv.TryGetSlots(source, out var slots))
+            return;
+
+        foreach (var slot in slots)
+        {
+            if (!_inv.TryGetSlotEntity(source, slot.Name, out var itemUid))
+                continue;
+
+            if (HasComp<PassportComponent>(itemUid))
+                continue;
+
+            var protoId = MetaData(itemUid.Value).EntityPrototype?.ID;
+            if (protoId == null)
+                continue;
+
+            var copy = Spawn(protoId, MapCoordinates.Nullspace);
+            _inv.TryEquip(target, copy, slot.Name, force: true, silent: true);
+        }
+    }
+
+    private void OnPassportShutdown(EntityUid uid, PassportComponent comp, ComponentShutdown args)
+    {
+        if (comp.OwnerEntity is { } netEnt && TryGetEntity(netEnt, out var dollUid) && Exists(dollUid))
+        {
+            _pvsOverride.RemoveGlobalOverride(dollUid.Value);
+            QueueDel(dollUid.Value);
+        }
     }
 
     private void UpdateUiState(EntityUid uid, PassportComponent comp)
@@ -128,7 +227,7 @@ public sealed class PassportSystem : EntitySystem
             : surname;
         comp.JobTitle       = jobTitle;
         comp.City           = _loc.GetString(cityKey);
-        comp.OwnerEntity    = GetNetEntity(characterUid);
+        comp.OwnerEntity    = GetNetEntity(CreatePreviewDoll(characterUid) ?? characterUid);
         comp.PassportNumber = GenerateNumber();
         comp.IssuedDate     = DateTime.UtcNow.ToString("dd.MM.yyyy");
         comp.IsBound        = true;
@@ -173,6 +272,8 @@ public sealed class PassportSystem : EntitySystem
         var field  = _random.Pick(fields);
 
         comp.HasBureaucraticError = true;
+        comp.Checked              = false;
+        comp.CheckedBy            = string.Empty;
         comp.ErrorField           = field;
         comp.ErrorValue           = GenerateErrorValue(field, comp);
     }
