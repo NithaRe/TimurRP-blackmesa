@@ -8,8 +8,6 @@
       maxBadges: 6
       badgeContainerId: badge_slots
     - type: IdCard
-      fullName: ""
-      jobTitle: ""
     - type: Clothing
       slots:
         - idcard
@@ -143,7 +141,6 @@
     - type: Badge
       accessTags:
         - Engineering
-        - Engine
         - Maintenance
         - External
       examineColor: "#e6a032"
@@ -162,7 +159,6 @@
       accessTags:
         - ChiefEngineer
         - Engineering
-        - Engine
         - Maintenance
         - External
         - Atmospherics
@@ -182,8 +178,6 @@
     - type: Badge
       accessTags:
         - Medical
-        - Morgue
-        - Surgery
         - Chemistry
         - Cryogenics
       examineColor: "#32c8e6"
@@ -202,8 +196,6 @@
       accessTags:
         - ChiefMedicalOfficer
         - Medical
-        - Morgue
-        - Surgery
         - Chemistry
         - Cryogenics
         - Command
@@ -255,7 +247,6 @@
   components:
     - type: Badge
       accessTags:
-        - Supply
         - Cargo
         - Salvage
       examineColor: "#a86432"
@@ -273,7 +264,6 @@
     - type: Badge
       accessTags:
         - Quartermaster
-        - Supply
         - Cargo
         - Salvage
         - Command
