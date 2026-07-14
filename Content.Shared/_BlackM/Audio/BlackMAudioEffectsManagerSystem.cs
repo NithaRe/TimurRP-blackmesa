@@ -10,34 +10,18 @@ using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Shared._BlackM.Audio;
 
-/// <summary>
-/// Создаёт, кэширует и назначает audio effect auxiliaries для пайплайна реверберации BlackM.
-/// Дедуплицирует эффекты — несколько звуков с одним пресетом делят один auxiliary вместо
-/// того чтобы создавать отдельный OpenAL-объект на каждый источник.
-/// </summary>
 public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
 {
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly INetManager _net = default!;
 
-    /// <summary>
-    /// Кэш: пресет → auxiliary entity. Один auxiliary на пресет на всю сессию.
-    /// </summary>
     private readonly Dictionary<ProtoId<AudioPresetPrototype>, EntityUid> _cachedEffects = new();
 
     private CancellationTokenSource _tokenSource = new();
 
-    /// <summary>
-    /// На сервере назначаем auxiliary с небольшой задержкой — реплицированный клиентский
-    /// источник может ещё не завершить инициализацию к моменту назначения.
-    /// </summary>
     private static readonly TimeSpan ServerAssignDelay = TimeSpan.FromTicks(10L);
 
-    /// <summary>
-    /// Флаг безопасности: если CreateEffect() упал (нет EFX, интеграционный тест),
-    /// прекращаем попытки до следующего успешного создания.
-    /// </summary>
     private bool _efxAvailable = true;
 
     private EntityQuery<AudioComponent> _audioQuery;
@@ -62,13 +46,6 @@ public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
         _tokenSource = new();
     }
 
-    // ──────────────────────────────────────────────
-    // ПУБЛИЧНЫЙ API
-    // ──────────────────────────────────────────────
-
-    /// <summary>
-    /// Навешивает auxiliary нужного пресета на звук. Создаёт auxiliary если его ещё нет в кэше.
-    /// </summary>
     public bool TryAddEffect(Entity<AudioComponent> sound, ProtoId<AudioPresetPrototype> preset)
     {
         if (!_cachedEffects.TryGetValue(preset, out var aux) && !TryBuildEffect(preset, out aux))
@@ -87,9 +64,6 @@ public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
         return true;
     }
 
-    /// <summary>
-    /// Снимает конкретный пресет если он сейчас назначен на звук.
-    /// </summary>
     public bool TryRemoveEffect(Entity<AudioComponent> sound, ProtoId<AudioPresetPrototype> preset)
     {
         if (!_cachedEffects.TryGetValue(preset, out var aux))
@@ -107,9 +81,6 @@ public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
         return true;
     }
 
-    /// <summary>
-    /// Полностью убирает auxiliary со звука вне зависимости от пресета.
-    /// </summary>
     public void RemoveAllEffects(Entity<AudioComponent?> sound)
     {
         if (!_audioQuery.Resolve(sound, ref sound.Comp, false))
@@ -121,9 +92,6 @@ public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
         RaiseLocalEvent(sound, ref ev);
     }
 
-    /// <summary>
-    /// Проверяет, назначен ли сейчас данный пресет на звук.
-    /// </summary>
     public bool HasEffect(Entity<AudioComponent> sound, ProtoId<AudioPresetPrototype> preset)
     {
         if (!_cachedEffects.TryGetValue(preset, out var aux))
@@ -132,9 +100,6 @@ public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
         return sound.Comp.Auxiliary == aux;
     }
 
-    /// <summary>
-    /// Возвращает пресет, который сейчас назначен на звук (если есть).
-    /// </summary>
     public bool TryGetEffect(Entity<AudioComponent> sound, [NotNullWhen(true)] out ProtoId<AudioPresetPrototype>? preset)
     {
         preset = null;
@@ -149,10 +114,6 @@ public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
         return false;
     }
 
-    // ──────────────────────────────────────────────
-    // ВНУТРЕННЕЕ
-    // ──────────────────────────────────────────────
-
     private void AssignEffect(Entity<AudioComponent> sound, EntityUid aux, ProtoId<AudioPresetPrototype> preset)
     {
         _audio.SetAuxiliary(sound, sound, aux);
@@ -161,9 +122,6 @@ public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
         RaiseLocalEvent(sound, ref ev);
     }
 
-    /// <summary>
-    /// Создаёт EFX effect + auxiliary, кэширует и возвращает auxiliary entity.
-    /// </summary>
     public bool TryBuildEffect(ProtoId<AudioPresetPrototype> preset, out EntityUid aux)
     {
         aux = default;
@@ -197,7 +155,6 @@ public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
 
         if (!_cachedEffects.TryAdd(preset, auxiliary.Entity))
         {
-            // Уже закэшировали пока создавали — отдаём существующий
             aux = _cachedEffects[preset];
             return true;
         }
@@ -207,17 +164,11 @@ public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
     }
 }
 
-// ──────────────────────────────────────────────
-// СОБЫТИЯ
-// ──────────────────────────────────────────────
-
-/// <summary>Попытка назначить эффект. Можно отменить подпиской.</summary>
 [ByRefEvent]
 public record struct BlackMAudioEffectAttemptEvent(ProtoId<AudioPresetPrototype>? Preset)
 {
     public bool Cancelled;
 }
 
-/// <summary>Эффект был назначен (или снят если Preset == null).</summary>
 [ByRefEvent]
 public record struct BlackMAudioEffectAppliedEvent(ProtoId<AudioPresetPrototype>? Preset);

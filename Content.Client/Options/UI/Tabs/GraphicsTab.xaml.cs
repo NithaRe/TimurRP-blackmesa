@@ -63,6 +63,7 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
+using Content.Shared._BlackM.CCVar; // BlackM edit
 using Robust.Shared;
 using Robust.Shared.Configuration;
 
@@ -129,6 +130,7 @@ public sealed partial class GraphicsTab : Control
         Control.AddOptionCheckBox(CCVars.ViewportScaleRender, ViewportLowResCheckBox, invert: true);
         Control.AddOptionCheckBox(CCVars.ParallaxLowQuality, ParallaxLowQualityCheckBox);
         Control.AddOptionCheckBox(CCVars.HudFpsCounterVisible, FpsCounterCheckBox);
+        Control.AddOptionCheckBox(BlackMCVars.DefaultAtmosphereShaderEnabled, DefaultAtmosphereShaderCheckBox);  // BlacM edit
 
         Control.Initialize();
 

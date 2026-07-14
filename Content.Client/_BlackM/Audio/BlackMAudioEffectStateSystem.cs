@@ -3,14 +3,9 @@ using Robust.Shared.Audio.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Audio;
-using Robust.Shared.Prototypes;
 
 namespace Content.Client._BlackM.Audio;
 
-/// <summary>
-/// Reconcile-система: синхронизирует желаемое состояние EFX эффекта с реально назначенным.
-/// Работает через FrameUpdate чтобы не зависеть от порядка событий при старте звука.
-/// </summary>
 public sealed class BlackMAudioEffectStateSystem : EntitySystem
 {
     [Dependency] private readonly BlackMAudioEffectsManagerSystem _effectsManager = default!;
@@ -42,13 +37,6 @@ public sealed class BlackMAudioEffectStateSystem : EntitySystem
         }
     }
 
-    // ──────────────────────────────────────────────
-    // ПУБЛИЧНЫЙ API
-    // ──────────────────────────────────────────────
-
-    /// <summary>
-    /// Устанавливает базовый пресет реверба. Возвращает false если состояние не изменилось.
-    /// </summary>
     public bool SetBaseEffect(Entity<AudioComponent> ent, ProtoId<AudioPresetPrototype>? preset)
     {
         var state = EnsureComp<BlackMAudioEffectStateComponent>(ent);
@@ -61,10 +49,6 @@ public sealed class BlackMAudioEffectStateSystem : EntitySystem
         return true;
     }
 
-    /// <summary>
-    /// Устанавливает приоритетный пресет (заглушение и т.п.).
-    /// Перекрывает базовый пока активен.
-    /// </summary>
     public bool SetOverrideEffect(Entity<AudioComponent> ent, ProtoId<AudioPresetPrototype>? preset)
     {
         var state = EnsureComp<BlackMAudioEffectStateComponent>(ent);
@@ -76,10 +60,6 @@ public sealed class BlackMAudioEffectStateSystem : EntitySystem
         Reconcile(ent, state);
         return true;
     }
-
-    // ──────────────────────────────────────────────
-    // ВНУТРЕННЕЕ
-    // ──────────────────────────────────────────────
 
     private void OnEffectApplied(Entity<AudioComponent> ent, ref BlackMAudioEffectAppliedEvent args)
     {
@@ -97,7 +77,6 @@ public sealed class BlackMAudioEffectStateSystem : EntitySystem
 
         var target = GetTarget(state);
 
-        // Если текущий эффект не совпадает с целевым — снимаем
         if (state.AppliedPreset != target || target == null)
             _effectsManager.RemoveAllEffects(ent.AsNullable());
 
