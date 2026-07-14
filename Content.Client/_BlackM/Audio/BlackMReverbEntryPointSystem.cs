@@ -4,11 +4,6 @@ using Robust.Shared.Audio.Components;
 
 namespace Content.Client._BlackM.Audio;
 
-/// <summary>
-/// Точка входа: навешивает BlackMAudioEffectedComponent на каждый
-/// подходящий звук сразу при его добавлении на клиенте.
-/// Глобальные звуки (музыка, интерфейс) пропускаются.
-/// </summary>
 public sealed class BlackMReverbEntryPointSystem : EntitySystem
 {
     [Dependency] private readonly IPlayerManager _player = default!;
@@ -21,18 +16,15 @@ public sealed class BlackMReverbEntryPointSystem : EntitySystem
 
     private void OnAudioAdd(Entity<AudioComponent> ent, ref ComponentAdd args)
     {
-        // Глобальные звуки (UI, музыка) — без эхо
         if (ent.Comp.Global)
             return;
 
         if (!_player.LocalEntity.HasValue)
             return;
 
-        // Звук не предназначен этому игроку
         if (!IsAllowedToHear(ent, _player.LocalEntity.Value))
             return;
 
-        // Detached — звук ещё не в мире
         if ((MetaData(ent).Flags & MetaDataFlags.Detached) != 0)
             return;
 

@@ -11,21 +11,13 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._BlackM.Audio;
 
-/// <summary>
-/// Применяет эффект реверберации ко всем звукам помеченным BlackMAudioEffectedComponent.
-/// Поддерживает:
-/// — CVar для включения/выключения и выбора силы эффекта
-/// — BlackMEchoDryComponent: исключение конкретных звуков с конкретных сущностей
-/// </summary>
 public sealed class BlackMEchoSystem : EntitySystem
 {
     [Dependency] private readonly BlackMAudioEffectStateSystem _effectState = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
 
-    // Стандарт — небольшая комната в промышленном комплексе
     private static readonly ProtoId<AudioPresetPrototype> StandardPreset = "FactorySmallRoom";
-    // Сильный — длинный коридор комплекса, гулкое эхо
     private static readonly ProtoId<AudioPresetPrototype> StrongPreset   = "FactoryLongPassage";
 
     private bool _enabled;
@@ -42,10 +34,6 @@ public sealed class BlackMEchoSystem : EntitySystem
         Subs.CVar(_cfg, BlackMCVars.EchoStrongPreset, OnPresetChanged,  invokeImmediately: true);
     }
 
-    // ──────────────────────────────────────────────
-    // НОВЫЙ ЗВУК
-    // ──────────────────────────────────────────────
-
     private void OnEffectedStartup(Entity<BlackMAudioEffectedComponent> ent, ref ComponentStartup args)
     {
         if (!_enabled)
@@ -59,10 +47,6 @@ public sealed class BlackMEchoSystem : EntitySystem
 
         Apply((ent.Owner, audio));
     }
-
-    // ──────────────────────────────────────────────
-    // CVARS
-    // ──────────────────────────────────────────────
 
     private void OnEnabledChanged(bool enabled)
     {
@@ -85,10 +69,6 @@ public sealed class BlackMEchoSystem : EntitySystem
         while (query.MoveNext(out var uid, out _, out var audio))
             Apply((uid, audio));
     }
-
-    // ──────────────────────────────────────────────
-    // ПРИМЕНЕНИЕ / СНЯТИЕ
-    // ──────────────────────────────────────────────
 
     private void Apply(Entity<AudioComponent> sound)
     {
@@ -123,13 +103,6 @@ public sealed class BlackMEchoSystem : EntitySystem
             Remove((uid, audio));
     }
 
-    // ──────────────────────────────────────────────
-    // ИСКЛЮЧЕНИЯ (DryPaths)
-    // ──────────────────────────────────────────────
-
-    /// <summary>
-    /// Проверяет: не находится ли этот звук в списке исключений родительской сущности.
-    /// </summary>
     private bool IsDryExempt(Entity<AudioComponent> sound)
     {
         var xform = Transform(sound);
