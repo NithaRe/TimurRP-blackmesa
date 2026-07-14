@@ -213,7 +213,7 @@
   id: HoPGear
   equipment:
     shoes: ClothingShoesColorBrown
-    id: HoPPDA
+    id: AccessCardHolderHoP #BlackM id
     passport: PassportBM #BlackM pass
     #gloves: ClothingHandsGlovesHop
     belt: BoxFolderClipboard

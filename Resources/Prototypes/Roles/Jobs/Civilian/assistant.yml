@@ -98,7 +98,7 @@
 - type: startingGear
   id: PassengerGear
   equipment:
-    id: PassengerPDA
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
     ears: ClothingHeadsetGrey
   #storage:

@@ -94,7 +94,7 @@
   id: BartenderGear
   equipment:
     shoes: ClothingShoesColorBlack
-    id: BartenderPDA
+    id: AccessCardHolderService #BlackM id
     passport: PassportBM #BlackM pass
   #storage:
     #back:

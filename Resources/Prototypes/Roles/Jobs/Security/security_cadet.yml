@@ -139,7 +139,7 @@
     eyes: ClothingEyesGlassesSecurity #Goobstation
     shoes: ClothingShoesKovakSoldier #BlackM
     head: ClothingHeadHelmetKovakSoldier #BlackM
-    id: SecurityCadetPDA
+    id: AccessCardHolderSecurity #BlackM id
     passport: PassportBM #BlackM pass
     ears: ClothingHeadsetAltSecurityRegular # Goobstation
     belt: ClothingBeltSecurityFilled

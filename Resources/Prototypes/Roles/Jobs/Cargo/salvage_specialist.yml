@@ -97,7 +97,7 @@
 - type: startingGear
   id: SalvageSpecialistGear
   equipment:
-    id: SalvagePDA
+    id: AccessCardHolderCargo #BlackM id
     passport: PassportBM #BlackM pass
 ## Goob comment out - jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
     ears: ClothingHeadsetCargo

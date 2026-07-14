@@ -197,7 +197,7 @@
     shoes: ClothingShoesBootsLaceup
     eyes: ClothingEyesGlassesCommand
     #gloves: ClothingHandsGlovesCaptain - Goobstation, moved to loadouts
-    id: CaptainPDA
+    id: AccessCardHolderCaptain #BlackM id
     ears: ClothingHeadsetAltCommand
   storage:
     back:

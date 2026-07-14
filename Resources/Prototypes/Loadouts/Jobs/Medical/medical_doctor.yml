@@ -249,7 +249,7 @@
 - type: loadout
   id: MedicalDoctorPDA
   equipment:
-    id: MedicalPDA
+    id: AccessCardHolderMedic #BlackM
 
 - type: loadout
   id: SeniorPhysicianPDA

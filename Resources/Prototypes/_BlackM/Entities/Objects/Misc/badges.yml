@@ -412,6 +412,19 @@
           - BadgeLawyer
 
 - type: entity
+  id: AccessCardHolderWard
+  name: карта доступа вардена Ковак
+  description: Карта доступа смотрителя службы безопасности.
+  parent: AccessCardHolder
+  components:
+    - type: ContainerFill
+      containers:
+        badge_slots:
+          - BadgeHeadOfSecurity
+          - BadgeDetective
+          - BadgeLawyer
+
+- type: entity
   id: AccessCardHolderCE
   name: карта доступа главного инженера
   description: Карта доступа главного инженера.
@@ -466,6 +479,18 @@
       containers:
         badge_slots:
           - BadgeSecurity
+
+- type: entity
+  id: AccessCardHolderBrigMedic
+  name: карта доступа медика Ковак
+  description: Карта доступа медика службы безопасности.
+  parent: AccessCardHolder
+  components:
+    - type: ContainerFill
+      containers:
+        badge_slots:
+          - BadgeSecurity
+          - BadgeMedical
 
 - type: entity
   id: AccessCardHolderEngineer

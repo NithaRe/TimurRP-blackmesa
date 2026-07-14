@@ -184,7 +184,7 @@
 - type: startingGear
   id: ResearchDirectorGear
   equipment:
-    id: RnDPDA
+    id: AccessCardHolderRD #BlackM id
     passport: PassportBM #BlackM pass
   storage:
     back:

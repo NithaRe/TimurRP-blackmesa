@@ -237,7 +237,7 @@
 - type: loadout
   id: ScientistPDA
   equipment:
-    id: SciencePDA
+    id: AccessCardHolderScientist #BlackM
 
 - type: loadout
   id: SeniorResearcherPDA

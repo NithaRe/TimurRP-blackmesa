@@ -183,7 +183,7 @@
 - type: startingGear
   id: QuartermasterGear
   equipment:
-    id: QuartermasterPDA
+    id: AccessCardHolderQM #BlackM id
     passport: PassportBM #BlackM pass
     ears: ClothingHeadsetAltCargo # Goobstation
     belt: BoxFolderClipboard

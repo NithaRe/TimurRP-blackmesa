@@ -211,7 +211,7 @@
 - type: loadout
   id: StationEngineerPDA
   equipment:
-    id: EngineerPDA
+    id: AccessCardHolderEngineer #BlackM
 
 - type: loadout
   id: SeniorEngineerPDA
