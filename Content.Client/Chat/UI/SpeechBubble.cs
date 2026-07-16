@@ -106,6 +106,7 @@ using Content.Shared.Speech;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
+using Content.Client._BlackM.PhraseWheel; // BlackM: Phrase wheel icon registry
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -164,28 +165,30 @@ namespace Content.Client.Chat.UI
         // man down
         public event Action<EntityUid, SpeechBubble>? OnDied;
 
-        public static SpeechBubble CreateSpeechBubble(SpeechType type, ChatMessage message, EntityUid senderEntity)
+        public static SpeechBubble CreateSpeechBubble(SpeechType type, ChatMessage message, EntityUid senderEntity, Texture? icon = null) // BlackM: Added icon parameter
         {
             switch (type)
             {
                 case SpeechType.Emote:
-                    return new TextSpeechBubble(message, senderEntity, "emoteBox");
+                    return new TextSpeechBubble(message, senderEntity, "emoteBox", icon: icon); // BlackM: Pass icon to TextSpeechBubble
 
                 case SpeechType.Say:
-                    return new FancyTextSpeechBubble(message, senderEntity, "sayBox");
+                    return new FancyTextSpeechBubble(message, senderEntity, "sayBox", icon: icon); // BlackM: Pass icon to FancyTextSpeechBubble
 
                 case SpeechType.Whisper:
-                    return new FancyTextSpeechBubble(message, senderEntity, "whisperBox");
+                    return new FancyTextSpeechBubble(message, senderEntity, "whisperBox", icon: icon); // BlackM: Pass icon to FancyTextSpeechBubble
 
                 case SpeechType.Looc:
-                    return new TextSpeechBubble(message, senderEntity, "emoteBox", Color.FromHex("#48d1cc"));
+                    return new TextSpeechBubble(message, senderEntity, "emoteBox", Color.FromHex("#48d1cc"), icon); // BlackM: Pass icon to TextSpeechBubble
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        public SpeechBubble(ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null)
+        private readonly List<TextureRect> _iconRects = new(); // BlackM: Store references to icon TextureRects for later updates
+
+        public SpeechBubble(ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null, Texture? icon = null) // BlackM: Added icon parameter
         {
             IoCManager.InjectDependencies(this);
             _senderEntity = senderEntity;
@@ -194,7 +197,28 @@ namespace Content.Client.Chat.UI
             // Use text clipping so new messages don't overlap old ones being pushed up.
             RectClipContent = true;
 
-            var bubble = BuildBubble(message, speechStyleClass, fontColor);
+            Control? bubble = null; // BlackM: Declare bubble variable here so we can access it in the icon callback
+
+            if (icon == null)
+            {
+                icon = PhraseWheelIconRegistry.TryTake(_senderEntity, _timing.CurTime, texture =>
+                {
+                    foreach (var rect in _iconRects)
+                    {
+                        rect.Texture = texture;
+                        rect.Visible = true;
+                    }
+
+                    if (bubble != null)
+                    {
+                        bubble.Measure(Vector2Helpers.Infinity);
+                        ContentSize = bubble.DesiredSize;
+                        _verticalOffsetAchieved = -ContentSize.Y;
+                    }
+                });
+            }
+
+            bubble = BuildBubble(message, speechStyleClass, fontColor, icon); // BlackM: Pass icon to BuildBubble
 
             AddChild(bubble);
 
@@ -206,7 +230,34 @@ namespace Content.Client.Chat.UI
             _deathTime = _timing.RealTime + TotalTime;
         }
 
-        protected abstract Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null);
+        protected abstract Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null, Texture? icon = null); // BlackM: Added icon parameter
+
+        protected Control WrapWithIcon(Control content, Texture? icon)
+        {
+            var texRect = new TextureRect
+            {
+                Texture = icon,
+                MinSize = new Vector2(20, 20),
+                MaxSize = new Vector2(20, 20),
+                Stretch = TextureRect.StretchMode.KeepAspectCentered,
+                VerticalAlignment = VAlignment.Center,
+                Visible = icon != null
+            };
+
+            _iconRects.Add(texRect);
+
+            return new BoxContainer
+            {
+                Orientation = BoxContainer.LayoutOrientation.Horizontal,
+                SeparationOverride = 4,
+                VerticalAlignment = VAlignment.Center,
+                Children =
+                {
+                    texRect,
+                    content,
+                }
+            };
+        } // BlackM: Wrap content with icon in a horizontal BoxContainer
 
         protected override void FrameUpdate(FrameEventArgs args)
         {
@@ -304,12 +355,12 @@ namespace Content.Client.Chat.UI
 
     public sealed class TextSpeechBubble : SpeechBubble
     {
-        public TextSpeechBubble(ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null)
-            : base(message, senderEntity, speechStyleClass, fontColor)
+        public TextSpeechBubble(ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null, Texture? icon = null) // BlackM: Added icon parameter
+            : base(message, senderEntity, speechStyleClass, fontColor, icon) // BlackM: Pass icon to base constructor
         {
         }
 
-        protected override Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null)
+        protected override Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null, Texture? icon = null) // BlackM: Added icon parameter
         {
             var label = new RichTextLabel
             {
@@ -321,7 +372,7 @@ namespace Content.Client.Chat.UI
             var panel = new PanelContainer
             {
                 StyleClasses = { "speechBox", speechStyleClass },
-                Children = { label },
+                Children = { WrapWithIcon(label, icon) }, // BlackM: Wrap label with icon
                 ModulateSelfOverride = Color.White.WithAlpha(ConfigManager.GetCVar(CCVars.SpeechBubbleBackgroundOpacity))
             };
 
@@ -332,12 +383,12 @@ namespace Content.Client.Chat.UI
     public sealed class FancyTextSpeechBubble : SpeechBubble
     {
 
-        public FancyTextSpeechBubble(ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null)
-            : base(message, senderEntity, speechStyleClass, fontColor)
+        public FancyTextSpeechBubble(ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null, Texture? icon = null) // BlackM: Added icon parameter
+            : base(message, senderEntity, speechStyleClass, fontColor, icon) // BlackM: Pass icon to base constructor
         {
         }
 
-        protected override Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null)
+        protected override Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null, Texture? icon = null) // BlackM: Added icon parameter
         {
             if (!ConfigManager.GetCVar(CCVars.ChatEnableFancyBubbles))
             {
@@ -351,7 +402,7 @@ namespace Content.Client.Chat.UI
                 var unfanciedPanel = new PanelContainer
                 {
                     StyleClasses = { "speechBox", speechStyleClass },
-                    Children = { label },
+                    Children = { WrapWithIcon(label, icon) }, // BlackM: Wrap label with icon
                     ModulateSelfOverride = Color.White.WithAlpha(ConfigManager.GetCVar(CCVars.SpeechBubbleBackgroundOpacity)),
                 };
                 return unfanciedPanel;
@@ -379,7 +430,7 @@ namespace Content.Client.Chat.UI
             var mainPanel = new PanelContainer
             {
                 StyleClasses = { "speechBox", speechStyleClass },
-                Children = { bubbleContent },
+                Children = { WrapWithIcon(bubbleContent, icon) }, // BlackM: Wrap bubbleContent with icon
                 ModulateSelfOverride = Color.White.WithAlpha(ConfigManager.GetCVar(CCVars.SpeechBubbleBackgroundOpacity)),
                 HorizontalAlignment = HAlignment.Center,
                 VerticalAlignment = VAlignment.Bottom,

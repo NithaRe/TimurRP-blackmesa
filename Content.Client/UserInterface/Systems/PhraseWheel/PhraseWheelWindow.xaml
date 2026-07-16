@@ -6,8 +6,11 @@ phrasewheel
     Title="Меню Фраз"
     MinSize="480 420"
     SetSize="480 520">
-    <BoxContainer Orientation="Vertical" Margin="4" SeparationOverride="4">
-        <!-- Табы разделов -->
-        <TabContainer Name="CategoryTabs" VerticalExpand="True"/>
-    </BoxContainer>
+    <!-- Textures/Interface/PhraseWheel/phrasewheel_bg.png -->
+    <PanelContainer Name="BackgroundPanel" HorizontalExpand="True" VerticalExpand="True">
+        <BoxContainer Orientation="Vertical" Margin="4" SeparationOverride="4">
+            <!-- Табы разделов -->
+            <TabContainer Name="CategoryTabs" VerticalExpand="True"/>
+        </BoxContainer>
+    </PanelContainer>
 </ui:FancyWindow>

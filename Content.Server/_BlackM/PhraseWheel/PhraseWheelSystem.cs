@@ -7,7 +7,10 @@ using Robust.Server.Audio;
 using Robust.Shared.Audio;
 using Robust.Shared.Console;
 using Robust.Shared.Maths;
+using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 using System.Collections.Generic;
 
 namespace Content.Server._BlackM.PhraseWheel;
@@ -17,11 +20,20 @@ public sealed class PhraseWheelSystem : EntitySystem
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly AudioSystem _audio = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
+
+    private readonly Dictionary<EntityUid, TimeSpan> _lastUse = new();
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeNetworkEvent<PlayPhraseWheelMessage>(OnPlayPhrase);
+        SubscribeLocalEvent<PhraseWheelComponent, ComponentShutdown>(OnCompShutdown);
+    }
+
+    private void OnCompShutdown(EntityUid uid, PhraseWheelComponent comp, ComponentShutdown args)
+    {
+        _lastUse.Remove(uid);
     }
 
     private void OnPlayPhrase(PlayPhraseWheelMessage msg, EntitySessionEventArgs args)
@@ -42,6 +54,11 @@ public sealed class PhraseWheelSystem : EntitySystem
         if (comp.AllowedCategories.Count > 0 && !comp.AllowedCategories.Contains(phrase.Category))
             return;
 
+        if (_lastUse.TryGetValue(player.Value, out var lastUse)
+            && _timing.CurTime - lastUse < PhraseWheelConstants.UseCooldown)
+            return;
+        _lastUse[player.Value] = _timing.CurTime;
+
         Color? colorOverride = null;
         var colorHex = msg.CustomColor ?? phrase.TextColor;
         if (!string.IsNullOrWhiteSpace(colorHex))
@@ -57,18 +74,32 @@ public sealed class PhraseWheelSystem : EntitySystem
             _                           => InGameICChatType.Speak,
         };
 
-        _chat.TrySendInGameICMessage(player.Value, phrase.Text, chatType, false,
-            colorOverride: colorOverride);
-
-        if (phrase.Sound != null)
+        if (phrase.Icon is SpriteSpecifier.Texture tex)
         {
-            try
+            RaiseNetworkEvent(new PhraseWheelIconEvent
             {
-                _audio.PlayPvs(phrase.Sound, player.Value,
-                    AudioParams.Default.WithVolume(6f).WithMaxDistance(15f));
-            }
-            catch { }
+                Source = GetNetEntity(player.Value),
+                IconPath = tex.TexturePath.ToString(),
+            }, Filter.Pvs(player.Value));
         }
+
+        Timer.Spawn(100, () =>
+        {
+            if (!Exists(player.Value)) return;
+
+            _chat.TrySendInGameICMessage(player.Value, phrase.Text, chatType, false,
+                colorOverride: colorOverride);
+
+            if (phrase.Sound != null)
+            {
+                try
+                {
+                    _audio.PlayPvs(phrase.Sound, player.Value,
+                        AudioParams.Default.WithVolume(6f).WithMaxDistance(15f));
+                }
+                catch { }
+            }
+        });
     }
 
     public void UpdateAccess(EntityUid uid, List<string> categories, string name, IConsoleShell shell)

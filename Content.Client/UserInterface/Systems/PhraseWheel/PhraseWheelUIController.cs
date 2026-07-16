@@ -24,12 +24,20 @@ public sealed class PhraseWheelUIController : UIController, IOnStateChanged<Game
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IResourceCache _resCache = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
+
+    private TimeSpan _cooldownUntil = TimeSpan.Zero;
 
     private MenuButton? PhraseButton =>
         UIManager.GetActiveUIWidgetOrNull<GameTopMenuBar>()?.PhraseWheelButton;
 
     private PhraseWheelWindow? _window;
     private bool _buttonSubscribed = false;
+    private string? _lastCustomColor;
+    private EntityUid? _lastAttachedEntity;
+
+    private readonly LinkedList<string> _recentPhraseIds = new();
+    private const int MaxRecent = 8;
 
     public void OnStateEntered(GameplayState state) => LoadButton();
 
@@ -86,7 +94,17 @@ public sealed class PhraseWheelUIController : UIController, IOnStateChanged<Game
             PhraseButton.Visible = false;
     }
 
+    public void HandleAttachedEntityChanged(EntityUid? newUid)
+    {
+        if (_lastAttachedEntity == newUid) return;
+        _lastAttachedEntity = newUid;
+        CloseWindow();
+        UpdateButtonVisibility();
+    }
+
     private void OnButtonPressed(BaseButton.ButtonEventArgs args) => ToggleWindow();
+
+    public void ToggleWindowFromKeybind() => ToggleWindow();
 
     private void ToggleWindow()
     {
@@ -109,11 +127,24 @@ public sealed class PhraseWheelUIController : UIController, IOnStateChanged<Game
             ? allPhrases
             : allPhrases.Where(p => comp.AllowedCategories.Contains(p.Category));
 
-        _window = new PhraseWheelWindow(filtered, _resCache);
+        var recentPhrases = _recentPhraseIds
+            .Select(id => _prototypeManager.TryIndex<PhraseWheelEntryPrototype>(id, out var p) ? p : null)
+            .Where(p => p != null)
+            .Select(p => p!);
+
+        _window = new PhraseWheelWindow(filtered, _resCache, _lastCustomColor, recentPhrases);
         _window.OnPhraseSelected += HandlePhraseSelected;
+        _window.OnColorChanged += HandleColorChanged;
         _window.OnClose += OnWindowClosed;
         _window.OnOpen += OnWindowOpen;
         _window.OpenCentered();
+
+        var remaining = _cooldownUntil - _timing.CurTime;
+        if (remaining > TimeSpan.Zero)
+        {
+            _window.SetPhraseButtonsEnabled(false);
+            Timer.Spawn(remaining, () => _window?.SetPhraseButtonsEnabled(true));
+        }
     }
 
     private void HandlePhraseSelected(PhraseWheelEntryPrototype phrase, string? customColor)
@@ -123,6 +154,27 @@ public sealed class PhraseWheelUIController : UIController, IOnStateChanged<Game
             PhraseId = phrase.ID,
             CustomColor = customColor,
         });
+
+        _recentPhraseIds.Remove(phrase.ID);
+        _recentPhraseIds.AddFirst(phrase.ID);
+        while (_recentPhraseIds.Count > MaxRecent)
+            _recentPhraseIds.RemoveLast();
+
+        var recentPhrases = _recentPhraseIds
+            .Select(id => _prototypeManager.TryIndex<PhraseWheelEntryPrototype>(id, out var p) ? p : null)
+            .Where(p => p != null)
+            .Select(p => p!);
+
+        _window?.UpdateRecentTab(recentPhrases);
+
+        _cooldownUntil = _timing.CurTime + PhraseWheelConstants.UseCooldown;
+        _window?.SetPhraseButtonsEnabled(false);
+        Timer.Spawn(PhraseWheelConstants.UseCooldown, () => _window?.SetPhraseButtonsEnabled(true));
+    }
+
+    private void HandleColorChanged(string? color)
+    {
+        _lastCustomColor = color;
     }
 
     private void OnWindowClosed()
@@ -140,6 +192,7 @@ public sealed class PhraseWheelUIController : UIController, IOnStateChanged<Game
     {
         if (_window == null) return;
         _window.OnPhraseSelected -= HandlePhraseSelected;
+        _window.OnColorChanged -= HandleColorChanged;
         _window.OnClose -= OnWindowClosed;
         _window.OnOpen -= OnWindowOpen;
         _window.Dispose();

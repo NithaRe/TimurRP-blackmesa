@@ -36,6 +36,9 @@ public sealed partial class PhraseWheelEntryPrototype : IPrototype
     [DataField]
     public string Category { get; private set; } = "global";
 
+    [DataField]
+    public int Order { get; private set; } = 0;
+
     /// <summary>player color text.</summary>
     [DataField]
     public bool AllowCustomColor { get; private set; } = true;
