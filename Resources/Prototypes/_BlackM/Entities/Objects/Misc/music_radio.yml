@@ -15,7 +15,7 @@
           True:  { state: radio }
           False: { state: radio_off }
   - type: Physics
-    bodyType: Static
+    bodyType: Dynamic
   - type: Fixtures
     fixtures:
       fix1:
@@ -27,8 +27,59 @@
         - MachineMask
         layer:
         - MachineLayer
+  - type: Transform
+    anchored: true
+  - type: Anchorable
+  - type: Pullable
+  - type: Rotatable
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 2
+          CableApcStack1:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: UserInterface
+    interfaces:
+      enum.MusicRadioUiKey.Key:
+        type: MusicRadioBoundUserInterface
   - type: MusicRadio
-    sound:
-      path: /Audio/_BlackM/radio_track.ogg
     volume: -7
     range: 10
+    tracks:
+    - name: "88.2 FM — Вещание"
+      sound:
+        path: /Audio/_BlackM/Radiolist/radio_track.ogg
+    - name: "94.6 FM — Бобруйск"
+      sound:
+        path: /Audio/_BlackM/Radiolist/radio_track_2.ogg
+    - name: "101.5 FM — Бодрая"
+      sound:
+        path: /Audio/_BlackM/Radiolist/radio_track_3.ogg
+    - name: "107.9 FM — МУЗ-1"
+      sound:
+        path: /Audio/_BlackM/Radiolist/radio_track_4.ogg
+    - name: "104.3 FM — МУЗ-2"
+      sound:
+       path: /Audio/_BlackM/Radiolist/radio_track_5.ogg
+    - name: "102.7 FM — Бодрая-2"
+      sound:
+        path: /Audio/_BlackM/Radiolist/radio_track_6.ogg
+    - name: "103.5 FM — Бодрая-3"
+      sound:
+        path: /Audio/_BlackM/Radiolist/radio_track_7.ogg
