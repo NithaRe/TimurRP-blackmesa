@@ -5,8 +5,9 @@
   chatType: Speak
   label: "Подтверждаю"
   category: HECU
-  icon: /Textures/Interface/hecu.png
-  sound: /Audio/Voice/Phrasewheel/accept.ogg
+  order: 0
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/accept.ogg
 
 - type: phraseWheelEntry
   id: PhraseGamesOver
@@ -14,8 +15,9 @@
   chatType: Speak
   label: "ВИЖУ ЦЕЛЬ"
   category: HECU
-  icon: /Textures/Interface/hecu.png
-  sound: /Audio/Voice/Phrasewheel/warning.ogg
+  order: 1
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/warning.ogg
 
 - type: phraseWheelEntry
   id: PhraseBeholdMyPower
@@ -23,8 +25,9 @@
   chatType: Shout
   label: "ПОШЁЛ!"
   category: HECU
-  icon: /Textures/Interface/hecu.png
-  sound: /Audio/Voice/Phrasewheel/poshelposhel.ogg
+  order: 2
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/poshelposhel.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack
@@ -32,8 +35,9 @@
   chatType: Speak
   label: "Кочерга"
   category: HECU
-  icon: /Textures/Interface/hecu.png
-  sound: /Audio/Voice/Phrasewheel/jopykaj.ogg
+  order: 3
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/jopykaj.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack1
@@ -41,8 +45,9 @@
   chatType: Speak
   label: "Так точно Сэр!"
   category: HECU
-  icon: /Textures/Interface/hecu.png
-  sound: /Audio/Voice/Phrasewheel/hg_answer07.ogg
+  order: 4
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_answer07.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack2
@@ -50,8 +55,9 @@
   chatType: Speak
   label: "Я попал в него"
   category: HECU
-  icon: /Textures/Interface/hecu.png
-  sound: /Audio/Voice/Phrasewheel/hg_taunt07_var01.ogg
+  order: 5
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_taunt07_var01.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack3
@@ -59,8 +65,9 @@
   chatType: Speak
   label: "ТВОЮ МАТЬ!!"
   category: HECU
-  icon: /Textures/Interface/hecu.png
-  sound: /Audio/Voice/Phrasewheel/hg_cover07.ogg
+  order: 6
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_cover07.ogg
 
 - type: phraseWheelEntry
   id: PhraseUnstoppable
@@ -68,8 +75,9 @@
   chatType: Speak
   label: "САНИТАР"
   category: HECU
-  icon: /Textures/Interface/hecu.png
-  sound: /Audio/Voice/Phrasewheel/sanitar.ogg
+  order: 7
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/sanitar.ogg
 
 # HECU (hecumask.png)
 - type: phraseWheelEntry
@@ -78,8 +86,9 @@
   chatType: Speak
   label: "Мы можем идти?"
   category: HECU
-  icon: /Textures/Interface/hecumask.png
-  sound: /Audio/Voice/Phrasewheel/hg_check08.ogg
+  order: 8
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_check08.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack5
@@ -87,8 +96,9 @@
   chatType: Speak
   label: "Я РАНЕН!!"
   category: HECU
-  icon: /Textures/Interface/hecumask.png
-  sound: /Audio/Voice/Phrasewheel/hg_hit01.ogg
+  order: 9
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_hit01.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack6
@@ -96,8 +106,9 @@
   chatType: Speak
   label: "нам надо больше людей"
   category: HECU
-  icon: /Textures/Interface/hecumask.png
-  sound: /Audio/Voice/Phrasewheel/hg_idle13.ogg
+  order: 10
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_idle13.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack7
@@ -105,8 +116,9 @@
   chatType: Speak
   label: "Тут ничего нет"
   category: HECU
-  icon: /Textures/Interface/hecumask.png
-  sound: /Audio/Voice/Phrasewheel/hg_question12.ogg
+  order: 11
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_question12.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack8
@@ -114,8 +126,9 @@
   chatType: Speak
   label: "Ищите фримена"
   category: HECU
-  icon: /Textures/Interface/hecumask.png
-  sound: /Audio/Voice/Phrasewheel/hg_question14.ogg
+  order: 12
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_question14.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack9
@@ -123,8 +136,9 @@
   chatType: Speak
   label: "Он может быть рядом"
   category: HECU
-  icon: /Textures/Interface/hecumask.png
-  sound: /Audio/Voice/Phrasewheel/hg_question15.ogg
+  order: 13
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_question15.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack10
@@ -132,8 +146,9 @@
   chatType: Speak
   label: "ВСЕМ ЛЕЧЬ"
   category: HECU
-  icon: /Textures/Interface/hecumask.png
-  sound: /Audio/Voice/Phrasewheel/hg_throw05.ogg
+  order: 14
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_throw05.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack11
@@ -141,8 +156,9 @@
   chatType: Speak
   label: "ВСЕ НА ЗЕМЛЮ"
   category: HECU
-  icon: /Textures/Interface/hecumask.png
-  sound: /Audio/Voice/Phrasewheel/hg_throw05_var01.ogg
+  order: 15
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_throw05_var01.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack12
@@ -150,8 +166,9 @@
   chatType: Speak
   label: "Уродцы наступают"
   category: HECU
-  icon: /Textures/Interface/hecumask.png
-  sound: /Audio/Voice/Phrasewheel/hg_monst14.ogg
+  order: 16
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_monst14.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack13
@@ -159,8 +176,9 @@
   chatType: Speak
   label: "Всё чисто"
   category: HECU
-  icon: /Textures/Interface/hecumask.png
-  sound: /Audio/Voice/Phrasewheel/hg_clear02.ogg
+  order: 17
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_clear02.ogg
 
 # global (halflife.png)
 - type: phraseWheelEntry
@@ -169,8 +187,9 @@
   chatType: Speak
   label: "Поиск"
   category: global
-  icon: /Textures/Interface/halflife.png
-  sound: /Audio/Voice/Phrasewheel/poispodozrev.ogg
+  order: 0
+  icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/poispodozrev.ogg
 
 - type: phraseWheelEntry
   id: PhraseIAmNuclear
@@ -178,8 +197,9 @@
   chatType: Speak
   label: "КОД 100"
   category: global
-  icon: /Textures/Interface/halflife.png
-  sound: /Audio/Voice/Phrasewheel/cod100.ogg
+  order: 1
+  icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/cod100.ogg
 
 - type: phraseWheelEntry
   id: PhraseCod1
@@ -187,8 +207,9 @@
   chatType: Speak
   label: "1199"
   category: global
-  icon: /Textures/Interface/halflife.png
-  sound: /Audio/Voice/Phrasewheel/1199.ogg
+  order: 2
+  icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/1199.ogg
 
 - type: phraseWheelEntry
   id: PhraseCod2
@@ -196,8 +217,9 @@
   chatType: Speak
   label: "Блок"
   category: global
-  icon: /Textures/Interface/halflife.png
-  sound: /Audio/Voice/Phrasewheel/blockirovat.ogg
+  order: 3
+  icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/blockirovat.ogg
 
 - type: phraseWheelEntry
   id: PhraseCod3
@@ -205,60 +227,107 @@
   chatType: Speak
   label: "Тела"
   category: global
-  icon: /Textures/Interface/halflife.png
-  sound: /Audio/Voice/Phrasewheel/deathtela.ogg
+  order: 4
+  icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/deathtela.ogg
 
-# meme (info.svg.192dpi.png)
+# meme (meme(1234567890).png)
 - type: phraseWheelEntry
   id: PhraseMambo
   text: "Mambo"
   chatType: Speak
   label: "Mambo"
   category: meme
-  icon: /Textures/Interface/info.svg.192dpi.png
-  sound: /Audio/Voice/Phrasewheel/mambo.ogg
+  order: 0
+  icon: /Textures/_BlackM/Interface/PhraseWheel/mambo.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/mambo.ogg
 
 - type: phraseWheelEntry
   id: PhraseMeme1
-  text: "Досвидание"
+  text: "Да всё завали свой ебасос уебище ебанное"
   chatType: Speak
-  label: "Досвидание"
+  label: "Завали Ебл"
   category: meme
-  icon: /Textures/Interface/info.svg.192dpi.png
-  sound: /Audio/Voice/Phrasewheel/meme1.ogg
+  order: 1
+  icon: /Textures/_BlackM/Interface/PhraseWheel/meme1.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/meme1.ogg
 
 - type: phraseWheelEntry
   id: PhraseMeme2
-  text: "Спасибо за сотрудничество..."
+  text: "Meow..."
   chatType: Speak
-  label: "Спасибо за сотрудничество"
+  label: "Meow"
   category: meme
-  icon: /Textures/Interface/info.svg.192dpi.png
-  sound: /Audio/Voice/Phrasewheel/meme2.ogg
+  order: 2
+  icon: /Textures/_BlackM/Interface/PhraseWheel/meme2.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/meme2.ogg
 
 - type: phraseWheelEntry
   id: PhraseMeme3
-  text: "Здравствуйте, если вы не продиктуете код на обратной стороне карточки, я взорву ваш дом..."
+  text: "yamete kudasai"
   chatType: Speak
-  label: "Здравствуйте, если вы"
+  label: "yamete-kudasai"
   category: meme
-  icon: /Textures/Interface/info.svg.192dpi.png
-  sound: /Audio/Voice/Phrasewheel/meme3.ogg
+  order: 3
+  icon: /Textures/_BlackM/Interface/PhraseWheel/meme3.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/meme3.ogg
 
 - type: phraseWheelEntry
   id: PhraseMeme4
-  text: "Вы ослушались, теперь ждите своей трагичной учести!"
+  text: "Бля я тебя хочу жи есть"
   chatType: Speak
-  label: "Вы ослушались"
+  label: "Бля я тебя хочу"
   category: meme
-  icon: /Textures/Interface/info.svg.192dpi.png
-  sound: /Audio/Voice/Phrasewheel/meme4.ogg
+  order: 4
+  icon: /Textures/_BlackM/Interface/PhraseWheel/meme4.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/meme4.ogg
 
 - type: phraseWheelEntry
   id: PhraseMeme5
-  text: "Если вы ослушаетес, вы и ваша семья, очень сильно пострадают!"
+  text: "На нас напали!"
   chatType: Speak
-  label: "Если вы ослушаетесь"
+  label: "На нас напали!"
   category: meme
-  icon: /Textures/Interface/info.svg.192dpi.png
-  sound: /Audio/Voice/Phrasewheel/meme5.ogg
+  order: 5
+  icon: /Textures/_BlackM/Interface/PhraseWheel/meme5.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/meme5.ogg
+
+- type: phraseWheelEntry
+  id: PhraseKaiflife0
+  text: "Пенополиуретан вызывает Полипропилена!"
+  chatType: Speak
+  label: "Пенополиуретан"
+  category: KaifLife
+  order: 0
+  icon: /Textures/_BlackM/Interface/PhraseWheel/kaiflife0.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/kaiflife0.ogg
+
+- type: phraseWheelEntry
+  id: PhraseKaiflife1
+  text: "Сунул вынул побежал"
+  chatType: Speak
+  label: "Сунул-вынул-побежал"
+  category: KaifLife
+  order: 1
+  icon: /Textures/_BlackM/Interface/PhraseWheel/kaiflife0.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/kaiflife1.ogg
+
+- type: phraseWheelEntry
+  id: PhraseKaiflife2
+  text: "Ну давай же малыш!"
+  chatType: Speak
+  label: "Малыш"
+  category: KaifLife
+  order: 2
+  icon: /Textures/_BlackM/Interface/PhraseWheel/kaiflife0.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/kaiflife2.ogg
+
+- type: phraseWheelEntry
+  id: PhraseKaiflife3
+  text: "Подолби моё дупло дятел"
+  chatType: Speak
+  label: "Дупло"
+  category: KaifLife
+  order: 3
+  icon: /Textures/_BlackM/Interface/PhraseWheel/kaiflife0.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/kaiflife3.ogg

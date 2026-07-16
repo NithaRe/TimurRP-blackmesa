@@ -17,12 +17,41 @@ namespace Content.Client.UserInterface.Systems.PhraseWheel;
 public sealed partial class PhraseWheelWindow : FancyWindow
 {
     public event Action<PhraseWheelEntryPrototype, string?>? OnPhraseSelected;
+    public event Action<string?>? OnColorChanged;
 
     private string? _customColor;
+    public string? CurrentColor => _customColor;
 
-    public PhraseWheelWindow(IEnumerable<PhraseWheelEntryPrototype> phrases, IResourceCache resCache)
+    private IResourceCache _resCache = null!;
+    private ScrollContainer _recentScroll = null!;
+    private GridContainer _recentGrid = null!;
+
+    public PhraseWheelWindow(IEnumerable<PhraseWheelEntryPrototype> phrases, IResourceCache resCache,
+        string? initialColor = null, IEnumerable<PhraseWheelEntryPrototype>? recentPhrases = null)
     {
         RobustXamlLoader.Load(this);
+        _customColor = initialColor;
+        _resCache = resCache;
+
+        try
+        {
+            var bgTexture = resCache.GetResource<TextureResource>(
+                "/Textures/_BlackM/Interface/PhraseWheel/phrasewheel_bg.png").Texture;
+
+            BackgroundPanel.PanelOverride = new StyleBoxTexture
+            {
+                Texture = bgTexture,
+                PatchMarginLeft = 10,
+                PatchMarginRight = 10,
+                PatchMarginTop = 10,
+                PatchMarginBottom = 10,
+                ContentMarginLeftOverride = 4,
+                ContentMarginTopOverride = 4,
+            };
+        }
+        catch
+        {
+        }
 
         var colorPanel = new BoxContainer
         {
@@ -33,7 +62,7 @@ public sealed partial class PhraseWheelWindow : FancyWindow
 
         var colorLabel = new Label
         {
-            Text = "Цвет текста:",
+            Text = "Text Color:",
             VerticalAlignment = VAlignment.Center,
         };
 
@@ -41,6 +70,7 @@ public sealed partial class PhraseWheelWindow : FancyWindow
         {
             MinSize = new Vector2(180, 0),
             VerticalAlignment = VAlignment.Center,
+            Text = initialColor ?? string.Empty,
         };
 
         var hintLabel = new Label
@@ -61,7 +91,7 @@ public sealed partial class PhraseWheelWindow : FancyWindow
         var resetBtn = new Button
         {
             Text = "✕",
-            ToolTip = "Сбросить цвет",
+            ToolTip = "Reset Color",
             MinSize = new Vector2(28, 0),
         };
 
@@ -73,6 +103,7 @@ public sealed partial class PhraseWheelWindow : FancyWindow
                 _customColor = null;
                 previewStyle.BackgroundColor = Color.Transparent;
                 colorPreview.PanelOverride = previewStyle;
+                OnColorChanged?.Invoke(_customColor);
                 return;
             }
 
@@ -91,6 +122,7 @@ public sealed partial class PhraseWheelWindow : FancyWindow
                 previewStyle.BackgroundColor = new Color(0.5f, 0f, 0f);
             }
             colorPreview.PanelOverride = previewStyle;
+            OnColorChanged?.Invoke(_customColor);
         };
 
         resetBtn.OnPressed += _ =>
@@ -99,7 +131,18 @@ public sealed partial class PhraseWheelWindow : FancyWindow
             _customColor = null;
             previewStyle.BackgroundColor = Color.Transparent;
             colorPreview.PanelOverride = previewStyle;
+            OnColorChanged?.Invoke(_customColor);
         };
+
+        if (!string.IsNullOrEmpty(initialColor))
+        {
+            try
+            {
+                previewStyle.BackgroundColor = Color.FromHex(initialColor);
+                colorPreview.PanelOverride = previewStyle;
+            }
+            catch { /* ignore invalid color */ }
+        }
 
         colorPanel.AddChild(colorLabel);
         colorPanel.AddChild(hexInput);
@@ -119,10 +162,31 @@ public sealed partial class PhraseWheelWindow : FancyWindow
             colorPanel.SetPositionInParent(idx);
         }
 
+        _recentGrid = new GridContainer
+        {
+            Columns = 3,
+            HSeparationOverride = 4,
+            VSeparationOverride = 4,
+            Margin = new Thickness(4),
+        };
+
+        _recentScroll = new ScrollContainer
+        {
+            HorizontalExpand = true,
+            VerticalExpand = true,
+        };
+
+        _recentScroll.AddChild(_recentGrid);
+        CategoryTabs.AddChild(_recentScroll);
+        CategoryTabs.SetTabTitle(0, "Недавние");
+        UpdateRecentTab(recentPhrases ?? Enumerable.Empty<PhraseWheelEntryPrototype>());
+
         var grouped = phrases
             .GroupBy(p => p.Category)
             .OrderBy(g => g.Key)
             .ToList();
+
+        var allButtons = new List<PhraseWheelButton>();
 
         foreach (var group in grouped)
         {
@@ -134,40 +198,98 @@ public sealed partial class PhraseWheelWindow : FancyWindow
 
             var grid = new GridContainer
             {
-                Columns = 4,
+                Columns = 3,
                 HSeparationOverride = 4,
                 VSeparationOverride = 4,
                 Margin = new Thickness(4),
             };
 
-            foreach (var phrase in group)
+            var sortedPhrases = group
+                .OrderBy(p => p.Order)
+                .ToList();
+
+            foreach (var phrase in sortedPhrases)
             {
                 var btn = new PhraseWheelButton(phrase, resCache);
                 btn.OnPressed += () => OnPhraseSelected?.Invoke(phrase, _customColor);
                 grid.AddChild(btn);
+                allButtons.Add(btn);
             }
 
             scroll.AddChild(grid);
             CategoryTabs.AddChild(scroll);
             CategoryTabs.SetTabTitle(CategoryTabs.ChildCount - 1, group.Key);
         }
+
+        _categoryButtons = allButtons;
+        _phraseButtons = new List<PhraseWheelButton>(_categoryButtons);
+        _phraseButtons.AddRange(_recentButtons);
+    }
+
+    private List<PhraseWheelButton> _categoryButtons = new();
+    private List<PhraseWheelButton> _recentButtons = new();
+    private List<PhraseWheelButton> _phraseButtons = new();
+
+    public void UpdateRecentTab(IEnumerable<PhraseWheelEntryPrototype> recentPhrases)
+    {
+        _recentGrid.RemoveAllChildren();
+        _recentButtons = new List<PhraseWheelButton>();
+
+        foreach (var phrase in recentPhrases)
+        {
+            var btn = new PhraseWheelButton(phrase, _resCache);
+            btn.OnPressed += () => OnPhraseSelected?.Invoke(phrase, _customColor);
+            _recentGrid.AddChild(btn);
+            _recentButtons.Add(btn);
+        }
+
+        _phraseButtons = new List<PhraseWheelButton>(_categoryButtons);
+        _phraseButtons.AddRange(_recentButtons);
+    }
+
+    public void SetPhraseButtonsEnabled(bool enabled)
+    {
+        foreach (var btn in _phraseButtons)
+        {
+            btn.Disabled = !enabled;
+            btn.RefreshDisabledVisual();
+        }
     }
 }
 
-public sealed class PhraseWheelButton : Button
+public sealed class PhraseWheelButton : ContainerButton
 {
     public new event Action? OnPressed;
 
+    private readonly PanelContainer _background;
+    private readonly StyleBoxTexture _normalStyle;
+    private readonly StyleBoxTexture _hoverStyle;
+    private readonly StyleBoxTexture _pressedStyle;
+    private readonly StyleBoxTexture _disabledStyle;
+
     public PhraseWheelButton(PhraseWheelEntryPrototype phrase, IResourceCache resCache)
     {
-        MinSize = new Vector2(100, 90);
-        MaxSize = new Vector2(120, 100);
+        MinSize = new Vector2(128, 108);
+        MaxSize = new Vector2(128, 108);
         ToolTip = phrase.Text;
+
+        _normalStyle = MakeButtonStyle(resCache, "/Textures/_BlackM/Interface/PhraseWheel/phrasewheel_button_normal.png");
+        _hoverStyle = MakeButtonStyle(resCache, "/Textures/_BlackM/Interface/PhraseWheel/phrasewheel_button_hover.png");
+        _pressedStyle = MakeButtonStyle(resCache, "/Textures/_BlackM/Interface/PhraseWheel/phrasewheel_button_pressed.png");
+        _disabledStyle = MakeButtonStyle(resCache, "/Textures/_BlackM/Interface/PhraseWheel/phrasewheel_button_disabled.png");
+
+        _background = new PanelContainer
+        {
+            PanelOverride = _normalStyle,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+        };
+        AddChild(_background);
 
         var vbox = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
-            SeparationOverride = 2,
+            SeparationOverride = 4,
             Margin = new Thickness(4),
             HorizontalAlignment = HAlignment.Center,
             VerticalAlignment = VAlignment.Center,
@@ -175,8 +297,8 @@ public sealed class PhraseWheelButton : Button
 
         var icon = new TextureRect
         {
-            MinSize = new Vector2(48, 48),
-            MaxSize = new Vector2(48, 48),
+            MinSize = new Vector2(36, 36),
+            MaxSize = new Vector2(36, 36),
             Stretch = TextureRect.StretchMode.KeepAspectCentered,
             HorizontalAlignment = HAlignment.Center,
         };
@@ -195,20 +317,58 @@ public sealed class PhraseWheelButton : Button
         catch { }
 
         var displayText = string.IsNullOrEmpty(phrase.Label) ? phrase.Text : phrase.Label;
-        if (displayText.Length > 14)
-            displayText = displayText[..12] + "..";
 
-        var label = new Label
+        var labelHolder = new PanelContainer
         {
-            Text = displayText,
+            MinSize = new Vector2(120, 40),
+            MaxSize = new Vector2(120, 40),
             HorizontalAlignment = HAlignment.Center,
-            FontColorOverride = Color.White,
+            VerticalAlignment = VAlignment.Center,
+            RectClipContent = true,
         };
 
-        vbox.AddChild(icon);
-        vbox.AddChild(label);
-        AddChild(vbox);
+        var label = new RichTextLabel
+        {
+            HorizontalAlignment = HAlignment.Center,
+            VerticalAlignment = VAlignment.Center,
+            MaxWidth = 120,
+        };
+        label.SetMessage(displayText);
+        labelHolder.AddChild(label);
 
-        OnButtonUp += _ => OnPressed?.Invoke();
+        vbox.AddChild(icon);
+        vbox.AddChild(labelHolder);
+        _background.AddChild(vbox);
+
+        OnButtonDown += _ => _background.PanelOverride = _pressedStyle;
+        OnButtonUp += _ =>
+        {
+            _background.PanelOverride = Disabled ? _disabledStyle : _hoverStyle;
+            OnPressed?.Invoke();
+        };
+        OnMouseEntered += _ => { if (!Disabled) _background.PanelOverride = _hoverStyle; };
+        OnMouseExited += _ => { if (!Disabled) _background.PanelOverride = _normalStyle; };
+
+        RefreshDisabledVisual();
+    }
+
+    public void RefreshDisabledVisual()
+    {
+        _background.PanelOverride = Disabled ? _disabledStyle : _normalStyle;
+    }
+
+    private static StyleBoxTexture MakeButtonStyle(IResourceCache resCache, string path)
+    {
+        var tex = resCache.GetResource<TextureResource>(path).Texture;
+        return new StyleBoxTexture
+        {
+            Texture = tex,
+            PatchMarginLeft = 8,
+            PatchMarginRight = 8,
+            PatchMarginTop = 8,
+            PatchMarginBottom = 8,
+            ContentMarginLeftOverride = 4,
+            ContentMarginTopOverride = 4,
+        };
     }
 }

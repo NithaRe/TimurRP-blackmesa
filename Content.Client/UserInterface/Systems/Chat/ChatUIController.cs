@@ -53,6 +53,7 @@ using Content.Client.Chat.TypingIndicator;
 using Content.Client.Chat.UI;
 using Content.Client.Examine;
 using Content.Client.Gameplay;
+using Content.Client._BlackM.PhraseWheel; // BlackM - Phrase wheel
 using Content.Client.Ghost;
 using Content.Client.Mind;
 using Content.Client.Roles;
@@ -510,8 +511,9 @@ public sealed partial class ChatUIController : UIController
 
     private void CreateSpeechBubble(EntityUid entity, SpeechBubbleData speechData)
     {
+        var phraseIcon = PhraseWheelIconRegistry.TryTake(entity, _timing.CurTime); // BlackM - Phrase wheel
         var bubble =
-            SpeechBubble.CreateSpeechBubble(speechData.Type, speechData.Message, entity);
+        SpeechBubble.CreateSpeechBubble(speechData.Type, speechData.Message, entity, phraseIcon); // BlackM - Phrase wheel
 
         bubble.OnDied += SpeechBubbleDied;
 
