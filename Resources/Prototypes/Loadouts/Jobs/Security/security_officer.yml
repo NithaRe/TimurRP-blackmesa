@@ -247,7 +247,7 @@
 - type: loadout
   id: SecurityPDA
   equipment:
-    id: AccessCardHolderSecurity # BlackM
+    id: AccessCardHolder # BlackM
 
 - type: loadout
   id: SeniorOfficerPDA

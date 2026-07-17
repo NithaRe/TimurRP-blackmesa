@@ -94,7 +94,7 @@
   id: TechnicalAssistantGear
   equipment:
     shoes: ClothingShoesBootsWork
-    id: AccessCardHolderEngineer #BlackM id
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
     belt: ClothingBeltUtilityEngineering
     pocket2: BookEngineersHandbook

@@ -96,7 +96,7 @@
   id: JanitorGear
   equipment:
     shoes: ClothingShoesGaloshes
-    id: AccessCardHolderService #BlackM id
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
     belt: ClothingBeltJanitorFilled
     pocket1: KeyRingJanitor # Goobstation

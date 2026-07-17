@@ -12,4 +12,7 @@ public sealed partial class BadgeComponent : Component
 
     [DataField, AutoNetworkedField]
     public Color ExamineColor = Color.FromHex("#c8c8c8");
+
+    [DataField, AutoNetworkedField]
+    public string CardSpriteState = string.Empty;
 }

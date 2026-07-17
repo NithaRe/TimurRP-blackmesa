@@ -1,12 +1,21 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "BlackM",
+  "copyright": "made by @TheSeeker8035 Discord",
   "size": {
     "x": 32,
     "y": 32
   },
   "states": [
+    {
+      "name": "captain"
+    },
+    {
+      "name": "engineerchief"
+    },
+    {
+      "name": "engioncard"
+    },
     {
       "name": "icon",
       "directions": 1,
@@ -15,6 +24,30 @@
           1
         ]
       ]
+    },
+    {
+      "name": "medicalchief"
+    },
+    {
+      "name": "medoncard"
+    },
+    {
+      "name": "sciencechief"
+    },
+    {
+      "name": "scienoncard"
+    },
+    {
+      "name": "seconcard"
+    },
+    {
+      "name": "securityhos"
+    },
+    {
+      "name": "supplychief"
+    },
+    {
+      "name": "supplyoncard"
     }
   ]
 }

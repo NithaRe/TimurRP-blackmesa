@@ -37,24 +37,7 @@
     - type: Sprite
       sprite: _BlackM/Objects/Misc/badges.rsi
       layers:
-        - state: command
-
-- type: entity
-  id: BadgeCommand
-  name: значок командования
-  description: Золотой значок командования. Даёт доступ к командным зонам станции.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Command
-        - Captain
-        - HeadOfPersonnel
-      examineColor: "#e6c832"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: command
+        - state: maintenance
 
 - type: entity
   id: BadgeSecurity
@@ -70,10 +53,179 @@
         - GenpopEnter
         - GenpopLeave
       examineColor: "#e63232"
+      cardSpriteState: seconcard
     - type: Sprite
       sprite: _BlackM/Objects/Misc/badges.rsi
       layers:
         - state: security
+
+- type: entity
+  id: BadgeMaintenance
+  name: значок технического обслуживания
+  description: Серый значок техников. Даёт доступ к техническим туннелям.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - Maintenance
+      examineColor: "#8c8c32"
+      cardSpriteState: engioncard
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: maintenance
+
+- type: entity
+  id: BadgeSupply
+  name: значок снабжения
+  description: Оранжевый значок снабженцев. Даёт доступ к карго, снабжению и утилизации.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - Cargo
+        - Salvage
+      examineColor: "#a86432"
+      cardSpriteState: supplyoncard
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: supply
+
+- type: entity
+  id: BadgeScience
+  name: значок научного отдела
+  description: Фиолетовый значок учёных. Даёт доступ к лабораториям и исследовательским зонам.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - Research
+        - Robotics
+      examineColor: "#b432e6"
+      cardSpriteState: scienoncard
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: science
+
+- type: entity
+  id: BadgeService
+  name: значок сервисного отдела
+  description: Значок сервисного персонала. Даёт доступ к сервисным зонам.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - Service
+        - Bar
+        - Kitchen
+        - Hydroponics
+        - Theatre
+        - Chapel
+      examineColor: "#c832a0"
+      cardSpriteState: supplyoncard
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: maintenance
+
+- type: entity
+  id: BadgeCommand
+  name: значок командования
+  description: Золотой значок командования. Даёт доступ к командным зонам станции.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - Command
+        - Captain
+        - HeadOfPersonnel
+      examineColor: "#e6c832"
+      cardSpriteState: captain
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: captain
+
+- type: entity
+  id: BadgeQuartermaster
+  name: значок квартирмейстера
+  description: Значок квартирмейстера. Полный доступ к зонам снабжения.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - Quartermaster
+        - Cargo
+        - Salvage
+        - Command
+      examineColor: "#a86432"
+      cardSpriteState: supplychief
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: supplychief
+
+- type: entity
+  id: BadgeChiefEngineer
+  name: значок главного инженера
+  description: Значок главного инженера. Полный доступ к инженерным системам.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - ChiefEngineer
+        - Engineering
+        - Maintenance
+        - External
+        - Atmospherics
+        - Command
+      examineColor: "#e6a032"
+      cardSpriteState: engineerchief
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: engineerchief
+
+- type: entity
+  id: BadgeResearchDirector
+  name: значок директора исследований
+  description: Значок директора исследований. Полный доступ к научным зонам.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - ResearchDirector
+        - Research
+        - Robotics
+        - Command
+      examineColor: "#b432e6"
+      cardSpriteState: sciencechief
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: sciencechief
+
+- type: entity
+  id: BadgeChiefMedicalOfficer
+  name: значок главного врача
+  description: Значок главного врача. Полный доступ к медицинским зонам.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - ChiefMedicalOfficer
+        - Medical
+        - Chemistry
+        - Cryogenics
+        - Command
+      examineColor: "#32c8e6"
+      cardSpriteState: medicalchief
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: medicalchief
 
 - type: entity
   id: BadgeHeadOfSecurity
@@ -92,270 +244,11 @@
         - GenpopLeave
         - Command
       examineColor: "#e63232"
+      cardSpriteState: securityhos
     - type: Sprite
       sprite: _BlackM/Objects/Misc/badges.rsi
       layers:
-        - state: security
-
-- type: entity
-  id: BadgeDetective
-  name: значок детектива
-  description: Значок детектива. Даёт доступ к зонам расследований.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Detective
-        - Security
-        - Brig
-      examineColor: "#e63232"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: security
-
-- type: entity
-  id: BadgeLawyer
-  name: значок юриста
-  description: Значок юриста. Даёт доступ к изолятору и юридическим зонам.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Lawyer
-        - Brig
-        - GenpopEnter
-        - GenpopLeave
-      examineColor: "#e63232"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: security
-
-- type: entity
-  id: BadgeEngineering
-  name: значок инженерного отдела
-  description: Зелёный значок инженеров. Даёт доступ к инженерным зонам и техническим туннелям.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Engineering
-        - Maintenance
-        - External
-      examineColor: "#e6a032"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: engineering
-
-- type: entity
-  id: BadgeChiefEngineer
-  name: значок главного инженера
-  description: Значок главного инженера. Полный доступ к инженерным системам.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - ChiefEngineer
-        - Engineering
-        - Maintenance
-        - External
-        - Atmospherics
-        - Command
-      examineColor: "#e6a032"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: engineering
-
-- type: entity
-  id: BadgeMedical
-  name: значок медицинского отдела
-  description: Синий значок медиков. Даёт доступ к медицинским зонам, хирургии и моргу.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Medical
-        - Chemistry
-        - Cryogenics
-      examineColor: "#32c8e6"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: medical
-
-- type: entity
-  id: BadgeChiefMedicalOfficer
-  name: значок главного врача
-  description: Значок главного врача. Полный доступ к медицинским зонам.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - ChiefMedicalOfficer
-        - Medical
-        - Chemistry
-        - Cryogenics
-        - Command
-      examineColor: "#32c8e6"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: medical
-
-- type: entity
-  id: BadgeScience
-  name: значок научного отдела
-  description: Фиолетовый значок учёных. Даёт доступ к лабораториям и исследовательским зонам.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Research
-        - Robotics
-      examineColor: "#b432e6"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: science
-
-- type: entity
-  id: BadgeResearchDirector
-  name: значок директора исследований
-  description: Значок директора исследований. Полный доступ к научным зонам.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - ResearchDirector
-        - Research
-        - Robotics
-        - Command
-      examineColor: "#b432e6"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: science
-
-- type: entity
-  id: BadgeSupply
-  name: значок снабжения
-  description: Оранжевый значок снабженцев. Даёт доступ к карго, снабжению и утилизации.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Cargo
-        - Salvage
-      examineColor: "#a86432"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: supply
-
-- type: entity
-  id: BadgeQuartermaster
-  name: значок квартирмейстера
-  description: Значок квартирмейстера. Полный доступ к зонам снабжения.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Quartermaster
-        - Cargo
-        - Salvage
-        - Command
-      examineColor: "#a86432"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: supply
-
-- type: entity
-  id: BadgeAtmos
-  name: значок атмосферной техники
-  description: Бирюзовый значок атмосферщиков. Даёт доступ к атмосферным системам и инженерным зонам.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Atmospherics
-        - Engineering
-        - Maintenance
-      examineColor: "#32e6c8"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: atmos
-
-- type: entity
-  id: BadgeService
-  name: значок сервисного отдела
-  description: Значок сервисного персонала. Даёт доступ к сервисным зонам.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Service
-        - Bar
-        - Kitchen
-        - Hydroponics
-        - Theatre
-        - Chapel
-      examineColor: "#c832a0"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: janitor
-
-- type: entity
-  id: BadgeJanitor
-  name: значок уборщика
-  description: Фиолетовый значок уборщика. Даёт доступ к подсобным помещениям.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Maintenance
-        - Janitor
-      examineColor: "#c832a0"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: janitor
-
-- type: entity
-  id: BadgeMaintenance
-  name: значок технического обслуживания
-  description: Серый значок техников. Даёт доступ к техническим туннелям.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Maintenance
-      examineColor: "#8c8c32"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: maintenance
-
-- type: entity
-  id: BadgeJournalist
-  name: значок журналиста
-  description: Значок журналиста. Даёт доступ к зонам прессы.
-  parent: BaseBadge
-  components:
-    - type: Badge
-      accessTags:
-        - Journalism
-        - Service
-      examineColor: "#c832a0"
-    - type: Sprite
-      sprite: _BlackM/Objects/Misc/badges.rsi
-      layers:
-        - state: janitor
+        - state: securityhos
 
 - type: entity
   id: AccessCardHolderCaptain
@@ -374,45 +267,15 @@
           - BadgeQuartermaster
 
 - type: entity
-  id: AccessCardHolderHoP
-  name: карта доступа главы персонала
-  description: Карта доступа главы персонала.
+  id: AccessCardHolderQM
+  name: карта доступа квартирмейстера
+  description: Карта доступа квартирмейстера.
   parent: AccessCardHolder
   components:
     - type: ContainerFill
       containers:
         badge_slots:
-          - BadgeCommand
-          - BadgeService
-          - BadgeSupply
-          - BadgeJanitor
-          - BadgeJournalist
-
-- type: entity
-  id: AccessCardHolderHoS
-  name: карта доступа начальника Ковак
-  description: Карта доступа начальника службы безопасности.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeHeadOfSecurity
-          - BadgeDetective
-          - BadgeLawyer
-
-- type: entity
-  id: AccessCardHolderWard
-  name: карта доступа вардена Ковак
-  description: Карта доступа смотрителя службы безопасности.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeHeadOfSecurity
-          - BadgeDetective
-          - BadgeLawyer
+          - BadgeQuartermaster
 
 - type: entity
   id: AccessCardHolderCE
@@ -424,18 +287,6 @@
       containers:
         badge_slots:
           - BadgeChiefEngineer
-          - BadgeAtmos
-
-- type: entity
-  id: AccessCardHolderCMO
-  name: карта доступа главного врача
-  description: Карта доступа главного врача.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeChiefMedicalOfficer
 
 - type: entity
   id: AccessCardHolderRD
@@ -449,158 +300,41 @@
           - BadgeResearchDirector
 
 - type: entity
-  id: AccessCardHolderQM
-  name: карта доступа квартирмейстера
-  description: Карта доступа квартирмейстера.
+  id: AccessCardHolderCMO
+  name: карта доступа главного врача
+  description: Карта доступа главного врача.
   parent: AccessCardHolder
   components:
     - type: ContainerFill
       containers:
         badge_slots:
-          - BadgeQuartermaster
+          - BadgeChiefMedicalOfficer
 
 - type: entity
-  id: AccessCardHolderSecurity
-  name: карта доступа офицера Ковак
-  description: Карта доступа офицера службы безопасности.
+  id: AccessCardHolderHoS
+  name: карта доступа начальника Ковак
+  description: Карта доступа начальника службы безопасности.
   parent: AccessCardHolder
   components:
     - type: ContainerFill
       containers:
         badge_slots:
-          - BadgeSecurity
+          - BadgeHeadOfSecurity
 
 - type: entity
-  id: AccessCardHolderBrigMedic
-  name: карта доступа медика Ковак
-  description: Карта доступа медика службы безопасности.
-  parent: AccessCardHolder
+  id: BadgeMedical
+  name: значок медицинского отдела
+  description: Синий значок медиков. Даёт доступ к медицинским зонам, хирургии и моргу.
+  parent: BaseBadge
   components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeSecurity
-          - BadgeMedical
-
-- type: entity
-  id: AccessCardHolderEngineer
-  name: карта доступа инженера
-  description: Карта доступа инженера.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeEngineering
-
-- type: entity
-  id: AccessCardHolderAtmos
-  name: карта доступа атмосферного техника
-  description: Карта доступа атмосферного техника.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeAtmos
-
-- type: entity
-  id: AccessCardHolderMedic
-  name: карта доступа медика
-  description: Карта доступа медицинского сотрудника.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeMedical
-
-- type: entity
-  id: AccessCardHolderScientist
-  name: карта доступа учёного
-  description: Карта доступа учёного.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeScience
-
-- type: entity
-  id: AccessCardHolderCargo
-  name: карта доступа грузчика
-  description: Карта доступа грузчика.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeSupply
-
-- type: entity
-  id: AccessCardHolderSalvage
-  name: карта доступа утилизатора
-  description: Карта доступа утилизатора.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeSupply
-          - BadgeMaintenance
-
-- type: entity
-  id: AccessCardHolderDetective
-  name: карта доступа детектива
-  description: Карта доступа детектива.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeDetective
-
-- type: entity
-  id: AccessCardHolderLawyer
-  name: карта доступа юриста
-  description: Карта доступа юриста.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeLawyer
-
-- type: entity
-  id: AccessCardHolderService
-  name: карта доступа сервисного персонала
-  description: Карта доступа для работников сервисных служб.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeService
-
-- type: entity
-  id: AccessCardHolderJanitor
-  name: карта доступа уборщика
-  description: Карта доступа уборщика.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeJanitor
-
-- type: entity
-  id: AccessCardHolderJournalist
-  name: карта доступа журналиста
-  description: Карта доступа журналиста.
-  parent: AccessCardHolder
-  components:
-    - type: ContainerFill
-      containers:
-        badge_slots:
-          - BadgeJournalist
-          - BadgeService
+    - type: Badge
+      accessTags:
+        - Medical
+        - Chemistry
+        - Cryogenics
+      examineColor: "#32c8e6"
+      cardSpriteState: medoncard
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: medical

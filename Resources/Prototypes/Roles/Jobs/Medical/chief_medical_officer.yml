@@ -196,7 +196,7 @@
 - type: startingGear
   id: CMOGear
   equipment:
-    id: AccessCardHolderCMO #BlackM id
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
 #   eyes: ClothingEyesGlassesMed # Goobstation # CorvaxGoob-loadouts: replaced on a ChiefMedicalOfficerGlasses loadout
     belt: ClothingBeltMedicalFilled

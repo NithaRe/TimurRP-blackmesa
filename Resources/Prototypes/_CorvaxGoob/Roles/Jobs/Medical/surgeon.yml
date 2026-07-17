@@ -30,7 +30,7 @@
   equipment:
     belt: ClothingBeltSurgicalBoardFilled
     shoes: ClothingShoesColorWhite
-    id: AccessCardHolderMedic #BlackM id
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
     mask: ClothingMaskSterile
 
