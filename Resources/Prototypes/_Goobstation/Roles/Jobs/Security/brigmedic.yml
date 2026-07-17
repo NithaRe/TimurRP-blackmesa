@@ -62,7 +62,7 @@
     outerClothing: ClothingOuterCoatAMG
     gloves: ClothingHandsGlovesColorWhite
     jumpsuit: ClothingUniformJumpsuitBrigmedic
-    id: BrigmedicPDA
+    id: AccessCardHolderBrigMedic #BlackM id
     back: ClothingBackpackBrigmedic
     shoes: ClothingShoesBootsJack
     head: ClothingHeadHatBeretBrigmedic

@@ -93,7 +93,7 @@
   id: ChaplainGear
   equipment:
     shoes: ClothingShoesColorBlack
-    id: ChaplainPDA
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
   storage:
     back:

@@ -96,7 +96,7 @@
 - type: startingGear
   id: CargoTechGear
   equipment:
-    id: CargoPDA
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
     pocket1: AppraisalTool
   #storage:

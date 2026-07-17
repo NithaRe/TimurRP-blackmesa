@@ -92,7 +92,7 @@
   id: MedicalInternGear
   equipment:
     shoes: ClothingShoesColorWhite
-    id: MedicalInternPDA
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
     belt: ClothingBeltMedicalFilled
     pocket2: BookMedicalReferenceBook

@@ -103,7 +103,7 @@
   id: ServiceWorkerGear
   equipment:
     shoes: ClothingShoesColorBlack
-    id: ServiceWorkerPDA
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
   #storage:
     #back:

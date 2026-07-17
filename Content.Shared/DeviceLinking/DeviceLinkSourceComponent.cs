@@ -39,12 +39,13 @@
 
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Content.Shared._BlackM.Access.Systems; // BlackM
 
 namespace Content.Shared.DeviceLinking;
 
 [RegisterComponent]
 [NetworkedComponent] // for interactions. Actual state isn't currently synced.
-[Access(typeof(SharedDeviceLinkSystem))]
+[Access(typeof(SharedDeviceLinkSystem), typeof(SharedAccessButtonSystem))] // BlackM edit
 public sealed partial class DeviceLinkSourceComponent : Component
 {
     /// <summary>

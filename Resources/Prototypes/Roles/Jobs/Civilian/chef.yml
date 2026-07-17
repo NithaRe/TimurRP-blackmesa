@@ -115,7 +115,7 @@
   id: ChefGear
   equipment:
     shoes: ClothingShoesColorBlack
-    id: ChefPDA
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
     belt: ClothingBeltChefFilled
   #storage:

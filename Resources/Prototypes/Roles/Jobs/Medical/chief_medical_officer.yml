@@ -146,7 +146,7 @@
       department: Medical
       time: 0 # BlackM 36000 #10 hrs
     - !type:RoleTimeRequirement  # CorvaxGoob
-      role: JobSurgeon  
+      role: JobSurgeon
       time: 0 # BlackM 7200 # CorvaxGoob 2 hrs
     - !type:SpeciesRequirement # Goob - None Felinid
       inverted: true
@@ -196,7 +196,7 @@
 - type: startingGear
   id: CMOGear
   equipment:
-    id: CMOPDA
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
 #   eyes: ClothingEyesGlassesMed # Goobstation # CorvaxGoob-loadouts: replaced on a ChiefMedicalOfficerGlasses loadout
     belt: ClothingBeltMedicalFilled

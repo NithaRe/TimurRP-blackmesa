@@ -100,7 +100,7 @@
   id: LawyerGear
   equipment:
     shoes: ClothingShoesBootsLaceup
-    id: LawyerPDA
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
     ears: ClothingHeadsetLawyer # CorvaxGoob: ClothingHeadsetSecurity > ClothingHeadsetLawyer
   inhand:

@@ -272,16 +272,16 @@ public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
 
     private bool AccessCheck(EntityUid target, EntityUid? user, NetworkConfiguratorComponent component)
     {
-        if (!TryComp(target, out AccessReaderComponent? reader) || user == null)
-            return true;
+        // if (!TryComp(target, out AccessReaderComponent? reader) || user == null) // BlackM edit
+        return true;
 
-        if (_accessSystem.IsAllowed(user.Value, target, reader))
-            return true;
+        // if (_accessSystem.IsAllowed(user.Value, target, reader)) // BlackM edit
+        //   return true; // BlackM edit
 
-        _audioSystem.PlayPvs(component.SoundNoAccess, user.Value, AudioParams.Default.WithVolume(-2f).WithPitchScale(1.2f));
-        _popupSystem.PopupEntity(Loc.GetString("network-configurator-device-access-denied"), target, user.Value);
+        // _audioSystem.PlayPvs(component.SoundNoAccess, user.Value, AudioParams.Default.WithVolume(-2f).WithPitchScale(1.2f)); // BlackM edit
+        // _popupSystem.PopupEntity(Loc.GetString("network-configurator-device-access-denied"), target, user.Value); // BlackM edit
 
-        return false;
+        // return false; // BlackM edit
     }
 
     private void OnComponentRemoved(EntityUid uid, DeviceListComponent component, ComponentRemove args)

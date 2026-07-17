@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "made by @TheSeeker8035 Discord",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "captain"
+    },
+    {
+      "name": "engineerchief"
+    },
+    {
+      "name": "maintenance"
+    },
+    {
+      "name": "medical"
+    },
+    {
+      "name": "medicalchief"
+    },
+    {
+      "name": "science"
+    },
+    {
+      "name": "sciencechief"
+    },
+    {
+      "name": "security"
+    },
+    {
+      "name": "securityhos"
+    },
+    {
+      "name": "supply"
+    },
+    {
+      "name": "supplychief"
+    }
+  ]
+}

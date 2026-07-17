@@ -184,7 +184,7 @@
 - type: startingGear
   id: ChiefEngineerGear
   equipment:
-    id: CEPDA
+    id: AccessCardHolderCE #BlackM id
     passport: PassportBM #BlackM pass
     eyes: ClothingEyesGlassesMeson
     belt: ClothingBeltUtilityEngineering

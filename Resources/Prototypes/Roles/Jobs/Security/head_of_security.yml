@@ -198,7 +198,7 @@
   id: HoSGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
-    id: HoSPDA
+    id: AccessCardHolderHoS #BlackM id
     passport: PassportBM #BlackM pass
     #gloves: ClothingHandsGlovesCombat - Goobstation, moved to loadouts
     ears: ClothingHeadsetAltSecurity

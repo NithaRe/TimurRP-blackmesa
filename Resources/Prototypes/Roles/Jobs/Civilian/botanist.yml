@@ -87,7 +87,7 @@
   id: BotanistGear
   equipment:
     shoes: ClothingShoesColorBrown
-    id: BotanistPDA
+    id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
     belt: ClothingBeltPlantFilled
   #storage:
