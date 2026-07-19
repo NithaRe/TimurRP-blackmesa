@@ -1,12 +1,13 @@
 - type: entity
   id: AccessCardHolder
   name: карта доступа
-  description: Специальная карта-держатель. Вмещает до 6 значков, которые дают различные уровни доступа. Осмотрите карту, чтобы увидеть вставленные значки.
+  description: Специальная карта-держатель. Вмещает до 6 ключей доступа, которые дают различные уровни доступа. Осмотрите карту, чтобы увидеть вставленные ключи.
   parent: BaseItem
   components:
     - type: AccessCardHolder
       maxBadges: 6
       badgeContainerId: badge_slots
+    - type: Access
     - type: IdCard
     - type: Clothing
       slots:
@@ -41,8 +42,8 @@
 
 - type: entity
   id: BadgeSecurity
-  name: значок безопасности Ковак
-  description: Фиолетовый значок службы безопасности Ковак. Даёт доступ к зонам СБ, оружейной и изолятору.
+  name: ключ безопасности Ковак
+  description: Фиолетовый ключ службы безопасности Ковак. Даёт доступ к зонам СБ, оружейной и изолятору.
   parent: BaseBadge
   components:
     - type: Badge
@@ -61,8 +62,8 @@
 
 - type: entity
   id: BadgeMaintenance
-  name: значок технического обслуживания
-  description: Серый значок техников. Даёт доступ к техническим туннелям.
+  name: ключ технического обслуживания
+  description: Зеленый ключ техников. Даёт доступ к техническим туннелям.
   parent: BaseBadge
   components:
     - type: Badge
@@ -77,8 +78,8 @@
 
 - type: entity
   id: BadgeSupply
-  name: значок снабжения
-  description: Оранжевый значок снабженцев. Даёт доступ к карго, снабжению и утилизации.
+  name: ключ снабжения
+  description: Коричневый ключ снабженцев. Даёт доступ к карго, снабжению и утилизации.
   parent: BaseBadge
   components:
     - type: Badge
@@ -94,8 +95,8 @@
 
 - type: entity
   id: BadgeScience
-  name: значок научного отдела
-  description: Фиолетовый значок учёных. Даёт доступ к лабораториям и исследовательским зонам.
+  name: ключ научного отдела
+  description: Оранжевый ключ учёных. Даёт доступ к лабораториям и исследовательским зонам.
   parent: BaseBadge
   components:
     - type: Badge
@@ -111,8 +112,8 @@
 
 - type: entity
   id: BadgeService
-  name: значок сервисного отдела
-  description: Значок сервисного персонала. Даёт доступ к сервисным зонам.
+  name: ключ сервисного отдела
+  description: Зеленый ключ сервисного персонала. Даёт доступ к сервисным зонам.
   parent: BaseBadge
   components:
     - type: Badge
@@ -132,8 +133,8 @@
 
 - type: entity
   id: BadgeCommand
-  name: значок командования
-  description: Золотой значок командования. Даёт доступ к командным зонам станции.
+  name: ключ командования
+  description: Ключ командования. Даёт доступ к командным зонам станции.
   parent: BaseBadge
   components:
     - type: Badge
@@ -150,8 +151,8 @@
 
 - type: entity
   id: BadgeQuartermaster
-  name: значок квартирмейстера
-  description: Значок квартирмейстера. Полный доступ к зонам снабжения.
+  name: ключ квартирмейстера
+  description: Ключ квартирмейстера. Полный доступ к зонам снабжения.
   parent: BaseBadge
   components:
     - type: Badge
@@ -169,8 +170,8 @@
 
 - type: entity
   id: BadgeChiefEngineer
-  name: значок главного инженера
-  description: Значок главного инженера. Полный доступ к инженерным системам.
+  name: ключ главного инженера
+  description: Ключ главного инженера. Полный доступ к инженерным системам.
   parent: BaseBadge
   components:
     - type: Badge
@@ -190,8 +191,8 @@
 
 - type: entity
   id: BadgeResearchDirector
-  name: значок директора исследований
-  description: Значок директора исследований. Полный доступ к научным зонам.
+  name: ключ директора исследований
+  description: Ключ директора исследований. Полный доступ к научным зонам.
   parent: BaseBadge
   components:
     - type: Badge
@@ -209,8 +210,8 @@
 
 - type: entity
   id: BadgeChiefMedicalOfficer
-  name: значок главного врача
-  description: Значок главного врача. Полный доступ к медицинским зонам.
+  name: ключ главного врача
+  description: Ключ главного врача. Полный доступ к медицинским зонам.
   parent: BaseBadge
   components:
     - type: Badge
@@ -229,8 +230,8 @@
 
 - type: entity
   id: BadgeHeadOfSecurity
-  name: значок начальника Ковак
-  description: Значок начальника службы безопасности Ковак. Полный доступ к зонам СБ.
+  name: ключ начальника Ковак
+  description: Ключ начальника службы безопасности Ковак. Полный доступ к зонам СБ.
   parent: BaseBadge
   components:
     - type: Badge
@@ -323,8 +324,8 @@
 
 - type: entity
   id: BadgeMedical
-  name: значок медицинского отдела
-  description: Синий значок медиков. Даёт доступ к медицинским зонам, хирургии и моргу.
+  name: ключ медицинского отдела
+  description: Синий ключ медиков. Даёт доступ к медицинским зонам, хирургии и моргу.
   parent: BaseBadge
   components:
     - type: Badge
