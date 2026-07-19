@@ -95,6 +95,9 @@
   id: AirlockJanitorLocked
   suffix: Janitor, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsJanitor ]
@@ -271,6 +274,9 @@
   id: AirlockCargoLocked
   suffix: Cargo, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsCargo ]
@@ -298,6 +304,9 @@
   id: AirlockMedicalLocked
   suffix: Medical, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsMedical ]
@@ -361,6 +370,9 @@
   id: AirlockCommandLocked
   suffix: Command, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsCommand ]
@@ -379,6 +391,9 @@
   id: AirlockChiefMedicalOfficerLocked
   suffix: ChiefMedicalOfficer, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsChiefMedicalOfficer ]
@@ -424,6 +439,9 @@
   id: AirlockQuartermasterLocked
   suffix: Quartermaster, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsQuartermaster ]
@@ -433,6 +451,9 @@
   id: AirlockSecurityLocked
   suffix: Security, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsSecurity ]
@@ -451,6 +472,9 @@
   id: AirlockBrigLocked
   suffix: Brig, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsBrig ]
@@ -469,6 +493,9 @@
   id: AirlockArmoryLocked
   suffix: Armory, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsArmory ]
@@ -499,6 +526,9 @@
   id: AirlockServiceGlassLocked
   suffix: Service, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsService ]
@@ -638,6 +668,9 @@
   id: AirlockHydroGlassLocked
   suffix: Hydroponics, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsHydroponics ]
@@ -647,6 +680,9 @@
   id: AirlockChapelGlassLocked
   suffix: Chapel, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsChapel ]
@@ -737,6 +773,9 @@
   id: AirlockScienceGlassLocked
   suffix: Science, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsResearch ]
@@ -791,6 +830,9 @@
   id: AirlockChiefEngineerGlassLocked
   suffix: ChiefEngineer, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsChiefEngineer ]
@@ -836,6 +878,9 @@
   id: AirlockSecurityGlassLocked
   suffix: Security, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsSecurity ]
@@ -940,6 +985,9 @@
   parent: AirlockCommandLocked
   id: AirlockMaintCommandLocked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/maint.rsi
 
@@ -947,6 +995,9 @@
   parent: AirlockEngineeringLocked
   id: AirlockMaintEngiLocked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/maint.rsi
 
@@ -989,6 +1040,9 @@
   parent: AirlockJanitorLocked
   id: AirlockMaintJanitorLocked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/maint.rsi
 
@@ -1031,6 +1085,9 @@
   parent: AirlockFreezerKitchenHydroLocked
   id: AirlockMaintKitchenHydroLocked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/maint.rsi
 
@@ -1094,6 +1151,9 @@
   parent: AirlockCaptainLocked
   id: AirlockMaintCaptainLocked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/maint.rsi
 
@@ -1122,6 +1182,9 @@
   parent: AirlockResearchDirectorLocked
   id: AirlockMaintResearchDirectorLocked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/maint.rsi
 

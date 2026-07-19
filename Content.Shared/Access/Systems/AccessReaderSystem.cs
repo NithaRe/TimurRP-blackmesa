@@ -165,10 +165,10 @@ public sealed class AccessReaderSystem : EntitySystem
 
     private void OnLinkAttempt(EntityUid uid, AccessReaderComponent component, LinkAttemptEvent args)
     {
-        // if (args.User == null) // AutoLink (and presumably future external linkers) have no user. // BlackM edit
-        //    return; // BlackM Edit
-        // if (!IsAllowed(args.User.Value, uid, component)) // BlackM edit
-        //    args.Cancel(); // BlackM Edit
+        if (args.User == null) // AutoLink (and presumably future external linkers) have no user.
+            return;
+        if (!IsAllowed(args.User.Value, uid, component))
+            args.Cancel();
     }
 
     private void OnEmagged(EntityUid uid, AccessReaderComponent reader, ref GotEmaggedEvent args)
