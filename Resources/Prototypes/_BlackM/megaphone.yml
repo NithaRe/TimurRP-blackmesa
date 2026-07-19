@@ -1,0 +1,17 @@
+- type: entity
+  id: MegaphoneBM
+  parent: BaseItem
+  name: мегафон
+  description: Громкоговоритель для выкрикивания команд.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Tools/megaphones/generic.rsi
+    state: icon
+  - type: Item
+    size: Normal
+    sprite: _Goobstation/Objects/Tools/megaphones/generic.rsi
+  - type: Megaphone
+    sound:
+      path: /Audio/_BlackM/Megaphone/next.ogg
+  - type: UseDelay
+    delay: 3
