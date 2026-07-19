@@ -19,6 +19,15 @@ public sealed partial class PassportComponent : Component
     [DataField, AutoNetworkedField] public string ErrorValue { get; set; } = string.Empty;
     [DataField, AutoNetworkedField] public bool Checked { get; set; } = false;
     [DataField, AutoNetworkedField] public string CheckedBy { get; set; } = string.Empty;
+    [DataField, AutoNetworkedField] public PassportStampState Stamp { get; set; } = PassportStampState.None;
+}
+
+[Serializable, NetSerializable]
+public enum PassportStampState : byte
+{
+    None,
+    Approved,
+    Denied
 }
 
 [Serializable, NetSerializable]
@@ -36,12 +45,13 @@ public sealed class PassportBoundUserInterfaceState : BoundUserInterfaceState
     public NetEntity? OwnerEntity;
     public bool HasBureaucraticError;
     public string ErrorField;
+    public PassportStampState Stamp;
 
     public PassportBoundUserInterfaceState(
         string ownerName, string surname, string city, string jobTitle,
         string passportNumber, string issuedDate,
         string signature, string mrzLine1, string mrzLine2, NetEntity? ownerEntity,
-        bool hasBureaucraticError, string errorField)
+        bool hasBureaucraticError, string errorField, PassportStampState stamp)
     {
         OwnerName            = ownerName;
         Surname              = surname;
@@ -55,6 +65,7 @@ public sealed class PassportBoundUserInterfaceState : BoundUserInterfaceState
         OwnerEntity          = ownerEntity;
         HasBureaucraticError = hasBureaucraticError;
         ErrorField           = errorField;
+        Stamp                = stamp;
     }
 }
 

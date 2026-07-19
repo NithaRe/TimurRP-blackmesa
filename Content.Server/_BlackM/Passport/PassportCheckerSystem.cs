@@ -14,9 +14,10 @@ public sealed class PassportCheckerSystem : EntitySystem
     [Dependency] private readonly ItemSlotsSystem     _itemSlots = default!;
     [Dependency] private readonly UserInterfaceSystem _ui         = default!;
     [Dependency] private readonly SharedAudioSystem    _audio     = default!;
+    [Dependency] private readonly PassportSystem       _passport  = default!;
 
-    private static readonly SoundSpecifier OkSound    = new SoundPathSpecifier("/Audio/Machines/id_swipe.ogg");
-    private static readonly SoundSpecifier ErrorSound  = new SoundPathSpecifier("/Audio/Machines/id_swipe.ogg");
+    private static readonly SoundSpecifier OkSound    = new SoundPathSpecifier("/Audio/_BlackM/Machines/shtamp.ogg");
+    private static readonly SoundSpecifier ErrorSound  = new SoundPathSpecifier("/Audio/_BlackM/Machines/shtamp.ogg");
 
     public override void Initialize()
     {
@@ -61,7 +62,7 @@ public sealed class PassportCheckerSystem : EntitySystem
 
     private void OnAccuse(EntityUid uid, PassportCheckerComponent comp, PassportCheckerAccuseMessage args)
     {
-        if (!TryGetPassport(uid, comp, out var passport))
+        if (!TryGetPassport(uid, comp, out var passportUid, out var passport))
             return;
 
         if (comp.SelectedField != null
@@ -70,35 +71,39 @@ public sealed class PassportCheckerSystem : EntitySystem
         {
             comp.Result = PassportCheckerResult.CorrectCatch;
             comp.ConfirmedErrorField = comp.SelectedField;
-           // _audio.PlayPvs(OkSound, uid);
+            _audio.PlayPvs(OkSound, uid);
         }
         else
         {
             comp.Result = PassportCheckerResult.WrongAccusation;
             comp.ConfirmedErrorField = null;
-           // _audio.PlayPvs(ErrorSound, uid);
+            _audio.PlayPvs(ErrorSound, uid);
         }
+
+        _passport.SetStamp(passportUid, PassportStampState.Denied, passport);
 
         UpdateUi(uid, comp);
     }
 
     private void OnConfirmClean(EntityUid uid, PassportCheckerComponent comp, PassportCheckerConfirmCleanMessage args)
     {
-        if (!TryGetPassport(uid, comp, out var passport))
+        if (!TryGetPassport(uid, comp, out var passportUid, out var passport))
             return;
 
         if (passport.HasBureaucraticError)
         {
             comp.Result = PassportCheckerResult.Missed;
             comp.ConfirmedErrorField = null;
-           // _audio.PlayPvs(ErrorSound, uid);
+            _audio.PlayPvs(ErrorSound, uid);
         }
         else
         {
             comp.Result = PassportCheckerResult.CorrectClean;
             comp.ConfirmedErrorField = null;
-          //  _audio.PlayPvs(OkSound, uid);
+            _audio.PlayPvs(OkSound, uid);
         }
+
+        _passport.SetStamp(passportUid, PassportStampState.Approved, passport);
 
         UpdateUi(uid, comp);
     }
@@ -119,15 +124,18 @@ public sealed class PassportCheckerSystem : EntitySystem
         comp.Result = PassportCheckerResult.None;
     }
 
-    private bool TryGetPassport(EntityUid uid, PassportCheckerComponent comp, [NotNullWhen(true)] out PassportComponent? passport)
+    private bool TryGetPassport(EntityUid uid, PassportCheckerComponent comp, out EntityUid passportUid, [NotNullWhen(true)] out PassportComponent? passport)
     {
-        if (!_itemSlots.TryGetSlot(uid, comp.SlotId, out var slot) || slot.Item is not { } passportUid)
+        passportUid = default;
+
+        if (!_itemSlots.TryGetSlot(uid, comp.SlotId, out var slot) || slot.Item is not { } item)
         {
             passport = null;
             return false;
         }
 
-        return TryComp(passportUid, out passport);
+        passportUid = item;
+        return TryComp(item, out passport);
     }
 
     private void UpdateUi(EntityUid uid, PassportCheckerComponent comp)
