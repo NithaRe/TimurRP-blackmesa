@@ -159,6 +159,18 @@ public sealed partial class AudioTab : Control
             _cfg.GetCVar(CCVars.MinMaxAmbientSourcesConfigured),
             _cfg.GetCVar(CCVars.MaxMaxAmbientSourcesConfigured));
 
+        // BlackM - Battle Music
+        Control.AddOptionPercentSlider(
+            BlackMCVars.BattleMusicVolume,
+            SliderVolumeBattleMusic,
+            scale: 1f);
+
+        Control.AddOptionSlider(
+            CCVars.MaxAmbientSources,
+            SliderMaxAmbienceSounds,
+            _cfg.GetCVar(CCVars.MinMaxAmbientSourcesConfigured),
+            _cfg.GetCVar(CCVars.MaxMaxAmbientSourcesConfigured));
+
         //CorvaxGoob-CombatMode-Sound-Start
         Control.AddOptionCheckBox(CCCVars.CombatModeSoundEnabled, CombatModeSoundCheckBox);
         //CorvaxGoob-CombatMode-Sound-End
@@ -171,6 +183,7 @@ public sealed partial class AudioTab : Control
         Control.AddOptionCheckBox(CCVars.BwoinkSoundEnabled, BwoinkSoundCheckBox);
         Control.AddOptionCheckBox(BlackMCVars.EchoEnabled, EchoEnabledCheckBox); // BlackM echo
         Control.AddOptionCheckBox(BlackMCVars.EchoStrongPreset, EchoStrongPresetCheckBox); // BlackM echo
+        Control.AddOptionCheckBox(BlackMCVars.BattleMusicEnabled, BattleMusicEnabledCheckBox); // BlackM - Battle Music
 
         Control.Initialize();
     }

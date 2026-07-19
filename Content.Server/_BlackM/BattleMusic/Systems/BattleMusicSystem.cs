@@ -2,7 +2,6 @@ using Content.Shared._BlackM.BattleMusic;
 using Content.Shared.Damage;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
-using Robust.Shared.Log;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
@@ -12,15 +11,12 @@ public sealed class BattleMusicSystem : EntitySystem
 {
     [Dependency] private readonly IGameTiming _timing = default!;
 
-    private static readonly new ISawmill Log = Logger.GetSawmill("battle_music");
-
     private const float BattleTimeout = 20f;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<ActorComponent, BeforeDamageChangedEvent>(OnBeforeDamageChanged);
-        Log.Info("BattleMusicSystem initialized");
     }
 
     public override void Update(float frameTime)
@@ -38,7 +34,6 @@ public sealed class BattleMusicSystem : EntitySystem
 
             if ((now - comp.LastHitTime).TotalSeconds >= BattleTimeout)
             {
-                Log.Info($"Timeout for {uid}");
                 StopBattleMusic(uid, comp);
                 toRemove.Add(uid);
             }
@@ -58,8 +53,6 @@ public sealed class BattleMusicSystem : EntitySystem
 
         var victim = ent.Owner;
         var shooter = args.Origin.Value;
-
-        Log.Info($"Combat damage: victim={victim} origin={shooter} types={string.Join(",", args.Damage.DamageDict.Keys)}");
 
         HandleHit(victim, shooter);
     }
@@ -86,7 +79,6 @@ public sealed class BattleMusicSystem : EntitySystem
         {
             if ((now - prevHitTime).TotalSeconds <= BattleTimeout)
             {
-                Log.Info($"Mutual hit! {victim} vs {shooter}");
                 StartOrRefreshBattle(victim, victimComp, shooter, now);
                 StartOrRefreshBattle(shooter, shooterComp, victim, now);
                 return;
@@ -107,7 +99,7 @@ public sealed class BattleMusicSystem : EntitySystem
         comp.PendingRetaliation.Clear();
 
         if (isNew)
-            SendStart(player);
+            SendStart(player, opponent);
     }
 
     private void StopBattleMusic(EntityUid player, BattleMusicComponent comp)
@@ -117,13 +109,16 @@ public sealed class BattleMusicSystem : EntitySystem
         SendStop(player);
     }
 
-    private void SendStart(EntityUid player)
+    private void SendStart(EntityUid player, EntityUid opponent)
     {
-        if (TryGetSession(player, out var session))
-        {
-            Log.Info($"StartMessage → {session.Name}");
-            RaiseNetworkEvent(new BattleMusicStartMessage(), session);
-        }
+        if (!TryGetSession(player, out var session))
+            return;
+
+        RaiseNetworkEvent(new BattleMusicStartMessage(), session);
+
+        var playerName = MetaData(player).EntityName;
+        var opponentName = MetaData(opponent).EntityName;
+        RaiseNetworkEvent(new BattleMusicAnnounceMessage(playerName, opponentName), session);
     }
 
     private void SendStop(EntityUid player)
