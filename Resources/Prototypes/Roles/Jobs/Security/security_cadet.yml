@@ -138,13 +138,13 @@
   equipment:
     eyes: ClothingEyesGlassesSecurity #Goobstation
     shoes: ClothingShoesKovakSoldier #BlackM
-    head: ClothingHeadHelmetKovakSoldier #BlackM
+    head: ClothingHeadHatSecsoft #BlackM
     id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
     ears: ClothingHeadsetAltSecurityRegular # Goobstation
     belt: ClothingBeltSecurityFilled
     #pocket1: WeaponDisabler #Goobstation (Disablers in belts)
-    pocket2: BookSecurity
+    #pocket2: BookSecurity # BlackM
   storage:
     back:
     - Flash
