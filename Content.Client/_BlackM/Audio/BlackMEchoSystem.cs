@@ -17,8 +17,8 @@ public sealed class BlackMEchoSystem : EntitySystem
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
 
-    private static readonly ProtoId<AudioPresetPrototype> StandardPreset = "FactorySmallRoom";
-    private static readonly ProtoId<AudioPresetPrototype> StrongPreset   = "FactoryLongPassage";
+    private static readonly ProtoId<AudioPresetPrototype> StandardPreset = "Room";
+    private static readonly ProtoId<AudioPresetPrototype> StrongPreset = "Bathroom";
 
     private bool _enabled;
     private bool _useStrong;
