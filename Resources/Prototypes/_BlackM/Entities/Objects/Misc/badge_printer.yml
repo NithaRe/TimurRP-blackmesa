@@ -1,0 +1,77 @@
+- type: entity
+  id: BadgePrinter
+  name: принтер ключей доступа
+  description: Печатает ключи доступа и сопроводительную выписку по вставленной карте.
+  parent: BaseMachinePowered
+  components:
+    - type: Sprite
+      sprite: _BlackM/Structures/Machines/badge_printer.rsi
+      layers:
+        - state: icon-off
+          map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - type: BadgePrinter
+      cardSlotId: badge_printer_card_slot
+      paperPrototype: Paper
+      maxBadgesPerPrint: 6
+      availableBadges:
+        - proto: BadgeSecurity
+          iconState: security
+        - proto: BadgeMaintenance
+          iconState: maintenance
+        - proto: BadgeSupply
+          iconState: supply
+        - proto: BadgeScience
+          iconState: science
+        - proto: BadgeService
+          iconState: maintenance
+        - proto: BadgeMedical
+          iconState: medical
+        - proto: BadgeCommand
+          iconState: captain
+        - proto: BadgeQuartermaster
+          iconState: supplychief
+        - proto: BadgeChiefEngineer
+          iconState: engineerchief
+        - proto: BadgeResearchDirector
+          iconState: sciencechief
+        - proto: BadgeChiefMedicalOfficer
+          iconState: medicalchief
+        - proto: BadgeHeadOfSecurity
+          iconState: securityhos
+    - type: ItemSlots
+      slots:
+        badge_printer_card_slot:
+          name: badge-printer-card-slot
+          whitelist:
+            components:
+              - AccessCardHolder
+          insertSound: /Audio/Machines/id_swipe.ogg
+          ejectSound: /Audio/Machines/id_swipe.ogg
+    - type: AccessReader
+      access:
+        - [Security]
+    - type: ActivatableUI
+      key: enum.BadgePrinterUiKey.Key
+    - type: UserInterface
+      interfaces:
+        enum.BadgePrinterUiKey.Key:
+          type: BadgePrinterBoundUserInterface
+    - type: Physics
+      bodyType: Static
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape: !type:PhysShapeAabb
+            bounds: "-0.4,-0.4,0.4,0.4"
+          density: 190
+          mask:
+            - MachineMask
+          layer:
+            - MachineLayer
+    - type: Anchorable
+    - type: Transform
+      anchored: true
+    - type: Appearance
+    - type: WiresPanel
+    - type: ApcPowerReceiver
+      powerLoad: 100

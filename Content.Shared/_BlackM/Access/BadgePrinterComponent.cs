@@ -1,0 +1,47 @@
+using System.Collections.Generic;
+using Robust.Shared.Audio;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
+
+namespace Content.Shared._BlackM.Access;
+
+[RegisterComponent, NetworkedComponent]
+public sealed partial class BadgePrinterComponent : Component
+{
+    [DataField]
+    public string CardSlotId = "badge_printer_card_slot";
+
+    [DataField]
+    public List<BadgePrinterEntry> AvailableBadges = new();
+
+    [DataField]
+    public EntProtoId PaperPrototype = "Paper";
+
+    [DataField]
+    public string OutputSlotId = "badge_printer_output";
+
+    [DataField]
+    public int MaxBadgesPerPrint = 6;
+
+    [DataField]
+    public SoundSpecifier SoundPrint = new SoundPathSpecifier("/Audio/Machines/vending_restock_done.ogg");
+
+    [DataField]
+    public SoundSpecifier SoundDeny = new SoundPathSpecifier("/Audio/Machines/button.ogg");
+
+    [DataField]
+    public TimeSpan PrintDelay = TimeSpan.FromSeconds(1.5);
+}
+
+[DataDefinition]
+public sealed partial class BadgePrinterEntry
+{
+    [DataField(required: true)]
+    public EntProtoId Proto = default!;
+
+    [DataField]
+    public string IconRsi = "_BlackM/Objects/Misc/badges.rsi";
+
+    [DataField(required: true)]
+    public string IconState = default!;
+}
