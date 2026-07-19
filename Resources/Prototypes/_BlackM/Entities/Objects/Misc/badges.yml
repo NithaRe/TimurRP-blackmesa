@@ -43,7 +43,7 @@
 - type: entity
   id: BadgeSecurity
   name: ключ безопасности Ковак
-  description: Фиолетовый ключ службы безопасности Ковак. Даёт доступ к зонам СБ, оружейной и изолятору.
+  description: Фиолетовый ключ Ковак. Даёт доступ к зонам отдела контроля и подавления, оружейной и изолятору.
   parent: BaseBadge
   components:
     - type: Badge
@@ -231,7 +231,7 @@
 - type: entity
   id: BadgeHeadOfSecurity
   name: ключ начальника Ковак
-  description: Ключ начальника службы безопасности Ковак. Полный доступ к зонам СБ.
+  description: Ключ начальника Ковак. Полный доступ к зонам отдела контроля и подавления.
   parent: BaseBadge
   components:
     - type: Badge
@@ -314,7 +314,7 @@
 - type: entity
   id: AccessCardHolderHoS
   name: карта доступа начальника Ковак
-  description: Карта доступа начальника службы безопасности.
+  description: Карта доступа начальника отдела контроля и подавления.
   parent: AccessCardHolder
   components:
     - type: ContainerFill
