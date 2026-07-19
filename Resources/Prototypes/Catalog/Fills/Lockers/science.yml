@@ -17,7 +17,7 @@
   - type: StorageFill
     contents:
       - id: ClothingHandsGlovesLatex
-      - id: ClothingHeadsetScience
+#      - id: ClothingHeadsetScience # BlackM
       - id: ClothingMaskSterile
       - id: ClothingOuterCoatRnd
       - id: AnomalyScanner

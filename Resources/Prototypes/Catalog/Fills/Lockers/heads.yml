@@ -152,7 +152,7 @@
   id: LockerFillQuarterMaster
   table: !type:AllSelector
     children:
-    - id: BoxEncryptionKeyCargo
+#    - id: BoxEncryptionKeyCargo # BlackM
     - id: BoxFolderQmClipboard
     - id: CargoBountyComputerCircuitboard
     - id: CargoRequestComputerCircuitboard
@@ -161,8 +161,8 @@
     - id: SalvageMagnetMachineCircuitboard
     - id: CigPackGreen
       prob: 0.75
-    - id: ClothingHeadsetAltCargo
-    - id: DoorRemoteCargo
+#    - id: ClothingHeadsetAltCargo # BlackM
+#    - id: DoorRemoteCargo # BlackM
     - id: RubberStampApproved
     - id: RubberStampDenied
     - id: RubberStampQm
@@ -199,7 +199,7 @@
     #- id: ClothingOuterArmorCaptainCarapace Corvax-Goob-CaptainDrobe
     - id: CommsComputerCircuitboard
     #- id: MedalCase Corvax-Goob-CaptainDrobe
-    - id: DoorRemoteCustom
+#    - id: DoorRemoteCustom // BlackM
     - id: NukeDisk
     - id: PinpointerNuclear
     - id: PlushieNuke
@@ -286,9 +286,9 @@
       # Yes they do fuck you.
     - id: ClothingBackpackIan
       prob: 0.5
-    - id: ClothingHeadsetAltCommand # Goobstation
+#    - id: ClothingHeadsetAltCommand # BlackM
     - id: ClothingNeckGoldmedal
-    - id: DoorRemoteService
+#    - id: DoorRemoteService # BlackM
     - id: HoPIDCard
     - id: IDComputerCircuitboard
     #- id: ComputerFundingAllocationFlatpack # Goobstation #CorvaxGoob-QuarterMaster-finance
@@ -317,15 +317,15 @@
   id: LockerFillChiefEngineerNoHardsuit
   table: !type:AllSelector
     children:
-    - id: AccessConfigurator
-    - id: BoxEncryptionKeyEngineering
+#    - id: AccessConfigurator # BlackM
+#    - id: BoxEncryptionKeyEngineering # BlackM
     - id: CigarCase
       prob: 0.15
     - id: ClothingBeltChiefEngineerFilled
     - id: ClothingEyesGlassesMeson
     - id: ClothingHandsGlovesColorYellow
-    - id: ClothingHeadsetAltEngineering
-    - id: DoorRemoteEngineering
+#    - id: ClothingHeadsetAltEngineering # BlackM
+#    - id: DoorRemoteEngineering # BlackM
     - id: CargoRequestEngineeringComputerCircuitboard
     # - id: RCD # Goobstation
     - id: RCDAmmo
@@ -393,9 +393,9 @@
     - id: ClothingEyesHudMedical
     - id: ClothingHandsGlovesNitrile
     - id: ClothingHeadHatBeretCmo
-    - id: ClothingHeadsetAltMedical
+#    - id: ClothingHeadsetAltMedical # BlackM
     - id: ClothingMaskSterile
-    - id: DoorRemoteMedical
+#    - id: DoorRemoteMedical # BlackM
     # - id: HandheldCrewMonitor # Goobstation - in webbing
     - id: Hypospray
     - id: MedicalTechFabCircuitboard
@@ -465,11 +465,11 @@
   table: !type:AllSelector
     children:
     - id: Intellicard
-    - id: BoxEncryptionKeyScience
+#    - id: BoxEncryptionKeyScience # BlackM
     #- id: CircuitImprinterMachineCircuitboard # Goobstation - Science Techfab
     - id: ClothingBeltUtilityFilled
-    - id: ClothingHeadsetAltScience
-    - id: DoorRemoteResearch
+#    - id: ClothingHeadsetAltScience # BlackM
+#    - id: DoorRemoteResearch # BlackM
     - id: HandTeleporter
     #- id: ProtolatheMachineCircuitboard # Goobstation - Science Techfab
     - id: ResearchComputerCircuitboard
@@ -526,8 +526,8 @@
   table: !type:AllSelector
     children:
     #- id: WeaponEnergyShotgun # Goobstation - security revamp
-    - id: BookSpaceLaw
-    - id: BoxEncryptionKeySecurity
+#    - id: BookSpaceLaw # BlackM
+#    - id: BoxEncryptionKeySecurity # BlackM
     - id: CigarGoldCase
       prob: 0.50
     - id: ClothingBeltSecurityFilled
@@ -536,7 +536,7 @@
     - id: ClothingMaskNeckGaiter
     - id: ClothingOuterCoatHoSTrench
     - id: ClothingShoesBootsJack
-    - id: DoorRemoteSecurity
+#    - id: DoorRemoteSecurity # BlackM
     #- id: HoloprojectorSecurity Goob, you have one in the belt
     - id: RubberStampHos
     - id: SecurityTechFabCircuitboard

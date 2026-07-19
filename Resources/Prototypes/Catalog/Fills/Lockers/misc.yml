@@ -128,7 +128,7 @@
         - id: JetpackBlackFilled
         - id: ClothingUniformJumpsuitOperative
         - id: ClothingUniformJumpskirtOperative
-        - id: ClothingHeadsetAltSyndicate
+        - id: ClothingHeadsetAltSyndicate 
         - id: ClothingEyesHudSyndicate
 
 - type: entityTable
