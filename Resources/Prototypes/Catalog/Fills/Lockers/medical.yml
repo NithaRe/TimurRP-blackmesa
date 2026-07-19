@@ -78,7 +78,7 @@
     - id: ClothingHeadMirror
       prob: 0.1
     - id: ClothingHandsGlovesLatex
-    - id: ClothingHeadsetMedical
+#    - id: ClothingHeadsetMedical # BlackM
     - id: ClothingEyesHudMedical
     - !type:GroupSelector
       children:
@@ -133,7 +133,7 @@
     - id: PlasmaChemistryVial
     - id: ChemBag
     - id: ClothingHandsGlovesLatex
-    - id: ClothingHeadsetMedical
+#    - id: ClothingHeadsetMedical # BlackM
     - id: ClothingMaskSterile
     - id: portableChemicalMixer # Goob, until chemmaster rework
     - id: HandLabeler
@@ -163,7 +163,7 @@
     - id: ClothingUniformJumpskirtParamedic
     - id: ClothingEyesHudMedical
     - id: ClothingHandsGlovesLatex
-    - id: ClothingHeadsetMedical
+#    - id: ClothingHeadsetMedical # BlackM
     - id: ClothingMaskSterile
     - id: HandheldGPSBasic
     - id: MedkitFilled
@@ -186,7 +186,7 @@
       - id: ClothingUniformJumpskirtParamedic
       - id: ClothingEyesHudMedical
       - id: ClothingHandsGlovesLatex
-      - id: ClothingHeadsetMedical
+#      - id: ClothingHeadsetMedical # BlackM
       - id: ClothingMaskSterile
       - id: HandheldGPSBasic
       - id: MedkitFilled

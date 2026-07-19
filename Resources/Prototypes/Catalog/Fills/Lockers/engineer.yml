@@ -162,7 +162,7 @@
       - id: MedkitOxygenFilled
       - id: HolofanProjector
       - id: RPD #funkystation
-      - id: DoorRemoteFirefight # Goobstation - re adding fire door remote
+#      - id: DoorRemoteFirefight # BlackM
       - id: RCD
       - id: RCDAmmo
       - id: AirGrenade
@@ -183,7 +183,7 @@
       - id: MedkitOxygenFilled
       - id: HolofanProjector
       - id: RPD #funkystation
-      - id: DoorRemoteFirefight # Goobstation - re adding fire door remote
+#      - id: DoorRemoteFirefight # BlackM
       - id: RCD
       - id: RCDAmmo
       - id: ClothingHandsGlovesAtmosInsulated # Goobstation - insulated atmos gloves
