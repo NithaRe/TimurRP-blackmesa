@@ -35,7 +35,6 @@ public sealed class PassportSystem : EntitySystem
 
     private const float BureaucraticErrorChance = 0.10f;
 
-    // Иммунные
     private static readonly HashSet<string> ImmuneJobIds = new(StringComparer.OrdinalIgnoreCase)
     {
         "Captain",
@@ -211,7 +210,16 @@ public sealed class PassportSystem : EntitySystem
             displayName, displaySurname, displayCity, displayJob,
             displayNumber, displayDate,
             signature, mrz1, mrz2, comp.OwnerEntity,
-            comp.HasBureaucraticError, comp.ErrorField));
+            comp.HasBureaucraticError, comp.ErrorField, comp.Stamp));
+    }
+
+    public void SetStamp(EntityUid passportUid, PassportStampState stamp, PassportComponent? comp = null)
+    {
+        if (!Resolve(passportUid, ref comp)) return;
+
+        comp.Stamp = stamp;
+        Dirty(passportUid, comp);
+        UpdateUiState(passportUid, comp);
     }
 
     public void FillPassport(EntityUid passportUid, EntityUid characterUid,
@@ -231,6 +239,7 @@ public sealed class PassportSystem : EntitySystem
         comp.PassportNumber = GenerateNumber();
         comp.IssuedDate     = DateTime.UtcNow.ToString("dd.MM.yyyy");
         comp.IsBound        = true;
+        comp.Stamp          = PassportStampState.None;
 
         if (!IsImmuneJobId(jobId))
             TryApplyBureaucraticError(comp);

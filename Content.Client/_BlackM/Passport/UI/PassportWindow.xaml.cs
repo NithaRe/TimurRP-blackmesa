@@ -26,6 +26,9 @@ public sealed partial class PassportWindow : DefaultWindow
         MrzLine1Label.Text       = state.MrzLine1;
         MrzLine2Label.Text       = state.MrzLine2;
 
+        StampApprovedTexture.Visible = state.Stamp == PassportStampState.Approved;
+        StampDeniedTexture.Visible   = state.Stamp == PassportStampState.Denied;
+
         if (state.OwnerEntity is { } netEnt && entMan.TryGetEntity(netEnt, out var uid))
             OwnerSpriteView.SetEntity(uid);
         else

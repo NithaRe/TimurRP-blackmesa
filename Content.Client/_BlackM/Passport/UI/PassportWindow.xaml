@@ -2,17 +2,17 @@
                MinSize="340 500"
                Resizable="False"
                Title="{Loc passport-title-label}">
-    
+
     <PanelContainer MinSize="340 500" MaxSize="340 500">
         <TextureRect Name="PassportBackground"
                      Stretch="Keep"
                      TexturePath="/Textures/_BlackM/Interface/Passport/passport_bg.png"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Top"/>
-                     
+
         <BoxContainer Orientation="Vertical" SeparationOverride="0">
             <Control MinSize="0 52"/>
-            
+
             <BoxContainer Orientation="Horizontal"
                           MinSize="0 18"
                           Margin="12 0 10 0">
@@ -25,7 +25,7 @@
                        FontColorOverride="#5F4E2A"
                        VerticalAlignment="Center"/>
             </BoxContainer>
-            
+
             <BoxContainer Orientation="Horizontal" MinSize="0 190">
                 <SpriteView Name="OwnerSpriteView"
                             MinSize="110 190"
@@ -33,7 +33,7 @@
                             OverrideDirection="South"
                             Scale="3.5 3.5"
                             Margin="10 4 0 4"/>
-                            
+
                 <BoxContainer Orientation="Vertical"
                               HorizontalExpand="True"
                               Margin="4 6 8 0"
@@ -43,19 +43,19 @@
                     <Label Name="SurnameLabel"
                            FontColorOverride="#14100A"
                            Margin="2 1 0 10"/>
-                           
+
                     <Label Text="{Loc passport-name-label}"
                            FontColorOverride="#5F4E2A"/>
                     <Label Name="NameLabel"
                            FontColorOverride="#14100A"
                            Margin="2 1 0 10"/>
-                           
+
                     <Label Text="{Loc passport-position-label}"
                            FontColorOverride="#5F4E2A"/>
                     <Label Name="JobLabel"
                            FontColorOverride="#14100A"
                            Margin="2 1 0 10"/>
-                           
+
                     <Label Text="{Loc passport-city-label}"
                            FontColorOverride="#5F4E2A"/>
                     <Label Name="CityLabel"
@@ -63,7 +63,7 @@
                            Margin="2 1 0 0"/>
                 </BoxContainer>
             </BoxContainer>
-            
+
             <BoxContainer Orientation="Vertical"
                           MinSize="0 104"
                           Margin="12 8 0 0"
@@ -74,7 +74,7 @@
                        FontColorOverride="#14100A"
                        Margin="2 4 0 0"/>
             </BoxContainer>
-            
+
             <BoxContainer Orientation="Vertical"
                           VerticalExpand="True"
                           Margin="12 8 12 8"
@@ -91,5 +91,23 @@
                        ClipText="True"/>
             </BoxContainer>
         </BoxContainer>
+
+        <TextureRect Name="StampApprovedTexture"
+                     Stretch="KeepAspectCentered"
+                     TexturePath="/Textures/_BlackM/Interface/Passport/stamp_approved.png"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Top"
+                     Margin="0 292 30 0"
+                     MinSize="90 90"
+                     Visible="False"/>
+
+        <TextureRect Name="StampDeniedTexture"
+                     Stretch="KeepAspectCentered"
+                     TexturePath="/Textures/_BlackM/Interface/Passport/stamp_denied.png"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Top"
+                     Margin="0 292 30 0"
+                     MinSize="90 90"
+                     Visible="False"/>
     </PanelContainer>
 </DefaultWindow>
