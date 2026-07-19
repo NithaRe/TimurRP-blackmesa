@@ -56,6 +56,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <CheckBox Name="BwoinkSoundCheckBox" Text="{Loc 'ui-options-bwoink-sound'}" />
                 <CheckBox Name="EchoEnabledCheckBox" Text="{Loc 'ui-options-echo-enabled'}" /> <!-- BlackM edit -->
                 <CheckBox Name="EchoStrongPresetCheckBox" Text="{Loc 'ui-options-echo-strong-preset'}" /> <!-- BlackM edit -->
+                <ui:OptionSlider Name="SliderVolumeBattleMusic" Title="{Loc 'ui-options-battle-music-volume'}" /> <!-- BlackM edit -->
+                <CheckBox Name="BattleMusicEnabledCheckBox" Text="{Loc 'ui-options-battle-music-enabled'}" /> <!-- BlackM edit -->
             </BoxContainer>
         </BoxContainer>
         <ui:OptionsTabControlRow Name="Control" Access="Public" />
