@@ -272,16 +272,15 @@ public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
 
     private bool AccessCheck(EntityUid target, EntityUid? user, NetworkConfiguratorComponent component)
     {
-        // if (!TryComp(target, out AccessReaderComponent? reader) || user == null) // BlackM edit
-        return true;
+        if (!TryComp(target, out AccessReaderComponent? reader) || user == null)
+            return true;
 
-        // if (_accessSystem.IsAllowed(user.Value, target, reader)) // BlackM edit
-        //   return true; // BlackM edit
+        if (_accessSystem.IsAllowed(user.Value, target, reader))
+            return true;
 
-        // _audioSystem.PlayPvs(component.SoundNoAccess, user.Value, AudioParams.Default.WithVolume(-2f).WithPitchScale(1.2f)); // BlackM edit
-        // _popupSystem.PopupEntity(Loc.GetString("network-configurator-device-access-denied"), target, user.Value); // BlackM edit
-
-        // return false; // BlackM edit
+        _audioSystem.PlayPvs(component.SoundNoAccess, user.Value, AudioParams.Default.WithVolume(-2f).WithPitchScale(1.2f));
+        _popupSystem.PopupEntity(Loc.GetString("network-configurator-device-access-denied"), target, user.Value);
+        return false;
     }
 
     private void OnComponentRemoved(EntityUid uid, DeviceListComponent component, ComponentRemove args)
@@ -732,6 +731,10 @@ public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
         if (!configurator.ActiveDeviceLink.HasValue || !configurator.DeviceLinkTarget.HasValue)
             return;
 
+        if (!AccessCheck(configurator.ActiveDeviceLink.Value, args.Actor, configurator)
+            || !AccessCheck(configurator.DeviceLinkTarget.Value, args.Actor, configurator))
+            return;
+
         _adminLogger.Add(LogType.DeviceLinking, LogImpact.Low,
             $"{ToPrettyString(args.Actor):actor} cleared links between {ToPrettyString(configurator.ActiveDeviceLink.Value):subject} and {ToPrettyString(configurator.DeviceLinkTarget.Value):subject2} with {ToPrettyString(uid):tool}");
 
@@ -766,6 +769,10 @@ public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
     private void OnToggleLinks(EntityUid uid, NetworkConfiguratorComponent configurator, NetworkConfiguratorToggleLinkMessage args)
     {
         if (!configurator.ActiveDeviceLink.HasValue || !configurator.DeviceLinkTarget.HasValue)
+            return;
+
+        if (!AccessCheck(configurator.ActiveDeviceLink.Value, args.Actor, configurator)
+            || !AccessCheck(configurator.DeviceLinkTarget.Value, args.Actor, configurator))
             return;
 
         if (TryComp(configurator.ActiveDeviceLink, out DeviceLinkSourceComponent? activeSource) && TryComp(configurator.DeviceLinkTarget, out DeviceLinkSinkComponent? targetSink))
@@ -804,6 +811,10 @@ public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
     private void OnSaveLinks(EntityUid uid, NetworkConfiguratorComponent configurator, NetworkConfiguratorLinksSaveMessage args)
     {
         if (!configurator.ActiveDeviceLink.HasValue || !configurator.DeviceLinkTarget.HasValue)
+            return;
+
+        if (!AccessCheck(configurator.ActiveDeviceLink.Value, args.Actor, configurator)
+            || !AccessCheck(configurator.DeviceLinkTarget.Value, args.Actor, configurator))
             return;
 
         if (TryComp(configurator.ActiveDeviceLink, out DeviceLinkSourceComponent? activeSource) && TryComp(configurator.DeviceLinkTarget, out DeviceLinkSinkComponent? targetSink))

@@ -83,6 +83,8 @@ public sealed class AccessCardHolderSystem : SharedAccessCardHolderSystem
                 ("badge", Name(args.Used)),
                 ("card", Name(uid))),
             uid, args.User);
+
+        SyncAccess(uid, component);
     }
 
     private void OnGetAltVerbs(EntityUid uid, AccessCardHolderComponent component,
@@ -174,5 +176,7 @@ public sealed class AccessCardHolderSystem : SharedAccessCardHolderSystem
                 ("badge", Name(badge)),
                 ("card", Name(card))),
             card, user);
+
+        SyncAccess(card, component);
     }
 }
