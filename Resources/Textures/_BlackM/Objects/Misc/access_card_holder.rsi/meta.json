@@ -48,6 +48,12 @@
     },
     {
       "name": "supplyoncard"
+    },
+    {
+      "name": "maintenance"
+    },
+    {
+      "name": "command"
     }
   ]
 }

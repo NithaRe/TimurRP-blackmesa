@@ -63,14 +63,14 @@
 - type: entity
   id: BadgeMaintenance
   name: ключ технического обслуживания
-  description: Зеленый ключ техников. Даёт доступ к техническим туннелям.
+  description: Серый ключ техников. Даёт доступ к техническим туннелям.
   parent: BaseBadge
   components:
     - type: Badge
       accessTags:
         - Maintenance
       examineColor: "#8c8c32"
-      cardSpriteState: engioncard
+      cardSpriteState: maintenance
     - type: Sprite
       sprite: _BlackM/Objects/Misc/badges.rsi
       layers:
@@ -125,23 +125,49 @@
         - Theatre
         - Chapel
       examineColor: "#c832a0"
-      cardSpriteState: supplyoncard
+      cardSpriteState: engioncard
     - type: Sprite
       sprite: _BlackM/Objects/Misc/badges.rsi
       layers:
-        - state: maintenance
+        - state: service
 
 - type: entity
-  id: BadgeCommand
-  name: ключ командования
-  description: Ключ командования. Даёт доступ к командным зонам станции.
+  id: BadgeCaptain
+  name: ключ капитана
+  description: Ключ капитана. Даёт полный доступ к зонам станции.
   parent: BaseBadge
   components:
     - type: Badge
       accessTags:
-        - Command
         - Captain
-        - HeadOfPersonnel
+        - Service
+        - Bar
+        - Kitchen
+        - Hydroponics
+        - Theatre
+        - Chapel
+        - Cargo
+        - Salvage
+        - Maintenance
+        - Security
+        - Armory
+        - Brig
+        - GenpopEnter
+        - GenpopLeave
+        - Research
+        - Robotics
+        - Quartermaster
+        - Command
+        - ChiefEngineer
+        - Engineering
+        - External
+        - ResearchDirector
+        - ChiefMedicalOfficer
+        - HeadOfSecurity
+        - Medical
+        - Chemistry
+        - Cryogenics
+
       examineColor: "#e6c832"
       cardSpriteState: captain
     - type: Sprite
@@ -261,11 +287,7 @@
       containers:
         badge_slots:
           - BadgeCommand
-          - BadgeHeadOfSecurity
-          - BadgeChiefEngineer
-          - BadgeChiefMedicalOfficer
-          - BadgeResearchDirector
-          - BadgeQuartermaster
+          - BadgeCaptain
 
 - type: entity
   id: AccessCardHolderQM
@@ -325,7 +347,7 @@
 - type: entity
   id: BadgeMedical
   name: ключ медицинского отдела
-  description: Синий ключ медиков. Даёт доступ к медицинским зонам, хирургии и моргу.
+  description: Синий ключ медиков. Даёт доступ к медицинским зонам, медицинской,хирургии и моргу.
   parent: BaseBadge
   components:
     - type: Badge
@@ -339,3 +361,19 @@
       sprite: _BlackM/Objects/Misc/badges.rsi
       layers:
         - state: medical
+
+- type: entity
+  id: BadgeCommand
+  name: ключ командования
+  description: Синий ключ командования. Даёт доступ к мостику зонам командования.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - Command
+      examineColor: "#32c8e6"
+      cardSpriteState: command
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: command

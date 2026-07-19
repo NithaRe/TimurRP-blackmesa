@@ -23,10 +23,12 @@
         - proto: BadgeScience
           iconState: science
         - proto: BadgeService
-          iconState: maintenance
+          iconState: service
         - proto: BadgeMedical
           iconState: medical
         - proto: BadgeCommand
+          iconState: command
+        - proto: BadgeCaptain
           iconState: captain
         - proto: BadgeQuartermaster
           iconState: supplychief
