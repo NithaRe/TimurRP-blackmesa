@@ -172,7 +172,7 @@
     #- id: HoloprojectorSecurity, Goobstation, it's in every belt
     #  prob: 0.6
 #    - id: BookSpaceLaw # BlackM
-      prob: 0.5
+#      prob: 0.5 # BlackM
     - id: ClothingHeadsetAltSecurityRegular # Goobstation
     - id: PanicButton # Goobstation
     - id: PepperSpray # Goobstation
