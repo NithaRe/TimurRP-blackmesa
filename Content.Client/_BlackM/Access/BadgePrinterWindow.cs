@@ -255,12 +255,25 @@ public sealed class BadgePrinterWindow : DefaultWindow
             });
         }
 
+        var outOfStock = option.Remaining is 0;
+
+        if (option.Remaining is { } remaining)
+        {
+            textBox.AddChild(new Label
+            {
+                Text = Loc.GetString("badge-printer-remaining", ("count", remaining)),
+                FontColorOverride = outOfStock ? Color.IndianRed : AccentColor,
+                ClipText = true,
+            });
+        }
+
         var checkBox = new CheckBox
         {
-            Pressed = isChecked,
+            Pressed = isChecked && !outOfStock,
             VerticalAlignment = VAlignment.Center,
             HorizontalExpand = false,
             MinWidth = 24,
+            Disabled = outOfStock,
         };
         _checkboxes[option.ProtoId] = checkBox;
 
