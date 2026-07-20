@@ -30,7 +30,13 @@ public sealed partial class BadgePrinterComponent : Component
     public SoundSpecifier SoundDeny = new SoundPathSpecifier("/Audio/Machines/button.ogg");
 
     [DataField]
-    public TimeSpan PrintDelay = TimeSpan.FromSeconds(1.5);
+    public TimeSpan PrintDelay = TimeSpan.FromSeconds(10);
+
+    [ViewVariables]
+    public TimeSpan NextPrintTime = TimeSpan.Zero;
+
+    [ViewVariables]
+    public Dictionary<string, int> PrintedCounts = new();
 }
 
 [DataDefinition]
@@ -44,4 +50,7 @@ public sealed partial class BadgePrinterEntry
 
     [DataField(required: true)]
     public string IconState = default!;
+
+    [DataField]
+    public int? Max;
 }

@@ -30,3 +30,8 @@ badge-printer-receipt-content =
     Дата: { $date }
 
 badge-printer-card-slot = слот для карты
+
+badge-printer-on-cooldown = Принтер перегрелся, подождите ещё { $seconds } сек.
+badge-printer-out-of-stock = Часть выбранных значков закончилась и не была напечатана.
+badge-printer-remaining = Осталось: { $count }
+

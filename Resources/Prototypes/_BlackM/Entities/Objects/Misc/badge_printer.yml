@@ -28,18 +28,25 @@
           iconState: medical
         - proto: BadgeCommand
           iconState: command
+          max: 8
         - proto: BadgeCaptain
           iconState: captain
+          max: 1
         - proto: BadgeQuartermaster
           iconState: supplychief
+          max: 1
         - proto: BadgeChiefEngineer
           iconState: engineerchief
+          max: 1
         - proto: BadgeResearchDirector
           iconState: sciencechief
+          max: 1
         - proto: BadgeChiefMedicalOfficer
           iconState: medicalchief
+          max: 1
         - proto: BadgeHeadOfSecurity
           iconState: securityhos
+          max: 1
     - type: ItemSlots
       slots:
         badge_printer_card_slot:
