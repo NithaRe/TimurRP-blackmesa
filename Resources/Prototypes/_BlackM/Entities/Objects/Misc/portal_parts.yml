@@ -53,7 +53,7 @@
   - type: Sprite
     sprite: _BlackM/Objects/Portal/parts.rsi
   - type: Item
-    size: Small
+    size: Normal
   - type: StaticPrice
     price: 0
 
