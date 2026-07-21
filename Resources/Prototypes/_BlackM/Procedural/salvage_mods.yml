@@ -1,0 +1,4 @@
+- type: salvageBiomeMod
+  id: Zen
+  desc: Зен
+  biome: Zen

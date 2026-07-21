@@ -17,27 +17,34 @@
   parent: FTLPoint
 
 # Biome mods -> at least 1 required
-- type: salvageBiomeMod
-  id: Caves
-  desc: salvage-biome-mod-caves
-  biome: Caves
 
-- type: salvageBiomeMod
-  id: Grasslands
-  desc: salvage-biome-mod-grasslands
-  biome: Grasslands
+# - type: salvageBiomeMod
+#   id: Caves
+#   desc: salvage-biome-mod-caves
+#   biome: Caves
 
-- type: salvageBiomeMod
-  id: Snow
-  desc: salvage-biome-mod-snow
-  cost: 1
-  biome: Snow
+# - type: salvageBiomeMod
+#   id: Grasslands
+#   desc: salvage-biome-mod-grasslands
+#   biome: Grasslands
 
-- type: salvageBiomeMod
-  id: Lava
-  desc: salvage-biome-mod-lava
-  cost: 2
-  biome: Lava
+# - type: salvageBiomeMod
+#   id: Snow
+#   desc: salvage-biome-mod-snow
+#   cost: 1
+#   biome: Snow
+
+# - type: salvageBiomeMod
+#   id: Lava
+#   desc: salvage-biome-mod-lava
+#   cost: 2
+#   biome: Lava
+
+# - type: salvageBiomeMod
+#   id: Asteroid
+#   desc: salvage-biome-mod-asteroid
+#   cost: 1
+#   biome: Asteroid
 
 #- type: salvageBiomeMod
 #  id: Space
@@ -46,30 +53,34 @@
 #  biome: null
 
 # Light mods -> required
-- type: salvageLightMod
-  id: Daylight
-  desc: salvage-light-mod-daylight
-  color: "#D8B059"
-  biomes:
-    - Grasslands
+# - type: salvageLightMod
+#   id: Daylight
+#   desc: salvage-light-mod-daylight
+#   color: "#D8B059"
+#   biomes:
+#     - Zen
 
-- type: salvageLightMod
-  id: Lavalight
-  desc: salvage-light-mod-daylight
-  color: "#A34931"
-  biomes:
-    - Lava
+# - type: salvageLightMod
+#   id: Lavalight
+#   desc: salvage-light-mod-daylight
+#   color: "#A34931"
+#   biomes:
+#     - Zen
 
 - type: salvageLightMod
   id: Evening
   desc: salvage-light-mod-evening
   color: "#2b3143"
+  biomes:
+    - Zen # BlackM
 
 - type: salvageLightMod
   id: Night
   desc: salvage-light-mod-night
   cost: 1
   color: null
+  biomes:
+    - Zen # BlackM
 
 # Temperatures
 - type: salvageTemperatureMod
@@ -77,154 +88,155 @@
   desc: salvage-temperature-mod-room-temperature
   cost: 0
 
-- type: salvageTemperatureMod
-  id: Hot
-  desc: salvage-temperature-mod-hot
-  cost: 1
-  temperature: 323.15 # 50C
-  biomes:
-    - Caves
-    #- LowDesert
-    - Grasslands
-    - Lava
+# - type: salvageTemperatureMod
+#   id: Hot
+#   desc: salvage-temperature-mod-hot
+#   cost: 1
+#   temperature: 323.15 # 50C
+#   biomes:
+#     - Caves
+#     #- LowDesert
+#     - Grasslands
+#     - Lava
+#     - Zen
 
-- type: salvageTemperatureMod
-  id: Burning
-  desc: salvage-temperature-mod-high-temperature
-  cost: 2
-  temperature: 423.15 # 200C
-  biomes:
-    - Caves
-    #- LowDesert
-    - Lava
+# - type: salvageTemperatureMod
+#   id: Burning
+#   desc: salvage-temperature-mod-high-temperature
+#   cost: 2
+#   temperature: 423.15 # 200C
+#   biomes:
+#     - Caves
+#     #- LowDesert
+#     - Lava
+#     - Zen
 
-- type: salvageTemperatureMod
-  id: Melting
-  desc: salvage-temperature-mod-extreme-heat
-  cost: 4
-  temperature: 1273.15 # 1000C hot hot hot
-  biomes:
-    - Lava
+# - type: salvageTemperatureMod
+#   id: Melting
+#   desc: salvage-temperature-mod-extreme-heat
+#   cost: 4
+#   temperature: 1273.15 # 1000C hot hot hot
+#   biomes:
+#     - Lava
 
-- type: salvageTemperatureMod
-  id: Cold
-  desc: salvage-temperature-mod-cold
-  cost: 1
-  temperature: 275.15 # 2C
-  biomes:
-    - Caves
-    #- LowDesert
-    - Grasslands
-    - Snow
+# - type: salvageTemperatureMod
+#   id: Cold
+#   desc: salvage-temperature-mod-cold
+#   cost: 1
+#   temperature: 275.15 # 2C
+#   biomes:
+#     - Caves
+#     #- LowDesert
+#     - Grasslands
+#     - Snow
 
-- type: salvageTemperatureMod
-  id: Tundra
-  desc: salvage-temperature-mod-low-temperature
-  cost: 2
-  temperature: 263.15 # -40C
-  biomes:
-    - Caves
-    - Snow
+# - type: salvageTemperatureMod
+#   id: Tundra
+#   desc: salvage-temperature-mod-low-temperature
+#   cost: 2
+#   temperature: 263.15 # -40C
+#   biomes:
+#     - Caves
+#     - Snow
 
-- type: salvageTemperatureMod
-  id: Frozen
-  desc: salvage-temperature-mod-extreme-cold
-  cost: 4
-  temperature: 123.15 # -150C
-  biomes:
-    - Snow
+# - type: salvageTemperatureMod
+#   id: Frozen
+#   desc: salvage-temperature-mod-extreme-cold
+#   cost: 4
+#   temperature: 123.15 # -150C
+#   biomes:
+#     - Snow
 
 # Air mixtures
 - type: salvageAirMod
   id: Space
-  desc: salvage-air-mod-no-atmosphere
+  desc: Космос # BlackM
   space: true
-  cost: 2
-  biomes:
-    - Caves
-    - Lava
-
-- type: salvageAirMod
-  id: Breathable
   cost: 0
-  desc: salvage-air-mod-breathable-atmosphere
-  gases:
-    - 21.824779 # oxygen
-    - 82.10312 # nitrogen
-
-- type: salvageAirMod
-  id: Sleepy
-  cost: 1
-  desc: salvage-air-mod-dangerous-atmosphere
-  gases:
-    - 21.824779 # oxygen
-    - 72.10312 # nitrogen
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 10 # nitrous oxide
   biomes:
-    - Caves
-    #- LowDesert
-    - Snow
-    - Grasslands
-    - Lava
+    - Zen # BlackM
 
-- type: salvageAirMod
-  id: Poisoned
-  cost: 2
-  desc: salvage-air-mod-dangerous-atmosphere
-  gases:
-    - 21.824779 # oxygen
-    - 77.10312 # nitrogen
-    - 10 # carbon dioxide
-  biomes:
-    - Caves
-    #- LowDesert
-    - Snow
-    - Grasslands
-    - Lava
+# - type: salvageAirMod
+#   id: Breathable
+#   cost: 0
+#   desc: salvage-air-mod-breathable-atmosphere
+#   gases:
+#     - 21.824779 # oxygen
+#     - 82.10312 # nitrogen
 
-- type: salvageAirMod
-  id: Poison
-  cost: 3
-  desc: salvage-air-mod-toxic-atmosphere
-  gases:
-    - 21.824779 # oxygen
-    - 0
-    - 82.10312 # carbon dioxide
-  biomes:
-    - Caves
-    - Snow
-    - Lava
+# - type: salvageAirMod
+#   id: Sleepy
+#   cost: 1
+#   desc: salvage-air-mod-dangerous-atmosphere
+#   gases:
+#     - 21.824779 # oxygen
+#     - 72.10312 # nitrogen
+#     - 0
+#     - 0
+#     - 0
+#     - 0
+#     - 0
+#     - 10 # nitrous oxide
+#   biomes:
+#     - Caves
+#     #- LowDesert
+#     - Snow
+#     - Grasslands
+#     - Lava
 
-- type: salvageAirMod
-  id: Plasma
-  cost: 4
-  desc: salvage-air-mod-toxic-atmosphere
-  gases:
-    - 0
-    - 0
-    - 0
-    - 103.927899 # plasma
-  biomes:
-    - Caves
-    - Lava
+# - type: salvageAirMod
+#   id: Poisoned
+#   cost: 2
+#   desc: salvage-air-mod-dangerous-atmosphere
+#   gases:
+#     - 21.824779 # oxygen
+#     - 77.10312 # nitrogen
+#     - 10 # carbon dioxide
+#   biomes:
+#     - Caves
+#     #- LowDesert
+#     - Snow
+#     - Grasslands
+#     - Lava
 
-- type: salvageAirMod
-  id: Burnable
-  cost: 5
-  desc: salvage-air-mod-volatile-atmosphere
-  gases:
-    - 21.824779 # oxygen
-    - 0
-    - 0
-    - 82.10312 # plasma
-  biomes:
-    - Caves
-    - Lava
+# - type: salvageAirMod
+#   id: Poison
+#   cost: 3
+#   desc: salvage-air-mod-toxic-atmosphere
+#   gases:
+#     - 21.824779 # oxygen
+#     - 0
+#     - 82.10312 # carbon dioxide
+#   biomes:
+#     - Caves
+#     - Snow
+#     - Lava
+
+# - type: salvageAirMod
+#   id: Plasma
+#   cost: 4
+#   desc: salvage-air-mod-toxic-atmosphere
+#   gases:
+#     - 0
+#     - 0
+#     - 0
+#     - 103.927899 # plasma
+#   biomes:
+#     - Caves
+#     - Lava
+
+# - type: salvageAirMod
+#   id: Burnable
+#   cost: 5
+#   desc: salvage-air-mod-volatile-atmosphere
+#   gases:
+#     - 21.824779 # oxygen
+#     - 0
+#     - 0
+#     - 82.10312 # plasma
+#   biomes:
+#     - Caves
+#     - Lava
 
 # Weather mods -> not required
 #- type: salvageWeatherMod
@@ -245,6 +257,8 @@
   biomes:
     #- LowDesert
     - Grasslands
+    - Asteroid
+    - Zen # BlackM
 
 - type: salvageDungeonMod
   id: LavaBrig
@@ -252,6 +266,8 @@
   proto: LavaBrig
   biomes:
     - Lava
+    - Asteroid
+    - Zen # BlackM
 
 - type: salvageDungeonMod
   id: Mineshaft
@@ -259,6 +275,8 @@
   proto: Mineshaft
   biomes:
     - Caves
+    - Asteroid
+    - Zen # BlackM
 
 - type: salvageDungeonMod
   id: SnowyLabs
@@ -266,6 +284,8 @@
   proto: SnowyLabs
   biomes:
     - Snow
+    - Asteroid
+    - Zen # BlackM
 
 - type: salvageDungeonMod
   id: Haunted
@@ -273,3 +293,5 @@
   proto: Haunted
   biomes:
     - Caves
+    - Asteroid
+    - Zen # BlackM

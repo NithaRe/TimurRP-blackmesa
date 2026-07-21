@@ -1,0 +1,45 @@
+# Zen
+- type: biomeTemplate
+  id: Zen
+  layers:
+    # Zen trees
+    - !type:BiomeEntityLayer
+      threshold: 0.5
+      noise:
+        seed: 0
+        noiseType: OpenSimplex2
+        fractalType: FBm
+        frequency: 2
+      allowedTiles:
+        - FloorChromite
+      entities:
+        - LightTree
+    # Rock formations
+    - !type:BiomeEntityLayer
+      allowedTiles:
+        - FloorChromite
+      threshold: -0.30
+      noise:
+        seed: 0
+        noiseType: Cellular
+        frequency: 0.05
+        lacunarity: 2
+        fractalType: FBm
+        octaves: 5
+        cellularDistanceFunction: Euclidean
+        cellularReturnType: Distance2
+      entities:
+        - WallRockChromite
+    - !type:BiomeDummyLayer
+      id: Loot
+    # Fill remainder with chromite
+    - !type:BiomeTileLayer
+      threshold: -1.0
+      tile: FloorChromite
+    - !type:BiomeTileLayer
+      threshold: -0.90
+      tile: FloorChromite
+      noise:
+        seed: 0
+        frequency: 0.02
+        fractalType: None
