@@ -343,6 +343,44 @@
       containers:
         badge_slots:
           - BadgeHeadOfSecurity
+          - BadgeMaintenance
+
+- type: entity
+  id: AccessCardHolderSec
+  name: карта доступа Ковак
+  description: Карта доступа отдела контроля и подавления.
+  parent: AccessCardHolder
+  components:
+    - type: ContainerFill
+      containers:
+        badge_slots:
+          - BadgeSecurity
+          - BadgeMaintenance
+
+- type: entity
+  id: AccessCardHolderSecMed
+  name: карта доступа медик силового сектора
+  description: Карта доступа медика силового сектора Ковак.
+  parent: AccessCardHolder
+  components:
+    - type: ContainerFill
+      containers:
+        badge_slots:
+          - BadgeSecurity
+          - BadgeMedical
+          - BadgeMaintenance
+
+- type: entity
+  id: AccessCardHolderSecWarden
+  name: карта доступа Оператора Изо.Сектора
+  description: Карта доступа Изо.Сектора Ковак.
+  parent: AccessCardHolder
+  components:
+    - type: ContainerFill
+      containers:
+        badge_slots:
+          - BadgeSecurity
+          - BadgeMaintenance
 
 - type: entity
   id: BadgeMedical
