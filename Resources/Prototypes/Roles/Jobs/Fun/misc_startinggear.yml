@@ -249,7 +249,7 @@
   id: BrigmedicGear
   equipment: # Heavily goob edited
 #   eyes: ClothingEyesGlassesMedSec  # CorvaxGoob-loadouts: replaced on a BrigmedicGlasses loadout
-    id: AccessCardHolder #BlackM id
+    id: AccessCardHolderSecMed #BlackM id
     passport: PassportBM #BlackM pass
     ears: ClothingHeadsetBrigmedic # EE parity like i was told to do
     belt: ClothingBeltMedicalEMTFilled
