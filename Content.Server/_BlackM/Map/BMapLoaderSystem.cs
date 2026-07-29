@@ -21,7 +21,6 @@ public sealed class BMapLoaderSystem : EntitySystem
     {
         LoadMap("/Maps/_BlackM/ZenMap/zen.yml");
         LoadMap("/Maps/_BlackM/HecuMap/hecuspawnmap.yml");
-        LoadMap("/Maps/_BlackM/stationevacuation.yml");
     }
 
     private void LoadMap(string path)
