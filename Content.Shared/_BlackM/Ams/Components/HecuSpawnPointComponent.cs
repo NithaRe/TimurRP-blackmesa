@@ -1,10 +1,7 @@
 using Robust.Shared.GameObjects;
 
-namespace Content.Shared._BlackM.Portal;
+namespace Content.Shared._BlackM.Ams;
 
-/// <summary>
-/// hecu spawn marker
-/// </summary>
 [RegisterComponent]
 public sealed partial class HecuSpawnPointComponent : Component
 {

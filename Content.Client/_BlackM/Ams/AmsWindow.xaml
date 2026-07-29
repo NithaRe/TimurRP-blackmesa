@@ -1,0 +1,30 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+               Title="{Loc 'ams-ui-title'}"
+               MinSize="760 460">
+    <BoxContainer Orientation="Horizontal" Margin="14 14 14 14" SeparationOverride="14">
+        <BoxContainer Orientation="Vertical" SeparationOverride="12" MinWidth="200" HorizontalExpand="False">
+            <PanelContainer Name="StatusPanel" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="14 14 14 14" SeparationOverride="10">
+                    <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="8">
+                        <PanelContainer Name="StatusDot" MinSize="10 10" VerticalAlignment="Center"/>
+                        <Label Name="StatusLabel" StyleClasses="LabelBig"/>
+                    </BoxContainer>
+                    <Control MinSize="0 2"/>
+                    <Label Text="{Loc 'ams-ui-charge-label'}" StyleClasses="LabelSubText"/>
+                    <ProgressBar Name="ChargeBar" MinValue="0" MaxValue="1" Value="0" MinHeight="18" HorizontalExpand="True"/>
+                    <Label Name="ChargePercentLabel" HorizontalAlignment="Right"/>
+                    <Label Name="TimeLabel" HorizontalAlignment="Center" StyleClasses="LabelSubText"/>
+                </BoxContainer>
+            </PanelContainer>
+            <Control VerticalExpand="True"/>
+            <Button Name="LaunchButton" HorizontalExpand="True" MinHeight="46"/>
+        </BoxContainer>
+        <PanelContainer Name="ColumnDivider" MinSize="1 0" VerticalExpand="True"/>
+        <BoxContainer Orientation="Vertical" SeparationOverride="12" HorizontalExpand="True">
+            <Label Text="{Loc 'ams-ui-parts-label'}" StyleClasses="LabelSubText"/>
+            <GridContainer Name="SlotsGrid" Columns="3" HSeparationOverride="10" VSeparationOverride="10" HorizontalAlignment="Left"/>
+            <Control VerticalExpand="True"/>
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>
