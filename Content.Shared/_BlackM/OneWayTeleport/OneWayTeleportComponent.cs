@@ -9,9 +9,14 @@ public sealed partial class OneWayTeleportComponent : Component
     [DataField]
     public string DestinationId = "default";
 
-    /// <summary>Радиус триггер-зоны.</summary>
     [DataField]
     public float Range = 1.5f;
+
+    [DataField]
+    public bool Enabled = true;
+
+    [DataField]
+    public string WarningMessage = "one-way-teleport-warning-default";
 
     [DataField]
     public HashSet<EntityUid> ActiveDoAfters = new();
@@ -20,14 +25,10 @@ public sealed partial class OneWayTeleportComponent : Component
 [RegisterComponent]
 public sealed partial class OneWayTeleportDestinationComponent : Component
 {
-    /// <summary>ID группы — должен совпадать с OneWayTeleportComponent.DestinationId.</summary>
     [DataField]
     public string DestinationId = "default";
 }
 
-/// <summary>
-/// Вешается на игрока после телепортации запрещает повторный телепорт через этот же DestinationId хз зачем надо оно или не надо но пускай будет.
-/// </summary>
 [RegisterComponent]
 public sealed partial class OneWayTeleportUsedComponent : Component
 {

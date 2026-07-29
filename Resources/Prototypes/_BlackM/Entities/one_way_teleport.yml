@@ -43,3 +43,33 @@
       drawdepth: Overdoors
       sprite: Markers/cross.rsi
       state: green
+
+- type: entity
+  id: OneWayTeleportTriggerAmsEvac
+  name: зона эвакуации (АМС)
+  description: Невидимая зона эвакуации. Открывается только после запуска АМС.
+  parent: OneWayTeleportBase
+  components:
+    - type: OneWayTeleport
+      delay: 10
+      destinationId: "ams_evacuation"
+      range: 1.5
+      enabled: false
+      warningMessage: one-way-teleport-warning-ams-evac
+    - type: Sprite
+      drawdepth: Overdoors
+      sprite: Markers/cross.rsi
+      state: red
+
+- type: entity
+  id: OneWayTeleportDestinationAmsEvac
+  name: маркер назначения эвакуации (АМС)
+  description: Невидимая точка назначения эвакуации после запуска АМС.
+  parent: OneWayTeleportBase
+  components:
+    - type: OneWayTeleportDestination
+      destinationId: "ams_evacuation"
+    - type: Sprite
+      drawdepth: Overdoors
+      sprite: Markers/cross.rsi
+      state: green
