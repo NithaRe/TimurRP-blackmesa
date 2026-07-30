@@ -1,0 +1,59 @@
+- type: cargoProduct
+  id: AmsPartCoreProduct
+  icon:
+    sprite: _BlackM/Objects/ams_parts.rsi
+    state: core
+  product: AmsPartCore
+  cost: 2500
+  category: cargoproduct-category-name-ams
+  group: market
+
+- type: cargoProduct
+  id: AmsPartCoilProduct
+  icon:
+    sprite: _BlackM/Objects/ams_parts.rsi
+    state: coil
+  product: AmsPartCoil
+  cost: 2500
+  category: cargoproduct-category-name-ams
+  group: market
+
+- type: cargoProduct
+  id: AmsPartLensProduct
+  icon:
+    sprite: _BlackM/Objects/ams_parts.rsi
+    state: lens
+  product: AmsPartLens
+  cost: 2500
+  category: cargoproduct-category-name-ams
+  group: market
+
+- type: cargoProduct
+  id: AmsPartCellProduct
+  icon:
+    sprite: _BlackM/Objects/ams_parts.rsi
+    state: cell
+  product: AmsPartCell
+  cost: 2500
+  category: cargoproduct-category-name-ams
+  group: market
+
+- type: cargoProduct
+  id: AmsPartStabilizerProduct
+  icon:
+    sprite: _BlackM/Objects/ams_parts.rsi
+    state: stabilizer
+  product: AmsPartStabilizer
+  cost: 2500
+  category: cargoproduct-category-name-ams
+  group: market
+
+- type: cargoProduct
+  id: AmsPartCasingProduct
+  icon:
+    sprite: _BlackM/Objects/ams_parts.rsi
+    state: casing
+  product: AmsPartCasing
+  cost: 2500
+  category: cargoproduct-category-name-ams
+  group: market
