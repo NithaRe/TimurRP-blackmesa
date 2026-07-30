@@ -4,7 +4,7 @@ using Robust.Shared.Serialization.Manager.Attributes;
 
 namespace Content.Shared._BlackM.Ams;
 
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 public sealed partial class AmsComponent : Component
 {
     [AutoNetworkedField]
