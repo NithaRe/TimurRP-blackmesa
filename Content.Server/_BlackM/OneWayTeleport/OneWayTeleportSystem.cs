@@ -5,6 +5,7 @@ using Content.Shared.DoAfter;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
 using Robust.Server.GameObjects;
+using Robust.Shared.Localization;
 
 namespace Content.Server._BlackM.OneWayTeleport;
 
@@ -33,6 +34,9 @@ public sealed class OneWayTeleportSystem : EntitySystem
         var query = EntityQueryEnumerator<OneWayTeleportComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var teleport, out var xform))
         {
+            if (!teleport.Enabled)
+                continue;
+
             var nearby = _lookup.GetEntitiesInRange(xform.Coordinates, teleport.Range);
 
             foreach (var entity in nearby)
@@ -47,7 +51,7 @@ public sealed class OneWayTeleportSystem : EntitySystem
                     && used.UsedIds.Contains(teleport.DestinationId))
                     continue;
 
-                SendWarning(entity, teleport.Delay);
+                SendWarning(entity, teleport);
 
                 teleport.ActiveDoAfters.Add(entity);
 
@@ -95,6 +99,23 @@ public sealed class OneWayTeleportSystem : EntitySystem
         args.Handled = true;
     }
 
+    public int SetGroupEnabled(string destinationId, bool enabled)
+    {
+        var count = 0;
+
+        var query = EntityQueryEnumerator<OneWayTeleportComponent>();
+        while (query.MoveNext(out _, out var teleport))
+        {
+            if (teleport.DestinationId != destinationId)
+                continue;
+
+            teleport.Enabled = enabled;
+            count++;
+        }
+
+        return count;
+    }
+
     private EntityUid? FindDestination(string destinationId)
     {
         var query = EntityQueryEnumerator<OneWayTeleportDestinationComponent>();
@@ -106,13 +127,21 @@ public sealed class OneWayTeleportSystem : EntitySystem
         return null;
     }
 
-    private void SendWarning(EntityUid entity, float delay)
+    private void SendWarning(EntityUid entity, OneWayTeleportComponent teleport)
     {
-        var seconds = (int)delay;
-        _popup.PopupEntity(
-            $"[ВНИМАНИЕ] Через {seconds} сек. вы будете опущены на нижний этаж комплекса. Вернуться будет НЕВОЗМОЖНО. Отойдите чтобы отменить.",
-            entity,
-            entity,
-            PopupType.LargeCaution);
+        var seconds = (int)teleport.Delay;
+
+        string message;
+        if (Loc.TryGetString(teleport.WarningMessage, out var localized, ("seconds", seconds)))
+        {
+            message = localized;
+        }
+        else
+        {
+            message =
+                $"[ВНИМАНИЕ] Через {seconds} сек. вы будете опущены на нижний этаж комплекса. Вернуться будет НЕВОЗМОЖНО. Отойдите чтобы отменить.";
+        }
+
+        _popup.PopupEntity(message, entity, entity, PopupType.LargeCaution);
     }
 }

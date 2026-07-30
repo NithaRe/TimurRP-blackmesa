@@ -1,5 +1,16 @@
 - type: Tag
   id: ZenCrystal
-
 - type: Tag
   id: PortalPart
+- type: Tag
+  id: AmsPartCore
+- type: Tag
+  id: AmsPartCoil
+- type: Tag
+  id: AmsPartLens
+- type: Tag
+  id: AmsPartCell
+- type: Tag
+  id: AmsPartStabilizer
+- type: Tag
+  id: AmsPartCasing

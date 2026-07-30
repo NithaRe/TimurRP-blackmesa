@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Made for the _BlackM TimurRP",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "core",
+      "directions": 1
+    },
+    {
+      "name": "coil",
+      "directions": 1
+    },
+    {
+      "name": "lens",
+      "directions": 1
+    },
+    {
+      "name": "cell",
+      "directions": 1
+    },
+    {
+      "name": "stabilizer",
+      "directions": 1
+    },
+    {
+      "name": "casing",
+      "directions": 1
+    }
+  ]
+}

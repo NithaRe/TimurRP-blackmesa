@@ -1,0 +1,55 @@
+- type: entity
+  id: AmsMachine
+  parent: BaseStructure
+  name: антимасс-спектрометр
+  description: Массивная синхронизирующая установка. Требует шесть ключевых компонентов для запуска.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/ams_machine.rsi
+    layers:
+    - state: base
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Ams
+  - type: ItemSlots
+    slots:
+      ams_part_core:
+        name: ams-ui-part-core
+        whitelist:
+          tags: [AmsPartCore]
+      ams_part_coil:
+        name: ams-ui-part-coil
+        whitelist:
+          tags: [AmsPartCoil]
+      ams_part_lens:
+        name: ams-ui-part-lens
+        whitelist:
+          tags: [AmsPartLens]
+      ams_part_cell:
+        name: ams-ui-part-cell
+        whitelist:
+          tags: [AmsPartCell]
+      ams_part_stabilizer:
+        name: ams-ui-part-stabilizer
+        whitelist:
+          tags: [AmsPartStabilizer]
+      ams_part_casing:
+        name: ams-ui-part-casing
+        whitelist:
+          tags: [AmsPartCasing]
+  - type: ActivatableUI
+    key: enum.AmsUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.AmsUiKey.Key:
+        type: AmsBoundUserInterface
