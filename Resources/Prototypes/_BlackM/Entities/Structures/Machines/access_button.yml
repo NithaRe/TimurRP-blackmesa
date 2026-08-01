@@ -12,9 +12,6 @@
       sprite: _BlackM/Structures/Wallmounts/access_button.rsi
       layers:
         - state: base
-        - state: unlit
-          map: ["light"]
-          shader: unshaded
     - type: Appearance
     - type: UseDelay
       delay: 0.5

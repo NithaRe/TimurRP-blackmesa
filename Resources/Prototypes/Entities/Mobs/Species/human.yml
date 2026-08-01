@@ -152,6 +152,11 @@
             state: jumpsuit-female
   - type: Sprinter # Goob Change: human major
     staminaDrainRate: 8
+  - type: WalkBob
+    frequency: 9
+    amplitude: 0.06
+    minSpeedThreshold: 0.05
+    returnLerpSpeed: 10
 
 
 - type: entity

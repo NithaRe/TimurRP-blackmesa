@@ -60,8 +60,8 @@ public sealed class StatusIconSystem : SharedStatusIconSystem
         if (_overlay.RemoveOverlay<StatusIconOverlay>())
             return;
 
-        if (_globalEnabled && _localEnabled)
-            _overlay.AddOverlay(new StatusIconOverlay());
+       // if (_globalEnabled && _localEnabled) // BlackM edit
+       //   _overlay.AddOverlay(new StatusIconOverlay());
     }
 
     public List<StatusIconData> GetStatusIcons(EntityUid uid, MetaDataComponent? meta = null)
