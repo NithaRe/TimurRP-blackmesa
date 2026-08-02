@@ -41,10 +41,10 @@
         sound:
           collection: MetalBreak
   - type: StaticPrice
-    price: 4000
+    price: 6000
 
   - type: PriceDecay
-    initialPrice: 4000
+    initialPrice: 6000
     minPrice: 100
     targetMinutes: 40
     curvePower: 1
