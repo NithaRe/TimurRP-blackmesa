@@ -729,7 +729,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         }
         else
         {
-            var nameEv = new TransformSpeakerNameEvent(source, Name(source));
+            var computedName = Identity.Name(source, EntityManager); // _BlackM debug
+            var nameEv = new TransformSpeakerNameEvent(source, computedName);
             RaiseLocalEvent(source, nameEv);
             name = nameEv.VoiceName;
             // Check for a speech verb override
@@ -837,7 +838,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         }
         else
         {
-            var nameEv = new TransformSpeakerNameEvent(source, Name(source));
+            var nameEv = new TransformSpeakerNameEvent(source, Identity.Name(source, EntityManager)); // _BlackM - stranger identity
             RaiseLocalEvent(source, nameEv);
             name = nameEv.VoiceName;
         }
