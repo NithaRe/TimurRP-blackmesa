@@ -157,6 +157,7 @@
     amplitude: 0.06
     minSpeedThreshold: 0.05
     returnLerpSpeed: 10
+  - type: AnonymousIdentity # BlackM 
 
 
 - type: entity

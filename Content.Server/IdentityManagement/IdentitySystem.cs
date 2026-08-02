@@ -32,6 +32,7 @@ using Content.Server.CriminalRecords.Systems;
 using Content.Server.Humanoid;
 using Content.Shared.Clothing;
 using Content.Shared.Database;
+using Content.Shared._BlackM.AnonymousIdentity; // _BlackM - identity
 using Content.Shared.Hands;
 using Content.Shared.Humanoid;
 using Content.Shared.IdentityManagement;
@@ -224,6 +225,11 @@ public sealed class IdentitySystem : SharedIdentitySystem
             presumedName = string.IsNullOrWhiteSpace(id.Comp.FullName) ? null : id.Comp.FullName;
             presumedJob = id.Comp.LocalizedJobTitle?.ToLowerInvariant();
         }
+
+        // _BlackM
+        if (HasComp<AnonymousIdentityComponent>(target))
+            presumedName = null;
+            presumedJob = null;
 
         // If it didn't find a job, that's fine.
         return new(trueName, gender, ageString, presumedName, presumedJob);

@@ -24,6 +24,7 @@ using Content.Shared.Hands.Components;
 using Content.Shared.Inventory;
 using Content.Shared.Overlays;
 using Content.Shared.PDA;
+using Content.Shared._BlackM.AnonymousIdentity; // _BlackM
 using Content.Shared.Verbs;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
@@ -48,6 +49,10 @@ public sealed class IdExaminableSystem : EntitySystem
 
     private void OnGetExamineVerbs(EntityUid uid, IdExaminableComponent component, GetVerbsEvent<ExamineVerb> args)
     {
+        // _BlackM
+        if (HasComp<AnonymousIdentityComponent>(uid))
+            return;
+
         var detailsRange = _examineSystem.IsInDetailsRange(args.User, uid);
         var info = GetMessage(uid);
 
