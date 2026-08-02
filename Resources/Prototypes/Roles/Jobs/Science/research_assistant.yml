@@ -80,6 +80,8 @@
   #storage:
     #back:
     #- Stuff
+  inhand:
+  - BookNewbieGuide # BlackM
 
 - type: chameleonOutfit
   id: ResearchAssistantChameleonOutfit

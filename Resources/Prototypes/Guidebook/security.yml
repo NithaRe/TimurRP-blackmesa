@@ -17,11 +17,11 @@
   id: Security
   name: guide-entry-security
   text: "/ServerInfo/Guidebook/Security/Security.xml"
-  children:
-  - Forensics
-  - Defusal
-  - CriminalRecords
-  #- SpaceLaw # Goobstation / Corvax-Goob-Locale
+  # children:
+  # - Forensics
+  # - Defusal
+  # - CriminalRecords
+  # #- SpaceLaw # Goobstation / Corvax-Goob-Locale
 
 - type: guideEntry
   id: Forensics
