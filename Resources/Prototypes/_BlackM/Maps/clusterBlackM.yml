@@ -31,52 +31,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# - type: gameMap
-#   id: ClusterBlackM
-#   mapName: 'Комплекс Черная Меза'
-#   mapPath: /Maps/_BlackM/clusterBlackM.yml
-#   minPlayers: 0
-#   maxPlayers: 100
-#   stations:
-#     ClusterBlackM:
-#       stationProto: StandardNanotrasenStation
-#       components:
-#       - type: StationEmergencyShuttle
-#         emergencyShuttlePath: /Maps/Shuttles/emergency_cluster.yml
-#       - type: StationNameSetup
-#         mapNameTemplate: 'Комплекс Черная Меза'
-#       - type: StationJobs
-#         overflowJobs:
-#         - Passenger
-#         availableJobs:
-#         Captain: [ 1, 1 ]
-#         HeadOfSecurity: [ 1, 1 ]
-#         Warden: [ 1, 1 ]
-#         SecurityOfficer: [ 3, 6 ]
-#         Cadet: [ 2, 4 ]
-#         ResearchDirector: [ 1, 1 ]
-#         Scientist: [ 4, 8 ]
-#         ChiefMedicalOfficer: [ 1, 1 ]
-#         MedicalDoctor: [ 3, 6 ]
-#         Quartermaster: [ 1, 1 ]
-#         CargoTechnician: [ 2, 4 ]
-#         SalvageSpecialist: [ 2, 4 ]
-#         ChiefEngineer: [ 1, 1 ]
-#         StationEngineer: [ 3, 6 ]
-#         Roboticist: [ 2, 4 ]
-#         Chef: [ 1, 2 ]
-#         Botanist: [ 1, 2 ]
-#         Bartender: [ 1, 1 ]
-#         Janitor: [ 1, 2 ]
-
-#         # Goobstation blob-config-start SMALL+
-#       - type: StationBlobConfig
-#         stageBegin: 25
-#         stageCritical: 350
-#         stageTheEnd: 700
-#         # Goobstation blob-config-end
-
-
 - type: gameMap
   id: ClusterBlackM
   mapName: 'Комплекс Черная Меза'
@@ -114,6 +68,7 @@
             Botanist: [ 1, 2 ]
             Bartender: [ 1, 1 ]
             Janitor: [ 1, 2 ]
+            Passenger: [ -1, -1 ]
  
         # Goobstation blob-config-start SMALL+
         - type: StationBlobConfig
