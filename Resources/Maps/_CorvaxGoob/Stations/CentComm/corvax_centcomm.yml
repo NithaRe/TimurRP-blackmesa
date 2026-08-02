@@ -28952,7 +28952,7 @@ entities:
           maxDistance: 15
           pitch: 1
           volume: 0
-        collection: InternCommandReport
+        collection: BrunCommandReport
     missingComponents:
     - AccessReader
   - uid: 3444

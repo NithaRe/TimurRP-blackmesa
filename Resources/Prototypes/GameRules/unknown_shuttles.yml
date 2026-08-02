@@ -67,8 +67,8 @@
     startAudio:
       path: /Audio/Announcements/attention.ogg
     announcersStartAudio: # CorvaxGoob-CustomAnnouncers
-      Intern:
-        collection: InternCommandReport
+      Blackmesa:
+        collection: BrunCommandReport
     weight: 4 #Common, but not every round
     reoccurrenceDelay: 30
     earliestStart: 20 # Goobstation

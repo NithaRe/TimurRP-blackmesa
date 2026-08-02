@@ -1,0 +1,33 @@
+- type: announcer
+  id: Blackmesa
+  minDaysInMonth: 5
+
+- type: soundCollection
+  id: BrunCommandReport
+  files:
+  - /Audio/_BlackM/Announcements/Announcers/Blackmesa/warning.ogg
+
+- type: soundCollection
+  id: BrundornAlertBlue
+  files:
+  - /Audio/_BlackM/Announcements/Announcers/Blackmesa/bluebr.ogg
+  - /Audio/_BlackM/Announcements/Announcers/Blackmesa/bluedorn.ogg
+
+- type: soundCollection
+  id: BrundornAlertRed
+  files:
+  - /Audio/_BlackM/Announcements/Announcers/Blackmesa/redburn.ogg
+  - /Audio/_BlackM/Announcements/Announcers/Blackmesa/reddorn.ogg
+
+- type: soundCollection
+  id: BrundornAlertGreen
+  files:
+  - /Audio/_BlackM/Announcements/Announcers/Blackmesa/greenbr.ogg
+  - /Audio/_BlackM/Announcements/Announcers/Blackmesa/greendorn.ogg
+
+- type: soundCollection
+  id: BrundornAlertDelta
+  files:
+  - /Audio/_BlackM/Announcements/Announcers/Blackmesa/deltabrun.ogg
+  - /Audio/_BlackM/Announcements/Announcers/Blackmesa/deltadorn.ogg
+
