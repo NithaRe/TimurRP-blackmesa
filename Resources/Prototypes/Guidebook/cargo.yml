@@ -13,9 +13,9 @@
   id: Cargo
   name: guide-entry-cargo
   text: "/ServerInfo/Guidebook/Cargo/Cargo.xml"
-  children:
-  - CargoBounties
-  - Salvage
+  # children:
+  # - CargoBounties
+  # - Salvage
 
 - type: guideEntry
   id: CargoBounties
