@@ -14,6 +14,7 @@
     stunDuration: 2.5
     stunWaveDamage: 8
   - type: Actions
+  - type: MobSpawnZap
   - type: GhostRole
     name: ghost-role-information-vortigaunt-name
     description: ghost-role-information-vortigaunt-description

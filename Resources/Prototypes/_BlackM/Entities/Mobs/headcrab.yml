@@ -7,6 +7,7 @@
   - type: Headcrab
   - type: Actions
   - type: Muted
+  - type: MobSpawnZap
   - type: GhostRole
     name: ghost-role-information-headcrab-name
     description: ghost-role-information-headcrab-description

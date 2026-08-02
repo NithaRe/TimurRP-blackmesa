@@ -1,0 +1,17 @@
+- type: entity
+  id: EffectSpawnZapBlackM
+  name: spawn zap
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _BlackM/Effects/spawn_zap.rsi
+    drawdepth: Effects
+    noRot: true
+    layers:
+    - state: zap
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 1.2
+  - type: EmitSoundOnSpawn
+    sound:
+      path: /Audio/_BlackM/Effects/zenspawn.ogg

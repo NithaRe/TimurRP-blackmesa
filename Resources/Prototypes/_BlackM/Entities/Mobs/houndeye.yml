@@ -6,6 +6,7 @@
   components:
   - type: Houndeye
   - type: Actions
+  - type: MobSpawnZap
   - type: GhostRole
     name: ghost-role-information-houndeye-name
     description: ghost-role-information-houndeye-description
