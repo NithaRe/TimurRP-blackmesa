@@ -1,5 +1,6 @@
 using Content.Shared._BlackM.BattleMusic;
 using Content.Shared.Damage;
+using Content.Shared.Mobs;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Player;
@@ -17,6 +18,35 @@ public sealed class BattleMusicSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<ActorComponent, BeforeDamageChangedEvent>(OnBeforeDamageChanged);
+        SubscribeLocalEvent<BattleMusicComponent, MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<BattleMusicComponent, EntityTerminatingEvent>(OnTerminating);
+    }
+
+    private void OnMobStateChanged(Entity<BattleMusicComponent> ent, ref MobStateChangedEvent args)
+    {
+        if (args.NewMobState is MobState.Dead or MobState.Critical)
+            EndBattleFor(ent.Owner, ent.Comp);
+    }
+
+    private void OnTerminating(Entity<BattleMusicComponent> ent, ref EntityTerminatingEvent args)
+    {
+        EndBattleFor(ent.Owner, ent.Comp);
+    }
+
+    private void EndBattleFor(EntityUid uid, BattleMusicComponent comp)
+    {
+        var opponent = comp.Opponent;
+
+        StopBattleMusic(uid, comp);
+        RemComp<BattleMusicComponent>(uid);
+
+        if (opponent != null
+            && TryComp<BattleMusicComponent>(opponent.Value, out var opponentComp)
+            && opponentComp.Opponent == uid)
+        {
+            StopBattleMusic(opponent.Value, opponentComp);
+            RemComp<BattleMusicComponent>(opponent.Value);
+        }
     }
 
     public override void Update(float frameTime)
