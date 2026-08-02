@@ -1,4 +1,12 @@
 - type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsSecurityMaintenance
+  suffix: Security, Maintenance
+  components:
+  - type: AccessReader
+    access: [["Security"], ["Maintenance"]]
+
+- type: entity
   parent: AirlockMaint
   id: AirlockMaintInfectedBlackM
   name: Заражённый шлюз в тех помещения
@@ -9,3 +17,9 @@
     sprite: _BlackM/Structures/Doors/infected_door.rsi
   - type: Wires
     layoutId: Airlock
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsSecurityMaintenance ]

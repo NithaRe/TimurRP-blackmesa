@@ -48,6 +48,9 @@
   id: AirlockServiceLocked
   suffix: Service, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsService ]
@@ -382,6 +385,9 @@
   id: AirlockCaptainLocked
   suffix: Captain, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsCaptain ]
@@ -421,6 +427,9 @@
   id: AirlockResearchDirectorLocked
   suffix: ResearchDirector, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsResearchDirector ]
@@ -954,6 +963,9 @@
   id: AirlockMaintLocked
   suffix: Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsMaintenance ]

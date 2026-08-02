@@ -103,6 +103,9 @@
   id: AirlockAllServiceGlassLocked
   suffix: All Service, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsAllService ]

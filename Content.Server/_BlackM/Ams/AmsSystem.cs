@@ -4,6 +4,8 @@ using Content.Server.Nuke;
 using Content.Server.RoundEnd;
 using Content.Shared._BlackM.Ams;
 using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Doors.Systems;
+using Content.Shared.Doors.Components;
 using Content.Shared.Nuke;
 using Content.Server.Light.Components;
 using Content.Server.Light.EntitySystems;
@@ -28,8 +30,10 @@ public sealed class AmsSystem : EntitySystem
     [Dependency] private readonly PointLightSystem _pointLight = default!;
     [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
     [Dependency] private readonly OneWayTeleportSystem _oneWayTeleport = default!;
+    [Dependency] private readonly SharedDoorSystem _door = default!;
 
     private const string EvacuationDestinationId = "ams_evacuation";
+    private const string InfectedMaintDoorPrototype = "AirlockMaintInfectedBlackM";
 
     private static readonly SoundPathSpecifier SyncSound =
         new("/Audio/_BlackM/Announcements/announcesync.ogg");
@@ -150,6 +154,7 @@ public sealed class AmsSystem : EntitySystem
                         Dirty(uid, portal);
                         SpawnHecuSoldiers();
                         SendHecuAnnouncement();
+                        OpenInfectedMaintDoors();
                     }
 
                     if (portal.EnergyCharge >= 1f)
@@ -346,6 +351,21 @@ public sealed class AmsSystem : EntitySystem
         {
             var coords = Transform(spawnUid).Coordinates;
             Spawn("RandomHumanoidHECUSoldierSpawner", coords);
+        }
+    }
+
+    private void OpenInfectedMaintDoors()
+    {
+        var query = EntityQueryEnumerator<DoorComponent, MetaDataComponent>();
+        while (query.MoveNext(out var uid, out var door, out var meta))
+        {
+            if (meta.EntityPrototype?.ID != InfectedMaintDoorPrototype)
+                continue;
+
+            _door.StartOpening(uid, door);
+
+            if (TryComp<DoorBoltComponent>(uid, out var bolt))
+                _door.SetBoltsDown((uid, bolt), true, null, false);
         }
     }
 
