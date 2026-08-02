@@ -241,6 +241,9 @@
   id: AirlockFreezerKitchenHydroLocked
   suffix: Kitchen/Hydroponics, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsKitchenHydroponics ]
@@ -418,6 +421,9 @@
   id: AirlockHeadOfSecurityLocked
   suffix: HeadOfSecurity, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsHeadOfSecurity ]
@@ -472,6 +478,9 @@
   id: AirlockDetectiveLocked
   suffix: Detective, Locked
   components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsDetective ]

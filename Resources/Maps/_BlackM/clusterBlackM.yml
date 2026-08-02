@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 08/02/2026 13:57:24
-  entityCount: 10776
+  time: 08/02/2026 16:10:15
+  entityCount: 10785
 maps:
 - 1
 grids:
@@ -4954,6 +4954,19 @@ entities:
           - Toggle
     - type: Fixtures
       fixtures: {}
+  - uid: 4395
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -1.5,1.5
+      parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        175:
+        - - Pressed
+          - Toggle
+    - type: Fixtures
+      fixtures: {}
   - uid: 4513
     components:
     - type: Transform
@@ -5091,6 +5104,19 @@ entities:
     - type: DeviceLinkSource
       linkedPorts:
         282:
+        - - Pressed
+          - Toggle
+    - type: Fixtures
+      fixtures: {}
+  - uid: 5261
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 0.5,1.5
+      parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        175:
         - - Pressed
           - Toggle
     - type: Fixtures
@@ -7485,7 +7511,7 @@ entities:
       pos: -42.5,2.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -41710.125
+      secondsUntilStateChange: -42584.523
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -7662,7 +7688,7 @@ entities:
       access:
       - - Maintenance
     - type: Door
-      secondsUntilStateChange: -22803.275
+      secondsUntilStateChange: -23677.674
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -7818,7 +7844,7 @@ entities:
       pos: -19.5,-2.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -7287.385
+      secondsUntilStateChange: -8161.7827
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -16488,6 +16514,41 @@ entities:
     - type: Transform
       pos: 3.5,-22.5
       parent: 2
+  - uid: 8953
+    components:
+    - type: Transform
+      pos: -25.5,12.5
+      parent: 2
+  - uid: 8954
+    components:
+    - type: Transform
+      pos: -26.5,12.5
+      parent: 2
+  - uid: 8955
+    components:
+    - type: Transform
+      pos: -26.5,11.5
+      parent: 2
+  - uid: 8958
+    components:
+    - type: Transform
+      pos: -28.5,10.5
+      parent: 2
+  - uid: 8959
+    components:
+    - type: Transform
+      pos: -29.5,10.5
+      parent: 2
+  - uid: 8962
+    components:
+    - type: Transform
+      pos: -29.5,9.5
+      parent: 2
+  - uid: 8963
+    components:
+    - type: Transform
+      pos: -30.5,9.5
+      parent: 2
   - uid: 10677
     components:
     - type: Transform
@@ -22652,6 +22713,11 @@ entities:
     - type: Transform
       pos: 38.5,22.5
       parent: 2
+  - uid: 5613
+    components:
+    - type: Transform
+      pos: -25.5,12.5
+      parent: 2
   - uid: 5771
     components:
     - type: Transform
@@ -22751,6 +22817,11 @@ entities:
     components:
     - type: Transform
       pos: -14.5,11.5
+      parent: 2
+  - uid: 8949
+    components:
+    - type: Transform
+      pos: -26.5,12.5
       parent: 2
   - uid: 12749
     components:
@@ -25582,10 +25653,10 @@ entities:
       parent: 2
 - proto: ClosetChefFilled
   entities:
-  - uid: 3836
+  - uid: 8952
     components:
     - type: Transform
-      pos: -2.5,1.5
+      pos: -2.5,2.5
       parent: 2
 - proto: ClosetEmergencyFilledRandom
   entities:
@@ -27184,10 +27255,10 @@ entities:
       open: True
     - type: PlaceableSurface
       isPlaceable: True
-  - uid: 4395
+  - uid: 3836
     components:
     - type: Transform
-      pos: -1.5,1.5
+      pos: -2.5,1.5
       parent: 2
 - proto: CrateGenericSteel
   entities:
@@ -27566,6 +27637,16 @@ entities:
       parent: 2
 - proto: DefaultStationBeacon
   entities:
+  - uid: 4441
+    components:
+    - type: Transform
+      pos: -3.5,20.5
+      parent: 2
+    - type: NavMapBeacon
+      color: '#D4000096'
+      text: МЦФ
+    - type: WarpPoint
+      location: МЦФ
   - uid: 4442
     components:
     - type: Transform
@@ -27576,6 +27657,36 @@ entities:
       text: Зона иследований ЗЕН
     - type: WarpPoint
       location: Зона иследований ЗЕН
+  - uid: 4443
+    components:
+    - type: Transform
+      pos: 15.5,7.5
+      parent: 2
+    - type: NavMapBeacon
+      color: '#3C14B296'
+      text: Обезьяник
+    - type: WarpPoint
+      location: Обезьяник
+  - uid: 4449
+    components:
+    - type: Transform
+      pos: -21.5,9.5
+      parent: 2
+    - type: NavMapBeacon
+      color: '#00D4D496'
+      text: Палаты
+    - type: WarpPoint
+      location: Палаты
+  - uid: 4450
+    components:
+    - type: Transform
+      pos: -11.5,7.5
+      parent: 2
+    - type: NavMapBeacon
+      color: '#00D4D496'
+      text: Мед хранилище
+    - type: WarpPoint
+      location: Мед хранилище
   - uid: 4451
     components:
     - type: Transform
@@ -27596,6 +27707,56 @@ entities:
       text: КОВАК
     - type: WarpPoint
       location: КОВАК
+  - uid: 4456
+    components:
+    - type: Transform
+      pos: 4.5,29.5
+      parent: 2
+    - type: NavMapBeacon
+      color: '#D4D40096'
+      text: Глава Комплекса
+    - type: WarpPoint
+      location: Глава Комплекса
+  - uid: 4457
+    components:
+    - type: Transform
+      pos: -11.5,13.5
+      parent: 2
+    - type: NavMapBeacon
+      color: '#00D4D496'
+      text: Медблок
+    - type: WarpPoint
+      location: Медблок
+  - uid: 4461
+    components:
+    - type: Transform
+      pos: -25.5,14.5
+      parent: 2
+    - type: NavMapBeacon
+      color: '#00D4D496'
+      text: Морг
+    - type: WarpPoint
+      location: Морг
+  - uid: 4462
+    components:
+    - type: Transform
+      pos: -2.5,29.5
+      parent: 2
+    - type: NavMapBeacon
+      color: '#D4D40096'
+      text: Управление комплексом
+    - type: WarpPoint
+      location: Управление комплексом
+  - uid: 8964
+    components:
+    - type: Transform
+      pos: 12.5,14.5
+      parent: 2
+    - type: NavMapBeacon
+      color: '#3C14B296'
+      text: КПП КОВАК
+    - type: WarpPoint
+      location: КПП КОВАК
 - proto: DefaultStationBeaconAME
   entities:
   - uid: 4433
@@ -27651,28 +27812,6 @@ entities:
     - type: Transform
       pos: 2.5,-3.5
       parent: 2
-- proto: DefaultStationBeaconBridge
-  entities:
-  - uid: 4441
-    components:
-    - type: Transform
-      pos: -2.5,28.5
-      parent: 2
-    - type: NavMapBeacon
-      text: Управление Комплекса
-    - type: WarpPoint
-      location: Управление Комплекса
-- proto: DefaultStationBeaconCaptainsQuarters
-  entities:
-  - uid: 4443
-    components:
-    - type: Transform
-      pos: 4.5,29.5
-      parent: 2
-    - type: NavMapBeacon
-      text: Глава Комплекса
-    - type: WarpPoint
-      location: Глава Комплекса
 - proto: DefaultStationBeaconCargoReception
   entities:
   - uid: 4445
@@ -27686,20 +27825,6 @@ entities:
     components:
     - type: Transform
       pos: 17.5,-13.5
-      parent: 2
-- proto: DefaultStationBeaconChemistry
-  entities:
-  - uid: 4449
-    components:
-    - type: Transform
-      pos: -10.5,14.5
-      parent: 2
-- proto: DefaultStationBeaconCMORoom
-  entities:
-  - uid: 4450
-    components:
-    - type: Transform
-      pos: -18.5,14.5
       parent: 2
 - proto: DefaultStationBeaconCryosleep
   entities:
@@ -27715,13 +27840,6 @@ entities:
     - type: Transform
       pos: -32.5,24.5
       parent: 2
-- proto: DefaultStationBeaconHOPOffice
-  entities:
-  - uid: 4456
-    components:
-    - type: Transform
-      pos: -0.5,20.5
-      parent: 2
 - proto: DefaultStationBeaconJanitorsCloset
   entities:
   - uid: 4458
@@ -27735,20 +27853,6 @@ entities:
     components:
     - type: Transform
       pos: 2.5,2.5
-      parent: 2
-- proto: DefaultStationBeaconMedbay
-  entities:
-  - uid: 4461
-    components:
-    - type: Transform
-      pos: -9.5,10.5
-      parent: 2
-- proto: DefaultStationBeaconMorgue
-  entities:
-  - uid: 4462
-    components:
-    - type: Transform
-      pos: -25.5,14.5
       parent: 2
 - proto: DefaultStationBeaconPermaBrig
   entities:
@@ -27822,13 +27926,6 @@ entities:
     components:
     - type: Transform
       pos: -3.5,-22.5
-      parent: 2
-- proto: DefaultStationBeaconVault
-  entities:
-  - uid: 4477
-    components:
-    - type: Transform
-      pos: -3.5,25.5
       parent: 2
 - proto: DefibrillatorCabinetFilled
   entities:
@@ -32378,17 +32475,6 @@ entities:
       parent: 2
     - type: Fixtures
       fixtures: {}
-  - uid: 5261
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -0.5,1.5
-      parent: 2
-    - type: DeviceList
-      devices:
-      - 5439
-    - type: Fixtures
-      fixtures: {}
   - uid: 5262
     components:
     - type: Transform
@@ -32879,10 +32965,10 @@ entities:
       parent: 2
 - proto: FoodCartHot
   entities:
-  - uid: 5613
+  - uid: 4477
     components:
     - type: Transform
-      pos: 0.5,1.5
+      pos: 3.5,-0.5
       parent: 2
 - proto: FoodContainerEgg
   entities:
@@ -45488,7 +45574,7 @@ entities:
       pos: -29.5,-9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -22398.81
+      secondsUntilStateChange: -23273.209
       state: Opening
 - proto: IngotGold
   entities:
@@ -48554,6 +48640,12 @@ entities:
     - type: Transform
       pos: 13.5,16.5
       parent: 2
+  - uid: 4478
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 0.5,0.5
+      parent: 2
   - uid: 5282
     components:
     - type: Transform
@@ -49118,14 +49210,6 @@ entities:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: -0.5,5.5
-      parent: 2
-    - type: ApcPowerReceiver
-      powerLoad: 0
-  - uid: 9074
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 0.5,1.5
       parent: 2
     - type: ApcPowerReceiver
       powerLoad: 0
@@ -54303,14 +54387,6 @@ entities:
       parent: 2
     - type: SurveillanceCamera
       id: Botany
-  - uid: 10534
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 0.5,1.5
-      parent: 2
-    - type: SurveillanceCamera
-      id: Kitchen
   - uid: 10535
     components:
     - type: Transform
@@ -54328,17 +54404,6 @@ entities:
       - SurveillanceCameraService
       nameSet: True
       id: Janitorial
-  - uid: 10537
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -1.5,1.5
-      parent: 2
-    - type: SurveillanceCamera
-      setupAvailableNetworks:
-      - SurveillanceCameraService
-      nameSet: True
-      id: Freezer
 - proto: SurveillanceCameraSupply
   entities:
   - uid: 10541
