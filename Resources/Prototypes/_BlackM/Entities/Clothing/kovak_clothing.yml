@@ -56,7 +56,7 @@
         Piercing: 0.90
 
 - type: entity
-  parent: ClothingShoesBaseButcherable
+  parent: ClothingShoesMilitaryBase
   id: ClothingShoesKovakSoldier
   name: ботинки солдата КОВАК
   description: Прочные ботинки солдата организации КОВАК.
@@ -66,6 +66,8 @@
     state: icon
   - type: Clothing
     sprite: _BlackM/Clothing/Boots/kovak_soldier_boots.rsi
+  - type: ClothingSlowOnDamageModifier
+    modifier: 0.5
 
 - type: entity
   parent: ClothingUniformBase
@@ -92,7 +94,7 @@
     sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_chief_coat.rsi
 
 - type: entity
-  parent: ClothingOuterBase
+  parent: ClothingNeckBase
   id: ClothingOuterCapeKovakChief
   name: накидка главы КОВАК
   description: Церемониальная накидка высшего руководства организации КОВАК.
@@ -102,6 +104,8 @@
     state: icon
   - type: Clothing
     sprite: _BlackM/Clothing/OuterClothing/Coats/kovak_chief_cape.rsi
+  - type: StealTarget
+    stealGroup: HeadCloak
 
 - type: entity
   parent: ClothingOuterBase
@@ -144,6 +148,8 @@
     slots:
     - Hair
     - FacialHair
+  - type: Item
+    size: Normal
   - type: Armor
     modifiers:
       coefficients:
@@ -179,6 +185,8 @@
     slots:
     - Hair
     - FacialHair
+  - type: Item
+    size: Normal
   - type: Armor
     modifiers:
       coefficients:
@@ -214,6 +222,8 @@
     slots:
     - Hair
     - FacialHair
+  - type: Item
+    size: Normal
   - type: Armor
     modifiers:
       coefficients:
@@ -249,6 +259,8 @@
     slots:
     - Hair
     - FacialHair
+  - type: Item
+    size: Normal
   - type: Armor
     modifiers:
       coefficients:
