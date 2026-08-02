@@ -31,7 +31,7 @@ public sealed class AnnouncerPrototype : IPrototype
     /// Chance to be selected in a certain day.
     /// </summary>
     [DataField]
-    public float Chance { get; private set; } = 0.3f;
+    public float Chance { get; private set; } = 1.0f;
 
     /// <summary>
     /// Will play sound on shuttle recall.

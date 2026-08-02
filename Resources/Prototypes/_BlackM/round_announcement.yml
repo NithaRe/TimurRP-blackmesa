@@ -1,0 +1,9 @@
+- type: roundAnnouncement
+  id: BlackmesaWelcome1
+  sound: /Audio/_BlackM/Announcements/Announcers/Blackmesa/welcome.ogg
+  announcer: Blackmesa
+
+- type: roundAnnouncement
+  id: BlackmesaWelcome2
+  sound: /Audio/_BlackM/Announcements/Announcers/Blackmesa/welcomebr.ogg
+  announcer: Blackmesa
