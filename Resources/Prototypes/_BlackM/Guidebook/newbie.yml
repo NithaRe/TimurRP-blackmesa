@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: 2026 Black Mesa Team
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+
+- type: guideEntry
+  id: Newbie
+  name: Новый сотрудник
+  text: "/ServerInfo/_BlackM/Guidebook/Newbie.xml"
