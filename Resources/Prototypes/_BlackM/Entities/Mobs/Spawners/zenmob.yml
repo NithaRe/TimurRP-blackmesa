@@ -1,0 +1,41 @@
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobHeadcrabBlackM
+  name: хедкраб спавнер
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - state: idle
+      sprite: _BlackM/Mobs/headcrab.rsi
+  - type: ConditionalSpawner
+    prototypes:
+    - MobHeadcrabBlackM
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobHoundeyeBlackM
+  name: хаундай спавнер
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - state: walking
+      sprite: _BlackM/Mobs/houndeye.rsi
+  - type: ConditionalSpawner
+    prototypes:
+    - MobHoundeyeBlackM
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobVortigauntBlackM
+  name: вортигонт спавнер
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - state: walking
+      sprite: _BlackM/Mobs/vortigaunt.rsi
+  - type: ConditionalSpawner
+    prototypes:
+    - MobVortigauntBlackM
