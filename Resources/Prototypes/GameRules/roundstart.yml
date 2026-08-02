@@ -640,10 +640,10 @@
   components:
   - type: RoundstartStationVariationRule
     rules:
-    - id: BasicPoweredLightVariationPass
+#    - id: BasicPoweredLightVariationPass
 #    - id: BasicTrashVariationPass #blackm off trash
-    - id: SolidWallRustingVariationPass
-    - id: ReinforcedWallRustingVariationPass
+#    - id: SolidWallRustingVariationPass
+#    - id: ReinforcedWallRustingVariationPass
     - id: BasicPuddleMessVariationPass
       prob: 0.99
       orGroup: puddleMess
