@@ -9,6 +9,7 @@
       badgeContainerId: badge_slots
     - type: Access
     - type: IdCard
+    - type: StationRecordKeyStorage
     - type: Clothing
       slots:
         - idcard
