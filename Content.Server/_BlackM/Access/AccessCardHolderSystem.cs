@@ -1,6 +1,7 @@
 using Content.Server.Popups;
 using Content.Shared._BlackM.Access;
 using Content.Shared._BlackM.Access.Systems;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Verbs;
 using Content.Shared.Examine;
@@ -15,6 +16,7 @@ public sealed class AccessCardHolderSystem : SharedAccessCardHolderSystem
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
 
     private static readonly SoundSpecifier SoundInsert = new SoundPathSpecifier(
         "/Audio/_Goobstation/Items/handling/card_pickup.ogg")
@@ -90,7 +92,7 @@ public sealed class AccessCardHolderSystem : SharedAccessCardHolderSystem
     private void OnGetAltVerbs(EntityUid uid, AccessCardHolderComponent component,
         GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!args.CanInteract)
+        if (!args.CanInteract || !args.CanAccess)
             return;
 
         if (!_container.TryGetContainer(uid, component.BadgeContainerId, out var container))
@@ -160,15 +162,15 @@ public sealed class AccessCardHolderSystem : SharedAccessCardHolderSystem
             return;
         }
 
-        var userCoords = Transform(user).Coordinates;
-
-        if (!_container.Remove(badge, container, destination: userCoords))
+        if (!_container.Remove(badge, container))
         {
             _popup.PopupEntity(
                 Loc.GetString("access-card-holder-remove-fail"),
                 card, user);
             return;
         }
+
+        _hands.PickupOrDrop(user, badge);
 
         _audio.PlayPvs(SoundRemove, card);
         _popup.PopupEntity(
