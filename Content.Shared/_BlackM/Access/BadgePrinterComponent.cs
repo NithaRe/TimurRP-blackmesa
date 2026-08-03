@@ -15,9 +15,6 @@ public sealed partial class BadgePrinterComponent : Component
     public List<BadgePrinterEntry> AvailableBadges = new();
 
     [DataField]
-    public EntProtoId PaperPrototype = "Paper";
-
-    [DataField]
     public string OutputSlotId = "badge_printer_output";
 
     [DataField]

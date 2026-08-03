@@ -14,15 +14,11 @@ public enum BadgePrinterUiKey : byte
 public sealed class BadgePrinterBuiState : BoundUserInterfaceState
 {
     public bool HasCard;
-    public string? HolderName;
-    public string? HolderJob;
     public List<BadgePrinterOptionData> Options;
 
-    public BadgePrinterBuiState(bool hasCard, string? holderName, string? holderJob, List<BadgePrinterOptionData> options)
+    public BadgePrinterBuiState(bool hasCard, List<BadgePrinterOptionData> options)
     {
         HasCard = hasCard;
-        HolderName = holderName;
-        HolderJob = holderJob;
         Options = options;
     }
 }
@@ -53,12 +49,10 @@ public sealed class BadgePrinterOptionData
 public sealed class BadgePrinterPrintMessage : BoundUserInterfaceMessage
 {
     public List<string> SelectedBadgeProtoIds;
-    public string Reason;
 
-    public BadgePrinterPrintMessage(List<string> selectedBadgeProtoIds, string reason)
+    public BadgePrinterPrintMessage(List<string> selectedBadgeProtoIds)
     {
         SelectedBadgeProtoIds = selectedBadgeProtoIds;
-        Reason = reason;
     }
 }
 

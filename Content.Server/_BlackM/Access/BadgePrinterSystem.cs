@@ -6,7 +6,6 @@ using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Interaction;
-using Content.Shared.Paper;
 using Content.Shared.UserInterface;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
@@ -100,45 +99,16 @@ public sealed class BadgePrinterSystem : EntitySystem
         return slots.Slots.GetValueOrDefault(component.CardSlotId);
     }
 
-    private (string? Name, string? Job) GetCardOwnerInfo(EntityUid cardUid)
-    {
-        string? name = null;
-        string? job = null;
-
-        if (TryComp<IdCardComponent>(cardUid, out var idCard))
-        {
-            if (!string.IsNullOrWhiteSpace(idCard.FullName))
-                name = idCard.FullName;
-            if (!string.IsNullOrWhiteSpace(idCard.LocalizedJobTitle))
-                job = idCard.LocalizedJobTitle;
-        }
-
-        if (TryComp<AccessCardHolderComponent>(cardUid, out var holder))
-        {
-            if (name == null && !string.IsNullOrWhiteSpace(holder.FullName))
-                name = holder.FullName;
-            if (job == null && !string.IsNullOrWhiteSpace(holder.JobTitle))
-                job = holder.JobTitle;
-        }
-
-        return (name, job);
-    }
-
     private void UpdateUi(EntityUid uid, BadgePrinterComponent component)
     {
         var slot = GetCardSlot(uid, component);
         var card = slot?.Item;
 
-        string? holderName = null;
-        string? holderJob = null;
         var hasCard = false;
 
         if (card is { } cardUid && HasComp<AccessCardHolderComponent>(cardUid))
         {
             hasCard = true;
-            var (name, job) = GetCardOwnerInfo(cardUid);
-            holderName = name ?? Loc.GetString("badge-printer-unknown-name");
-            holderJob = job ?? Loc.GetString("badge-printer-unknown-job");
         }
 
         var options = new List<BadgePrinterOptionData>();
@@ -163,7 +133,7 @@ public sealed class BadgePrinterSystem : EntitySystem
                 remaining));
         }
 
-        var state = new BadgePrinterBuiState(hasCard, holderName, holderJob, options);
+        var state = new BadgePrinterBuiState(hasCard, options);
         _ui.SetUiState(uid, BadgePrinterUiKey.Key, state);
     }
 
@@ -268,17 +238,7 @@ public sealed class BadgePrinterSystem : EntitySystem
             toSpawn.RemoveRange(freeSlots, toSpawn.Count - freeSlots);
         }
 
-        string holderName = Loc.GetString("badge-printer-unknown-name");
-        string holderJob = Loc.GetString("badge-printer-unknown-job");
-
-        var (name, job) = GetCardOwnerInfo(cardUid);
-        if (name != null)
-            holderName = name;
-        if (job != null)
-            holderJob = job;
-
         var spawnCoords = Transform(uid).Coordinates;
-        var printedNames = new List<string>();
         var printedCount = 0;
 
         foreach (var protoId in toSpawn)
@@ -291,7 +251,6 @@ public sealed class BadgePrinterSystem : EntitySystem
                 continue;
             }
 
-            printedNames.Add(Name(badgeUid));
             component.PrintedCounts[protoId] = component.PrintedCounts.GetValueOrDefault(protoId) + 1;
             printedCount++;
         }
@@ -304,25 +263,6 @@ public sealed class BadgePrinterSystem : EntitySystem
         }
 
         _accessCardHolder.SyncAccess(cardUid, holder);
-
-        var paperUid = Spawn(component.PaperPrototype, spawnCoords.Offset(_random.NextVector2(0.05f, 0.2f)));
-        if (TryComp<PaperComponent>(paperUid, out var paper))
-        {
-            var reason = string.IsNullOrWhiteSpace(args.Reason)
-                ? Loc.GetString("badge-printer-no-reason")
-                : args.Reason.Trim();
-
-            var content = Loc.GetString("badge-printer-receipt-content",
-                ("recipient", holderName),
-                ("job", holderJob),
-                ("issuer", Name(user)),
-                ("reason", reason),
-                ("badges", string.Join(", ", printedNames)),
-                ("date", _timing.CurTime.ToString()));
-
-            paper.Content = content;
-            Dirty(paperUid, paper);
-        }
 
         component.NextPrintTime = curTime + component.PrintDelay;
 
