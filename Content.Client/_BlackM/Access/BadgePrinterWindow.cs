@@ -18,13 +18,11 @@ public sealed class BadgePrinterWindow : DefaultWindow
 {
     [Dependency] private readonly IEntityManager _entMan = default!;
 
-    public event Action<List<string>, string>? OnPrintPressed;
+    public event Action<List<string>>? OnPrintPressed;
     public event Action? OnEjectPressed;
 
-    private readonly Label _cardInfoLabel;
     private readonly Label _cardStatusLabel;
     private readonly BoxContainer _badgeList;
-    private readonly LineEdit _reasonEdit;
     private readonly Button _printButton;
     private readonly Button _ejectButton;
 
@@ -49,7 +47,6 @@ public sealed class BadgePrinterWindow : DefaultWindow
             SeparationOverride = 6,
         };
 
-        // --- Верхняя панель ---
         var headerPanel = new PanelContainer
         {
             PanelOverride = new StyleBoxFlat
@@ -91,13 +88,7 @@ public sealed class BadgePrinterWindow : DefaultWindow
             FontColorOverride = Color.Gray,
         };
 
-        _cardInfoLabel = new Label
-        {
-            Text = string.Empty,
-        };
-
         infoBox.AddChild(_cardStatusLabel);
-        infoBox.AddChild(_cardInfoLabel);
 
         _ejectButton = new Button
         {
@@ -112,7 +103,6 @@ public sealed class BadgePrinterWindow : DefaultWindow
         headerBox.AddChild(_ejectButton);
         headerPanel.AddChild(headerBox);
 
-        // --- Список значков ---
         var listPanel = new PanelContainer
         {
             VerticalExpand = true,
@@ -142,15 +132,6 @@ public sealed class BadgePrinterWindow : DefaultWindow
         scroll.AddChild(_badgeList);
         listPanel.AddChild(scroll);
 
-        // --- Причина выдачи ---
-        var reasonLabel = new Label { Text = Loc.GetString("badge-printer-reason-label") };
-        _reasonEdit = new LineEdit
-        {
-            PlaceHolder = Loc.GetString("badge-printer-reason-placeholder"),
-            HorizontalExpand = true,
-        };
-
-        // --- Кнопка печати ---
         _printButton = new Button
         {
             Text = Loc.GetString("badge-printer-print-button"),
@@ -165,13 +146,11 @@ public sealed class BadgePrinterWindow : DefaultWindow
                     selected.Add(protoId);
             }
 
-            OnPrintPressed?.Invoke(selected, _reasonEdit.Text);
+            OnPrintPressed?.Invoke(selected);
         };
 
         root.AddChild(headerPanel);
         root.AddChild(listPanel);
-        root.AddChild(reasonLabel);
-        root.AddChild(_reasonEdit);
         root.AddChild(_printButton);
 
         Contents.AddChild(root);
@@ -183,10 +162,6 @@ public sealed class BadgePrinterWindow : DefaultWindow
             ? Loc.GetString("badge-printer-card-inserted")
             : Loc.GetString("badge-printer-no-card");
         _cardStatusLabel.FontColorOverride = state.HasCard ? AccentColor : Color.Gray;
-
-        _cardInfoLabel.Text = state.HasCard
-            ? Loc.GetString("badge-printer-card-owner", ("name", state.HolderName ?? "?"), ("job", state.HolderJob ?? "?"))
-            : string.Empty;
 
         _ejectButton.Disabled = !state.HasCard;
         _printButton.Disabled = !state.HasCard;

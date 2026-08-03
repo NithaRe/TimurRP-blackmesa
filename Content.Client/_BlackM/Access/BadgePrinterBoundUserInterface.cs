@@ -22,9 +22,9 @@ public sealed class BadgePrinterBoundUserInterface : BoundUserInterface
         _window = this.CreateWindow<BadgePrinterWindow>();
         _window.Title = Loc.GetString("badge-printer-window-title");
 
-        _window.OnPrintPressed += (selected, reason) =>
+        _window.OnPrintPressed += selected =>
         {
-            SendMessage(new BadgePrinterPrintMessage(selected, reason));
+            SendMessage(new BadgePrinterPrintMessage(selected));
         };
 
         _window.OnEjectPressed += () =>
