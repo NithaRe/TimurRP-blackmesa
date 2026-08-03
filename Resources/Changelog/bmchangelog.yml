@@ -1,0 +1,502 @@
+Name: BlackM
+Order: -1
+Entries:
+- author: NithaRe
+  changes:
+  - type: Remove
+    message: Удалена вся старая музыка лобби и добавлена новая
+  id: 1
+  time: '2026-04-02T16:52:23.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Remove
+    message: Выключены из выбора ненужные роли, переименованы роли, изменены иконки
+      ролей
+  id: 2
+  time: '2026-04-02T18:21:20.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Add
+    message: Добавление системы Возрождения
+  id: 3
+  time: '2026-04-02T18:59:38.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Remove
+    message: Revert "Выключены из выбора ненужные роли, переименованы роли, изменены
+      иконки ролей"
+  id: 4
+  time: '2026-04-02T19:03:07.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Tweak
+    message: Обновление иконки(ПР обновление ролей)
+  id: 5
+  time: '2026-04-02T19:04:33.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Remove
+    message: Revert "Revert "Выключены из выбора ненужные роли, переименованы роли,
+      изменены иконки ролей""
+  id: 6
+  time: '2026-04-02T19:05:30.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Update Kovak gear, ID and PDA sprites
+  id: 7
+  time: '2026-04-03T12:40:51.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Музыка во время файта.
+  id: 8
+  time: '2026-04-03T21:25:49.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Remove
+    message: Новый режим Black Mesa + выключение антагонистов + удаление старой заглушки
+      блек меса режима
+  id: 9
+  time: '2026-04-04T22:01:13.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Headcrabmob
+  id: 10
+  time: '2026-04-05T11:19:41.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: музыка во время чтения правил
+  id: 11
+  time: '2026-04-06T12:49:15.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Add
+    message: Новые правила и иконка BlackMesa
+  id: 12
+  time: '2026-04-07T18:45:06.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Newlobbymenu
+  id: 13
+  time: '2026-04-07T20:56:34.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Hotfixmap
+  id: 14
+  time: '2026-04-08T17:08:21.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Add
+    message: Новый звук для включения боевого режима
+  id: 15
+  time: '2026-04-08T17:20:31.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Add
+    message: Добавлен NoSlip ко всем существам в игре
+  id: 16
+  time: '2026-04-08T17:48:33.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Tweak
+    message: Рефактор времени на роли + пассажир переименован в персонал без квалификации
+  id: 17
+  time: '2026-04-08T18:16:45.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: теперь есть воздух и давление не убивает постоянно
+  id: 18
+  time: '2026-04-08T19:27:19.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Remove
+    message: Удаление вещей из консоли заказа грузов + волосы скрываются при надевании
+      шлемов + бессмертная стена
+  id: 19
+  time: '2026-04-09T10:30:20.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Tweak
+    message: Изменен спрайт и механика бессмертия у бессмертной* стены
+  id: 20
+  time: '2026-04-10T10:23:33.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Tweak
+    message: Локализация + Включение антагов
+  id: 21
+  time: '2026-04-10T14:25:05.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Система эвакуации через портал
+  id: 22
+  time: '2026-04-10T14:46:27.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Add
+    message: Новая карта - ClusterBlackM и квар на то, чтобы использовать стандартный
+      маппул Тимур РП
+  id: 23
+  time: '2026-04-10T15:04:54.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Фикс "Лобби"
+  id: 24
+  time: '2026-04-11T13:46:06.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: 'fix: исправление ошибок YAML Linter'
+  id: 25
+  time: '2026-04-11T14:23:49.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: 'fix: Ошибок "2"'
+  id: 26
+  time: '2026-04-11T15:24:25.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Фиксы BlackM
+  id: 27
+  time: '2026-04-12T10:09:31.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: фикс снаряжения
+  id: 28
+  time: '2026-04-12T10:45:24.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Viewcone system
+  id: 29
+  time: '2026-04-12T18:09:55.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Фикс ыфвф теперь только на людях
+  id: 30
+  time: '2026-04-12T18:40:14.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Fix
+    message: Гайдбуки + рефактор ролей + небольшой фикс карты
+  id: 31
+  time: '2026-04-12T19:22:28.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Remove
+    message: Убрана гарнитура у всех, кроме командования и ковак
+  id: 32
+  time: '2026-04-12T19:49:59.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Revert "Фикс ыфвф теперь только на людях"
+  id: 33
+  time: '2026-04-12T20:07:21.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Revert "Viewcone system"
+  id: 34
+  time: '2026-04-12T20:07:58.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Elevatoritile
+  id: 35
+  time: '2026-04-20T12:51:32.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Remove
+    message: Remove Cascade Resonance feature and prototypes
+  id: 36
+  time: '2026-04-20T14:02:33.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Tweak
+    message: Carhgooverhaul
+  id: 37
+  time: '2026-04-21T15:26:26.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Add
+    message: 1 Новая композиция в лобби
+  id: 38
+  time: '2026-04-21T15:38:30.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: HEV и Burner
+  id: 39
+  time: '2026-04-23T10:43:00.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Tweak
+    message: Станция -> Комплекс. Чуть изменена локализация меню подключения
+  id: 40
+  time: '2026-04-28T14:49:27.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Tweak
+    message: Изменен бинд спринта, увеличен расход стамины и уменьшено кд между спринтами
+  id: 41
+  time: '2026-04-28T15:36:56.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Remove
+    message: Удалена ненужная система хардкора
+  id: 42
+  time: '2026-04-29T08:45:27.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Система эвакуации через портал
+  id: 43
+  time: '2026-05-02T17:55:01.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Фикс меню с фразами, теперь можно выбирать любой цвет текста
+  id: 44
+  time: '2026-05-03T08:43:08.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Портал телепорта в Zen
+  id: 45
+  time: '2026-05-03T15:06:39.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Новый шейдер
+  id: 46
+  time: '2026-05-03T17:24:57.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Система эффекта эхо
+  id: 47
+  time: '2026-05-04T15:56:36.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Фикс блекаута от портала
+  id: 48
+  time: '2026-05-05T16:24:48.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлен новый зен моб "Вортигонт"
+  id: 49
+  time: '2026-05-06T21:27:57.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Реколор спрайтов СБ/РНД
+  id: 50
+  time: '2026-05-07T16:37:41.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: 'Фикс YAML: добавление правила Extended и исправление локализации комп…'
+  id: 51
+  time: '2026-05-08T13:32:35.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлен новый прототип радио
+  id: 52
+  time: '2026-05-09T20:29:39.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Remove
+    message: Фикс призрачного бара теперь он будет выключен
+  id: 53
+  time: '2026-05-10T01:04:46.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлена новая система удостоверение личности.
+  id: 54
+  time: '2026-05-20T17:50:10.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Небольшой фикс портала + спрайты.
+  id: 55
+  time: '2026-06-27T17:18:48.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: fix tiles
+  id: 56
+  time: '2026-07-06T08:51:36.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Теперь паспорт можно проверять на ошибки.
+  id: 57
+  time: '2026-07-10T18:14:08.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлены тумблеры в настройки для вкл/выкл шейдера/эхо
+  id: 58
+  time: '2026-07-14T04:37:48.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Улучшенна Система PhraseWheel с меню фразами.
+  id: 59
+  time: '2026-07-16T07:11:52.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлен завершённый прототип радио.
+  id: 60
+  time: '2026-07-16T10:57:49.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлена новая система айди карт.
+  id: 61
+  time: '2026-07-17T15:56:46.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлен принтер ключей доступа
+  id: 62
+  time: '2026-07-19T06:42:38.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлен респрайт "великолепных" спрайтов....
+  id: 63
+  time: '2026-07-19T06:56:11.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлены тумблеры для настройки BattleMusic.
+  id: 64
+  time: '2026-07-19T09:04:33.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: На паспорта теперь ставиться штампы.
+  id: 65
+  time: '2026-07-19T11:55:54.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Remove
+    message: Из наполнения шкафчиков удалены гарнитуры и удаленные открыватели дверей
+  id: 66
+  time: '2026-07-19T12:59:58.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Tweak
+    message: Kovakloadout
+  id: 67
+  time: '2026-07-19T17:13:00.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Изменён принтер печати ключей доступа.
+  id: 68
+  time: '2026-07-20T10:30:09.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Tweak
+    message: Инициализация одной единственной экспедиции - зен
+  id: 69
+  time: '2026-07-21T11:22:55.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Add
+    message: новый параллакс космоса
+  id: 70
+  time: '2026-07-21T11:52:50.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Tweak
+    message: Теперь все части портала Normal размера
+  id: 71
+  time: '2026-07-21T13:07:32.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: В StartingGear Ковака добавлены их карты.
+  id: 72
+  time: '2026-07-22T09:52:05.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Реворк системы АМС
+  id: 73
+  time: '2026-07-30T12:02:25.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Исправлена проблема бесконечной музыкой BattleMusic.
+  id: 74
+  time: '2026-08-02T07:14:08.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Remove
+    message: Выключены все расы кроме человека.
+  id: 75
+  time: '2026-08-02T07:36:58.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Исправлена одежда ковак.
+  id: 76
+  time: '2026-08-02T08:23:05.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Tweak
+    message: Теперь после анонса HECU, Инфекционные двери открываются.
+  id: 77
+  time: '2026-08-02T09:29:32.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлен эффект спавна зен мобов.
+  id: 78
+  time: '2026-08-02T10:43:13.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Add
+    message: Добавлены звуки для Announcer.
+  id: 79
+  time: '2026-08-02T13:24:46.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Add
+    message: Переписаны книги глав и добавлена книга новичка
+  id: 80
+  time: '2026-08-02T14:06:26.0000000+00:00'
+- author: NithaRe
+  changes:
+  - type: Fix
+    message: Фикс PriceDecay. Теперь каждый раунд ценник становится начальным, и распространяется
+      на все кристаллы
+  id: 81
+  time: '2026-08-02T14:55:57.0000000+00:00'
+- author: sweekyl
+  changes:
+  - type: Fix
+    message: Теперь все анонимы (100% Есть баги но супер мелочные)
+  id: 82
+  time: '2026-08-02T22:16:27.0000000+00:00'
