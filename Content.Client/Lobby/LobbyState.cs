@@ -98,6 +98,7 @@ using Content.Goobstation.Common.ServerCurrency;
 using Content.Shared.CCVar;
 using Content.Shared._BlackM.CCVar; //blackM
 using Content.Shared._BlackM.Lobby; //blackM
+using Robust.Shared.Random; //blackM
 using Robust.Client;
 using Robust.Client.Console;
 using Robust.Client.Graphics;
@@ -111,6 +112,7 @@ using Robust.Shared.Utility;
 using System.Numerics;
 using Robust.Shared.Graphics.RSI; //blackM
 using ClientRsi = Robust.Client.Graphics.RSI; //blackM
+using System.Linq; //blackm
 
 namespace Content.Client.Lobby
 {
@@ -130,6 +132,7 @@ namespace Content.Client.Lobby
         CorvaxGoob-Coins-end */
         [Dependency] private readonly IPrototypeManager _protoMan = default!; // Goobstation - credits
         [Dependency] private readonly ClientsidePlaytimeTrackingManager _playtimeTracking = default!;
+        [Dependency] private readonly IRobustRandom _random = default!; // blackm lobby screen
 
         private ISawmill _sawmill = default!; // Goobstation
         private ClientGameTicker _gameTicker = default!;
@@ -238,29 +241,41 @@ namespace Content.Client.Lobby
                 return;
             }
 
-            var rsiPath = _cfg.GetCVar(BlackMCVars.LobbyAnimation);
-            const string stateId = "animation"; 
+    var rawList = _cfg.GetCVar(BlackMCVars.LobbyAnimation);
+    var paths = rawList
+        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        .ToArray();
 
-            if (!_resourceCache.TryGetResource<RSIResource>(new ResPath(rsiPath), out var rsiResource))
-            {
-                _sawmill.Warning($"lobbyanim: RSI {rsiPath} not found!");
-                UpdateLobbyBackground();
-                return;
-            }
+    if (paths.Length == 0)
+    {
+        _sawmill.Warning("lobbyanim: no animation paths configured!");
+        UpdateLobbyBackground();
+        return;
+    }
 
-            if (!rsiResource.RSI.TryGetState(stateId, out var state) || !state.IsAnimated)
-            {
-                UpdateLobbyBackground();
-                return;
-            }
+    var rsiPath = _random.Pick(paths);
+    const string stateId = "animation";
 
-            _currentLocalAnimationState = state;
-            _currentAnimationFrame = 0;
-            _currentAnimationFrameTime = state.GetDelay(0);
+    if (!_resourceCache.TryGetResource<RSIResource>(new ResPath(rsiPath), out var rsiResource))
+    {
+        _sawmill.Warning($"lobbyanim: RSI {rsiPath} not found!");
+        UpdateLobbyBackground();
+        return;
+    }
 
-            if (Lobby != null)
-                Lobby.Background.Texture = state.Frame0;
-        }
+    if (!rsiResource.RSI.TryGetState(stateId, out var state) || !state.IsAnimated)
+    {
+        UpdateLobbyBackground();
+        return;
+    }
+
+    _currentLocalAnimationState = state;
+    _currentAnimationFrame = 0;
+    _currentAnimationFrameTime = state.GetDelay(0);
+
+    if (Lobby != null)
+        Lobby.Background.Texture = state.Frame0;
+    }
         //blackM
 
         /* CorvaxGoob-Coins-start
