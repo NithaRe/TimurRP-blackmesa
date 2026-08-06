@@ -1,0 +1,11 @@
+- type: shader
+  id: GManGlowOutline
+  kind: source
+  path: "/Textures/Shaders/outline.swsl"
+  params:
+    outline_width: 2.0
+    outline_color: "#ffffff"
+    outline_fullbright: true
+    light_boost: 1.0
+    light_gamma: 1.0
+    light_whitepoint: 1.0

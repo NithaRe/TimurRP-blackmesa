@@ -1,0 +1,26 @@
+- type: entity
+  id: BMGManWalker
+  name: "Джи-мен"
+  description: "Он просто... проходит мимо."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    noRot: true
+    sprite: _BlackM/Events/GManWalker/gman_walker.rsi
+    layers:
+    - state: gman_idle
+  - type: GManWalker
+
+- type: entity
+  id: BMGManVoidRect
+  name: "белый проём"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: Overdoors
+    noRot: true
+    layers:
+    - texture: _BlackM/Events/GManWalker/white_void.png
+      scale: 1.4,2.2
+  - type: GManVoidRect
