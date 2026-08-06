@@ -38,8 +38,8 @@ latejoin-arrival-announcement =
         [female] прибыла
         [epicene] прибыли
        *[neuter] прибыло
-    } на станцию!
-latejoin-arrival-announcement-special = { $job } { $character } на палубе!
+    } в комплекс!
+latejoin-arrival-announcement-special = { $job } { $character } на месте!
 latejoin-arrival-sender = комплекса
 latejoin-arrivals-direction = Вскоре прибудет шаттл, который доставит вас на станцию.
 latejoin-arrivals-direction-time = Шаттл, который доставит вас на станцию, прибудет через { $time }.

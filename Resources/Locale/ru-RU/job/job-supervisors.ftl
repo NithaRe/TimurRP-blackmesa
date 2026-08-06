@@ -1,5 +1,5 @@
 job-supervisors-centcom = Командованию Комплекса
-job-supervisors-captain = капитану
+job-supervisors-captain = главе комплекса
 job-supervisors-hop = главе персонала
 job-supervisors-hos = главе службы безопасности
 job-supervisors-ce = старшему инженеру

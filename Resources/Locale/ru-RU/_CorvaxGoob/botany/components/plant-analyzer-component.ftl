@@ -19,7 +19,7 @@ plant-analyzer-soil =
     }.
 plant-analyzer-soil-empty = В { $holder } сейчас ничего не впитывается из химикатов.
 plant-analyzer-component-environemt = Растение [color=green]{ $seedName }[/color] требует атмосферу с уровнем давления [color=lightblue]{ $kpa }кПа ± { $kpaTolerance }кПа[/color], температуру [color=lightsalmon]{ $temp }°К ± { $tempTolerance }°К[/color] и уровень освещения [color=white]{ $lightLevel } ± { $lightTolerance }[/color].
-plant-analyzer-component-environemt-void = Растение [color=green]{ $seedName }[/color] должно выращиваться [bolditalic]в вакууме космоса[/bolditalic] при уровне освещения [color=white]{ $lightLevel } ± { $lightTolerance }[/color].
+plant-analyzer-component-environemt-void = Растение [color=green]{ $seedName }[/color] должно выращиваться [bolditalic]в вакууме сектора[/bolditalic] при уровне освещения [color=white]{ $lightLevel } ± { $lightTolerance }[/color].
 plant-analyzer-component-environemt-gas = Растение [color=green]{ $seedName }[/color] требует атмосферу, содержащую [bold]{ $gases }[/bold], с уровнем давления [color=lightblue]{ $kpa }кПа ± { $kpaTolerance }кПа[/color], температуру [color=lightsalmon]{ $temp }°К ± { $tempTolerance }°К[/color] и уровень освещения [color=white]{ $lightLevel } ± { $lightTolerance }[/color].
 plant-analyzer-produce-plural = { $thing }
 plant-analyzer-output =
