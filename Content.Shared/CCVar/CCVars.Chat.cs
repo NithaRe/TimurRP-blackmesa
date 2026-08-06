@@ -50,7 +50,7 @@ public sealed partial class CCVars
 
     public static readonly CVarDef<bool> ChatEnableFancyBubbles =
         CVarDef.Create("chat.enable_fancy_bubbles",
-            true,
+            false,
             CVar.CLIENTONLY | CVar.ARCHIVE,
             "Toggles displaying fancy speech bubbles, which display the speaking character's name.");
 
