@@ -204,6 +204,9 @@
       enum.GeneralStationRecordConsoleKey.Key:
       # who the fuck named this bruh
         type: GeneralStationRecordConsoleBoundUserInterface
+      enum.GhostCustomizationUiKey.Key: # _BlackM - Ghost Customization
+        type: GhostCustomizationBoundUserInterface
+        requireInputValidation: false
   - type: IntrinsicUI
     uis:
       enum.SolarControlConsoleUiKey.Key:
@@ -218,6 +221,8 @@
         toggleAction: ActionAGhostShowCrewMonitoring
       enum.GeneralStationRecordConsoleKey.Key:
         toggleAction: ActionAGhostShowStationRecords
+      enum.GhostCustomizationUiKey.Key: # _BlackM - Ghost Customization
+        toggleAction: ActionGhostCustomization
   - type: SolarControlConsole # look ma i AM the computer!
   - type: CommunicationsConsole
     title: comms-console-announcement-title-centcom
