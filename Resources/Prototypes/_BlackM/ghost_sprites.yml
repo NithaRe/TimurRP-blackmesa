@@ -1,0 +1,69 @@
+- type: ghostSprite
+  id: GhostDefault
+  name: Обычный
+  sprite:
+    sprite: /Textures/Mobs/Ghosts/ghost_human.rsi
+    state: animated
+
+- type: ghostSprite
+  id: GhostRevenantIdle
+  name: Ревенант
+  sprite:
+    sprite: /Textures/Mobs/Ghosts/revenant.rsi
+    state: idle
+
+- type: ghostSprite
+  id: GhostSpooky
+  name: Жуткий призрак
+  sprite:
+    sprite: /Textures/_Goobstation/Mobs/Demons/spookyghost/ghost1.rsi
+    state: spookyghost
+
+- type: ghostSprite
+  id: GhostWraith
+  name: Врайт
+  sprite:
+    sprite: /Textures/_Goobstation/Wraith/wraith.rsi
+    state: base
+
+- type: ghostSprite
+  id: GhostVoidHound
+  name: свинка
+  sprite:
+    sprite: /Textures/_CorvaxGoob/Objects/Fun/toys.rsi
+    state: rubber_pig
+
+- type: ghostSprite
+  id: GhostSkeleton
+  name: Скелет
+  sprite:
+    sprite: /Textures/_Goobstation/Wraith/Mobs/skeleton.rsi
+    state: skeletonGoon
+
+- type: ghostSprite
+  id: GhostHeadCrab
+  name: хед краб
+  sprite:
+    sprite: /Textures/_BlackM/Mobs/headcrab.rsi
+    state: walking
+
+- type: ghostSprite
+  id: GhostGman
+  name: гмен
+  sprite:
+    sprite: /Textures/_BlackM/Events/GManWalker/gman_walker.rsi
+    state: gman_idle
+
+- type: ghostSprite
+  id: GhostAncientRobot
+  name: Древний робот
+  sprite:
+    sprite: /Textures/_Goobstation/Wraith/Mobs/ancient.rsi
+    state: ancient_robot
+
+- type: ghostSprite
+  id: GhostCursedSpirit
+  name: Проклятый дух
+  sprite:
+    sprite: /Textures/_Goobstation/Mobs/Demons/curse.rsi
+    state: curse

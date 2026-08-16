@@ -1,0 +1,11 @@
+<controls:DefaultWindow xmlns="https://spacestation14.io"
+                         xmlns:controls="clr-namespace:Robust.Client.UserInterface.CustomControls;assembly=Robust.Client"
+                         Title="Внешний вид призрака"
+                         MinSize="560 400">
+    <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="6">
+        <Label Text="Выберите облик своего призрака:" />
+        <ScrollContainer VerticalExpand="True" HorizontalExpand="True" MinHeight="320">
+            <GridContainer Name="SpriteGrid" Columns="3" HSeparationOverride="6" VSeparationOverride="6" />
+        </ScrollContainer>
+    </BoxContainer>
+</controls:DefaultWindow>

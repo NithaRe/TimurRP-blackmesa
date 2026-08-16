@@ -224,10 +224,15 @@
     interfaces:
       enum.RadarConsoleUiKey.Key:
         type: RadarConsoleBoundUserInterface
+      enum.GhostCustomizationUiKey.Key: # _BlackM - Ghost Customization
+        type: GhostCustomizationBoundUserInterface
+        requireInputValidation: false
   - type: IntrinsicUI
     uis:
       enum.RadarConsoleUiKey.Key:
         toggleAction: ActionGhostShowRadar
+      enum.GhostCustomizationUiKey.Key:
+        toggleAction: ActionGhostCustomization
   - type: RadarConsole
     followEntity: true
   # </Goobstation>
@@ -247,6 +252,17 @@
     checkCanInteract: false
   - type: InstantAction
     event: !type:ToggleIntrinsicUIEvent { key: enum.RadarConsoleUiKey.Key }
+
+- type: entity
+  id: ActionGhostCustomization
+  name: Настройка призрака
+  description: Выбрать внешний вид призрака.
+  components:
+  - type: Action
+    icon: { sprite: /Textures/_BlackM/Interface/Misc/custom.rsi, state: icon }
+    checkCanInteract: false
+  - type: InstantAction
+    event: !type:GhostCustomizationActionEvent
 
 - type: entity
   parent: BaseMentalAction
