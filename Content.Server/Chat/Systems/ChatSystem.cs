@@ -196,8 +196,8 @@ public sealed partial class ChatSystem : SharedChatSystem
     public const int WhisperClearRange = 2; // how far whisper goes while still being understandable, in world units
     public const int WhisperMuffledRange = 5; // how far whisper goes at all, in world units
 
-    public const string DefaultAnnouncementSound = "/Audio/_CorvaxGoob/Announcements/announce.ogg"; // CorvaxGoob-Announcements
-    public const string CentComAnnouncementSound = "/Audio/_CorvaxGoob/Announcements/centcomm.ogg"; // CorvaxGoob-Announcements
+    public const string DefaultAnnouncementSound = "/Audio/_BlackM/Announcements/announce.ogg"; // BlackM-Announcements
+    public const string CentComAnnouncementSound = "/Audio/_BlackM/Announcements/Announcers/Blackmesa/warning.ogg"; // BlackM-Announcements
     public const float DefaultObfuscationFactor = 0.2f; // Percentage of symbols in a whispered message that can be seen even by "far" listeners
     public readonly Color DefaultSpeakColor = Color.White; // Einstein Engines - Language
 
