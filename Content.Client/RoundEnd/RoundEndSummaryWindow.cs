@@ -88,7 +88,7 @@ namespace Content.Client.RoundEnd
             var roundEndTabs = new TabContainer();
             roundEndTabs.AddChild(MakeRoundEndSummaryTab(gm, roundEnd, roundTimeSpan, roundId));
             roundEndTabs.AddChild(MakePlayerManifestTab(info));
-            roundEndTabs.AddChild(MakeStationReportTab()); //goob
+            // roundEndTabs.AddChild(MakeStationReportTab()); //goob // blackm off
 
             // CorvaxGoob-PhotoCamera
             var photoTab = MakePhotoReportTab();
