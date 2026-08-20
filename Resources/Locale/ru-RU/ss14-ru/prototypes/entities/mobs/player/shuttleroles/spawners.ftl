@@ -1,6 +1,6 @@
 ent-CommandVisitorSpawner = спавнер посетитель командование
     .desc = { ent-MarkerBase.desc }
-ent-VisitorCaptainSpawner = спавнер посетитель капитан
+ent-VisitorCaptainSpawner = спавнер посетитель руководитель комплекса
     .desc = { ent-MarkerBase.desc }
 ent-VisitorCESpawner = спавнер посетитель СИ
     .desc = { ent-MarkerBase.desc }
@@ -130,7 +130,7 @@ ent-SyndieVisitorSpawner = спавнер Aperture Science жертва ката
 ent-PirateScoonerSpawner = спавнер пират член экипажа
     .suffix = Шхуна
     .desc = { ent-MarkerBase.desc }
-ent-PirateCaptainScoonerSpawner = спавнер пират капитан
+ent-PirateCaptainScoonerSpawner = спавнер пират руководитель комплекса
     .suffix = Шхуна
     .desc = { ent-MarkerBase.desc }
 ent-VisitorBlackmarketeerSpawner = спавнер посетитель торговец чёрного рынка

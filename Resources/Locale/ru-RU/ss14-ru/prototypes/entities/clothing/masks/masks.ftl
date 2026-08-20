@@ -8,7 +8,7 @@ ent-ClothingMaskGasSyndicate = чёрный боевой противогаз
 # Corvax-HiddenDesc-End
 ent-ClothingMaskGasAtmos = атмос-противогаз
     .desc = Улучшенный противогаз, используемый атмосферными техниками. Огнеупорный!
-ent-ClothingMaskGasCaptain = противогаз капитана
+ent-ClothingMaskGasCaptain = противогаз руководителя комплекса
     .desc = В Black Mesa решили срезать углы и перекрасить запасной атмос-противогаз, только никому об этом не говорите.
 ent-ClothingMaskGasCentcom = противогаз Центком
     .desc = Золотой с зелёным. Роскошно! Это поможет вам, пока вы сидите в своём офисе.

@@ -135,8 +135,8 @@
 
 - type: entity
   id: BadgeCaptain
-  name: ключ капитана
-  description: Ключ капитана. Даёт полный доступ к зонам станции.
+  name: ключ руководителя комплекса
+  description: Ключ руководителя комплекса. Даёт полный доступ к зонам станции.
   parent: BaseBadge
   components:
     - type: Badge
@@ -283,8 +283,8 @@
 
 - type: entity
   id: AccessCardHolderCaptain
-  name: карта доступа капитана
-  description: Карта доступа капитана. Открывает все зоны станции.
+  name: карта доступа руководителя комплекса
+  description: Карта доступа руководителя комплекса. Открывает все зоны станции.
   parent: AccessCardHolder
   components:
     - type: ContainerFill

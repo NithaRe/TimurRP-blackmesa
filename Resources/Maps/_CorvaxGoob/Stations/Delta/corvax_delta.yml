@@ -112434,7 +112434,7 @@ entities:
       pos: 9.5,6.5
       parent: 13307
     - type: FaxMachine
-      name: Капитан
+      name: Руководитель Комплекса
 - proto: FenceMetalBroken
   entities:
   - uid: 38767

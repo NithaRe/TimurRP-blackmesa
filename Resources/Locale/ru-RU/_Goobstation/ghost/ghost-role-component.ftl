@@ -35,20 +35,20 @@ ghost-role-information-c4-name = Композиция C-4
 ghost-role-information-c4-description = Помогайте своему пользователю взрывать вещи.
 ghost-role-information-derelict-cyborg-syndicate-name = Заброшенный борг Aperture Science
 ghost-role-information-derelict-cyborg-syndicate-description = Вы потерялись во время штурма комплекса. После долгих лет под воздействием ионных бурь оказались рядом со станцией.
-ghost-role-information-navy-captain-name = Капитан ВМС
+ghost-role-information-navy-captain-name = Руководитель Комплекса ВМС
 ghost-role-information-navy-captain-description = Секретно.
 ghost-role-information-navy-captain-rules = Вы ни перед кем не в ответе.
 ghost-role-information-special-operations-officer-name = Офицер Спецопераций
 ghost-role-information-special-operations-officer-description = Отправляйте, инструктируйте и управляйте отрядами быстрого реагирования и другими силами Black Mesa.
-ghost-role-information-special-operations-officer-rules = Доставьте представителя Black Mesa живым, остальные — цифра в статистике. Приказы [color=#yellow][bold]Капитана ВМС[/bold][/color] могут изменить это.
+ghost-role-information-special-operations-officer-rules = Доставьте представителя Black Mesa живым, остальные — цифра в статистике. Приказы [color=#yellow][bold]Руководителя Комплекса ВМС[/bold][/color] могут изменить это.
 ghost-role-information-navy-officer-name = Офицер ВМС
 ghost-role-information-navy-officer-description = Отвечайте на факсы и радиосообщения Центрального Командования. Проводите расследования над станцией и её экипажем.
-ghost-role-information-navy-officer-rules = Следуйте приказам [color=#yellow][bold]Капитана ВМС[/bold][/color]. При его отсутствии принимайте решения самостоятельно.
+ghost-role-information-navy-officer-rules = Следуйте приказам [color=#yellow][bold]Руководителя Комплекса ВМС[/bold][/color]. При его отсутствии принимайте решения самостоятельно.
 ghost-role-information-navy-officer-undercover-name = Офицер ВМС под прикрытием
 ghost-role-information-navy-officer-undercover-description = Выполняйте задачи и ликвидируйте назначенные цели. Слава Black Mesa!
-ghost-role-information-navy-officer-undercover-rules = Следуйте приказам [color=#yellow][bold]Капитана ВМС[/bold][/color] или другого представителя Центрального Командования.
+ghost-role-information-navy-officer-undercover-rules = Следуйте приказам [color=#yellow][bold]Руководителя Комплекса ВМС[/bold][/color] или другого представителя Центрального Командования.
 ghost-role-information-diplomat-name = Дипломат Центрального Командования
-ghost-role-information-diplomat-description = Представляй интересы Центрального Командования, управляй отношениями с другими фракциями в комплексе. Устраняй проблемы, вызванные Капитаном.
+ghost-role-information-diplomat-description = Представляй интересы Центрального Командования, управляй отношениями с другими фракциями в комплексе. Устраняй проблемы, вызванные Руководитель Комплексаом.
 ghost-role-information-inspector-name = Инспектор Центрального Командования
 ghost-role-information-inspector-description = Проверяйте имущество комплекса и экипаж. Вероятно, вы погибнете в аварии, и за вами вызовут Эскадрон Смерти.
 ghost-role-information-sentient-shark-name = Разумный акулёнок

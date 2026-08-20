@@ -19,9 +19,9 @@ job-name-exec = служебный доступ
 
 job-name-navy-officer = офицер ЦК
 job-name-navyofficer = офицер ЦК
-job-name-navy-captain = капитан ВКФ
+job-name-navy-captain = руководитель комплекса ВКФ
 job-name-navy-officer-undercover = офицер под прикрытием
-job-name-navycaptain = капитан ВКФ
+job-name-navycaptain = руководитель комплекса ВКФ
 job-name-diplomat = дипломат Black Mesa
 job-name-inspector = инспектор ЦК
 job-name-nct = наставник ЦК
@@ -40,7 +40,7 @@ job-name-radiohost = радиоведущий
 # Misc
 
 job-name-conquest = конквест
-job-name-mercenarycaptain = капитан Наёмников
+job-name-mercenarycaptain = руководитель комплекса Наёмников
 
 # Role timers - Make these alphabetical or I cut you (dont listen to upstream, i copied and pasted this, make it very un-alphabetical :godo:)
 
@@ -50,7 +50,7 @@ JobNanotrasenCareerTrainer = наставник ЦК
 JobHecuOperative = агент HECU
 JobNavyOfficer = офицер ЦК
 JobNavyOfficerUndercover = офицер под прикрытием
-JobNavyCaptain = капитан ВКФ
+JobNavyCaptain = руководитель комплекса ВКФ
 JobDiplomat = дипломат Black Mesa
 JobRoboticist = робототехник
 JobGovernmentMan = G-Man
@@ -58,4 +58,4 @@ JobRadioHost = радиоведущий
 JobVirologist = вирусолог
 JobConquest = конквест
 JobInspector = инспектор ЦК
-JobMercenaryCaptain = капитан Наёмников
+JobMercenaryCaptain = руководитель комплекса Наёмников

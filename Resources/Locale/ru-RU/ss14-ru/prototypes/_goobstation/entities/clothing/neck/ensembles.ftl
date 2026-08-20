@@ -1,4 +1,4 @@
-ent-ClothingNeckEnsembleCaptain = ветеранская накидка капитана
+ent-ClothingNeckEnsembleCaptain = ветеранская накидка руководителя комплекса
     .desc = Вы опытный ветеран и держите этот комплекс в кулаке. Что-что? Какая такая шахматная партия? Не было такого!
     .suffix = НЕ МАППИТЬ
 ent-ClothingNeckEnsembleChiefEngineer = ветеранская накидка старшего инженера

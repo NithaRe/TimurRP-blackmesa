@@ -1,5 +1,5 @@
 ent-DresserCaptainFilled = { ent-Dresser }
-    .suffix = Заполненный, Капитан
+    .suffix = Заполненный, Руководитель Комплекса
     .desc = { ent-Dresser.desc }
 ent-DresserChiefEngineerFilled = { ent-Dresser }
     .suffix = Заполненный, Старший инженер

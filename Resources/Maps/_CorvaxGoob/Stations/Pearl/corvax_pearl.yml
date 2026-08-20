@@ -75759,7 +75759,7 @@ entities:
       pos: 27.5,24.5
       parent: 2
     - type: WarpPoint
-      location: Каюта Капитана
+      location: Каюта Руководителя Комплекса
 - proto: DefaultStationBeaconCargoBay
   entities:
   - uid: 5247

@@ -6,6 +6,6 @@ ent-FaxMachineCentcom = факс дальнего действия Центко�
 ent-FaxMachineSyndie = факс дальнего действия Aperture Science
     .suffix = Aperture Science
     .desc = { ent-FaxMachineBase.desc }
-ent-FaxMachineCaptain = факс дальнего действия капитана
+ent-FaxMachineCaptain = факс дальнего действия руководителя комплекса
     .suffix = ЯдерныеКоды
     .desc = { ent-FaxMachineBase.desc }

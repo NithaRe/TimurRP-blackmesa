@@ -1,7 +1,7 @@
 ent-RandomHumanoidSpawnerNavyOfficer = Офицер ЦекнтКом
     .suffix = ЦентКом
     .desc = { "" }
-ent-RandomHumanoidSpawnerNavyCaptain = Капитан ВКФ
+ent-RandomHumanoidSpawnerNavyCaptain = Руководитель Комплекса ВКФ
     .suffix = ТОЛЬКО ДЛЯ АДМИНОВ, НИКОГДА НЕ ИСПОЛЬЗОВАТЬ
     .desc = { "" }
 ent-RandomHumanoidSpawnerNavyOfficerUndercover = Офицер под прикрытием

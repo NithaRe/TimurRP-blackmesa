@@ -1,7 +1,7 @@
 #Goob start
 #Central Command
 # Command
-highlights-captain = Капитан, "Кэп", Мостик, Командование
+highlights-captain = Руководитель Комплекса, "Кэп", Мостик, Командование
 highlights-head-of-personnel = Глава Персонала, "ГП", "ХОП", Сервис, Мостик, Командование
 #Goob end
 

@@ -127459,7 +127459,7 @@ entities:
       setupAvailableNetworks:
       - SurveillanceCameraCommand
       nameSet: True
-      id: Кабинет Капитана
+      id: Кабинет Руководителя Комплекса
   - uid: 12440
     components:
     - type: Transform
@@ -128063,7 +128063,7 @@ entities:
       setupAvailableNetworks:
       - SurveillanceCameraGeneral
       nameSet: True
-      id: 'Коридор Коморка Капитана '
+      id: 'Коридор Коморка Руководителя Комплекса '
   - uid: 12428
     components:
     - type: Transform

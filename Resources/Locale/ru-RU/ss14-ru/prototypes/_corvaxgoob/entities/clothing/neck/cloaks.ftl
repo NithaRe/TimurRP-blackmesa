@@ -1,11 +1,11 @@
-ent-ClothingNeckCaptainWide = широкая шинель капитана
-    .desc = Широкая капитанская шинель. Кажется, она не по размеру вам, но как накидка на плечи сойдёт.
-ent-ClothingNeckCloakRoyalCaptain = королевский плащ капитана
+ent-ClothingNeckCaptainWide = широкая шинель руководителя комплекса
+    .desc = Широкая руководитель комплексаская шинель. Кажется, она не по размеру вам, но как накидка на плечи сойдёт.
+ent-ClothingNeckCloakRoyalCaptain = королевский плащ руководителя комплекса
     .desc = Царь во дворца, царь во дворца.
 ent-ClothingNeckCloakSyndicateAdmiral = плащ адмирала Aperture Science
     .desc = Красный плащ, прошитый золотой тканью.
-ent-ClothingNeckWhiteMantleCaptain = белая мантия капитана
-    .desc = Мантия капитана, с белым пухом.
+ent-ClothingNeckWhiteMantleCaptain = белая мантия руководителя комплекса
+    .desc = Мантия руководителя комплекса, с белым пухом.
 ent-ClothingNeckCloakCentcomBlack = плащ офицера специальных операций
     .desc = Вышитый золотом логотип компании Black Mesa говорит сам за себя.
 ent-ClothingNeckCloakCentcomAdmiral = плащ адмирала

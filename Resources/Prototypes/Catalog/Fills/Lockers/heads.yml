@@ -191,7 +191,7 @@
   id: LockerFillCaptainNoLaser
   table: !type:AllSelector
     children:
-    - id: CaptainIDCard
+    #- id: CaptainIDCard
     - id: CigarGoldCase
       prob: 0.25
     - id: ClothingBeltSheathFilled
@@ -200,9 +200,9 @@
     - id: CommsComputerCircuitboard
     #- id: MedalCase Corvax-Goob-CaptainDrobe
 #    - id: DoorRemoteCustom // BlackM
-    - id: NukeDisk
-    - id: PinpointerNuclear
-    - id: PlushieNuke
+    #- id: NukeDisk
+    #- id: PinpointerNuclear
+    #- id: PlushieNuke
       prob: 0.1
     #- id: RubberStampCaptain Corvax-Goob-CaptainDrobe
     - id: SpaceCash1000
