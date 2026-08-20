@@ -48152,7 +48152,7 @@ entities:
       pos: -3.5,1.5
       parent: 2
     - type: SurveillanceCamera
-      id: Мостик [Каюта капитана]
+      id: Мостик [Каюта руководителя комплекса]
   - uid: 5173
     components:
     - type: Transform

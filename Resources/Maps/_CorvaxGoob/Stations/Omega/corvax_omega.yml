@@ -45912,7 +45912,7 @@ entities:
       pos: -12.5,30.5
       parent: 2
     - type: WarpPoint
-      location: Каюта капитана
+      location: Каюта руководителя комплекса
 - proto: DefaultStationBeaconCargoBay
   entities:
   - uid: 5719
@@ -50034,7 +50034,7 @@ entities:
       pos: -12.5,27.5
       parent: 2
     - type: FaxMachine
-      name: Офис капитана
+      name: Офис руководителя комплекса
 - proto: FigureSpawner
   entities:
   - uid: 6375

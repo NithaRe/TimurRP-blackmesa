@@ -3,7 +3,7 @@ nuke-component-cant-anchor-toggle = Для переключения крепёж
 nuke-component-announcement-sender = Ядерная боеголовка
 nuke-component-announcement-armed = Внимание! Механизм самоуничтожения комплекса был активирован { $location }. До детонации { $time } секунд.
 nuke-component-announcement-unarmed = Механизм самоуничтожение комплекса деактивирован! Хорошего дня!
-nuke-component-announcement-send-codes = Внимание! Запрошенные коды самоуничтожения были отправлены на факс капитана.
+nuke-component-announcement-send-codes = Внимание! Запрошенные коды самоуничтожения были отправлены на факс руководителя комплекса.
 nuke-component-doafter-warning = Вы начинаете перебирать провода и кнопки, в попытке обезвредить ядерную бомбу. Это может занять некоторое время.
 # Nuke UI
 nuke-user-interface-title = Ядерная боеголовка

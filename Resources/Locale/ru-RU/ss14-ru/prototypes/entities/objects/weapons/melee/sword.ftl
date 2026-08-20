@@ -1,6 +1,6 @@
 ent-BaseSword = { ent-BaseItem }
     .desc = { ent-BaseItem.desc }
-ent-CaptainSabre = капитанская сабля
+ent-CaptainSabre = руководитель комплексаская сабля
     .desc = Церемониальное оружие, принадлежащее главе комплекса.
 ent-Katana = катана
     .desc = Древняя работа, выполненная из не столь древней пластали.

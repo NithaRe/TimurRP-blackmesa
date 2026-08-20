@@ -147,9 +147,9 @@ loadout-group-reporter-envirohelm = Экошлем репортера
 loadout-group-reporter-envirosuit = Экокостюм репортера
 loadout-group-reporter-envirogloves = Экоперчатки репортера
 # Captain
-loadout-group-captain-envirohelm = Экошлем капитана
-loadout-group-captain-envirosuit = Экокостюм капитана
-loadout-group-captain-envirogloves = Экоперчатки капитана
+loadout-group-captain-envirohelm = Экошлем руководителя комплекса
+loadout-group-captain-envirosuit = Экокостюм руководителя комплекса
+loadout-group-captain-envirogloves = Экоперчатки руководителя комплекса
 loadout-group-captain-gloves = Руководитель Комплекса, перчатки
 # Salvage Specialist
 loadout-group-salvage-envirohelm = Экошлем утилизатора

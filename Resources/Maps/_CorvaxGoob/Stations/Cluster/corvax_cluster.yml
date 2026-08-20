@@ -36521,7 +36521,7 @@ entities:
       pos: 5.5,27.5
       parent: 1
     - type: FaxMachine
-      name: Офис капитана
+      name: Офис руководителя комплекса
 - proto: filingCabinetDrawerRandom
   entities:
   - uid: 13061
@@ -86562,7 +86562,7 @@ entities:
       pos: 4.5,30.5
       parent: 1
     - type: WarpPoint
-      location: Кабинет капитана
+      location: Кабинет руководителя комплекса
   - uid: 9507
     components:
     - type: Transform

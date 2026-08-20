@@ -23537,7 +23537,7 @@ entities:
   - uid: 506
     components:
     - type: MetaData
-      name: ЛКП комнаты капитана
+      name: ЛКП комнаты руководителя комплекса
     - type: Transform
       pos: 16.5,27.5
       parent: 2
@@ -59178,7 +59178,7 @@ entities:
       pos: 17.5,25.5
       parent: 2
     - type: WarpPoint
-      location: Командование - Каюта капитана
+      location: Командование - Каюта руководителя комплекса
 - proto: DefaultStationBeaconCargoBay
   entities:
   - uid: 6320
@@ -113766,7 +113766,7 @@ entities:
       setupAvailableNetworks:
       - SurveillanceCameraCommand
       nameSet: True
-      id: '[ком] - кабинет капитана'
+      id: '[ком] - кабинет руководителя комплекса'
   - uid: 12884
     components:
     - type: Transform

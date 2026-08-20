@@ -81885,8 +81885,8 @@ entities:
   - uid: 11201
     components:
     - type: MetaData
-      desc: Изысканный, утонченный, изящный и просто удобный берет сделанный специально для капитана данной станции!
-      name: берет капитана
+      desc: Изысканный, утонченный, изящный и просто удобный берет сделанный специально для руководителя комплекса данной станции!
+      name: берет руководителя комплекса
     - type: Transform
       pos: -0.5,-11.5
       parent: 2
@@ -179090,7 +179090,7 @@ entities:
       setupAvailableNetworks:
       - SurveillanceCameraCommand
       nameSet: True
-      id: мастерская капитана
+      id: мастерская руководителя комплекса
   - uid: 21798
     components:
     - type: Transform
@@ -179164,7 +179164,7 @@ entities:
       setupAvailableNetworks:
       - SurveillanceCameraCommand
       nameSet: True
-      id: Офис капитана
+      id: Офис руководителя комплекса
   - uid: 24467
     components:
     - type: Transform

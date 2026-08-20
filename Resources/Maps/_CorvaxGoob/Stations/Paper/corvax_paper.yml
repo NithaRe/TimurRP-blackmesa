@@ -61107,7 +61107,7 @@ entities:
   - uid: 13
     components:
     - type: MetaData
-      name: кубинский пряный ром капитана Пита (ром)
+      name: кубинский пряный ром руководителя комплекса Пита (ром)
     - type: Transform
       pos: 22.588404,55.60221
       parent: 2
@@ -61120,7 +61120,7 @@ entities:
     - type: PressurizedSolution
       sprayFizzinessThresholdRoll: 0.08330628
     - type: NameModifier
-      baseName: кубинский пряный ром капитана Пита
+      baseName: кубинский пряный ром руководителя комплекса Пита
     - type: ContainerContainer
       containers:
         solution@drink: !type:ContainerSlot
@@ -62802,7 +62802,7 @@ entities:
       pos: 33.5,21.5
       parent: 2
     - type: FaxMachine
-      name: Каюта капитана
+      name: Каюта руководителя комплекса
 - proto: FenceMetalBroken
   entities:
   - uid: 8260

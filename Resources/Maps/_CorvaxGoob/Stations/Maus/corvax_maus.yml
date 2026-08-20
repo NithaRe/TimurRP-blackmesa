@@ -51449,8 +51449,8 @@ entities:
   - uid: 20860
     components:
     - type: MetaData
-      desc: А он точно от капитанской формы?
-      name: берет капитана
+      desc: А он точно от руководитель комплексаской формы?
+      name: берет руководителя комплекса
     - type: Transform
       pos: -35.679207,-11.430788
       parent: 2
@@ -55728,7 +55728,7 @@ entities:
       pos: -37.5,-13.5
       parent: 2
     - type: NavMapBeacon
-      text: Каюта капитана
+      text: Каюта руководителя комплекса
 - proto: DefaultStationBeaconCargoReception
   entities:
   - uid: 6224
@@ -61740,8 +61740,8 @@ entities:
       pos: -39.5,-12.5
       parent: 2
     - type: FaxMachine
-      name: Кабинет капитана
-      destinationAddress: Кабинет капитана
+      name: Кабинет руководителя комплекса
+      destinationAddress: Кабинет руководителя комплекса
 - proto: FenceMetalBroken
   entities:
   - uid: 17844

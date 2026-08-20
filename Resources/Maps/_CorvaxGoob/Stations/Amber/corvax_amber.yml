@@ -72585,7 +72585,7 @@ entities:
       pos: -24.5,-50.5
       parent: 2
     - type: FaxMachine
-      name: Офис капитана
+      name: Офис руководителя комплекса
 - proto: FaxMachineSyndie
   entities:
   - uid: 16066
