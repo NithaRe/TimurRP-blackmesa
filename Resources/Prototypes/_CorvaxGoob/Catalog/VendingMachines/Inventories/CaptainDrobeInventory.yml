@@ -42,9 +42,9 @@
     ClothingBackpackDuffelCaptain: 1
     ClothingBackpackSatchelCaptain: 1
    # Stuff
-    MedalCase: 1
+   # MedalCase: 1
     FlippoEngravedLighter: 1
-    ToyFigurineCaptain: 1
+   # ToyFigurineCaptain: 1
     RubberStampCaptain: 1
     PaperCaptainsThoughts: 5
   contrabandInventory:

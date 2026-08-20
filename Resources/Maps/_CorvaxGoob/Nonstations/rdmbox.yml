@@ -100576,7 +100576,7 @@ entities:
       pos: 5.5,-15.5
       parent: 2
     - type: FaxMachine
-      name: Офис Капитана
+      name: Офис Руководителя Комплекса
 - proto: FenceMetalBroken
   entities:
   - uid: 20873

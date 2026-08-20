@@ -76572,7 +76572,7 @@ entities:
       pos: 120.5,64.5
       parent: 1
     - type: FaxMachine
-      name: Капитан
+      name: Руководитель Комплекса
 - proto: FenceMetalBroken
   entities:
   - uid: 9026

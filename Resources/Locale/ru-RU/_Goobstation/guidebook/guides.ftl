@@ -71,7 +71,7 @@ guide-entry-sop-shaft-miner = Шахтёр
 # - Командование
 guide-entry-sop-ntr = Представитель Black Mesa
 guide-entry-sop-bso = Офицер Синего Щита
-guide-entry-sop-captain = Капитан
+guide-entry-sop-captain = Руководитель Комплекса
 guide-entry-sop-hop = Глава Персонала
 guide-entry-sop-hos = Глава Службы Безопасности
 guide-entry-sop-rd = Научный Руководитель

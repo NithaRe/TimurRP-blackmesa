@@ -36653,7 +36653,7 @@ entities:
       pos: -5.5,32.5
       parent: 2
     - type: FaxMachine
-      name: Капитан
+      name: Руководитель Комплекса
   - uid: 6181
     components:
     - type: MetaData

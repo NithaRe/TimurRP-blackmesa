@@ -1,4 +1,4 @@
-ent-RandomHumanoidVisitorCaptain = посетитель Капитан роль призрака
+ent-RandomHumanoidVisitorCaptain = посетитель Руководитель Комплекса роль призрака
     .desc = { "" }
 ent-RandomHumanoidVisitorCE = посетитель СИ роль призрака
     .desc = { "" }
@@ -86,7 +86,7 @@ ent-RandomHumanoidVisitorZookeeper = посетитель зоотехник р�
     .desc = { "" }
 ent-RandomHumanoidClownTroupeBanana = труппа банановых клоунов
     .desc = { ent-RandomHumanoidVisitorClown.desc }
-ent-RandomHumanoidChallengeVictimCaptain = жертва катастрофы Капитан роль призрака
+ent-RandomHumanoidChallengeVictimCaptain = жертва катастрофы Руководитель Комплекса роль призрака
     .suffix = ЧЕЛЛЕНДЖ
     .desc = { "" }
 ent-RandomHumanoidChallengeVictimCE = жертва катастрофы СИ роль призрака

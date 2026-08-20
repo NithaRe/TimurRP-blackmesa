@@ -63073,7 +63073,7 @@ entities:
       pos: -21.5,30.5
       parent: 30
     - type: FaxMachine
-      name: Капитан
+      name: Руководитель Комплекса
 - proto: FigureSpawner
   entities:
   - uid: 20789

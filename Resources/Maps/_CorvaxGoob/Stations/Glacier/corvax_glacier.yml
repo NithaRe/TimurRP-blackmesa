@@ -186558,7 +186558,7 @@ entities:
       pos: 13.5,-9.5
       parent: 2
     - type: FaxMachine
-      name: Офис Капитана
+      name: Офис Руководителя Комплекса
 - proto: FaxMachineSyndie
   entities:
   - uid: 17958
@@ -283809,7 +283809,7 @@ entities:
   - uid: 28405
     components:
     - type: MetaData
-      name: подстанция "Мостик, Капитан"
+      name: подстанция "Мостик, Руководитель Комплекса"
     - type: Transform
       pos: 14.5,-13.5
       parent: 2
@@ -284572,7 +284572,7 @@ entities:
       setupAvailableNetworks:
       - SurveillanceCameraCommand
       nameSet: True
-      id: Офис Капитана
+      id: Офис Руководителя Комплекса
   - uid: 28459
     components:
     - type: Transform
@@ -284637,7 +284637,7 @@ entities:
       setupAvailableNetworks:
       - SurveillanceCameraCommand
       nameSet: True
-      id: Каюта Капитана
+      id: Каюта Руководителя Комплекса
   - uid: 28465
     components:
     - type: Transform

@@ -12892,7 +12892,7 @@ entities:
   - uid: 5271
     components:
     - type: MetaData
-      name: ЛКП Офис Капитана
+      name: ЛКП Офис Руководителя Комплекса
     - type: Transform
       pos: 33.5,44.5
       parent: 2
@@ -51061,7 +51061,7 @@ entities:
       pos: 30.5,42.5
       parent: 2
     - type: FaxMachine
-      name: Офис Капитана
+      name: Офис Руководителя Комплекса
 - proto: filingCabinetDrawer
   entities:
   - uid: 14574
@@ -109560,7 +109560,7 @@ entities:
       pos: 32.5,41.5
       parent: 2
     - type: WarpPoint
-      location: Офис Капитана
+      location: Офис Руководителя Комплекса
   - uid: 16112
     components:
     - type: Transform

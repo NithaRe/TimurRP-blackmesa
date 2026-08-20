@@ -67266,7 +67266,7 @@ entities:
       pos: 15.5,29.5
       parent: 2
     - type: FaxMachine
-      name: Капитан
+      name: Руководитель Комплекса
 - proto: FenceMetalCorner
   entities:
   - uid: 7273

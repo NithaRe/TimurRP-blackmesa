@@ -18,11 +18,11 @@ loadout-group-vox-tank = Газовый баллон для воксов
 loadout-group-pocket-tank-double = Расозависимый двойной аварийный газовый баллон в кармане
 loadout-group-survival-mime = Мимский аварийный запас
 # Command
-loadout-group-captain-head = Капитан, голова
-loadout-group-captain-jumpsuit = Капитан, комбинезон
-loadout-group-captain-neck = Капитан, шея
-loadout-group-captain-backpack = Капитан, рюкзак
-loadout-group-captain-outerclothing = Капитан, верхняя одежда
+loadout-group-captain-head = Руководитель Комплекса, голова
+loadout-group-captain-jumpsuit = Руководитель Комплекса, комбинезон
+loadout-group-captain-neck = Руководитель Комплекса, шея
+loadout-group-captain-backpack = Руководитель Комплекса, рюкзак
+loadout-group-captain-outerclothing = Руководитель Комплекса, верхняя одежда
 loadout-group-hop-head = Глава персонала, голова
 loadout-group-hop-jumpsuit = Глава персонала, комбинезон
 loadout-group-hop-neck = Глава персонала, шея

@@ -76486,8 +76486,8 @@ entities:
       pos: -3.5,-5.5
       parent: 2
     - type: FaxMachine
-      name: Капитан
-      destinationAddress: Капитан
+      name: Руководитель Комплекса
+      destinationAddress: Руководитель Комплекса
   - uid: 9704
     components:
     - type: Transform

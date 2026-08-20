@@ -150286,7 +150286,7 @@ entities:
   - uid: 20895
     components:
     - type: MetaData
-      desc: Капитанская торжественная куртка, инкрустированная золотом, немного потрёпана
+      desc: Руководитель Комплексаская торжественная куртка, инкрустированная золотом, немного потрёпана
       name: потёртая торжественная куртка капитана
     - type: Transform
       pos: -47.475956,93.70694
@@ -181677,7 +181677,7 @@ entities:
       pos: 6.5,-8.5
       parent: 2
     - type: FaxMachine
-      name: Офис Капитана
+      name: Офис Руководителя Комплекса
 - proto: FaxMachineSyndie
   entities:
   - uid: 25876
@@ -313918,7 +313918,7 @@ entities:
       pos: 3.5,-7.5
       parent: 2
     - type: SurveillanceCamera
-      id: Офис Капитана
+      id: Офис Руководителя Комплекса
   - uid: 44609
     components:
     - type: Transform
