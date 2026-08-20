@@ -21,7 +21,5 @@ public enum TeleportGatewayVisuals : byte
 
 public enum TeleportGatewayVisualLayers : byte
 {
-    Frame,
-    On,
-    Portal
+    On
 }

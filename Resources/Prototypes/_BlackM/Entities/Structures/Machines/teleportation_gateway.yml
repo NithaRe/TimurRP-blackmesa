@@ -26,16 +26,10 @@
   - type: TeleportGateway
     pairKey: "alpha"
   - type: Sprite
-    sprite: Structures/Machines/gateway.rsi
+    sprite: _BlackM/Structures/Machines/gateway.rsi
     layers:
-    - state: frame
-      map: ["enum.TeleportGatewayVisualLayers.Frame"]
     - state: on
       map: ["enum.TeleportGatewayVisualLayers.On"]
-      visible: false
-    - state: portal
-      map: ["enum.TeleportGatewayVisualLayers.Portal"]
-      visible: false
   - type: Appearance
   - type: PointLight
     radius: 2.5
@@ -71,16 +65,10 @@
   - type: TeleportGateway
     pairKey: "alpha"
   - type: Sprite
-    sprite: Structures/Machines/gateway.rsi
+    sprite: _BlackM/Structures/Machines/gateway.rsi
     layers:
-    - state: frame
-      map: ["enum.TeleportGatewayVisualLayers.Frame"]
     - state: on
       map: ["enum.TeleportGatewayVisualLayers.On"]
-      visible: false
-    - state: portal
-      map: ["enum.TeleportGatewayVisualLayers.Portal"]
-      visible: false
   - type: Appearance
   - type: PointLight
     radius: 2.5
