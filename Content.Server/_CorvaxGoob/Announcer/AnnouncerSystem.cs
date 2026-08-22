@@ -21,6 +21,9 @@ public sealed class AnnouncerSystem : EntitySystem
     private int? _resetCountdown;
     private AnnouncerPrototype? _forcePresetAnnouncer;
 
+    // blackm permanent anon
+    private const string PermanentForcedAnnouncerId = "Blackmesa";
+
     public override void Initialize()
     {
         base.Initialize();
@@ -52,6 +55,18 @@ public sealed class AnnouncerSystem : EntitySystem
     {
         if (ev.New != GameRunLevel.PreRoundLobby)
             return;
+
+        // blackm perm anon
+        if (!string.IsNullOrEmpty(PermanentForcedAnnouncerId))
+        {
+            if (_prototype.TryIndex<AnnouncerPrototype>(PermanentForcedAnnouncerId, out var permanentAnnouncer))
+            {
+                _announcerToday = permanentAnnouncer;
+                return;
+            }
+
+            Log.Warning($"'{PermanentForcedAnnouncerId}' not found in prototypes.");
+        }
 
         if (_resetCountdown is not null)
         {
