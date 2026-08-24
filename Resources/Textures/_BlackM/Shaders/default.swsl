@@ -1,11 +1,17 @@
 uniform sampler2D SCREEN_TEXTURE;
 
-const highp float Gamma = 0.85;
-const highp float Exposure = 1.1;
+const highp float Gamma = 0.92;
+const highp float Exposure = 1.06;
 const highp vec3 ColorTone = vec3(0.98, 1.0, 1.03);
 
-const highp float AberrationScale = 0.0006;
-const highp float VignetteStrength = 0.2;
+const highp float AberrationScale = 0.0;
+const highp float VignetteStrength = 0.14;
+const highp float ShadowLift = 0.03;
+
+const highp float HighlightContrast = 1.35;
+const highp vec3 ShadowTint = vec3(0.94, 1.0, 1.05);
+const highp vec3 HighlightTint = vec3(1.05, 1.0, 0.93);
+const highp float Saturation = 1.18;
 
 void fragment() {
     highp float r = zTextureSpec(SCREEN_TEXTURE, UV + vec2(AberrationScale, 0.0)).r;
@@ -16,13 +22,23 @@ void fragment() {
     color = pow(color, vec3(Gamma));
     color *= Exposure * ColorTone;
 
+    highp float luma = zGrayscale(color);
+    highp float highlightMask = smoothstep(0.15, 0.75, luma);
+    highp vec3 contrasted = (color - 0.5) * HighlightContrast + 0.5;
+    color = mix(color, contrasted, highlightMask);
+
+    highp vec3 splitTint = mix(ShadowTint, HighlightTint, luma);
+    color *= splitTint;
+
+    color = mix(vec3(ShadowLift), color, 1.0 - ShadowLift);
+
+    highp float finalLuma = zGrayscale(color);
+    color = mix(vec3(finalLuma), color, Saturation);
+
     highp vec2 centered_uv = UV - 0.5;
     highp float dist = length(centered_uv);
     highp float vignette = smoothstep(1.1, 0.6, dist);
     color = mix(color, color * vignette, VignetteStrength);
-
-    highp float gray = zGrayscale(color);
-    color = mix(color, vec3(gray), 0.07);
 
     COLOR = vec4(clamp(color, 0.0, 1.0), 1.0);
 }
