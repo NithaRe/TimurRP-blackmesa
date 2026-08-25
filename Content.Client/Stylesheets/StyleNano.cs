@@ -244,6 +244,12 @@ namespace Content.Client.Stylesheets
         public const string StyleClassLabelSmall = "LabelSmall";
         public const string StyleClassButtonBig = "ButtonBig";
 
+        // blackm edit: lobby buttons
+        public const string StyleClassLabelButtonBlackM = "LabelButtonBlackM";
+        public const string StyleClassSocialButtonBlackM = "SocialButtonBlackM";
+        public const string StyleClassButtonBlackMAccent = "ButtonBlackMAccent";
+        public static readonly Color AccentTealBlackM = Color.FromHex("#4FD1C5");
+
         public const string StyleClassButtonHelp = "HelpButton";
 
         public const string StyleClassPopupMessageSmall = "PopupMessageSmall";
@@ -261,12 +267,13 @@ namespace Content.Client.Stylesheets
         public static readonly Color DangerousRedFore = Color.FromHex("#BB3232");
         public static readonly Color DisabledFore = Color.FromHex("#5A5A5A");
 
-        public static readonly Color ButtonColorDefault = Color.FromHex("#464966");
+        // blackm edit: recolored global button
+        public static readonly Color ButtonColorDefault = Color.FromHex("#3C4350");
         public static readonly Color ButtonColorDefaultRed = Color.FromHex("#D43B3B");
-        public static readonly Color ButtonColorHovered = Color.FromHex("#575b7f");
+        public static readonly Color ButtonColorHovered = Color.FromHex("#4E5768");
         public static readonly Color ButtonColorHoveredRed = Color.FromHex("#DF6B6B");
-        public static readonly Color ButtonColorPressed = Color.FromHex("#3e6c45");
-        public static readonly Color ButtonColorDisabled = Color.FromHex("#30313c");
+        public static readonly Color ButtonColorPressed = Color.FromHex("#2A2F38");
+        public static readonly Color ButtonColorDisabled = Color.FromHex("#26282E");
 
         public static readonly Color ButtonColorCautionDefault = Color.FromHex("#ab3232");
         public static readonly Color ButtonColorCautionHovered = Color.FromHex("#cf2f2f");
@@ -344,6 +351,8 @@ namespace Content.Client.Stylesheets
             var notoSansBold16 = resCache.NotoStack(variation: "Bold", size: 16);
             var notoSansBold18 = resCache.NotoStack(variation: "Bold", size: 18);
             var notoSansBold20 = resCache.NotoStack(variation: "Bold", size: 20);
+            // blackm edit: bigger font
+            var notoSansBold24 = resCache.NotoStack(variation: "Bold", size: 24);
             var notoSansMono = resCache.NotoStack2ElectricBoogaloo("/EngineFonts/NotoSans/NotoSansMono-Regular.ttf", size: 12); // Goobstation - ZH text support
             var robotoMonoBold11 = resCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 11);
             var robotoMonoBold12 = resCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 12);
@@ -1398,6 +1407,279 @@ namespace Content.Client.Stylesheets
                     {
                         new StyleProperty("font", notoSans16)
                     }),
+
+                // blackm edit: (AHelp/Vote/Options/Leave)
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassLabelButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassNormal}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.Black.WithAlpha(0.28f),
+                            BorderColor = Color.White.WithAlpha(0.35f),
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 18,
+                            ContentMarginRightOverride = 18,
+                            ContentMarginTopOverride = 6,
+                            ContentMarginBottomOverride = 6,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassLabelButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassHover}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = NanoGold.WithAlpha(0.18f),
+                            BorderColor = NanoGold.WithAlpha(0.85f),
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 18,
+                            ContentMarginRightOverride = 18,
+                            ContentMarginTopOverride = 6,
+                            ContentMarginBottomOverride = 6,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassLabelButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassPressed}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = NanoGold.WithAlpha(0.32f),
+                            BorderColor = NanoGold,
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 18,
+                            ContentMarginRightOverride = 18,
+                            ContentMarginTopOverride = 6,
+                            ContentMarginBottomOverride = 6,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassLabelButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassDisabled}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.Black.WithAlpha(0.15f),
+                            BorderColor = Color.DarkGray.WithAlpha(0.35f),
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 18,
+                            ContentMarginRightOverride = 18,
+                            ContentMarginTopOverride = 6,
+                            ContentMarginBottomOverride = 6,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassLabelButtonBlackM}, null, null),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty("font", notoSansBold24),
+                        new StyleProperty(Label.StylePropertyAlignMode, Label.AlignMode.Center),
+                    }),
+
+                // Normal
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassLabelButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassNormal}),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty(Label.StylePropertyFontColor, Color.White),
+                    }),
+
+                // Hover
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassLabelButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassHover}),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty(Label.StylePropertyFontColor, NanoGold),
+                    }),
+
+                // Pressed
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassLabelButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassPressed}),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty(Label.StylePropertyFontColor, Color.FromHex("#F0D9A8")),
+                    }),
+
+                // Disabled
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassLabelButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassDisabled}),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty(Label.StylePropertyFontColor, Color.DarkGray),
+                    }),
+
+                // blackm edit: Discord/Boosty
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassSocialButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassNormal}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.Black.WithAlpha(0.28f),
+                            BorderColor = Color.White.WithAlpha(0.35f),
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 12,
+                            ContentMarginRightOverride = 12,
+                            ContentMarginTopOverride = 4,
+                            ContentMarginBottomOverride = 4,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassSocialButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassHover}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = NanoGold.WithAlpha(0.18f),
+                            BorderColor = NanoGold.WithAlpha(0.85f),
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 12,
+                            ContentMarginRightOverride = 12,
+                            ContentMarginTopOverride = 4,
+                            ContentMarginBottomOverride = 4,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassSocialButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassPressed}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = NanoGold.WithAlpha(0.32f),
+                            BorderColor = NanoGold,
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 12,
+                            ContentMarginRightOverride = 12,
+                            ContentMarginTopOverride = 4,
+                            ContentMarginBottomOverride = 4,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassSocialButtonBlackM}, null, null),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty("font", notoSansBold16),
+                        new StyleProperty(Label.StylePropertyAlignMode, Label.AlignMode.Center),
+                        new StyleProperty(Label.StylePropertyFontColor, Color.White),
+                    }),
+
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassSocialButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassHover}),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty(Label.StylePropertyFontColor, NanoGold),
+                    }),
+
+                // blackm edit: (Персонализация/Наблюдать/Готов)
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassButtonBlackMAccent}, null, new[] {ContainerButton.StylePseudoClassNormal}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.Black.WithAlpha(0.28f),
+                            BorderColor = Color.White.WithAlpha(0.35f),
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 16,
+                            ContentMarginRightOverride = 16,
+                            ContentMarginTopOverride = 5,
+                            ContentMarginBottomOverride = 5,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassButtonBlackMAccent}, null, new[] {ContainerButton.StylePseudoClassHover}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = AccentTealBlackM.WithAlpha(0.18f),
+                            BorderColor = AccentTealBlackM.WithAlpha(0.9f),
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 16,
+                            ContentMarginRightOverride = 16,
+                            ContentMarginTopOverride = 5,
+                            ContentMarginBottomOverride = 5,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassButtonBlackMAccent}, null, new[] {ContainerButton.StylePseudoClassPressed}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = AccentTealBlackM.WithAlpha(0.32f),
+                            BorderColor = AccentTealBlackM,
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 16,
+                            ContentMarginRightOverride = 16,
+                            ContentMarginTopOverride = 5,
+                            ContentMarginBottomOverride = 5,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassButtonBlackMAccent}, null, new[] {ContainerButton.StylePseudoClassDisabled}),
+                    new[]
+                    {
+                        new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.Black.WithAlpha(0.15f),
+                            BorderColor = Color.DarkGray.WithAlpha(0.35f),
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 16,
+                            ContentMarginRightOverride = 16,
+                            ContentMarginTopOverride = 5,
+                            ContentMarginBottomOverride = 5,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassButtonBlackMAccent}, null, null),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty("font", notoSansBold18),
+                        new StyleProperty(Label.StylePropertyAlignMode, Label.AlignMode.Center),
+                    }),
+
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassButtonBlackMAccent}, null, new[] {ContainerButton.StylePseudoClassNormal}),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty(Label.StylePropertyFontColor, Color.White),
+                    }),
+
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassButtonBlackMAccent}, null, new[] {ContainerButton.StylePseudoClassHover}),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty(Label.StylePropertyFontColor, AccentTealBlackM),
+                    }),
+
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassButtonBlackMAccent}, null, new[] {ContainerButton.StylePseudoClassPressed}),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty(Label.StylePropertyFontColor, Color.FromHex("#BFF3EE")),
+                    }),
+
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), new[] {StyleClassButtonBlackMAccent}, null, new[] {ContainerButton.StylePseudoClassDisabled}),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty(Label.StylePropertyFontColor, Color.DarkGray),
+                    }),
+                // blackm edit: end
 
                 //APC and SMES power state label colors
                 new StyleRule(new SelectorElement(typeof(Label), new[] {StyleClassPowerStateNone}, null, null), new[]

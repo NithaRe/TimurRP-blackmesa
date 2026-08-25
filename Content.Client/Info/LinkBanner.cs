@@ -70,6 +70,7 @@ namespace Content.Client.Info
             _cfg = IoCManager.Resolve<IConfigurationManager>();
 
             var rulesButton = new Button() {Text = Loc.GetString("server-info-rules-button")};
+            rulesButton.StyleClasses.Add("SocialButtonBlackM"); // blackm edit:  Discord/Boosty
             rulesButton.OnPressed += args => new RulesAndInfoWindow().Open();
             buttons.AddChild(rulesButton);
 
@@ -92,6 +93,7 @@ namespace Content.Client.Info
 
             var guidebookController = UserInterfaceManager.GetUIController<GuidebookUIController>();
             var guidebookButton = new Button() { Text = Loc.GetString("server-info-guidebook-button") };
+            guidebookButton.StyleClasses.Add("SocialButtonBlackM"); // blackm edit: Discord/Boosty
             guidebookButton.OnPressed += _ =>
             {
                 guidebookController.ToggleGuidebook();
@@ -99,12 +101,14 @@ namespace Content.Client.Info
             buttons.AddChild(guidebookButton);
 
             var changelogButton = new ChangelogButton();
+            changelogButton.StyleClasses.Add("SocialButtonBlackM"); // blackm edit: Discord/Boosty
             changelogButton.OnPressed += args => UserInterfaceManager.GetUIController<ChangelogUIController>().ToggleWindow();
             buttons.AddChild(changelogButton);
 
             void AddInfoButton(string loc, CVarDef<string> cVar)
             {
                 var button = new Button { Text = Loc.GetString(loc) };
+                button.StyleClasses.Add("SocialButtonBlackM"); // blackm edit: Discord/Boosty
                 button.OnPressed += _ => uriOpener.OpenUri(_cfg.GetCVar(cVar));
                 buttons.AddChild(button);
                 _infoLinks.Add((cVar, button));
