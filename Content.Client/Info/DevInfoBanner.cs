@@ -29,11 +29,13 @@ namespace Content.Client.Info
             if (bugReport != "")
             {
                 var reportButton = new Button {Text = Loc.GetString("server-info-report-button")};
+                reportButton.StyleClasses.Add("SocialButtonBlackM"); // blackm edit
                 reportButton.OnPressed += args => uriOpener.OpenUri(bugReport);
                 buttons.AddChild(reportButton);
             }
 
             var creditsButton = new Button {Text = Loc.GetString("server-info-credits-button")};
+            creditsButton.StyleClasses.Add("SocialButtonBlackM"); // blackm edit
             creditsButton.OnPressed += args => new CreditsWindow().Open();
             buttons.AddChild(creditsButton);
         }
