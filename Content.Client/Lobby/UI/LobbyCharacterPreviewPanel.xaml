@@ -26,6 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Name="CharacterSetup" Text="{Loc 'lobby-character-preview-panel-character-setup-button'}"
                         HorizontalAlignment="Center"
+                        StyleClasses="ButtonBlackMAccent"
                         Margin="0 5 0 0" />
                 <!--CorvaxGoob-NoCoins
                 <Button Name="PatronPerks" Access="Public" Text="{Loc 'rmc-ui-patron-perks'}"
