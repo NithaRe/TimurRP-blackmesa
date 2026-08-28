@@ -3,11 +3,4 @@
   name: Черная меза
   showInVote: true
   description: Добро пожаловать на научно-исследовательскую станцию Черная Меза!
-  rules:
-  - Extended
-
-- type: entity
-  id: Extended
-  parent: BaseGameRule
-  components:
-  - type: GameRule
+  rules: []
