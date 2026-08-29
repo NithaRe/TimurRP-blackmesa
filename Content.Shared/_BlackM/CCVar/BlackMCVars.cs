@@ -38,4 +38,19 @@ public sealed class BlackMCVars
 
     public static readonly CVarDef<float> BattleMusicVolume =
         CVarDef.Create("audio.battle_music_volume", 1.0f, CVar.CLIENTONLY | CVar.ARCHIVE);
+    
+    public static readonly CVarDef<bool> BarksEnabled =
+        CVarDef.Create("blackm.barks_enabled", true, CVar.SERVER | CVar.REPLICATED);
+
+    public static readonly CVarDef<bool> ReplaceTTSWithBarks =
+        CVarDef.Create("blackm.replace_tts_with_barks", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    public static readonly CVarDef<float> BarksVolume =
+        CVarDef.Create("blackm.barks_volume", 1f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    public static readonly CVarDef<float> BarksMinPitch =
+        CVarDef.Create("blackm.barks_min_pitch", 0.5f, CVar.SERVER | CVar.REPLICATED);
+
+    public static readonly CVarDef<float> BarksMaxPitch =
+        CVarDef.Create("blackm.barks_max_pitch", 2f, CVar.SERVER | CVar.REPLICATED);
 }
