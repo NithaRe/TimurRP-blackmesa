@@ -15,7 +15,7 @@ namespace Content.Server.Database.Migrations.Sqlite
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.0");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
 
             modelBuilder.Entity("Content.Server.Database.Admin", b =>
                 {
@@ -983,6 +983,15 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("age");
 
+                    b.Property<float>("BarkPitch")
+                        .HasColumnType("REAL")
+                        .HasColumnName("bark_pitch");
+
+                    b.Property<string>("BarkProto")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("bark_proto");
+
                     b.Property<string>("CharacterName")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -1058,12 +1067,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("species");
 
-                    // Corvax-TTS-Start
                     b.Property<string>("Voice")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("voice");
-                    // Corvax-TTS-End
 
                     b.HasKey("Id")
                         .HasName("PK_profile");

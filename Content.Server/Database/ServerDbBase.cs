@@ -135,6 +135,7 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading;
+using Content.Shared._BlackM.SpeechBarks; // BlackM Bark
 using System.Threading.Tasks;
 using Content.Server.Administration.Logs;
 using Content.Shared.Administration.Logs;
@@ -348,6 +349,9 @@ namespace Content.Server.Database
                 gender = genderVal;
 
             // CorvaxGoob-TTS-Start
+            // BlackM - Barks
+            var barkProto = string.IsNullOrEmpty(profile.BarkProto) ? "Human1" : profile.BarkProto;
+            var barkPitch = profile.BarkPitch <= 0f ? 1f : profile.BarkPitch;
             var voice = profile.Voice;
             if (voice == String.Empty)
                 voice = SharedHumanoidAppearanceSystem.DefaultSexVoice[sex];
@@ -421,9 +425,11 @@ namespace Content.Server.Database
                 traits.ToHashSet(),
                 loadouts
                 // barkVoice // Goob Station - Barks // CorvaxGoob-Revert : DB conflicts
-            );
-        }
-
+                )  
+                {
+                    Bark = new BarkData(barkProto, barkPitch, 0.1f, 0.5f), // BlackM - Barks
+                };
+                }
         private static Profile ConvertProfiles(HumanoidCharacterProfile humanoid, int slot, Profile? profile = null)
         {
             profile ??= new Profile();
@@ -472,8 +478,9 @@ namespace Content.Server.Database
                         .Select(t => new Trait { TraitName = t })
             );
 
-            // CorvaxGoob-Revert : DB conflicts
-            // profile.BarkVoice = humanoid.BarkVoice; // Goob Station - Barks
+            // BlackM - Barks
+            profile.BarkProto = humanoid.Bark.Proto;
+            profile.BarkPitch = humanoid.Bark.Pitch;
 
             profile.Loadouts.Clear();
 
