@@ -131,12 +131,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 </BoxContainer> -->
                                 <!-- end Goobstation: port EE height/width sliders -->
                                 <!-- Corvax-Frontier-Barks-Start -->
-                                <!-- <BoxContainer HorizontalExpand="True" Visible="False" Name="BarksContainer">
-                                    <Label Text="{Loc 'humanoid-profile-editor-voice-label'}" />
+                                <BoxContainer HorizontalExpand="True" Visible="False" Name="BarksContainer">
+                                    <Label Text="{Loc 'blackm-bark-label'}" />
                                     <Control HorizontalExpand="True"/>
                                     <OptionButton Name="BarkVoiceButton" HorizontalAlignment="Right" />
-                                    <Button Name="BarkVoicePlayButton" Text="{Loc 'humanoid-profile-editor-voice-play'}" MaxWidth="80" />
-                                </BoxContainer> -->
+                                    <Button Name="BarkVoicePlayButton" Text="▶" MaxWidth="80" />
+                                </BoxContainer>
+                                <BoxContainer HorizontalExpand="True" Visible="False" Name="BarkPitchContainer">
+                                    <Label Text="{Loc 'blackm-bark-pitch-label'}" MinWidth="110" />
+                                    <Slider Name="BarkPitchSlider" MinValue="0.5" MaxValue="2" Value="1" HorizontalExpand="True" Margin="5 0 5 0" />
+                                    <Label Name="BarkPitchLabel" MinWidth="40" />
+                                    <Button Name="BarkResetButton" Text="X" MaxWidth="90" Margin="5 0 0 0" />
+                                </BoxContainer>
                                 <!-- Corvax-Frontier-Barks-End -->
                             </BoxContainer>
                             <!-- Skin -->

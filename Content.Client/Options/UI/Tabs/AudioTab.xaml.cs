@@ -164,6 +164,12 @@ public sealed partial class AudioTab : Control
             BlackMCVars.BattleMusicVolume,
             SliderVolumeBattleMusic,
             scale: 1f);
+        
+        // BlackM - Barks
+        Control.AddOptionPercentSlider(
+            BlackMCVars.BarksVolume,
+            SliderVolumeBarks,
+            scale: ContentAudioSystem.BarksMultiplier);
 
         Control.AddOptionSlider(
             CCVars.MaxAmbientSources,

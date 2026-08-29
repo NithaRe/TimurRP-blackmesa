@@ -633,6 +633,7 @@ namespace Content.Client.Lobby.UI
             RefreshFlavorText();
 
             RefreshVoiceTab(); // CorvaxGoob-TTS
+            InitializeBarks(); // BlackM bark
 
             #region Dummy
 
@@ -1066,6 +1067,7 @@ namespace Content.Client.Lobby.UI
             UpdateSaveButton();
             UpdateMarkings();
             UpdateTTSVoicesControls(); // CorvaxGoob-TTS
+            UpdateBarkVoiceControls(); // BlackM bark
             // CorvaxGoob-Revert : DB conflicts
             // UpdateBarkVoice(); // Goob Station - Barks
             UpdateHairPickers();
