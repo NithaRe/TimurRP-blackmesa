@@ -57,6 +57,7 @@ using Content.Shared.Dataset;
 using Content.Shared.GameTicking;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
+using Content.Shared._BlackM.SpeechBarks; // BlackM bark
 using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Random.Helpers;
 using Content.Shared.Roles;
@@ -133,6 +134,8 @@ namespace Content.Shared.Preferences
         [DataField]
         public string Voice { get; set; } = SharedHumanoidAppearanceSystem.DefaultVoice;
         // CorvaxGoob-TTS-End
+        [DataField]
+        public BarkData Bark { get; set; } = new(); // BlackM bark
 
         // CorvaxGoob-Revert : DB conflicts
         // [DataField] // Goob Station - Barks
@@ -251,6 +254,7 @@ namespace Content.Shared.Preferences
                 new Dictionary<string, RoleLoadout>(other.Loadouts))
                 // other.BarkVoice) // Goob Station - Barks // CorvaxGoob-Revert : DB conflicts
         {
+    Bark = other.Bark.Clone(); // BlackM bark
         }
 
         /// <summary>
@@ -391,6 +395,13 @@ namespace Content.Shared.Preferences
         }
         // CorvaxGoob-TTS-End
 
+        // BlackM bark start
+        public HumanoidCharacterProfile WithBark(BarkData bark)
+        {
+            return new(this) { Bark = bark };
+        }
+        // BlackM bark end
+        
         public HumanoidCharacterProfile WithCharacterAppearance(HumanoidCharacterAppearance appearance)
         {
             return new(this) { Appearance = appearance };

@@ -46,6 +46,7 @@ using Content.Shared.Preferences;
 using Content.Shared._EinsteinEngines.HeightAdjust;
 using Content.Goobstation.Common.Barks; // Goob Station - Barks
 using Robust.Shared;
+using Content.Shared._BlackM.SpeechBarks; // BlackM - Barks
 using Robust.Shared.Configuration;
 using Robust.Shared.GameObjects.Components.Localization;
 using Robust.Shared.Network;
@@ -582,6 +583,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
 
         EnsureDefaultMarkings(uid, humanoid);
         SetTTSVoice(uid, profile.Voice, humanoid); // CorvaxGoob-TTS
+        EnsureComp<SpeechBarksComponent>(uid).Data = profile.Bark.Clone(); // BlackM Barks
         // CorvaxGoob-Revert : DB conflicts
         // SetBarkVoice(uid, profile.BarkVoice, humanoid); // Goob Station - Barks
 
