@@ -1,0 +1,41 @@
+- type: speechBark
+  id: DefaultBark
+  name: bark-variant-defaultbark
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/default.ogg
+
+- type: speechBark
+  id: UndertaleSans
+  name: undertale-bark-sans
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/undertale-sans.ogg
+
+- type: speechBark
+  id: Undertalebark2
+  name: undertale-bark-2
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/undertale-stats.ogg
+
+- type: speechBark
+  id: Undertalebark3
+  name: undertale-bark-3
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/undertale-alphy.ogg
+
+- type: speechBark
+  id: oneshottext
+  name: oneshot-bark-1
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/oneshot-text.ogg
+
+- type: speechBark
+  id: oneshottextrobot
+  name: oneshot-bark-2
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/oneshot-robot.ogg
