@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: CC-BY-SA-3.0
 
 using Content.Server.Chat.Systems;
+using Content.Server._BlackM.SpeechBarks;
 using Content.Shared._BlackM.Kovak;
 using Content.Shared.Chat;
 using Content.Shared.Clothing.EntitySystems;
@@ -18,6 +19,7 @@ public sealed class KovakHelmetSystem : EntitySystem
     [Dependency] private readonly ClothingSystem _clothing = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly SpeechBarksSystem _barks = default!;
 
     public override void Initialize()
     {
@@ -73,6 +75,7 @@ public sealed class KovakHelmetSystem : EntitySystem
 
         // Шлем говорит от своего имени
         var message = comp.IsOpen ? comp.OpenMessage : comp.CloseMessage;
+        _barks.SuppressNextBark(player);
         _chat.TrySendInGameICMessage(
             player,
             message,

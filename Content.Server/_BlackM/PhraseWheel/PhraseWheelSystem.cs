@@ -1,5 +1,6 @@
 using Content.Shared._BlackM.PhraseWheel;
 using Content.Server.Chat.Systems;
+using Content.Server._BlackM.SpeechBarks;
 using Content.Shared.Chat;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -21,6 +22,7 @@ public sealed class PhraseWheelSystem : EntitySystem
     [Dependency] private readonly AudioSystem _audio = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SpeechBarksSystem _barks = default!;
 
     private readonly Dictionary<EntityUid, TimeSpan> _lastUse = new();
 
@@ -87,6 +89,7 @@ public sealed class PhraseWheelSystem : EntitySystem
         {
             if (!Exists(player.Value)) return;
 
+            _barks.SuppressNextBark(player.Value);
             _chat.TrySendInGameICMessage(player.Value, phrase.Text, chatType, false,
                 colorOverride: colorOverride);
 

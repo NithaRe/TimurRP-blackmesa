@@ -23,6 +23,8 @@ public sealed class SpeechBarksSystem : EntitySystem
 
     private bool _enabled;
 
+    private readonly HashSet<EntityUid> _suppressed = new();
+
     public override void Initialize()
     {
         base.Initialize();
@@ -32,8 +34,16 @@ public sealed class SpeechBarksSystem : EntitySystem
         SubscribeLocalEvent<SpeechBarksComponent, EntitySpokeEvent>(OnEntitySpoke);
     }
 
+    public void SuppressNextBark(EntityUid uid)
+    {
+        _suppressed.Add(uid);
+    }
+
     private void OnEntitySpoke(EntityUid uid, SpeechBarksComponent component, EntitySpokeEvent args)
     {
+        if (_suppressed.Remove(uid))
+            return;
+
         if (!_enabled)
             return;
 
