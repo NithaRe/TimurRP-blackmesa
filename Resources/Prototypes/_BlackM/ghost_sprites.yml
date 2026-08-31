@@ -67,3 +67,10 @@
   sprite:
     sprite: /Textures/_Goobstation/Mobs/Demons/curse.rsi
     state: curse
+
+- type: ghostSprite
+  id: GhostOrienta
+  name: Ориента
+  sprite:
+    sprite: /Textures/_BlackM/GhostTheme/orienta.rsi
+    state: orienta
