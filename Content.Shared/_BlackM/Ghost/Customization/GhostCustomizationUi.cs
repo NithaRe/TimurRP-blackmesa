@@ -10,12 +10,29 @@ public enum GhostCustomizationUiKey : byte
 }
 
 [Serializable, NetSerializable]
+public sealed class GhostCustomizationOptionState
+{
+    public readonly string Id;
+    public readonly string Name;
+    public readonly bool Locked;
+    public readonly string? LockReason;
+
+    public GhostCustomizationOptionState(string id, string name, bool locked, string? lockReason)
+    {
+        Id = id;
+        Name = name;
+        Locked = locked;
+        LockReason = lockReason;
+    }
+}
+
+[Serializable, NetSerializable]
 public sealed class GhostCustomizationBoundUserInterfaceState : BoundUserInterfaceState
 {
-    public readonly List<string> Available;
+    public readonly List<GhostCustomizationOptionState> Available;
     public readonly string Selected;
 
-    public GhostCustomizationBoundUserInterfaceState(List<string> available, string selected)
+    public GhostCustomizationBoundUserInterfaceState(List<GhostCustomizationOptionState> available, string selected)
     {
         Available = available;
         Selected = selected;
