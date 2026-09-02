@@ -1,1 +1,9 @@
+ghost-customization-window-title = Внешний вид призрака
+ghost-customization-list-header = Доступные облики
+ghost-customization-preview-title = Предпросмотр
+ghost-customization-preview-empty = Выберите облик
+ghost-customization-preview-locked-name = {$name} (доступно по whitelist)
+ghost-customization-status-available = Доступно
+ghost-customization-status-whitelist = Только по whitelist
+ghost-customization-row-tooltip = {$name} — {$reason}
 custom-ghost-button-default = Настройка призрака
