@@ -1,11 +1,21 @@
-<controls:DefaultWindow xmlns="https://spacestation14.io"
-                         xmlns:controls="clr-namespace:Robust.Client.UserInterface.CustomControls;assembly=Robust.Client"
-                         Title="Внешний вид призрака"
-                         MinSize="560 400">
-    <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="6">
-        <Label Text="Выберите облик своего призрака:" />
-        <ScrollContainer VerticalExpand="True" HorizontalExpand="True" MinHeight="320">
-            <GridContainer Name="SpriteGrid" Columns="3" HSeparationOverride="6" VSeparationOverride="6" />
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                       xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                       MouseFilter="Stop"
+                       MinWidth="430"
+                       MinHeight="520"
+                       Title="{Loc 'ghost-customization-window-title'}"
+                       Resizable="False">
+    <BoxContainer Orientation="Vertical" Margin="10 8 10 10" SeparationOverride="8">
+        <Label Name="ListHeader"
+               Text="{Loc 'ghost-customization-list-header'}"
+               HorizontalExpand="True"
+               StyleClasses="LabelHeading"
+               Modulate="White" />
+
+        <PanelContainer Name="HeaderDivider" MinHeight="1" Margin="0 4 0 4" />
+
+        <ScrollContainer Name="SpriteScroll" VerticalExpand="True" HorizontalExpand="True">
+            <BoxContainer Name="SpriteList" Orientation="Vertical" SeparationOverride="6" Margin="0 2 8 2" />
         </ScrollContainer>
     </BoxContainer>
-</controls:DefaultWindow>
+</controls:FancyWindow>
