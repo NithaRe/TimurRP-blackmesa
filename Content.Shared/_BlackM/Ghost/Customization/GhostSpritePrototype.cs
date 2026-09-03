@@ -13,6 +13,9 @@ public sealed partial class GhostSpritePrototype : IPrototype
     [DataField]
     public string Name { get; private set; } = string.Empty;
 
+    [DataField]
+    public bool Locked { get; private set; }
+
     [DataField(required: true)]
     public SpriteSpecifier Sprite { get; private set; } = default!;
 
