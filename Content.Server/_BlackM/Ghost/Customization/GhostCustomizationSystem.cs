@@ -63,11 +63,12 @@ public sealed class GhostCustomizationSystem : EntitySystem
             .ToList();
 
         var selected = CompOrNull<GhostCustomizationComponent>(uid)?.SelectedSprite ?? string.Empty;
-        if (string.IsNullOrEmpty(selected) || options.All(option => option.Id != selected || option.Locked))
+
+        if (!string.IsNullOrEmpty(selected) && options.All(option => option.Id != selected || option.Locked))
         {
-            selected = options.FirstOrDefault(option => !option.Locked)?.Id ?? string.Empty;
+            selected = string.Empty;
             var component = EnsureComp<GhostCustomizationComponent>(uid);
-            component.SelectedSprite = selected;
+            component.SelectedSprite = null;
             Dirty(uid, component);
         }
 
