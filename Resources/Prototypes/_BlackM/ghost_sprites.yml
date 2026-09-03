@@ -1,30 +1,23 @@
 - type: ghostSprite
   id: GhostDefault
-  name: Обычный
+  name: обычный
   sprite:
     sprite: /Textures/Mobs/Ghosts/ghost_human.rsi
     state: animated
 
 - type: ghostSprite
-  id: GhostRevenantIdle
-  name: Ревенант
+  id: GhostCat
+  name: котёнок
   sprite:
-    sprite: /Textures/Mobs/Ghosts/revenant.rsi
-    state: idle
+    sprite: /Textures/Mobs/Pets/cat.rsi
+    state: kitten
 
 - type: ghostSprite
-  id: GhostSpooky
-  name: Жуткий призрак
+  id: GhostParadox
+  name: парадокс
   sprite:
-    sprite: /Textures/_Goobstation/Mobs/Demons/spookyghost/ghost1.rsi
-    state: spookyghost
-
-- type: ghostSprite
-  id: GhostWraith
-  name: Врайт
-  sprite:
-    sprite: /Textures/_Goobstation/Wraith/wraith.rsi
-    state: base
+    sprite: /Textures/Mobs/Aliens/paradox_clone.rsi
+    state: paradox
 
 - type: ghostSprite
   id: GhostVoidHound
@@ -35,7 +28,7 @@
 
 - type: ghostSprite
   id: GhostSkeleton
-  name: Скелет
+  name: скелет
   sprite:
     sprite: /Textures/_Goobstation/Wraith/Mobs/skeleton.rsi
     state: skeletonGoon
@@ -55,22 +48,33 @@
     state: gman_idle
 
 - type: ghostSprite
-  id: GhostAncientRobot
-  name: Древний робот
-  sprite:
-    sprite: /Textures/_Goobstation/Wraith/Mobs/ancient.rsi
-    state: ancient_robot
-
-- type: ghostSprite
-  id: GhostCursedSpirit
-  name: Проклятый дух
-  sprite:
-    sprite: /Textures/_Goobstation/Mobs/Demons/curse.rsi
-    state: curse
-
-- type: ghostSprite
   id: GhostOrienta
-  name: Ориента
+  name: ориента
+  locked: true
   sprite:
     sprite: /Textures/_BlackM/GhostTheme/orienta.rsi
     state: orienta
+
+- type: ghostSprite
+  id: GhostLain
+  name: лэйн
+  locked: true
+  sprite:
+    sprite: /Textures/_BlackM/GhostTheme/ghost_lain.rsi
+    state: dancing
+
+- type: ghostSprite
+  id: GhostPinkFlop
+  name: хитори гото
+  locked: true
+  sprite:
+    sprite: /Textures/_BlackM/GhostTheme/ghost_hitori_flop.rsi
+    state: flop
+
+- type: ghostSprite
+  id: GhostTetoShield
+  name: тето со щитом
+  locked: true
+  sprite:
+    sprite: /Textures/_BlackM/GhostTheme/ghost_teto_shield.rsi
+    state: guard
