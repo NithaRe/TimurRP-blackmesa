@@ -96,6 +96,7 @@ public sealed partial class GhostCustomizationWindow : FancyWindow
             {
                 Texture = texture,
                 MinSize = new Vector2(32, 32),
+                MaxSize = new Vector2(32, 32),
                 Stretch = TextureRect.StretchMode.KeepAspectCentered,
                 HorizontalAlignment = HAlignment.Center,
                 VerticalAlignment = VAlignment.Center,
