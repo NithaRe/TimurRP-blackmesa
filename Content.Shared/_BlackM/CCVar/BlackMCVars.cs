@@ -53,4 +53,7 @@ public sealed class BlackMCVars
 
     public static readonly CVarDef<float> BarksMaxPitch =
         CVarDef.Create("blackm.barks_max_pitch", 2f, CVar.SERVER | CVar.REPLICATED);
+    
+    public static readonly CVarDef<float> LightBloomStrength =
+        CVarDef.Create("blackm.light_bloom_strength", 0.7f, CVar.CLIENTONLY | CVar.ARCHIVE);
 }
