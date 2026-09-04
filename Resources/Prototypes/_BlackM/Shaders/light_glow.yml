@@ -1,0 +1,4 @@
+- type: shader
+  id: BlackMLightGlow
+  kind: source
+  path: "/Textures/_BlackM/Shaders/light_glow.swsl"

@@ -171,6 +171,7 @@
     cost: 4
     delay: 2
     fx: EffectRCDDeconstruct2
+  - type: BloomLightMarker
   - type: Physics
     bodyType: Static
   - type: Fixtures
