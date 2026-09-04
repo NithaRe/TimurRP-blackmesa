@@ -524,13 +524,13 @@
             variation: 0.05
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          Log:
-            min: 0
-            max: 1
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          MobLuminousObject:
-            min: 0
-            max: 1
+      #- !type:SpawnEntitiesBehavior
+        #spawn:
+          #Log:
+            #min: 0
+            #max: 1
+      #- !type:SpawnEntitiesBehavior
+        #spawn:
+          #MobLuminousObject:
+            #min: 0
+            #max: 1
