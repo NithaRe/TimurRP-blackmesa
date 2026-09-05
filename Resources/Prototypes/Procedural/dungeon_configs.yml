@@ -19,19 +19,19 @@
   - !type:DungeonEntranceDunGen
     count: 2
     tile: FloorSteel
-    contents: BaseAirlock
+    contents: ExperimentAirlock # BlackM
 
   - !type:RoomEntranceDunGen
     tile: FloorSteel
-    contents: BaseAirlock
+    contents: ExperimentAirlock # BlackM
 
   - !type:EntranceFlankDunGen
     tile: FloorSteel
-    contents: BaseWindow
+    contents: ExperimentWindow # BlackM
 
   - !type:ExternalWindowDunGen
     tile: FloorSteel
-    contents: BaseWindow
+    contents: ExperimentWindow # BlackM
 
   - !type:WallMountDunGen
     contents: ScienceLabsWalls
@@ -39,18 +39,17 @@
 
   - !type:BoundaryWallDunGen
     wall: WallSolid
-    cornerWall: WallReinforced
     tile: FloorSteel
 
   - !type:JunctionDunGen
     width: 1
     tile: FloorSteel
-    contents: BaseAirlock
+    contents: ExperimentAirlock # BlackM
 
   - !type:JunctionDunGen
     width: 3
     tile: FloorSteel
-    contents: BaseAirlock
+    contents: ExperimentAirlock # BlackM
 
   - !type:AutoCablingDunGen
     entity: CableApcExtension
@@ -304,6 +303,18 @@
     children:
     - id: CableApcExtension
     - id: AirlockGlass
+
+- type: entityTable #BlackM table
+  id: ExperimentAirlock
+  table: !type:GroupSelector
+    children:
+    - id: AirlockGlass
+
+- type: entityTable #BlackM table
+  id: ExperimentWindow
+  table: !type:GroupSelector
+    children:
+    - id: Window
 
 - type: entityTable
   id: BaseWindow
