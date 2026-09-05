@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 08/24/2026 14:50:16
-  entityCount: 10798
+  time: 09/04/2026 23:33:11
+  entityCount: 10802
 maps:
 - 1
 grids:
@@ -87,6 +87,8 @@ entities:
     - type: Map
       mapPaused: True
     - type: GridTree
+    - type: FTLDestination
+      enabled: False
     - type: Broadphase
     - type: OccluderTree
     - type: Parallax
@@ -6490,10 +6492,10 @@ entities:
       parent: 2
     - type: DeviceLinkSource
       linkedPorts:
-        8693:
+        8692:
         - - Pressed
           - Toggle
-        8692:
+        8693:
         - - Pressed
           - Toggle
     - type: Fixtures
@@ -6506,10 +6508,10 @@ entities:
       parent: 2
     - type: DeviceLinkSource
       linkedPorts:
-        8693:
+        8692:
         - - Pressed
           - Toggle
-        8692:
+        8693:
         - - Pressed
           - Toggle
     - type: Fixtures
@@ -7237,18 +7239,6 @@ entities:
     - type: Transform
       pos: 20.5,26.5
       parent: 2
-  - uid: 8692
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 36.5,31.5
-      parent: 2
-  - uid: 8693
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 37.5,31.5
-      parent: 2
 - proto: AirlockBrigLocked
   entities:
   - uid: 85
@@ -7278,6 +7268,16 @@ entities:
     components:
     - type: Transform
       pos: 37.5,20.5
+      parent: 2
+  - uid: 8692
+    components:
+    - type: Transform
+      pos: 36.5,31.5
+      parent: 2
+  - uid: 8693
+    components:
+    - type: Transform
+      pos: 37.5,31.5
       parent: 2
 - proto: AirlockCaptainLocked
   entities:
@@ -7638,7 +7638,7 @@ entities:
       access:
       - - Maintenance
     - type: Door
-      secondsUntilStateChange: -24456.379
+      secondsUntilStateChange: -24676.248
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -7799,7 +7799,7 @@ entities:
       pos: -19.5,-2.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -8940.488
+      secondsUntilStateChange: -9160.357
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -26968,6 +26968,13 @@ entities:
     - type: Transform
       pos: 12.5,29.5
       parent: 2
+- proto: ComputerFrame
+  entities:
+  - uid: 9000
+    components:
+    - type: Transform
+      pos: 23.5,33.5
+      parent: 2
 - proto: ComputerPalletConsole
   entities:
   - uid: 7900
@@ -45656,7 +45663,7 @@ entities:
       pos: -29.5,-9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -24051.914
+      secondsUntilStateChange: -24271.783
       state: Opening
 - proto: IngotGold
   entities:
@@ -47479,6 +47486,17 @@ entities:
     - type: Transform
       pos: -9.06818,13.725755
       parent: 2
+  - uid: 8999
+    components:
+    - type: Transform
+      pos: 24.231089,33.617207
+      parent: 2
+    - type: Paper
+      stampState: paper_stamp-cap
+      stampedBy:
+      - stampedColor: '#3681BBFF'
+        stampedName: stamp-component-stamped-name-captain
+      content: Пожалуйста соберите консоль и перенесите её наконец уже в мир зен
 - proto: PaperBin10
   entities:
   - uid: 5353
@@ -51383,6 +51401,13 @@ entities:
     components:
     - type: Transform
       pos: 0.40298957,21.451456
+      parent: 2
+- proto: SalvageExpeditionsComputerCircuitboard
+  entities:
+  - uid: 8998
+    components:
+    - type: Transform
+      pos: 24.689423,33.429577
       parent: 2
 - proto: Saw
   entities:
@@ -55752,6 +55777,11 @@ entities:
     components:
     - type: Transform
       pos: 0.5,10.5
+      parent: 2
+  - uid: 8997
+    components:
+    - type: Transform
+      pos: 24.5,33.5
       parent: 2
   - uid: 10787
     components:
