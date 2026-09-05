@@ -8,9 +8,12 @@
     - type: Transform
       anchored: true
     - type: Sprite
+      noRot: true
       sprite: _BlackM/Structures/kultapka_zen_infected.rsi
       layers:
         - state: kultapka_zen_infected
+    - type: Clickable
+    - type: InteractionOutline
     - type: Physics
       bodyType: Static
     - type: Fixtures
@@ -35,9 +38,12 @@
     - type: Transform
       anchored: true
     - type: Sprite
+      noRot: true
       sprite: _BlackM/Structures/kultapka_zen_2.rsi
       layers:
         - state: kultapka_zen_2
+    - type: Clickable
+    - type: InteractionOutline
     - type: Physics
       bodyType: Static
     - type: Fixtures
