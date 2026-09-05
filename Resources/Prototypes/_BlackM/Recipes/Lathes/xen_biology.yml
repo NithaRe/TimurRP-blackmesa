@@ -1,0 +1,78 @@
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: XenSampleExtractor
+  result: XenSampleExtractor
+  completetime: 4
+  materials:
+    Steel: 500
+    Glass: 300
+    Plastic: 300
+
+- type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory ]
+  id: ScientificCrusherMachineCircuitboard
+  icon: { sprite: Structures/Machines/artifact_crusher.rsi, state: icon }
+  result: ScientificCrusherMachineCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseResearchComputerRecipeCategory ]
+  id: XenExperimentConsoleCircuitboard
+  icon: { sprite: Structures/Machines/computers.rsi, state: artifact }
+  result: XenExperimentConsoleCircuitboard
+
+- type: latheRecipePack
+  id: XenExperimentEquipment
+  recipes:
+  - XenSampleExtractor
+  - ScientificCrusherMachineCircuitboard
+  - XenExperimentConsoleCircuitboard
+  - WeaponModificationBenchMachineCircuitboard
+  - ClothingOuterHardsuitHEV
+  - ClothingOuterHardsuitBurner
+
+- type: latheRecipe
+  id: ClothingOuterHardsuitHEV
+  result: ClothingOuterHardsuitHEV
+  categories:
+  - Clothing
+  completetime: 10
+  materials:
+    Steel: 2000
+    Glass: 1000
+    Plastic: 1000
+    Durathread: 1200
+    Plasma: 500
+    XenCrystalConcentrate: 500
+    XenOrganicSubstrate: 300
+
+- type: latheRecipe
+  id: ClothingOuterHardsuitBurner
+  result: ClothingOuterHardsuitBurner
+  categories:
+  - Clothing
+  completetime: 12
+  materials:
+    Steel: 2500
+    Glass: 1000
+    Plastic: 1000
+    Durathread: 1400
+    Plasma: 800
+    XenResonanceGel: 300
+    XenCatalyst: 100
+
+- type: latheRecipe
+  id: XenInfectionSerumAutoInjector
+  result: XenInfectionSerumAutoInjector
+  categories:
+  - Medical
+  completetime: 5
+  materials:
+    Glass: 100
+    Plastic: 50
+    XenRedSample: 100
+    XenOrganicSubstrate: 100
+
+- type: latheRecipePack
+  id: XenInfectionTreatment
+  recipes:
+  - XenInfectionSerumAutoInjector

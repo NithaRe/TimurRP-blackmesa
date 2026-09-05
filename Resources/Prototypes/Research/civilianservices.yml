@@ -62,31 +62,33 @@
   - AdvancedEntertainment
   # Goobstation R&D Console rework end
 
-- type: technology
-  id: CritterMechs
-  name: research-technology-critter-mechs
-  icon:
-    sprite: Objects/Specific/Mech/mecha.rsi
-    state: hamtr
-  discipline: CivilianServices
-  tier: 1
-  cost: 7500
-  recipeUnlocks:
-  - HamtrHarness
-  - HamtrLArm
-  - HamtrRArm
-  - HamtrLLeg
-  - HamtrRLeg
-  - HamtrCentralElectronics
-  - HamtrPeripheralsElectronics
-  - MechEquipmentGrabberSmall
-  - VimHarness
-  # Goobstation R&D Console rework start
-  position: 0,4
-  technologyPrerequisites:
-  - AdvancedEntertainment
-  - RipleyAPLU
-  # Goobstation R&D Console rework end
+# BlackM edit start
+# - type: technology
+#   id: CritterMechs
+#   name: research-technology-critter-mechs
+#   icon:
+#     sprite: Objects/Specific/Mech/mecha.rsi
+#     state: hamtr
+#   discipline: CivilianServices
+#   tier: 1
+#   cost: 7500
+#   recipeUnlocks:
+#   - HamtrHarness
+#   - HamtrLArm
+#   - HamtrRArm
+#   - HamtrLLeg
+#   - HamtrRLeg
+#   - HamtrCentralElectronics
+#   - HamtrPeripheralsElectronics
+#   - MechEquipmentGrabberSmall
+#   - VimHarness
+#   # Goobstation R&D Console rework start
+#   position: 0,4
+#   technologyPrerequisites:
+#   - AdvancedEntertainment
+#   - RipleyAPLU
+#   # Goobstation R&D Console rework end
+# BlackM edit end
 
 - type: technology
   id: AudioVisualCommunication
@@ -314,7 +316,7 @@
   # Goobstation R&D Console rework start
   position: 0,5
   technologyPrerequisites:
-  - CritterMechs
+  - AdvancedEntertainment # BlackM
   # Goobstation R&D Console rework end
 
 # Tier 3

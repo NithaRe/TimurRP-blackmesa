@@ -5,6 +5,8 @@
   description: Стайное существо из Зен. Воет — замедляет. Таранит — отбрасывает.
   components:
   - type: Houndeye
+  - type: XenSampleSource
+    filledCapsulePrototype: XenSampleCapsuleHoundeye
   - type: Actions
   - type: MobSpawnZap
   - type: GhostRole

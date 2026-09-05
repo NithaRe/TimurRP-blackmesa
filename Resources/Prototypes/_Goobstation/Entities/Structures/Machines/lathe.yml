@@ -202,6 +202,7 @@
     - GrenadeTriggersStatic # Goobstation - Roundstart Grenade Tech
     - MiscSignallersStatic
     dynamicPacks:
+    - XenExperimentEquipment # BlackM added - Xen experiment capacitors
     - AdvancedTools
     - ScienceEquipment
     - ScienceClothing

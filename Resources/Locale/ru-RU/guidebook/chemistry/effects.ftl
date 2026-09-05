@@ -320,12 +320,12 @@ reagent-effect-guidebook-cure-zombie-infection =
     { $chance ->
         [1] Лечит
        *[other] лечат
-    } зомби-вирус
+    } Зен-заражение
 reagent-effect-guidebook-cause-zombie-infection =
     { $chance ->
         [1] Заражает
        *[other] заражают
-    } человека зомби-вирусом
+    } человека Зен-заражением
 reagent-effect-guidebook-reduce-rotting =
     { $chance ->
         [1] Регенерирует
@@ -339,7 +339,7 @@ reagent-effect-guidebook-innoculate-zombie-infection =
     { $chance ->
         [1] Лечит
        *[other] лечат
-    } зомби-вирус и обеспечивает иммунитет к нему в будущем
+    } Зен-заражение и обеспечивает иммунитет к нему в будущем
 reagent-effect-guidebook-area-reaction =
     { $chance ->
         [1] Вызывает

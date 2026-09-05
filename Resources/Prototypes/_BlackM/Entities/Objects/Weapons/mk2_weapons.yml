@@ -1,0 +1,31 @@
+- type: entity
+  parent: WeaponPistolMk58
+  id: WeaponPistolMk58Mk2
+  name: MK58 MK II
+  description: A reinforced MK58 with a tuned firing assembly that increases damage by 20 percent.
+  components:
+  - type: WeaponDamageMultiplier
+
+- type: entity
+  parent: WeaponSubMachineGunDrozd
+  id: WeaponSubMachineGunDrozdMk2
+  name: Drozd MK II
+  description: A reinforced Drozd with a tuned firing assembly that increases damage by 20 percent.
+  components:
+  - type: WeaponDamageMultiplier
+
+- type: entity
+  parent: WeaponShotgunKammerer
+  id: WeaponShotgunKammererMk2
+  name: Kammerer MK II
+  description: A reinforced Kammerer with a tuned firing assembly that increases damage by 20 percent.
+  components:
+  - type: WeaponDamageMultiplier
+
+- type: entity
+  parent: WeaponRifleLecter
+  id: WeaponRifleLecterMk2
+  name: Lecter MK II
+  description: A reinforced Lecter with a tuned firing assembly that increases damage by 20 percent.
+  components:
+  - type: WeaponDamageMultiplier

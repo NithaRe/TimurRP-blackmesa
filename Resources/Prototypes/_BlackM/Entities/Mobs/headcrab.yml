@@ -5,6 +5,8 @@
   description: Паразит из другого измерения. Ищет новый череп.
   components:
   - type: Headcrab
+  - type: XenSampleSource
+    filledCapsulePrototype: XenSampleCapsuleHeadcrab
   - type: Actions
   - type: Muted
   - type: MobSpawnZap

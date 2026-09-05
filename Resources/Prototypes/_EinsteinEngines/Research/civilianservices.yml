@@ -61,7 +61,7 @@
   - MarishTranslatorImplanter
   - SchechiTranslatorImplanter
   - NewKinPidginTranslatorImplanter
-  - AnimalTranslator
+  # - AnimalTranslator # BlackM
   - XenoTranslator
   - GruntishTranslatorImplanter
   - XeeplianTranslator # CorvaxGoob

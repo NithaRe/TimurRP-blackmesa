@@ -1,0 +1,49 @@
+- type: entity
+  id: WeaponModificationBench
+  parent: [BaseLatheLube, BaseSiloUtilizer]
+  name: weapon modification bench
+  description: A specialized fabrication bench for producing reinforced MK II weapons.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/techfab.rsi
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: sci
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Machine
+    board: WeaponModificationBenchMachineCircuitboard
+  - type: Lathe
+    idleState: icon
+    runningState: icon
+    dynamicPacks:
+    - XenWeaponModification
+  - type: MaterialStorage
+    whitelist:
+      tags:
+      - Sheet
+      - RawMaterial
+      - Ingot
+  - type: AccessReader
+    access: [["Research"]]
+
+- type: entity
+  id: WeaponModificationBenchMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: weapon modification bench machine board
+  description: A machine printed circuit board for a weapon modification bench.
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: WeaponModificationBench
+    stackRequirements:
+      Manipulator: 4
+      Glass: 2
+      Steel: 5

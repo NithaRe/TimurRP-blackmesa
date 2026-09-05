@@ -1,0 +1,45 @@
+- type: entity
+  abstract: true
+  id: BaseXenExperimentCapacitor
+  parent: BaseItem
+  name: Xen resonance capacitor
+  description: A protective capacitor that suppresses unstable resonance during Xen experiments.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/stock_parts.rsi
+  - type: Item
+    size: Tiny
+  - type: XenExperimentCapacitor
+
+- type: entity
+  id: XenExperimentCapacitorMk1
+  parent: BaseXenExperimentCapacitor
+  name: Xen resonance capacitor MK I
+  description: A basic protective capacitor that slightly reduces the risk of experimental incidents.
+  components:
+  - type: Sprite
+    state: capacitor
+  - type: XenExperimentCapacitor
+    incidentChanceMultiplier: 0.8
+
+- type: entity
+  id: XenExperimentCapacitorMk2
+  parent: BaseXenExperimentCapacitor
+  name: Xen resonance capacitor MK II
+  description: An advanced protective capacitor that noticeably suppresses unstable Xen resonance.
+  components:
+  - type: Sprite
+    state: adv_capacitor
+  - type: XenExperimentCapacitor
+    incidentChanceMultiplier: 0.6
+
+- type: entity
+  id: XenExperimentCapacitorMk3
+  parent: BaseXenExperimentCapacitor
+  name: Xen resonance capacitor MK III
+  description: A high-density protective capacitor designed for the most dangerous Xen experiments.
+  components:
+  - type: Sprite
+    state: super_capacitor
+  - type: XenExperimentCapacitor
+    incidentChanceMultiplier: 0.4

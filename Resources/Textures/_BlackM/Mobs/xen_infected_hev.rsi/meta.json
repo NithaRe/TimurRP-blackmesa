@@ -1,0 +1,19 @@
+﻿{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Provided by NithaRe for Black Mesa SS14",
+  "states": [
+    {
+      "name": "hev_infected_1",
+      "directions": 4
+    },
+    {
+      "name": "hev_infected_2",
+      "directions": 4
+    }
+  ]
+}

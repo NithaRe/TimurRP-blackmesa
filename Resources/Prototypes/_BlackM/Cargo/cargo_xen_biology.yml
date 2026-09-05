@@ -1,0 +1,39 @@
+- type: cargoProduct
+  id: XenExperimentCapacitorMk1Product
+  icon:
+    sprite: Objects/Misc/stock_parts.rsi
+    state: capacitor
+  product: XenExperimentCapacitorMk1
+  cost: 500
+  category: cargoproduct-category-name-science
+  group: market
+
+- type: cargoProduct
+  id: XenExperimentCapacitorMk2Product
+  icon:
+    sprite: Objects/Misc/stock_parts.rsi
+    state: adv_capacitor
+  product: XenExperimentCapacitorMk2
+  cost: 1250
+  category: cargoproduct-category-name-science
+  group: market
+
+- type: cargoProduct
+  id: XenExperimentCapacitorMk3Product
+  icon:
+    sprite: Objects/Misc/stock_parts.rsi
+    state: super_capacitor
+  product: XenExperimentCapacitorMk3
+  cost: 2500
+  category: cargoproduct-category-name-science
+  group: market
+
+- type: cargoProduct
+  id: XenRedSampleProduct
+  icon:
+    sprite: Objects/Materials/materials.rsi
+    state: phoron_gem
+  product: MaterialXenRedSample1
+  cost: 1000
+  category: cargoproduct-category-name-science
+  group: market

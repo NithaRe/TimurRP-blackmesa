@@ -126,6 +126,10 @@ namespace Content.Server.Zombies
             SubscribeLocalEvent<ZombieComponent, MindAddedMessage>(OnMindAdded);
             SubscribeLocalEvent<ZombieComponent, MindRemovedMessage>(OnMindRemoved);
 
+            // BlackM added start - apply zombie restrictions to pre-spawned infected
+            SubscribeLocalEvent<ZombieComponent, MapInitEvent>(OnZombieMapInit);
+            // BlackM added end
+
             SubscribeLocalEvent<PendingZombieComponent, MapInitEvent>(OnPendingMapInit);
             SubscribeLocalEvent<PendingZombieComponent, BeforeRemoveAnomalyOnDeathEvent>(OnBeforeRemoveAnomalyOnDeath);
 

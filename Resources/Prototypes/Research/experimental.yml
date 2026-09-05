@@ -65,24 +65,26 @@
   - BasicRobotics
   # Goobstation R&D Console rework end
 
-- type: technology
-  id: BasicXenoArcheology
-  name: research-technology-basic-xenoarcheology
-  icon:
-    sprite: Structures/Machines/artifact_analyzer.rsi
-    state: display
-  discipline: Experimental
-  tier: 1
-  cost: 5000
-  recipeUnlocks:
-  - NodeScanner
-  - AnalysisComputerCircuitboard
-  - ArtifactAnalyzerMachineCircuitboard
-  # Goobstation R&D Console rework start
-  position: -2,2
-  technologyPrerequisites:
-  - BasicRobotics
-  # Goobstation R&D Console rework end
+# BlackM edit start
+# - type: technology
+#   id: BasicXenoArcheology
+#   name: research-technology-xen-sample-handling
+#   icon:
+#     sprite: Objects/Specific/Medical/healthanalyzer.rsi
+#     state: icon
+#   discipline: Experimental
+#   tier: 1
+#   cost: 5000
+#   recipeUnlocks:
+#   - NodeScanner
+#   - AnalysisComputerCircuitboard
+#   - XenSampleExtractor
+#   # Goobstation R&D Console rework start
+#   position: -2,2
+#   technologyPrerequisites:
+#   - BasicRobotics
+#   # Goobstation R&D Console rework end
+# BlackM edit end
 
 - type: technology
   id: AlternativeResearch
@@ -138,22 +140,25 @@
 
 # Tier 2
 
-- type: technology
-  id: AbnormalArtifactManipulation
-  name: research-technology-abnormal-artifact-manipulation
-  icon:
-    sprite: Structures/Machines/artifact_crusher.rsi
-    state: icon
-  discipline: Experimental
-  tier: 2
-  cost: 5000
-  recipeUnlocks:
-  - ArtifactCrusherMachineCircuitboard
-  # Goobstation R&D Console rework start
-  position: -3,2
-  technologyPrerequisites:
-  - BasicXenoArcheology
-  # Goobstation R&D Console rework end
+# BlackM edit start
+# - type: technology
+#   id: AbnormalArtifactManipulation
+#   name: research-technology-xen-material-processing
+#   icon:
+#     sprite: Structures/Machines/artifact_crusher.rsi
+#     state: icon
+#   discipline: Experimental
+#   tier: 2
+#   cost: 5000
+#   recipeUnlocks:
+#   - ScientificCrusherMachineCircuitboard
+#   - XenExperimentConsoleCircuitboard
+#   # Goobstation R&D Console rework start
+#   position: -3,2
+#   technologyPrerequisites:
+#   - BasicXenoArcheology
+#   # Goobstation R&D Console rework end
+# BlackM edit end
 
 - type: technology
   id: AdvancedAnomalyResearch
