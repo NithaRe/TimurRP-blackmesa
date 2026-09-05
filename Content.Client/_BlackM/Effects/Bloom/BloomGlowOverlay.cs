@@ -15,8 +15,10 @@ public sealed class BloomGlowOverlay : Overlay
     private static readonly ProtoId<ShaderPrototype> GlowShader = "BlackMLightGlow";
 
     private readonly BloomLightLookupSystem _lightLookup;
+    private readonly ILightManager _lightManager;
     private readonly Dictionary<GlowMaskKey, GlowMaskData> _maskCache = [];
     private readonly EntityQuery<PointLightComponent> _pointLightQuery;
+    private readonly EntityQuery<SpriteComponent> _spriteQuery;
     private readonly ShaderInstance _shader;
     private readonly SpriteSystem _sprite;
     private readonly TransformSystem _transform;
@@ -32,20 +34,24 @@ public sealed class BloomGlowOverlay : Overlay
 
     public BloomGlowOverlay(
         BloomLightLookupSystem lightLookup,
+        ILightManager lightManager,
         IPrototypeManager prototypeManager,
         SpriteSystem spriteSystem,
         TransformSystem transform,
         EntityQuery<PointLightComponent> pointLightQuery,
+        EntityQuery<SpriteComponent> spriteQuery,
         int zIndex,
         float baseHaze,
         float hazeDivisor,
         float strength)
     {
         _lightLookup = lightLookup;
+        _lightManager = lightManager;
         _shader = prototypeManager.Index(GlowShader).InstanceUnique();
         _sprite = spriteSystem;
         _transform = transform;
         _pointLightQuery = pointLightQuery;
+        _spriteQuery = spriteQuery;
         _baseHaze = baseHaze;
         _hazeDivisor = hazeDivisor;
         GlowStrength = strength;
@@ -54,7 +60,7 @@ public sealed class BloomGlowOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
-        if (GlowStrength <= 0f)
+        if (GlowStrength <= 0f || !_lightManager.Enabled)
             return false;
 
         _visibleLights.Clear();
@@ -64,6 +70,7 @@ public sealed class BloomGlowOverlay : Overlay
             _visibleLights,
             _maskCache,
             _pointLightQuery,
+            _spriteQuery,
             _sprite,
             _transform);
 
@@ -106,6 +113,12 @@ public sealed class BloomGlowOverlay : Overlay
         if (!queryState.PointLightQuery.TryComp(entry.Uid, out var pointLight))
             return true;
 
+        if (!pointLight.Enabled)
+            return true;
+
+        if (queryState.SpriteQuery.TryComp(entry.Uid, out var sprite) && !sprite.Visible)
+            return true;
+
         var marker = entry.Component;
         var transform = entry.Transform;
         var (_, _, worldMatrix) = queryState.Transform.GetWorldPositionRotationMatrix(transform);
@@ -133,6 +146,7 @@ public sealed class BloomGlowOverlay : Overlay
         List<GlowLightEntry> VisibleLights,
         Dictionary<GlowMaskKey, GlowMaskData> MaskCache,
         EntityQuery<PointLightComponent> PointLightQuery,
+        EntityQuery<SpriteComponent> SpriteQuery,
         SpriteSystem Sprite,
         TransformSystem Transform);
 

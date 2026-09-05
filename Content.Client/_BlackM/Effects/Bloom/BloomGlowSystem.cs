@@ -4,6 +4,7 @@ using Robust.Client.Graphics;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using DrawDepth = Content.Shared.DrawDepth.DrawDepth;
+using Content.Shared._BlackM.Effects.Bloom;
 
 namespace Content.Client._BlackM.Effects.Bloom;
 
@@ -11,12 +12,14 @@ public sealed class BloomGlowSystem : EntitySystem
 {
     [Dependency] private readonly IConfigurationManager _configuration = default!;
     [Dependency] private readonly BloomLightLookupSystem _lightLookup = default!;
+    [Dependency] private readonly ILightManager _lightManager = default!;
     [Dependency] private readonly IOverlayManager _overlay = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly SpriteSystem _sprite = default!;
     [Dependency] private readonly TransformSystem _transform = default!;
 
     private EntityQuery<PointLightComponent> _pointLightQuery;
+    private EntityQuery<SpriteComponent> _spriteQuery;
     private BloomGlowOverlay? _overlayInstance;
 
     public override void Initialize()
@@ -24,6 +27,7 @@ public sealed class BloomGlowSystem : EntitySystem
         base.Initialize();
 
         _pointLightQuery = GetEntityQuery<PointLightComponent>();
+        _spriteQuery = GetEntityQuery<SpriteComponent>();
 
         Subs.CVar(_configuration, BlackMCVars.LightBloomStrength, OnStrengthChanged, true);
     }
@@ -48,10 +52,12 @@ public sealed class BloomGlowSystem : EntitySystem
         {
             _overlayInstance = new BloomGlowOverlay(
                 _lightLookup,
+                _lightManager,
                 _prototype,
                 _sprite,
                 _transform,
                 _pointLightQuery,
+                _spriteQuery,
                 (int) DrawDepth.Effects,
                 0.8f,
                 0.05f,
