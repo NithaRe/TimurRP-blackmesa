@@ -8,7 +8,7 @@
 - type: dungeonRoom
   id: Mineshaft17x5a
   size: 17,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 0,0
   tags:
     - Mineshaft
@@ -16,7 +16,7 @@
 - type: dungeonRoom
   id: Mineshaft17x5b
   size: 17,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 18,0
   tags:
     - Mineshaft
@@ -24,7 +24,7 @@
 - type: dungeonRoom
   id: Mineshaft17x5c
   size: 17,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 36,0
   tags:
     - Mineshaft
@@ -34,7 +34,7 @@
 - type: dungeonRoom
   id: Mineshaft11x5a
   size: 11,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 0,6
   tags:
     - Mineshaft
@@ -42,7 +42,7 @@
 - type: dungeonRoom
   id: Mineshaft11x5b
   size: 11,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 12,6
   tags:
     - Mineshaft
@@ -50,7 +50,7 @@
 - type: dungeonRoom
   id: Mineshaft11x5c
   size: 11,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 24,6
   tags:
     - Mineshaft
@@ -58,7 +58,7 @@
 - type: dungeonRoom
   id: Mineshaft11x5d
   size: 11,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 36,6
   tags:
     - Mineshaft
@@ -68,7 +68,7 @@
 - type: dungeonRoom
   id: Mineshaft7x5a
   size: 7,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 0,12
   tags:
     - Mineshaft
@@ -76,7 +76,7 @@
 - type: dungeonRoom
   id: Mineshaft7x5b
   size: 7,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 8,12
   tags:
     - Mineshaft
@@ -84,7 +84,7 @@
 - type: dungeonRoom
   id: Mineshaft7x5c
   size: 7,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 16,12
   tags:
     - Mineshaft
@@ -92,7 +92,7 @@
 - type: dungeonRoom
   id: Mineshaft7x5d
   size: 7,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 24,12
   tags:
     - Mineshaft
@@ -100,7 +100,7 @@
 - type: dungeonRoom
   id: Mineshaft7x5e
   size: 7,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 32,12
   tags:
     - Mineshaft
@@ -108,7 +108,7 @@
 - type: dungeonRoom
   id: Mineshaft7x5f
   size: 7,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 40,12
   tags:
     - Mineshaft
@@ -118,7 +118,7 @@
 - type: dungeonRoom
   id: Mineshaft5x5a
   size: 5,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 0,18
   tags:
     - Mineshaft
@@ -126,7 +126,7 @@
 - type: dungeonRoom
   id: Mineshaft5x5b
   size: 5,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 6,18
   tags:
     - Mineshaft
@@ -134,7 +134,7 @@
 - type: dungeonRoom
   id: Mineshaft5x5c
   size: 5,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 12,18
   tags:
     - Mineshaft
@@ -144,7 +144,7 @@
 - type: dungeonRoom
   id: Mineshaft7x7a
   size: 7,7
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 18,18
   tags:
     - Mineshaft
@@ -152,7 +152,7 @@
 - type: dungeonRoom
   id: Mineshaft7x7b
   size: 7,7
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 26,18
   tags:
     - Mineshaft
@@ -160,7 +160,7 @@
 - type: dungeonRoom
   id: Mineshaft7x7c
   size: 7,7
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 34,18
   tags:
     - Mineshaft
@@ -168,7 +168,7 @@
 - type: dungeonRoom
   id: Mineshaft7x7e
   size: 7,7
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 42,18
   tags:
     - Mineshaft
@@ -178,7 +178,7 @@
 - type: dungeonRoom
   id: Mineshaft3x7a
   size: 3,7
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 0,24
   tags:
     - Mineshaft
@@ -186,7 +186,7 @@
 - type: dungeonRoom
   id: Mineshaft3x7b
   size: 3,7
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 4,24
   tags:
     - Mineshaft
@@ -194,7 +194,7 @@
 - type: dungeonRoom
   id: Mineshaft3x7c
   size: 3,7
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 8,24
   tags:
     - Mineshaft
@@ -202,7 +202,7 @@
 - type: dungeonRoom
   id: Mineshaft3x7d
   size: 3,7
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 12,24
   tags:
     - Mineshaft
@@ -212,7 +212,7 @@
 - type: dungeonRoom
   id: Mineshaft3x5a
   size: 3,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 16,26
   tags:
     - Mineshaft
@@ -220,7 +220,7 @@
 - type: dungeonRoom
   id: Mineshaft3x5b
   size: 3,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 20,26
   tags:
     - Mineshaft
@@ -228,7 +228,7 @@
 - type: dungeonRoom
   id: Mineshaft3x5c
   size: 3,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 24,26
   tags:
     - Mineshaft
@@ -236,7 +236,7 @@
 - type: dungeonRoom
   id: Mineshaft3x5e
   size: 3,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 32,26
   tags:
     - Mineshaft
@@ -244,7 +244,7 @@
 - type: dungeonRoom
   id: Mineshaft3x5f
   size: 3,5
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 36,26
   tags:
     - Mineshaft
@@ -254,7 +254,7 @@
 - type: dungeonRoom
   id: Mineshaft13x3a
   size: 13,3
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 0,32
   tags:
     - Mineshaft
@@ -262,7 +262,7 @@
 - type: dungeonRoom
   id: Mineshaft13x3b
   size: 13,3
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 14,32
   tags:
     - Mineshaft
@@ -270,7 +270,7 @@
 - type: dungeonRoom
   id: Mineshaft13x3c
   size: 13,3
-  atlas: /Maps/Dungeon/mineshaft.yml
+  atlas: /Maps/_BlackM/Dungeon/mineshaft.yml #BlackM
   offset: 28,32
   tags:
     - Mineshaft
