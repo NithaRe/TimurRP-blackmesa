@@ -12,12 +12,11 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Linq;
-using Content.Shared.Humanoid;
 using Content.Shared.StatusIcon.Components;
 using Content.Shared.Zombies;
 using Robust.Client.GameObjects;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 
 namespace Content.Client.Zombies;
 
@@ -31,6 +30,7 @@ public sealed class ZombieSystem : SharedZombieSystem
         base.Initialize();
 
         SubscribeLocalEvent<ZombieComponent, ComponentStartup>(OnStartup);
+        SubscribeLocalEvent<ZombieComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<ZombieComponent, GetStatusIconsEvent>(GetZombieIcon);
         SubscribeLocalEvent<InitialInfectedComponent, GetStatusIconsEvent>(GetInitialInfectedIcon);
     }
@@ -52,15 +52,47 @@ public sealed class ZombieSystem : SharedZombieSystem
 
     private void OnStartup(EntityUid uid, ZombieComponent component, ComponentStartup args)
     {
-        if (HasComp<HumanoidAppearanceComponent>(uid))
-            return;
-
         if (!TryComp<SpriteComponent>(uid, out var sprite))
             return;
 
-        for (var i = 0; i < sprite.AllLayers.Count(); i++)
+        SetLayer(uid, sprite, component.BodyOverrideLayer, component.BodyOverride);
+        SetLayer(uid, sprite, component.InfectionOverlayLayer, component.InfectionOverlay);
+
+        if (SetLayer(uid,
+                sprite,
+                component.InfectionAnimatedOverlayLayer,
+                component.InfectionAnimatedOverlay) is { } animatedLayer)
         {
-            _sprite.LayerSetColor((uid, sprite), i, component.SkinColor);
+            sprite.LayerSetShader(animatedLayer, "unshaded");
         }
+    }
+
+    private void OnShutdown(Entity<ZombieComponent> ent, ref ComponentShutdown args)
+    {
+        if (!TryComp<SpriteComponent>(ent, out var sprite))
+            return;
+
+        HideLayer(ent, sprite, ent.Comp.BodyOverrideLayer);
+        HideLayer(ent, sprite, ent.Comp.InfectionOverlayLayer);
+        HideLayer(ent, sprite, ent.Comp.InfectionAnimatedOverlayLayer);
+    }
+
+    private int? SetLayer(EntityUid uid, SpriteComponent sprite, string layerKey, SpriteSpecifier? layerSprite)
+    {
+        if (layerSprite is null)
+            return null;
+
+        var layer = _sprite.LayerMapReserve((uid, sprite), layerKey);
+        _sprite.LayerSetSprite((uid, sprite), layer, layerSprite);
+        _sprite.LayerSetVisible((uid, sprite), layer, true);
+        return layer;
+    }
+
+    private void HideLayer(EntityUid uid, SpriteComponent sprite, string layerKey)
+    {
+        if (!sprite.LayerMapTryGet(layerKey, out var layer))
+            return;
+
+        _sprite.LayerSetVisible((uid, sprite), layer, false);
     }
 }

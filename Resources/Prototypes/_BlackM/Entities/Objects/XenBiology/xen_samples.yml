@@ -1,0 +1,125 @@
+- type: entity
+  parent: BaseItem
+  id: XenSampleCapsuleGeneric
+  name: Xen sample capsule
+  description: A sealed capsule holding unstable Xen biomaterial.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Chemistry/vial.rsi
+    layers:
+    - state: vial-1
+    - state: vial-1-3
+      map: ["xen_sample_fill"]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.XenExperimentResultVisuals.Quality:
+        xen_sample_fill:
+          Analyzed: { color: "#64d98a" }
+          Unstable: { color: "#e0c958" }
+          Spoiled: { color: "#7d8580" }
+  - type: XenSampleCapsule
+    filled: true
+  - type: ScientificCrusherInput
+    points: 200
+    incidentChance: 0.06
+    materialStack: XenOrganicSubstrate
+    emptyResult: BaseChemistryEmptyVial
+
+- type: entity
+  parent: XenSampleCapsuleGeneric
+  id: XenSampleCapsuleHeadcrab
+  name: headcrab sample capsule
+  description: A sealed capsule holding parasitic Xen tissue.
+  components:
+  - type: ScientificCrusherInput
+    points: 150
+    incidentChance: 0.04
+    materialStack: XenNeuralMass
+
+- type: entity
+  parent: XenSampleCapsuleGeneric
+  id: XenSampleCapsuleHoundeye
+  name: houndeye sample capsule
+  description: A sealed capsule holding resonant Xen tissue.
+  components:
+  - type: ScientificCrusherInput
+    points: 250
+    incidentChance: 0.08
+    materialStack: XenResonanceGel
+
+- type: entity
+  parent: XenSampleCapsuleGeneric
+  id: XenSampleCapsuleVortigaunt
+  name: vortigaunt sample capsule
+  description: A sealed capsule holding highly reactive Xen tissue.
+  components:
+  - type: ScientificCrusherInput
+    points: 400
+    incidentChance: 0.15
+    materialStack: XenCatalyst
+
+- type: entity
+  parent: BaseItem
+  id: XenFossil
+  name: Xen fossil
+  description: A mineralized remnant of an organism from Xen.
+  components:
+  - type: Sprite
+    sprite: Objects/Materials/ore.rsi
+    layers:
+    - state: spacequartz
+      map: ["xen_sample_fill"]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.XenExperimentResultVisuals.Quality:
+        xen_sample_fill:
+          Analyzed: { color: "#64d98a" }
+          Unstable: { color: "#e0c958" }
+          Spoiled: { color: "#7d8580" }
+  - type: Item
+    size: Small
+    sprite: Objects/Materials/ore.rsi
+  - type: ScientificCrusherInput
+    points: 125
+    incidentChance: 0.03
+    materialStack: XenCrystalConcentrate
+
+- type: entity
+  parent: XenFossil
+  id: XenFossil1
+  suffix: Single
+
+- type: entity
+  parent: BaseItem
+  id: XenSampleExtractor
+  name: Xen sample extractor
+  description: A handheld extractor that seals Xen biological samples inside sterile capsules.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/healthanalyzer.rsi
+    layers:
+    - state: icon
+    - state: analyzer
+      shader: unshaded
+  - type: Item
+    size: Small
+    storedRotation: -90
+  - type: XenSampleExtractor
+  - type: ContainerContainer
+    containers:
+      xen_sample_capsule: !type:ContainerSlot { }
+  - type: ItemSlots
+    slots:
+      xen_sample_capsule:
+        name: xen-sample-extractor-slot-capsule
+        whitelist:
+          tags:
+          - CentrifugeCompatible
+        insertVerbText: xen-sample-extractor-insert-capsule
+        ejectVerbText: xen-sample-extractor-eject-capsule
+        whitelistFailPopup: xen-sample-extractor-insert-fail
+        insertSuccessPopup: xen-sample-extractor-insert-success
+        ejectOnUse: true
+        swap: false

@@ -107,8 +107,6 @@
   - AnomalyVesselExperimentalCircuitboard
   - AnomalySynchronizerCircuitboard
   - APECircuitboard
-  - ArtifactAnalyzerMachineCircuitboard
-  - ArtifactCrusherMachineCircuitboard
   - QuantumTelepadMachineCircuitboard # CorvaxGoob-QuantumTelepad
 
 - type: latheRecipePack

@@ -1,0 +1,80 @@
+- type: technology
+  id: BasicXenoArcheology
+  name: research-technology-xen-sample-handling
+  icon:
+    sprite: Objects/Specific/Medical/healthanalyzer.rsi
+    state: icon
+  discipline: Xen
+  tier: 1
+  cost: 5000
+  recipeUnlocks:
+  - NodeScanner
+  - AnalysisComputerCircuitboard
+  - XenSampleExtractor
+  position: -7,0
+
+- type: technology
+  id: AbnormalArtifactManipulation
+  name: research-technology-xen-material-processing
+  icon:
+    sprite: Structures/Machines/artifact_crusher.rsi
+    state: icon
+  discipline: Xen
+  tier: 2
+  cost: 5000
+  recipeUnlocks:
+  - ScientificCrusherMachineCircuitboard
+  - XenExperimentConsoleCircuitboard
+  position: -8,0
+  technologyPrerequisites:
+  - BasicXenoArcheology
+
+- type: technology
+  id: XenContainmentEquipment
+  name: research-technology-xen-containment-equipment
+  icon:
+    sprite: Structures/Machines/artifact_crusher.rsi
+    state: icon
+  discipline: Xen
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+  - ClothingOuterHardsuitHEV
+  - ClothingOuterHardsuitBurner
+  position: -9,-1
+  technologyPrerequisites:
+  - AbnormalArtifactManipulation
+
+- type: technology
+  id: XenWeaponModification
+  name: research-technology-xen-weapon-modification
+  icon:
+    sprite: Structures/Machines/techfab.rsi
+    state: icon
+  discipline: Xen
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+  - WeaponModificationBenchMachineCircuitboard
+  - WeaponPistolMk58Mk2
+  - WeaponSubMachineGunDrozdMk2
+  - WeaponShotgunKammererMk2
+  - WeaponRifleLecterMk2
+  position: -9,0
+  technologyPrerequisites:
+  - AbnormalArtifactManipulation
+
+- type: technology
+  id: XenInfectionTreatment
+  name: research-technology-xen-infection-treatment
+  icon:
+    sprite: Objects/Specific/Medical/medipen.rsi
+    state: firstaid
+  discipline: Xen
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+  - XenInfectionSerumAutoInjector
+  position: -9,1
+  technologyPrerequisites:
+  - AbnormalArtifactManipulation

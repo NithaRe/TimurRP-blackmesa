@@ -110,6 +110,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Zombies;
 
@@ -130,6 +131,7 @@ public sealed partial class ZombieComponent : Component
     /// <summary>
     /// The baseline infection chance you have if you have no protective gear
     /// </summary>
+    [DataField]
     [ViewVariables(VVAccess.ReadWrite)]
     public float BaseZombieInfectionChance = 1.00f; ///Goobchange
 
@@ -137,8 +139,31 @@ public sealed partial class ZombieComponent : Component
     /// The minimum infection chance possible. This is simply to prevent
     /// being overly protected by bundling up.
     /// </summary>
+    [DataField]
     [ViewVariables(VVAccess.ReadWrite)]
     public float MinZombieInfectionChance = 0.05f;
+
+    [DataField]
+    public SpriteSpecifier? InfectionOverlay = new SpriteSpecifier.Rsi(
+        new ResPath("/Textures/_BlackM/Mobs/xen_infected_overlay.rsi"),
+        "infected");
+
+    [DataField]
+    public string InfectionOverlayLayer = "xen_infection_overlay";
+
+    [DataField]
+    public SpriteSpecifier? InfectionAnimatedOverlay = new SpriteSpecifier.Rsi(
+        new ResPath("/Textures/Structures/Specific/Anomalies/inner_anom_layer.rsi"),
+        "flesh");
+
+    [DataField]
+    public string InfectionAnimatedOverlayLayer = "xen_infection_animated_overlay";
+
+    [DataField]
+    public SpriteSpecifier? BodyOverride;
+
+    [DataField]
+    public string BodyOverrideLayer = "xen_infection_body_override";
 
     /// <summary>
     /// How effective each resistance type on a piece of armor is. Using a damage specifier for this seems illegal.

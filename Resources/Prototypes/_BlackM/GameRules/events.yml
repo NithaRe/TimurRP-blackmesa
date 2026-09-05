@@ -3,7 +3,6 @@
   table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     children:
     - id: AnomalySpawn
-    - id: BluespaceArtifact
     - id: BluespaceLocker
     - id: BreakerFlip
     - id: BureaucraticError

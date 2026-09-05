@@ -1,0 +1,87 @@
+- type: entity
+  id: MachineScientificCrusher
+  parent: [ ConstructibleMachine, BaseMachinePowered ]
+  name: scientific crusher
+  description: A reinforced processor that converts Xen fossils and sealed samples into research data and specialized materials.
+  components:
+  - type: ScientificCrusher
+    incidentDamage:
+      types:
+        Structural: 35
+  - type: ResearchClient
+  - type: Machine
+    board: ScientificCrusherMachineCircuitboard
+  - type: TogglePower
+    altMode: false
+  - type: WiresPanel
+  - type: Sprite
+    sprite: Structures/Machines/artifact_crusher.rsi
+    offset: 0,0.5
+    noRot: true
+    layers:
+    - state: base
+      map: ["enum.StorageVisualLayers.Base"]
+    - state: door-closed
+      map: ["enum.StorageVisualLayers.Door"]
+    - state: piston
+      map: ["pistonlayer"]
+    - state: glass
+    - state: lights
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+      shader: unshaded
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.45
+        density: 50
+        mask:
+        - HighImpassable
+        layer:
+        - HighImpassable
+  - type: EntityStorage
+    capacity: 1
+    whitelist:
+      components:
+      - ScientificCrusherInput
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ScientificCrusherVisuals.Crushing:
+        pistonlayer:
+          True: {state: piston-push}
+          False: {state: piston}
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: EntityStorageVisuals
+    stateDoorClosed: door-closed
+    openDrawDepth: 0
+    closedDrawDepth: 4
+  - type: Construction
+    containers:
+    - machine_board
+    - machine_parts
+    - entity_storage
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+      entity_storage: !type:Container
+
+- type: entity
+  id: ScientificCrusherMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: scientific crusher machine board
+  description: A machine printed circuit board for a scientific crusher.
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: MachineScientificCrusher
+    stackRequirements:
+      Manipulator: 2
+      Glass: 2
+      Steel: 5

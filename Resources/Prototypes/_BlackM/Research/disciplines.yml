@@ -1,0 +1,11 @@
+﻿- type: techDiscipline
+  id: Xen
+  name: research-discipline-xen
+  color: "#40c7bf"
+  icon:
+    sprite: Objects/Materials/ore.rsi
+    state: spacequartz
+  tierPrerequisites:
+    1: 0
+    2: 1
+  uiName: XEN

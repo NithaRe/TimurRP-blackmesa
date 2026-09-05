@@ -1,0 +1,168 @@
+- type: entity
+  abstract: true
+  parent: MaterialBase
+  id: BaseXenMaterial
+  description: A processed material recovered from a Xen sample.
+  components:
+  - type: Material
+  - type: Appearance
+
+- type: entity
+  parent: BaseXenMaterial
+  id: MaterialXenCrystalConcentrate
+  name: Xen crystal concentrate
+  suffix: Full
+  components:
+  - type: PhysicalComposition
+    materialComposition:
+      XenCrystalConcentrate: 100
+  - type: Stack
+    stackType: XenCrystalConcentrate
+  - type: Sprite
+    sprite: Objects/Materials/ore.rsi
+    state: spacequartz
+    layers:
+    - state: spacequartz
+      map: ["base"]
+
+- type: entity
+  parent: MaterialXenCrystalConcentrate
+  id: MaterialXenCrystalConcentrate1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: BaseXenMaterial
+  id: MaterialXenOrganicSubstrate
+  name: Xen organic substrate
+  suffix: Full
+  components:
+  - type: PhysicalComposition
+    materialComposition:
+      XenOrganicSubstrate: 100
+  - type: Stack
+    stackType: XenOrganicSubstrate
+  - type: Sprite
+    sprite: Objects/Materials/materials.rsi
+    state: alienhide
+    layers:
+    - state: alienhide
+      map: ["base"]
+
+- type: entity
+  parent: MaterialXenOrganicSubstrate
+  id: MaterialXenOrganicSubstrate1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: BaseXenMaterial
+  id: MaterialXenNeuralMass
+  name: Xen neural mass
+  suffix: Full
+  components:
+  - type: PhysicalComposition
+    materialComposition:
+      XenNeuralMass: 100
+  - type: Stack
+    stackType: XenNeuralMass
+  - type: Sprite
+    sprite: Objects/Materials/materials.rsi
+    state: bones
+    color: "#b8cf87"
+    layers:
+    - state: bones
+      map: ["base"]
+
+- type: entity
+  parent: MaterialXenNeuralMass
+  id: MaterialXenNeuralMass1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: BaseXenMaterial
+  id: MaterialXenResonanceGel
+  name: Xen resonance gel
+  suffix: Full
+  components:
+  - type: PhysicalComposition
+    materialComposition:
+      XenResonanceGel: 100
+  - type: Stack
+    stackType: XenResonanceGel
+  - type: Sprite
+    sprite: Objects/Materials/materials.rsi
+    state: phoron_gem
+    color: "#48d4d8"
+    layers:
+    - state: phoron_gem
+      map: ["base"]
+
+- type: entity
+  parent: MaterialXenResonanceGel
+  id: MaterialXenResonanceGel1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: BaseXenMaterial
+  id: MaterialXenCatalyst
+  name: Xen catalyst
+  suffix: Full
+  components:
+  - type: PhysicalComposition
+    materialComposition:
+      XenCatalyst: 100
+  - type: Stack
+    stackType: XenCatalyst
+  - type: Sprite
+    sprite: Objects/Materials/materials.rsi
+    state: diamond
+    color: "#6fff8f"
+    layers:
+    - state: diamond
+      map: ["base"]
+
+- type: entity
+  parent: MaterialXenCatalyst
+  id: MaterialXenCatalyst1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: BaseXenMaterial
+  id: MaterialXenRedSample
+  name: red Xen sample
+  suffix: Full
+  components:
+  - type: PhysicalComposition
+    materialComposition:
+      XenRedSample: 100
+  - type: Stack
+    stackType: XenRedSample
+  - type: Sprite
+    sprite: Objects/Materials/materials.rsi
+    state: phoron_gem
+    color: "#b84a4a"
+    layers:
+    - state: phoron_gem
+      map: ["base"]
+
+- type: entity
+  parent: MaterialXenRedSample
+  id: MaterialXenRedSample1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1

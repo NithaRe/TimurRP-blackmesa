@@ -1,0 +1,100 @@
+﻿- type: inventoryTemplate
+  id: XenInfected
+
+- type: entity
+  parent: MobHuman
+  id: MobXenInfected
+  name: Xen infected
+  description: A human organism irreversibly altered by Xen infection.
+  components:
+  - type: Inventory
+    templateId: XenInfected
+  - type: RandomHumanoidAppearance
+  - type: Zombie
+    baseZombieInfectionChance: 0.2
+    minZombieInfectionChance: 0.2
+  - type: RandomMetadata
+    nameSegments:
+    - NamesDeathCommando
+  - type: NpcFactionMember
+    factions:
+    - Zombie
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  - type: MeleeWeapon
+    hidden: true
+    angle: 0
+    range: 1.2
+    animation: WeaponArcBite
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+  - type: Damageable
+    damageContainer: Biological
+    damageModifierSet: Zombie
+  - type: ReplacementAccent
+    accent: zombie
+  - type: Prying
+    speedModifier: 0.75
+    pryPowered: true
+    force: true
+  - type: GhostTakeoverAvailable
+  - type: GhostRole
+    name: zombie-generic
+    description: zombie-role-desc
+    rules: zombie-role-rules
+    mindRoles:
+    - MindRoleZombie
+
+- type: entity
+  parent: MobXenInfected
+  id: MobXenInfectedHEV
+  name: HEV Xen infected
+  description: A Xen-infected human fused with a damaged HEV suit.
+  abstract: true
+  components:
+  - type: RandomHumanoidAppearance
+    hair: HumanHairBuzzcut
+
+- type: entity
+  parent: MobXenInfectedHEV
+  id: MobXenInfectedHEV1
+  suffix: HEV, Style 1
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Zombie
+    bodyOverride:
+      sprite: _BlackM/Mobs/xen_infected_hev.rsi
+      state: hev_infected_1
+
+- type: entity
+  parent: MobXenInfectedHEV
+  id: MobXenInfectedHEV2
+  suffix: HEV, Style 2
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Zombie
+    bodyOverride:
+      sprite: _BlackM/Mobs/xen_infected_hev.rsi
+      state: hev_infected_2
+
+- type: entity
+  parent: MarkerBase
+  id: XenInfectedSpawner
+  name: Xen infected spawner
+  description: Spawns a Xen infected, occasionally fused with a damaged HEV suit.
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _BlackM/Mobs/xen_infected_hev.rsi
+      state: hev_infected_1
+  - type: RandomSpawner
+    prototypes:
+    - MobXenInfected
+    rarePrototypes:
+    - MobXenInfectedHEV1
+    - MobXenInfectedHEV2
+    chance: 1
+    rareChance: 0.2
+    offset: 0

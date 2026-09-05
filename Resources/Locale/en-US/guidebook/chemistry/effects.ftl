@@ -370,19 +370,19 @@ reagent-effect-guidebook-cure-zombie-infection =
     { $chance ->
         [1] Cures
         *[other] cure
-    } an ongoing zombie infection
+    } an ongoing Xen infection
 
 reagent-effect-guidebook-cause-zombie-infection =
     { $chance ->
         [1] Gives
         *[other] give
-    } an individual the zombie infection
+    } an individual Xen infection
 
 reagent-effect-guidebook-innoculate-zombie-infection =
     { $chance ->
         [1] Cures
         *[other] cure
-    } an ongoing zombie infection, and provides immunity to future infections
+    } an ongoing Xen infection, and provides immunity to future infections
 
 reagent-effect-guidebook-reduce-rotting =
     { $chance ->

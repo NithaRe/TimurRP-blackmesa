@@ -1,0 +1,16 @@
+- type: entity
+  id: XenExperimentElectricalDischarge
+  parent: EffectTeslaSparks
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: XenExperimentElectricalDischarge
+
+- type: entity
+  id: XenExperimentRadiationPulse
+  parent: RadiationPulse
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: RadiationSource
+    intensity: 28
+  - type: TimedDespawn
+    lifetime: 20

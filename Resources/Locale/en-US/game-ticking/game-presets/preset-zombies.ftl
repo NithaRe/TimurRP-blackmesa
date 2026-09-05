@@ -9,8 +9,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-zombie-title = Zombies
-zombie-description = The undead have been unleashed on the station! Work with the crew to survive the outbreak and secure the station.
+zombie-title = Xen Infection
+zombie-description = Xen infection has breached containment in the complex. Work with the personnel to survive the outbreak and restore containment.
 
 zombieteors-title = Zombieteors
 zombieteors-description = The undead have been unleashed on the station amid a cataclysmic meteor shower! Work with your fellow crew and do your best to survive!
@@ -20,7 +20,7 @@ zombie-no-one-ready = No players readied up! Can't start Zombies.
 
 zombie-patientzero-role-greeting = You are an initial infected. Get supplies and prepare for your eventual transformation. Your goal is to overtake the station while infecting as many people as possible.
 zombie-healing = You feel a stirring in your flesh
-zombie-infection-warning = You feel the zombie virus take hold
+zombie-infection-warning = You feel the Xen infection take hold
 zombie-infection-underway = Your blood begins to thicken
 
 ## goob edit
@@ -28,7 +28,7 @@ zombie-start-announcement = Confirmed outbreak of level 7 biological hazard aboa
 ### Over
 zombie-alone = You feel entirely alone.
 
-zombie-shuttle-call = We have detected that the undead have overtaken the station. Dispatching an emergency shuttle to collect remaining personnel.
+zombie-shuttle-call = We have detected that the Xen infected have overtaken the complex. Dispatching an emergency shuttle to collect remaining personnel.
 
 zombie-round-end-initial-count = {$initialCount ->
     [one] There was one initial infected:
@@ -36,11 +36,11 @@ zombie-round-end-initial-count = {$initialCount ->
 }
 zombie-round-end-user-was-initial = - [color=plum]{$name}[/color] ([color=gray]{$username}[/color]) was one of the initial infected.
 
-zombie-round-end-amount-none = [color=green]All of the zombies were eradicated![/color]
-zombie-round-end-amount-low = [color=green]Almost all of the zombies were exterminated.[/color]
-zombie-round-end-amount-medium = [color=yellow]{$percent}% of the crew were turned into zombies.[/color]
-zombie-round-end-amount-high = [color=crimson]{$percent}% of the crew were turned into zombies.[/color]
-zombie-round-end-amount-all = [color=darkred]The entire crew became zombies![/color]
+zombie-round-end-amount-none = [color=green]All of the Xen infected were eradicated![/color]
+zombie-round-end-amount-low = [color=green]Almost all of the Xen infected were exterminated.[/color]
+zombie-round-end-amount-medium = [color=yellow]{$percent}% of the crew became Xen infected.[/color]
+zombie-round-end-amount-high = [color=crimson]{$percent}% of the crew became Xen infected.[/color]
+zombie-round-end-amount-all = [color=darkred]The entire crew became Xen infected![/color]
 
 zombie-round-end-survivor-count = {$count ->
     [one] There was only one survivor left:

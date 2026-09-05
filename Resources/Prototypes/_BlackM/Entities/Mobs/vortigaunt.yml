@@ -13,6 +13,10 @@
     stunWaveRange: 5
     stunDuration: 2.5
     stunWaveDamage: 8
+  - type: XenSampleSource
+    filledCapsulePrototype: XenSampleCapsuleVortigaunt
+    sampleDelay: 6
+    sampleCooldown: 300
   - type: Actions
   - type: MobSpawnZap
   - type: GhostRole

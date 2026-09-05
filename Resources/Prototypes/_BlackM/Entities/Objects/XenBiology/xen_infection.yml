@@ -1,0 +1,13 @@
+﻿- type: entity
+  parent: ChemicalMedipen
+  id: XenInfectionSerumAutoInjector
+  name: Xen serum autoinjector
+  description: A single-use injector that halts Xen infection before irreversible transformation.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      pen:
+        maxVol: 15
+        reagents:
+        - ReagentId: Ambuzol
+          Quantity: 15

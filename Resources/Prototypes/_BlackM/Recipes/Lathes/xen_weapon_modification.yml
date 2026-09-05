@@ -1,0 +1,58 @@
+- type: latheRecipe
+  parent: [BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory]
+  id: WeaponModificationBenchMachineCircuitboard
+  icon: { sprite: Structures/Machines/techfab.rsi, state: icon }
+  result: WeaponModificationBenchMachineCircuitboard
+
+- type: latheRecipe
+  parent: BaseWeaponRecipe
+  id: WeaponPistolMk58Mk2
+  result: WeaponPistolMk58Mk2
+  completetime: 8
+  materials:
+    Steel: 1200
+    Plastic: 500
+    Glass: 200
+    XenCrystalConcentrate: 300
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponSubMachineGunDrozdMk2
+  result: WeaponSubMachineGunDrozdMk2
+  completetime: 10
+  materials:
+    Steel: 2000
+    Plastic: 800
+    Glass: 300
+    XenCrystalConcentrate: 500
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponShotgunKammererMk2
+  result: WeaponShotgunKammererMk2
+  completetime: 10
+  materials:
+    Steel: 2400
+    Plastic: 600
+    Glass: 300
+    XenCrystalConcentrate: 600
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponRifleLecterMk2
+  result: WeaponRifleLecterMk2
+  completetime: 12
+  materials:
+    Steel: 2800
+    Plastic: 1000
+    Glass: 500
+    XenCrystalConcentrate: 700
+    XenCatalyst: 100
+
+- type: latheRecipePack
+  id: XenWeaponModification
+  recipes:
+  - WeaponPistolMk58Mk2
+  - WeaponSubMachineGunDrozdMk2
+  - WeaponShotgunKammererMk2
+  - WeaponRifleLecterMk2
