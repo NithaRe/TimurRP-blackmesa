@@ -19,7 +19,8 @@ namespace Content.Server.Salvage;
 public sealed partial class SalvageSystem
 {
     public static readonly EntProtoId CoordinatesDisk = "CoordinatesDisk";
-    public static readonly ProtoId<LocalizedDatasetPrototype> PlanetNames = "NamesBorer";
+    // BlackM edit
+    public static readonly ProtoId<LocalizedDatasetPrototype> PlanetNames = "NamesBlackMXen";
 
     private void OnSalvageClaimMessage(EntityUid uid, SalvageExpeditionConsoleComponent component, ClaimSalvageMessage args)
     {
