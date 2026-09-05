@@ -7,7 +7,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Linq;
+// using System.Linq; BlackM edit
 using Content.Client.Stylesheets;
 using Content.Shared.CCVar;
 using Content.Shared.Procedural;
@@ -100,30 +100,6 @@ public sealed class SalvageExpeditionConsoleBoundUserInterface : BoundUserInterf
                 Margin = new Thickness(0f, 0f, 0f, 5f),
             });
 
-            // Details
-            offering.AddContent(new Label
-            {
-                Text = Loc.GetString("salvage-expedition-window-hostiles")
-            });
-
-            var faction = mission.Faction;
-
-            offering.AddContent(new Label
-            {
-                Text = string.IsNullOrWhiteSpace(Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).Description))
-                        ? LogAndReturnDefaultFactionDescription(faction)
-                        : Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).Description),
-                FontColorOverride = StyleNano.NanoGold,
-                HorizontalAlignment = Control.HAlignment.Left,
-                Margin = new Thickness(0f, 0f, 0f, 5f),
-            });
-
-            string LogAndReturnDefaultFactionDescription(string faction)
-            {
-                Logger.Error($"Description is null or white space for SalvageFactionPrototype: {faction}");
-                return Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).ID);
-            }
-
 
             // Duration
             offering.AddContent(new Label
@@ -139,45 +115,60 @@ public sealed class SalvageExpeditionConsoleBoundUserInterface : BoundUserInterf
                 Margin = new Thickness(0f, 0f, 0f, 5f),
             });
 
-            // Biome
+            // BlackM edit
             offering.AddContent(new Label
             {
-                Text = Loc.GetString("salvage-expedition-window-biome")
+                Text = Loc.GetString("salvage-expedition-window-dungeon")
             });
 
-            var biome = mission.Biome;
+            var dungeon = mission.Dungeon;
 
             offering.AddContent(new Label
             {
-                Text = string.IsNullOrWhiteSpace(Loc.GetString(_protoManager.Index<SalvageBiomeModPrototype>(biome).Description))
-                        ? LogAndReturnDefaultBiomDescription(biome)
-                        : Loc.GetString(_protoManager.Index<SalvageBiomeModPrototype>(biome).Description),
+                Text = Loc.GetString($"salvage-dungeon-mod-{dungeon.ToLowerInvariant()}"),
                 FontColorOverride = StyleNano.NanoGold,
                 HorizontalAlignment = Control.HAlignment.Left,
                 Margin = new Thickness(0f, 0f, 0f, 5f),
             });
 
-            string LogAndReturnDefaultBiomDescription(string biome)
-            {
-                Logger.Error($"Description is null or white space for SalvageBiomeModPrototype: {biome}");
-                return Loc.GetString(_protoManager.Index<SalvageBiomeModPrototype>(biome).ID);
-            }
-
-            // Modifiers
-            offering.AddContent(new Label
-            {
-                Text = Loc.GetString("salvage-expedition-window-modifiers")
-            });
-
-            var mods = mission.Modifiers;
-
-            offering.AddContent(new Label
-            {
-                Text = string.Join("\n", mods.Select(o => "- " + o)).TrimEnd(),
-                FontColorOverride = StyleNano.NanoGold,
-                HorizontalAlignment = Control.HAlignment.Left,
-                Margin = new Thickness(0f, 0f, 0f, 5f),
-            });
+            // BlackM edit
+            // offering.AddContent(new Label
+            // {
+            //     Text = Loc.GetString("salvage-expedition-window-hostiles")
+            // });
+            //
+            // var faction = mission.Faction;
+            //
+            // offering.AddContent(new Label
+            // {
+            //     Text = string.IsNullOrWhiteSpace(Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).Description))
+            //             ? LogAndReturnDefaultFactionDescription(faction)
+            //             : Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).Description),
+            //     FontColorOverride = StyleNano.NanoGold,
+            //     HorizontalAlignment = Control.HAlignment.Left,
+            //     Margin = new Thickness(0f, 0f, 0f, 5f),
+            // });
+            //
+            // string LogAndReturnDefaultFactionDescription(string faction)
+            // {
+            //     Logger.Error($"Description is null or white space for SalvageFactionPrototype: {faction}");
+            //     return Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).ID);
+            // }
+            //
+            // offering.AddContent(new Label
+            // {
+            //     Text = Loc.GetString("salvage-expedition-window-modifiers")
+            // });
+            //
+            // var mods = mission.Modifiers;
+            //
+            // offering.AddContent(new Label
+            // {
+            //     Text = string.Join("\n", mods.Select(o => "- " + o)).TrimEnd(),
+            //     FontColorOverride = StyleNano.NanoGold,
+            //     HorizontalAlignment = Control.HAlignment.Left,
+            //     Margin = new Thickness(0f, 0f, 0f, 5f),
+            // });
 
             offering.ClaimPressed += args =>
             {

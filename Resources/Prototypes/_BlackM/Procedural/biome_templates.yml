@@ -4,7 +4,7 @@
   layers:
     # Zen trees
     - !type:BiomeEntityLayer
-      threshold: 0.5
+      threshold: 0.70 # BlackM
       noise:
         seed: 0
         noiseType: OpenSimplex2
@@ -18,7 +18,7 @@
     - !type:BiomeEntityLayer
       allowedTiles:
         - FloorChromite
-      threshold: -0.30
+      threshold: -0.20 # BlackM
       noise:
         seed: 0
         noiseType: Cellular

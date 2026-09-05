@@ -149,20 +149,22 @@
 
 # Air mixtures
 - type: salvageAirMod
-  id: Space
-  desc: Космос # BlackM
-  space: true
+  id: Breathable
+  desc: salvage-air-mod-breathable-atmosphere
   cost: 0
+  gases:
+    - 21.824779 # oxygen
+    - 82.10312 # nitrogen
   biomes:
     - Zen # BlackM
 
 # - type: salvageAirMod
-#   id: Breathable
+#   id: Space
+#   desc: salvage-air-mod-space
+#   space: true
 #   cost: 0
-#   desc: salvage-air-mod-breathable-atmosphere
-#   gases:
-#     - 21.824779 # oxygen
-#     - 82.10312 # nitrogen
+#   biomes:
+#     - Zen
 
 # - type: salvageAirMod
 #   id: Sleepy
@@ -267,7 +269,6 @@
   biomes:
     - Lava
     - Asteroid
-    - Zen # BlackM
 
 - type: salvageDungeonMod
   id: Mineshaft
@@ -285,7 +286,6 @@
   biomes:
     - Snow
     - Asteroid
-    - Zen # BlackM
 
 - type: salvageDungeonMod
   id: Haunted
@@ -294,4 +294,3 @@
   biomes:
     - Caves
     - Asteroid
-    - Zen # BlackM

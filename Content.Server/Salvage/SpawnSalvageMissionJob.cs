@@ -242,35 +242,69 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
          * MOB SPAWNS
          */
 
-        var mobBudget = difficultyProto.MobBudget;
-        var faction = _prototypeManager.Index<SalvageFactionPrototype>(mission.Faction);
-        var randomSystem = _entManager.System<RandomSystem>();
+        // BlackM edit
+        // var mobBudget = difficultyProto.MobBudget;
+        // var faction = _prototypeManager.Index<SalvageFactionPrototype>(mission.Faction);
+        // var randomSystem = _entManager.System<RandomSystem>();
+        //
+        // foreach (var entry in faction.MobGroups)
+        // {
+        //     budgetEntries.Add(entry);
+        // }
+        //
+        // var probSum = budgetEntries.Sum(x => x.Prob);
+        //
+        // while (mobBudget > 0f)
+        // {
+        //     var entry = randomSystem.GetBudgetEntry(ref mobBudget, ref probSum, budgetEntries, random);
+        //     if (entry == null)
+        //         break;
+        //
+        //     try
+        //     {
+        //         await SpawnRandomEntry((mapUid, grid), entry, dungeon, random);
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         _sawmill.Error($"Failed to spawn mobs for {entry.Proto}: {e}");
+        //     }
+        // }
 
-        foreach (var entry in faction.MobGroups)
+        //BlackM edit
+        if (mission.Biome != "Zen")
         {
-            budgetEntries.Add(entry);
-        }
+            var mobBudget = difficultyProto.MobBudget;
+            var faction = _prototypeManager.Index<SalvageFactionPrototype>(mission.Faction);
+            var mobRandomSystem = _entManager.System<RandomSystem>();
 
-        var probSum = budgetEntries.Sum(x => x.Prob);
-
-        while (mobBudget > 0f)
-        {
-            var entry = randomSystem.GetBudgetEntry(ref mobBudget, ref probSum, budgetEntries, random);
-            if (entry == null)
-                break;
-
-            try
+            foreach (var entry in faction.MobGroups)
             {
-                await SpawnRandomEntry((mapUid, grid), entry, dungeon, random);
+                budgetEntries.Add(entry);
             }
-            catch (Exception e)
+
+            var mobProbSum = budgetEntries.Sum(x => x.Prob);
+
+            while (mobBudget > 0f)
             {
-                _sawmill.Error($"Failed to spawn mobs for {entry.Proto}: {e}");
+                var entry = mobRandomSystem.GetBudgetEntry(ref mobBudget, ref mobProbSum, budgetEntries, random);
+                if (entry == null)
+                    break;
+
+                try
+                {
+                    await SpawnRandomEntry((mapUid, grid), entry, dungeon, random);
+                }
+                catch (Exception e)
+                {
+                    _sawmill.Error($"Failed to spawn mobs for {entry.Proto}: {e}");
+                }
             }
         }
 
         var allLoot = _prototypeManager.Index(SharedSalvageSystem.ExpeditionsLootProto);
         var lootBudget = difficultyProto.LootBudget;
+        var randomSystem = _entManager.System<RandomSystem>();
+        var probSum = 0f;
 
         foreach (var rule in allLoot.LootRules)
         {
