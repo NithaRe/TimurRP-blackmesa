@@ -1,0 +1,17 @@
+- type: gameMap
+  id: ZenBlackM
+  mapName: 'Zen'
+  mapPath: /Maps/_BlackM/ZenMap/zen.yml
+  minPlayers: 0
+  maxPlayers: 100
+  stations:
+    ZenStation:
+      stationProto: ZenStation
+      components: []
+
+- type: entity
+  id: ZenStation
+  parent:
+    - BaseStation
+    - BaseStationExpeditions
+  categories: [ HideSpawnMenu ]
