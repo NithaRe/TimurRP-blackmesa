@@ -15,7 +15,6 @@ public sealed class MusicRadioSystem : EntitySystem
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly AppearanceSystem _appearance = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -24,7 +23,6 @@ public sealed class MusicRadioSystem : EntitySystem
         SubscribeLocalEvent<MusicRadioComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<MusicRadioComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<MusicRadioComponent, ActivateInWorldEvent>(OnActivate);
-
         SubscribeLocalEvent<MusicRadioComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<MusicRadioComponent, MusicRadioTogglePlayingMessage>(OnTogglePlaying);
         SubscribeLocalEvent<MusicRadioComponent, MusicRadioSetTrackMessage>(OnSetTrack);
@@ -38,35 +36,21 @@ public sealed class MusicRadioSystem : EntitySystem
         var query = EntityQueryEnumerator<MusicRadioComponent>();
         while (query.MoveNext(out var uid, out var radio))
         {
-            if (!radio.Playing)
+            if (!radio.Playing || radio.AudioStream is not { } stream)
                 continue;
 
-            if (radio.AutoAdvance
-                && radio.TrackEndTime is { } endTime
-                && _timing.CurTime >= endTime)
+            if (!Exists(stream) || Terminating(stream) || !_audio.IsPlaying(stream))
             {
-                var next = radio.CurrentTrack + 1;
-                if (next >= radio.Tracks.Count)
-                    next = 0;
-
-                SwitchTrack(uid, radio, next);
-                continue;
-            }
-
-            radio.WatchdogAccumulator += frameTime;
-            if (radio.WatchdogAccumulator < radio.WatchdogInterval)
-                continue;
-
-            radio.WatchdogAccumulator = 0f;
-
-            var streamMissing = radio.Stream is not { } streamUid
-                                 || !Exists(streamUid)
-                                 || Terminating(streamUid);
-
-            if (streamMissing)
-            {
-                radio.Playing = false;
-                StartPlaying(uid, radio);
+                if (radio.AutoAdvance && radio.Tracks.Count > 0)
+                {
+                    var next = radio.CurrentTrack + 1 >= radio.Tracks.Count ? 0 : radio.CurrentTrack + 1;
+                    SwitchTrack(uid, radio, next);
+                }
+                else
+                {
+                    StopPlaying(uid, radio);
+                    Dirty(uid, radio);
+                }
             }
         }
     }
@@ -76,7 +60,7 @@ public sealed class MusicRadioSystem : EntitySystem
         if (radio.CurrentTrack < 0 || radio.CurrentTrack >= radio.Tracks.Count)
             radio.CurrentTrack = 0;
 
-        StartPlaying(uid, radio);
+        UpdateAppearance(uid, false);
     }
 
     private void OnShutdown(EntityUid uid, MusicRadioComponent radio, ComponentShutdown args)
@@ -99,9 +83,7 @@ public sealed class MusicRadioSystem : EntitySystem
     }
 
     private void OnUiOpened(EntityUid uid, MusicRadioComponent radio, BoundUIOpenedEvent args)
-    {
-        UpdateUiState(uid, radio);
-    }
+        => UpdateUiState(uid, radio);
 
     private void OnTogglePlaying(EntityUid uid, MusicRadioComponent radio, MusicRadioTogglePlayingMessage args)
     {
@@ -118,6 +100,7 @@ public sealed class MusicRadioSystem : EntitySystem
                 _popup.PopupEntity(Loc.GetString("music-radio-on"), uid, actor);
         }
 
+        Dirty(uid, radio);
         UpdateUiState(uid, radio);
     }
 
@@ -151,27 +134,19 @@ public sealed class MusicRadioSystem : EntitySystem
         if (wasPlaying)
             StartPlaying(uid, radio);
 
+        Dirty(uid, radio);
         UpdateUiState(uid, radio);
     }
 
     private void StartPlaying(EntityUid uid, MusicRadioComponent radio)
     {
-        if (radio.Playing)
-            return;
-
-        if (radio.Tracks.Count == 0)
+        if (radio.Playing || radio.Tracks.Count == 0)
             return;
 
         var track = radio.Tracks[radio.CurrentTrack];
-
         var resolved = _audio.ResolveSound(track.Sound);
         if (resolved == null)
             return;
-
-        var length = _audio.GetAudioLength(resolved);
-        radio.TrackEndTime = length > TimeSpan.Zero
-            ? _timing.CurTime + length
-            : null;
 
         var stream = _audio.PlayPvs(
             resolved,
@@ -184,23 +159,16 @@ public sealed class MusicRadioSystem : EntitySystem
         if (stream == null)
             return;
 
-        radio.Stream = stream.Value.Entity;
+        radio.AudioStream = stream.Value.Entity;
         radio.Playing = true;
-        radio.WatchdogAccumulator = 0f;
 
         UpdateAppearance(uid, true);
     }
 
     private void StopPlaying(EntityUid uid, MusicRadioComponent radio)
     {
-        if (radio.Stream != null)
-        {
-            _audio.Stop(radio.Stream.Value);
-            radio.Stream = null;
-        }
-
+        radio.AudioStream = _audio.Stop(radio.AudioStream);
         radio.Playing = false;
-        radio.TrackEndTime = null;
 
         UpdateAppearance(uid, false);
     }
@@ -220,6 +188,6 @@ public sealed class MusicRadioSystem : EntitySystem
         if (!TryComp<AppearanceComponent>(uid, out var appearance))
             return;
 
-        _appearance.SetData(uid, Content.Shared._BlackM.Radio.MusicRadioVisuals.Playing, playing, appearance);
+        _appearance.SetData(uid, MusicRadioVisuals.Playing, playing, appearance);
     }
 }

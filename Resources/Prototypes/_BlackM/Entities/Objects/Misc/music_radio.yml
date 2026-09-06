@@ -8,6 +8,7 @@
     sprite: _BlackM/Objects/Misc/radio.rsi
     state: radio_off
   - type: Appearance
+  - type: InteractionOutline
   - type: GenericVisualizer
     visuals:
       enum.MusicRadioVisuals.Playing:
@@ -59,7 +60,7 @@
       enum.MusicRadioUiKey.Key:
         type: MusicRadioBoundUserInterface
   - type: MusicRadio
-    volume: -7
+    volume: 1
     range: 10
     tracks:
     - name: "88.2 FM — Вещание"

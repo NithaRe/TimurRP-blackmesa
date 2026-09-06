@@ -1,5 +1,6 @@
 using Robust.Shared.Audio;
 using Robust.Shared.GameObjects;
+using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Manager.Attributes;
 using Robust.Shared.Prototypes;
@@ -7,7 +8,7 @@ using Robust.Shared.ViewVariables;
 
 namespace Content.Shared._BlackM.Radio;
 
-[RegisterComponent, AutoGenerateComponentState]
+[NetworkedComponent, RegisterComponent, AutoGenerateComponentState(true)]
 public sealed partial class MusicRadioComponent : Component
 {
     [DataField(required: true)]
@@ -25,20 +26,11 @@ public sealed partial class MusicRadioComponent : Component
     [DataField, AutoNetworkedField]
     public bool Playing;
 
-    [ViewVariables]
-    public EntityUid? Stream;
-
-    [DataField]
-    public float WatchdogInterval = 1f;
-
-    [ViewVariables]
-    public float WatchdogAccumulator;
+    [DataField, AutoNetworkedField]
+    public EntityUid? AudioStream;
 
     [DataField]
     public bool AutoAdvance = true;
-
-    [ViewVariables]
-    public TimeSpan? TrackEndTime;
 }
 
 [DataDefinition, Serializable, NetSerializable]
