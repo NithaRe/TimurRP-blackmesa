@@ -3,7 +3,7 @@
   name: bark-variant-defaultbark
   category: Standard_barks
   sound:
-    path: /Audio/_BlackM/Barks/default.ogg
+    path: /Audio/Voice/Talk/speak_1.ogg
 
 - type: speechBark
   id: UndertaleSans

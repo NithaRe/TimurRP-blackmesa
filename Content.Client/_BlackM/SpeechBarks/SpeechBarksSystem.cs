@@ -26,6 +26,9 @@ public sealed class SpeechBarksSystem : EntitySystem
     private const float NormalHearingDistance = 10f;
     private const float WhisperHearingDistance = 5f;
 
+    public const float FixedBarkInterval = 0.09f;
+    private const float FixedBarkIntervalJitter = 0.015f;
+
     private float _volume;
 
     private readonly List<ActiveBark> _activeBarks = new();
@@ -60,6 +63,18 @@ public sealed class SpeechBarksSystem : EntitySystem
         return isWhisper ? WhisperHearingDistance : NormalHearingDistance;
     }
 
+    private static int GetSyllableCount(string message)
+    {
+        var count = 0;
+        foreach (var c in message)
+        {
+            if (!char.IsWhiteSpace(c))
+                count++;
+        }
+
+        return Math.Max(count, 1);
+    }
+
     private void OnPlaySpeechBarks(PlaySpeechBarksEvent ev)
     {
         if (!_cfg.GetCVar(BlackMCVars.ReplaceTTSWithBarks))
@@ -77,8 +92,7 @@ public sealed class SpeechBarksSystem : EntitySystem
             GetVolume(ev.Message, ev.IsWhisper),
             ev.Pitch,
             GetHearingDistance(ev.IsWhisper),
-            (ev.LowVariation, ev.HighVariation),
-            ev.Message.Length / 3 + 1));
+            GetSyllableCount(ev.Message)));
     }
 
     public void PlayDataPreview(string protoId, float pitch, float lowVariation, float highVariation)
@@ -92,8 +106,7 @@ public sealed class SpeechBarksSystem : EntitySystem
             GetVolume("Test message", false),
             pitch,
             GetHearingDistance(false),
-            (lowVariation, highVariation),
-            9));
+            10));
     }
 
     public override void Update(float frameTime)
@@ -122,7 +135,8 @@ public sealed class SpeechBarksSystem : EntitySystem
                 .WithMaxDistance(bark.Distance);
 
             bark.SyllablesPlayed++;
-            bark.NextSound = _timing.CurTime + TimeSpan.FromSeconds(_random.NextFloat(bark.DelayVariation.Item1, bark.DelayVariation.Item2));
+            bark.NextSound = _timing.CurTime + TimeSpan.FromSeconds(
+                _random.NextFloat(FixedBarkInterval - FixedBarkIntervalJitter, FixedBarkInterval + FixedBarkIntervalJitter));
 
             if (bark.Source == null)
             {
@@ -156,13 +170,12 @@ public sealed class SpeechBarksSystem : EntitySystem
         public readonly float Volume;
         public readonly float Pitch;
         public readonly float Distance;
-        public readonly (float, float) DelayVariation;
         public readonly int SyllableCount;
 
         public TimeSpan NextSound = TimeSpan.Zero;
         public int SyllablesPlayed;
 
-        public ActiveBark(EntityUid? source, SoundSpecifier sound, float volume, float pitch, float distance, (float, float) delayVariation, int syllableCount)
+        public ActiveBark(EntityUid? source, SoundSpecifier sound, float volume, float pitch, float distance, int syllableCount)
         {
             Source = source;
             HadSource = source.HasValue;
@@ -170,7 +183,6 @@ public sealed class SpeechBarksSystem : EntitySystem
             Volume = volume;
             Pitch = pitch;
             Distance = distance;
-            DelayVariation = delayVariation;
             SyllableCount = syllableCount;
         }
     }
