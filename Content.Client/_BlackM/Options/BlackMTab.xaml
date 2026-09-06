@@ -1,0 +1,20 @@
+<Control xmlns="https://spacestation14.io"
+         xmlns:ui="clr-namespace:Content.Client.Options.UI">
+    <BoxContainer Orientation="Vertical">
+        <ScrollContainer VerticalExpand="True">
+            <BoxContainer Orientation="Vertical" Margin="8 8 8 8">
+                <Label Text="{Loc 'ui-options-blackm-audio-label'}" StyleClasses="LabelKeyText"/>
+                <ui:OptionSlider Name="SliderVolumeBarks" Title="{Loc 'ui-options-barks-volume'}" />
+                <ui:OptionSlider Name="SliderVolumeBattleMusic" Title="{Loc 'ui-options-battle-music-volume'}" />
+                <ui:OptionSlider Name="SliderVolumeMusicRadio" Title="{Loc 'ui-options-radio-music-volume'}" />
+                <CheckBox Name="EchoEnabledCheckBox" Text="{Loc 'ui-options-echo-enabled'}" />
+                <CheckBox Name="EchoStrongPresetCheckBox" Text="{Loc 'ui-options-echo-strong-preset'}" />
+                <CheckBox Name="BattleMusicEnabledCheckBox" Text="{Loc 'ui-options-battle-music-enabled'}" />
+
+                <Label Text="{Loc 'ui-options-blackm-graphics-label'}" StyleClasses="LabelKeyText"/>
+                <CheckBox Name="DefaultAtmosphereShaderCheckBox" Text="{Loc 'ui-options-default-atmosphere-shader'}" />
+            </BoxContainer>
+        </ScrollContainer>
+        <ui:OptionsTabControlRow Name="Control" Access="Public" />
+    </BoxContainer>
+</Control>

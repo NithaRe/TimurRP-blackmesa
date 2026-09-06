@@ -17,9 +17,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <DefaultWindow xmlns="https://spacestation14.io"
             xmlns:tabs="clr-namespace:Content.Client.Options.UI.Tabs"
+            xmlns:blackm="clr-namespace:Content.Client._BlackM.Options"
             Title="{Loc 'ui-options-title'}"
             MinSize="800 450">
     <TabContainer Name="Tabs" Access="Public">
+        <blackm:BlackMTab Name="BlackMTab" />
         <tabs:MiscTab Name="MiscTab" />
         <tabs:GraphicsTab Name="GraphicsTab" />
         <tabs:KeyRebindTab Name="KeyRebindTab" />

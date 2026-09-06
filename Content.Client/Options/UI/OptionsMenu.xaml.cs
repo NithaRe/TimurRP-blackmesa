@@ -102,13 +102,14 @@ namespace Content.Client.Options.UI
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
 
-            Tabs.SetTabTitle(0, Loc.GetString("ui-options-tab-misc"));
-            Tabs.SetTabTitle(1, Loc.GetString("ui-options-tab-graphics"));
-            Tabs.SetTabTitle(2, Loc.GetString("ui-options-tab-controls"));
-            Tabs.SetTabTitle(3, Loc.GetString("ui-options-tab-audio"));
-            Tabs.SetTabTitle(4, Loc.GetString("ui-options-tab-accessibility"));
-            Tabs.SetTabTitle(5, Loc.GetString("ui-options-tab-admin"));
-            Tabs.SetTabTitle(6, Loc.GetString("ui-options-tab-network"));
+            Tabs.SetTabTitle(0, Loc.GetString("ui-options-tab-blackm")); // BlackM Tab
+            Tabs.SetTabTitle(1, Loc.GetString("ui-options-tab-misc"));
+            Tabs.SetTabTitle(2, Loc.GetString("ui-options-tab-graphics"));
+            Tabs.SetTabTitle(3, Loc.GetString("ui-options-tab-controls"));
+            Tabs.SetTabTitle(4, Loc.GetString("ui-options-tab-audio"));
+            Tabs.SetTabTitle(5, Loc.GetString("ui-options-tab-accessibility"));
+            Tabs.SetTabTitle(6, Loc.GetString("ui-options-tab-admin"));
+            Tabs.SetTabTitle(7, Loc.GetString("ui-options-tab-network"));
 
             UpdateTabs();
         }
@@ -116,13 +117,14 @@ namespace Content.Client.Options.UI
         public void UpdateTabs()
         {
             var isAdmin = _adminManager.IsAdmin(true);
-            Tabs.SetTabVisible(5, isAdmin);
+            Tabs.SetTabVisible(6, isAdmin); // BlackM 5-6
 
             GraphicsTab.Control.ReloadValues();
             MiscTab.Control.ReloadValues();
             AccessibilityTab.Control.ReloadValues();
             AudioTab.Control.ReloadValues();
             AdminOptionsTab.Control.ReloadValues();
+            BlackMTab.Control.ReloadValues(); // BlackM
         }
     }
 }
