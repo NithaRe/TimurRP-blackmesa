@@ -56,4 +56,7 @@ public sealed class BlackMCVars
     
     public static readonly CVarDef<float> LightBloomStrength =
         CVarDef.Create("blackm.light_bloom_strength", 0.7f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    public static readonly CVarDef<float> MusicRadioVolume =
+        CVarDef.Create("blackm.music_radio_volume", 1.0f, CVar.CLIENTONLY | CVar.ARCHIVE);
 }

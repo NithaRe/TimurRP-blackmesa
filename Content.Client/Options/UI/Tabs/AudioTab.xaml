@@ -42,7 +42,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 -->
                 <ui:OptionSlider Name="SliderMaxAmbienceSounds" Title="{Loc 'ui-options-ambience-max-sounds'}"
                                  Margin="0 0 0 8" />
-                <ui:OptionSlider Name="SliderVolumeBarks" Title="{Loc 'ui-options-barks-volume'}" /> <!-- BlackM - Barks -->
                 <ui:OptionSlider Name="SliderHighlightVolume" Title="{Loc 'ui-options-highlight-volume'}" /> <!-- Goobstation - Highlight chat Ping/Audio! -->
                 <!--<CheckBox Name="HearSelfCheckBox" Text="{Loc 'ui-options-hear-self'}" />-->
                 <!-- CorvaxGoob-CombatMode-Sound-Start -->
@@ -53,10 +52,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <CheckBox Name="EventMusicCheckBox" Text="{Loc 'ui-options-event-music'}" />
                 <CheckBox Name="AdminSoundsCheckBox" Text="{Loc 'ui-options-admin-sounds'}" />
                 <CheckBox Name="BwoinkSoundCheckBox" Text="{Loc 'ui-options-bwoink-sound'}" />
-                <CheckBox Name="EchoEnabledCheckBox" Text="{Loc 'ui-options-echo-enabled'}" /> <!-- BlackM edit -->
-                <CheckBox Name="EchoStrongPresetCheckBox" Text="{Loc 'ui-options-echo-strong-preset'}" /> <!-- BlackM edit -->
-                <ui:OptionSlider Name="SliderVolumeBattleMusic" Title="{Loc 'ui-options-battle-music-volume'}" /> <!-- BlackM edit -->
-                <CheckBox Name="BattleMusicEnabledCheckBox" Text="{Loc 'ui-options-battle-music-enabled'}" /> <!-- BlackM edit -->
             </BoxContainer>
         </BoxContainer>
         <ui:OptionsTabControlRow Name="Control" Access="Public" />
