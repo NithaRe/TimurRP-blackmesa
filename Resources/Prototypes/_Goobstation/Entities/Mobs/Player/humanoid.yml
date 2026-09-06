@@ -52,7 +52,7 @@
     - type: GhostRole
       # Corvax-Goob-Locale-start
       name: Потерявшийся утилизатор
-      description: Потерявшийся экипаж Фронтира.
+      description: Потерявшийся персонал Фронтира.
       # Corvax-Goob-Locale-end
       rules: ghost-role-information-nonantagonist-rules
       raffle:

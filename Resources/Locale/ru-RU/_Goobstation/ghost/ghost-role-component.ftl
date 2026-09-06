@@ -42,7 +42,7 @@ ghost-role-information-special-operations-officer-name = Офицер Спецо
 ghost-role-information-special-operations-officer-description = Отправляйте, инструктируйте и управляйте отрядами быстрого реагирования и другими силами Black Mesa.
 ghost-role-information-special-operations-officer-rules = Доставьте представителя Black Mesa живым, остальные — цифра в статистике. Приказы [color=#yellow][bold]Руководителя Комплекса ВМС[/bold][/color] могут изменить это.
 ghost-role-information-navy-officer-name = Офицер ВМС
-ghost-role-information-navy-officer-description = Отвечайте на факсы и радиосообщения Центрального Командования. Проводите расследования над станцией и её экипажем.
+ghost-role-information-navy-officer-description = Отвечайте на факсы и радиосообщения Центрального Командования. Проводите расследования над станцией и её персоналем.
 ghost-role-information-navy-officer-rules = Следуйте приказам [color=#yellow][bold]Руководителя Комплекса ВМС[/bold][/color]. При его отсутствии принимайте решения самостоятельно.
 ghost-role-information-navy-officer-undercover-name = Офицер ВМС под прикрытием
 ghost-role-information-navy-officer-undercover-description = Выполняйте задачи и ликвидируйте назначенные цели. Слава Black Mesa!
@@ -50,7 +50,7 @@ ghost-role-information-navy-officer-undercover-rules = Следуйте прик
 ghost-role-information-diplomat-name = Дипломат Центрального Командования
 ghost-role-information-diplomat-description = Представляй интересы Центрального Командования, управляй отношениями с другими фракциями в комплексе. Устраняй проблемы, вызванные Руководитель Комплексаом.
 ghost-role-information-inspector-name = Инспектор Центрального Командования
-ghost-role-information-inspector-description = Проверяйте имущество комплекса и экипаж. Вероятно, вы погибнете в аварии, и за вами вызовут Эскадрон Смерти.
+ghost-role-information-inspector-description = Проверяйте имущество комплекса и персонал. Вероятно, вы погибнете в аварии, и за вами вызовут Эскадрон Смерти.
 ghost-role-information-sentient-shark-name = Разумный акулёнок
 ghost-role-information-plague-mouse-name = Чумная крыса
 ghost-role-information-plague-mouse-description = Голодная и энергичная мышь. Переносит болезни и распространяет их через укусы.
@@ -77,7 +77,7 @@ ghost-role-intern-rules = Следуйте приказам, данными ва
 ghost-role-lead-intern-rules = Следуйте приказам, данными вами [color=yellow][bold]Представителем Black Mesa[/bold][/color] и ЦК. Защищай командование, отдавайте приказы другим стажёрам.
 # cargo bingle
 ghost-role-cargo-bingle-name = Бингл снабжения
-ghost-role-cargo-bingle-desc = Служите Представителю Black Mesa и его интересам, не причиняйте вред членам экипажа, помогайте отделу снабжения и комплекса.
+ghost-role-cargo-bingle-desc = Служите Представителю Black Mesa и его интересам, не причиняйте вред членам персонала, помогайте отделу снабжения и комплекса.
 
 # shuttle roles
 
@@ -104,7 +104,7 @@ ghost-role-information-ancient-rogue-king-rules = Ты никому не пре�
 ghost-role-information-rules-default-xeno =
     Ты — [color={ role-type-team-antagonist-color }][bold]Ксеноморф[/bold][/color].
     Твоя цель — защищать королеву и расширять улей.
-    Добейся этого, принося королеве членов экипажа для заражения.
+    Добейся этого, принося королеве членов персонала для заражения.
 
 # Token Roles
 
@@ -162,7 +162,7 @@ ghost-role-information-santa-name = Дед Мороз
 ghost-role-information-santa-description = Одарите станцию новогодним настроением!
 ghost-role-information-sentientanimal-rules =
     Вы — [color={ role-type-sentient-animal-color }][bold]{ role-type-sentient-animal-name }[/bold][/color]. Нейтральное животное,
-    способное действовать в целях самообороны, но в остальном не должны причинять вред экипажу.
+    способное действовать в целях самообороны, но в остальном не должны причинять вред персоналу.
     Вы не помните ничего из своей прошлой жизни, и не помните ничего, что могли увидеть в виде призрака.
     Вам разрешено помнить общие знания об игре. Например, как готовить, использовать предметы и т.п.
     Вам категорически [color=red]ЗАПРЕЩЕНО[/color] помнить имя, внешний вид, и прочее своего прошлого персонажа.

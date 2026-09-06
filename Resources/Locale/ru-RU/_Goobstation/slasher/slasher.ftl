@@ -1,6 +1,6 @@
 slasher-role-greeting = Вы чувствуете непреодолимую жажду мести... и синтвейв. Ночь только начинается, туман густой, и ваше мачете сверкает в свете неоновых звезд. Пришло время показать этим космонавтикам, почему стоит боятся технических помещений.
 ghost-role-information-slasher-name = Мясник
-ghost-role-information-slasher-description = Убивайте и всячески терроризируйте простой экипаж!
+ghost-role-information-slasher-description = Убивайте и всячески терроризируйте простой персонал!
 slasher-round-end-agent-name = Мясник
 slasher-summon-meatspike-popup = Прямо из земли появляется жуткий мясной крюк.
 slasher-staggerarea-victim = По вашей спине пробегает леденящий холод!
@@ -28,8 +28,8 @@ reagent-desc-slasherium = Мощный химикат, используемый 
 objective-issuer-slasher = Мясник
 slasher-objective-absorb-souls-title = Поглотить { $count } душ
 slasher-objective-absorb-souls-desc =
-    Экипажу это уже не понадобится.
+    персоналу это уже не понадобится.
     Ты поможешь...
 roles-antag-slasher-name = Мясник
-roles-antag-slasher-objectives = Убивайте и всячески терроризируйте простой экипаж!
+roles-antag-slasher-objectives = Убивайте и всячески терроризируйте простой персонал!
 slasher-cannot-use-guns = Огнестрельное оружие нужно лишь тем, кто не ценит поножовщину...

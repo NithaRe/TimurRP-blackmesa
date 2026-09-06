@@ -2,7 +2,7 @@
 
 cosmiccult-announcement-sender = ???
 cosmiccult-title = Культ космоса
-cosmiccult-description = Культисты скрываются среди экипажа.
+cosmiccult-description = Культисты скрываются среди персонала.
 roles-antag-cosmiccult-name = Космический культист
 roles-antag-cosmiccult-description = Веди к концу всего сущего через обман и саботаж, промывая мозги тем, кто противостоит тебе.
 cosmiccult-gamemode-title = Культ космоса
@@ -35,7 +35,7 @@ cosmiccult-roundend-cultist-count =
        *[other] Было { $initialCount } [color=#4cabb3]Космических культистов[/color].
     }
 cosmiccult-roundend-entropy-count = Культ поглотил { $count } энтропии.
-cosmiccult-roundend-cultpop-count = Культисты составляли { $count }% от всего экипажа комплекса.
+cosmiccult-roundend-cultpop-count = Культисты составляли { $count }% от всего персонала комплекса.
 cosmiccult-roundend-monument-stage =
     { $stage ->
         [1] Увы, Монумент остался заброшенным.
@@ -47,9 +47,9 @@ cosmiccult-roundend-cultcomplete = [color=#4cabb3]Культ одержал по
 cosmiccult-roundend-cultmajor = [color=#4cabb3]Культ одержал крупную победу![/color]
 cosmiccult-roundend-cultminor = [color=#4cabb3]Культ одержал малую победу![/color]
 cosmiccult-roundend-neutral = [color=yellow]Нейтральный финал![/color]
-cosmiccult-roundend-crewminor = [color=green]Экипаж одержал малую победу![/color]
-cosmiccult-roundend-crewmajor = [color=green]Экипаж одержал крупную победу![/color]
-cosmiccult-roundend-crewcomplete = [color=green]Экипаж одержал полную победу![/color]
+cosmiccult-roundend-crewminor = [color=green]персонал одержал малую победу![/color]
+cosmiccult-roundend-crewmajor = [color=green]персонал одержал крупную победу![/color]
+cosmiccult-roundend-crewcomplete = [color=green]персонал одержал полную победу![/color]
 cosmiccult-summary-cultcomplete = Культисты призвали конец всего!
 cosmiccult-summary-cultmajor = Победа культистов стала неизбежной.
 cosmiccult-summary-cultminor = Монумент был завершён, но не полностью активирован.
@@ -57,7 +57,7 @@ cosmiccult-summary-neutral = Культ уцелел и переживёт эт�
 cosmiccult-summary-crewminor = Культ остался без управляющего.
 cosmiccult-summary-crewmajor = Все культисты были устранены.
 cosmiccult-summary-crewcomplete = Каждый культист был обращён!
-cosmiccult-elimination-shuttle-call = Согласно сканированию дальнего радиуса, аномалия Лямбда-CDM угасла. Благодарим вас за проявленную бдительность. Эвакуационный шаттл был вызван. Он прибудет через: { $time } { $units }. Если последствия для корпоративных активов и экипажа минимальны, вы можете отозвать шаттл для продолжения смены.
+cosmiccult-elimination-shuttle-call = Согласно сканированию дальнего радиуса, аномалия Лямбда-CDM угасла. Благодарим вас за проявленную бдительность. Эвакуационный шаттл был вызван. Он прибудет через: { $time } { $units }. Если последствия для корпоративных активов и персонала минимальны, вы можете отозвать шаттл для продолжения смены.
 cosmiccult-elimination-announcement = Согласно сканированию дальнего радиуса, аномалия Лямбда-CDM угасла. Благодарим вас за проявленную бдительность. Эвакуационный шаттл был вызван. Возвращайтесь на станцию Центрального Командования.
 
 ## BRIEFINGS
@@ -129,7 +129,7 @@ objective-issuer-cosmiccult = [bold][color=#cae8e8]Неизвестно[/color][
 objective-cosmiccult-charactermenu = Вы должны привести всё к концу. Выполняйте задания, чтобы продвигать культ.
 objective-cosmiccult-steward-charactermenu = Вы должны направлять культ к концу всего сущего. Контролируйте и обеспечьте прогресс культа.
 objective-condition-entropy-title = ПОГЛОТИТЕ ЭНТРОПИЮ
-objective-condition-entropy-desc = Совместно поглотите как минимум { $count } энтропии с экипажа комплекса.
+objective-condition-entropy-desc = Совместно поглотите как минимум { $count } энтропии с персонала комплекса.
 objective-condition-culttier-title = УКРЕПИТЕ МОHУМЕНТ
 objective-condition-culttier-desc = Сделайте всё возможное, чтобы Монумент достиг своей полной силы.
 objective-condition-victory-title = НАЧНИТЕ КОНЕЦ
@@ -142,7 +142,7 @@ cosmiccult-announce-tier2-progress = Тревожное оцепенение п�
 cosmiccult-announce-tier2-warning = Сканеры фиксируют значительное увеличение Лямбда-CDM! Разломы реальности могут появиться в ближайшее время. Пожалуйста, уведомите священника комплекса.
 cosmiccult-announce-tier3-progress = Дуговые разряды ноосферной энергии потрескивают по скрипящей структуре комплекса. Конец близок.
 cosmiccult-announce-tier3-warning = Зафиксировано критическое увеличение Лямбда-CDM. Инфицированный персонал подлежит немедленной нейтрализации.
-cosmiccult-announce-finale-warning = Внимание всему экипажу. Аномалия Лямбда-CDM переходит в сверхкритическую фазу, приборы отказывают; переход горизонта событий из ноосферы в реальность НЕИЗБЕЖЕН. Если вы не задействованы в контрмерах — немедленно вмешайтесь. Повторяю: вмешайтесь немедленно или погибнете.
+cosmiccult-announce-finale-warning = Внимание всему персоналу. Аномалия Лямбда-CDM переходит в сверхкритическую фазу, приборы отказывают; переход горизонта событий из ноосферы в реальность НЕИЗБЕЖЕН. Если вы не задействованы в контрмерах — немедленно вмешайтесь. Повторяю: вмешайтесь немедленно или погибнете.
 cosmiccult-announce-victory-summon = ЧАСТИЦА КОСМИЧЕСКОЙ СИЛЫ ПРИЗВАНА.
 
 ## MISC

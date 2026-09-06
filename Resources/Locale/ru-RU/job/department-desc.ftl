@@ -1,10 +1,10 @@
-department-Cargo-description = Выполняйте запросы, зарабатывайте космокредиты и доставляйте экипажу полезные припасы.
+department-Cargo-description = Выполняйте запросы, зарабатывайте космокредиты и доставляйте персоналу полезные припасы.
 department-Civilian-description = Выполняйте небольшие полезные задания для поддержания нормальной и сытой работы комплекса.
-department-Command-description = Управляйте экипажем и обеспечивайте его эффективную работу.
-department-CentralCommand-description = Руководите экипажем и обеспечивайте его эффективную работу.
+department-Command-description = Управляйте персоналем и обеспечивайте его эффективную работу.
+department-CentralCommand-description = Руководите персоналем и обеспечивайте его эффективную работу.
 department-Engineering-description = Поддерживайте наличие электроэнергии и целостность комплекса.
-department-Medical-description = Поддерживайте здоровье экипажа.
+department-Medical-description = Поддерживайте здоровье персонала.
 department-Security-description = Поддерживайте порядок в комплексе.
-department-Science-description = Изучайте артефакты и аномалии, обеспечивайте членов экипажа новыми продвинутыми устройствами.
-department-Silicon-description = Соблюдайте свои законы, служите экипажу.
+department-Science-description = Изучайте артефакты и аномалии, обеспечивайте членов персонала новыми продвинутыми устройствами.
+department-Silicon-description = Соблюдайте свои законы, служите персоналу.
 department-Specific-description = Должности, которые есть не на всех комплексх.
