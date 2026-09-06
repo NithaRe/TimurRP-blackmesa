@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Content.Server.Popups;
+using Content.Server._BlackM.Passport;
 using Content.Shared._BlackM.Access;
+using Content.Shared._BlackM.Passport;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Containers.ItemSlots;
@@ -30,6 +32,7 @@ public sealed class BadgePrinterSystem : EntitySystem
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly AccessCardHolderSystem _accessCardHolder = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly PassportSystem _passport = default!;
 
     public override void Initialize()
     {
@@ -44,6 +47,8 @@ public sealed class BadgePrinterSystem : EntitySystem
         SubscribeLocalEvent<BadgePrinterComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<BadgePrinterComponent, BadgePrinterPrintMessage>(OnPrint);
         SubscribeLocalEvent<BadgePrinterComponent, BadgePrinterEjectCardMessage>(OnEjectCard);
+        SubscribeLocalEvent<BadgePrinterComponent, BadgePrinterEjectPassportMessage>(OnEjectPassport);
+        SubscribeLocalEvent<BadgePrinterComponent, BadgePrinterReprintPassportMessage>(OnReprintPassport);
     }
 
     private void OnUiOpenAttempt(EntityUid uid, BadgePrinterComponent component, ActivatableUIOpenAttemptEvent args)
@@ -63,13 +68,27 @@ public sealed class BadgePrinterSystem : EntitySystem
         UpdateUi(uid, component);
     }
 
-    private void OnInsertAttempt(EntityUid uid, BadgePrinterComponent component, ItemSlotInsertAttemptEvent args)
+    private void OnInsertAttempt(EntityUid uid, BadgePrinterComponent component, ref ItemSlotInsertAttemptEvent args)
     {
-        if (args.Slot.ID != component.CardSlotId)
+        if (args.Slot.ID == component.CardSlotId)
+        {
+            if (!HasComp<AccessCardHolderComponent>(args.Item))
+                args.Cancelled = true;
             return;
+        }
 
-        if (!HasComp<AccessCardHolderComponent>(args.Item))
-            args.Cancelled = true;
+        if (args.Slot.ID == component.PermitSlotId)
+        {
+            if (!HasComp<BadgePrintPermitComponent>(args.Item))
+                args.Cancelled = true;
+            return;
+        }
+
+        if (args.Slot.ID == component.PassportSlotId)
+        {
+            if (!HasComp<PassportComponent>(args.Item))
+                args.Cancelled = true;
+        }
     }
 
     private void OnContainerModified(EntityUid uid, BadgePrinterComponent component, ContainerModifiedMessage args)
@@ -91,12 +110,37 @@ public sealed class BadgePrinterSystem : EntitySystem
         _itemSlots.TryEjectToHands(uid, slot, args.Actor);
     }
 
+    private void OnEjectPassport(EntityUid uid, BadgePrinterComponent component, BadgePrinterEjectPassportMessage args)
+    {
+        var slot = GetPassportSlot(uid, component);
+        if (slot == null)
+            return;
+
+        _itemSlots.TryEjectToHands(uid, slot, args.Actor);
+    }
+
     private ItemSlot? GetCardSlot(EntityUid uid, BadgePrinterComponent component)
     {
         if (!TryComp<ItemSlotsComponent>(uid, out var slots))
             return null;
 
         return slots.Slots.GetValueOrDefault(component.CardSlotId);
+    }
+
+    private ItemSlot? GetPermitSlot(EntityUid uid, BadgePrinterComponent component)
+    {
+        if (!TryComp<ItemSlotsComponent>(uid, out var slots))
+            return null;
+
+        return slots.Slots.GetValueOrDefault(component.PermitSlotId);
+    }
+
+    private ItemSlot? GetPassportSlot(EntityUid uid, BadgePrinterComponent component)
+    {
+        if (!TryComp<ItemSlotsComponent>(uid, out var slots))
+            return null;
+
+        return slots.Slots.GetValueOrDefault(component.PassportSlotId);
     }
 
     private void UpdateUi(EntityUid uid, BadgePrinterComponent component)
@@ -133,7 +177,20 @@ public sealed class BadgePrinterSystem : EntitySystem
                 remaining));
         }
 
-        var state = new BadgePrinterBuiState(hasCard, options);
+        var permitSlot = GetPermitSlot(uid, component);
+        var hasPermit = permitSlot?.Item is { } permitUid && HasComp<BadgePrintPermitComponent>(permitUid);
+
+        var passportSlot = GetPassportSlot(uid, component);
+        var hasPassport = false;
+        string? passportOwnerName = null;
+
+        if (passportSlot?.Item is { } passportUid && TryComp<PassportComponent>(passportUid, out var passport))
+        {
+            hasPassport = true;
+            passportOwnerName = $"{passport.Surname} {passport.OwnerName}".Trim();
+        }
+
+        var state = new BadgePrinterBuiState(hasCard, hasPermit, hasPassport, passportOwnerName, options);
         _ui.SetUiState(uid, BadgePrinterUiKey.Key, state);
     }
 
@@ -144,6 +201,14 @@ public sealed class BadgePrinterSystem : EntitySystem
         if (HasComp<AccessReaderComponent>(uid) && !_accessReader.IsAllowed(user, uid))
         {
             _popup.PopupEntity(Loc.GetString("badge-printer-access-denied"), uid, user);
+            _audio.PlayPvs(component.SoundDeny, uid);
+            return;
+        }
+
+        var permitSlot = GetPermitSlot(uid, component);
+        if (permitSlot?.Item is not { } permitUid || !HasComp<BadgePrintPermitComponent>(permitUid))
+        {
+            _popup.PopupEntity(Loc.GetString("badge-printer-no-permit"), uid, user);
             _audio.PlayPvs(component.SoundDeny, uid);
             return;
         }
@@ -264,6 +329,8 @@ public sealed class BadgePrinterSystem : EntitySystem
 
         _accessCardHolder.SyncAccess(cardUid, holder);
 
+        QueueDel(permitUid);
+
         component.NextPrintTime = curTime + component.PrintDelay;
 
         _audio.PlayPvs(component.SoundPrint, uid);
@@ -271,6 +338,58 @@ public sealed class BadgePrinterSystem : EntitySystem
 
         if (outOfStock.Count > 0)
             _popup.PopupEntity(Loc.GetString("badge-printer-out-of-stock"), uid, user);
+
+        UpdateUi(uid, component);
+    }
+
+    private void OnReprintPassport(EntityUid uid, BadgePrinterComponent component, BadgePrinterReprintPassportMessage args)
+    {
+        var user = args.Actor;
+
+        if (HasComp<AccessReaderComponent>(uid) && !_accessReader.IsAllowed(user, uid))
+        {
+            _popup.PopupEntity(Loc.GetString("badge-printer-access-denied"), uid, user);
+            _audio.PlayPvs(component.SoundDeny, uid);
+            return;
+        }
+
+        var curTime = _timing.CurTime;
+        if (curTime < component.NextReprintTime)
+        {
+            var remaining = (component.NextReprintTime - curTime).TotalSeconds;
+            _popup.PopupEntity(Loc.GetString("badge-printer-on-cooldown", ("seconds", Math.Ceiling(remaining))), uid, user);
+            _audio.PlayPvs(component.SoundDeny, uid);
+            return;
+        }
+
+        var passportSlot = GetPassportSlot(uid, component);
+        if (passportSlot?.Item is not { } passportUid || !TryComp<PassportComponent>(passportUid, out var passport))
+        {
+            _popup.PopupEntity(Loc.GetString("badge-printer-no-passport"), uid, user);
+            _audio.PlayPvs(component.SoundDeny, uid);
+            return;
+        }
+
+        if (passport.Stamp != PassportStampState.Denied)
+        {
+            _popup.PopupEntity(Loc.GetString("badge-printer-passport-not-checked"), uid, user);
+            _audio.PlayPvs(component.SoundDeny, uid);
+            return;
+        }
+
+        if (!passport.HasBureaucraticError)
+        {
+            _popup.PopupEntity(Loc.GetString("badge-printer-passport-no-error"), uid, user);
+            _audio.PlayPvs(component.SoundDeny, uid);
+            return;
+        }
+
+        _passport.ClearBureaucraticError(passportUid, passport);
+
+        component.NextReprintTime = curTime + component.ReprintPassportDelay;
+
+        _audio.PlayPvs(component.SoundPrint, uid);
+        _popup.PopupEntity(Loc.GetString("badge-printer-passport-reprinted"), uid, user);
 
         UpdateUi(uid, component);
     }

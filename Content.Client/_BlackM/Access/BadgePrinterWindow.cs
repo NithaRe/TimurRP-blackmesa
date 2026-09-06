@@ -20,11 +20,16 @@ public sealed class BadgePrinterWindow : DefaultWindow
 
     public event Action<List<string>>? OnPrintPressed;
     public event Action? OnEjectPressed;
+    public event Action? OnEjectPassportPressed;
+    public event Action? OnReprintPassportPressed;
 
     private readonly Label _cardStatusLabel;
+    private readonly Label _passportStatusLabel;
     private readonly BoxContainer _badgeList;
     private readonly Button _printButton;
     private readonly Button _ejectButton;
+    private readonly Button _ejectPassportButton;
+    private readonly Button _reprintPassportButton;
 
     private readonly Dictionary<string, CheckBox> _checkboxes = new();
 
@@ -36,8 +41,8 @@ public sealed class BadgePrinterWindow : DefaultWindow
     {
         IoCManager.InjectDependencies(this);
 
-        MinSize = new Vector2i(520, 520);
-        SetSize = new Vector2i(560, 620);
+        MinSize = new Vector2i(560, 560);
+        SetSize = new Vector2i(600, 640);
 
         var root = new BoxContainer
         {
@@ -80,12 +85,14 @@ public sealed class BadgePrinterWindow : DefaultWindow
             Orientation = BoxContainer.LayoutOrientation.Vertical,
             HorizontalExpand = true,
             VerticalAlignment = VAlignment.Center,
+            MinWidth = 0,
         };
 
         _cardStatusLabel = new Label
         {
             Text = Loc.GetString("badge-printer-no-card"),
             FontColorOverride = Color.Gray,
+            ClipText = true,
         };
 
         infoBox.AddChild(_cardStatusLabel);
@@ -94,6 +101,8 @@ public sealed class BadgePrinterWindow : DefaultWindow
         {
             Text = Loc.GetString("badge-printer-eject"),
             VerticalAlignment = VAlignment.Center,
+            HorizontalExpand = false,
+            MinWidth = 96,
             Disabled = true,
         };
         _ejectButton.OnPressed += _ => OnEjectPressed?.Invoke();
@@ -102,6 +111,67 @@ public sealed class BadgePrinterWindow : DefaultWindow
         headerBox.AddChild(infoBox);
         headerBox.AddChild(_ejectButton);
         headerPanel.AddChild(headerBox);
+
+        var passportPanel = new PanelContainer
+        {
+            PanelOverride = new StyleBoxFlat
+            {
+                BackgroundColor = PanelBgLight,
+                ContentMarginLeftOverride = 10,
+                ContentMarginRightOverride = 10,
+                ContentMarginTopOverride = 8,
+                ContentMarginBottomOverride = 8,
+            }
+        };
+
+        var passportBox = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            HorizontalExpand = true,
+            SeparationOverride = 8,
+        };
+
+        var passportIcon = new TextureRect
+        {
+            TextureScale = new Vector2(2f, 2f),
+            VerticalAlignment = VAlignment.Center,
+            Texture = LoadIcon("_BlackM/Objects/Misc/passport.rsi", "icon"),
+        };
+
+        _passportStatusLabel = new Label
+        {
+            Text = Loc.GetString("badge-printer-no-passport"),
+            FontColorOverride = Color.Gray,
+            HorizontalExpand = true,
+            VerticalAlignment = VAlignment.Center,
+            ClipText = true,
+        };
+
+        _reprintPassportButton = new Button
+        {
+            Text = Loc.GetString("badge-printer-reprint-passport-button"),
+            VerticalAlignment = VAlignment.Center,
+            HorizontalExpand = false,
+            MinWidth = 140,
+            Disabled = true,
+        };
+        _reprintPassportButton.OnPressed += _ => OnReprintPassportPressed?.Invoke();
+
+        _ejectPassportButton = new Button
+        {
+            Text = Loc.GetString("badge-printer-eject"),
+            VerticalAlignment = VAlignment.Center,
+            HorizontalExpand = false,
+            MinWidth = 96,
+            Disabled = true,
+        };
+        _ejectPassportButton.OnPressed += _ => OnEjectPassportPressed?.Invoke();
+
+        passportBox.AddChild(passportIcon);
+        passportBox.AddChild(_passportStatusLabel);
+        passportBox.AddChild(_reprintPassportButton);
+        passportBox.AddChild(_ejectPassportButton);
+        passportPanel.AddChild(passportBox);
 
         var listPanel = new PanelContainer
         {
@@ -150,6 +220,7 @@ public sealed class BadgePrinterWindow : DefaultWindow
         };
 
         root.AddChild(headerPanel);
+        root.AddChild(passportPanel);
         root.AddChild(listPanel);
         root.AddChild(_printButton);
 
@@ -164,7 +235,24 @@ public sealed class BadgePrinterWindow : DefaultWindow
         _cardStatusLabel.FontColorOverride = state.HasCard ? AccentColor : Color.Gray;
 
         _ejectButton.Disabled = !state.HasCard;
-        _printButton.Disabled = !state.HasCard;
+        _printButton.Disabled = !state.HasCard || !state.HasPermit;
+        _printButton.ToolTip = state.HasPermit
+            ? null
+            : Loc.GetString("badge-printer-no-permit");
+
+        if (state.HasPassport)
+        {
+            _passportStatusLabel.Text = Loc.GetString("badge-printer-passport-inserted", ("name", state.PassportOwnerName ?? string.Empty));
+            _passportStatusLabel.FontColorOverride = AccentColor;
+        }
+        else
+        {
+            _passportStatusLabel.Text = Loc.GetString("badge-printer-no-passport");
+            _passportStatusLabel.FontColorOverride = Color.Gray;
+        }
+
+        _ejectPassportButton.Disabled = !state.HasPassport;
+        _reprintPassportButton.Disabled = !state.HasPassport;
 
         var previouslyChecked = new HashSet<string>();
         foreach (var (id, box) in _checkboxes)

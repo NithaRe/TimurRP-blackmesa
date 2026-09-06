@@ -1,7 +1,7 @@
 - type: entity
   id: BadgePrinter
-  name: принтер ключей доступа
-  description: Печатает ключи доступа и сопроводительную выписку по вставленной карте.
+  name: принтер проверяющего
+  description: я говорил тебе, что такое безумие? Печатает ключи доступа и перепечатает бракованый паспорт.
   parent: BaseMachinePowered
   components:
     - type: Sprite
@@ -54,6 +54,20 @@
           whitelist:
             components:
               - AccessCardHolder
+          insertSound: /Audio/Machines/id_swipe.ogg
+          ejectSound: /Audio/Machines/id_swipe.ogg
+        badge_printer_permit_slot:
+          name: badge-printer-permit-slot
+          whitelist:
+            components:
+              - BadgePrintPermit
+          insertSound: /Audio/Machines/id_swipe.ogg
+          ejectSound: /Audio/Machines/id_swipe.ogg
+        badge_printer_passport_slot:
+          name: badge-printer-passport-slot
+          whitelist:
+            components:
+              - Passport
           insertSound: /Audio/Machines/id_swipe.ogg
           ejectSound: /Audio/Machines/id_swipe.ogg
     - type: AccessReader

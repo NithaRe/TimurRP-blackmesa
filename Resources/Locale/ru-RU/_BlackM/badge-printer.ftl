@@ -1,10 +1,7 @@
-badge-printer-window-title = Принтер ключей доступа
+badge-printer-window-title = Принтер проверяющего
 badge-printer-no-card = Карта не вставлена
 badge-printer-card-inserted = Карта в приёмнике
-badge-printer-card-owner = { $name } — { $job }
 badge-printer-eject = Извлечь
-badge-printer-reason-label = Причина выдачи:
-badge-printer-reason-placeholder = Например: Прошёл КПП
 badge-printer-print-button = Напечатать
 
 badge-printer-unknown-name = Неизвестно
@@ -16,22 +13,18 @@ badge-printer-too-many = Нельзя напечатать больше { $max }
 badge-printer-print-success = Напечатано ключей: { $count }
 badge-printer-access-denied = Недостаточно прав доступа для использования принтера.
 
-badge-printer-receipt-content =
-    ВЫПИСКА О ВЫДАЧЕ КЛЮЧЕЙ ДОСТУПА ДОСТУПА
-
-    Кому выдано: { $recipient }
-    Должность: { $job }
-
-    Выдал: { $issuer }
-    Причина: { $reason }
-
-    Значки: { $badges }
-
-    Дата: { $date }
-
 badge-printer-card-slot = слот для карты
 
 badge-printer-on-cooldown = Принтер перегрелся, подождите ещё { $seconds } сек.
-badge-printer-out-of-stock = Часть выбранных значков закончилась и не была напечатана.
+badge-printer-out-of-stock = Часть выбранных ключей закончилась и не была напечатана.
 badge-printer-remaining = Осталось: { $count }
 
+badge-printer-no-passport = Паспорт не вставлен.
+badge-printer-passport-has-error = Паспорт: { $name } (обнаружена ошибка).
+badge-printer-passport-clean = Паспорт: { $name } (ошибок нет).
+badge-printer-passport-no-error = В этом паспорте нет ошибок для исправления.
+badge-printer-passport-reprinted = Паспорт перепечатан, ошибка устранена.
+badge-printer-reprint-passport-button = Исправить паспорт
+badge-printer-no-permit = Нет разрешения на печать ключей.
+badge-printer-passport-inserted = Паспорт: { $name }
+badge-printer-passport-not-checked = Вы уверены что делаете всё правильно?

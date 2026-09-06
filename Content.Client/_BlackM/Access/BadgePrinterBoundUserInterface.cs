@@ -31,6 +31,16 @@ public sealed class BadgePrinterBoundUserInterface : BoundUserInterface
         {
             SendMessage(new BadgePrinterEjectCardMessage());
         };
+
+        _window.OnEjectPassportPressed += () =>
+        {
+            SendMessage(new BadgePrinterEjectPassportMessage());
+        };
+
+        _window.OnReprintPassportPressed += () =>
+        {
+            SendMessage(new BadgePrinterReprintPassportMessage());
+        };
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)
