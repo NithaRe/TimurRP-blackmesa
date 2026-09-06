@@ -56,3 +56,7 @@ passport-checker-verdict-correct-catch = Нарушение подтвержде
 passport-checker-verdict-wrong-accusation = Ошибка не найдена в этом поле.
 passport-checker-verdict-correct-clean = Паспорт в порядке, successful.
 passport-checker-verdict-missed = Паспорт в порядке, successful.
+
+passport-checker-locked = Паспорт заблокирован в терминале до завершения проверки.
+passport-checker-already-processed = Этот паспорт уже был проверен и не может быть проверен повторно.
+passport-checker-fine = Комплекс оштрафован на { $amount } кредитов за ошибку проверяющего.

@@ -1,8 +1,8 @@
 - type: entity
-  parent: BaseComputer
+  parent: BaseMachinePowered
   id: PassportCheckerTerminal
   name: терминал проверки паспортов
-  description: Сканирует паспорт и сообщает о найденных ошибках.
+  description: Используй его чтобы находить ошибки в паспорте, лучше не совершать ошибки при проверки.
   components:
   - type: PassportChecker
   - type: ItemSlots
@@ -24,3 +24,35 @@
     sprite: _BlackM/Structures/passportread.rsi
     layers:
     - state: icon
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 190
+        mask:
+          - MachineMask
+        layer:
+          - MachineLayer
+  - type: Anchorable
+  - type: Transform
+    anchored: true
+  - type: Appearance
+  - type: WiresPanel
+  - type: ApcPowerReceiver
+    powerLoad: 100
+
+- type: entity
+  parent: BaseItem
+  id: BadgePrintPermit
+  name: чип разрешения на печать ключей
+  description: Выдаётся терминалом проверки паспортов после завершения проверки. Вставляется в принтер проверяющего и действителен для одной печати.
+  components:
+  - type: BadgePrintPermit
+  - type: Sprite
+    sprite: _BlackM/Objects/Misc/badge_print_permit.rsi
+    state: icon
+  - type: Item
+    size: Small

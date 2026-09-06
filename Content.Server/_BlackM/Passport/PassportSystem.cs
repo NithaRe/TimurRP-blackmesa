@@ -269,6 +269,21 @@ public sealed class PassportSystem : EntitySystem
         UpdateUiState(passportUid, comp);
     }
 
+    public void ClearBureaucraticError(EntityUid passportUid, PassportComponent? comp = null)
+    {
+        if (!Resolve(passportUid, ref comp)) return;
+
+        comp.HasBureaucraticError = false;
+        comp.ErrorField           = string.Empty;
+        comp.ErrorValue           = string.Empty;
+        comp.Checked              = false;
+        comp.CheckedBy            = string.Empty;
+        comp.Stamp                = PassportStampState.None;
+
+        Dirty(passportUid, comp);
+        UpdateUiState(passportUid, comp);
+    }
+
     private void TryApplyBureaucraticError(PassportComponent comp)
     {
         if (_random.Prob(BureaucraticErrorChance))
