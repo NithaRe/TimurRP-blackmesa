@@ -370,7 +370,7 @@ public sealed class BadgePrinterSystem : EntitySystem
             return;
         }
 
-        if (passport.Stamp != PassportStampState.Denied)
+        if (passport.Stamp == PassportStampState.None)
         {
             _popup.PopupEntity(Loc.GetString("badge-printer-passport-not-checked"), uid, user);
             _audio.PlayPvs(component.SoundDeny, uid);
