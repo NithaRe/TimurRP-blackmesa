@@ -12,6 +12,15 @@ public sealed partial class BadgePrinterComponent : Component
     public string CardSlotId = "badge_printer_card_slot";
 
     [DataField]
+    public string PermitSlotId = "badge_printer_permit_slot";
+
+    [DataField]
+    public string PassportSlotId = "badge_printer_passport_slot";
+
+    [DataField]
+    public TimeSpan ReprintPassportDelay = TimeSpan.FromSeconds(10);
+
+    [DataField]
     public List<BadgePrinterEntry> AvailableBadges = new();
 
     [DataField]
@@ -31,6 +40,9 @@ public sealed partial class BadgePrinterComponent : Component
 
     [ViewVariables]
     public TimeSpan NextPrintTime = TimeSpan.Zero;
+
+    [ViewVariables]
+    public TimeSpan NextReprintTime = TimeSpan.Zero;
 
     [ViewVariables]
     public Dictionary<string, int> PrintedCounts = new();

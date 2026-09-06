@@ -14,11 +14,22 @@ public enum BadgePrinterUiKey : byte
 public sealed class BadgePrinterBuiState : BoundUserInterfaceState
 {
     public bool HasCard;
+    public bool HasPermit;
+    public bool HasPassport;
+    public string? PassportOwnerName;
     public List<BadgePrinterOptionData> Options;
 
-    public BadgePrinterBuiState(bool hasCard, List<BadgePrinterOptionData> options)
+    public BadgePrinterBuiState(
+        bool hasCard,
+        bool hasPermit,
+        bool hasPassport,
+        string? passportOwnerName,
+        List<BadgePrinterOptionData> options)
     {
         HasCard = hasCard;
+        HasPermit = hasPermit;
+        HasPassport = hasPassport;
+        PassportOwnerName = passportOwnerName;
         Options = options;
     }
 }
@@ -58,5 +69,15 @@ public sealed class BadgePrinterPrintMessage : BoundUserInterfaceMessage
 
 [Serializable, NetSerializable]
 public sealed class BadgePrinterEjectCardMessage : BoundUserInterfaceMessage
+{
+}
+
+[Serializable, NetSerializable]
+public sealed class BadgePrinterEjectPassportMessage : BoundUserInterfaceMessage
+{
+}
+
+[Serializable, NetSerializable]
+public sealed class BadgePrinterReprintPassportMessage : BoundUserInterfaceMessage
 {
 }
