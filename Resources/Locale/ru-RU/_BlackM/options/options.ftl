@@ -6,3 +6,4 @@ ui-options-echo-strong-preset = Усиленное эхо
 ui-options-battle-music-volume = Громкость боевой музыки
 ui-options-battle-music-enabled = Боевая музыка
 ui-options-radio-music-volume = Громкость музыки радио
+ui-options-tab-blackm = BlackM
