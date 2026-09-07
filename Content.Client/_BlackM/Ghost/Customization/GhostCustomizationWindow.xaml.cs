@@ -25,6 +25,8 @@ public sealed partial class GhostCustomizationWindow : FancyWindow
     private SpriteSystem _sprite = default!;
     private string? _selectedId;
 
+    private GhostCustomizationBoundUserInterfaceState? _lastState;
+
     public event Action<string>? OnSpriteChosen;
 
     public GhostCustomizationWindow()
@@ -52,6 +54,11 @@ public sealed partial class GhostCustomizationWindow : FancyWindow
 
     public void UpdateState(GhostCustomizationBoundUserInterfaceState state)
     {
+        if (_lastState != null && StatesEqual(_lastState, state))
+            return;
+
+        _lastState = state;
+
         var previousScroll = SpriteScroll.GetScrollValue();
 
         SpriteList.RemoveAllChildren();
@@ -185,6 +192,25 @@ public sealed partial class GhostCustomizationWindow : FancyWindow
         SpriteList.InvalidateMeasure();
         SpriteScroll.InvalidateMeasure();
         SpriteScroll.SetScrollValue(previousScroll);
+    }
+
+    private static bool StatesEqual(GhostCustomizationBoundUserInterfaceState a, GhostCustomizationBoundUserInterfaceState b)
+    {
+        if (a.Selected != b.Selected)
+            return false;
+
+        if (a.Available.Count != b.Available.Count)
+            return false;
+
+        for (var i = 0; i < a.Available.Count; i++)
+        {
+            var x = a.Available[i];
+            var y = b.Available[i];
+            if (x.Id != y.Id || x.Locked != y.Locked || x.LockReason != y.LockReason)
+                return false;
+        }
+
+        return true;
     }
 
     private static StyleBoxFlat MakeRowStyleBox(bool selected, bool hovered = false, bool disabled = false)
