@@ -100,6 +100,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Speech;
@@ -107,6 +109,7 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Content.Client._BlackM.PhraseWheel; // BlackM: Phrase wheel icon registry
+using Content.Client._BlackM.SpeechBarks; // BlackM: typewriter
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -259,6 +262,94 @@ namespace Content.Client.Chat.UI
             };
         } // BlackM: Wrap content with icon in a horizontal BoxContainer
 
+        // BlackM: Typewriter
+        private RichTextLabel? _typewriterLabel;
+        private string _typewriterFullText = string.Empty;
+        private bool _typewriterWasBold;
+        private int _typewriterRevealed;
+        private float _typewriterAccumulated;
+        private Color? _typewriterColor;
+        private bool _typewriterActive;
+
+        private static readonly Regex BbTagRegex =
+            new(@"\[/?[a-zA-Z][a-zA-Z0-9]*(=(""[^""]*""|[^\]\s]+))?(\s+[a-zA-Z0-9]+=(""[^""]*""|[^\]\s]+))*\]", RegexOptions.Compiled);
+
+        private static readonly Regex ColorTagRegex =
+            new(@"\[color=(?:""([^""]*)""|([^\]\s]+))\]", RegexOptions.Compiled);
+
+        protected void SetTypewriterMessage(RichTextLabel label, string markupMessage, Color? fontColor = null)
+        {
+            _typewriterLabel = label;
+            _typewriterFullText = markupMessage;
+
+            _typewriterWasBold = _typewriterFullText.Contains("[bold]", StringComparison.Ordinal);
+
+            var colorMatch = ColorTagRegex.Match(_typewriterFullText);
+            if (colorMatch.Success)
+            {
+                var colorValue = colorMatch.Groups[1].Success ? colorMatch.Groups[1].Value : colorMatch.Groups[2].Value;
+                if (Color.TryParse(colorValue, out var parsedColor))
+                    fontColor = parsedColor;
+            }
+
+            _typewriterFullText = BbTagRegex.Replace(_typewriterFullText, string.Empty);
+
+            _typewriterColor = fontColor;
+            _typewriterRevealed = 0;
+            _typewriterAccumulated = 0f;
+            _typewriterActive = _typewriterFullText.Length > 0;
+
+            label.SetMessage(FormatSpeech(EscapeBrackets(_typewriterFullText), Color.FromHex("#00000000")));
+        }
+
+        private void UpdateTypewriter(float deltaSeconds)
+        {
+            if (!_typewriterActive || _typewriterLabel == null)
+                return;
+
+            if (_typewriterRevealed >= _typewriterFullText.Length)
+            {
+                _typewriterActive = false;
+                return;
+            }
+
+            _typewriterAccumulated += deltaSeconds;
+
+            while (_typewriterAccumulated >= SpeechBarksSystem.FixedBarkInterval && _typewriterRevealed < _typewriterFullText.Length)
+            {
+                _typewriterAccumulated -= SpeechBarksSystem.FixedBarkInterval;
+                _deathTime += TimeSpan.FromSeconds(SpeechBarksSystem.FixedBarkInterval);
+                _typewriterRevealed++;
+            }
+
+            var sb = new StringBuilder(_typewriterRevealed + 16);
+            sb.Append(EscapeBrackets(_typewriterFullText.Substring(0, _typewriterRevealed)));
+
+            if (_typewriterWasBold)
+            {
+                sb.Insert(0, "[bold]");
+                sb.Append("[/bold]");
+            }
+
+            var hidden = _typewriterRevealed < _typewriterFullText.Length
+                ? EscapeBrackets(_typewriterFullText.Substring(_typewriterRevealed))
+                : string.Empty;
+
+            var formatted = FormatSpeech(sb.ToString(), _typewriterColor);
+            if (hidden.Length > 0)
+                formatted.AddMarkupOrThrow($"[color=#00000000]{hidden}[/color]");
+
+            _typewriterLabel.SetMessage(formatted);
+
+            if (_typewriterRevealed >= _typewriterFullText.Length)
+                _typewriterActive = false;
+        }
+
+        private static string EscapeBrackets(string text)
+        {
+            return text.Replace("[", "\\[");
+        } // blackm end
+
         protected override void FrameUpdate(FrameEventArgs args)
         {
             base.FrameUpdate(args);
@@ -286,6 +377,8 @@ namespace Content.Client.Chat.UI
                 Modulate = Color.White.WithAlpha(0);
                 return;
             }
+
+            UpdateTypewriter(args.DeltaSeconds); // BlackM
 
             if (timeLeft <= FadeTime.TotalSeconds)
             {
@@ -397,7 +490,7 @@ namespace Content.Client.Chat.UI
                     MaxWidth = SpeechMaxWidth
                 };
 
-                label.SetMessage(ExtractAndFormatSpeechSubstring(message, "BubbleContent", fontColor));
+                SetTypewriterMessage(label, SharedChatSystem.GetStringInsideTag(message, "BubbleContent"), fontColor); // BlackM
 
                 var unfanciedPanel = new PanelContainer
                 {
@@ -424,7 +517,7 @@ namespace Content.Client.Chat.UI
 
             //We'll be honest. *Yes* this is hacky. Doing this in a cleaner way would require a bottom-up refactor of how saycode handles sending chat messages. -Myr
             bubbleHeader.SetMessage(ExtractAndFormatSpeechSubstring(message, "BubbleHeader", fontColor));
-            bubbleContent.SetMessage(ExtractAndFormatSpeechSubstring(message, "BubbleContent", fontColor));
+            SetTypewriterMessage(bubbleContent, SharedChatSystem.GetStringInsideTag(message, "BubbleContent"), fontColor); // BlackM
 
             //As for below: Some day this could probably be converted to xaml. But that is not today. -Myr
             var mainPanel = new PanelContainer
