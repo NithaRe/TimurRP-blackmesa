@@ -1,6 +1,6 @@
 shadowling-condition-win = Тенеморфы успешно вознеслись в свою финальную форму!
-shadowling-condition-draw = Обе стороны понесли тяжёлые потери, но экипажу удалось выжить.
-shadowling-condition-failure = Экипажу удалось помешать тенеморфам вознестись!
+shadowling-condition-draw = Обе стороны понесли тяжёлые потери, но персоналу удалось выжить.
+shadowling-condition-failure = персоналу удалось помешать тенеморфам вознестись!
 shadowling-list-start = Тенеморфами были:
 thrall-list-start = Траллами были:
 shadowling-list-name = [color=#880808]{ $name }[/color] ([color=gray]{ $user }[/color])

@@ -27649,7 +27649,7 @@ entities:
         verb: Default
         name: корпоративный диктор
         timestamp: 5.066662
-      - message: Команда экипажа - это семья!
+      - message: Команда персонала - это семья!
         verb: DefaultExclamation
         name: корпоративный диктор
         timestamp: 10.833282
@@ -27992,7 +27992,7 @@ entities:
       parent: 1
     - type: TapeCassette
       recordedData:
-      - message: Доброе утро экипаж. Вы слушаете прогноз космопогоды для вашего сектора
+      - message: Доброе утро персонал. Вы слушаете прогноз космопогоды для вашего сектора
         verb: Slime
         name: ведущий прогноза погоды
         timestamp: 0.99999905

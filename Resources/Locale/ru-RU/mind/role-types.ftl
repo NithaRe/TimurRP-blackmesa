@@ -1,4 +1,4 @@
-role-type-crew-aligned-name = Экипаж или их союзник
+role-type-crew-aligned-name = персонал или их союзник
 role-type-solo-antagonist-name = Соло-антагонист
 role-type-team-antagonist-name = Командный антагонист
 role-type-free-agent-name = Свободный агент

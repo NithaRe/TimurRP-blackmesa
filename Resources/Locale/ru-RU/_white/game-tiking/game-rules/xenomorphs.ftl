@@ -15,11 +15,11 @@ xenomorphs-win-announcement =
 xenomorphs-xenomajor = [color=crimson]Крупная победа Ксеноморфов![/color]
 xenomorphs-xenominor = [color=crimson]Малая победа Ксеноморфов![/color]
 xenomorphs-neutral = [color=yellow]Ничейный исход![/color]
-xenomorphs-crewminor = [color=green]Малая победа экипажа![/color]
-xenomorphs-crewmajor = [color=green]Разгромная победа экипажа![/color]
-xenomorphs-cond-nukeexplodedonstation = Экипаж уничтожил Ксеноморфов при помощи ядерного взрыва.
-xenomorphs-cond-nukeactiveinstation = Экипаж оставил активированную ядерную боеголовку в комплексе.
+xenomorphs-crewminor = [color=green]Малая победа персонала![/color]
+xenomorphs-crewmajor = [color=green]Разгромная победа персонала![/color]
+xenomorphs-cond-nukeexplodedonstation = персонал уничтожил Ксеноморфов при помощи ядерного взрыва.
+xenomorphs-cond-nukeactiveinstation = персонал оставил активированную ядерную боеголовку в комплексе.
 xenomorphs-cond-xenotakeoverstation = Ксеноморфам удалось захватить станцию.
 xenomorphs-cond-xenoinfiltratedoncentcom = Ксеноморфы проникли на станцию Центрального Командования.
-xenomorphs-cond-allreproducexenodead = Экипаж уничтожил всех ксеноморфов, способных к размножению.
-xenomorphs-cond-allcrewdead = Все члены экипажа погибли.
+xenomorphs-cond-allreproducexenodead = персонал уничтожил всех ксеноморфов, способных к размножению.
+xenomorphs-cond-allcrewdead = Все члены персонала погибли.

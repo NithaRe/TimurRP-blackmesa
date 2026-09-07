@@ -4,7 +4,7 @@ wraith-plaguerat-eat-you-start = Вы начинаете поедать { $targe
 wraith-plaguerat-eat-you-finish = Вы закончили поедать { $target }!
 wraith-plaguerat-bite-you-message = Вы укусили { $target }!
 ghost-role-information-plagurat-name = Чумная крыса
-ghost-role-information-plaguerat-description = Призванная Фантомом, вы малы, слабы и голодны. Растите, поедая мусор, и распространяйте чуму среди этих надоедливых членов экипажа, пытающихся встать у вас на пути!
+ghost-role-information-plaguerat-description = Призванная Фантомом, вы малы, слабы и голодны. Растите, поедая мусор, и распространяйте чуму среди этих надоедливых членов персонала, пытающихся встать у вас на пути!
 
 # Unused
 

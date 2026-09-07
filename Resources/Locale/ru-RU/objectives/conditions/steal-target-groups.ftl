@@ -1,6 +1,6 @@
 # Traitor single items
 steal-target-groups-hypospray = гипоспрей
-steal-target-groups-handheld-crew-monitor = ручной монитор экипажа
+steal-target-groups-handheld-crew-monitor = ручной монитор персонала
 steal-target-groups-clothing-hands-knuckledusters-qm = золотой кастет
 steal-target-groups-clothing-outer-hardsuit-rd = экспериментальный исследовательский скафандр
 steal-target-groups-hand-teleporter = ручной телепортер
@@ -38,7 +38,7 @@ steal-target-groups-salvage-expeditions-computer-circuitboard = плата ко�
 steal-target-groups-cargo-shuttle-console-circuitboard = плата консоли управления грузовым шаттлом
 steal-target-groups-clothing-eyes-hud-beer = пивные очки
 steal-target-groups-bible = библия
-steal-target-groups-clothing-neck-goldmedal = золотая медаль мастерства экипажа
+steal-target-groups-clothing-neck-goldmedal = золотая медаль мастерства персонала
 steal-target-groups-clothing-neck-clownmedal = медаль клоуна
 steal-target-groups-wanted-list-cartridge = картридж WatchDog
 # Thief structures

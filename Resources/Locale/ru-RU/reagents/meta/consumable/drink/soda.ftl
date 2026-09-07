@@ -1,7 +1,7 @@
 reagent-name-cola = Спейс Кола
 reagent-desc-cola = Сладкий газированный безалкогольный напиток. Не содержит кофеина.
 reagent-name-shirley-temple = Ширли Темпл
-reagent-desc-shirley-temple = Фаворит среди более юных членов экипажа.
+reagent-desc-shirley-temple = Фаворит среди более юных членов персонала.
 reagent-name-changeling-sting = Жало Генокрада
 reagent-desc-changeling-sting = Вы делаете маленький глоток и чувствуете жжение...
 reagent-name-dr-gibb = доктор Гибб

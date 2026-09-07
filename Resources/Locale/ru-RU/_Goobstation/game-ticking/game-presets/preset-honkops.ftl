@@ -13,15 +13,15 @@ honkops-briefing = Ваша задача проста. Доставьте зар
 honkops-opsmajor = [color=crimson]Великая победа Хонкиката![/color]
 honkops-opsminor = [color=crimson]Малая победа Хонкиката![/color]
 honkops-neutral = [color=yellow]Нейтральный исход![/color]
-honkops-crewminor = [color=green]Малая победа экипажа![/color]
-honkops-crewmajor = [color=green]Великая победа экипажа![/color]
+honkops-crewminor = [color=green]Малая победа персонала![/color]
+honkops-crewmajor = [color=green]Великая победа персонала![/color]
 honkops-cond-nukeexplodedoncorrectstation = Хонк-оперативники взорвали станцию.
 honkops-cond-nukeexplodedonnukieoutpost = База Хонкиката была уничтожена ядерным взрывом.
 honkops-cond-nukeexplodedonincorrectlocation = ХОНКлеар бомба взорвалась вне комплекса.
 honkops-cond-nukeactiveinstation = ХОНКлеар бомба осталась в комплексе в боевой готовности.
 honkops-cond-nukeactiveatcentcom = ХОНКлеар бомба была доставлена в Командование Комплекса!
-honkops-cond-nukediskoncentcom = Экипаж сбежал с диском хонк авторизации.
-honkops-cond-nukedisknotoncentcom = Экипаж оставил диск хонк авторизации.
+honkops-cond-nukediskoncentcom = персонал сбежал с диском хонк авторизации.
+honkops-cond-nukedisknotoncentcom = персонал оставил диск хонк авторизации.
 honkops-cond-nukiesabandoned = Оперативники сбежали.
 honkops-cond-allnukiesdead = Все оперативники погибли.
 honkops-cond-somenukiesalive = Некоторые оперативники погибли.

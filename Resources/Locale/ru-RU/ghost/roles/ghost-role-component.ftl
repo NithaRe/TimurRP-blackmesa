@@ -5,7 +5,7 @@ ghost-role-component-default-rules =
     Вам разрешается помнить знания об игре в целом, например, как готовить, как использовать предметы и т.д.
     Вам [color=red]НЕ[/color] разрешается помнить или говорить имя, внешность и т.д. вашего предыдущего персонажа.
 ghost-role-information-nonantagonist-rules =
-    Вы - [color={ role-type-crew-aligned-alternate-color }][bold]{ role-type-crew-aligned-name }[/bold][/color]. Поэтому вы не должны стремиться причинить вред комплекса и её экипажу.
+    Вы - [color={ role-type-crew-aligned-alternate-color }][bold]{ role-type-crew-aligned-name }[/bold][/color]. Поэтому вы не должны стремиться причинить вред комплекса и её персоналу.
     Вы не помните ничего из своей предыдущей жизни и не помните ничего из того, что узнали, будучи призраком.
     Вам разрешено помнить знания об игре в целом, например, как готовить, как использовать предметы и т.д.
     Вам [color=red]НЕ[/color] разрешается помнить или говорить имя, внешность и т.д. вашего предыдущего персонажа.
@@ -15,12 +15,12 @@ ghost-role-information-freeagent-rules =
     Вам разрешено помнить знания об игре в целом, например, как готовить, как использовать предметы и т.д.
     Вам [color=red]НЕ[/color] разрешается помнить или говорить имя, внешность и т.д. вашего предыдущего персонажа.
 ghost-role-information-antagonist-rules =
-    Вы - [color={ role-type-solo-antagonist-color }][bold]{ role-type-solo-antagonist-name }[/bold][/color]. Ваши намерения ясны, и они несут вред комплекса и её экипажу.
+    Вы - [color={ role-type-solo-antagonist-color }][bold]{ role-type-solo-antagonist-name }[/bold][/color]. Ваши намерения ясны, и они несут вред комплекса и её персоналу.
     Вы не помните ничего из своей предыдущей жизни и не помните ничего из того, что узнали, будучи призраком.
     Вам разрешено помнить знания об игре в целом, например, как готовить, как использовать предметы и т.д.
     Вам [color=red]НЕ[/color] разрешается помнить или говорить имя, внешность и т.д. вашего предыдущего персонажа.
 ghost-role-information-rules-team-antagonist =
-    Вы - [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color]. Ваши намерения ясны, и они несут вред комплекса и её экипажу.
+    Вы - [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color]. Ваши намерения ясны, и они несут вред комплекса и её персоналу.
     Вы должны [bold]работать сообща со своей командой[/bold] или следовать разумным указаниям лидеров вашей команды.
     Вы не помните ничего из своей предыдущей жизни и не помните ничего из того, что узнали, будучи призраком.
     Вам разрешено помнить знания об игре в целом, например, как готовить, как использовать предметы и т.д.
@@ -67,7 +67,7 @@ ghost-role-information-smile-description = Самое милое создани�
 ghost-role-information-punpun-name = Пун Пун
 ghost-role-information-punpun-description = Почётный член общины обезьян, ответственный за бар, и помогающий барменам во всём, чем может.
 ghost-role-information-xeno-name = Ксено
-ghost-role-information-xeno-description = Вы ксено. Скооперируйтесь со своим ульем, чтобы истребить всех членов экипажа!
+ghost-role-information-xeno-description = Вы ксено. Скооперируйтесь со своим ульем, чтобы истребить всех членов персонала!
 ghost-role-information-xeno-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с другими ксено.
 ghost-role-information-revenant-name = Ревенант
 ghost-role-information-revenant-description = Вы Ревенант. Используйте свои силы, чтобы собирать души и наводить страх на команду. С помощью собранной эссенции открывайте новые способности.
@@ -76,7 +76,7 @@ ghost-role-information-kangaroo-description = Вы кенгуру! Делайт�
 ghost-role-information-monkey-name = Обезьяна
 ghost-role-information-monkey-description = У-у-у а-а-а!
 ghost-role-information-kobold-name = Кобольд
-ghost-role-information-kobold-description = Будьте маленьким гремлином, которым и являетесь, кричите на членов экипажа и просите мяса!
+ghost-role-information-kobold-description = Будьте маленьким гремлином, которым и являетесь, кричите на членов персонала и просите мяса!
 ghost-role-information-rat-king-name = Крысиный король
 ghost-role-information-rat-king-description = Вы - Крысиный король, вас интересует еда, еда и ещё раз еда. Сотрудничайте со станцией или сражайтесь с ней ради еды. Я уже упоминал, что вас интересует еда?
 ghost-role-information-rat-servant-name = Крысиный слуга
@@ -116,7 +116,7 @@ ghost-role-information-space-dragon-summoned-carp-rules = Вы [color={ role-typ
 ghost-role-information-space-dragon-dungeon-description = Защищайте подземелье экспедиции вместе со своими рыбьими товарищами!
 ghost-role-information-space-dragon-dungeon-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с другими обитателями подземелья.
 ghost-role-information-cluwne-name = Клувень
-ghost-role-information-cluwne-description = Станьте жалким клувнем. Ваша единственная цель в жизни - найти сладкое избавление от страданий (обычно через избиение до смерти). Клувень не является антагонистом, но может защищаться. Члены экипажа могут свободно убивать клувней.
+ghost-role-information-cluwne-description = Станьте жалким клувнем. Ваша единственная цель в жизни - найти сладкое избавление от страданий (обычно через избиение до смерти). Клувень не является антагонистом, но может защищаться. Члены персонала могут свободно убивать клувней.
 ghost-role-information-skeleton-pirate-name = Скелет-пират
 ghost-role-information-skeleton-pirate-description = Устройте хаос и разграбьте станцию в поисках сокровищ.
 ghost-role-information-skeleton-biker-name = Скелет-байкер
@@ -132,7 +132,7 @@ ghost-role-information-ert-leader-description = Руководите коман�
 ghost-role-information-ert-janitor-name = ОБР Уборщик
 ghost-role-information-ert-janitor-description = Оказывайте содействие в попытках навести чистоту для решения проблем комплекса.
 ghost-role-information-ert-chaplain-name = ОБР Священник
-ghost-role-information-ert-chaplain-description = Оказывайте помощь в разрешении моральных проблем экипажа комплекса.
+ghost-role-information-ert-chaplain-description = Оказывайте помощь в разрешении моральных проблем персонала комплекса.
 ghost-role-information-ert-engineer-name = ОБР Инженер
 ghost-role-information-ert-engineer-description = Оказывайте содействие в инженерных работах для решения проблем комплекса.
 ghost-role-information-ert-security-name = ОБР Офицер безопасности
@@ -249,6 +249,6 @@ ghost-role-information-gingerbread-description =
     Существо чистого праздничного духа.
     Распространяйте паточную вкуснятину и хорошее настроение.
 ghost-role-information-emotional-support-scurret-name = Эмоционально поддерживающий Скюррет
-ghost-role-information-emotional-support-scurret-description = Поддерживайте экипаж, будьте милым, постоянно говорите "ва".
+ghost-role-information-emotional-support-scurret-description = Поддерживайте персонал, будьте милым, постоянно говорите "ва".
 ghost-role-information-wizard-name = Волшебник
 ghost-role-information-wizard-desc = ТЫ ВОЛШЕБНИК! Покажи комплекса, из чего сделана твоя магия.
