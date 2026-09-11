@@ -203,6 +203,9 @@ namespace Content.Client.Entry
         {
             ClientContentIoC.Register();
 
+            IoCManager.Register<Content.Corvax.Interfaces.Client.IClientDiscordAuthManager, // blackm discord auth
+                Content.Client._BlackM.DiscordAuth.DiscordAuthManager>(); // blackm discord auth
+
             foreach (var callback in TestingCallbacks)
             {
                 var cast = (ClientModuleTestingCallbacks) callback;
@@ -256,6 +259,7 @@ namespace Content.Client.Entry
 
             _componentFactory.GenerateNetIds();
             _adminManager.Initialize();
+            IoCManager.Resolve<Content.Corvax.Interfaces.Client.IClientDiscordAuthManager>().Initialize(); // blackm discord auth
             _screenshotHook.Initialize();
             _fullscreenHook.Initialize();
             _changelogManager.Initialize();
