@@ -25,6 +25,7 @@
     mask: ClothingMaskGasHECU
     shoes: ClothingShoesBootsJack
     back: ClothingBackpackMerc
+    id: AccessCardHolderHecu
     ears: ClothingHeadsetAltCentCom
     hand: WeaponSubMachineGunDrozd
     gloves: ClothingHandsGlovesMercFingerless
