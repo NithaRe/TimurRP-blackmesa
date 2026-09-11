@@ -28,3 +28,5 @@ badge-printer-reprint-passport-button = Исправить паспорт
 badge-printer-no-permit = Нет разрешения на печать ключей.
 badge-printer-passport-inserted = Паспорт: { $name }
 badge-printer-passport-not-checked = Вы уверены что делаете всё правильно?
+badge-printer-passport-slot = Слот паспорта
+badge-printer-permit-slot = Слот чипа разрешения
