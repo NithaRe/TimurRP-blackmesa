@@ -294,6 +294,18 @@
           - BadgeCaptain
 
 - type: entity
+  id: AccessCardHolderHecu
+  name: карта доступа для агентов
+  description: Карта доступа для агентов. Открывает все зоны станции.
+  parent: AccessCardHolder
+  components:
+    - type: ContainerFill
+      containers:
+        badge_slots:
+          - BadgeCommand
+          - BadgeCaptain
+
+- type: entity
   id: AccessCardHolderQM
   name: карта доступа квартирмейстера
   description: Карта доступа квартирмейстера.

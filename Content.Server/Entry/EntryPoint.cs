@@ -211,6 +211,9 @@ namespace Content.Server.Entry
 
             ServerContentIoC.Register();
 
+            IoCManager.Register<Content.Corvax.Interfaces.Server.IServerDiscordAuthManager, // blackm ds auth
+     Content.Server._BlackM.DiscordAuth.DiscordAuthManager>(); // blackm ds auth
+
             foreach (var callback in TestingCallbacks)
             {
                 var cast = (ServerModuleTestingCallbacks) callback;
@@ -246,6 +249,7 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<TTSManager>().Initialize(); // CorvaxGoob-TTS
                 IoCManager.Resolve<ServerInfoManager>().Initialize();
                 IoCManager.Resolve<ServerApi>().Initialize();
+                IoCManager.Resolve<Content.Corvax.Interfaces.Server.IServerDiscordAuthManager>().Initialize(); // blackm ds auth
 
                 _voteManager.Initialize();
                 _updateManager.Initialize();

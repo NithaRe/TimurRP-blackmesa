@@ -5,12 +5,6 @@ namespace Content.Shared._BlackM.CCVar;
 [CVarDefs]
 public sealed class BlackMCVars
 {
-    public static readonly CVarDef<bool> HardcodeZoomEnabled =
-        CVarDef.Create("hardcode.zoom_enabled", false, CVar.SERVER | CVar.REPLICATED);
-
-    public static readonly CVarDef<float> HardcodeZoomLevel =
-        CVarDef.Create("hardcode.zoom_level", 0.5f, CVar.SERVER | CVar.REPLICATED);
-
     public static readonly CVarDef<string> LobbyBackgroundType =
         CVarDef.Create("blackm.lobby.background_type", "animation", CVar.CLIENT | CVar.ARCHIVE);
 
@@ -59,4 +53,29 @@ public sealed class BlackMCVars
 
     public static readonly CVarDef<float> MusicRadioVolume =
         CVarDef.Create("blackm.music_radio_volume", 1.0f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    public static readonly CVarDef<bool> DiscordAuthEnabled =
+        CVarDef.Create("discord_auth.enabled", false, CVar.SERVER | CVar.REPLICATED);
+
+    public static readonly CVarDef<bool> DiscordAuthIsOptional =
+        CVarDef.Create("discord_auth.is_optional", false, CVar.SERVER | CVar.REPLICATED);
+
+    public static readonly CVarDef<string> DiscordAuthClientId =
+        CVarDef.Create("discord_auth.client_id", string.Empty, CVar.SERVERONLY);
+
+    public static readonly CVarDef<string> DiscordAuthClientSecret =
+        CVarDef.Create("discord_auth.client_secret", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+
+    public static readonly CVarDef<string> DiscordAuthRedirectUri =
+        CVarDef.Create("discord_auth.redirect_uri", string.Empty, CVar.SERVERONLY);
+
+    public static readonly CVarDef<string> DiscordAuthCallbackPath =
+        CVarDef.Create("discord_auth.callback_path", "/discord/callback", CVar.SERVERONLY);
+    
+    public static readonly CVarDef<string> DiscordAuthGuildId =
+    CVarDef.Create("discord_auth.guild_id", "1489010721063698647", CVar.SERVERONLY);
+
+    public static readonly CVarDef<string> DiscordAuthWebhookUrl = CVarDef.Create("discord_auth.webhook_url", "", CVar.SERVERONLY);
+
+    public static readonly CVarDef<string> DiscordAuthWebhookSecret = CVarDef.Create("discord_auth.webhook_secret", "", CVar.SERVERONLY);
 }

@@ -41,6 +41,7 @@
     mask: ClothingMaskGasHECU
     shoes: ClothingShoesBootsJack
     back: ClothingBackpackMercFilledHECU
+    id: AccessCardHolderHecu
     hand: WeaponSubMachineGunDrozd
   storage:
     back:

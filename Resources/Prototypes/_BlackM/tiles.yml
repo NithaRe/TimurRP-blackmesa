@@ -41,7 +41,7 @@
 
 - type: tile
   id: FloorInfected1
-  name: tilesinfected1
+  name: заражённый пол
   sprite: /Textures/_BlackM/Tiles/floorinfected1.png
   variants: 1
   placementVariants:
