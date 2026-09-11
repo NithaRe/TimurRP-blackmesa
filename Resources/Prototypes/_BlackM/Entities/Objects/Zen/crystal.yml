@@ -20,6 +20,19 @@
     anchored: false
   - type: Physics
     bodyType: Dynamic
+    linearDamping: 0.6
+    angularDamping: 0.6
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.2
+        density: 40
+        mask:
+          - ItemMask
+        layer:
+          - MidImpassable
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Metallic
