@@ -67,7 +67,7 @@ public sealed class BlackMCVars
         CVarDef.Create("discord_auth.client_secret", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
     public static readonly CVarDef<string> DiscordAuthRedirectUri =
-        CVarDef.Create("discord_auth.redirect_uri", string.Empty, CVar.SERVERONLY);
+        CVarDef.Create("discord_auth.redirect_uri", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
     public static readonly CVarDef<string> DiscordAuthCallbackPath =
         CVarDef.Create("discord_auth.callback_path", "/discord/callback", CVar.SERVERONLY);
@@ -75,7 +75,7 @@ public sealed class BlackMCVars
     public static readonly CVarDef<string> DiscordAuthGuildId =
     CVarDef.Create("discord_auth.guild_id", "1489010721063698647", CVar.SERVERONLY);
 
-    public static readonly CVarDef<string> DiscordAuthWebhookUrl = CVarDef.Create("discord_auth.webhook_url", "", CVar.SERVERONLY);
+    public static readonly CVarDef<string> DiscordAuthWebhookUrl = CVarDef.Create("discord_auth.webhook_url", "", CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
-    public static readonly CVarDef<string> DiscordAuthWebhookSecret = CVarDef.Create("discord_auth.webhook_secret", "", CVar.SERVERONLY);
+    public static readonly CVarDef<string> DiscordAuthWebhookSecret = CVarDef.Create("discord_auth.webhook_secret", "", CVar.SERVERONLY | CVar.CONFIDENTIAL);
 }
