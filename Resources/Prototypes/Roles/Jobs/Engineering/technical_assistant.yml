@@ -101,9 +101,6 @@
   #storage:
     #back:
     #- Stuff
-  inhand:
-  - BookNewbieGuide # BlackM
-
 - type: chameleonOutfit
   id: TechnicalAssistantChameleonOutfit
   job: TechnicalAssistant

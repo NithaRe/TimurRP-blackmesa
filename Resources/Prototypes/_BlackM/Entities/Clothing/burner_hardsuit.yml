@@ -18,6 +18,8 @@
       damageCoefficient: 0.3
     - type: FireProtection
       reduction: 0.95
+    - type: ZombificationResistance
+      zombificationResistanceCoefficient: 0
     - type: Armor
       modifiers:
         coefficients:

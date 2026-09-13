@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2026 NithaRe
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: WallRockChromiteArtifactFragment
+  id: WallRockChromiteXenFossil
+  name: Xen fossil deposit
+  description: A chromite wall containing a mineralized Xen organism.
+  suffix: Xen Fossil
+  components:
+  - type: OreVein
+    currentOre: OreXenFossil
+
+- type: entity
+  parent: MarkerBase
+  id: WallRockChromiteXenFossilSpawner
+  name: chromite wall spawner
+  suffix: 1% Xen Fossil
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: RandomSpawner
+    prototypes:
+    - WallRockChromite
+    rarePrototypes:
+    - WallRockChromiteXenFossil
+    chance: 1
+    rareChance: 0.01
+    offset: 0

@@ -29,7 +29,7 @@
         cellularDistanceFunction: Euclidean
         cellularReturnType: Distance2
       entities:
-        - WallRockChromite
+        - WallRockChromiteXenFossilSpawner
     - !type:BiomeDummyLayer
       id: Loot
     # Fill remainder with chromite

@@ -38,13 +38,6 @@
     speedModifier: 0.75
     pryPowered: true
     force: true
-  - type: GhostTakeoverAvailable
-  - type: GhostRole
-    name: zombie-generic
-    description: zombie-role-desc
-    rules: zombie-role-rules
-    mindRoles:
-    - MindRoleZombie
 
 - type: entity
   parent: MobXenInfected
