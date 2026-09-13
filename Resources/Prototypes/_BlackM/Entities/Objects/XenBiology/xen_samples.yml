@@ -98,11 +98,8 @@
   description: A handheld extractor that seals Xen biological samples inside sterile capsules.
   components:
   - type: Sprite
-    sprite: Objects/Specific/Medical/healthanalyzer.rsi
-    layers:
-    - state: icon
-    - state: analyzer
-      shader: unshaded
+    sprite: _BlackM/Objects/XenBiology/xen_sample_extractor.rsi
+    state: icon
   - type: Item
     size: Small
     storedRotation: -90
