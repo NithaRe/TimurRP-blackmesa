@@ -256,7 +256,7 @@
 - type: tile
   id: FloorSteelMono
   name: tiles-steel-floor-mono
-  sprite: /Textures/Tiles/steel_mono.png
+  sprite: /Textures/_BlackM/Tiles/steel_mono.png # BlackM
   variants: 4
   placementVariants:
   - 1.0
@@ -398,7 +398,7 @@
 - type: tile
   id: FloorWhite
   name: tiles-white-floor
-  sprite: /Textures/Tiles/white.png
+  sprite: /Textures/_BlackM/Tiles/white.png # BlackM
   variants: 4
   placementVariants:
   - 1.0
@@ -563,7 +563,7 @@
 - type: tile
   id: FloorWhitePlastic
   name: tiles-plastic-white-floor
-  sprite: /Textures/Tiles/white_plastic.png
+  sprite: /Textures/_BlackM/Tiles/white_plastic.png # BlackM
   variants: 4
   placementVariants:
   - 1.0
@@ -582,7 +582,7 @@
 - type: tile
   id: FloorDark
   name: tiles-dark-floor
-  sprite: /Textures/Tiles/dark.png
+  sprite: /Textures/_BlackM/Tiles/dark.png # BlackM
   variants: 4
   placementVariants:
   - 1.0
@@ -981,7 +981,7 @@
 - type: tile
   id: FloorHydro
   name: tiles-hydro-floor
-  sprite: /Textures/Tiles/hydro.png
+  sprite: /Textures/_BlackM/Tiles/hydro.png # BlackM
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -1103,7 +1103,7 @@
 - type: tile
   id: FloorConcrete
   name: tiles-concrete-tile
-  sprite: /Textures/Tiles/Planet/Concrete/concrete.png
+  sprite: /Textures/_BlackM/Tiles/concrete.png # BlackM
   variants: 4
   placementVariants:
   - 1.0
