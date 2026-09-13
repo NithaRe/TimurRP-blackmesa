@@ -97,6 +97,8 @@ public sealed class OneWayTeleportSystem : EntitySystem
         used.UsedIds.Add(teleport.DestinationId);
 
         args.Handled = true;
+
+        RaiseLocalEvent(new OneWayTeleportedEvent(args.User, teleport.DestinationId));
     }
 
     public int SetGroupEnabled(string destinationId, bool enabled)

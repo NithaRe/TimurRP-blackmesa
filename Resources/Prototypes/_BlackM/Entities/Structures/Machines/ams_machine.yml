@@ -21,6 +21,12 @@
         layer:
         - MachineLayer
   - type: Ams
+  - type: PointLight
+    enabled: true
+    radius: 2.5
+    energy: 2
+    color: "#3ad1ff"
+  - type: InteractionOutline
   - type: ItemSlots
     slots:
       ams_part_core:
