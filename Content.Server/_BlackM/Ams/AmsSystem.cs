@@ -226,6 +226,8 @@ public sealed class AmsSystem : EntitySystem
                 SendAnnouncement(Loc.GetString("ams-announce-launched"), LaunchSound);
 
                 OpenEvacuationPoints();
+
+                RaiseLocalEvent(new AmsLaunchedEvent());
                 break;
 
             default:
