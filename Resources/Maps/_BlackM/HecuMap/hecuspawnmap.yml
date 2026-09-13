@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 08/28/2026 20:40:58
-  entityCount: 947
+  time: 09/13/2026 09:47:58
+  entityCount: 908
 maps:
 - 1
 grids:
@@ -33,7 +33,7 @@ entities:
   - uid: 1
     components:
     - type: MetaData
-      name: HECU LOBBY
+      name: Парковка Хеку
     - type: Transform
     - type: Map
       mapPaused: True
@@ -73,7 +73,7 @@ entities:
   - uid: 2
     components:
     - type: MetaData
-      name: HECU LOBBY GRID
+      name: Парковка Хеку
     - type: Transform
       pos: -0.5668793,-0.52229947
       parent: 1
@@ -391,9 +391,7 @@ entities:
           0,0:
             0: 63231
           0,-1:
-            0: 65467
-            1: 4
-            2: 64
+            0: 65535
           -1,0:
             0: 33023
           0,1:
@@ -409,11 +407,9 @@ entities:
           1,1:
             0: 49147
           1,2:
-            0: 187
+            0: 2235
           1,-1:
-            1: 1
-            2: 16
-            0: 65518
+            0: 65535
           2,0:
             0: 61695
           2,1:
@@ -467,13 +463,11 @@ entities:
           -1,-1:
             0: 65535
           0,-2:
-            0: 45056
-            3: 16384
+            0: 61440
           -1,-2:
             0: 57344
           1,-2:
-            2: 4096
-            0: 57344
+            0: 61440
           2,-2:
             0: 61440
           3,-2:
@@ -511,63 +505,6 @@ entities:
         uniqueMixes:
         - volume: 2500
           temperature: 293.15
-          moles:
-          - 21.824879
-          - 82.10312
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-        - volume: 2500
-          temperature: 293.1495
-          moles:
-          - 21.824879
-          - 82.10312
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-        - volume: 2500
-          temperature: 293.15
-          moles:
-          - 20.078888
-          - 75.53487
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-          - 0
-        - volume: 2500
-          temperature: 293.14975
           moles:
           - 21.824879
           - 82.10312
@@ -699,6 +636,13 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -13.5,6.5
       parent: 2
+- proto: BarberScissors
+  entities:
+  - uid: 803
+    components:
+    - type: Transform
+      pos: 11.604514,4.47265
+      parent: 2
 - proto: BarrelPlanks
   entities:
   - uid: 683
@@ -732,33 +676,6 @@ entities:
     components:
     - type: Transform
       pos: 4.5,3.5
-      parent: 2
-- proto: BmesaHecuIdcard
-  entities:
-  - uid: 64
-    components:
-    - type: Transform
-      pos: 8.356356,9.536927
-      parent: 2
-  - uid: 698
-    components:
-    - type: Transform
-      pos: 7.8702445,9.801
-      parent: 2
-  - uid: 746
-    components:
-    - type: Transform
-      pos: 7.453578,9.564725
-      parent: 2
-  - uid: 771
-    components:
-    - type: Transform
-      pos: 8.370459,9.836755
-      parent: 2
-  - uid: 772
-    components:
-    - type: Transform
-      pos: 7.6673336,9.88363
       parent: 2
 - proto: BodyBag
   entities:
@@ -813,98 +730,6 @@ entities:
     - type: Transform
       pos: 7.409002,-4.6095567
       parent: 2
-- proto: BoxReverseBearTrap
-  entities:
-  - uid: 810
-    components:
-    - type: Transform
-      pos: 7.463436,3.6454976
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 23
-      data:
-        description: uplink-reverse-bear-trap-desc
-        categories:
-        - UplinkWearables
-        cost:
-          Telecrystal: 23
-        conditions:
-        - !type:StoreWhitelistCondition
-          blacklist:
-            tags:
-            - ContractorUplink
-        icon:
-          sprite: /Textures/_Goobstation/Clothing/Head/Helmets/reverse_bear_trap.rsi
-          state: icon
-        productEntity: BoxReverseBearTrap
-        id: UplinkReverseBearTrap
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-reverse-bear-trap-name
-      storeEntity: invalid
-- proto: C4
-  entities:
-  - uid: 818
-    components:
-    - type: Transform
-      pos: 17.466532,3.6761258
-      parent: 2
-  - uid: 824
-    components:
-    - type: Transform
-      pos: 17.279032,3.7230008
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 4
-      data:
-        description: uplink-c4-desc
-        categories:
-        - UplinkExplosives
-        cost:
-          Telecrystal: 4
-        conditions:
-        - !type:StoreWhitelistCondition
-          whitelist:
-            tags:
-            - NukeOpsUplink
-        productEntity: C4
-        id: UplinkC4Nukeops
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-c4-name
-      storeEntity: invalid
-  - uid: 849
-    components:
-    - type: Transform
-      pos: 17.700907,3.7073758
-      parent: 2
-- proto: CameraBug
-  entities:
-  - uid: 763
-    components:
-    - type: Transform
-      pos: 7.4329586,9.055505
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 12
-      data:
-        description: uplink-cameraBug-desc
-        categories:
-        - UplinkDisruption
-        cost:
-          Telecrystal: 12
-        productEntity: CameraBug
-        id: UplinkCameraBug
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-cameraBug-name
-      storeEntity: invalid
 - proto: CartridgeRifle
   entities:
   - uid: 827
@@ -1063,50 +888,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 8.285788,-3.0158365
       parent: 2
-- proto: CigPackSyndicate
-  entities:
-  - uid: 769
-    components:
-    - type: Transform
-      pos: 11.736188,8.463895
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 5
-      data:
-        description: uplink-cigarettes-desc
-        categories:
-        - UplinkChemicals
-        cost:
-          Telecrystal: 5
-        productEntity: CigPackSyndicate
-        id: UplinkCigarettes
-        purchaseAmount: 2
-        components: []
-        blockRefundListings: []
-        name: uplink-cigarettes-name
-      storeEntity: invalid
-  - uid: 777
-    components:
-    - type: Transform
-      pos: 11.626813,8.713895
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 5
-      data:
-        description: uplink-cigarettes-desc
-        categories:
-        - UplinkChemicals
-        cost:
-          Telecrystal: 5
-        productEntity: CigPackSyndicate
-        id: UplinkCigarettes
-        purchaseAmount: 2
-        components: []
-        blockRefundListings: []
-        name: uplink-cigarettes-name
-      storeEntity: invalid
 - proto: ClockworkGrilleBroken
   entities:
   - uid: 732
@@ -1126,7 +907,7 @@ entities:
   - uid: 846
     components:
     - type: Transform
-      pos: 7.447274,4.6906104
+      pos: 11.489967,3.619051
       parent: 2
     - type: GroupExamine
       group:
@@ -1146,7 +927,7 @@ entities:
   - uid: 822
     components:
     - type: Transform
-      pos: 8.425098,3.674986
+      pos: 7.496875,3.647423
       parent: 2
     - type: GroupExamine
       group:
@@ -1166,28 +947,7 @@ entities:
   - uid: 848
     components:
     - type: Transform
-      pos: 10.749723,3.674986
-      parent: 2
-- proto: ClothingBackpackDuffelSyndicateFilledRevolver
-  entities:
-  - uid: 829
-    components:
-    - type: Transform
-      pos: 9.968473,3.690611
-      parent: 2
-- proto: ClothingBackpackDuffelSyndicateFilledShotgun
-  entities:
-  - uid: 855
-    components:
-    - type: Transform
-      pos: 11.530973,3.6218941
-      parent: 2
-- proto: ClothingBackpackDuffelSyndicateFilledSMG
-  entities:
-  - uid: 843
-    components:
-    - type: Transform
-      pos: 9.175098,3.674986
+      pos: 9.757292,3.637
       parent: 2
     - type: GroupExamine
       group:
@@ -1202,64 +962,80 @@ entities:
           priority: 0
           component: ClothingSpeedModifier
         title: null
-- proto: ClothingBeltMilitaryWebbing
+- proto: ClothingBackpackDuffelSyndicateFilledRevolver
   entities:
-  - uid: 913
+  - uid: 829
     components:
     - type: Transform
-      parent: 912
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 914
+      pos: 8.976042,3.637
+      parent: 2
+    - type: GroupExamine
+      group:
+      - hoverMessage: ""
+        contextText: verb-examine-group-other
+        icon: /Textures/Interface/examine-star.png
+        components:
+        - Armor
+        - ClothingSpeedModifier
+        entries:
+        - message: Понижает вашу скорость бега на [color=yellow]10%[/color].
+          priority: 0
+          component: ClothingSpeedModifier
+        title: null
+- proto: ClothingBackpackDuffelSyndicateFilledShotgun
+  entities:
+  - uid: 855
     components:
     - type: Transform
-      parent: 912
-    - type: Physics
-      canCollide: False
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 4
-      data:
-        description: uplink-chest-rig-desc
-        categories:
-        - UplinkWearables
-        cost:
-          Telecrystal: 4
-        conditions:
-        - !type:StoreWhitelistCondition
-          blacklist:
-            tags:
-            - ContractorUplink
-        productEntity: ClothingBeltMilitaryWebbing
-        id: UplinkChestRig
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-chest-rig-name
-      storeEntity: invalid
-    - type: InsideEntityStorage
-  - uid: 915
+      pos: 10.528125,3.647423
+      parent: 2
+    - type: GroupExamine
+      group:
+      - hoverMessage: ""
+        contextText: verb-examine-group-other
+        icon: /Textures/Interface/examine-star.png
+        components:
+        - Armor
+        - ClothingSpeedModifier
+        entries:
+        - message: Понижает вашу скорость бега на [color=yellow]10%[/color].
+          priority: 0
+          component: ClothingSpeedModifier
+        title: null
+- proto: ClothingBackpackDuffelSyndicateFilledSMG
+  entities:
+  - uid: 843
     components:
     - type: Transform
-      parent: 912
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 916
+      pos: 8.257292,3.647423
+      parent: 2
+    - type: GroupExamine
+      group:
+      - hoverMessage: ""
+        contextText: verb-examine-group-other
+        icon: /Textures/Interface/examine-star.png
+        components:
+        - Armor
+        - ClothingSpeedModifier
+        entries:
+        - message: Понижает вашу скорость бега на [color=yellow]10%[/color].
+          priority: 0
+          component: ClothingSpeedModifier
+        title: null
+- proto: ClothingBeltMilitaryWebbingMed
+  entities:
+  - uid: 716
     components:
     - type: Transform
-      parent: 912
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 917
+      pos: 11.508206,8.749122
+      parent: 2
+- proto: ClothingEyesThermalVisionGogglesNukie
+  entities:
+  - uid: 795
     components:
     - type: Transform
-      parent: 912
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
+      pos: 11.715625,4.159932
+      parent: 2
 - proto: ClothingHeadHatCone
   entities:
   - uid: 943
@@ -1271,6 +1047,49 @@ entities:
     components:
     - type: Transform
       pos: 0.25376463,-1.9067395
+      parent: 2
+- proto: ClothingHeadHatPropeller
+  entities:
+  - uid: 787
+    components:
+    - type: Transform
+      pos: 9.200251,9.694086
+      parent: 2
+- proto: ClothingHeadHelmetBasicHecu
+  entities:
+  - uid: 806
+    components:
+    - type: Transform
+      pos: 11.423958,4.688077
+      parent: 2
+- proto: ClothingMaskGasHECU
+  entities:
+  - uid: 785
+    components:
+    - type: Transform
+      pos: 11.292014,4.361462
+      parent: 2
+- proto: CombatMedipen
+  entities:
+  - uid: 778
+    components:
+    - type: Transform
+      pos: 7.4722567,8.4152
+      parent: 2
+  - uid: 780
+    components:
+    - type: Transform
+      pos: 7.476886,8.623679
+      parent: 2
+  - uid: 781
+    components:
+    - type: Transform
+      pos: 7.4722567,8.832157
+      parent: 2
+  - uid: 782
+    components:
+    - type: Transform
+      pos: 7.4722567,9.022103
       parent: 2
 - proto: ConstructionBarricade
   entities:
@@ -1286,6 +1105,57 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -4.5,0.5
       parent: 2
+- proto: CrateMedical
+  entities:
+  - uid: 761
+    components:
+    - type: Transform
+      pos: 10.5,8.5
+      parent: 2
+    - type: EntityStorage
+      air:
+        volume: 200
+        immutable: False
+        temperature: 293.14673
+        moles:
+        - 1.7459903
+        - 6.568249
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+    - type: ContainerContainer
+      containers:
+        entity_storage: !type:Container
+          showEnts: False
+          occludes: True
+          ents:
+          - 777
+          - 776
+          - 775
+          - 774
+          - 770
+          - 769
+          - 768
+          - 766
+          - 765
+          - 764
+          - 762
+          - 763
+        paper_label: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
 - proto: CrateMedicalSurgery
   entities:
   - uid: 221
@@ -1355,280 +1225,6 @@ entities:
     - type: Transform
       pos: 0.5,3.5
       parent: 2
-- proto: EffectSpark
-  entities:
-  - uid: 56
-    components:
-    - type: Transform
-      pos: 7.758976,3.9806862
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 716
-    components:
-    - type: Transform
-      pos: 7.758976,3.9806862
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 760
-    components:
-    - type: Transform
-      pos: 7.758976,3.9806862
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 762
-    components:
-    - type: Transform
-      pos: 7.7610836,7.758629
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 764
-    components:
-    - type: Transform
-      pos: 7.7610836,7.758629
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 765
-    components:
-    - type: Transform
-      pos: 7.7610836,7.758629
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 766
-    components:
-    - type: Transform
-      pos: 7.7610836,7.758629
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 770
-    components:
-    - type: Transform
-      pos: 8.019474,6.190669
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 774
-    components:
-    - type: Transform
-      pos: 7.7610836,7.758629
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 775
-    components:
-    - type: Transform
-      pos: 11.376813,7.54202
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 776
-    components:
-    - type: Transform
-      pos: 11.376813,7.54202
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 781
-    components:
-    - type: Transform
-      pos: 10.404899,7.070217
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 782
-    components:
-    - type: Transform
-      pos: 10.404899,7.070217
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 784
-    components:
-    - type: Transform
-      pos: 10.404899,7.446341
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 802
-    components:
-    - type: Transform
-      pos: 9.416561,5.1767473
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 803
-    components:
-    - type: Transform
-      pos: 9.416561,5.1767473
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 806
-    components:
-    - type: Transform
-      pos: 9.416561,5.1767473
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 807
-    components:
-    - type: Transform
-      pos: 9.416561,5.1767473
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 808
-    components:
-    - type: Transform
-      pos: 9.416561,5.1767473
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 809
-    components:
-    - type: Transform
-      pos: 9.416561,5.1767473
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 819
-    components:
-    - type: Transform
-      pos: 6.75617,6.233221
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 820
-    components:
-    - type: Transform
-      pos: 9.416561,5.1767473
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 825
-    components:
-    - type: Transform
-      pos: 9.416561,5.1767473
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 826
-    components:
-    - type: Transform
-      pos: 9.416561,5.1767473
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 872
-    components:
-    - type: Transform
-      pos: 8.499723,5.840644
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 873
-    components:
-    - type: Transform
-      pos: 8.499723,5.840644
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 890
-    components:
-    - type: Transform
-      pos: 10.111754,7.769567
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 891
-    components:
-    - type: Transform
-      pos: 10.111754,7.769567
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 893
-    components:
-    - type: Transform
-      pos: 8.664205,8.617794
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 897
-    components:
-    - type: Transform
-      pos: 8.664205,8.617794
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 898
-    components:
-    - type: Transform
-      pos: 8.664205,8.617794
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 899
-    components:
-    - type: Transform
-      pos: 8.664205,8.617794
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 901
-    components:
-    - type: Transform
-      pos: 11.819404,6.0755177
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
-  - uid: 903
-    components:
-    - type: Transform
-      pos: 11.819404,6.0755177
-      parent: 2
-    - type: Physics
-      angularDamping: 0.2
-      linearDamping: 0.2
 - proto: EmergencyLight
   entities:
   - uid: 693
@@ -1636,6 +1232,13 @@ entities:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -4.5,-3.5
+      parent: 2
+- proto: FoodCakeChocolate
+  entities:
+  - uid: 56
+    components:
+    - type: Transform
+      pos: 7.5627966,9.659207
       parent: 2
 - proto: GrenadeFlashBang
   entities:
@@ -1695,17 +1298,39 @@ entities:
     - type: Transform
       pos: 7.5,7.5
       parent: 2
+    - type: EntityStorage
+      air:
+        volume: 200
+        immutable: False
+        temperature: 293.14673
+        moles:
+        - 1.7459903
+        - 6.568249
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
     - type: ContainerContainer
       containers:
         entity_storage: !type:Container
           showEnts: False
           occludes: True
           ents:
-          - 907
           - 908
-          - 909
-          - 910
           - 911
+          - 910
+          - 909
+          - 907
         paper_label: !type:ContainerSlot
           showEnts: False
           occludes: True
@@ -1715,21 +1340,6 @@ entities:
     - type: Transform
       pos: 11.5,7.5
       parent: 2
-    - type: ContainerContainer
-      containers:
-        entity_storage: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 913
-          - 914
-          - 915
-          - 916
-          - 917
-        paper_label: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
 - proto: HecuSpawnPoint
   entities:
   - uid: 791
@@ -1768,6 +1378,18 @@ entities:
     - type: Transform
       pos: -1.5,6.5
       parent: 2
+- proto: JawsOfLife
+  entities:
+  - uid: 783
+    components:
+    - type: Transform
+      pos: 10.573147,9.865222
+      parent: 2
+  - uid: 784
+    components:
+    - type: Transform
+      pos: 10.614813,9.531657
+      parent: 2
 - proto: LightPostSmall
   entities:
   - uid: 496
@@ -1794,98 +1416,109 @@ entities:
       rot: 3.141592653589793 rad
       pos: -4.5,-7.5
       parent: 2
-- proto: MagazineBoxShotgunSlugHighCaliber
+- proto: MedicalPatchBasic
   entities:
-  - uid: 892
+  - uid: 765
     components:
     - type: Transform
-      pos: 9.627379,9.4883175
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 8
-      data:
-        description: uplink-high-caliber-shotgun-box-slug-desc
-        categories:
-        - UplinkAmmo
-        cost:
-          Telecrystal: 8
-        conditions:
-        - !type:StoreWhitelistCondition
-          blacklist:
-            tags:
-            - ContractorUplink
-        icon:
-          sprite: Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi
-          state: icon-slug
-        productEntity: MagazineBoxShotgunSlugHighCaliber
-        id: UplinkBox8GaugeSlug
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-high-caliber-shotgun-box-slug-name
-      storeEntity: invalid
-- proto: MagazineLightRifleBox
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+  - uid: 774
+    components:
+    - type: Transform
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+- proto: MedicalPatchPrefilledBicaridine
   entities:
-  - uid: 878
+  - uid: 763
     components:
     - type: Transform
-      pos: 9.11733,9.555294
-      parent: 2
-- proto: MagazinePistolSubMachineGun
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+  - uid: 766
+    components:
+    - type: Transform
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+  - uid: 768
+    components:
+    - type: Transform
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+  - uid: 777
+    components:
+    - type: Transform
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+- proto: MedicalPatchPrefilledDermaline
   entities:
-  - uid: 894
+  - uid: 762
     components:
     - type: Transform
-      pos: 10.27358,9.445919
-      parent: 2
-  - uid: 895
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+  - uid: 764
     components:
     - type: Transform
-      pos: 10.445455,9.617794
-      parent: 2
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+  - uid: 769
+    components:
+    - type: Transform
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+  - uid: 770
+    components:
+    - type: Transform
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+- proto: MedkitBruteFilled
+  entities:
+  - uid: 775
+    components:
+    - type: Transform
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+  - uid: 776
+    components:
+    - type: Transform
+      parent: 761
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
 - proto: MedkitCombatFilled
   entities:
-  - uid: 778
+  - uid: 755
     components:
     - type: Transform
-      pos: 11.217399,9.293833
+      pos: 11.36365,9.5210285
       parent: 2
-  - uid: 779
+  - uid: 758
     components:
     - type: Transform
-      pos: 11.389274,9.778208
-      parent: 2
-  - uid: 780
-    components:
-    - type: Transform
-      pos: 11.623649,9.419428
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 10
-      data:
-        description: uplink-combat-medkit-desc
-        categories:
-        - UplinkChemicals
-        cost:
-          Telecrystal: 10
-        productEntity: MedkitCombatFilled
-        id: UplinkCombatMedkit
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-combat-medkit-name
-      storeEntity: invalid
-  - uid: 783
-    components:
-    - type: Transform
-      pos: 10.826774,9.715708
-      parent: 2
-  - uid: 787
-    components:
-    - type: Transform
-      pos: 11.248649,9.5713415
+      pos: 11.794206,9.511764
       parent: 2
 - proto: MopBucket
   entities:
@@ -2737,75 +2370,6 @@ entities:
       parent: 2
     - type: Fixtures
       fixtures: {}
-- proto: SmokeGrenade
-  entities:
-  - uid: 834
-    components:
-    - type: Transform
-      pos: 16.55931,3.5986226
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 2
-      data:
-        description: uplink-smoke-grenade-desc
-        categories:
-        - UplinkExplosives
-        cost:
-          Telecrystal: 2
-        conditions:
-        - !type:StoreWhitelistCondition
-          whitelist:
-            tags:
-            - NukeOpsUplink
-        productEntity: SmokeGrenade
-        id: UplinkSmokeGrenadeNukeops
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-smoke-grenade-name
-      storeEntity: invalid
-  - uid: 836
-    components:
-    - type: Transform
-      pos: 16.793686,3.6611226
-      parent: 2
-  - uid: 837
-    components:
-    - type: Transform
-      pos: 16.24681,3.6298726
-      parent: 2
-  - uid: 838
-    components:
-    - type: Transform
-      pos: 16.55931,3.5361226
-      parent: 2
-- proto: SmokeImplanter
-  entities:
-  - uid: 755
-    components:
-    - type: Transform
-      pos: 7.6048336,8.72738
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 10
-      data:
-        description: uplink-smoke-implant-desc
-        categories:
-        - UplinkImplants
-        cost:
-          Telecrystal: 10
-        icon:
-          sprite: /Textures/Objects/Weapons/Grenades/smoke.rsi
-          state: icon
-        productEntity: SmokeImplanter
-        id: UplinkSmokeImplanter
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-smoke-implant-name
-      storeEntity: invalid
 - proto: SpawnVehicleChairOfficeDark
   entities:
   - uid: 678
@@ -2823,52 +2387,13 @@ entities:
     - type: Transform
       pos: 5.5,8.5
       parent: 2
-- proto: Stimpack
+- proto: SurvivalMedipen
   entities:
-  - uid: 785
+  - uid: 760
     components:
     - type: Transform
-      pos: 11.576774,9.0713415
+      pos: 11.458659,9.221117
       parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 10
-      data:
-        description: uplink-stimpack-desc
-        categories:
-        - UplinkChemicals
-        cost:
-          Telecrystal: 10
-        productEntity: Stimpack
-        id: UplinkStimpack
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-stimpack-name
-      storeEntity: invalid
-- proto: SyndicateJawsOfLife
-  entities:
-  - uid: 902
-    components:
-    - type: Transform
-      pos: 13.522529,3.716143
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 10
-      data:
-        description: uplink-syndicate-jaws-of-life-desc
-        categories:
-        - UplinkDisruption
-        cost:
-          Telecrystal: 10
-        productEntity: SyndicateJawsOfLife
-        id: UplinkSyndicateJawsOfLife
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-syndicate-jaws-of-life-name
-      storeEntity: invalid
 - proto: Table
   entities:
   - uid: 670
@@ -2952,11 +2477,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 7.5,-2.5
       parent: 2
-  - uid: 795
-    components:
-    - type: Transform
-      pos: 7.5,4.5
-      parent: 2
   - uid: 796
     components:
     - type: Transform
@@ -3014,34 +2534,6 @@ entities:
     - type: Transform
       pos: 7.5,-2.5
       parent: 2
-- proto: ToolboxSyndicateFilled
-  entities:
-  - uid: 904
-    components:
-    - type: Transform
-      pos: 13.553779,4.7161427
-      parent: 2
-    - type: StoreRefund
-      balanceSpent:
-        Telecrystal: 10
-      data:
-        description: uplink-toolbox-desc
-        categories:
-        - UplinkDisruption
-        cost:
-          Telecrystal: 10
-        productEntity: ToolboxSyndicateFilled
-        id: UplinkToolbox
-        purchaseAmount: 1
-        components: []
-        blockRefundListings: []
-        name: uplink-toolbox-name
-      storeEntity: invalid
-  - uid: 905
-    components:
-    - type: Transform
-      pos: 13.538154,4.2161427
-      parent: 2
 - proto: VehicleKeyForklift
   entities:
   - uid: 696
@@ -3057,6 +2549,8 @@ entities:
     - type: Transform
       pos: -0.5,9.5
       parent: 2
+    - type: ApcPowerReceiver
+      needsPower: False
 - proto: VendingMachineSoda
   entities:
   - uid: 405
@@ -3064,6 +2558,8 @@ entities:
     - type: Transform
       pos: 0.5,9.5
       parent: 2
+    - type: ApcPowerReceiver
+      needsPower: False
 - proto: WallBmesaIndestructible
   entities:
   - uid: 3
@@ -3990,6 +3486,11 @@ entities:
     components:
     - type: Transform
       pos: 13.5,2.5
+      parent: 2
+  - uid: 64
+    components:
+    - type: Transform
+      pos: 7.5,10.5
       parent: 2
   - uid: 65
     components:
@@ -4952,11 +4453,6 @@ entities:
     components:
     - type: Transform
       pos: -7.5,-10.5
-      parent: 2
-  - uid: 416
-    components:
-    - type: Transform
-      pos: 7.5,10.5
       parent: 2
   - uid: 417
     components:
@@ -6327,6 +5823,20 @@ entities:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 16.5,2.5
+      parent: 2
+- proto: WarpPoint
+  entities:
+  - uid: 786
+    components:
+    - type: Transform
+      pos: 8.5,6.5
+      parent: 2
+- proto: WeaponRifleLecter
+  entities:
+  - uid: 802
+    components:
+    - type: Transform
+      pos: 11.404126,3.733794
       parent: 2
 - proto: WeaponTurretSyndicateBroken
   entities:
