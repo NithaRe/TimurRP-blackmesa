@@ -92,3 +92,21 @@
   - type: GuideHelp
     guides:
     - Newbie
+
+- type: entity
+  id: BookCheckpointWorker
+  parent: BookBase
+  name: checkpoint worker's book
+  description: A blank record book for checkpoint personnel.
+  components:
+  - type: Sprite
+    layers:
+    - state: paper
+    - state: cover_old
+      color: "#6c4718"
+    - state: decor_wingette
+      color: "#b5913c"
+    - state: icon_glow
+      color: blue
+  - type: Paper
+    content: book-text-kpp

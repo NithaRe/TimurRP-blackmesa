@@ -324,6 +324,10 @@ namespace Content.Server.Zombies
 
             var zombificationResistanceEv = new ZombificationResistanceQueryEvent(ProtectiveSlots);
             RaiseLocalEvent(uid, zombificationResistanceEv);
+
+            if (zombificationResistanceEv.TotalCoefficient <= 0f)
+                return 0f;
+
             chance *= zombificationResistanceEv.TotalCoefficient;
 
             return MathF.Max(chance, zombieComponent.MinZombieInfectionChance);
@@ -348,20 +352,25 @@ namespace Content.Server.Zombies
                 if (TryComp<BlockingUserComponent>(entity, out var blockingUser) && IsUserBlocking(blockingUser)) // Goobstation edit - prevents infection if user is actively blocking
                     return;
 
+                var canBeInfected = false;
+
                 if (HasComp<ZombieComponent>(entity) || HasComp<InitialInfectedComponent>(entity)) // Goobstation edit - prevent zombies from damaging IIs
                 {
                     args.BonusDamage = -args.BaseDamage;
                 }
                 else
                 {
-                    if (!HasComp<ZombieImmuneComponent>(entity) && !HasComp<NonSpreaderZombieComponent>(args.User) && _random.Prob(GetZombieInfectionChance(entity, component)))
+                    var infectionChance = GetZombieInfectionChance(entity, component);
+                    canBeInfected = !HasComp<ZombieImmuneComponent>(entity) && infectionChance > 0f;
+
+                    if (canBeInfected && !HasComp<NonSpreaderZombieComponent>(args.User) && _random.Prob(infectionChance))
                     {
                         EnsureComp<PendingZombieComponent>(entity);
                         EnsureComp<ZombifyOnDeathComponent>(entity);
                     }
                 }
 
-                if (_mobState.IsIncapacitated(entity, mobState) && !HasComp<ZombieComponent>(entity) && !HasComp<ZombieImmuneComponent>(entity) && !HasComp<InitialInfectedComponent>(entity)) // Goobstation edit - prevent zombies from damaging IIs
+                if (_mobState.IsIncapacitated(entity, mobState) && canBeInfected)
                 {
                     ZombifyEntity(entity);
                     args.BonusDamage = -args.BaseDamage;

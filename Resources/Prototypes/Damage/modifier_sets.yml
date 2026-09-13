@@ -282,7 +282,7 @@
     Piercing: 2
     Slash: 2
     Cold: 0.3
-    Heat: 2
+    Heat: 4 # BlackM edit - повышенная уязвимость Зен-заражённых к огню
     Poison: 0.0
     Radiation: 0.0
   ignoreArmorPierceFlags: All # Goobstation

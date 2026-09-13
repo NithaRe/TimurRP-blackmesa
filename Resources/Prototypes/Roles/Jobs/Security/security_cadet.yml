@@ -149,9 +149,6 @@
     back:
     - Flash
     - MagazinePistol
-  inhand:
-  - BookNewbieGuide # BlackM
-
 - type: chameleonOutfit
   id: SecurityCadetChameleonOutfit
   job: SecurityCadet
