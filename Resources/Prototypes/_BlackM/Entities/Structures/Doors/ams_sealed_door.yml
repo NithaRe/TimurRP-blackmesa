@@ -1,0 +1,42 @@
+- type: entity
+  id: AmsSealedDoorBlackM
+  parent: BaseStructure
+  name: гермозатвор АМС
+  description: Массивная бронированная дверь, заблокированная системой АМС. Инструменты и электроника на неё не действуют — откроется только автоматически, при выполнении условий системы.
+  components:
+  - type: Sprite
+    sprite: Structures/Doors/Airlocks/Standard/basic.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DoorVisuals.State:
+        enum.DoorVisualLayers.Base:
+          Open: { state: open }
+          Closed: { state: closed }
+          Opening: { state: opening }
+          Closing: { state: closing }
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb {}
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+  - type: Occluder
+  - type: Airtight
+  - type: Door
+    bumpOpen: false
+    clickOpen: false
+    canPry: false
+    crushDamage:
+      types:
+        Blunt: 15
+  - type: DoorBolt

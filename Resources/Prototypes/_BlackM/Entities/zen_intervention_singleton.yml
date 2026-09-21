@@ -1,0 +1,6 @@
+- type: entity
+  id: ZenInterventionSingletonBlackM
+  name: zen intervention data
+  noSpawn: true
+  components:
+  - type: ZenIntervention

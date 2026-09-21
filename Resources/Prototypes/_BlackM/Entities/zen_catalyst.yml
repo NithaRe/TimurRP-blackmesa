@@ -1,0 +1,37 @@
+- type: entity
+  parent: BaseStructureDynamic
+  id: ZenCatalystBlackM
+  name: катализатор зена
+  description: Пульсирующий кристалл, распространяющий вокруг себя чужеродную материю Зен. Периодически прорывает пространство, выпуская на станцию его обитателей.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/zen_catalyst.rsi
+    state: icon
+  - type: Icon
+    sprite: _BlackM/Structures/zen_catalyst.rsi
+    state: icon
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: PointLight
+    enabled: true
+    color: "#7CFF6B"
+    radius: 2.5
+    energy: 1.6
+  - type: ZenCatalyst
+    spawnInterval: 600
+    spawnAmount: 2
+    zenMobPrototypes:
+    - MobHeadcrabBlackM
+    - MobHoundeyeBlackM
+    - MobVortigauntBlackM

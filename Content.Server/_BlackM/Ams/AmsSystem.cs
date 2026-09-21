@@ -1,4 +1,5 @@
 using Content.Server._BlackM.OneWayTeleport;
+using Content.Server._BlackM.ZenIntervention;
 using Content.Server.Chat.Systems;
 using Content.Server.Nuke;
 using Content.Server.RoundEnd;
@@ -31,9 +32,21 @@ public sealed class AmsSystem : EntitySystem
     [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
     [Dependency] private readonly OneWayTeleportSystem _oneWayTeleport = default!;
     [Dependency] private readonly SharedDoorSystem _door = default!;
+    [Dependency] private readonly ZenInterventionSystem _zenIntervention = default!;
+    [Dependency] private readonly IRobustRandom _robustRandom = default!;
 
     private const string EvacuationDestinationId = "ams_evacuation";
     private const string InfectedMaintDoorPrototype = "AirlockMaintInfectedBlackM";
+
+    private const float ZenReductionPerPart = 20f;
+
+    private const string RandomDoorGroup = "ams_random";
+    private const string SpecialDoorGroup = "ams_special";
+    private const string LootDoorGroupPrefix = "ams_loot_";
+
+    public const int SpecialDoorRequiredParts = 4;
+
+    private readonly HashSet<EntityUid> _openedRandomDoors = new();
 
     private static readonly SoundPathSpecifier SyncSound =
         new("/Audio/_BlackM/Announcements/announcesync.ogg");
@@ -54,10 +67,16 @@ public sealed class AmsSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<NukeExplodedEvent>(OnNukeExploded);
+        SubscribeLocalEvent<Content.Shared.GameTicking.RoundRestartCleanupEvent>(OnRoundRestart);
 
         SubscribeLocalEvent<AmsComponent, EntInsertedIntoContainerMessage>(OnPartInserted);
         SubscribeLocalEvent<AmsComponent, EntRemovedFromContainerMessage>(OnPartRemoved);
         SubscribeLocalEvent<AmsComponent, AmsLaunchButtonMessage>(OnLaunchButton);
+    }
+
+    private void OnRoundRestart(Content.Shared.GameTicking.RoundRestartCleanupEvent ev)
+    {
+        _openedRandomDoors.Clear();
     }
 
     private void OnPartInserted(EntityUid uid, AmsComponent ams, EntInsertedIntoContainerMessage args)
@@ -73,6 +92,17 @@ public sealed class AmsSystem : EntitySystem
         ams.CalibrationStartTimes[slotId] = _timing.CurTime;
 
         Dirty(uid, ams);
+
+        _zenIntervention.AdjustLevel(-ZenReductionPerPart);
+
+        if (_itemSlots.TryGetSlot(uid, slotId, out var slot))
+            _itemSlots.SetLock(uid, slot, true);
+
+        OpenRandomPoolDoor();
+        OpenLootRoomForSlot(slotId);
+
+        if (ams.FilledSlots.Count == SpecialDoorRequiredParts)
+            OpenSpecialDoor();
     }
 
     private void OnPartRemoved(EntityUid uid, AmsComponent ams, EntRemovedFromContainerMessage args)
@@ -369,6 +399,98 @@ public sealed class AmsSystem : EntitySystem
             if (TryComp<DoorBoltComponent>(uid, out var bolt))
                 _door.SetBoltsDown((uid, bolt), true, null, false);
         }
+    }
+
+    private void OpenRandomPoolDoor()
+    {
+        var candidates = new List<EntityUid>();
+        var query = EntityQueryEnumerator<AmsControlledDoorComponent>();
+        while (query.MoveNext(out var doorUid, out var tag))
+        {
+            if (tag.GroupId != RandomDoorGroup)
+                continue;
+
+            if (_openedRandomDoors.Contains(doorUid))
+                continue;
+
+            candidates.Add(doorUid);
+        }
+
+        if (candidates.Count == 0)
+        {
+            Log.Warning("AMS: нет свободных дверей в пуле 'ams_random' (либо все уже открыты, либо не расставлены на карте).");
+            return;
+        }
+
+        var chosen = _robustRandom.Pick(candidates);
+        _openedRandomDoors.Add(chosen);
+        OpenDoor(chosen);
+
+        _chat.DispatchGlobalAnnouncement(
+            Loc.GetString("ams-announce-random-door"),
+            sender: Loc.GetString("ams-announce-sender"),
+            playSound: true,
+            announcementSound: WarningSound,
+            colorOverride: Color.Orange);
+    }
+
+    private void OpenSpecialDoor()
+    {
+        var query = EntityQueryEnumerator<AmsControlledDoorComponent>();
+        while (query.MoveNext(out var doorUid, out var tag))
+        {
+            if (tag.GroupId != SpecialDoorGroup)
+                continue;
+
+            OpenDoor(doorUid);
+
+            _chat.DispatchGlobalAnnouncement(
+                Loc.GetString("ams-announce-special-door"),
+                sender: Loc.GetString("ams-announce-sender"),
+                playSound: true,
+                announcementSound: WarningSound,
+                colorOverride: Color.Orange);
+            return;
+        }
+
+        Log.Warning("AMS: не найдена особая дверь (группа 'ams_special') на карте.");
+    }
+
+    private void OpenLootRoomForSlot(string slotId)
+    {
+        var groupId = LootDoorGroupPrefix + slotId;
+
+        var query = EntityQueryEnumerator<AmsControlledDoorComponent>();
+        while (query.MoveNext(out var doorUid, out var tag))
+        {
+            if (tag.GroupId != groupId)
+                continue;
+
+            OpenDoor(doorUid);
+
+            var locationName = string.IsNullOrWhiteSpace(tag.AnnouncementLocationName)
+                ? slotId
+                : tag.AnnouncementLocationName;
+
+            _chat.DispatchGlobalAnnouncement(
+                Loc.GetString("ams-announce-loot-room", ("location", locationName)),
+                sender: Loc.GetString("ams-announce-sender"),
+                playSound: true,
+                announcementSound: WarningSound,
+                colorOverride: Color.Orange);
+            return;
+        }
+
+        Log.Warning($"AMS: не найдена дверь лутрума для слота '{slotId}' (группа '{groupId}') на карте.");
+    }
+
+    private void OpenDoor(EntityUid uid)
+    {
+        if (TryComp<DoorBoltComponent>(uid, out var bolt))
+            _door.SetBoltsDown((uid, bolt), false, null, false);
+
+        if (TryComp<DoorComponent>(uid, out var door))
+            _door.StartOpening(uid, door);
     }
 
     private void SendHecuAnnouncement()
