@@ -194,8 +194,8 @@
   id: CaptainGear
   equipment:
     passport: PassportBM #BlackM pass
-    shoes: ClothingShoesBootsLaceup
-    eyes: ClothingEyesGlassesCommand
+    #shoes: ClothingShoesBootsJackFacilityManager #BlackM loadouts moved
+    #eyes: ClothingEyesGlassesSunglassesFacilityManager #BlackM loadouts moved
     #gloves: ClothingHandsGlovesCaptain - Goobstation, moved to loadouts
     id: AccessCardHolderCaptain #BlackM id
     ears: ClothingHeadsetAltCommand

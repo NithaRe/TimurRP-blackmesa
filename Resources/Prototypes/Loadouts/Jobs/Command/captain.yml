@@ -230,3 +230,34 @@
   id: CaptainWintercoat
   equipment:
     outerClothing: ClothingOuterWinterCapArmored # Goob edit
+
+# BlackM - Facility Manager clothing
+- type: loadout
+  id: FacilityManagerHat #BlackM
+  equipment:
+    head: ClothingHeadHatCowboyFacilityManager #BlackM
+
+- type: loadout
+  id: FacilityManagerGloves #BlackM
+  equipment:
+    gloves: ClothingHandsGlovesCombatFacilityManager #BlackM
+
+- type: loadout
+  id: FacilityManagerJumpsuit #BlackM
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitFacilityManager #BlackM
+
+- type: loadout
+  id: FacilityManagerGlasses #BlackM
+  equipment:
+    eyes: ClothingEyesGlassesSunglassesFacilityManager #BlackM
+
+- type: loadout
+  id: FacilityManagerShoes #BlackM
+  equipment:
+    shoes: ClothingShoesBootsJackFacilityManager #BlackM
+
+- type: loadout
+  id: FacilityManagerSatchel #BlackM
+  equipment:
+    back: ClothingBackpackSatchelFacilityManager #BlackM

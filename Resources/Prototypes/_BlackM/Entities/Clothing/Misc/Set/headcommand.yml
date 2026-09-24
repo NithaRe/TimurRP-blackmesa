@@ -1,0 +1,40 @@
+- type: entity
+  parent: ClothingHeadHatCowboyBrown
+  id: ClothingHeadHatCowboyFacilityManager
+  name: facility manager's cowboy hat
+  description: A weathered hat worn by the head of the complex. Somehow it always looks like its owner is running late for a meeting with the government.
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
+
+- type: entity
+  parent: ClothingHandsGlovesCombat
+  id: ClothingHandsGlovesCombatFacilityManager
+  name: facility manager's gloves
+  description: Reinforced gloves issued to the Facility Manager. Fireproof, shock resistant, and surprisingly good at signing paperwork.
+
+- type: entity
+  parent: ClothingUniformJumpsuitDevil
+  id: ClothingUniformJumpsuitFacilityManager
+  name: facility manager's suit
+  description: A sharp black suit befitting the one who runs the whole complex. Every employee here answers to whoever wears it.
+
+- type: entity
+  parent: ClothingEyesGlassesSunglasses
+  id: ClothingEyesGlassesSunglassesFacilityManager
+  name: facility manager's sunglasses
+  description: Dark glasses that hide the eyes of a person who has seen every containment breach and stayed calm through all of them.
+
+- type: entity
+  parent: ClothingShoesBootsJackFilled
+  id: ClothingShoesBootsJackFacilityManager
+  name: facility manager's boots
+  description: Heavy, polished boots. Their owner has walked every corridor of the complex, and each one knows the sound of these steps.
+
+- type: entity
+  parent: ClothingBackpackSatchelLeather
+  id: ClothingBackpackSatchelFacilityManager
+  name: facility manager's satchel
+  description: A leather satchel that has carried the documents, keycards and reports of more than one Facility Manager. It smells of old paper and strong coffee.

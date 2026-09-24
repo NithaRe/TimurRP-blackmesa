@@ -120,13 +120,12 @@
   id: JobCaptain
   groups:
     - Inventory # CorvaxGoob-loadouts
-    - CaptainHead
-    - CaptainNeck
-    - CaptainJumpsuit
-    - CaptainMask # Goobstation - Lollypops!
-    - CaptainBackpack
-    - CaptainOuterClothing
+    - FacilityManagerHead #BlackM
+    - FacilityManagerJumpsuit #BlackM
     - CaptainGloves
+    - FacilityManagerGlasses #BlackM
+    - FacilityManagerShoes #BlackM
+    - CaptainBackpack
     - Survival
     - Trinkets
     - GroupSpeciesBreathTool

@@ -1201,7 +1201,8 @@
   minLimit: 1
   maxLimit: 1
   loadouts:
-  - CaptainGloves
+  - FacilityManagerGloves #BlackM
+  # - CaptainGloves #old
 
 - type: loadoutGroup
   id: CaptainMask
