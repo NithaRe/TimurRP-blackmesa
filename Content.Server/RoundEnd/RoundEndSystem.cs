@@ -170,6 +170,7 @@ namespace Content.Server.RoundEnd
 
         public bool CanCallOrRecall()
         {
+            return false;
             return _cooldownTokenSource == null;
         }
 
@@ -198,6 +199,7 @@ namespace Content.Server.RoundEnd
 
         public void RequestRoundEnd(TimeSpan countdownTime, EntityUid? requester = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement")
         {
+            return;
             if (_gameTicker.RunLevel != GameRunLevel.InRound)
                 return;
 
