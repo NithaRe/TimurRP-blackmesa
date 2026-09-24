@@ -36,3 +36,5 @@ one-way-teleport-warning-ams-evac = [ЭВАКУАЦИЯ] Через { $seconds }
 
 cargoproduct-category-name-ams = Части АМС
 
+research-technology-ams-parts = Компоненты АМС
+

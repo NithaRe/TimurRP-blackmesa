@@ -65,6 +65,26 @@
   - BasicRobotics
   # Goobstation R&D Console rework end
 
+- type: technology
+  id: AmsPartsResearch #BlackM
+  name: research-technology-ams-parts
+  icon:
+    sprite: _BlackM/Objects/ams_parts.rsi
+    state: core 
+  discipline: Experimental
+  tier: 1
+  cost: 5000
+  recipeUnlocks:
+  - AmsPartCore 
+  - AmsPartCoil 
+  - AmsPartLens 
+  - AmsPartCell 
+  - AmsPartStabilizer
+  - AmsPartCasing
+  position: -2,1
+  technologyPrerequisites:
+  - BasicAnomalousResearch
+
 # BlackM edit start
 # - type: technology
 #   id: BasicXenoArcheology
@@ -210,7 +230,7 @@
   # Goobstation R&D Console rework start
   position: -4,2
   technologyPrerequisites:
-  - AbnormalArtifactManipulation
+  # - AbnormalArtifactManipulation #BlackM disabled
   - AnomalyCoreHarnessing
   # Goobstation R&D Console rework end
 

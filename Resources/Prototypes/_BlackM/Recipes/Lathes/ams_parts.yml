@@ -1,0 +1,60 @@
+- type: latheRecipePack
+  id: AmsPartsPack #BlackM
+  recipes:
+  - AmsPartCore
+  - AmsPartCoil
+  - AmsPartLens
+  - AmsPartCell
+  - AmsPartStabilizer
+  - AmsPartCasing
+
+- type: latheRecipe
+  id: AmsPartCore #BlackM
+  result: AmsPartCore
+  completetime: 3
+  materials:
+    Steel: 300
+    Plasma: 200
+    Gold: 100
+
+- type: latheRecipe
+  id: AmsPartCoil #BlackM
+  result: AmsPartCoil
+  completetime: 3
+  materials:
+    Steel: 200
+    Silver: 300
+
+- type: latheRecipe
+  id: AmsPartLens #BlackM
+  result: AmsPartLens
+  completetime: 3
+  materials:
+    Glass: 400
+    Silver: 100
+
+- type: latheRecipe
+  id: AmsPartCell #BlackM
+  result: AmsPartCell
+  completetime: 3
+  materials:
+    Steel: 200
+    Plastic: 100
+    Uranium: 100
+
+- type: latheRecipe
+  id: AmsPartStabilizer #BlackM
+  result: AmsPartStabilizer
+  completetime: 3
+  materials:
+    Steel: 300
+    Glass: 100
+    Silver: 100
+
+- type: latheRecipe
+  id: AmsPartCasing #BlackM
+  result: AmsPartCasing
+  completetime: 3
+  materials:
+    Steel: 500
+    Plastic: 100
