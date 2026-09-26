@@ -206,17 +206,18 @@ public sealed class AmsRoundEndSystem : EntitySystem
             _ => "ams-roundend-perfect-crew-victory",
         };
 
-        var statsLine = Loc.GetString("ams-roundend-survivors-stats",
-            ("evacuated", _evacuated.Count),
-            ("dead", deadNow),
-            ("unresolved", aliveOnStation),
-            ("total", totalPool),
-            ("percent", percent));
-
+        var evacuatedLine = Loc.GetString("ams-roundend-stat-evacuated", ("count", _evacuated.Count));
+        var deadLine = Loc.GetString("ams-roundend-stat-dead", ("count", deadNow));
+        var remainingLine = Loc.GetString("ams-roundend-stat-remaining", ("count", aliveOnStation));
+        var totalLine = Loc.GetString("ams-roundend-stat-total", ("total", totalPool), ("percent", percent));
         var resultLine = Loc.GetString(resultLoc);
 
         ev.AddLine(string.Empty);
-        ev.AddLine($"[color=#e63946]{statsLine}[/color]");
+        ev.AddLine($"[color=#e63946]{evacuatedLine}[/color]");
+        ev.AddLine($"[color=#e63946]{deadLine}[/color]");
+        ev.AddLine($"[color=#e63946]{remainingLine}[/color]");
+        ev.AddLine($"[color=#e63946]{totalLine}[/color]");
+        ev.AddLine(string.Empty);
         ev.AddLine($"[color=#e63946]{resultLine}[/color]");
     }
 }
