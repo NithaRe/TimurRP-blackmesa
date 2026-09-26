@@ -54,12 +54,12 @@
         sound:
           collection: MetalBreak
   - type: StaticPrice
-    price: 6000
+    price: 5000
 
   - type: PriceDecay
-    initialPrice: 6000
+    initialPrice: 5000
     minPrice: 100
-    targetMinutes: 40
+    targetMinutes: 100
     curvePower: 1
 
   - type: Tag
