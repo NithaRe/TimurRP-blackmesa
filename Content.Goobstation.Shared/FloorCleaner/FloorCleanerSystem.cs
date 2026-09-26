@@ -8,6 +8,7 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Decals;
 using Content.Shared.DoAfter;
 using Content.Shared.Fluids;
+using Content.Shared.Fluids.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Timing;
@@ -59,6 +60,9 @@ public sealed class FloorCleanerSystem : EntitySystem
             foundDecals = _decal.GetDecalsInRange(tileRef.GridUid, tileRef.GridIndices, floorCleaner.Comp.Radius);
         }
 
+        // blackm удаляло всё вокруг фикс
+        foundEntities.RemoveWhere(ent => !HasComp<PuddleComponent>(ent));
+
         foundEntities.RemoveWhere(ent =>
             !_interaction.InRangeUnobstructed(user, ent, floorCleaner.Comp.Radius)
             );
@@ -104,6 +108,10 @@ public sealed class FloorCleanerSystem : EntitySystem
 
         foreach (var ent in GetEntityList(args.Entities))
         {
+            // blackm - футпринтов нету
+            if (!HasComp<PuddleComponent>(ent))
+                continue;
+
             if (!StartCleaning(floorCleaner.Owner, ent))
                 continue;
             PredictedQueueDel(ent);
