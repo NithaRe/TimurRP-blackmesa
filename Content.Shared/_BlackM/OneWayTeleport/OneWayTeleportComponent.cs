@@ -1,3 +1,6 @@
+using Content.Shared.Tag;
+using Robust.Shared.Prototypes;
+
 namespace Content.Shared._BlackM.OneWayTeleport;
 
 [RegisterComponent]
@@ -17,6 +20,9 @@ public sealed partial class OneWayTeleportComponent : Component
 
     [DataField]
     public string WarningMessage = "one-way-teleport-warning-default";
+
+    [DataField]
+    public List<ProtoId<TagPrototype>> RestrictedTags = new();
 
     [DataField]
     public HashSet<EntityUid> ActiveDoAfters = new();

@@ -4,6 +4,7 @@ using Content.Shared._BlackM.OneWayTeleport;
 using Content.Shared.DoAfter;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
+using Content.Shared.Tag;
 using Robust.Server.GameObjects;
 using Robust.Shared.Localization;
 
@@ -15,6 +16,7 @@ public sealed class OneWayTeleportSystem : EntitySystem
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly TransformSystem _transform = default!;
     [Dependency] private readonly SharedPopupSystem _popup   = default!;
+    [Dependency] private readonly TagSystem _tag             = default!;
 
     private const float UpdateInterval = 0.5f;
     private float _timer = 0f;
@@ -42,6 +44,9 @@ public sealed class OneWayTeleportSystem : EntitySystem
             foreach (var entity in nearby)
             {
                 if (!HasComp<MobStateComponent>(entity))
+                    continue;
+
+                if (teleport.RestrictedTags.Count > 0 && _tag.HasAnyTag(entity, teleport.RestrictedTags))
                     continue;
 
                 if (teleport.ActiveDoAfters.Contains(entity))

@@ -56,6 +56,8 @@
       range: 1.5
       enabled: false
       warningMessage: one-way-teleport-warning-ams-evac
+      restrictedTags:
+      - HECU
     - type: Sprite
       drawdepth: Overdoors
       sprite: Markers/cross.rsi

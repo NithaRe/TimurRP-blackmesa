@@ -23,6 +23,9 @@
     implants: [ MindShieldImplant ]
   - !type:AddComponentSpecial
     components:
+    - type: Tag
+      tags:
+      - HECU
     - type: Speech
       speechSounds: HecuRadio
     - type: PhraseWheel
