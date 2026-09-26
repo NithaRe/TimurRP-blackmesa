@@ -54,7 +54,7 @@
         - Brig
         - GenpopEnter
         - GenpopLeave
-      examineColor: "#e63232"
+      examineColor: "#8727F5"
       cardSpriteState: seconcard
     - type: Sprite
       sprite: _BlackM/Objects/Misc/badges.rsi
@@ -218,6 +218,25 @@
       sprite: _BlackM/Objects/Misc/badges.rsi
       layers:
         - state: engineerchief
+  
+- type: entity
+  id: BadgeEngineer
+  name: ключ инженера
+  description: Ключ инженера. доступ к инженерным системам.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - Engineering
+        - Maintenance
+        - External
+        - Atmospherics
+      examineColor: "#FFC500"
+      cardSpriteState: maintenance
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: maintenance
 
 - type: entity
   id: BadgeResearchDirector
@@ -274,12 +293,33 @@
         - GenpopEnter
         - GenpopLeave
         - Command
-      examineColor: "#e63232"
+      examineColor: "#8727F5"
       cardSpriteState: securityhos
     - type: Sprite
       sprite: _BlackM/Objects/Misc/badges.rsi
       layers:
         - state: securityhos
+
+- type: entity
+  id: BadgeWarden
+  name: ключ Изо.Сектора Ковак
+  description: Ключ оператора изо сектора Ковак. Полный доступ к зонам отдела контроля и подавления.
+  parent: BaseBadge
+  components:
+    - type: Badge
+      accessTags:
+        - Security
+        - Armory
+        - Brig
+        - Detective
+        - GenpopEnter
+        - GenpopLeave
+      examineColor: "#8727F5"
+      cardSpriteState: seconcard
+    - type: Sprite
+      sprite: _BlackM/Objects/Misc/badges.rsi
+      layers:
+        - state: security
 
 - type: entity
   id: AccessCardHolderCaptain
@@ -395,7 +435,7 @@
     - type: ContainerFill
       containers:
         badge_slots:
-          - BadgeSecurity
+          - BadgeWarden
           - BadgeMaintenance
 
 - type: entity

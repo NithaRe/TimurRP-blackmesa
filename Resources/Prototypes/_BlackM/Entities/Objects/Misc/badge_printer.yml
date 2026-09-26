@@ -15,8 +15,12 @@
       maxBadgesPerPrint: 6
       availableBadges:
         - proto: BadgeSecurity
+          iconState: security 
+        - proto: BadgeWarden
           iconState: security
         - proto: BadgeMaintenance
+          iconState: maintenance
+        - proto: BadgeEngineer
           iconState: maintenance
         - proto: BadgeSupply
           iconState: supply
