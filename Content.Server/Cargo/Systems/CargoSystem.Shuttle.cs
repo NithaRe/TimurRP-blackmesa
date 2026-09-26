@@ -265,26 +265,36 @@ public sealed partial class CargoSystem
         if (!SellPallets(gridUid, station, out var goods))
             return;
 
-        var baseDistribution = CreateAccountDistribution((station, bankAccount));
-        foreach (var (_, sellComponent, value) in goods)
-        {
-            Dictionary<ProtoId<CargoAccountPrototype>, double> distribution;
-            if (sellComponent != null)
-            {
-                var cut = _lockboxCutEnabled ? bankAccount.LockboxCut : bankAccount.PrimaryCut;
-                distribution = new Dictionary<ProtoId<CargoAccountPrototype>, double>
-                {
-                    { sellComponent.OverrideAccount, cut },
-                    { bankAccount.PrimaryAccount, 1.0 - cut },
-                };
-            }
-            else
-            {
-                distribution = baseDistribution;
-            }
+        // BlackM edit start: убрано распределение по нескольким счетам
+        // var baseDistribution = CreateAccountDistribution((station, bankAccount));
+        // foreach (var (_, sellComponent, value) in goods)
+        // {
+        //     Dictionary<ProtoId<CargoAccountPrototype>, double> distribution;
+        //     if (sellComponent != null)
+        //     {
+        //         var cut = _lockboxCutEnabled ? bankAccount.LockboxCut : bankAccount.PrimaryCut;
+        //         distribution = new Dictionary<ProtoId<CargoAccountPrototype>, double>
+        //         {
+        //             { sellComponent.OverrideAccount, cut },
+        //             { bankAccount.PrimaryAccount, 1.0 - cut },
+        //         };
+        //     }
+        //     else
+        //     {
+        //         distribution = baseDistribution;
+        //     }
+        //
+        //     UpdateBankAccount((station, bankAccount), (int) Math.Round(value), distribution, false);
+        // }
 
-            UpdateBankAccount((station, bankAccount), (int) Math.Round(value), distribution, false);
+        var total = 0;
+        foreach (var (_, _, value) in goods)
+        {
+            total += (int) Math.Round(value);
         }
+
+        UpdateBankAccount((station, bankAccount), total, bankAccount.PrimaryAccount, false);
+        // BlackM edit end
 
         Dirty(station, bankAccount);
         _audio.PlayPvs(ApproveSound, uid);
