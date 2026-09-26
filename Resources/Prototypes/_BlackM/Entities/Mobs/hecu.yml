@@ -5,6 +5,9 @@
   id: MobHumanHECU
   categories: [ HideSpawnMenu ]
   components:
+  - type: Tag
+    tags:
+    - HECU
   - type: RandomHumanoidAppearance
     randomizeName: false
   - type: RandomMetadata
@@ -38,6 +41,9 @@
   id: HECUSoldierSettings
   parent: EventHumanMindShielded
   components:
+  - type: Tag
+    tags:
+    - HECU
   - type: NpcFactionMember
     factions:
     - NanoTrasen
