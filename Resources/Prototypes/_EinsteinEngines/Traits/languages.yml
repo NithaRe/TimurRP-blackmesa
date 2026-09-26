@@ -1,113 +1,113 @@
 # If you add a new trait, make sure to add the corresponding component to the whitelist in \Resources\Prototypes\Entities\Mobs\Player\clone.yml so it gets copied to clones correctly!
 # Not sure if it's required, but I added the warning anyway.
 
-- type: trait
-  id: ForeignerLight
-  name: trait-language-foreigner-light-name
-  description: trait-language-foreigner-light-desc
-  category: LanguageTraits
-  cost: -1
-  blacklist: # CorvaxGoob-Species
-    tags:
-    - Abductor
-  components:
-  - type: ForeignerTrait
-    cantUnderstand: false
-    baseTranslator: TranslatorForeigner
+#- type: trait
+#  id: ForeignerLight
+#  name: trait-language-foreigner-light-name
+#  description: trait-language-foreigner-light-desc
+#  category: LanguageTraits
+#  cost: -1
+#  blacklist: # CorvaxGoob-Species
+#    tags:
+#    - Abductor
+#  components:
+#  - type: ForeignerTrait
+#    cantUnderstand: false
+#    baseTranslator: TranslatorForeigner
 
-- type: trait
-  id: Foreigner
-  name: trait-language-foreigner-name
-  description: trait-language-foreigner-desc
-  category: LanguageTraits
-  cost: -2
-  blacklist: # CorvaxGoob-Species
-    tags:
-    - Abductor
-  components:
-  - type: ForeignerTrait
-    baseTranslator: TranslatorForeigner
+#- type: trait
+#  id: Foreigner
+#  name: trait-language-foreigner-name
+#  description: trait-language-foreigner-desc
+#  category: LanguageTraits
+#  cost: -2
+#  blacklist: # CorvaxGoob-Species
+#    tags:
+#    - Abductor
+#  components:
+#  - type: ForeignerTrait
+#    baseTranslator: TranslatorForeigner
 
-- type: trait
-  id: SignLanguage
-  name: trait-language-signlanguage-name
-  description: trait-language-signlanguage-desc
-  category: LanguageTraits
-  cost: 1
-  blacklist: # CorvaxGoob-Species
-    tags:
-    - Abductor
-  components:
-  - type: LanguageSpeaker
-  languagesSpoken:
-    - Sign
-  languagesUnderstood:
-    - Sign
+#- type: trait
+#  id: SignLanguage
+#  name: trait-language-signlanguage-name
+#  description: trait-language-signlanguage-desc
+#  category: LanguageTraits
+#  cost: 1
+#  blacklist: # CorvaxGoob-Species
+#    tags:
+#    - Abductor
+#  components:
+#  - type: LanguageSpeaker
+#  languagesSpoken:
+#    - Sign
+#  languagesUnderstood:
+#    - Sign
 
 # Not commented since this is another general-ish language.
-- type: trait
-  id: SolCommon
-  name: trait-language-solcommon-name
-  description: trait-language-solcommon-desc
-  category: LanguageTraits
-  cost: 1
-  blacklist: # CorvaxGoob-Species
-    tags:
-    - Abductor
-  components:
-  - type: LanguageSpeaker
-  languagesSpoken:
-    - SolCommon
-  languagesUnderstood:
-    - SolCommon
+#- type: trait
+#  id: SolCommon
+#  name: trait-language-solcommon-name
+#  description: trait-language-solcommon-desc
+#  category: LanguageTraits
+#  cost: 1
+#  blacklist: # CorvaxGoob-Species
+#    tags:
+#    - Abductor
+#  components:
+#  - type: LanguageSpeaker
+#  languagesSpoken:
+#    - SolCommon
+#  languagesUnderstood:
+#    - SolCommon
 
-- type: trait
-  id: Tradeband
-  name: trait-language-tradeband-name
-  description: trait-language-tradeband-desc
-  category: LanguageTraits
-  cost: 1
-  blacklist: # CorvaxGoob-Species
-    tags:
-    - Abductor
-  components:
-  - type: LanguageSpeaker
-  languagesSpoken:
-    - Tradeband
-  languagesUnderstood:
-    - Tradeband
+#- type: trait
+#  id: Tradeband
+#  name: trait-language-tradeband-name
+#  description: trait-language-tradeband-desc
+#  category: LanguageTraits
+#  cost: 1
+#  blacklist: # CorvaxGoob-Species
+#    tags:
+#    - Abductor
+#  components:
+#  - type: LanguageSpeaker
+#  languagesSpoken:
+#    - Tradeband
+#  languagesUnderstood:
+#    - Tradeband
 
-- type: trait
-  id: Freespeak
-  name: trait-language-freespeak-name
-  description: trait-language-freespeak-desc
-  category: LanguageTraits
-  cost: 1
-  components:
-  - type: LanguageSpeaker
-  languagesSpoken:
-    - Freespeak
-  languagesUnderstood:
-    - Freespeak
-  blacklist: # CorvaxGoob-Species
-    tags:
-    - Abductor
+#- type: trait
+#  id: Freespeak
+#  name: trait-language-freespeak-name
+#  description: trait-language-freespeak-desc
+#  category: LanguageTraits
+#  cost: 1
+#  components:
+#  - type: LanguageSpeaker
+#  languagesSpoken:
+#    - Freespeak
+#  languagesUnderstood:
+#    - Freespeak
+#  blacklist: # CorvaxGoob-Species
+#    tags:
+#    - Abductor
 
-- type: trait
-  id: Elyran
-  name: trait-language-elyran-name
-  description: trait-language-elyran-desc
-  category: LanguageTraits
-  cost: 1
-  blacklist: # CorvaxGoob-Species
-    tags:
-    - Abductor
-  components:
-  - type: LanguageSpeaker
-  languagesSpoken:
-    - Elyran
-  languagesUnderstood:
-    - Elyran
+#- type: trait
+#  id: Elyran
+#  name: trait-language-elyran-name
+#  description: trait-language-elyran-desc
+#  category: LanguageTraits
+#  cost: 1
+#  blacklist: # CorvaxGoob-Species
+#    tags:
+#    - Abductor
+#  components:
+#  - type: LanguageSpeaker
+#  languagesSpoken:
+#    - Elyran
+#  languagesUnderstood:
+#    - Elyran
 
 # Commented out since it's species-specific.
 # - type: trait
@@ -123,21 +123,21 @@
 #       languagesUnderstood:
 #         - ValyrianStandard
 
-- type: trait
-  id: NovuNederic
-  name: trait-language-novunederic-name
-  description: trait-language-novunederic-desc
-  category: LanguageTraits
-  cost: 1
-  blacklist: # CorvaxGoob-Species
-    tags:
-    - Abductor
-  components:
-  - type: LanguageSpeaker
-  languagesSpoken:
-    - NovuNederic
-  languagesUnderstood:
-    - NovuNederic
+#- type: trait
+#  id: NovuNederic
+#  name: trait-language-novunederic-name
+#  description: trait-language-novunederic-desc
+#  category: LanguageTraits
+#  cost: 1
+#  blacklist: # CorvaxGoob-Species
+#    tags:
+#    - Abductor
+#  components:
+#  - type: LanguageSpeaker
+#  languagesSpoken:
+#    - NovuNederic
+#  languagesUnderstood:
+#    - NovuNederic
 
 # Commented out since it's species-specific.
 # - type: trait
