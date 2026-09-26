@@ -54,10 +54,10 @@ public sealed partial class ZenInterventionComponent : Component
     public int MaxPlacementAttempts = 20;
 
     [DataField]
-    public SoundSpecifier BreachSound = new SoundPathSpecifier("/Audio/Announcements/attention.ogg");
+    public SoundSpecifier BreachSound = new SoundPathSpecifier("/Audio/_BlackM/Announcements/60.ogg");
 
     [DataField]
-    public SoundSpecifier WaveSound = new SoundPathSpecifier("/Audio/Announcements/attention.ogg");
+    public SoundSpecifier WaveSound = new SoundPathSpecifier("/Audio/_BlackM/Announcements/100.ogg");
 
     [DataField]
     public Color? AnnouncementColor;
