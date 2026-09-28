@@ -1,0 +1,360 @@
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconKovakCheckpoint
+  suffix: Kovak Checkpoint
+  components:
+  - type: NavMapBeacon
+    defaultText: КПП
+    color: "#54327d"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconKovakInterrogation
+  suffix: Kovak Interrogation
+  components:
+  - type: NavMapBeacon
+    defaultText: Допросная
+    color: "#54327d"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconKovak
+  suffix: Kovak
+  components:
+  - type: NavMapBeacon
+    defaultText: Ковак
+    color: "#54327d"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconKovakPrison
+  suffix: Kovak Prison
+  components:
+  - type: NavMapBeacon
+    defaultText: Тюрьма
+    color: "#54327d"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconKovakOperator
+  suffix: Kovak Operator
+  components:
+  - type: NavMapBeacon
+    defaultText: Оператор ковак
+    color: "#54327d"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconKovakHead
+  suffix: Kovak Head
+  components:
+  - type: NavMapBeacon
+    defaultText: Глава ковак
+    color: "#54327d"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconKovakLocker
+  suffix: Kovak Locker Room
+  components:
+  - type: NavMapBeacon
+    defaultText: Раздевалка ковак
+    color: "#54327d"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconKovakHoldingCell
+  suffix: Kovak Holding Cell
+  components:
+  - type: NavMapBeacon
+    defaultText: КПЗ
+    color: "#54327d"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconMedMorgue
+  suffix: Medical Morgue
+  components:
+  - type: NavMapBeacon
+    defaultText: Морг
+    color: "#b0beff"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconMedWards
+  suffix: Medical Wards
+  components:
+  - type: NavMapBeacon
+    defaultText: Палаты
+    color: "#b0beff"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconMedStorage
+  suffix: Medical Storage
+  components:
+  - type: NavMapBeacon
+    defaultText: Склад
+    color: "#b0beff"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconMedReception
+  suffix: Medical Reception
+  components:
+  - type: NavMapBeacon
+    defaultText: Приемная
+    color: "#b0beff"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconMedSurgery
+  suffix: Medical Surgery
+  components:
+  - type: NavMapBeacon
+    defaultText: Хирургия
+    color: "#b0beff"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconMedChief
+  suffix: Chief Medical Officer
+  components:
+  - type: NavMapBeacon
+    defaultText: Глав Врач
+    color: "#b0beff"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconSciReception
+  suffix: Science Reception
+  components:
+  - type: NavMapBeacon
+    defaultText: Приемная
+    color: "#ff9100"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconSciRobotics
+  suffix: Robotics
+  components:
+  - type: NavMapBeacon
+    defaultText: Робототехника
+    color: "#ff9100"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconSciArtifacts
+  suffix: Artifacts Lab
+  components:
+  - type: NavMapBeacon
+    defaultText: Артефакты
+    color: "#ff9100"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconSciZenResearch
+  suffix: Zen Research
+  components:
+  - type: NavMapBeacon
+    defaultText: Изучение Зена
+    color: "#ff9100"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconSciStorage
+  suffix: Science Storage
+  components:
+  - type: NavMapBeacon
+    defaultText: Склад
+    color: "#ff9100"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconSciDirector
+  suffix: Research Director
+  components:
+  - type: NavMapBeacon
+    defaultText: Научный руководитель
+    color: "#ff9100"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconEngAme
+  suffix: AME
+  components:
+  - type: NavMapBeacon
+    defaultText: Анти масс спектрометр
+    color: "#ffff00"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconEngDam
+  suffix: DAM
+  components:
+  - type: NavMapBeacon
+    defaultText: ДАМ
+    color: "#ffff00"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconEngChief
+  suffix: Chief Engineer
+  components:
+  - type: NavMapBeacon
+    defaultText: Главный инженер
+    color: "#ffff00"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconEngSmes
+  suffix: SMES
+  components:
+  - type: NavMapBeacon
+    defaultText: Смэсы
+    color: "#ffff00"
+
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultComplexBeaconCargoReception
+  suffix: Cargo Reception
+  components:
+  - type: NavMapBeacon
+    defaultText: Приемная
+    color: "#a17b4a"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconCargoQuartermaster
+  suffix: Quartermaster
+  components:
+  - type: NavMapBeacon
+    defaultText: Квартирмейстер
+    color: "#a17b4a"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconCargoMainHall
+  suffix: Cargo Main Hall
+  components:
+  - type: NavMapBeacon
+    defaultText: Основной зал
+    color: "#a17b4a"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconCargoSale
+  suffix: Cargo Sale
+  components:
+  - type: NavMapBeacon
+    defaultText: Продажа
+    color: "#a17b4a"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconCargoOrders
+  suffix: Cargo Order Receiving
+  components:
+  - type: NavMapBeacon
+    defaultText: Получение заказов
+    color: "#a17b4a"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconCommandDirector
+  suffix: Complex Director
+  components:
+  - type: NavMapBeacon
+    defaultText: Руководитель комплекса
+    color: "#ffffff"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconCommandBridge
+  suffix: Bridge Command
+  components:
+  - type: NavMapBeacon
+    defaultText: Командование комплекса
+    color: "#ffffff"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconCommandBureaucracy
+  suffix: Bureaucracy
+  components:
+  - type: NavMapBeacon
+    defaultText: Бюрократия
+    color: "#ffffff"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconCommandAssemblyHall
+  suffix: Assembly Hall
+  components:
+  - type: NavMapBeacon
+    defaultText: Зал сбора
+    color: "#ffffff"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconElevatorArrival
+  suffix: Elevator Arrival
+  components:
+  - type: NavMapBeacon
+    defaultText: Лифт Прибытие
+    color: "#9e9e9e"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconElevatorDeparture
+  suffix: Elevator Departure
+  components:
+  - type: NavMapBeacon
+    defaultText: Лифт Отхода
+    color: "#9e9e9e"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconElevatorStaff
+  suffix: Elevator Staff
+  components:
+  - type: NavMapBeacon
+    defaultText: Лифт Персонала
+    color: "#9e9e9e"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconAmsRoom
+  suffix: AMS Room
+  components:
+  - type: NavMapBeacon
+    defaultText: Автоматическая комната АМС
+    color: "#ff3b3b"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconZenExpedition
+  suffix: Zen Expedition
+  components:
+  - type: NavMapBeacon
+    defaultText: Экспедиции ЗЕН
+    color: "#7cff6b"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconZenPortal
+  suffix: Zen Portal
+  components:
+  - type: NavMapBeacon
+    defaultText: Портал в ЗЕН
+    color: "#7cff6b"
+
+- type: entity
+  parent: DefaultStationBeacon
+  id: DefaultStationBeaconZenExpeditionStorage
+  suffix: Zen Expedition Storage
+  components:
+  - type: NavMapBeacon
+    defaultText: Склад ЗЕН экспедиций
+    color: "#7cff6b"
