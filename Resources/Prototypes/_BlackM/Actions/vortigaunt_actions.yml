@@ -6,7 +6,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Action
-    useDelay: 6
+    useDelay: 19
     icon:
       sprite: _BlackM/Mobs/vortigaunt.rsi
       state: walking
@@ -28,7 +28,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Action
-    useDelay: 20
+    useDelay: 60
     icon:
       sprite: _BlackM/Mobs/vortigaunt.rsi
       state: walking
@@ -46,7 +46,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Action
-    useDelay: 12
+    useDelay: 22
     icon:
       sprite: _BlackM/Mobs/vortigaunt.rsi
       state: walking

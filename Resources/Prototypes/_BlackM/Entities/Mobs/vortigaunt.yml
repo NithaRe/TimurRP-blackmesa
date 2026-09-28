@@ -5,10 +5,10 @@
   description: пришелец из Зен. Его изумрудные молнии — последнее, что видят многие.
   components:
   - type: Vortigaunt
-    lightningDamage: 18
+    lightningDamage: 9
     lightningChainCount: 3
     lightningChainRange: 4.5
-    healAmount: 30
+    healAmount: 75
     healChannelTime: 2.5
     stunWaveRange: 5
     stunDuration: 2.5
@@ -18,7 +18,16 @@
     sampleDelay: 6
     sampleCooldown: 300
   - type: Actions
+  - type: DoAfter
+  - type: Speech
+    speechSounds: Vortigaunt
+  - type: Prying
+    pryPowered: true
   - type: MobSpawnZap
+  - type: NightVision
+    color: "#808080"
+    activateSound: null
+    deactivateSound: null
   - type: GhostRole
     name: ghost-role-information-vortigaunt-name
     description: ghost-role-information-vortigaunt-description
@@ -53,7 +62,7 @@
     damageContainer: Biological
   - type: NpcFactionMember
     factions:
-    - SimpleHostile
+    - BlackMXen
   - type: HTN
     rootTask:
       task: SimpleHostileCompound
