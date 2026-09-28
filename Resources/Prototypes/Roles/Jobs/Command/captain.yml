@@ -137,6 +137,7 @@
   id: Captain
   name: job-name-captain
   description: job-description-captain
+  whitelisted: true # BlackM edit
   playTimeTracker: JobCaptain
   requirements:
     - !type:OverallPlaytimeRequirement
