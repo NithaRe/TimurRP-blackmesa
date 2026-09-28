@@ -275,6 +275,14 @@ namespace Content.Client.Stylesheets
         public static readonly Color ButtonColorPressed = Color.FromHex("#2A2F38");
         public static readonly Color ButtonColorDisabled = Color.FromHex("#26282E");
 
+        // blackm edit: Black Mesa terminal theme
+        public const string StyleClassPanelTerminalBlackM = "PanelTerminalBlackM";
+        public const string StyleClassButtonTerminalBlackM = "ButtonTerminalBlackM";
+        public const string StyleClassLabelTerminalBlackM = "LabelTerminalBlackM";
+        public static readonly Color TerminalGreen = Color.FromHex("#33FF66");
+        public static readonly Color TerminalGreenDim = Color.FromHex("#145C24");
+        public static readonly Color TerminalBlack = Color.FromHex("#050805");
+
         public static readonly Color ButtonColorCautionDefault = Color.FromHex("#ab3232");
         public static readonly Color ButtonColorCautionHovered = Color.FromHex("#cf2f2f");
         public static readonly Color ButtonColorCautionPressed = Color.FromHex("#3e6c45");
@@ -1529,6 +1537,100 @@ namespace Content.Client.Stylesheets
                             ContentMarginBottomOverride = 4,
                         }),
                     }),
+                
+                // blackm edit: char loadout
+                new StyleRule(new SelectorElement(typeof(PanelContainer), new[] {StyleClassPanelTerminalBlackM}, null, null),
+                    new[]
+                    {
+                        new StyleProperty(PanelContainer.StylePropertyPanel, new StyleBoxFlat
+                        {
+                            BackgroundColor = TerminalBlack,
+                            BorderColor = TerminalGreenDim,
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 8,
+                            ContentMarginRightOverride = 8,
+                            ContentMarginTopOverride = 6,
+                            ContentMarginBottomOverride = 6,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassNormal}),
+                    new[]
+                    {
+                new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                {
+                        BackgroundColor = TerminalBlack,
+                        BorderColor = TerminalGreenDim,
+                        BorderThickness = new Thickness(1),
+                        ContentMarginLeftOverride = 12,
+                        ContentMarginRightOverride = 12,
+                        ContentMarginTopOverride = 5,
+                        ContentMarginBottomOverride = 5,
+                    }),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassHover}),
+                    new[]
+                    {
+                new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                {
+                        BackgroundColor = TerminalGreenDim.WithAlpha(0.25f),
+                        BorderColor = TerminalGreen,
+                        BorderThickness = new Thickness(1),
+                        ContentMarginLeftOverride = 12,
+                        ContentMarginRightOverride = 12,
+                        ContentMarginTopOverride = 5,
+                        ContentMarginBottomOverride = 5,
+                    }),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassPressed}),
+                    new[]
+                    {
+                new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                {
+                       BackgroundColor = TerminalGreenDim.WithAlpha(0.5f),
+                       BorderColor = TerminalGreen,
+                       BorderThickness = new Thickness(2),
+                       ContentMarginLeftOverride = 12,
+                       ContentMarginRightOverride = 12,
+                       ContentMarginTopOverride = 5,
+                       ContentMarginBottomOverride = 5,
+                    }),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassDisabled}),
+                    new[]
+                    {
+                new StyleProperty(Button.StylePropertyStyleBox, new StyleBoxFlat
+                {
+                        BackgroundColor = TerminalBlack,
+                        BorderColor = Color.DarkGray.WithAlpha(0.3f),
+                        BorderThickness = new Thickness(1),
+                        ContentMarginLeftOverride = 12,
+                        ContentMarginRightOverride = 12,
+                        ContentMarginTopOverride = 5,
+                        ContentMarginBottomOverride = 5,
+                    }),
+                }),
+
+                new StyleRule(new SelectorChild(
+                new SelectorElement(typeof(Button), new[] {StyleClassButtonTerminalBlackM}, null, null),
+                new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                new StyleProperty("font", robotoMonoBold12),
+                new StyleProperty(Label.StylePropertyAlignMode, Label.AlignMode.Center),
+                new StyleProperty(Label.StylePropertyFontColor, TerminalGreen),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Label), new[] {StyleClassLabelTerminalBlackM}, null, null),
+                    new[]
+                    {
+                new StyleProperty("font", robotoMonoBold12),
+                new StyleProperty(Label.StylePropertyFontColor, TerminalGreen),
+                }),
+                // BlackM end
 
                 new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassSocialButtonBlackM}, null, new[] {ContainerButton.StylePseudoClassHover}),
                     new[]
