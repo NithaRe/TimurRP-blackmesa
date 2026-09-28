@@ -95,11 +95,11 @@
 - type: startingGear
   id: JanitorGear
   equipment:
-    shoes: ClothingShoesGaloshes
+    shoes: ClothingShoesColorBlack # BlackM shoes
     id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
-    belt: ClothingBeltJanitorFilled
-    pocket1: KeyRingJanitor # Goobstation
+    #belt: ClothingBeltJanitorFilled
+    #pocket1: KeyRingJanitor # Goobstation
 
 - type: startingGear
   id: JanitorMaidGear

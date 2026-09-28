@@ -117,7 +117,7 @@
     shoes: ClothingShoesColorBlack
     id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
-    belt: ClothingBeltChefFilled
+    #belt: ClothingBeltChefFilled
   #storage:
     #back:
     #- Stuff

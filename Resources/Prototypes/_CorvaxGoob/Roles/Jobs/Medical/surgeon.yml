@@ -28,11 +28,11 @@
 - type: startingGear
   id: SurgeonGear
   equipment:
-    belt: ClothingBeltSurgicalBoardFilled
-    shoes: ClothingShoesColorWhite
+    #belt: ClothingBeltSurgicalBoardFilled
+    #shoes: ClothingShoesColorWhite
     id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
-    mask: ClothingMaskSterile
+    #mask: ClothingMaskSterile
 
 - type: chameleonOutfit
   id: SurgeonChameleonOutfit

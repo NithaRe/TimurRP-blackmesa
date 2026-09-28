@@ -199,6 +199,7 @@
     #gloves: ClothingHandsGlovesCaptain - Goobstation, moved to loadouts
     id: AccessCardHolderCaptain #BlackM id
     ears: ClothingHeadsetAltCommand
+    head: ClothingHeadHatCowboyFacilityManager
   storage:
     back:
     - Flash

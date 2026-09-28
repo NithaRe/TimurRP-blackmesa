@@ -100,7 +100,7 @@
   equipment:
     id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
-    ears: ClothingHeadsetGrey
+    #ears: ClothingHeadsetGrey
   #storage:
     #back:
     #- Stuff

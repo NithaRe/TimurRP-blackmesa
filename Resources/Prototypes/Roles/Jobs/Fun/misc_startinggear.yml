@@ -252,6 +252,8 @@
     id: AccessCardHolderSecMed #BlackM id
     passport: PassportBM #BlackM pass
     ears: ClothingHeadsetBrigmedic # EE parity like i was told to do
+    head: ClothingHeadHelmetKovakMed #blackm helmet
+    back: ClothingBackpackSecurity
     belt: ClothingBeltMedicalEMTFilled
     pocket1: WeaponPistolMk58 # EE parity, make corpsman able to carry weapons like the rest of security
     pocket2: WeaponDisabler # Goob
@@ -265,7 +267,7 @@
   id: MobAghostGear
   equipment:
     back: ClothingBackpackSatchelAdmin
-    id: AdminPDA
+    id: AccessCardHolderCaptain #BlackM id
   storage:
     back:
     - GasAnalyzer

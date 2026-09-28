@@ -132,22 +132,22 @@
     head: ClothingHeadHatBeretMedic
 
 
-- type: loadout
-  id: BlueSurgeryCap
-  equipment:
-    head: ClothingHeadHatSurgcapBlue
+#- type: loadout
+#  id: BlueSurgeryCap
+#  equipment:
+#    head: ClothingHeadHatSurgcapBlue
 
 
-- type: loadout
-  id: GreenSurgeryCap
-  equipment:
-    head: ClothingHeadHatSurgcapGreen
+#- type: loadout
+#  id: GreenSurgeryCap
+#  equipment:
+#    head: ClothingHeadHatSurgcapGreen
 
 
-- type: loadout
-  id: PurpleSurgeryCap
-  equipment:
-    head: ClothingHeadHatSurgcapPurple
+#- type: loadout
+#  id: PurpleSurgeryCap
+#  equipment:
+#    head: ClothingHeadHatSurgcapPurple
 
 
 - type: loadout
@@ -260,10 +260,10 @@
     id: SeniorPhysicianPDA
 
 # Gloves
-- type: loadout
-  id: NitrileGloves
-  equipment:
-    gloves: ClothingHandsGlovesNitrile
+#- type: loadout
+#  id: NitrileGloves
+#  equipment:
+#    gloves: ClothingHandsGlovesNitrile
 
 
 #Masks
