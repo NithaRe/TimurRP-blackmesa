@@ -1,0 +1,15 @@
+- type: soundCollection
+  id: VortigauntSpeech
+  files:
+  - /Audio/_BlackM/vortigaunt/speech1.ogg
+  - /Audio/_BlackM/vortigaunt/speech2.ogg
+  - /Audio/_BlackM/vortigaunt/speech3.ogg
+
+- type: speechSounds
+  id: Vortigaunt
+  saySound:
+    collection: VortigauntSpeech
+  askSound:
+    collection: VortigauntSpeech
+  exclaimSound:
+    collection: VortigauntSpeech

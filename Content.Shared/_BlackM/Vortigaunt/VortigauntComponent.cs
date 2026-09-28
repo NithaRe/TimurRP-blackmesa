@@ -1,12 +1,14 @@
 using Content.Shared.Actions;
 using Content.Shared.DoAfter;
+using Robust.Shared.Audio;
+using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 
 namespace Content.Shared._BlackM.Vortigaunt;
 
-[RegisterComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [ComponentProtoName("Vortigaunt")]
 public sealed partial class VortigauntComponent : Component
 {
@@ -43,6 +45,9 @@ public sealed partial class VortigauntComponent : Component
     [DataField]
     public EntProtoId StunWaveAction = "ActionVortigauntStunWave";
 
+    [DataField]
+    public SoundSpecifier DeathSound = new SoundPathSpecifier("/Audio/_BlackM/vortigaunt/die.ogg");
+
     [ViewVariables]
     public EntityUid? LightningActionUid;
 
@@ -51,7 +56,11 @@ public sealed partial class VortigauntComponent : Component
 
     [ViewVariables]
     public EntityUid? StunWaveActionUid;
+
+    [ViewVariables, AutoNetworkedField]
+    public bool IsHealing;
 }
+
 public sealed partial class VortigauntLightningEvent : WorldTargetActionEvent
 {
     [DataField]
@@ -63,6 +72,7 @@ public sealed partial class VortigauntLightningEvent : WorldTargetActionEvent
     [DataField]
     public float ChainRange = 4.5f;
 }
+
 public sealed partial class VortigauntHealEvent : InstantActionEvent
 {
     [DataField]
@@ -71,6 +81,7 @@ public sealed partial class VortigauntHealEvent : InstantActionEvent
     [DataField]
     public float ChannelTime = 2.5f;
 }
+
 public sealed partial class VortigauntStunWaveEvent : InstantActionEvent
 {
     [DataField]

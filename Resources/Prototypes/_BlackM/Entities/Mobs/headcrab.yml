@@ -8,8 +8,13 @@
   - type: XenSampleSource
     filledCapsulePrototype: XenSampleCapsuleHeadcrab
   - type: Actions
+  - type: DoAfter
   - type: Muted
   - type: MobSpawnZap
+  - type: NightVision
+    color: "#808080"
+    activateSound: null
+    deactivateSound: null
   - type: GhostRole
     name: ghost-role-information-headcrab-name
     description: ghost-role-information-headcrab-description
@@ -53,7 +58,7 @@
     damageContainer: Biological
   - type: NpcFactionMember
     factions:
-    - SimpleHostile
+    - BlackMXen
   - type: HTN
     rootTask:
       task: SimpleHostileCompound
@@ -82,16 +87,3 @@
         - MobMask
         layer:
         - MobLayer
-
-- type: entity
-  name: спавнер хедкраба
-  id: SpawnPointHeadcrab
-  parent: MarkerBase
-  description: Точка появления хедкраба.
-  components:
-  - type: Sprite
-    sprite: _BlackM/Mobs/headcrab.rsi
-    state: idle
-  - type: SpawnPoint
-  - type: TimedDespawn
-    lifetime: 0.1

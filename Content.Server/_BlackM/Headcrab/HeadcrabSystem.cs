@@ -11,6 +11,7 @@ using Content.Shared.Mind;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Nutrition.Components;
 using Content.Shared.Throwing;
 using Content.Shared.Rejuvenate;
 using Robust.Shared.Audio;
@@ -18,6 +19,7 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Events;
 using Content.Server.Chat.Systems;
 using Content.Shared.NPC.Systems;
+using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Headcrab;
 
@@ -36,6 +38,7 @@ public sealed class HeadcrabSystem : EntitySystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly NpcFactionSystem _factionSystem = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
 
     private static readonly SoundSpecifier LeapSound =
         new SoundPathSpecifier("/Audio/_BlackM/headcrab/leap.ogg");
@@ -57,6 +60,7 @@ public sealed class HeadcrabSystem : EntitySystem
         SubscribeLocalEvent<HeadcrabComponent, HeadcrabGrabEvent>(OnGrab);
         SubscribeLocalEvent<HeadcrabComponent, HeadcrabAttachDoAfterEvent>(OnAttachDoAfter);
         SubscribeLocalEvent<HeadcrabComponent, StartCollideEvent>(OnCollide);
+        SubscribeLocalEvent<HeadcrabComponent, MobStateChangedEvent>(OnMobStateChanged);
 
         SubscribeLocalEvent<HeadcrabCapturedComponent, EntitySpokeEvent>(OnCapturedSpeak);
 
@@ -67,6 +71,18 @@ public sealed class HeadcrabSystem : EntitySystem
     {
         comp.LeapActionUid = _actions.AddAction(uid, comp.LeapAction);
         comp.GrabActionUid = _actions.AddAction(uid, comp.GrabAction);
+
+        RemComp<HungerComponent>(uid);
+        RemComp<ThirstComponent>(uid);
+    }
+
+    private void OnMobStateChanged(EntityUid uid, HeadcrabComponent comp, MobStateChangedEvent args)
+    {
+        if (args.NewMobState != MobState.Dead)
+            return;
+
+        RemComp<HeadcrabLeapingComponent>(uid);
+        _audio.PlayPvs(comp.DeathSound, uid);
     }
 
     private void OnShutdown(EntityUid uid, HeadcrabComponent comp, ComponentShutdown args)
@@ -81,17 +97,37 @@ public sealed class HeadcrabSystem : EntitySystem
         if (args.Handled)
             return;
 
+        if (_mobState.IsDead(uid))
+            return;
+
+        if (TryComp<HeadcrabLeapingComponent>(uid, out var current) && _timing.CurTime < current.EndTime)
+            return;
+
+        var targetPos = _transform.ToMapCoordinates(args.Target);
+        var selfPos = _transform.GetMapCoordinates(uid);
+
+        if (targetPos.MapId != selfPos.MapId)
+            return;
+
+        var diff = targetPos.Position - selfPos.Position;
+        var dist = diff.Length();
+
+        if (dist < 0.1f)
+            return;
+
         args.Handled = true;
 
         _recentlyHit.Remove(uid);
 
-        EnsureComp<HeadcrabLeapingComponent>(uid).StaminaDamage = args.StaminaDamage;
+        var leapDist = Math.Clamp(dist + 0.5f, 1f, args.Distance);
+        var vec = diff / dist * leapDist;
 
-        var targetPos = _transform.ToMapCoordinates(args.Target);
-        var selfPos = _transform.GetMapCoordinates(uid);
-        var vec = (targetPos.Position - selfPos.Position).Normalized() * args.Distance;
+        var flightTime = leapDist / args.Speed;
+        var leaping = EnsureComp<HeadcrabLeapingComponent>(uid);
+        leaping.StaminaDamage = args.StaminaDamage;
+        leaping.EndTime = _timing.CurTime + TimeSpan.FromSeconds(flightTime + 0.15f);
 
-        _throwing.TryThrow(uid, vec, args.Speed, animated: false);
+        _throwing.TryThrow(uid, vec, args.Speed, animated: true, doSpin: false);
 
         _audio.PlayPvs(LeapSound, uid);
     }
@@ -100,6 +136,12 @@ public sealed class HeadcrabSystem : EntitySystem
     {
         if (!TryComp<HeadcrabLeapingComponent>(uid, out var leaping))
             return;
+
+        if (_timing.CurTime > leaping.EndTime)
+        {
+            RemCompDeferred<HeadcrabLeapingComponent>(uid);
+            return;
+        }
 
         var target = args.OtherEntity;
 

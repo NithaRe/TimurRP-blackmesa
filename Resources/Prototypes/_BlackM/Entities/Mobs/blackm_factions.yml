@@ -1,0 +1,6 @@
+- type: npcFaction
+  id: BlackMXen
+  friendly:
+  - BlackMXen
+  hostile:
+  - NanoTrasen

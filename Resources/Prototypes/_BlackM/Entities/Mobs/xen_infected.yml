@@ -16,9 +16,13 @@
   - type: RandomMetadata
     nameSegments:
     - NamesDeathCommando
+  - type: NightVision
+    color: "#808080"
+    activateSound: null
+    deactivateSound: null
   - type: NpcFactionMember
     factions:
-    - Zombie
+    - BlackMXen
   - type: HTN
     rootTask:
       task: SimpleHostileCompound
