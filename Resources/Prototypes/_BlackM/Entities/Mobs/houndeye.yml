@@ -9,6 +9,10 @@
     filledCapsulePrototype: XenSampleCapsuleHoundeye
   - type: Actions
   - type: MobSpawnZap
+  - type: NightVision
+    color: "#808080"
+    activateSound: null
+    deactivateSound: null
   - type: GhostRole
     name: ghost-role-information-houndeye-name
     description: ghost-role-information-houndeye-description
