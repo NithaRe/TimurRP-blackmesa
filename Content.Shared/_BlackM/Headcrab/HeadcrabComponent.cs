@@ -1,3 +1,4 @@
+using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -25,6 +26,9 @@ public sealed partial class HeadcrabComponent : Component
     [DataField]
     public Dictionary<EntityUid, int> LeapHits = new();
 
+    [DataField]
+    public SoundSpecifier DeathSound = new SoundPathSpecifier("/Audio/_BlackM/headcrab/die.ogg");
+
     public int LeapsToKnockdown = 4;
 }
 
@@ -40,6 +44,9 @@ public sealed partial class HeadcrabLeapingComponent : Component
 {
     [DataField]
     public float StaminaDamage = 20f;
+
+    [ViewVariables]
+    public TimeSpan EndTime;
 }
 
 public sealed partial class HeadcrabLeapEvent : WorldTargetActionEvent
@@ -48,7 +55,7 @@ public sealed partial class HeadcrabLeapEvent : WorldTargetActionEvent
     public float Distance = 5f;
 
     [DataField]
-    public float Speed = 10f;
+    public float Speed = 6.5f;
 
     [DataField]
     public float StaminaDamage = 20f;
