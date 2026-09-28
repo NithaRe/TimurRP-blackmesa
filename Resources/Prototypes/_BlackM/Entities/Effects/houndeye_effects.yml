@@ -1,0 +1,50 @@
+- type: entity
+  id: HoundeyeScreamEffect
+  name: houndeye scream wave
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: OverMobs
+    noRot: true
+    layers:
+    - state: wave
+      sprite: _BlackM/Effects/houndeye_scream.rsi
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 1.24
+  - type: Transform
+    anchored: false
+
+- type: entity
+  id: HoundeyeChargeTrailEffect
+  name: houndeye charge trail
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: OverMobs
+    noRot: false
+    layers:
+    - state: trail
+      sprite: _BlackM/Effects/houndeye_charge.rsi
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 0.25
+  - type: Transform
+    anchored: false
+
+- type: entity
+  id: HoundeyeImpactEffect
+  name: houndeye impact
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: OverMobs
+    noRot: true
+    layers:
+    - state: impact
+      sprite: _BlackM/Effects/houndeye_impact.rsi
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 0.3
+  - type: Transform
+    anchored: false

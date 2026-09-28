@@ -44,7 +44,7 @@
     damageContainer: Biological
   - type: NpcFactionMember
     factions:
-    - SimpleHostile
+    - BlackMXen
   - type: HTN
     rootTask:
       task: SimpleHostileCompound

@@ -1,5 +1,6 @@
 using Content.Shared.Actions;
 using Content.Shared.DoAfter;
+using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
@@ -25,6 +26,9 @@ public sealed partial class HoundeyeComponent : Component
     [ViewVariables] public EntityUid? ScreamActionUid;
     [ViewVariables] public EntityUid? ChargeActionUid;
     [ViewVariables] public bool IsCharging = false;
+    [ViewVariables] public TimeSpan ChargeEndTime;
+
+    [DataField] public SoundSpecifier DeathSound = new SoundPathSpecifier("/Audio/_BlackM/houndeye/die.ogg");
 }
 
 [RegisterComponent]
