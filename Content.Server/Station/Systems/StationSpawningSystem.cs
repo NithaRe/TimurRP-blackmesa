@@ -101,6 +101,7 @@ using Content.Server.IdentityManagement;
 using Content.Server.Mind;
 using Content.Server.PDA;
 using Content.Server.Station.Components;
+using Content.Shared._BlackM.CivilianClothing; // BlackM
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.CCVar;
@@ -108,6 +109,7 @@ using Content.Shared.Clothing;
 using Content.Shared.DetailExaminable;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
+using Content.Shared.Inventory; // BlackM: InventorySystem
 using Content.Shared.NameIdentifier;
 using Content.Shared.PDA;
 using Content.Shared.Preferences;
@@ -140,6 +142,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
     [Dependency] private readonly PdaSystem _pdaSystem = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly MindSystem _mindSystem = default!;
+    [Dependency] private readonly InventorySystem _inventory = default!; // BlackM
 
     /// <summary>
     /// Attempts to spawn a player character onto the given station.
@@ -194,14 +197,15 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
 
         if (_prototypeManager.TryIndex(jobLoadout, out RoleLoadoutPrototype? roleProto))
         {
-            profile?.Loadouts.TryGetValue(jobLoadout, out loadout);
+            // BlackM start ignore loadout: profile?.Loadouts.TryGetValue(jobLoadout, out loadout);
 
             // Set to default if not present
-            if (loadout == null)
-            {
-                loadout = new RoleLoadout(jobLoadout);
-                loadout.SetDefault(profile, _actors.GetSession(entity), _prototypeManager);
-            }
+            //if (loadout == null)
+            //{
+            loadout = new RoleLoadout(jobLoadout);
+            loadout.SetDefault(profile, _actors.GetSession(entity), _prototypeManager);
+            // BlackM end
+            //}
         }
 
         // If we're not spawning a humanoid, we're gonna exit early without doing all the humanoid stuff.
@@ -245,11 +249,91 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
             EquipRoleLoadout(entity.Value, loadout, roleProto!);
         }
 
+        // BlackM start:
         if (prototype?.StartingGear != null)
         {
             var startingGear = _prototypeManager.Index<StartingGearPrototype>(prototype.StartingGear);
             EquipStartingGear(entity.Value, startingGear, raiseEvent: false);
         }
+
+        var civilianAllowed = false;
+        if (prototype != null)
+        {
+            civilianAllowed = true;
+            foreach (var dept in _prototypeManager.EnumeratePrototypes<DepartmentPrototype>())
+            {
+                if (!dept.Roles.Contains(prototype.ID))
+                    continue;
+
+                if (!dept.AllowsCivilianClothing)
+                {
+                    civilianAllowed = false;
+                    break;
+                }
+            }
+        }
+
+        if (civilianAllowed
+            && profile?.CivilianClothing is { } civilianId
+            && _prototypeManager.TryIndex(civilianId, out var civilianSet)
+            && _inventory.TryGetSlots(entity.Value, out var slots))
+        {
+            var seed = profile.CivilianClothingSeed;
+
+            var willChangeJumpsuit = civilianSet.GetGearSeeded("jumpsuit", seed, profile.Sex) != null;
+
+            var savedItems = new List<(string SlotName, EntityUid Item)>();
+
+            if (willChangeJumpsuit)
+            {
+                foreach (var slot in slots)
+                {
+                    if (slot.Name == "jumpsuit")
+                        continue;
+
+                    if (civilianSet.GetGearSeeded(slot.Name, seed, profile.Sex) != null)
+                        continue;
+
+                    if (_inventory.TryUnequip(entity.Value, slot.Name, out var savedItem, silent: true, force: true, reparent: false))
+                    {
+                        savedItems.Add((slot.Name, savedItem.Value));
+                    }
+                }
+            }
+
+            foreach (var slot in slots)
+            {
+                var itemType = civilianSet.GetGearSeeded(slot.Name, seed, profile.Sex);
+
+                if (itemType is not { } chosen)
+                    continue;
+
+                var newItem = Spawn(chosen, Transform(entity.Value).Coordinates);
+
+                if (_inventory.TryUnequip(entity.Value, slot.Name, out var oldItem, silent: true, force: true, reparent: false))
+                {
+                    if (_inventory.TryEquip(entity.Value, newItem, slot.Name, true, true))
+                    {
+                        Del(oldItem.Value);
+                    }
+                    else
+                    {
+                        _inventory.TryEquip(entity.Value, oldItem.Value, slot.Name, true, true);
+                        Del(newItem);
+                    }
+                }
+                else
+                {
+                    _inventory.TryEquip(entity.Value, newItem, slot.Name, true, true);
+                }
+            }
+
+            foreach (var (slotName, savedItem) in savedItems)
+            {
+                _inventory.TryEquip(entity.Value, savedItem, slotName, true, true);
+            }
+        }
+        // BlackM end
 
         var gearEquippedEv = new StartingGearEquippedEvent(entity.Value);
         RaiseLocalEvent(entity.Value, ref gearEquippedEv);
