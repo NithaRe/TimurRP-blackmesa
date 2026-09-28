@@ -21,3 +21,13 @@ loadout-group-facility-manager-gloves = Перчатки
 loadout-group-facility-manager-jumpsuit = Комбинезон
 loadout-group-facility-manager-glasses = Очки
 loadout-group-facility-manager-shoes = Обувь
+
+
+blackm-civilian-clothing-label = Гражданская одежда
+blackm-civilian-clothing-none = Не выбрано
+blackm-civilian-clothing-set-official = Официальный
+blackm-civilian-clothing-set-casual = Повседневный
+blackm-civilian-clothing-set-work = Рабочий
+blackm-civilian-clothing-set-sport = Спортивный
+blackm-civilian-clothing-description = Выберите стиль повседневной одежды — он будет надет
+    на вас при старте раунда, если ваша должность позволяет ходить не в форме.
