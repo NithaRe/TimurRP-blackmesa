@@ -98,6 +98,7 @@ using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Roles;
+using Content.Shared._BlackM.CivilianClothing; // Blackm civilian
 using Content.Shared.Traits;
 using Robust.Client.Player;
 using Robust.Client.ResourceManagement;
@@ -456,6 +457,34 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
     /// <summary>
     /// Applies the specified job's clothes to the dummy.
     /// </summary>
+
+    // BlackM start 
+    public void GiveDummyCivilianClothing(EntityUid dummy, CivilianClothingSetPrototype set, int seed, Sex sex)
+    {
+        if (!_inventory.TryGetSlots(dummy, out var slots))
+            return;
+
+        foreach (var slot in slots)
+        {
+            var itemType = set.GetGearSeeded(slot.Name, seed, sex);
+
+            if (itemType is not { } chosen)
+                continue;
+
+            if (_inventory.TryUnequip(dummy, slot.Name, out var unequippedItem, silent: true, force: true, reparent: false))
+            {
+                EntityManager.DeleteEntity(unequippedItem.Value);
+            }
+
+            if (_prototypeManager.HasIndex<EntityPrototype>(chosen))
+            {
+                var item = EntityManager.SpawnEntity(chosen, MapCoordinates.Nullspace);
+                _inventory.TryEquip(dummy, item, slot.Name, true, true);
+            }
+        }
+    }
+    // BlackM end
+
     public void GiveDummyJobClothes(EntityUid dummy, HumanoidCharacterProfile profile, JobPrototype job)
     {
         if (!_inventory.TryGetSlots(dummy, out var slots))
@@ -530,6 +559,33 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
         }
     }
 
+    // BlackM start
+    private void ApplyCivilianClothingIfApplicable(EntityUid dummy, HumanoidCharacterProfile profile, JobPrototype job)
+    {
+        if (profile.CivilianClothing is not { } civilianId)
+            return;
+
+        var civilianAllowed = true;
+        foreach (var dept in _prototypeManager.EnumeratePrototypes<DepartmentPrototype>())
+        {
+            if (!dept.Roles.Contains(job.ID))
+                continue;
+
+            if (!dept.AllowsCivilianClothing)
+            {
+                civilianAllowed = false;
+                break;
+            }
+        }
+
+        if (!civilianAllowed)
+            return;
+
+        if (_prototypeManager.TryIndex(civilianId, out CivilianClothingSetPrototype? set))
+            GiveDummyCivilianClothing(dummy, set, profile.CivilianClothingSeed, profile.Sex);
+    }
+    // BlackM end
+
     /// <summary>
     /// Loads the profile onto a dummy entity.
     /// </summary>
@@ -569,10 +625,18 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
 
             GiveDummyJobClothes(dummyEnt, humanoid, job);
 
+            // BlackM start
+            ApplyCivilianClothingIfApplicable(dummyEnt, humanoid, job);
+            // BlackM end
+
             if (_prototypeManager.HasIndex<RoleLoadoutPrototype>(LoadoutSystem.GetJobPrototype(job.ID)))
             {
-                var loadout = humanoid.GetLoadoutOrDefault(LoadoutSystem.GetJobPrototype(job.ID), _playerManager.LocalSession, humanoid.Species, EntityManager, _prototypeManager);
+                // BlackM start: loadout off
+                //var loadout = humanoid.GetLoadoutOrDefault(LoadoutSystem.GetJobPrototype(job.ID), _playerManager.LocalSession, humanoid.Species, EntityManager, _prototypeManager);
+                var loadout = new RoleLoadout(LoadoutSystem.GetJobPrototype(job.ID));
+                loadout.SetDefault(humanoid, _playerManager.LocalSession, _prototypeManager);
                 GiveDummyLoadout(dummyEnt, loadout);
+                // BlackM end
             }
         }
 

@@ -194,6 +194,12 @@ using Robust.Shared.Utility;
 using Direction = Robust.Shared.Maths.Direction;
 using Content.Client._CorvaxGoob.TTS;
 using Content.Shared._CorvaxGoob; // CorvaxGoob-TTS
+using Robust.Client.GameObjects; // SpriteView
+using System.Numerics; // Vector2
+using Robust.Client.Graphics;
+using Robust.Client.Animations;
+using Robust.Shared.Timing;
+using Content.Shared._BlackM.CivilianClothing;
 
 namespace Content.Client.Lobby.UI
 {
@@ -210,6 +216,7 @@ namespace Content.Client.Lobby.UI
         private readonly MarkingManager _markingManager;
         private readonly JobRequirementsManager _requirements;
         private readonly LobbyUIController _controller;
+        private readonly List<EntityUid> _civilianClothingDummies = new(); // Blackm civilian
 
         private readonly SpriteSystem _sprite;
 
@@ -660,6 +667,9 @@ namespace Content.Client.Lobby.UI
             SpeciesInfoButton.OnPressed += OnSpeciesInfoButtonPressed;
 
             UpdateSpeciesGuidebookIcon();
+            // BlackM start
+            RebuildCivilianClothingOptions();
+            // BlackM end
             IsDirty = false;
         }
 
@@ -740,6 +750,141 @@ namespace Content.Client.Lobby.UI
             _ttsTab.UpdateControls(Profile, Profile.Sex);
             _ttsTab.SetSelectedVoice(Profile.Voice);
         }
+
+        // BlackM start
+        private void RebuildCivilianClothingOptions()
+        {
+            foreach (var dummy in _civilianClothingDummies)
+            {
+                _entManager.DeleteEntity(dummy);
+            }
+            _civilianClothingDummies.Clear();
+            CivilianClothingGrid.DisposeAllChildren();
+
+            if (Profile == null)
+                return;
+
+            var sets = new List<CivilianClothingSetPrototype>(_prototypeManager.EnumeratePrototypes<CivilianClothingSetPrototype>());
+            sets.Sort((a, b) => a.Priority.CompareTo(b.Priority));
+
+            foreach (var set in sets)
+            {
+                var dummy = _controller.LoadProfileEntity(Profile, null, false);
+
+                var previewSeed = set.ID == Profile.CivilianClothing
+                    ? Profile.CivilianClothingSeed
+                    : set.ID.GetHashCode();
+
+                _controller.GiveDummyCivilianClothing(dummy, set, previewSeed, Profile.Sex);
+                _civilianClothingDummies.Add(dummy);
+
+                var isSelected = set.ID == Profile.CivilianClothing;
+                CivilianClothingGrid.AddChild(BuildCivilianClothingCard(set, dummy, isSelected));
+            }
+        }
+
+        private Control BuildCivilianClothingCard(CivilianClothingSetPrototype set, EntityUid dummy, bool isSelected)
+        {
+            const int cardSize = 150;
+
+            var terminalGreen = new Color(0.2f, 1f, 0.4f);
+            var terminalGreenDim = new Color(0.08f, 0.36f, 0.14f);
+            var baseBg = new Color(0.02f, 0.03f, 0.02f, 0.75f);
+            var hoverBg = new Color(0.05f, 0.14f, 0.06f, 0.85f);
+
+            var styleBox = new StyleBoxFlat
+            {
+                BackgroundColor = baseBg,
+                BorderColor = isSelected ? terminalGreen : terminalGreenDim,
+                BorderThickness = new Thickness(isSelected ? 2 : 1),
+                ContentMarginLeftOverride = 6,
+                ContentMarginRightOverride = 6,
+                ContentMarginTopOverride = 6,
+                ContentMarginBottomOverride = 4,
+            };
+
+            var card = new Button
+            {
+                ToggleMode = true,
+                Pressed = isSelected,
+                MinSize = new Vector2(cardSize, cardSize + 28),
+                MaxSize = new Vector2(cardSize, cardSize + 28),
+                HorizontalExpand = false,
+                StyleBoxOverride = styleBox,
+            };
+
+            var spriteView = new SpriteView
+            {
+                OverrideDirection = Direction.South,
+                Scale = new Vector2(1.7f, 1.7f),
+                MinSize = new Vector2(cardSize - 20, cardSize - 20),
+                Stretch = SpriteView.StretchMode.Fill,
+                HorizontalAlignment = Control.HAlignment.Center,
+                VerticalAlignment = Control.VAlignment.Center,
+                Modulate = new Color(0.75f, 1f, 0.8f),
+            };
+            spriteView.SetEntity(dummy);
+
+            var nameLabel = new Label
+            {
+                Text = Loc.GetString(set.Name),
+                FontColorOverride = isSelected ? terminalGreen : terminalGreenDim,
+                HorizontalAlignment = Control.HAlignment.Center,
+                HorizontalExpand = true,
+                ClipText = false,
+                StyleClasses = { "LabelTerminalBlackM" },
+            };
+
+            var content = new BoxContainer
+            {
+                Orientation = BoxContainer.LayoutOrientation.Vertical,
+                HorizontalExpand = true,
+                VerticalExpand = true,
+                VerticalAlignment = Control.VAlignment.Center,
+                SeparationOverride = 3,
+            };
+            content.AddChild(spriteView);
+            content.AddChild(nameLabel);
+            card.AddChild(content);
+
+            var tweenToken = 0;
+
+            void AnimateTo(Color targetBg)
+            {
+                var myToken = ++tweenToken;
+                var startBg = styleBox.BackgroundColor;
+                const int steps = 10;
+                const float durationSeconds = 0.12f;
+
+                for (var i = 1; i <= steps; i++)
+                {
+                    var i1 = i;
+                    Timer.Spawn(TimeSpan.FromSeconds(durationSeconds * i1 / steps), () =>
+                {
+                    if (myToken != tweenToken)
+                        return;
+
+                    var t = i1 / (float) steps;
+                    styleBox.BackgroundColor = Color.InterpolateBetween(startBg, targetBg, t);
+                });
+                }
+            }
+
+            card.OnMouseEntered += _ => AnimateTo(hoverBg);
+            card.OnMouseExited += _ => AnimateTo(baseBg);
+
+            var setId = set.ID;
+            card.OnPressed += _ =>
+            {
+                var seed = new Random().Next();
+                Profile = Profile?.WithCivilianClothing(setId, seed);
+                RebuildCivilianClothingOptions();
+                SetDirty();
+            };
+
+            return card;
+        }
+        // BlackM end
 
         #endregion
         // CorvaxGoob-TTS-End
@@ -1032,6 +1177,10 @@ namespace Content.Client.Lobby.UI
             SpriteView.SetEntity(PreviewDummy);
             _entManager.System<MetaDataSystem>().SetEntityName(PreviewDummy, Profile.Name);
 
+            // BlackM start
+            RebuildCivilianClothingOptions();
+            // BlackM end
+
             // Check and set the dirty flag to enable the save/reset buttons as appropriate.
             SetDirty();
         }
@@ -1305,7 +1454,7 @@ namespace Content.Client.Lobby.UI
 
                     _jobPriorities.Add((job.ID, selector));
                     jobContainer.AddChild(selector);
-                    jobContainer.AddChild(loadoutWindowBtn);
+                    // jobContainer.AddChild(loadoutWindowBtn); // blackm edit 
                     category.AddChild(jobContainer);
                 }
             }
@@ -1495,6 +1644,13 @@ namespace Content.Client.Lobby.UI
 
             _loadoutWindow?.Dispose();
             _loadoutWindow = null;
+            // BlackM start
+            foreach (var dummy in _civilianClothingDummies)
+            {
+                _entManager.DeleteEntity(dummy);
+            }
+            _civilianClothingDummies.Clear();
+            // BlackM end
         }
 
         protected override void EnteredTree()

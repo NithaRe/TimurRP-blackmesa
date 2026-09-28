@@ -150,6 +150,24 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 <Label Text="{Loc 'humanoid-profile-editor-skin-color-label'}" />
                                 <Slider HorizontalExpand="True" Name="Skin" MinValue="0" MaxValue="100" Value="20" />
                                 <BoxContainer Name="RgbSkinColorContainer" Visible="False" Orientation="Vertical" HorizontalExpand="True"></BoxContainer>
+                              <!-- BlackM start: Civilian clothing -->
+                            <BoxContainer Margin="10"
+                                HorizontalExpand="True"
+                                Orientation="Vertical"
+                                Name="CivilianClothingContainer">
+                            <Label Text="{Loc 'blackm-civilian-clothing-label'}"
+                                    StyleClasses="LabelTerminalBlackM"/>
+                            <Label Text="{Loc 'blackm-civilian-clothing-description'}"
+                                    StyleClasses="LabelTerminalBlackM"
+                                   Margin="0 2 0 6"
+                                   ClipText="False"/>
+                            <GridContainer Name="CivilianClothingGrid"
+                                Columns="4"
+                                HSeparationOverride="8"
+                                VSeparationOverride="8"
+                                HorizontalExpand="True"/>
+                            </BoxContainer>
+                            <!-- BlackM end -->
                             </BoxContainer>
                             <!-- Hair -->
                             <BoxContainer Margin="10" Orientation="Horizontal">
