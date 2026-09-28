@@ -58,6 +58,7 @@ using Content.Shared.GameTicking;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared._BlackM.SpeechBarks; // BlackM bark
+using Content.Shared._BlackM.CivilianClothing; // blackm civilian
 using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Random.Helpers;
 using Content.Shared.Roles;
@@ -136,6 +137,12 @@ namespace Content.Shared.Preferences
         // CorvaxGoob-TTS-End
         [DataField]
         public BarkData Bark { get; set; } = new(); // BlackM bark
+
+        [DataField]
+        public ProtoId<CivilianClothingSetPrototype>? CivilianClothing { get; private set; } = "CivilianClothingCasual"; // blackm civilian
+
+        [DataField]
+        public int CivilianClothingSeed { get; private set; } // blackm civilian
 
         // CorvaxGoob-Revert : DB conflicts
         // [DataField] // Goob Station - Barks
@@ -252,9 +259,11 @@ namespace Content.Shared.Preferences
                 new HashSet<ProtoId<AntagPrototype>>(other.AntagPreferences),
                 new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
                 new Dictionary<string, RoleLoadout>(other.Loadouts))
-                // other.BarkVoice) // Goob Station - Barks // CorvaxGoob-Revert : DB conflicts
+        // other.BarkVoice) // Goob Station - Barks // CorvaxGoob-Revert : DB conflicts
         {
-    Bark = other.Bark.Clone(); // BlackM bark
+            Bark = other.Bark.Clone(); // BlackM bark
+            CivilianClothing = other.CivilianClothing; // blackm civilian
+            CivilianClothingSeed = other.CivilianClothingSeed; // blackm civilian
         }
 
         /// <summary>
@@ -588,6 +597,8 @@ namespace Content.Shared.Preferences
             if (!_antagPreferences.SequenceEqual(other._antagPreferences)) return false;
             if (!_traitPreferences.SequenceEqual(other._traitPreferences)) return false;
             if (!Loadouts.SequenceEqual(other.Loadouts)) return false;
+            if (CivilianClothing != other.CivilianClothing) return false; // blackm civilian
+            if (CivilianClothingSeed != other.CivilianClothingSeed) return false; // blackm civilian
             if (FlavorText != other.FlavorText) return false;
             return Appearance.MemberwiseEquals(other.Appearance);
         }
@@ -867,6 +878,8 @@ namespace Content.Shared.Preferences
             hashCode.Add((int) Sex);
             hashCode.Add((int) Gender);
             hashCode.Add(Appearance);
+            hashCode.Add(CivilianClothing); // BlackM  civilian
+            hashCode.Add(CivilianClothingSeed); // BlackM civilian
             // hashCode.Add(BarkVoice); // Goob Station - Barks // CorvaxGoob-Revert : DB conflicts
             hashCode.Add((int) SpawnPriority);
             hashCode.Add((int) PreferenceUnavailable);
@@ -877,6 +890,22 @@ namespace Content.Shared.Preferences
         {
             _loadouts[loadout.Role.Id] = loadout;
         }
+
+        // BlackM start - civilian
+        public void SetCivilianClothing(ProtoId<CivilianClothingSetPrototype>? id, int seed)
+        {
+            CivilianClothing = id;
+            CivilianClothingSeed = seed;
+        }
+
+        public HumanoidCharacterProfile WithCivilianClothing(ProtoId<CivilianClothingSetPrototype>? id, int seed)
+        {
+            var profile = Clone();
+            profile.CivilianClothing = id;
+            profile.CivilianClothingSeed = seed;
+            return profile;
+        }
+        // BlackM end - civilian
 
         public HumanoidCharacterProfile WithLoadout(RoleLoadout loadout)
         {

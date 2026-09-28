@@ -94,11 +94,12 @@
     shoes: ClothingShoesColorWhite
     id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
-    belt: ClothingBeltMedicalFilled
-    pocket2: BookMedicalReferenceBook
+    #belt: ClothingBeltMedicalFilled
+    #pocket2: BookMedicalReferenceBook
   #storage:
     #back:
     #- Stuff
+
 - type: chameleonOutfit
   id: MedicalInternChameleonOutfit
   job: MedicalIntern

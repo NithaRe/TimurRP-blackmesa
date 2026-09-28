@@ -35,10 +35,10 @@
   equipment:
     gloves: ClothingHandsGlovesLatex
 
-- type: loadout
-  id: BrigmedicGlovesNitrile
-  equipment:
-    gloves: ClothingHandsGlovesNitrile
+#- type: loadout
+#  id: BrigmedicGlovesNitrile
+#  equipment:
+#    gloves: ClothingHandsGlovesNitrile
 
 - type: loadout
   id: BrigmedicGlovesBlack

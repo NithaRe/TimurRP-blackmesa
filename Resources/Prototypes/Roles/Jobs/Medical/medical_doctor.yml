@@ -110,7 +110,7 @@
 - type: startingGear
   id: DoctorGear
   equipment:
-    belt: ClothingBeltMedicalFilled
+    #belt: ClothingBeltMedicalFilled
     passport: PassportBM #BlackM pass
   #storage:
     #back:

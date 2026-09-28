@@ -169,6 +169,7 @@
   name: department-Command
   description: department-Command-description
   color: "#334E6D"
+  allowsCivilianClothing: false
   roles:
   - Captain
   - ChiefEngineer
@@ -225,6 +226,7 @@
   name: department-Security
   description: department-Security-description
   color: "#DE3A3A"
+  allowsCivilianClothing: false
   weight: 20
   roles:
   - HeadOfSecurity

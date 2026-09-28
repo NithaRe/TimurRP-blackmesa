@@ -1,0 +1,101 @@
+- type: civilianClothingSet
+  id: CivilianClothingOfficial
+  name: blackm-civilian-clothing-set-official
+  priority: 0
+  equipment:
+    jumpsuit:
+    - ClothingUniformJumpsuitSecBlue 
+    - ClothingUniformJumpsuitDameDane
+    - ClothingUniformJumpsuitDetectiveGrey
+    - ClothingUniformJumpsuitDetective
+    - ClothingUniformJumpsuitFamilyGuy
+    - ClothingUniformJumpsuitSuperstarCop
+    shoes:
+    - ClothingShoesColorWhite
+    - ClothingShoesColorBlack
+  femaleEquipment:
+    jumpsuit:
+    - ClothingUniformJumpskirtDetective
+    - ClothingUniformJumpskirtGreenElegantDress
+    - ClothingUniformJumpskirtRedElegantDress
+    - ClothingUniformJumpskirtBlackElegantDress
+    - ClothingUniformJumpskirtBlueElegantDress
+    shoes:
+    - ClothingShoesColorWhite
+    - ClothingShoesColorBlack
+
+- type: civilianClothingSet
+  id: CivilianClothingCasual
+  name: blackm-civilian-clothing-set-casual
+  priority: 1
+  equipment:
+    jumpsuit:
+    - ClothingUniformJumpsuitHawaiBlue
+    - ClothingUniformJumpsuitHawaiBlack
+    - ClothingUniformJumpsuitHawaiYellow
+    - ClothingUniformJumpsuitHawaiRed
+    - ClothingUniformJumpsuitResonant
+    - ClothingUniformJumpsuitFlannel
+    shoes:
+    - ClothingShoesColorWhite
+    - ClothingShoesColorBlack
+  femaleEquipment:
+    jumpsuit:
+    - ClothingUniformJumpskirtCasualGreen
+    - ClothingUniformJumpskirtCurator
+    - ClothingUniformJumpskirtColorBlack
+    - ClothingUniformJumpskirtSchool
+    - ClothingUniformJumpskirtOfLife
+    - ClothingUniformJumpskirtColorWhite
+    shoes:
+    - ClothingShoesColorWhite
+    - ClothingShoesColorBlack
+
+- type: civilianClothingSet
+  id: CivilianClothingWork
+  name: blackm-civilian-clothing-set-work
+  priority: 2
+  equipment:
+    jumpsuit:
+    - ClothingUniformJumpsuitMilitaryEngineering
+    - ClothingUniformJumpsuitMilitaryColorPurple
+    - ClothingUniformJumpsuitMilitaryColorRed
+    - ClothingUniformJumpsuitMilitaryService
+    - ClothingUniformJumpsuitMilitaryContractor
+    shoes:
+    - ClothingShoesColorWhite
+    - ClothingShoesColorBlack
+  femaleEquipment:
+    jumpsuit:
+    - ClothingUniformJumpskirtJanimaidmini
+    - ClothingUniformJumpskirtBartender
+    - ClothingUniformJumpskirtSalvageSpecialist
+    shoes:
+    - ClothingShoesColorWhite
+    - ClothingShoesColorBlack
+
+- type: civilianClothingSet
+  id: CivilianClothingSport
+  name: blackm-civilian-clothing-set-sport
+  priority: 3
+  equipment:
+    jumpsuit:
+    - ClothingUniformJumpsuitColorGreen
+    - ClothingUniformJumpsuitColorDarkBlue
+    - ClothingUniformJumpsuitColorDarkGreen
+    - ClothingUniformJumpsuitColorGrey
+    - ClothingUniformJumpsuitColorMaroon
+    - ClothingUniformJumpsuitColorWhite
+    shoes:
+    - ClothingShoesColorWhite
+    - ClothingShoesColorBlack
+  femaleEquipment:
+    jumpsuit:
+    - ClothingUniformJumpskirtColorBlue
+    - ClothingUniformJumpskirtColorGrey
+    - ClothingUniformJumpskirtColorGreen
+    - ClothingUniformJumpskirtColorYellow
+    - ClothingUniformJumpskirtColorOrange
+    shoes:
+    - ClothingShoesColorWhite
+    - ClothingShoesColorBlack

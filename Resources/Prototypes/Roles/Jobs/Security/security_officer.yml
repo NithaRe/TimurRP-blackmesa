@@ -121,6 +121,7 @@
     passport: PassportBM #BlackM pass
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetAltSecurityRegular # Goobstation
+    head: ClothingHeadHelmetKovakSoldier
     pocket1: WeaponPistolMk58
   storage:
     back:

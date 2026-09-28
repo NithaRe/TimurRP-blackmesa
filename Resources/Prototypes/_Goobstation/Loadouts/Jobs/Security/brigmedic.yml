@@ -26,10 +26,10 @@
   equipment:
     outerClothing: ClothingOuterCoatAMG
 
-- type: loadout
-  id: BrigmedicBackpack
-  equipment:
-    back: ClothingBackpackBrigmedic
+#- type: loadout
+#  id: BrigmedicBackpack
+#  equipment:
+#    back: ClothingBackpackBrigmedic
 
 - type: loadout
   id: BrigmedicSatchel

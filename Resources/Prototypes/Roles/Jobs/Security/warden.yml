@@ -188,6 +188,7 @@
     id: AccessCardHolderSecWarden #BlackM id
     passport: PassportBM #BlackM pass
     ears: ClothingHeadsetAltWarden # Goobstation
+    head: ClothingHeadHelmetKovakWarden
     pocket1: WeaponPistolMk58
   storage:
     back:

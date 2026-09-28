@@ -215,10 +215,10 @@
     outerClothing: ClothingOuterCoatLabSeniorResearcher
 
 # Gloves
-- type: loadout
-  id: LatexGloves
-  equipment:
-    gloves: ClothingHandsGlovesLatex
+#- type: loadout
+#  id: LatexGloves
+#  equipment:
+#    gloves: ClothingHandsGlovesLatex
 
 
 - type: loadout

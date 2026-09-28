@@ -97,6 +97,12 @@ public sealed partial class DepartmentPrototype : IPrototype
     public LocId Name = string.Empty;
 
     /// <summary>
+    /// BlackM random loadout
+    /// </summary>
+    [DataField]
+    public bool AllowsCivilianClothing { get; private set; } = true;
+
+    /// <summary>
     /// A description LocId to display in the character menu as an explanation of the department's function.
     /// </summary>
     [DataField(required: true)]

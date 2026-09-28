@@ -98,9 +98,9 @@
 - type: startingGear
   id: StationEngineerGear
   equipment:
-    eyes: ClothingEyesGlassesMeson
+    #eyes: ClothingEyesGlassesMeson
     passport: PassportBM #BlackM pass
-    belt: ClothingBeltUtilityEngineering
+    #belt: ClothingBeltUtilityEngineering
   #storage:
     #back:
     #- Stuff
