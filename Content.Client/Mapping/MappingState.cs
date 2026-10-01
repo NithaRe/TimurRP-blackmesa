@@ -110,7 +110,7 @@ using static Robust.Shared.Input.Binding.PointerInputCmdHandler;
 
 namespace Content.Client.Mapping;
 
-public sealed class MappingState : GameplayStateBase
+public sealed partial class MappingState : GameplayStateBase
 {
     [Dependency] private readonly IClientAdminManager _admin = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -202,6 +202,7 @@ public sealed class MappingState : GameplayStateBase
             .Register<MappingState>();
 
         _overlays.AddOverlay(new MappingOverlay(this));
+        SetupDepartmentSelection();
 
         _prototypeManager.PrototypesReloaded += OnPrototypesReloaded;
 
@@ -233,6 +234,7 @@ public sealed class MappingState : GameplayStateBase
 
     protected override void Shutdown()
     {
+        ShutdownDepartmentSelection();
         CommandBinds.Unregister<MappingState>();
 
         Screen.Prototypes.SearchBar.OnTextChanged -= OnSearch;
@@ -476,6 +478,8 @@ public sealed class MappingState : GameplayStateBase
 
     protected override void OnKeyBindStateChanged(ViewportBoundKeyEventArgs args)
     {
+        if (HandleDepartmentInput(args))
+            return;
         if (args.Viewport == null)
             base.OnKeyBindStateChanged(new ViewportBoundKeyEventArgs(args.KeyEventArgs, Viewport.Viewport));
         else
@@ -543,6 +547,7 @@ public sealed class MappingState : GameplayStateBase
 
     private void OnSelected(MappingPrototype mapping)
     {
+        SetDepartmentTool(0);
         if (mapping.Prototype == null)
             return;
 
@@ -754,6 +759,7 @@ public sealed class MappingState : GameplayStateBase
 
     private void OnEraseDecalPressed(ButtonToggledEventArgs args)
     {
+        SetDepartmentTool(0);
         _placement.Clear();
         Deselect();
         Screen.EraseEntityButton.Pressed = false;
@@ -763,6 +769,7 @@ public sealed class MappingState : GameplayStateBase
 
     private void EnableEraser()
     {
+        SetDepartmentTool(0);
         if (_placement.Eraser)
             return;
 
@@ -784,6 +791,7 @@ public sealed class MappingState : GameplayStateBase
 
     private void EnablePick()
     {
+        SetDepartmentTool(0);
         Screen.UnPressActionsExcept(Screen.Pick);
         State = CursorState.Pick;
     }
@@ -974,6 +982,7 @@ public sealed class MappingState : GameplayStateBase
 
     public override void FrameUpdate(FrameEventArgs e)
     {
+        UpdateDepartmentSelection();
         if (_updatePlacement)
         {
             _updatePlacement = false;

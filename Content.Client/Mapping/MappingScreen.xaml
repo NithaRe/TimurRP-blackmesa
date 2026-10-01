@@ -65,6 +65,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         ToggleMode="True" Text="{Loc 'mapping-erase-decal'}" StyleClasses="ButtonSquare" />
             </BoxContainer>
             <widgets:ChatBox Visible="False" />
+            <BoxContainer Orientation="Vertical" Margin="0 6 0 0">
+                <Label Text="{Loc department-selection-title}" />
+                <BoxContainer Orientation="Horizontal">
+                    <mapping:MappingActionsButton Name="DepartmentBrush" Access="Public" ToolTip="{Loc department-selection-brush}" />
+                    <mapping:MappingActionsButton Name="DepartmentEraser" Access="Public" ToolTip="{Loc department-selection-eraser}" />
+                    <mapping:MappingActionsButton Name="DepartmentRectangle" Access="Public" ToolTip="{Loc department-selection-rectangle}" />
+                    <SpinBox Name="DepartmentBrushSize" Access="Public" MinWidth="90" ToolTip="{Loc department-selection-size}" />
+                    <mapping:MappingActionsButton Name="DepartmentClear" Access="Public" ToggleMode="False" ToolTip="{Loc department-selection-clear}" />
+                    <Label Name="DepartmentCount" Access="Public" Margin="6 0 0 0" />
+                </BoxContainer>
+                <Button Name="DepartmentCopy" Access="Public" Text="{Loc department-selection-copy}" Disabled="True" />
+                <Label Name="DepartmentStatus" Access="Public" Text="" ClipText="True" />
+            </BoxContainer>
         </BoxContainer>
         <LayoutContainer Name="ViewportContainer" HorizontalExpand="True" VerticalExpand="True">
             <controls:MainViewport Name="MainViewport"/>
