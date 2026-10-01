@@ -132,6 +132,7 @@ public sealed class MappingOverlay : Overlay
 
         var handle = args.WorldHandle;
         handle.UseShader(_shader);
+        _state.DrawDepartmentSelection(args);
 
         switch (_state.State)
         {

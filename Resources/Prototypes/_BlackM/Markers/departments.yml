@@ -1,0 +1,82 @@
+- type: entity
+  parent: MarkerBase
+  id: BlackMDepartmentSpawner
+  name: department spawner
+  suffix: Black Mesa, Modular
+  components:
+  - type: Transform
+    anchored: false
+  - type: Sprite
+    layers:
+    - state: blue
+  - type: DepartmentSpawner
+
+# Populate each department's variants with saved grid paths after mapping.
+- type: entity
+  parent: BlackMDepartmentSpawner
+  id: BlackMDepartmentCommand
+  name: command department spawner
+  components:
+  - type: DepartmentSpawner
+    variants: []
+
+- type: entity
+  parent: BlackMDepartmentSpawner
+  id: BlackMDepartmentSecurity
+  name: security department spawner
+  components:
+  - type: DepartmentSpawner
+    variants: []
+
+- type: entity
+  parent: BlackMDepartmentSpawner
+  id: BlackMDepartmentScience
+  name: science department spawner
+  components:
+  - type: DepartmentSpawner
+    variants: []
+
+- type: entity
+  parent: BlackMDepartmentSpawner
+  id: BlackMDepartmentEngineering
+  name: engineering department spawner
+  components:
+  - type: DepartmentSpawner
+    variants: []
+
+- type: entity
+  parent: BlackMDepartmentSpawner
+  id: BlackMDepartmentMedical
+  name: medical department spawner
+  components:
+  - type: DepartmentSpawner
+    variants: []
+
+- type: entity
+  parent: BlackMDepartmentSpawner
+  id: BlackMDepartmentCargo
+  name: cargo department spawner
+  components:
+  - type: DepartmentSpawner
+    variants: []
+
+- type: entity
+  parent: BlackMDepartmentSpawner
+  id: BlackMDepartmentCivilian
+  name: service department spawner
+  components:
+  - type: DepartmentSpawner
+    variants: []
+
+- type: entity
+  parent: MarkerBase
+  id: BlackMDepartmentOrigin
+  name: department origin
+  suffix: Black Mesa, Modular
+  components:
+  - type: Transform
+    anchored: false
+  - type: Sprite
+    layers:
+    - state: green
+  - type: DepartmentOrigin
