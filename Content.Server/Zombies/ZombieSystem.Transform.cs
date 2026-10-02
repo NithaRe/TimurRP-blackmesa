@@ -32,6 +32,7 @@ using Content.Shared.NPC.Systems;
 using Content.Shared.Nutrition.AnimalHusbandry;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Popups;
+using Content.Shared.SSDIndicator;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Zombies;
 using Content.Shared.Prying.Components;
@@ -144,6 +145,7 @@ public sealed partial class ZombieSystem
         RemComp<BarotraumaComponent>(target);
         RemComp<HungerComponent>(target);
         RemComp<ThirstComponent>(target);
+        RemComp<SSDIndicatorComponent>(target);
         RemComp<ReproductiveComponent>(target);
         RemComp<ReproductivePartnerComponent>(target);
         RemComp<LegsParalyzedComponent>(target);
