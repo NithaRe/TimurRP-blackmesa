@@ -1,0 +1,98 @@
+- type: additionalPosition
+  id: ExtraCargotechnician
+  name: hire-position-cargotechnician
+  department: hire-position-dept-supply
+  departmentOrder: 1
+  description: hire-position-cargotechnician-desc
+  badge: BadgeSupply
+  color: "#A07A52"
+
+- type: additionalPosition
+  id: ExtraStationengineer
+  name: hire-position-stationengineer
+  department: hire-position-dept-engineering
+  departmentOrder: 2
+  description: hire-position-stationengineer-desc
+  badge: BadgeEngineer
+  color: "#C9A646"
+
+- type: additionalPosition
+  id: ExtraScientist
+  name: hire-position-scientist
+  department: hire-position-dept-science
+  departmentOrder: 3
+  description: hire-position-scientist-desc
+  badge: BadgeScience
+  color: "#E8892B"
+
+- type: additionalPosition
+  id: ExtraRoboticist
+  name: hire-position-roboticist
+  department: hire-position-dept-science
+  departmentOrder: 3
+  description: hire-position-roboticist-desc
+  badge: BadgeScience
+  color: "#E8892B"
+
+- type: additionalPosition
+  id: ExtraResearchassistant
+  name: hire-position-researchassistant
+  department: hire-position-dept-science
+  departmentOrder: 3
+  description: hire-position-researchassistant-desc
+  badge: BadgeScience
+  color: "#E8892B"
+
+- type: additionalPosition
+  id: ExtraMedicaldoctor
+  name: hire-position-medicaldoctor
+  department: hire-position-dept-medical
+  departmentOrder: 4
+  description: hire-position-medicaldoctor-desc
+  badge: BadgeMedical
+  color: "#6FA8C4"
+
+- type: additionalPosition
+  id: ExtraSurgeon
+  name: hire-position-surgeon
+  department: hire-position-dept-medical
+  departmentOrder: 4
+  description: hire-position-surgeon-desc
+  badge: BadgeMedical
+  color: "#6FA8C4"
+
+- type: additionalPosition
+  id: ExtraBartender
+  name: hire-position-bartender
+  department: hire-position-dept-service
+  departmentOrder: 5
+  description: hire-position-bartender-desc
+  badge: BadgeService
+  color: "#6FAF7A"
+
+- type: additionalPosition
+  id: ExtraChef
+  name: hire-position-chef
+  department: hire-position-dept-service
+  departmentOrder: 5
+  description: hire-position-chef-desc
+  badge: BadgeService
+  color: "#6FAF7A"
+
+- type: additionalPosition
+  id: ExtraBotanist
+  name: hire-position-botanist
+  department: hire-position-dept-service
+  departmentOrder: 5
+  description: hire-position-botanist-desc
+  badge: BadgeService
+  color: "#6FAF7A"
+
+- type: additionalPosition
+  id: ExtraJanitor
+  name: hire-position-janitor
+  department: hire-position-dept-service
+  departmentOrder: 5
+  description: hire-position-janitor-desc
+  badge: BadgeService
+  color: "#6FAF7A"
