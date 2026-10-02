@@ -126,10 +126,30 @@ public sealed class PassportSystem : EntitySystem
 
     private void OnExamined(EntityUid uid, PassportComponent comp, ExaminedEvent args)
     {
+        if (!string.IsNullOrEmpty(comp.AdditionalJob))
+            args.PushMarkup(Loc.GetString("passport-examine-additional-job", ("job", comp.AdditionalJob)));
+
         if (!comp.Checked)
             return;
 
         args.PushMarkup(Loc.GetString("passport-examine-checked-by", ("name", comp.CheckedBy)));
+    }
+
+    // Наайм персонала
+    public bool TrySetAdditionalJob(EntityUid passportUid, string positionId, string displayName,
+        PassportComponent? comp = null)
+    {
+        if (!Resolve(passportUid, ref comp))
+            return false;
+
+        if (!string.IsNullOrEmpty(comp.AdditionalJobId))
+            return false;
+
+        comp.AdditionalJobId = positionId;
+        comp.AdditionalJob   = displayName;
+        Dirty(passportUid, comp);
+        UpdateUiState(passportUid, comp);
+        return true;
     }
 
     private EntityUid? CreatePreviewDoll(EntityUid characterUid)
@@ -210,7 +230,8 @@ public sealed class PassportSystem : EntitySystem
             displayName, displaySurname, displayCity, displayJob,
             displayNumber, displayDate,
             signature, mrz1, mrz2, comp.OwnerEntity,
-            comp.HasBureaucraticError, comp.ErrorField, comp.Stamp));
+            comp.HasBureaucraticError, comp.ErrorField, comp.Stamp,
+            comp.AdditionalJob));
     }
 
     public void SetStamp(EntityUid passportUid, PassportStampState stamp, PassportComponent? comp = null)

@@ -20,6 +20,10 @@ public sealed partial class PassportWindow : DefaultWindow
         NameLabel.Text           = state.OwnerName;
         JobLabel.Text            = state.JobTitle;
         CityLabel.Text           = state.City;
+
+        var hasExtra = !string.IsNullOrWhiteSpace(state.AdditionalJob);
+        AdditionalJobBox.Visible   = hasExtra;
+        AdditionalJobLabel.Text    = hasExtra ? state.AdditionalJob : string.Empty;
         PassportNumberLabel.Text = state.PassportNumber;
         IssuedDateLabel.Text     = state.IssuedDate;
         SignatureLabel.Text      = state.Signature;

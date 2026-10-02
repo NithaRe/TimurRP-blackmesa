@@ -26,7 +26,7 @@
                        VerticalAlignment="Center"/>
             </BoxContainer>
 
-            <BoxContainer Orientation="Horizontal" MinSize="0 190">
+            <BoxContainer Orientation="Horizontal" MinSize="0 222">
                 <SpriteView Name="OwnerSpriteView"
                             MinSize="110 190"
                             MaxSize="110 190"
@@ -56,6 +56,16 @@
                            FontColorOverride="#14100A"
                            Margin="2 1 0 10"/>
 
+                    <BoxContainer Name="AdditionalJobBox"
+                                  Orientation="Vertical"
+                                  Visible="False">
+                        <Label Text="{Loc passport-additional-job-label}"
+                               FontColorOverride="#7A5A12"/>
+                        <Label Name="AdditionalJobLabel"
+                               FontColorOverride="#14100A"
+                               Margin="2 1 0 10"/>
+                    </BoxContainer>
+
                     <Label Text="{Loc passport-city-label}"
                            FontColorOverride="#5F4E2A"/>
                     <Label Name="CityLabel"
@@ -65,7 +75,7 @@
             </BoxContainer>
 
             <BoxContainer Orientation="Vertical"
-                          MinSize="0 104"
+                          MinSize="0 72"
                           Margin="12 8 0 0"
                           SeparationOverride="2">
                 <Label Text="{Loc passport-signature-label}"
