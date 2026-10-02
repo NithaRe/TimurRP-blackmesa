@@ -11,31 +11,40 @@
     - state: blue
   - type: DepartmentSpawner
 
-# Populate each department's variants with saved grid paths after mapping.
+# сommand.
 - type: entity
   parent: BlackMDepartmentSpawner
   id: BlackMDepartmentCommand
   name: command department spawner
   components:
   - type: DepartmentSpawner
-    variants: []
+    variants:
+    - /Maps/_BlackM/Departments/commandhub_default.yml
+    - /Maps/_BlackM/Departments/commandhub_crown.yml
 
+# sec
 - type: entity
   parent: BlackMDepartmentSpawner
   id: BlackMDepartmentSecurity
   name: security department spawner
   components:
   - type: DepartmentSpawner
-    variants: []
+    variants:
+    - /Maps/_BlackM/Departments/security_default.yml
+    - /Maps/_BlackM/Departments/security_pink.yml
 
+# science
 - type: entity
   parent: BlackMDepartmentSpawner
   id: BlackMDepartmentScience
   name: science department spawner
   components:
   - type: DepartmentSpawner
-    variants: []
+    variants:
+    - /Maps/_BlackM/Departments/rnd_default.yml
+    - /Maps/_BlackM/Departments/rnd_infected.yml
 
+# engineering   
 - type: entity
   parent: BlackMDepartmentSpawner
   id: BlackMDepartmentEngineering
@@ -44,29 +53,39 @@
   - type: DepartmentSpawner
     variants: []
 
+# medical 
 - type: entity
   parent: BlackMDepartmentSpawner
   id: BlackMDepartmentMedical
   name: medical department spawner
   components:
   - type: DepartmentSpawner
-    variants: []
+    variants:
+    - /Maps/_BlackM/Departments/medical_default.yml
+    - /Maps/_BlackM/Departments/medical_trash.yml
 
+# Service
+- type: entity
+  parent: BlackMDepartmentSpawner
+  id: BlackMDepartmentService
+  name: service department spawner
+  components:
+  - type: DepartmentSpawner
+    variants:
+    - /Maps/_BlackM/Departments/barstyle_default.yml
+    - /Maps/_BlackM/Departments/barstyle_cyber.yml
+    - /Maps/_BlackM/Departments/double_service.yml
+    
+# Cargo
 - type: entity
   parent: BlackMDepartmentSpawner
   id: BlackMDepartmentCargo
   name: cargo department spawner
   components:
   - type: DepartmentSpawner
-    variants: []
-
-- type: entity
-  parent: BlackMDepartmentSpawner
-  id: BlackMDepartmentCivilian
-  name: service department spawner
-  components:
-  - type: DepartmentSpawner
-    variants: []
+    variants: 
+    - /Maps/_BlackM/Departments/cargo_default.yml
+    - /Maps/_BlackM/Departments/cargo_worked.yml
 
 - type: entity
   parent: MarkerBase
