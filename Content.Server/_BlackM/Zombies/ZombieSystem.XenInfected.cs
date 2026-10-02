@@ -6,6 +6,7 @@ using Content.Shared.Body.Components;
 using Content.Shared.Interaction.Components;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Nutrition.Components;
+using Content.Shared.SSDIndicator;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Zombies;
 
@@ -21,6 +22,7 @@ public sealed partial class ZombieSystem
         RemComp<BarotraumaComponent>(uid);
         RemComp<HungerComponent>(uid);
         RemComp<ThirstComponent>(uid);
+        RemComp<SSDIndicatorComponent>(uid);
 
         if (TryComp<BloodstreamComponent>(uid, out var bloodstream))
             _bloodstream.SetBloodLossThreshold((uid, bloodstream), 0f);
