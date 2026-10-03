@@ -1,0 +1,81 @@
+- type: entity
+  id: HireTerminalBM
+  name: терминал найма
+  description: Терминал дополнительных должностей. Вставьте паспорт, заполните заявку и получите ключ доступа в нужный отдел.
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: HireTerminal
+      leaderJobIds:
+        - Captain
+      autoApprovePlayerThreshold: 0
+    - type: Transform
+      anchored: true
+    - type: Physics
+      bodyType: Static
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape:
+            !type:PhysShapeAabb
+            bounds: "-0.25,-0.25,0.25,0.4"
+          density: 190
+          mask:
+            - MachineMask
+          layer:
+            - MachineLayer
+    - type: Clickable
+    - type: InteractionOutline
+    - type: Sprite
+      sprite: _BlackM/Structures/Machines/hire_terminal.rsi
+      drawdepth: SmallObjects
+      layers:
+        - state: base
+          map: [ "enum.HireTerminalVisualLayers.Base" ]
+        - state: screen
+          map: [ "enum.HireTerminalVisualLayers.Screen" ]
+          shader: unshaded
+        - state: passport
+          map: [ "enum.HireTerminalVisualLayers.Passport" ]
+          shader: unshaded
+          visible: false
+    - type: Appearance
+    - type: GenericVisualizer
+      visuals:
+        enum.HireTerminalVisuals.HasPassport:
+          enum.HireTerminalVisualLayers.Passport:
+            True: { visible: true }
+            False: { visible: false }
+    - type: PointLight
+      radius: 1.5
+      energy: 0.6
+      color: "#4FD1C5"
+    - type: ItemSlots
+      slots:
+        hireTerminal-slot:
+          name: Паспорт
+          insertSound: /Audio/Machines/id_insert.ogg
+          ejectSound: /Audio/Machines/id_swipe.ogg
+          whitelist:
+            components:
+              - Passport
+    - type: ContainerContainer
+      containers:
+        hireTerminal-slot: !type:ContainerSlot
+    - type: ActivatableUI
+      key: enum.HireTerminalUiKey.Key
+    - type: UserInterface
+      interfaces:
+        enum.HireTerminalUiKey.Key:
+          type: HireTerminalBoundUserInterface
+    - type: Damageable
+      damageContainer: StructuralInorganic
+      damageModifierSet: Metallic
+    - type: Destructible
+      thresholds:
+        - trigger:
+            !type:DamageTrigger
+            damage: 300
+          behaviors:
+            - !type:DoActsBehavior
+              acts: [ "Destruction" ]
