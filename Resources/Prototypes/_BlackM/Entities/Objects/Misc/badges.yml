@@ -104,7 +104,7 @@
       accessTags:
         - Research
         - Robotics
-      examineColor: "#b432e6"
+      examineColor: "#E8892B"
       cardSpriteState: scienoncard
     - type: Sprite
       sprite: _BlackM/Objects/Misc/badges.rsi
