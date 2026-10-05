@@ -137,6 +137,7 @@ using System.Numerics;
 using Content.Client.ContextMenu.UI;
 using Content.Client.Examine;
 using Content.Client.PDA;
+using Content.Client._BlackM.Lobby.Terminal; // BlackM
 using Content.Client.Resources;
 using Content.Client.Silicons.Laws.SiliconLawEditUi;
 using Content.Client.UserInterface.Controls;
@@ -282,6 +283,13 @@ namespace Content.Client.Stylesheets
         public static readonly Color TerminalGreen = Color.FromHex("#33FF66");
         public static readonly Color TerminalGreenDim = Color.FromHex("#145C24");
         public static readonly Color TerminalBlack = Color.FromHex("#050805");
+        // BlackM start
+        public const string StyleClassJobButtonTerminalBlackM = "JobButtonTerminalBlackM";
+        public const string StyleClassTabContainerTerminalBlackM = "TabContainerTerminalBlackM";
+        public const string StyleClassItemListTerminalBlackM = "ItemListTerminalBlackM";
+        public const string StyleClassSliderTerminalBlackM = "SliderTerminalBlackM";
+        public const string StyleClassLineEditTerminalBlackM = "LineEditTerminalBlackM";
+        // BlackM end
 
         public static readonly Color ButtonColorCautionDefault = Color.FromHex("#ab3232");
         public static readonly Color ButtonColorCautionHovered = Color.FromHex("#cf2f2f");
@@ -364,6 +372,9 @@ namespace Content.Client.Stylesheets
             var notoSansMono = resCache.NotoStack2ElectricBoogaloo("/EngineFonts/NotoSans/NotoSansMono-Regular.ttf", size: 12); // Goobstation - ZH text support
             var robotoMonoBold11 = resCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 11);
             var robotoMonoBold12 = resCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 12);
+            // BlackM start
+            var terminalBold12 = TerminalFonts.Bold(resCache, 12);
+            // BlackM end
             var robotoMonoBold14 = resCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 14);
             var windowHeaderTex = resCache.GetTexture("/Textures/Interface/Nano/window_header.png");
             var windowHeader = new StyleBoxTexture
@@ -1619,7 +1630,10 @@ namespace Content.Client.Stylesheets
                 new SelectorElement(typeof(Label), null, null, null)),
                     new[]
                     {
-                new StyleProperty("font", robotoMonoBold12),
+                // BlackM start
+                // new StyleProperty("font", robotoMonoBold12),
+                new StyleProperty("font", terminalBold12),
+                // BlackM end
                 new StyleProperty(Label.StylePropertyAlignMode, Label.AlignMode.Center),
                 new StyleProperty(Label.StylePropertyFontColor, TerminalGreen),
                 }),
@@ -1627,8 +1641,112 @@ namespace Content.Client.Stylesheets
                 new StyleRule(new SelectorElement(typeof(Label), new[] {StyleClassLabelTerminalBlackM}, null, null),
                     new[]
                     {
-                new StyleProperty("font", robotoMonoBold12),
+                // BlackM start
+                // new StyleProperty("font", robotoMonoBold12),
+                // new StyleProperty(Label.StylePropertyFontColor, TerminalGreen),
+                // }),
+                new StyleProperty("font", terminalBold12),
                 new StyleProperty(Label.StylePropertyFontColor, TerminalGreen),
+                }),
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassJobButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassNormal}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = TerminalBlack,
+                            BorderColor = TerminalGreenDim,
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 10,
+                            ContentMarginRightOverride = 10,
+                            ContentMarginTopOverride = 4,
+                            ContentMarginBottomOverride = 4,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassJobButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassHover}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = TerminalGreenDim.WithAlpha(0.25f),
+                            BorderColor = TerminalGreen,
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 10,
+                            ContentMarginRightOverride = 10,
+                            ContentMarginTopOverride = 4,
+                            ContentMarginBottomOverride = 4,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassJobButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassPressed}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = TerminalGreenDim.WithAlpha(0.5f),
+                            BorderColor = TerminalGreen,
+                            BorderThickness = new Thickness(2),
+                            ContentMarginLeftOverride = 10,
+                            ContentMarginRightOverride = 10,
+                            ContentMarginTopOverride = 4,
+                            ContentMarginBottomOverride = 4,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassJobButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassDisabled}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = TerminalBlack,
+                            BorderColor = Color.DarkGray.WithAlpha(0.3f),
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 10,
+                            ContentMarginRightOverride = 10,
+                            ContentMarginTopOverride = 4,
+                            ContentMarginBottomOverride = 4,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(TabContainer), new[] {StyleClassTabContainerTerminalBlackM}, null, null),
+                    new[]
+                    {
+                        new StyleProperty(TabContainer.StylePropertyPanelStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = TerminalBlack.WithAlpha(0.85f),
+                            BorderColor = TerminalGreenDim,
+                            BorderThickness = new Thickness(1),
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ItemList), new[] {StyleClassItemListTerminalBlackM}, null, null), new[]
+                {
+                    new StyleProperty(ItemList.StylePropertyBackground,
+                        new StyleBoxFlat {BackgroundColor = TerminalBlack, BorderColor = TerminalGreenDim, BorderThickness = new Thickness(1)}),
+                    new StyleProperty(ItemList.StylePropertyItemBackground,
+                        new StyleBoxFlat {BackgroundColor = Color.Transparent, ContentMarginLeftOverride = 4, ContentMarginTopOverride = 2, ContentMarginBottomOverride = 2}),
+                    new StyleProperty(ItemList.StylePropertyDisabledItemBackground,
+                        new StyleBoxFlat {BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.35f), ContentMarginLeftOverride = 4, ContentMarginTopOverride = 2, ContentMarginBottomOverride = 2}),
+                    new StyleProperty(ItemList.StylePropertySelectedItemBackground,
+                        new StyleBoxFlat {BackgroundColor = TerminalGreenDim.WithAlpha(0.55f), BorderColor = TerminalGreen, BorderThickness = new Thickness(1), ContentMarginLeftOverride = 4, ContentMarginTopOverride = 2, ContentMarginBottomOverride = 2}),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Slider), new[] {StyleClassSliderTerminalBlackM}, null, null), new[]
+                {
+                    new StyleProperty(Slider.StylePropertyBackground,
+                        new StyleBoxFlat {BackgroundColor = TerminalBlack, BorderColor = TerminalGreenDim, BorderThickness = new Thickness(1), ContentMarginTopOverride = 7, ContentMarginBottomOverride = 7}),
+                    new StyleProperty(Slider.StylePropertyForeground,
+                        new StyleBoxFlat {BackgroundColor = Color.Transparent}),
+                    new StyleProperty(Slider.StylePropertyFill,
+                        new StyleBoxFlat {BackgroundColor = TerminalGreenDim.WithAlpha(0.8f)}),
+                    new StyleProperty(Slider.StylePropertyGrabber,
+                        new StyleBoxFlat {BackgroundColor = TerminalGreen, ContentMarginLeftOverride = 5, ContentMarginRightOverride = 5, ContentMarginTopOverride = 9, ContentMarginBottomOverride = 9}),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(LineEdit), new[] {StyleClassLineEditTerminalBlackM}, null, null), new[]
+                {
+                    new StyleProperty(LineEdit.StylePropertyStyleBox,
+                        new StyleBoxFlat {BackgroundColor = TerminalBlack, BorderColor = TerminalGreenDim, BorderThickness = new Thickness(1), ContentMarginLeftOverride = 6, ContentMarginRightOverride = 6, ContentMarginTopOverride = 3, ContentMarginBottomOverride = 3}),
                 }),
                 // BlackM end
 
