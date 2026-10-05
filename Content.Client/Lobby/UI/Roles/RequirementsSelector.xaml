@@ -6,10 +6,12 @@ SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
+<!-- BlackM start -->
+<!--
 <BoxContainer xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          Orientation="Horizontal">
-    <!--Width set to slightly wider than the longest job name (NTR) to place the option buttons consistently.-->
+    <!- -Width set to slightly wider than the longest job name (NTR) to place the option buttons consistently.- ->
     <Label Name="TitleLabel"
            Margin="5 0"
            SetWidth="220"
@@ -18,8 +20,25 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <BoxContainer Name="OptionsContainer"
                   SetWidth="400"
                   Margin="0 0 6 0"/>
-    <!--21 was the height of OptionsContainer at the time that this button was added. So I am limiting the texture to 21x21-->
+    <!- -21 was the height of OptionsContainer at the time that this button was added. So I am limiting the texture to 21x21- ->
     <Control SetSize="21 21">
+-->
+<BoxContainer xmlns="https://spacestation14.io"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         Orientation="Horizontal"
+         SeparationOverride="4">
+    <Label Name="TitleLabel"
+           Margin="5 0"
+           ClipText="True"
+           HorizontalExpand="True"
+           MouseFilter="Stop"
+           StyleClasses="LabelTerminalBlackM"/>
+
+    <BoxContainer Name="OptionsContainer"
+                  Margin="0 0 4 0"
+                  VerticalAlignment="Center"/>
+    <Control SetSize="21 21" VerticalAlignment="Center">
+<!-- BlackM end -->
         <TextureButton Name="Help" StyleClasses="HelpButton"/>
     </Control>
 </BoxContainer>

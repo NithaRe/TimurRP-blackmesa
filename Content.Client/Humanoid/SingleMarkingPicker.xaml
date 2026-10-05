@@ -13,16 +13,28 @@ SPDX-License-Identifier: MIT
     <!-- "Slot" selection -->
     <Label Name="CategoryName" />
     <BoxContainer Name="SlotSelectorContainer" HorizontalExpand="True">
+        <!-- BlackM start -->
+        <!--
         <OptionButton Name="SlotSelector" HorizontalExpand="True" StyleClasses="OpenBoth" />
         <Button Name="AddButton" Text="{Loc 'marking-slot-add'}" StyleClasses="OpenBoth" />
         <Button Name="RemoveButton" Text="{Loc 'marking-slot-remove'}" StyleClasses="OpenLeft" />
+        -->
+        <OptionButton Name="SlotSelector" HorizontalExpand="True" StyleClasses="JobButtonTerminalBlackM" />
+        <Button Name="AddButton" Text="{Loc 'marking-slot-add'}" StyleClasses="ButtonTerminalBlackM" />
+        <Button Name="RemoveButton" Text="{Loc 'marking-slot-remove'}" StyleClasses="ButtonTerminalBlackM" />
+        <!-- BlackM end -->
     </BoxContainer>
     <LineEdit Name="Search" PlaceHolder="{Loc 'markings-search'}" HorizontalExpand="True" />
 
     <!-- Item list -->
     <BoxContainer Name="MarkingSelectorContainer" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
         <ScrollContainer MinHeight="500" VerticalExpand="True" HorizontalExpand="True">
+            <!-- BlackM start -->
+            <!--
             <ItemList Name="MarkingList" VerticalExpand="True" />
+            -->
+            <ItemList StyleClasses="ItemListTerminalBlackM" Name="MarkingList" VerticalExpand="True" />
+            <!-- BlackM end -->
         </ScrollContainer>
 
         <!-- Color sliders -->

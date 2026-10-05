@@ -1309,6 +1309,9 @@ namespace Content.Client.Lobby.UI
             {
                 var departmentName = Loc.GetString(department.Name);
 
+                // BlackM start
+                GridContainer? jobGrid = null;
+                // BlackM end
                 if (!_jobCategories.TryGetValue(department.ID, out var category))
                 {
                     category = new BoxContainer
@@ -1327,27 +1330,57 @@ namespace Content.Client.Lobby.UI
                     {
                         category.AddChild(new Control
                         {
-                            MinSize = new Vector2(0, 23),
+                            // BlackM start
+                            // MinSize = new Vector2(0, 23),
+                            MinSize = new Vector2(0, 12),
+                            // BlackM end
                         });
                     }
 
                     category.AddChild(new PanelContainer
                     {
-                        PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#464966") },
+                        // BlackM start
+                        // PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#464966") },
+                        PanelOverride = new StyleBoxFlat
+                        {
+                            BackgroundColor = StyleNano.TerminalGreenDim.WithAlpha(0.3f),
+                            BorderColor = StyleNano.TerminalGreenDim,
+                            BorderThickness = new Thickness(0, 0, 0, 1),
+                        },
+                        // BlackM end
                         Children =
                         {
                             new Label
                             {
-                                Text = Loc.GetString("humanoid-profile-editor-department-jobs-label",
-                                    ("departmentName", departmentName)),
-                                Margin = new Thickness(5f, 0, 0, 0)
+                                // BlackM start
+                                // Text = Loc.GetString("humanoid-profile-editor-department-jobs-label",
+                                    // ("departmentName", departmentName)),
+                                // Margin = new Thickness(5f, 0, 0, 0)
+                                Text = "// " + Loc.GetString("humanoid-profile-editor-department-jobs-label",
+                                    ("departmentName", departmentName)).ToUpperInvariant(),
+                                StyleClasses = { StyleNano.StyleClassLabelTerminalBlackM },
+                                Margin = new Thickness(6f, 2f, 0, 2f)
+                                // BlackM end
                             }
                         }
                     });
 
+                    // BlackM start
+                    jobGrid = new GridContainer
+                    {
+                        Columns = 2,
+                        HSeparationOverride = 8,
+                        VSeparationOverride = 2,
+                        HorizontalExpand = true,
+                    };
+                    category.AddChild(jobGrid);
+                    // BlackM end
                     _jobCategories[department.ID] = category;
                     JobList.AddChild(category);
                 }
+                // BlackM start
+                jobGrid ??= category.Children.OfType<GridContainer>().First();
+                // BlackM end
 
                 var jobs = department.Roles.Select(jobId => _prototypeManager.Index(jobId))
                     .Where(job => job.SetPreference)
@@ -1360,11 +1393,17 @@ namespace Content.Client.Lobby.UI
                     var jobContainer = new BoxContainer()
                     {
                         Orientation = LayoutOrientation.Horizontal,
+                        // BlackM start
+                        HorizontalExpand = true,
+                        // BlackM end
                     };
 
                     var selector = new RequirementsSelector()
                     {
                         Margin = new Thickness(3f, 3f, 3f, 0f),
+                        // BlackM start
+                        HorizontalExpand = true,
+                        // BlackM end
                     };
                     selector.OnOpenGuidebook += OnOpenGuidebook;
 
@@ -1455,7 +1494,10 @@ namespace Content.Client.Lobby.UI
                     _jobPriorities.Add((job.ID, selector));
                     jobContainer.AddChild(selector);
                     // jobContainer.AddChild(loadoutWindowBtn); // blackm edit 
-                    category.AddChild(jobContainer);
+                    // BlackM start
+                    // category.AddChild(jobContainer);
+                    jobGrid.AddChild(jobContainer);
+                    // BlackM end
                 }
             }
 

@@ -19,12 +19,25 @@ SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
+<!-- BlackM start -->
+<!--
 <BoxContainer xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:humanoid="clr-namespace:Content.Client.Humanoid"
          xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
          xmlns:ui="clr-namespace:Content.Client.Lobby.UI"
          HorizontalExpand="True">
+-->
+<BoxContainer xmlns="https://spacestation14.io"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:humanoid="clr-namespace:Content.Client.Humanoid"
+         xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
+         xmlns:ui="clr-namespace:Content.Client.Lobby.UI"
+         xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+         xmlns:style="clr-namespace:Content.Client.Stylesheets"
+         xmlns:terminal="clr-namespace:Content.Client._BlackM.Lobby.Terminal"
+         HorizontalExpand="True">
+<!-- BlackM end -->
         <!-- Left side -->
         <BoxContainer Orientation="Vertical" Margin="10 10 10 10" HorizontalExpand="True">
             <!-- Middle container -->
@@ -67,7 +80,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </BoxContainer>
             <Control MinHeight="10" />
             <!-- tabContainer -->
+            <!-- BlackM start -->
+            <!--
             <TabContainer Name="TabContainer" VerticalExpand="True">
+            -->
+            <Control VerticalExpand="True" RectClipContent="True">
+            <TabContainer Name="TabContainer" Access="Public"
+                          StyleClasses="TabContainerTerminalBlackM">
+            <!-- BlackM end -->
                 <BoxContainer Orientation="Vertical">
                     <ScrollContainer VerticalExpand="True">
                         <!-- appearanceList -->
@@ -135,7 +155,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                     <Label Text="{Loc 'blackm-bark-label'}" />
                                     <Control HorizontalExpand="True"/>
                                     <OptionButton Name="BarkVoiceButton" HorizontalAlignment="Right" />
+                                    <!-- BlackM start -->
+                                    <!--
                                     <Button Name="BarkVoicePlayButton" Text="▶" MaxWidth="80" />
+                                    -->
+                                    <Button Name="BarkVoicePlayButton" Text="&gt;" MaxWidth="80" />
+                                    <!-- BlackM end -->
                                 </BoxContainer>
                                 <BoxContainer HorizontalExpand="True" Visible="False" Name="BarkPitchContainer">
                                     <Label Text="{Loc 'blackm-bark-pitch-label'}" MinWidth="110" />
@@ -208,14 +233,24 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     </ScrollContainer>
                 </BoxContainer>
             </TabContainer>
+            <!-- BlackM start -->
+            </Control>
+            <!-- BlackM end -->
         </BoxContainer>
         <!-- Right side -->
         <BoxContainer Orientation="Vertical" VerticalExpand="True" VerticalAlignment="Center">
             <SpriteView Name="SpriteView" Scale="8 8" Margin="4" SizeFlagsStretchRatio="1" />
             <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5">
+                <!-- BlackM start -->
+                <!--
                 <Button Name="SpriteRotateLeft" Text="◀" StyleClasses="OpenRight" />
                 <cc:VSeparator Margin="2 0 3 0" />
                 <Button Name="SpriteRotateRight" Text="▶" StyleClasses="OpenLeft" />
+                -->
+                <Button Name="SpriteRotateLeft" Text="&lt;" StyleClasses="ButtonTerminalBlackM" />
+                <cc:VSeparator Margin="2 0 3 0" />
+                <Button Name="SpriteRotateRight" Text="&gt;" StyleClasses="ButtonTerminalBlackM" />
+                <!-- BlackM end -->
             </BoxContainer>
         </BoxContainer>
 </BoxContainer>

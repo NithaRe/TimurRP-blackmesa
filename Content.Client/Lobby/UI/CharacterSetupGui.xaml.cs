@@ -4,9 +4,11 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Client._BlackM.Lobby.Terminal; // BlackM
 using Content.Client.Info;
 using Content.Client.Info.PlaytimeStats;
 using Content.Client.Resources;
+using Content.Client.Stylesheets; // BlackM
 using Content.Corvax.Interfaces.Client;
 using Content.Shared.CCVar;
 using Content.Shared.Preferences;
@@ -18,6 +20,7 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing; // BlackM
 
 namespace Content.Client.Lobby.UI
 {
@@ -35,6 +38,13 @@ namespace Content.Client.Lobby.UI
 
         private readonly Button _createNewCharacterButton;
 
+        // BlackM start
+        private readonly HumanoidProfileEditor _editor;
+        private readonly ButtonGroup _sectionGroup = new();
+        private readonly List<Button> _sectionButtons = new();
+        private int _lastTabCount = -1;
+        private int _lastTab = -1;
+        // BlackM end
         public event Action<int>? SelectCharacter;
         public event Action<int>? DeleteCharacter;
 
@@ -43,20 +53,33 @@ namespace Content.Client.Lobby.UI
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
 
-            var panelTex = _resourceCache.GetTexture("/Textures/Interface/Nano/button.svg.96dpi.png");
-            var back = new StyleBoxTexture
+            // BlackM start
+            // var panelTex = _resourceCache.GetTexture("/Textures/Interface/Nano/button.svg.96dpi.png");
+            // var back = new StyleBoxTexture
+            // {
+                // Texture = panelTex,
+                // Modulate = new Color(37, 37, 42)
+            // };
+            // back.SetPatchMargin(StyleBox.Margin.All, 10);
+//
+            // BackgroundPanel.PanelOverride = back;
+            BackgroundPanel.PanelOverride = new StyleBoxFlat
             {
-                Texture = panelTex,
-                Modulate = new Color(37, 37, 42)
+                BackgroundColor = StyleNano.TerminalBlack.WithAlpha(0.94f),
+                BorderColor = StyleNano.TerminalGreenDim,
+                BorderThickness = new Thickness(1),
             };
-            back.SetPatchMargin(StyleBox.Margin.All, 10);
-
-            BackgroundPanel.PanelOverride = back;
+            // BlackM end
 
             _createNewCharacterButton = new Button
             {
                 Text = Loc.GetString("character-setup-gui-create-new-character-button"),
+                // BlackM start
+            // };
+                StyleClasses = { StyleNano.StyleClassButtonTerminalBlackM },
             };
+            TerminalSounds.Attach(_createNewCharacterButton);
+                // BlackM end
 
             _createNewCharacterButton.OnPressed += args =>
             {
@@ -66,6 +89,9 @@ namespace Content.Client.Lobby.UI
             };
 
             CharEditor.AddChild(profileEditor);
+            // BlackM start
+            _editor = profileEditor;
+            // BlackM end
             RulesButton.OnPressed += _ => new RulesAndInfoWindow().Open();
 
             StatsButton.OnPressed += _ => new PlaytimeStatsWindow().OpenCentered();
@@ -79,6 +105,110 @@ namespace Content.Client.Lobby.UI
                 SponsorButton.OnPressed += _ => creator.OpenWindow();
             }
             // CorvaxGoob-Sponsors-End
+            // BlackM start
+            TerminalSounds.AttachAll(this);
+        }
+
+        protected override void FrameUpdate(FrameEventArgs args)
+        {
+            base.FrameUpdate(args);
+
+            var tabs = _editor.TabContainer;
+
+            ClipTabStrip(tabs);
+
+            if (tabs.ChildCount != _lastTabCount)
+                RebuildSections();
+
+            if (tabs.CurrentTab != _lastTab)
+                SyncSectionSelection();
+
+            TerminalStyler.Apply(_editor, true);
+        }
+
+        private static void ClipTabStrip(TabContainer tabs)
+        {
+            if (tabs.ChildCount == 0 || tabs.CurrentTab < 0 || tabs.CurrentTab >= tabs.ChildCount)
+                return;
+
+            var page = tabs.GetChild(tabs.CurrentTab);
+            var header = page.GlobalPosition.Y - tabs.GlobalPosition.Y;
+            if (header < 4f || header > 80f)
+                return;
+
+            var wanted = -(header - 1f);
+            if (MathF.Abs(tabs.Margin.Top - wanted) > 0.5f)
+                tabs.Margin = new Thickness(0, wanted, 0, 0);
+        }
+
+        private static string TabTitle(TabContainer tabs, int index)
+        {
+            return TabContainer.GetTabTitle(tabs.GetChild(index)) ?? string.Empty;
+        }
+
+        private void RebuildSections()
+        {
+            var tabs = _editor.TabContainer;
+            _lastTabCount = tabs.ChildCount;
+
+            SectionMenu.RemoveAllChildren();
+            _sectionButtons.Clear();
+
+            for (var i = 0; i < tabs.ChildCount; i++)
+            {
+                var index = i;
+                var button = new Button
+                {
+                    Text = $"[{i + 1:00}] {TabTitle(tabs, i).ToUpperInvariant()}",
+                    ToggleMode = true,
+                    Group = _sectionGroup,
+                    HorizontalExpand = true,
+                    StyleClasses = { StyleNano.StyleClassButtonTerminalBlackM },
+                };
+
+                button.OnPressed += _ =>
+                {
+                    tabs.CurrentTab = index;
+                    SyncSectionSelection();
+                    TerminalStyler.Apply(_editor, true);
+                };
+
+                _sectionButtons.Add(button);
+                SectionMenu.AddChild(button);
+            }
+
+            TerminalSounds.AttachAll(SectionMenu);
+            SyncSectionSelection();
+        }
+
+        private void SyncSectionSelection()
+        {
+            _lastTab = _editor.TabContainer.CurrentTab;
+
+            for (var i = 0; i < _sectionButtons.Count; i++)
+                _sectionButtons[i].Pressed = i == _lastTab;
+        }
+
+        public void OpenSection(string tabTitleLocId)
+        {
+            var wanted = Loc.GetString(tabTitleLocId);
+            var tabs = _editor.TabContainer;
+
+            for (var i = 0; i < tabs.ChildCount; i++)
+            {
+                if (TabTitle(tabs, i) != wanted)
+                    continue;
+
+                tabs.CurrentTab = i;
+                SyncSectionSelection();
+                return;
+            }
+        }
+
+        public void PlayIntro()
+        {
+            TitleLabel.Reveal("> " + Loc.GetString("character-setup-gui-character-setup-label"), 80f);
+            // BlackM end
         }
 
         /// <summary>
@@ -113,6 +243,9 @@ namespace Content.Client.Lobby.UI
                     slot == selectedSlot);
 
                 Characters.AddChild(characterPickerButton);
+                // BlackM start
+                TerminalSounds.AttachAll(characterPickerButton);
+                // BlackM end
 
                 characterPickerButton.OnPressed += args =>
                 {

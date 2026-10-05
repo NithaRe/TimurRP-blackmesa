@@ -7,6 +7,8 @@ SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
+<!-- BlackM start -->
+<!--
 <Control
     xmlns="https://spacestation14.io"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -28,16 +30,87 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         HorizontalAlignment="Center"
                         StyleClasses="ButtonBlackMAccent"
                         Margin="0 5 0 0" />
-                <!--CorvaxGoob-NoCoins
+                <!- -CorvaxGoob-NoCoins
                 <Button Name="PatronPerks" Access="Public" Text="{Loc 'rmc-ui-patron-perks'}"
                         Margin="0 5 0 0" Visible="False" />
                 <cc:CommandButton Name="Currency"
                     Command="balanceui"
                     Text="{Loc 'gs-balanceui-shop-label'}"
                     Margin="0 5 0 0"/>
-                    -->
+                    - ->
             </BoxContainer>
         </BoxContainer>
         <Label Name="Unloaded" Text="{Loc 'lobby-character-preview-panel-unloaded-preferences-label'}"/>
+-->
+<Control
+    xmlns="https://spacestation14.io"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+    xmlns:style="clr-namespace:Content.Client.Stylesheets"
+    xmlns:terminal="clr-namespace:Content.Client._BlackM.Lobby.Terminal">
+    <BoxContainer Name="VBox" Orientation="Vertical">
+        <Label Name="Header" Visible="False" Text="{Loc 'lobby-character-preview-panel-header'}"
+               StyleClasses="LabelTerminalBlackM" />
+        <BoxContainer Name="Loaded" Orientation="Vertical" Visible="False">
+            <PanelContainer>
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#030A05CC"
+                                      BorderColor="{x:Static style:StyleNano.TerminalGreenDim}"
+                                      BorderThickness="1" />
+                </PanelContainer.PanelOverride>
+                <BoxContainer Orientation="Vertical" SeparationOverride="6" Margin="8">
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="{Loc 'blackm-file-title'}" StyleClasses="LabelTerminalBlackM"
+                               HorizontalExpand="True" ClipText="True" />
+                        <Label Text="{Loc 'blackm-file-status'}" StyleClasses="LabelTerminalBlackM"
+                               Modulate="#FFFFFFB0" />
+                    </BoxContainer>
+                    <PanelContainer MinSize="0 2">
+                        <PanelContainer.PanelOverride>
+                            <gfx:StyleBoxFlat BackgroundColor="{x:Static style:StyleNano.TerminalGreenDim}" />
+                        </PanelContainer.PanelOverride>
+                    </PanelContainer>
+                    <BoxContainer Orientation="Horizontal" SeparationOverride="14">
+                        <PanelContainer VerticalAlignment="Top">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#0A2410"
+                                                  BorderColor="{x:Static style:StyleNano.TerminalGreen}"
+                                                  BorderThickness="2" />
+                            </PanelContainer.PanelOverride>
+                            <Control SetSize="112 112" RectClipContent="True">
+                                <Control Name="ViewBox" />
+                                <PanelContainer MouseFilter="Ignore">
+                                    <PanelContainer.PanelOverride>
+                                        <gfx:StyleBoxFlat BackgroundColor="#2BFF6A24" />
+                                    </PanelContainer.PanelOverride>
+                                </PanelContainer>
+                                <terminal:TerminalScanlines LineStep="3" LineAlpha="0.22" RollingBar="True"
+                                                            Flicker="True" VignetteStrength="0.05" />
+                            </Control>
+                        </PanelContainer>
+                        <BoxContainer Orientation="Vertical" VerticalAlignment="Center" HorizontalExpand="True"
+                                      SeparationOverride="4">
+                            <Label Name="FieldInfo" StyleClasses="LabelTerminalBlackM" HorizontalExpand="True"
+                                   ClipText="True" />
+                            <PanelContainer MinSize="0 1" Margin="0 4 0 2">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="{x:Static style:StyleNano.TerminalGreenDim}" />
+                                </PanelContainer.PanelOverride>
+                            </PanelContainer>
+                            <Label Name="Summary" StyleClasses="LabelTerminalBlackM" HorizontalExpand="True"
+                                   ClipText="True" Modulate="#FFFFFFB0" />
+                            <Label Name="FileId" StyleClasses="LabelTerminalBlackM" Modulate="#FFFFFF60" />
+                        </BoxContainer>
+                    </BoxContainer>
+                    <Button Name="CharacterSetup" Visible="False"
+                            Text="{Loc 'lobby-character-preview-panel-character-setup-button'}"
+                            HorizontalAlignment="Center"
+                            StyleClasses="ButtonTerminalBlackM" />
+                </BoxContainer>
+            </PanelContainer>
+        </BoxContainer>
+        <Label Name="Unloaded" StyleClasses="LabelTerminalBlackM"
+               Text="{Loc 'lobby-character-preview-panel-unloaded-preferences-label'}"/>
+<!-- BlackM end -->
     </BoxContainer>
 </Control>
