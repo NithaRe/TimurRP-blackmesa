@@ -1,0 +1,42 @@
+- type: welcomeMessageSet
+  id: BlackMWelcomeDefault
+  sender: blackm-welcome-sender-default
+  title: blackm-welcome-title-default
+  portrait: /Textures/_BlackM/Interface/welcome_portrait.png
+  portraitCropPos: 4,0
+  portraitCropSize: 24,18
+  duration: 6 
+  messages:
+  - blackm-welcome-msg-1
+  - blackm-welcome-msg-2
+  - blackm-welcome-msg-3
+  - blackm-welcome-msg-4
+  - blackm-welcome-msg-5
+
+- type: welcomeMessageSet
+  id: BlackMWelcomeSecurity
+  sender: blackm-welcome-sender-security
+  title: blackm-welcome-title-security
+  portrait: /Textures/_BlackM/Interface/welcome_portrait_sec.png
+  portraitCropPos: 4,0
+  portraitCropSize: 24,18
+  jobs:
+  - SecurityCadet
+  - Brigmedic
+  - HeadOfSecurity
+  - SecurityOfficer
+  - Warden
+  messages:
+  - blackm-welcome-sec-1
+  - blackm-welcome-sec-2
+
+- type: welcomeMessageSet
+  id: BlackMWelcomeCaptain
+  sender: blackm-welcome-sender-captain
+  title: blackm-welcome-title-captain
+  portrait: /Textures/_BlackM/Interface/welcome_portrait_captain.png
+  portraitCropPos: 4,0
+  jobs:
+  - Captain
+  messages:
+  - blackm-welcome-captain-1
