@@ -19,17 +19,28 @@ SPDX-License-Identifier: MIT
                     <Label Name="CMarkingPoints" Text="uwu" HorizontalAlignment="Right" />
                 </BoxContainer>
 
+                <!-- BlackM start -->
+                <!--
                 <OptionButton Name="CMarkingCategoryButton" StyleClasses="OpenLeft" />
                 <LineEdit Name="CMarkingSearch" PlaceHolder="{Loc 'markings-search'}" />
 
                 <ItemList Name="CMarkingsUnused" VerticalExpand="True" MinSize="300 250" />
                 <Button Name="CMarkingAdd" Text="{Loc 'markings-add'}" StyleClasses="OpenRight" />
+                -->
+                <OptionButton Name="CMarkingCategoryButton" StyleClasses="JobButtonTerminalBlackM" />
+                <LineEdit Name="CMarkingSearch" PlaceHolder="{Loc 'markings-search'}" />
+
+                <ItemList StyleClasses="ItemListTerminalBlackM" Name="CMarkingsUnused" VerticalExpand="True" MinSize="300 250" />
+                <Button Name="CMarkingAdd" Text="{Loc 'markings-add'}" StyleClasses="ButtonTerminalBlackM" />
+                <!-- BlackM end -->
             </BoxContainer>
 
             <!-- Used markings -->
             <BoxContainer Orientation="Vertical" HorizontalExpand="True">
                 <Label Text="{Loc 'markings-used'}" />
 
+                <!-- BlackM start -->
+                <!--
                 <ItemList Name="CMarkingsUsed" VerticalExpand="True" MinSize="300 250" />
 
                 <BoxContainer Orientation="Horizontal">
@@ -37,6 +48,15 @@ SPDX-License-Identifier: MIT
                     <Button Name="CMarkingRankDown" Text="{Loc 'markings-rank-down'}" StyleClasses="OpenBoth" HorizontalExpand="True" />
                 </BoxContainer>
                 <Button Name="CMarkingRemove" Text="{Loc 'markings-remove'}" StyleClasses="OpenRight" />
+                -->
+                <ItemList StyleClasses="ItemListTerminalBlackM" Name="CMarkingsUsed" VerticalExpand="True" MinSize="300 250" />
+
+                <BoxContainer Orientation="Horizontal">
+                    <Button Name="CMarkingRankUp" Text="{Loc 'markings-rank-up'}" StyleClasses="ButtonTerminalBlackM" HorizontalExpand="True" />
+                    <Button Name="CMarkingRankDown" Text="{Loc 'markings-rank-down'}" StyleClasses="ButtonTerminalBlackM" HorizontalExpand="True" />
+                </BoxContainer>
+                <Button Name="CMarkingRemove" Text="{Loc 'markings-remove'}" StyleClasses="ButtonTerminalBlackM" />
+                <!-- BlackM end -->
             </BoxContainer>
         </BoxContainer>
 

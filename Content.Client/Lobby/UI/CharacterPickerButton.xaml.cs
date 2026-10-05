@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Linq;
+using Content.Client.Stylesheets; // BlackM
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
@@ -41,7 +42,10 @@ public sealed partial class CharacterPickerButton : ContainerButton
     {
         RobustXamlLoader.Load(this);
         _entManager = entityManager;
-        AddStyleClass(StyleClassButton);
+        // BlackM start
+        // AddStyleClass(StyleClassButton);
+        AddStyleClass(StyleNano.StyleClassJobButtonTerminalBlackM);
+        // BlackM end
         ToggleMode = true;
         Group = group;
         var description = profile.Name;

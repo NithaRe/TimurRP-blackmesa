@@ -9,10 +9,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     xmlns="https://spacestation14.io"
     xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client">
     <PanelContainer.PanelOverride>
+        <!-- BlackM start -->
+        <!--
         <graphics:StyleBoxFlat BackgroundColor="#2F2F35"
                                ContentMarginTopOverride="10"
                                ContentMarginBottomOverride="10"
                                ContentMarginLeftOverride="10"
                                ContentMarginRightOverride="10"/>
+        -->
+        <graphics:StyleBoxFlat BackgroundColor="#050805"
+                               BorderColor="#145C24"
+                               BorderThickness="1"
+                               ContentMarginTopOverride="10"
+                               ContentMarginBottomOverride="10"
+                               ContentMarginLeftOverride="10"
+                               ContentMarginRightOverride="10"/>
+        <!-- BlackM end -->
     </PanelContainer.PanelOverride>
 </PanelContainer>

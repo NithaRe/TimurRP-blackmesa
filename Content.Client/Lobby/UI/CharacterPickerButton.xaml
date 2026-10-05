@@ -19,6 +19,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     OverrideDirection="South"
                     Name="View"
                     SetSize="64 64"/>
+        <!-- BlackM start -->
+        <!--
         <Label Name="DescriptionLabel"
                ClipText="True"
                HorizontalExpand="True"/>
@@ -28,6 +30,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 Text="{Loc 'character-setup-gui-character-picker-button-confirm-delete-button'}"
                 Visible="False"
                 ModulateSelfOverride="{x:Static style:StyleNano.ButtonColorCautionDefault}"/>
+        -->
+        <Label Name="DescriptionLabel"
+               StyleClasses="LabelTerminalBlackM"
+               ClipText="True"
+               HorizontalExpand="True"/>
+        <Button Name="DeleteButton"
+                StyleClasses="ButtonTerminalBlackM"
+                Text="{Loc 'character-setup-gui-character-picker-button-delete-button'}"/>
+        <Button Name="ConfirmDeleteButton"
+                StyleClasses="ButtonTerminalBlackM"
+                Text="{Loc 'character-setup-gui-character-picker-button-confirm-delete-button'}"
+                Visible="False"
+                ModulateSelfOverride="{x:Static style:StyleNano.ButtonColorCautionDefault}"/>
+        <!-- BlackM end -->
 
     </BoxContainer>
 </ContainerButton>

@@ -1,0 +1,4 @@
+- files: ["term_hover.ogg","term_click.ogg","term_confirm.ogg","term_toggle_on.ogg","term_toggle_off.ogg","term_error.ogg","term_type.ogg","term_select.ogg","term_open.ogg","term_close.ogg","term_boot.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Created by @sweekyl for Timur RP"
+  source: "https://github.com/NithaRe/TimurRP-blackmesa"
