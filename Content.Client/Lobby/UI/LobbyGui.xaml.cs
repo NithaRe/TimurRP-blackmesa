@@ -145,8 +145,6 @@ namespace Content.Client.Lobby.UI
             try
             {
                 var overlays = IoCManager.Resolve<IOverlayManager>();
-                if (!overlays.HasOverlay<CrtFisheyeOverlay>())
-                    overlays.AddOverlay(new CrtFisheyeOverlay());
             }
             catch (Exception e)
             {
@@ -160,8 +158,6 @@ namespace Content.Client.Lobby.UI
             base.ExitedTree();
 
             var overlays = IoCManager.Resolve<IOverlayManager>();
-            if (overlays.HasOverlay<CrtFisheyeOverlay>())
-                overlays.RemoveOverlay<CrtFisheyeOverlay>();
         }
 
         private void StartIntro()
