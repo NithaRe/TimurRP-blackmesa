@@ -202,6 +202,11 @@ public sealed class PassportSystem : EntitySystem
 
     private void UpdateUiState(EntityUid uid, PassportComponent comp)
     {
+        _ui.SetUiState(uid, PassportUiKey.Key, BuildState(comp));
+    }
+
+    public PassportBoundUserInterfaceState BuildState(PassportComponent comp)
+    {
         var displayCity    = comp.City;
         var displayNumber  = comp.PassportNumber;
         var displaySurname = comp.Surname;
@@ -226,12 +231,12 @@ public sealed class PassportSystem : EntitySystem
         var mrz1      = BuildMrz1(displayNumber);
         var mrz2      = BuildMrz2(displaySurname, displayName);
 
-        _ui.SetUiState(uid, PassportUiKey.Key, new PassportBoundUserInterfaceState(
+        return new PassportBoundUserInterfaceState(
             displayName, displaySurname, displayCity, displayJob,
             displayNumber, displayDate,
             signature, mrz1, mrz2, comp.OwnerEntity,
             comp.HasBureaucraticError, comp.ErrorField, comp.Stamp,
-            comp.AdditionalJob));
+            comp.AdditionalJob);
     }
 
     public void SetStamp(EntityUid passportUid, PassportStampState stamp, PassportComponent? comp = null)

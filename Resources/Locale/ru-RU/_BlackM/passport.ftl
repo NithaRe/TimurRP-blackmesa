@@ -60,3 +60,6 @@ passport-checker-verdict-missed = Паспорт в порядке, successful.
 passport-checker-locked = Паспорт заблокирован в терминале до завершения проверки.
 passport-checker-already-processed = Этот паспорт уже был проверен и не может быть проверен повторно.
 passport-checker-fine = Комплекс оштрафован на { $amount } кредитов за ошибку проверяющего.
+
+passport-verb-show = Показать паспорт
+passport-show-popup = { $user } показывает паспорт { $target }.
