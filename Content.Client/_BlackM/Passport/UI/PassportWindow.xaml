@@ -1,123 +1,129 @@
-<DefaultWindow xmlns="https://spacestation14.io"
-               MinSize="340 500"
-               Resizable="False"
-               Title="{Loc passport-title-label}">
+<ui:PassportFramelessWindow xmlns="https://spacestation14.io"
+                            xmlns:ui="clr-namespace:Content.Client._BlackM.Passport.UI"
+                            MinSize="640 430">
 
-    <PanelContainer MinSize="340 500" MaxSize="340 500">
-        <TextureRect Name="PassportBackground"
-                     Stretch="Keep"
-                     TexturePath="/Textures/_BlackM/Interface/Passport/passport_bg.png"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Top"/>
+    <PanelContainer Name="Book" MinSize="640 430" MaxSize="640 430">
 
-        <BoxContainer Orientation="Vertical" SeparationOverride="0">
-            <Control MinSize="0 52"/>
+        <!-- prosto pass -->
+        <PanelContainer Name="PageCover" MinSize="640 430">
+            <TextureRect Stretch="Keep" HorizontalAlignment="Left" VerticalAlignment="Top"
+                         TexturePath="/Textures/_BlackM/Interface/Passport/passport_cover.png"/>
 
-            <BoxContainer Orientation="Horizontal"
-                          MinSize="0 18"
-                          Margin="12 0 10 0">
-                <Label Text="№" FontColorOverride="#5F4E2A" Margin="0 2 2 0"/>
-                <Label Name="PassportNumberLabel"
-                       FontColorOverride="#5F4E2A"
-                       HorizontalExpand="True"
-                       VerticalAlignment="Center"/>
-                <Label Name="IssuedDateLabel"
-                       FontColorOverride="#5F4E2A"
-                       VerticalAlignment="Center"/>
-            </BoxContainer>
+            <Control Name="CoverZone" MouseFilter="Stop" HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Margin="150 46 0 0" MinSize="340 364"/>
 
-            <BoxContainer Orientation="Horizontal" MinSize="0 222">
-                <SpriteView Name="OwnerSpriteView"
-                            MinSize="110 190"
-                            MaxSize="110 190"
-                            OverrideDirection="South"
-                            Scale="3.5 3.5"
-                            Margin="10 4 0 4"/>
+            <Label Name="CoverHint" Text="нажмите, чтобы открыть" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="150 360 0 0" MinSize="340 0" Align="Center"/>
 
-                <BoxContainer Orientation="Vertical"
-                              HorizontalExpand="True"
-                              Margin="4 6 8 0"
-                              SeparationOverride="0">
-                    <Label Text="{Loc passport-surname-label}"
-                           FontColorOverride="#5F4E2A"/>
-                    <Label Name="SurnameLabel"
-                           FontColorOverride="#14100A"
-                           Margin="2 1 0 10"/>
+            <Control Name="CoverClose" MouseFilter="Stop" HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Margin="456 16 0 0" MinSize="26 26"/>
+        </PanelContainer>
 
-                    <Label Text="{Loc passport-name-label}"
-                           FontColorOverride="#5F4E2A"/>
-                    <Label Name="NameLabel"
-                           FontColorOverride="#14100A"
-                           Margin="2 1 0 10"/>
+        <!-- page 1 -->
+        <PanelContainer Name="PageIdentity" MinSize="640 430" Visible="False">
+            <TextureRect Stretch="Keep" HorizontalAlignment="Left" VerticalAlignment="Top"
+                         TexturePath="/Textures/_BlackM/Interface/Passport/passport_page_1.png"/>
 
-                    <Label Text="{Loc passport-position-label}"
-                           FontColorOverride="#5F4E2A"/>
-                    <Label Name="JobLabel"
-                           FontColorOverride="#14100A"
-                           Margin="2 1 0 10"/>
+            <!-- list zone -->
+            <Control Name="IdentityPrevZone" MouseFilter="Stop" HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Margin="20 46 0 0" MinSize="300 364"/>
+            <Control Name="IdentityNextZone" MouseFilter="Stop" HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Margin="320 46 0 0" MinSize="300 364"/>
 
-                    <BoxContainer Name="AdditionalJobBox"
-                                  Orientation="Vertical"
-                                  Visible="False">
-                        <Label Text="{Loc passport-additional-job-label}"
-                               FontColorOverride="#7A5A12"/>
-                        <Label Name="AdditionalJobLabel"
-                               FontColorOverride="#14100A"
-                               Margin="2 1 0 10"/>
-                    </BoxContainer>
+            <!-- char 160x180 -->
+            <LayoutContainer Name="PortraitBox" RectClipContent="True"
+                             HorizontalAlignment="Left" VerticalAlignment="Top"
+                             Margin="90 68 0 0" MinSize="160 180" MaxSize="160 180">
+                <SpriteView Name="OwnerSpriteView" OverrideDirection="South" Scale="9 9"/>
+            </LayoutContainer>
 
-                    <Label Text="{Loc passport-city-label}"
-                           FontColorOverride="#5F4E2A"/>
-                    <Label Name="CityLabel"
-                           FontColorOverride="#14100A"
-                           Margin="2 1 0 0"/>
-                </BoxContainer>
-            </BoxContainer>
+            <!-- подпись -->
+            <Label Name="SignatureLabel" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="66 277 0 0" MinSize="216 0" ClipText="True"/>
 
-            <BoxContainer Orientation="Vertical"
-                          MinSize="0 72"
-                          Margin="12 8 0 0"
-                          SeparationOverride="2">
-                <Label Text="{Loc passport-signature-label}"
-                       FontColorOverride="#5F4E2A"/>
-                <Label Name="SignatureLabel"
-                       FontColorOverride="#14100A"
-                       Margin="2 4 0 0"/>
-            </BoxContainer>
+            <!-- 5strok 50px, y=52 -->
+            <Label Name="SurnameCaption" Text="{Loc passport-surname-label}" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="348 55 0 0"/>
+            <Label Name="SurnameLabel" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="348 69 0 0" MinSize="252 0" ClipText="True"/>
 
-            <BoxContainer Orientation="Vertical"
-                          VerticalExpand="True"
-                          Margin="12 8 12 8"
-                          SeparationOverride="2">
-                <Label Text="{Loc passport-mrz-label}"
-                       FontColorOverride="#5F4E2A"
-                       ClipText="True"/>
-                <Label Name="MrzLine1Label"
-                       FontColorOverride="#373016"
-                       Margin="0 4 0 0"
-                       ClipText="True"/>
-                <Label Name="MrzLine2Label"
-                       FontColorOverride="#373016"
-                       ClipText="True"/>
-            </BoxContainer>
-        </BoxContainer>
+            <Label Name="NameCaption" Text="{Loc passport-name-label}" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="348 105 0 0"/>
+            <Label Name="NameLabel" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="348 119 0 0" MinSize="252 0" ClipText="True"/>
 
-        <TextureRect Name="StampApprovedTexture"
-                     Stretch="KeepAspectCentered"
-                     TexturePath="/Textures/_BlackM/Interface/Passport/stamp_approved.png"
-                     HorizontalAlignment="Right"
-                     VerticalAlignment="Top"
-                     Margin="0 292 30 0"
-                     MinSize="90 90"
-                     Visible="False"/>
+            <Label Name="CityCaption" Text="{Loc passport-city-label}" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="348 155 0 0"/>
+            <Label Name="CityLabel" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="348 169 0 0" MinSize="252 0" ClipText="True"/>
 
-        <TextureRect Name="StampDeniedTexture"
-                     Stretch="KeepAspectCentered"
-                     TexturePath="/Textures/_BlackM/Interface/Passport/stamp_denied.png"
-                     HorizontalAlignment="Right"
-                     VerticalAlignment="Top"
-                     Margin="0 292 30 0"
-                     MinSize="90 90"
-                     Visible="False"/>
+            <Label Name="NumberCaption" Text="№ удостоверения" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="348 205 0 0"/>
+            <Label Name="PassportNumberLabel" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="348 219 0 0" MinSize="252 0" ClipText="True"/>
+
+            <Label Name="IssuedCaption" Text="Дата выдачи" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="348 255 0 0"/>
+            <Label Name="IssuedDateLabel" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="348 269 0 0" MinSize="252 0" ClipText="True"/>
+
+            <!-- MRZ -->
+            <Label Name="MrzLine1Label" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="44 357 0 0" MinSize="540 0" ClipText="True"/>
+            <Label Name="MrzLine2Label" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="44 374 0 0" MinSize="540 0" ClipText="True"/>
+
+            <!-- info -->
+            <Label Name="IdentityPrevHint" Text="‹ назад" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44 392 0 0"/>
+            <Label Name="IdentityNextHint" Text="вперёд ›" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="540 392 0 0" MinSize="56 0" Align="Right"/>
+
+            <Control Name="IdentityClose" MouseFilter="Stop" HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Margin="584 16 0 0" MinSize="26 26"/>
+        </PanelContainer>
+
+        <!-- page 2 -->
+        <PanelContainer Name="PageService" MinSize="640 430" Visible="False">
+            <TextureRect Stretch="Keep" HorizontalAlignment="Left" VerticalAlignment="Top"
+                         TexturePath="/Textures/_BlackM/Interface/Passport/passport_page_2.png"/>
+
+            <Control Name="ServicePrevZone" MouseFilter="Stop" HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Margin="20 46 0 0" MinSize="300 364"/>
+
+            <Label Name="JobCaption" Text="{Loc passport-position-label}" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44 55 0 0"/>
+            <Label Name="JobLabel" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="44 69 0 0" MinSize="260 0" ClipText="True"/>
+
+            <Label Name="AdditionalJobCaption" Text="{Loc passport-additional-job-label}" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44 105 0 0"/>
+            <Label Name="AdditionalJobLabel" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="44 119 0 0" MinSize="260 0" ClipText="True"/>
+
+            <Label Name="OrgCaption" Text="Организация" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44 155 0 0"/>
+            <Label Name="OrgLabel" Text="Black Mesa Research Facility" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="44 169 0 0" MinSize="260 0" ClipText="True"/>
+
+            <!-- (470, 172) -->
+            <TextureRect Name="StampApprovedTexture" Stretch="KeepAspectCentered" Visible="False"
+                         TexturePath="/Textures/_BlackM/Interface/Passport/stamp_approved.png"
+                         HorizontalAlignment="Left" VerticalAlignment="Top"
+                         Margin="390 92 0 0" MinSize="160 160"/>
+            <TextureRect Name="StampDeniedTexture" Stretch="KeepAspectCentered" Visible="False"
+                         TexturePath="/Textures/_BlackM/Interface/Passport/stamp_denied.png"
+                         HorizontalAlignment="Left" VerticalAlignment="Top"
+                         Margin="390 92 0 0" MinSize="160 160"/>
+
+            <Label Name="StatusLabel" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="380 278 0 0" MinSize="180 0" Align="Center"/>
+
+            <Label Name="ServicePrevHint" Text="‹ назад" StyleClasses="LabelSubText"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44 392 0 0"/>
+
+            <Control Name="ServiceClose" MouseFilter="Stop" HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Margin="584 16 0 0" MinSize="26 26"/>
+        </PanelContainer>
     </PanelContainer>
-</DefaultWindow>
+</ui:PassportFramelessWindow>
