@@ -1,0 +1,6 @@
+- type: soundCollection
+  id: PassportPageFlip
+  files:
+    - /Audio/_BlackM/Passport/page_flip_1.ogg
+    - /Audio/_BlackM/Passport/page_flip_2.ogg
+    - /Audio/_BlackM/Passport/page_flip_3.ogg
