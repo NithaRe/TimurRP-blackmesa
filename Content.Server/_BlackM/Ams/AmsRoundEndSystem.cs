@@ -1,8 +1,8 @@
 using System.Linq;
 using Content.Server._BlackM.Ams;
+using Content.Server._BlackM.Elevator;
 using Content.Server.GameTicking;
 using Content.Server.Mind;
-using Content.Shared._BlackM.OneWayTeleport;
 using Content.Shared.Mind;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -16,7 +16,7 @@ public sealed class AmsRoundEndSystem : EntitySystem
     [Dependency] private readonly SharedMindSystem _mind = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
 
-    private const string EvacuationDestinationId = "ams_evacuation";
+    private const string EvacuationElevatorId = "evac";
 
     private bool _tracking;
     private int _initialPoolSize;
@@ -38,7 +38,7 @@ public sealed class AmsRoundEndSystem : EntitySystem
 
         SubscribeLocalEvent<AmsLaunchedEvent>(OnAmsLaunched);
         SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndText);
-        SubscribeLocalEvent<OneWayTeleportedEvent>(OnTeleported);
+        SubscribeLocalEvent<BlackMElevatorArrivedEvent>(OnEvacuated);
     }
 
     private void OnAmsLaunched(AmsLaunchedEvent ev)
@@ -148,16 +148,16 @@ public sealed class AmsRoundEndSystem : EntitySystem
         return state is MobState.Critical or MobState.Dead;
     }
 
-    private void OnTeleported(OneWayTeleportedEvent ev)
+    private void OnEvacuated(BlackMElevatorArrivedEvent ev)
     {
-        if (!_tracking || ev.DestinationId != EvacuationDestinationId)
+        if (!_tracking || ev.ElevatorId != EvacuationElevatorId)
             return;
 
         if (!_mind.TryGetMind(ev.Entity, out var mindId, out _))
             return;
 
         if (!_pending.Contains(mindId))
-            return; 
+            return;
 
         if (IsBodyDeadOrCrit(ev.Entity))
             return;
