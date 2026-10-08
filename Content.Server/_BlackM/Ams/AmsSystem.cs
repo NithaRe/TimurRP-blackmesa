@@ -1,4 +1,4 @@
-using Content.Server._BlackM.OneWayTeleport;
+using Content.Server._BlackM.Elevator;
 using Content.Server._BlackM.ZenIntervention;
 using Content.Server.Chat.Systems;
 using Content.Server.Nuke;
@@ -30,12 +30,12 @@ public sealed class AmsSystem : EntitySystem
     [Dependency] private readonly PoweredLightSystem _poweredLight = default!;
     [Dependency] private readonly PointLightSystem _pointLight = default!;
     [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly OneWayTeleportSystem _oneWayTeleport = default!;
+    [Dependency] private readonly BlackMElevatorSystem _elevator = default!;
     [Dependency] private readonly SharedDoorSystem _door = default!;
     [Dependency] private readonly ZenInterventionSystem _zenIntervention = default!;
     [Dependency] private readonly IRobustRandom _robustRandom = default!;
 
-    private const string EvacuationDestinationId = "ams_evacuation";
+    private const string EvacuationElevatorId = "evac";
     private const string InfectedMaintDoorPrototype = "AirlockMaintInfectedBlackM";
 
     private const float ZenReductionPerPart = 20f;
@@ -220,6 +220,7 @@ public sealed class AmsSystem : EntitySystem
                         portal.ActiveEndTime = null;
                         portal.ClosingWarningSent = false;
                         Dirty(uid, portal);
+                        _elevator.SetEvacuation(EvacuationElevatorId, false);
                         ArmNuke();
                         return;
                     }
@@ -342,11 +343,8 @@ public sealed class AmsSystem : EntitySystem
 
     private void OpenEvacuationPoints()
     {
-        var opened = _oneWayTeleport.SetGroupEnabled(EvacuationDestinationId, true);
-
-        if (opened == 0)
+        if (!_elevator.SetEvacuation(EvacuationElevatorId, true))
         {
-            Log.Warning($"AMS: точки'{EvacuationDestinationId}' не найдены на карте.");
             return;
         }
 
@@ -418,7 +416,6 @@ public sealed class AmsSystem : EntitySystem
 
         if (candidates.Count == 0)
         {
-            Log.Warning("AMS: нет свободных дверей в пуле 'ams_random' (либо все уже открыты, либо не расставлены на карте).");
             return;
         }
 
@@ -453,7 +450,6 @@ public sealed class AmsSystem : EntitySystem
             return;
         }
 
-        Log.Warning("AMS: не найдена особая дверь (группа 'ams_special') на карте.");
     }
 
     private void OpenLootRoomForSlot(string slotId)
@@ -481,7 +477,6 @@ public sealed class AmsSystem : EntitySystem
             return;
         }
 
-        Log.Warning($"AMS: не найдена дверь лутрума для слота '{slotId}' (группа '{groupId}') на карте.");
     }
 
     private void OpenDoor(EntityUid uid)

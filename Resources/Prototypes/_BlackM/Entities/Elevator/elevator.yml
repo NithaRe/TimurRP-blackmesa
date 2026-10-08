@@ -1,0 +1,222 @@
+- type: entity
+  parent: MarkerBase
+  id: BlackMElevatorController
+  name: elevator controller
+  description: Mapping marker. Controls the elevator cycle.
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: Transform
+      anchored: true
+    - type: Sprite
+      sprite: Markers/cross.rsi
+      state: pink
+      drawdepth: Overdoors
+    - type: BlackMElevator
+      destinationId: default
+      boardingDelay: 12
+      descentTime: 27.5
+      cooldownTime: 15
+      emergencyLightsAt: 19
+      heavyShakes: [3.4, 15.2, 20.0]
+      announcements:
+        - at: 2
+          message: blackm-elevator-ann-start
+        - at: 8
+          message: blackm-elevator-ann-depth1
+        - at: 15
+          message: blackm-elevator-ann-warning
+          big: true
+        - at: 19
+          message: blackm-elevator-ann-depth2
+        - at: 20.5
+          message: blackm-elevator-ann-soon
+        - at: 25.5
+          message: blackm-elevator-ann-arrive
+      startSound:
+        path: /Audio/_BlackM/Elevator/ride.ogg
+        params:
+          volume: 0
+
+- type: entity
+  parent: MarkerBase
+  id: BlackMElevatorSpawnPoint
+  name: elevator spawn point
+  placement:
+    mode: AlignTileAny
+  components:
+    - type: Transform
+      anchored: true
+    - type: Sprite
+      sprite: Markers/cross.rsi
+      state: green
+      drawdepth: Overdoors
+    - type: BlackMElevatorSpawnPoint
+
+- type: entity
+  parent: MarkerBase
+  id: BlackMElevatorDestination
+  name: elevator destination
+  placement:
+    mode: AlignTileAny
+  components:
+    - type: Transform
+      anchored: true
+    - type: Sprite
+      sprite: Markers/cross.rsi
+      state: blue
+      drawdepth: Overdoors
+    - type: BlackMElevatorDestination
+      id: default
+
+- type: entity
+  id: BlackMElevatorLight
+  name: elevator light
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: Transform
+      anchored: true
+    - type: PointLight
+      radius: 7
+      energy: 1.6
+      softness: 1
+      color: "#ffe9c4"
+    - type: BlackMElevatorLight
+
+- type: entity
+  id: BlackMElevatorDispatcher
+  name: диспетчер лифта
+  description: Автоматический диспетчер грузового лифта. Сообщает о ходе спуска.
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: Transform
+      anchored: true
+    - type: Sprite
+      sprite: Structures/Wallmounts/intercom.rsi
+      drawdepth: WallMountedItems
+      layers:
+        - state: base
+    - type: BlackMElevatorDispatcher
+
+- type: entity
+  parent: BlackMElevatorController
+  id: BlackMElevatorEvacController
+  name: evacuation elevator controller
+  components:
+    - type: Sprite
+      sprite: Markers/cross.rsi
+      state: red
+    - type: BlackMElevator
+      id: evac
+      evacuation: true
+      destinationId: evac
+      boardingDelay: 45 
+      fadeText: blackm-elevator-evac-fade-text
+      announcements:
+        - at: 2
+          message: blackm-elevator-evac-ann-start
+        - at: 15
+          message: blackm-elevator-ann-warning
+          big: true
+        - at: 20.5
+          message: blackm-elevator-ann-soon
+        - at: 25.5
+          message: blackm-elevator-evac-ann-arrive
+
+- type: entity
+  parent: MarkerBase
+  id: BlackMElevatorBoardZone
+  name: evacuation boarding zone
+  placement:
+    mode: AlignTileAny
+  components:
+    - type: Transform
+      anchored: true
+    - type: Sprite
+      sprite: Markers/cross.rsi
+      state: red
+      drawdepth: Overdoors
+    - type: BlackMElevatorBoardZone
+      elevatorId: evac
+      range: 2.5
+      restrictedTags:
+        - HECU
+
+- type: entity
+  parent: BlackMElevatorDispatcher
+  id: BlackMElevatorBoardDispatcher
+  name: диспетчер лифта эвакуации
+  description: Автоматический диспетчер лифта эвакуации. Объявляет посадку и отправление.
+  components:
+    - type: BlackMElevatorDispatcher
+      elevatorId: evac
+
+- type: entity
+  parent: BlackMElevatorDestination
+  id: BlackMElevatorDestinationEvac
+  name: elevator destination (evac)
+  components:
+    - type: BlackMElevatorDestination
+      id: evac
+
+- type: entity
+  parent: BlackMElevatorDestination
+  id: BlackMElevatorDestinationOneWay
+  name: elevator destination (one-way)
+  components:
+    - type: BlackMElevatorDestination
+      id: oneway
+
+- type: entity
+  parent: BlackMElevatorController
+  id: BlackMElevatorOneWayController
+  name: one-way elevator controller
+  components:
+    - type: Sprite
+      sprite: Markers/cross.rsi
+      state: blue
+    - type: BlackMElevator
+      id: oneway
+      evacuation: true
+      enabled: true 
+      globalAnnounce: false 
+      destinationId: oneway
+      boardingDelay: 10
+      sender: blackm-elevator-oneway-sender
+      boardingMessage: blackm-elevator-oneway-boarding
+      closingMessage: blackm-elevator-oneway-closing
+      departingMessage: blackm-elevator-oneway-departing
+      fadeText: blackm-elevator-oneway-fade-text
+      announcements:
+        - at: 2
+          message: blackm-elevator-oneway-ann-start
+        - at: 15
+          message: blackm-elevator-ann-warning
+          big: true
+        - at: 20.5
+          message: blackm-elevator-ann-soon
+        - at: 25.5
+          message: blackm-elevator-oneway-ann-arrive
+
+- type: entity
+  parent: BlackMElevatorBoardZone
+  id: BlackMElevatorOneWayBoardZone
+  name: one-way elevator boarding zone
+  components:
+    - type: Sprite
+      sprite: Markers/cross.rsi
+      state: blue
+    - type: BlackMElevatorBoardZone
+      elevatorId: oneway
+      restrictedTags: []
+
+- type: entity
+  parent: BlackMElevatorDispatcher
+  id: BlackMElevatorOneWayBoardDispatcher
+  name: диспетчер лифта
+  description: Автоматический диспетчер лифта. Объявляет посадку и отправление.
+  components:
+    - type: BlackMElevatorDispatcher
+      elevatorId: oneway
