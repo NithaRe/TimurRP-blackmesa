@@ -7,7 +7,7 @@
   category: HECU
   order: 0
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/accept.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/accept.ogg
 
 - type: phraseWheelEntry
   id: PhraseGamesOver
@@ -17,7 +17,7 @@
   category: HECU
   order: 1
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/warning.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/warning.ogg
 
 - type: phraseWheelEntry
   id: PhraseBeholdMyPower
@@ -27,7 +27,7 @@
   category: HECU
   order: 2
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/poshelposhel.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/poshelposhel.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack
@@ -37,7 +37,7 @@
   category: HECU
   order: 3
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/jopykaj.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/jopykaj.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack1
@@ -47,7 +47,7 @@
   category: HECU
   order: 4
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_answer07.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_answer07.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack2
@@ -57,7 +57,7 @@
   category: HECU
   order: 5
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_taunt07_var01.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_taunt07_var01.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack3
@@ -67,7 +67,7 @@
   category: HECU
   order: 6
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_cover07.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_cover07.ogg
 
 - type: phraseWheelEntry
   id: PhraseUnstoppable
@@ -77,7 +77,7 @@
   category: HECU
   order: 7
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/sanitar.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/sanitar.ogg
 
 # HECU (hecumask.png)
 - type: phraseWheelEntry
@@ -88,7 +88,7 @@
   category: HECU
   order: 8
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_check08.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_check08.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack5
@@ -98,7 +98,7 @@
   category: HECU
   order: 9
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_hit01.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_hit01.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack6
@@ -108,7 +108,7 @@
   category: HECU
   order: 10
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_idle13.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_idle13.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack7
@@ -118,7 +118,7 @@
   category: HECU
   order: 11
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_question12.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_question12.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack8
@@ -128,7 +128,7 @@
   category: HECU
   order: 12
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_question14.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_question14.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack9
@@ -138,7 +138,7 @@
   category: HECU
   order: 13
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_question15.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_question15.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack10
@@ -148,7 +148,7 @@
   category: HECU
   order: 14
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_throw05.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_throw05.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack11
@@ -158,7 +158,7 @@
   category: HECU
   order: 15
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_throw05_var01.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_throw05_var01.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack12
@@ -168,7 +168,7 @@
   category: HECU
   order: 16
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_monst14.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_monst14.ogg
 
 - type: phraseWheelEntry
   id: PhraseCrushingAttack13
@@ -178,7 +178,7 @@
   category: HECU
   order: 17
   icon: /Textures/_BlackM/Interface/PhraseWheel/hecumask.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/hg_clear02.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Hecu/hg_clear02.ogg
 
 # global (halflife.png)
 - type: phraseWheelEntry
@@ -189,7 +189,7 @@
   category: global
   order: 0
   icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/poispodozrev.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Combine/poispodozrev.ogg
 
 - type: phraseWheelEntry
   id: PhraseIAmNuclear
@@ -199,7 +199,7 @@
   category: global
   order: 1
   icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/cod100.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Combine/cod100.ogg
 
 - type: phraseWheelEntry
   id: PhraseCod1
@@ -209,7 +209,7 @@
   category: global
   order: 2
   icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/1199.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Combine/1199.ogg
 
 - type: phraseWheelEntry
   id: PhraseCod2
@@ -219,7 +219,7 @@
   category: global
   order: 3
   icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/blockirovat.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Combine/blockirovat.ogg
 
 - type: phraseWheelEntry
   id: PhraseCod3
@@ -229,7 +229,7 @@
   category: global
   order: 4
   icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/deathtela.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Combine/deathtela.ogg
 
 # meme (meme(1234567890).png)
 - type: phraseWheelEntry
@@ -240,17 +240,17 @@
   category: meme
   order: 0
   icon: /Textures/_BlackM/Interface/PhraseWheel/mambo.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/mambo.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Meme/mambo.ogg
 
 - type: phraseWheelEntry
   id: PhraseMeme1
-  text: "Да всё завали свой ебасос уебище ебанное"
+  text: "Вы не могли бы подписать мою петицию?"
   chatType: Speak
-  label: "Завали Ебл"
+  label: "подписать петицию"
   category: meme
   order: 1
   icon: /Textures/_BlackM/Interface/PhraseWheel/meme1.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/meme1.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Meme/meme1.ogg
 
 - type: phraseWheelEntry
   id: PhraseMeme2
@@ -260,7 +260,7 @@
   category: meme
   order: 2
   icon: /Textures/_BlackM/Interface/PhraseWheel/meme2.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/meme2.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Meme/meme2.ogg
 
 - type: phraseWheelEntry
   id: PhraseMeme3
@@ -270,17 +270,17 @@
   category: meme
   order: 3
   icon: /Textures/_BlackM/Interface/PhraseWheel/meme3.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/meme3.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Meme/meme3.ogg
 
 - type: phraseWheelEntry
   id: PhraseMeme4
-  text: "Бля я тебя хочу жи есть"
+  text: "Meisho doto desu"
   chatType: Speak
-  label: "Бля я тебя хочу"
+  label: "doto desu"
   category: meme
   order: 4
   icon: /Textures/_BlackM/Interface/PhraseWheel/meme4.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/meme4.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Meme/meme4.ogg
 
 - type: phraseWheelEntry
   id: PhraseMeme5
@@ -290,8 +290,49 @@
   category: meme
   order: 5
   icon: /Textures/_BlackM/Interface/PhraseWheel/meme5.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/meme5.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Meme/meme5.ogg
 
+- type: phraseWheelEntry
+  id: PhraseMeme6
+  text: "popue!"
+  chatType: Speak
+  label: "popue!"
+  category: meme
+  order: 6
+  icon: /Textures/_BlackM/Interface/PhraseWheel/konata.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Meme/meme6.ogg
+
+- type: phraseWheelEntry
+  id: PhraseMeme7
+  text: "Никто не смеет мне приказывать!"
+  chatType: Speak
+  label: "Не приказывай!"
+  category: meme
+  order: 7
+  icon: /Textures/_BlackM/Interface/PhraseWheel/arthas.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Meme/meme7.ogg
+
+- type: phraseWheelEntry
+  id: PhraseMeme8
+  text: "Минута пошла....."
+  chatType: Speak
+  label: "Минута пошла....."
+  category: meme
+  order: 8
+  icon: /Textures/_BlackM/Interface/PhraseWheel/yeah.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Meme/meme8.ogg
+
+- type: phraseWheelEntry
+  id: PhraseMeme9
+  text: "Tuturu~"
+  chatType: Speak
+  label: "Tuturu~"
+  category: meme
+  order: 9
+  icon: /Textures/_BlackM/Interface/PhraseWheel/tuturu.png
+  sound: /Audio/_BlackM/Voice/Phrasewheel/Meme/meme9.ogg
+
+# KaifLife (kaiflife0.png)
 - type: phraseWheelEntry
   id: PhraseKaiflife0
   text: "Пенополиуретан вызывает Полипропилена!"
@@ -300,7 +341,7 @@
   category: KaifLife
   order: 0
   icon: /Textures/_BlackM/Interface/PhraseWheel/kaiflife0.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/kaiflife0.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/KLife/kaiflife0.ogg
 
 - type: phraseWheelEntry
   id: PhraseKaiflife1
@@ -310,7 +351,7 @@
   category: KaifLife
   order: 1
   icon: /Textures/_BlackM/Interface/PhraseWheel/kaiflife0.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/kaiflife1.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/KLife/kaiflife1.ogg
 
 - type: phraseWheelEntry
   id: PhraseKaiflife2
@@ -320,7 +361,7 @@
   category: KaifLife
   order: 2
   icon: /Textures/_BlackM/Interface/PhraseWheel/kaiflife0.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/kaiflife2.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/KLife/kaiflife2.ogg
 
 - type: phraseWheelEntry
   id: PhraseKaiflife3
@@ -330,4 +371,4 @@
   category: KaifLife
   order: 3
   icon: /Textures/_BlackM/Interface/PhraseWheel/kaiflife0.png
-  sound: /Audio/_BlackM/Voice/Phrasewheel/kaiflife3.ogg
+  sound: /Audio/_BlackM/Voice/Phrasewheel/KLife/kaiflife3.ogg
