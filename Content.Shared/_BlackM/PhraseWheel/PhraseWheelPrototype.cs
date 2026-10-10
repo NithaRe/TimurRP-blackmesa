@@ -1,4 +1,5 @@
 using Robust.Shared.Audio;
+using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -20,26 +21,23 @@ public sealed partial class PhraseWheelEntryPrototype : IPrototype
     public SoundSpecifier? Sound { get; private set; }
 
     [DataField]
-    public SpriteSpecifier Icon { get; private set; } =
-        new SpriteSpecifier.Texture(new("/Textures/Interface/phrasewheel.png"));
+    public SpriteSpecifier? Icon { get; private set; }
 
     [DataField]
-    public Color Color { get; private set; } = Color.MediumPurple;
+    public Color? Color { get; private set; }
 
     [DataField]
-    public string? TextColor { get; private set; }
+    public Color? TextColor { get; private set; }
 
     [DataField]
     public string Label { get; private set; } = string.Empty;
 
-    /// <summary>razdel menu</summary>
     [DataField]
-    public string Category { get; private set; } = "global";
+    public ProtoId<PhraseWheelCategoryPrototype> Category { get; private set; } = "global";
 
     [DataField]
     public int Order { get; private set; } = 0;
 
-    /// <summary>player color text.</summary>
     [DataField]
     public bool AllowCustomColor { get; private set; } = true;
 }

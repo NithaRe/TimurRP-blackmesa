@@ -1,4 +1,5 @@
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared._BlackM.PhraseWheel;
 
@@ -6,5 +7,7 @@ namespace Content.Shared._BlackM.PhraseWheel;
 public sealed partial class PhraseWheelComponent : Component
 {
     [DataField, AutoNetworkedField]
-    public List<string> AllowedCategories { get; set; } = new();
+    public HashSet<ProtoId<PhraseWheelCategoryPrototype>> AllowedCategories { get; set; } = new();
+
+    public TimeSpan NextUse;
 }
