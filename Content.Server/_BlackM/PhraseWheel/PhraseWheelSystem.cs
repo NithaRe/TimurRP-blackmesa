@@ -1,137 +1,130 @@
-using Content.Shared._BlackM.PhraseWheel;
-using Content.Server.Chat.Systems;
 using Content.Server._BlackM.SpeechBarks;
+using Content.Server.Chat.Systems;
+using Content.Shared._BlackM.PhraseWheel;
 using Content.Shared.Chat;
-using Content.Shared.Mobs;
-using Content.Shared.Mobs.Components;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
-using Robust.Shared.Console;
 using Robust.Shared.Maths;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Timing;
-using Robust.Shared.Utility;
-using System.Collections.Generic;
 
 namespace Content.Server._BlackM.PhraseWheel;
 
-public sealed class PhraseWheelSystem : EntitySystem
+public enum PhraseWheelAccessResult : byte
+{
+    Granted,
+    Updated,
+    Revoked,
+}
+
+public sealed class PhraseWheelSystem : SharedPhraseWheelSystem
 {
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly AudioSystem _audio = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SpeechBarksSystem _barks = default!;
 
-    private readonly Dictionary<EntityUid, TimeSpan> _lastUse = new();
+    private static readonly AudioParams SpeakAudio = AudioParams.Default.WithVolume(6f).WithMaxDistance(15f);
+    private static readonly AudioParams WhisperAudio = AudioParams.Default.WithVolume(2f).WithMaxDistance(5f);
+    private static readonly AudioParams ShoutAudio = AudioParams.Default.WithVolume(8f).WithMaxDistance(25f);
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeNetworkEvent<PlayPhraseWheelMessage>(OnPlayPhrase);
-        SubscribeLocalEvent<PhraseWheelComponent, ComponentShutdown>(OnCompShutdown);
-    }
-
-    private void OnCompShutdown(EntityUid uid, PhraseWheelComponent comp, ComponentShutdown args)
-    {
-        _lastUse.Remove(uid);
     }
 
     private void OnPlayPhrase(PlayPhraseWheelMessage msg, EntitySessionEventArgs args)
     {
-        var player = args.SenderSession.AttachedEntity;
-        if (player == null) return;
-
-        if (!TryComp<PhraseWheelComponent>(player.Value, out var comp)) return;
-        if (!_proto.TryIndex<PhraseWheelEntryPrototype>(msg.PhraseId, out var phrase)) return;
-
-        if (TryComp<MobStateComponent>(player.Value, out var mobState))
-        {
-            if (mobState.CurrentState == MobState.Critical ||
-                mobState.CurrentState == MobState.Dead)
-                return;
-        }
-
-        if (comp.AllowedCategories.Count > 0 && !comp.AllowedCategories.Contains(phrase.Category))
+        if (args.SenderSession.AttachedEntity is not { } uid)
             return;
 
-        if (_lastUse.TryGetValue(player.Value, out var lastUse)
-            && _timing.CurTime - lastUse < PhraseWheelConstants.UseCooldown)
+        if (!TryComp<PhraseWheelComponent>(uid, out var comp))
             return;
-        _lastUse[player.Value] = _timing.CurTime;
 
-        Color? colorOverride = null;
-        var colorHex = msg.CustomColor ?? phrase.TextColor;
-        if (!string.IsNullOrWhiteSpace(colorHex))
+        if (!_proto.TryIndex<PhraseWheelEntryPrototype>(msg.Phrase.Id, out var phrase))
+            return;
+
+        if (!IsCategoryAllowed(comp, phrase.Category))
+            return;
+
+        if (!CanUse(uid, comp, PhraseWheelConstants.CooldownTolerance))
+            return;
+
+        if (!CanSend(uid, phrase))
+            return;
+
+        StartCooldown(comp);
+
+        Color? textColor = phrase.TextColor;
+        if (phrase.AllowCustomColor && msg.CustomColor is { } custom)
+            textColor = SanitizeColor(custom);
+
+        RaiseNetworkEvent(new PhraseWheelIconEvent
         {
-            try { colorOverride = Color.FromHex(colorHex); }
-            catch { colorOverride = null; }
-        }
+            Source = GetNetEntity(uid),
+            Phrase = phrase.ID,
+        }, Filter.Pvs(uid));
 
-        var chatType = phrase.ChatType switch
-        {
-            PhraseWheelChatType.Whisper => InGameICChatType.Whisper,
-            PhraseWheelChatType.Emote   => InGameICChatType.Emote,
-            _                           => InGameICChatType.Speak,
-        };
+        _barks.SuppressNextBark(uid);
+        _chat.TrySendInGameICMessage(uid, phrase.Text, ToIcChatType(phrase.ChatType), false,
+            colorOverride: textColor);
 
-        if (phrase.Icon is SpriteSpecifier.Texture tex)
-        {
-            RaiseNetworkEvent(new PhraseWheelIconEvent
-            {
-                Source = GetNetEntity(player.Value),
-                IconPath = tex.TexturePath.ToString(),
-            }, Filter.Pvs(player.Value));
-        }
-
-        Timer.Spawn(100, () =>
-        {
-            if (!Exists(player.Value)) return;
-
-            _barks.SuppressNextBark(player.Value);
-            _chat.TrySendInGameICMessage(player.Value, phrase.Text, chatType, false,
-                colorOverride: colorOverride);
-
-            if (phrase.Sound != null)
-            {
-                try
-                {
-                    _audio.PlayPvs(phrase.Sound, player.Value,
-                        AudioParams.Default.WithVolume(6f).WithMaxDistance(15f));
-                }
-                catch { }
-            }
-        });
+        if (phrase.Sound != null)
+            _audio.PlayPvs(phrase.Sound, uid, GetAudioParams(phrase.ChatType));
     }
 
-    public void UpdateAccess(EntityUid uid, List<string> categories, string name, IConsoleShell shell)
+    private static InGameICChatType ToIcChatType(PhraseWheelChatType type) => type switch
     {
-        if (HasComp<PhraseWheelComponent>(uid))
-        {
-            var existing = Comp<PhraseWheelComponent>(uid);
+        PhraseWheelChatType.Whisper => InGameICChatType.Whisper,
+        PhraseWheelChatType.Emote => InGameICChatType.Emote,
+        _ => InGameICChatType.Speak,
+    };
 
+    private static AudioParams GetAudioParams(PhraseWheelChatType type) => type switch
+    {
+        PhraseWheelChatType.Whisper => WhisperAudio,
+        PhraseWheelChatType.Shout => ShoutAudio,
+        _ => SpeakAudio,
+    };
+
+    public bool GrantAccess(EntityUid uid, HashSet<ProtoId<PhraseWheelCategoryPrototype>> categories)
+    {
+        var existed = HasComp<PhraseWheelComponent>(uid);
+        var comp = EnsureComp<PhraseWheelComponent>(uid);
+        comp.AllowedCategories = categories;
+        Dirty(uid, comp);
+        return !existed;
+    }
+
+    public bool RevokeAccess(EntityUid uid)
+    {
+        if (!HasComp<PhraseWheelComponent>(uid))
+            return false;
+
+        RemComp<PhraseWheelComponent>(uid);
+        return true;
+    }
+
+    public PhraseWheelAccessResult UpdateAccess(EntityUid uid,
+        HashSet<ProtoId<PhraseWheelCategoryPrototype>> categories)
+    {
+        if (TryComp<PhraseWheelComponent>(uid, out var existing))
+        {
             if (categories.Count == 0)
             {
                 RemComp<PhraseWheelComponent>(uid);
-                shell.WriteLine($"zabral dostup {name}.");
-                return;
+                return PhraseWheelAccessResult.Revoked;
             }
 
             existing.AllowedCategories = categories;
             Dirty(uid, existing);
-            shell.WriteLine($"dostup category [{string.Join(", ", categories)}] update y {name}.");
+            return PhraseWheelAccessResult.Updated;
         }
-        else
-        {
-            var newComp = EnsureComp<PhraseWheelComponent>(uid);
-            newComp.AllowedCategories = categories;
-            Dirty(uid, newComp);
 
-            if (categories.Count == 0)
-                shell.WriteLine($"vidan dostyp all phrase {name}.");
-            else
-                shell.WriteLine($"dostup category [{string.Join(", ", categories)}] give {name}.");
-        }
+        var comp = EnsureComp<PhraseWheelComponent>(uid);
+        comp.AllowedCategories = categories;
+        Dirty(uid, comp);
+        return PhraseWheelAccessResult.Granted;
     }
 }
