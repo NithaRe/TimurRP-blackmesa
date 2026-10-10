@@ -45,6 +45,15 @@
           emergencyShuttlePath: /Maps/Shuttles/emergency_cluster.yml
         - type: StationNameSetup
           mapNameTemplate: 'Комплекс Черная Меза'
+        - type: BlackMElevatorStation
+          elevatorMap: /Maps/_BlackM/Elevator/elevator.yml
+          blacklistedJobs:
+            - Captain
+            - HeadOfSecurity
+            - Warden
+            - SecurityOfficer
+            - SecurityCadet
+            - Brigmedic
         - type: StationJobs
           availableJobs:
             Captain: [ 1, 1 ]
