@@ -7,6 +7,8 @@ using Content.Client.Clothing;
 using Content.Client.Lobby;
 using Content.Client.Viewport;
 using Content.Shared._BlackM.WalkBob;
+using Content.Shared.Doors.Components;
+using Content.Shared.Doors.Systems;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Inventory;
 using Content.Shared.Physics;
@@ -123,9 +125,15 @@ public sealed class RulesArrivalScene : Control
         _grid = loaded.Grids.First().Owner;
         SetRoadEdges();
 
+        var appearance = _entities.System<SharedAppearanceSystem>();
         foreach (var entity in loaded.Entities)
+        {
+            // Local loading has no server state to initialize door appearance from.
+            if (_entities.TryGetComponent<DoorComponent>(entity, out var door))
+                appearance.SetData(entity, DoorVisuals.State, door.State);
             if (_entities.GetComponent<MetaDataComponent>(entity).EntityPrototype?.ID == "ShuttersNormal")
                 _shutters.Add(entity);
+        }
 
         var profile = _preferences.Preferences?.SelectedCharacter as HumanoidCharacterProfile
             ?? HumanoidCharacterProfile.RandomWithSpecies();
@@ -285,6 +293,10 @@ public sealed class RulesArrivalScene : Control
                 !_entities.TryGetComponent<FixturesComponent>(uid, out var fixtures))
                 continue;
 
+            // Open doors retain fixture shapes, but those shapes must not obstruct the scene actor.
+            if (_entities.TryGetComponent<DoorComponent>(uid, out var door) && door.State == DoorState.Open)
+                continue;
+
             var obstacleTransform = physics.GetPhysicsTransform(uid);
 
             foreach (var fixture in fixtures.Fixtures.Values)
@@ -323,8 +335,7 @@ public sealed class RulesArrivalScene : Control
             _entities.QueueDeleteEntity(documents);
         _documents = null;
         foreach (var shutter in _shutters)
-            if (_entities.TryGetComponent<SpriteComponent>(shutter, out var sprite))
-                _entities.System<SpriteSystem>().LayerSetRsiState((shutter, sprite), 0, "open");
+            _entities.System<SharedDoorSystem>().SetState(shutter, DoorState.Open);
     }
 
     public void StepGuardAside(float progress)

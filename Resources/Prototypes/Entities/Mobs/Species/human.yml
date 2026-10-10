@@ -123,7 +123,7 @@
   components:
   - type: Hunger
     # BlackM edit start
-    baseDecayRate: 0.05
+    baseDecayRate: 0.1
     starvationDamage:
       types:
         Poison: 0.25
