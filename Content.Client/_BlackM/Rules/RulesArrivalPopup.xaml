@@ -1,0 +1,66 @@
+<rules:RulesArrivalPopup xmlns="https://spacestation14.io"
+    xmlns:rules="clr-namespace:Content.Client._BlackM.Rules"
+    xmlns:info="clr-namespace:Content.Client.Info"
+    HorizontalExpand="True" VerticalExpand="True" MouseFilter="Stop">
+    <PanelContainer Name="Background" />
+    <rules:RulesArrivalScene Name="Scene" />
+    <PanelContainer Name="Dimmer" MouseFilter="Ignore" />
+    <LayoutContainer Name="SpeechLayer" MouseFilter="Ignore">
+        <PanelContainer Name="SpeechBubble" Visible="False" SetWidth="330" MouseFilter="Ignore">
+            <RichTextLabel Name="Dialogue" StyleClasses="bubbleContent" MouseFilter="Ignore" />
+        </PanelContainer>
+    </LayoutContainer>
+    <PanelContainer Name="Folder" Visible="False" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="1040" MaxHeight="780" Margin="24 24 24 96">
+        <BoxContainer SeparationOverride="0" Margin="12">
+            <BoxContainer Name="DossierFlap" Orientation="Vertical" SetWidth="260" Margin="20 16 28 16" SeparationOverride="14">
+                <Label Text="BLACK MESA" StyleClasses="DossierBrand" />
+                <Label Text="{Loc 'blackm-arrival-personnel'}" StyleClasses="DossierCaption" />
+                <PanelContainer StyleClasses="DossierRule" SetHeight="1" />
+                <Label Text="BM / PERSONNEL / 004" StyleClasses="DossierCaption" />
+                <Control VerticalExpand="True" />
+                <rules:RulesDossierStamp SetHeight="180" />
+                <Control VerticalExpand="True" />
+                <RichTextLabel Name="HandlingNotice" />
+                <Label Text="{Loc 'blackm-arrival-copy'}" StyleClasses="DossierCaption" />
+            </BoxContainer>
+            <PanelContainer Name="FolderSpine" SetWidth="3" Margin="0 4 12 4" MouseFilter="Ignore" />
+            <PanelContainer Name="Paper" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="24 20" SeparationOverride="10">
+                    <Label Name="Classification" Text="{Loc 'blackm-arrival-classification'}" StyleClasses="DossierClassification" ClipText="True" />
+                    <PanelContainer StyleClasses="DossierInkRule" SetHeight="2" />
+                    <BoxContainer Name="FileHeader" SeparationOverride="14">
+                        <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="8">
+                            <Label Text="{Loc 'blackm-arrival-file-number'}" StyleClasses="DossierMono" ClipText="True" />
+                            <Label Text="{Loc 'blackm-arrival-file-title'}" StyleClasses="DossierTitle" ClipText="True" />
+                            <RichTextLabel Name="FileSummary" />
+                            <PanelContainer StyleClasses="DossierInkRule" SetHeight="9" SetWidth="150" HorizontalAlignment="Left" />
+                        </BoxContainer>
+                        <PanelContainer Name="PhotoMount" SetSize="100 112">
+                            <SpriteView Name="Portrait" OverrideDirection="South" Scale="2.5 2.5" />
+                        </PanelContainer>
+                    </BoxContainer>
+                    <PanelContainer StyleClasses="DossierInkRule" SetHeight="1" />
+                    <BoxContainer Name="Cover" Orientation="Vertical" VerticalExpand="True" SeparationOverride="20">
+                        <Control VerticalExpand="True" />
+                        <RichTextLabel Name="CoverTitle" />
+                        <RichTextLabel Name="CoverNotice" />
+                        <Control VerticalExpand="True" />
+                        <Button Name="OpenButton" Text="{Loc 'blackm-arrival-open'}" />
+                    </BoxContainer>
+                    <info:RulesControl Name="Document" Visible="False" VerticalExpand="True" />
+                    <BoxContainer Name="Signature" Visible="False" Orientation="Vertical" SeparationOverride="8">
+                        <Label Name="WaitLabel" ClipText="True" />
+                        <PanelContainer StyleClasses="DossierInkRule" SetHeight="1" />
+                        <Label Text="{Loc 'blackm-arrival-signature-line'}" StyleClasses="DossierMono" ClipText="True" />
+                        <Button Name="SignButton" Text="{Loc 'blackm-arrival-sign'}" Disabled="True" />
+                    </BoxContainer>
+                    <BoxContainer>
+                        <Label Text="{Loc 'blackm-arrival-file-footer'}" StyleClasses="DossierMono" ClipText="True" HorizontalExpand="True" />
+                        <Button Name="QuitButton" Text="{Loc 'blackm-arrival-disconnect'}" />
+                    </BoxContainer>
+                </BoxContainer>
+            </PanelContainer>
+        </BoxContainer>
+    </PanelContainer>
+    <rules:RulesDossierBurn Name="BurnEffect" Visible="False" MouseFilter="Ignore" />
+</rules:RulesArrivalPopup>

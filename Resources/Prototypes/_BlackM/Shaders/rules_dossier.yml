@@ -1,0 +1,4 @@
+﻿- type: shader
+  id: BlackMRulesDossierBurn
+  kind: source
+  path: "/Textures/Shaders/_BlackM/rules_dossier_burn.swsl"

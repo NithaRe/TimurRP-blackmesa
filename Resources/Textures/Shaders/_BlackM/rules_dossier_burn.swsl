@@ -1,0 +1,42 @@
+﻿light_mode unshaded;
+
+uniform highp float progress;
+uniform highp float burn_time;
+uniform highp float aspect;
+
+highp float paper_noise(highp vec2 p) {
+    highp vec2 cell = floor(p);
+    highp vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    highp float a = fract(sin(dot(cell, vec2(127.1, 311.7))) * 43758.5453);
+    highp float b = fract(sin(dot(cell + vec2(1.0, 0.0), vec2(127.1, 311.7))) * 43758.5453);
+    highp float c = fract(sin(dot(cell + vec2(0.0, 1.0), vec2(127.1, 311.7))) * 43758.5453);
+    highp float d = fract(sin(dot(cell + vec2(1.0, 1.0), vec2(127.1, 311.7))) * 43758.5453);
+    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+
+void fragment() {
+    highp vec4 paper = zTexture(UV);
+    // Render-target textures have their vertical UV axis flipped relative to UI coordinates.
+    highp vec2 paper_uv = vec2(UV.x, 1.0 - UV.y);
+    highp vec2 point = (paper_uv - vec2(0.94, 1.0)) * vec2(aspect, 1.0);
+    highp float grain = paper_noise(paper_uv * 48.0) * 0.035 + paper_noise(paper_uv * 120.0) * 0.014;
+    highp float radius = progress * (length(vec2(aspect, 1.0)) + 0.15);
+    highp float edge = length(point) + grain - radius;
+    highp float remains = smoothstep(0.0, 0.006, edge);
+    highp float charred = smoothstep(0.006, 0.04, edge);
+    highp vec3 color = mix(vec3(0.065, 0.025, 0.014), paper.rgb, charred);
+    highp float flicker = paper_noise(paper_uv * vec2(80.0, 36.0) + vec2(0.0, burn_time * 9.0));
+    highp float flame = smoothstep(-0.065 * flicker - 0.008, -0.004, edge) * (1.0 - smoothstep(0.003, 0.015, edge));
+    highp vec3 fire = mix(vec3(0.92, 0.16, 0.025), vec3(1.0, 0.9, 0.48), pow(flame, 2.0));
+    color = mix(color, fire, flame);
+    highp float alpha = max(remains, flame) * paper.a;
+    if (progress <= 0.0) {
+        color = paper.rgb;
+        alpha = paper.a;
+    }
+    if (progress >= 1.0) {
+        alpha = 0.0;
+    }
+    COLOR = vec4(color, alpha);
+}

@@ -14,6 +14,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Client.Audio;
+using Content.Client._BlackM.Rules;
 using Content.Client.Gameplay;
 using Content.Client.Info;
 using Content.Shared.Guidebook;
@@ -39,7 +40,7 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
     [Dependency] private readonly IResourceCache _resourceCache = default!; // #BlackM
     [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!; // #BlackM
 
-    private RulesPopup? _rulesPopup;
+    private RulesArrivalPopup? _rulesPopup; // BlackM: arrival and paper folder.
     private RulesAndInfoWindow? _infoWindow;
     private IAudioSource? _rulesMusic; // #BlackM
 
@@ -55,6 +56,7 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
 
         _netManager.RegisterNetMessage<RulesAcceptedMessage>();
         _netManager.RegisterNetMessage<SendRulesInformationMessage>(OnRulesInformationMessage);
+        _netManager.Disconnect += OnRulesDisconnected;
 
         _consoleHost.RegisterCommand("fuckrules",
             "",
@@ -76,6 +78,14 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         }
     }
 
+    private void OnRulesDisconnected(object? sender, NetDisconnectedArgs args)
+    {
+        var popup = _rulesPopup;
+        _rulesPopup = null;
+        popup?.Dispose();
+        StopRulesMusic();
+    }
+
     public void OnStateExited(GameplayState state)
     {
         if (_infoWindow == null)
@@ -90,10 +100,8 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         if (_rulesPopup != null)
             return;
 
-        _rulesPopup = new RulesPopup
-        {
-            Timer = time
-        };
+        _rulesPopup = new RulesArrivalPopup();
+        _rulesPopup.Initialize(time, false);
 
         _rulesPopup.OnQuitPressed += OnQuitPressed;
         _rulesPopup.OnAcceptPressed += OnAcceptPressed;
@@ -132,10 +140,11 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
 
     private void OnAcceptPressed()
     {
-        _netManager.ClientSendMessage(new RulesAcceptedMessage());
-        StopRulesMusic(); // #BlackM
-        _rulesPopup?.Orphan();
+        var popup = _rulesPopup;
         _rulesPopup = null;
+        popup?.Dispose();
+        StopRulesMusic(); // #BlackM
+        _netManager.ClientSendMessage(new RulesAcceptedMessage());
     }
 
     public GuideEntryPrototype GetCoreRuleEntry()

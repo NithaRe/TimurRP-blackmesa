@@ -10,6 +10,9 @@ namespace Content.Shared._BlackM.WalkBob;
 [RegisterComponent]
 public sealed partial class WalkBobComponent : Component
 {
+    // Presentation scenes move actors without a physics velocity.
+    public float? VisualSpeedOverride;
+
     /// <summary>
     /// Текущая фаза синусоиды качания. Не задавайте вручную, управляется системой.
     /// </summary>

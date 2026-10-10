@@ -33,25 +33,36 @@ public sealed class WalkBobSystem : EntitySystem
     {
         base.FrameUpdate(frameTime);
 
-        var query = EntityQueryEnumerator<WalkBobComponent, SpriteComponent, PhysicsComponent>();
-        while (query.MoveNext(out var uid, out var bob, out var sprite, out var physics))
+        var query = EntityQueryEnumerator<WalkBobComponent, SpriteComponent>();
+        while (query.MoveNext(out var uid, out var bob, out var sprite))
         {
-            var speed = physics.LinearVelocity.Length();
+            var speed = bob.VisualSpeedOverride ??
+                (TryComp<PhysicsComponent>(uid, out var physics) ? physics.LinearVelocity.Length() : 0f);
 
             if (speed > bob.MinSpeedThreshold)
             {
-                bob.Phase += frameTime * bob.Frequency * (speed / 3f);
+                bob.Phase = (bob.Phase + frameTime * bob.Frequency * (speed / 3f)) % MathF.Tau;
 
                 var squash = MathF.Sin(bob.Phase) * bob.Amplitude;
                 var scale = new Vector2(1f - squash * 0.5f, 1f + squash);
 
+                if (bob.VisualSpeedOverride != null)
+                {
+                    var blend = 1f - MathF.Exp(-bob.ReturnLerpSpeed * frameTime);
+                    scale = Vector2.Lerp(GetCurrentScale(sprite, bob), scale, blend);
+                }
                 ApplyScale(uid, sprite, bob, scale);
             }
             else
             {
-                bob.Phase = 0f;
                 var current = GetCurrentScale(sprite, bob);
-                var lerped = Vector2.Lerp(current, Vector2.One, frameTime * bob.ReturnLerpSpeed);
+                // Preserve the phase across brief stops in presentation movement.
+                if (bob.VisualSpeedOverride == null || Vector2.DistanceSquared(current, Vector2.One) < 0.000001f)
+                    bob.Phase = 0f;
+                var blend = bob.VisualSpeedOverride != null
+                    ? 1f - MathF.Exp(-bob.ReturnLerpSpeed * frameTime)
+                    : Math.Clamp(frameTime * bob.ReturnLerpSpeed, 0f, 1f);
+                var lerped = Vector2.Lerp(current, Vector2.One, blend);
                 ApplyScale(uid, sprite, bob, lerped);
             }
         }

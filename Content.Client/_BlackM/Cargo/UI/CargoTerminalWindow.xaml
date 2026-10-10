@@ -1,0 +1,104 @@
+<cargo:CargoTerminalWindow xmlns="https://spacestation14.io"
+            xmlns:cargo="clr-namespace:Content.Client._BlackM.Cargo.UI"
+            MinSize="640 420" SetSize="1080 650" MouseFilter="Stop">
+    <PanelContainer Name="ScreenBacking" StyleClasses="TerminalScreen" MouseFilter="Ignore" />
+    <TextureRect Name="MonitorBackground" Stretch="Scale" CanShrink="True" MouseFilter="Ignore" />
+    <Control Name="ScreenArea" Margin="56 48 56 72">
+        <BoxContainer Orientation="Vertical" SeparationOverride="4">
+            <BoxContainer SeparationOverride="12" MinHeight="32">
+                <cargo:CargoTerminalLogo SetSize="34 34" MouseFilter="Ignore" />
+                <Label Text="{Loc 'blackm-cargo-heading'}" StyleClasses="TerminalHeading" HorizontalExpand="True" ClipText="True" />
+                <Label Name="BalanceLabel" />
+                <Button Name="CloseButton" Text="&#215;" SetWidth="32" ToolTip="{Loc 'blackm-cargo-close'}" />
+            </BoxContainer>
+            <PanelContainer StyleClasses="TerminalRule" SetHeight="1" />
+            <BoxContainer SeparationOverride="6">
+                <Button Name="CatalogTab" Text="{Loc 'blackm-cargo-catalog'}" ToggleMode="True" Pressed="True" />
+                <Button Name="FundsTab" Text="{Loc 'blackm-cargo-funds'}" ToggleMode="True" />
+                <Label Name="AccountLabel" HorizontalExpand="True" Align="Right" ClipText="True" />
+            </BoxContainer>
+            <BoxContainer Name="CatalogPage" VerticalExpand="True" SeparationOverride="10">
+                <BoxContainer Name="CategoryColumn" Orientation="Vertical" SetWidth="206" SeparationOverride="6">
+                    <Label Text="{Loc 'blackm-cargo-categories'}" />
+                    <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                        <BoxContainer Name="CategoryList" Orientation="Vertical" SeparationOverride="2" />
+                    </ScrollContainer>
+                </BoxContainer>
+                <PanelContainer Name="CategoryDivider" StyleClasses="TerminalRule" SetWidth="1" />
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" SizeFlagsStretchRatio="1.25" SeparationOverride="4">
+                    <BoxContainer SeparationOverride="6">
+                        <OptionButton Name="CompactCategories" Visible="False" SetWidth="136" />
+                        <TextureRect Name="SearchIcon" SetSize="20 20" Stretch="KeepAspectCentered" VerticalAlignment="Center" />
+                        <LineEdit Name="SearchBar" PlaceHolder="{Loc 'blackm-cargo-search'}" HorizontalExpand="True" />
+                    </BoxContainer>
+                    <BoxContainer>
+                        <Label Text="{Loc 'blackm-cargo-product'}" HorizontalExpand="True" />
+                        <Label Text="{Loc 'blackm-cargo-price'}" SetWidth="82" Align="Right" Margin="0 0 16 0" />
+                    </BoxContainer>
+                    <ScrollContainer Name="ProductScroll" VerticalExpand="True" MinHeight="64" HScrollEnabled="False">
+                        <BoxContainer Name="ProductList" Orientation="Vertical" SeparationOverride="1" />
+                    </ScrollContainer>
+                    <Label Name="NoProductsLabel" Text="{Loc 'blackm-cargo-no-products'}" Visible="False" ClipText="True" />
+                    <PanelContainer StyleClasses="TerminalRule" SetHeight="1" />
+                    <BoxContainer Name="ProductDetails" SeparationOverride="8" SetHeight="32">
+                        <TextureRect Name="ProductIcon" SetSize="32 32" Stretch="KeepAspectCentered" CanShrink="True" />
+                        <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                            <Label Name="ProductNameLabel" Text="{Loc 'blackm-cargo-select-product'}" ClipText="True" />
+                            <Label Name="ProductDescriptionLabel" ClipText="True" StyleClasses="TerminalMuted" />
+                        </BoxContainer>
+                    </BoxContainer>
+                    <BoxContainer SeparationOverride="6">
+                        <LineEdit Name="Requester" PlaceHolder="{Loc 'cargo-console-order-menu-requester-label'}" ToolTip="{Loc 'cargo-console-order-menu-requester-label'}" HorizontalExpand="True" />
+                        <LineEdit Name="Reason" PlaceHolder="{Loc 'cargo-console-order-menu-reason-label'}" ToolTip="{Loc 'cargo-console-order-menu-reason-label'}" HorizontalExpand="True" />
+                    </BoxContainer>
+                    <BoxContainer SeparationOverride="6">
+                        <SpinBox Name="Amount" SetWidth="112" Value="1" />
+                        <Label Name="SelectedTotalLabel" HorizontalExpand="True" Align="Right" ClipText="True" />
+                    </BoxContainer>
+                    <Button Name="SubmitButton" Text="{Loc 'blackm-cargo-submit'}" Disabled="True" MinHeight="28" />
+                </BoxContainer>
+                <PanelContainer Name="OrderDivider" StyleClasses="TerminalRule" SetWidth="1" />
+                <BoxContainer Name="OrderColumn" Orientation="Vertical" HorizontalExpand="True" SizeFlagsStretchRatio="1" SeparationOverride="6">
+                    <BoxContainer>
+                        <Label Text="{Loc 'blackm-cargo-orders'}" HorizontalExpand="True" ClipText="True" />
+                        <Label Name="CapacityLabel" />
+                    </BoxContainer>
+                    <BoxContainer SeparationOverride="4">
+                        <Button Name="PendingTab" Text="{Loc 'blackm-cargo-pending'}" ToggleMode="True" Pressed="True" HorizontalExpand="True" />
+                        <Button Name="ApprovedTab" Text="{Loc 'blackm-cargo-approved'}" ToggleMode="True" HorizontalExpand="True" />
+                    </BoxContainer>
+                    <ScrollContainer Name="OrderScroll" VerticalExpand="True" HScrollEnabled="False">
+                        <BoxContainer Name="OrderList" Orientation="Vertical" SeparationOverride="8" />
+                    </ScrollContainer>
+                    <Label Name="NoOrdersLabel" Text="{Loc 'blackm-cargo-no-orders'}" ClipText="True" />
+                    <PanelContainer StyleClasses="TerminalRule" SetHeight="1" />
+                    <BoxContainer>
+                        <Label Text="{Loc 'blackm-cargo-pending-total'}" HorizontalExpand="True" ClipText="True" ToolTip="{Loc 'blackm-cargo-total-tooltip'}" />
+                        <Label Name="PendingTotalLabel" />
+                    </BoxContainer>
+                    <BoxContainer>
+                        <Label Text="{Loc 'blackm-cargo-remaining'}" HorizontalExpand="True" ClipText="True" />
+                        <Label Name="RemainingLabel" />
+                    </BoxContainer>
+                </BoxContainer>
+            </BoxContainer>
+            <ScrollContainer Name="FundsPage" Visible="False" VerticalExpand="True" HScrollEnabled="False">
+                <BoxContainer Orientation="Vertical" SeparationOverride="12" Margin="4">
+                    <Label Text="{Loc 'blackm-cargo-funds'}" StyleClasses="TerminalHeading" />
+                    <Label Name="TransferLimitLabel" />
+                    <Label Name="UnlimitedLabel" Text="{Loc 'blackm-cargo-unlimited'}" Visible="False" />
+                    <OptionButton Name="AccountActions" />
+                    <SpinBox Name="TransferAmount" Value="10" SetWidth="180" HorizontalAlignment="Left" />
+                    <Button Name="TransferButton" Text="{Loc 'cargo-console-menu-account-action-button'}" HorizontalAlignment="Left" />
+                    <Button Name="LimitButton" Text="{Loc 'cargo-console-menu-toggle-account-lock-button'}" HorizontalAlignment="Left" />
+                </BoxContainer>
+            </ScrollContainer>
+            <PanelContainer Name="FooterDivider" StyleClasses="TerminalRule" SetHeight="1" />
+            <BoxContainer Name="Footer">
+                <Label Text="{Loc 'blackm-cargo-footer'}" StyleClasses="TerminalMuted" HorizontalExpand="True" ClipText="True" />
+                <Label Name="StatusLabel" Text="{Loc 'blackm-cargo-connecting'}" ClipText="True" />
+            </BoxContainer>
+        </BoxContainer>
+        <cargo:CargoTerminalGlass />
+    </Control>
+</cargo:CargoTerminalWindow>

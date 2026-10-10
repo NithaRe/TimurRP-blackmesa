@@ -1113,7 +1113,7 @@
   - type: UserInterface
     interfaces:
       enum.CargoConsoleUiKey.Orders:
-        type: CargoOrderConsoleBoundUserInterface
+        type: BlackMCargoOrderConsoleBoundUserInterface # BlackM: procurement terminal
       enum.WiresUiKey.Key:
         type: WiresBoundUserInterface
   - type: Computer
