@@ -2,32 +2,33 @@ using Content.Client.UserInterface.Systems.PhraseWheel;
 using Content.Shared._BlackM.PhraseWheel;
 using Content.Shared.Input;
 using Content.Shared.Mobs;
-using Content.Shared.Mobs.Components;
 using Robust.Client.Player;
+using Robust.Client.UserInterface;
+using Robust.Shared.GameStates;
 using Robust.Shared.Input.Binding;
-using Robust.Shared.IoC;
+using Robust.Shared.Maths;
 
 namespace Content.Client._BlackM.PhraseWheel;
 
-public sealed class PhraseWheelClientSystem : EntitySystem
+public sealed class PhraseWheelClientSystem : SharedPhraseWheelSystem
 {
     [Dependency] private readonly IPlayerManager _playerManager = default!;
-
-    private bool _pendingVisibilityUpdate = false;
-    private float _revalidateAccumulator = 0f;
-    private const float RevalidateInterval = 0.5f;
+    [Dependency] private readonly IUserInterfaceManager _ui = default!;
 
     public override void Initialize()
     {
         base.Initialize();
+
         SubscribeLocalEvent<PhraseWheelComponent, ComponentStartup>(OnCompAdded);
-        SubscribeLocalEvent<PhraseWheelComponent, AfterAutoHandleStateEvent>(OnStateHandled);
         SubscribeLocalEvent<PhraseWheelComponent, ComponentShutdown>(OnCompRemoved);
-        SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<PhraseWheelComponent, AfterAutoHandleStateEvent>(OnStateHandled);
+        SubscribeLocalEvent<PhraseWheelComponent, MobStateChangedEvent>(OnMobStateChanged);
+
         _playerManager.LocalPlayerAttached += OnLocalPlayerAttached;
 
         CommandBinds.Builder
-            .Bind(ContentKeyFunctions.OpenPhraseWheel, InputCmdHandler.FromDelegate(_ => OnOpenPhraseWheelKeybind()))
+            .Bind(ContentKeyFunctions.OpenPhraseWheel,
+                InputCmdHandler.FromDelegate(_ => Controller.ToggleWindowFromKeybind()))
             .Register<PhraseWheelClientSystem>();
     }
 
@@ -38,80 +39,84 @@ public sealed class PhraseWheelClientSystem : EntitySystem
         CommandBinds.Unregister<PhraseWheelClientSystem>();
     }
 
-    private void OnOpenPhraseWheelKeybind()
-    {
-        var uid = _playerManager.LocalSession?.AttachedEntity;
-        if (uid == null || !HasComp<PhraseWheelComponent>(uid.Value))
-            return;
+    private PhraseWheelUIController Controller => _ui.GetUIController<PhraseWheelUIController>();
 
-        GetController()?.ToggleWindowFromKeybind();
-    }
-
-    private void OnLocalPlayerAttached(EntityUid uid)
+    public bool TryGetLocal(out EntityUid uid, out PhraseWheelComponent comp)
     {
-        GetController()?.HandleAttachedEntityChanged(uid);
-        _pendingVisibilityUpdate = true;
-    }
+        uid = default;
+        comp = default!;
 
-    public override void FrameUpdate(float frameTime)
-    {
-        if (_pendingVisibilityUpdate)
+        if (_playerManager.LocalSession?.AttachedEntity is not { } attached
+            || !TryComp<PhraseWheelComponent>(attached, out var found))
         {
-            var uid = _playerManager.LocalSession?.AttachedEntity;
-            if (uid != null)
-            {
-                _pendingVisibilityUpdate = false;
-                UpdateVisibility();
-            }
+            return false;
         }
 
-        _revalidateAccumulator += frameTime;
-        if (_revalidateAccumulator >= RevalidateInterval)
+        uid = attached;
+        comp = found;
+        return true;
+    }
+
+    public float GetLocalCooldownSeconds()
+    {
+        return TryGetLocal(out _, out var comp)
+            ? (float) GetCooldownRemaining(comp).TotalSeconds
+            : 0f;
+    }
+
+    public bool TryRequestPlay(PhraseWheelEntryPrototype phrase, Color? customColor)
+    {
+        if (!TryGetLocal(out var uid, out var comp))
+            return false;
+
+        if (!IsCategoryAllowed(comp, phrase.Category) || !CanUse(uid, comp) || !CanSend(uid, phrase))
+            return false;
+
+        StartCooldown(comp);
+
+        RaiseNetworkEvent(new PlayPhraseWheelMessage
         {
-            _revalidateAccumulator = 0f;
-            var uid = _playerManager.LocalSession?.AttachedEntity;
-            if (uid != null && HasComp<PhraseWheelComponent>(uid.Value))
-                UpdateVisibility();
-        }
+            Phrase = phrase.ID,
+            CustomColor = phrase.AllowCustomColor ? customColor : null,
+        });
+
+        return true;
     }
 
     private void OnCompAdded(Entity<PhraseWheelComponent> ent, ref ComponentStartup args)
     {
-        if (_playerManager.LocalSession?.AttachedEntity != ent.Owner) return;
-        UpdateVisibility();
+        if (_playerManager.LocalSession?.AttachedEntity == ent.Owner)
+            Controller.UpdateButtonVisibility();
     }
 
     private void OnStateHandled(Entity<PhraseWheelComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        if (_playerManager.LocalSession?.AttachedEntity != ent.Owner) return;
-        UpdateVisibility();
+        if (_playerManager.LocalSession?.AttachedEntity == ent.Owner)
+            Controller.UpdateButtonVisibility();
     }
 
     private void OnCompRemoved(Entity<PhraseWheelComponent> ent, ref ComponentShutdown args)
     {
-        if (_playerManager.LocalSession?.AttachedEntity != ent.Owner) return;
-        UpdateVisibility();
+        if (_playerManager.LocalSession?.AttachedEntity != ent.Owner)
+            return;
+
+        Controller.ForceClose();
+        Controller.UpdateButtonVisibility();
     }
 
-    private void OnMobStateChanged(MobStateChangedEvent args)
+    private void OnMobStateChanged(EntityUid uid, PhraseWheelComponent comp, MobStateChangedEvent args)
     {
-        var localUid = _playerManager.LocalSession?.AttachedEntity;
-        if (localUid == null || args.Target != localUid.Value) return;
+        if (_playerManager.LocalSession?.AttachedEntity != uid)
+            return;
 
-        var controller = GetController();
-        if (controller == null) return;
+        if (args.NewMobState != MobState.Alive)
+            Controller.ForceClose();
 
-        if (args.NewMobState == MobState.Critical || args.NewMobState == MobState.Dead)
-            controller.ForceClose();
-        else
-            controller.UpdateButtonVisibility();
+        Controller.UpdateButtonVisibility();
     }
 
-    private void UpdateVisibility() => GetController()?.UpdateButtonVisibility();
-
-    private PhraseWheelUIController? GetController()
+    private void OnLocalPlayerAttached(EntityUid uid)
     {
-        return IoCManager.Resolve<Robust.Client.UserInterface.IUserInterfaceManager>()
-            .GetUIController<PhraseWheelUIController>();
+        Controller.HandleAttachedEntityChanged();
     }
 }

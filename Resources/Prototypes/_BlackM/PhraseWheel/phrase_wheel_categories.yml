@@ -1,0 +1,34 @@
+- type: phraseWheelCategory
+  id: global
+  name: Общие
+  icon: /Textures/_BlackM/Interface/PhraseWheel/halflife.png
+  color: "#4aa3df"
+  order: 0
+
+- type: phraseWheelCategory
+  id: HECU
+  name: HECU
+  icon: /Textures/_BlackM/Interface/PhraseWheel/hecu.png
+  color: "#8a9a3c"
+  order: 1
+
+- type: phraseWheelCategory
+  id: KaifLife
+  name: KaifLife
+  icon: /Textures/_BlackM/Interface/PhraseWheel/kaiflife0.png
+  color: "#e0a030"
+  order: 2
+
+- type: phraseWheelCategory
+  id: meme
+  name: Мемы
+  icon: /Textures/_BlackM/Interface/PhraseWheel/meme1.png
+  color: "#d9669f"
+  order: 3
+
+- type: phraseWheelCategory
+  id: test
+  name: test
+  icon: /Textures/_BlackM/Interface/PhraseWheel/meme1.png
+  color: "#d9669f"
+  order: 3

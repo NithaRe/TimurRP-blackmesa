@@ -160,6 +160,8 @@ namespace Content.Client.Chat.UI
         /// </summary>
         private TimeSpan _deathTime;
 
+        private TimeSpan _soundHoldUntil; // BlackM
+
         public float VerticalOffset { get; set; }
         private float _verticalOffsetAchieved;
 
@@ -231,6 +233,11 @@ namespace Content.Client.Chat.UI
             ContentSize = bubble.DesiredSize;
             _verticalOffsetAchieved = -ContentSize.Y;
             _deathTime = _timing.RealTime + TotalTime;
+
+            // BlackM
+            var holdDuration = PhraseWheelIconRegistry.TryTakeSoundDuration(_senderEntity, _timing.CurTime, HoldUntilSoundEnds);
+            if (holdDuration != null)
+                HoldUntilSoundEnds(holdDuration.Value);
         }
 
         protected abstract Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null, Texture? icon = null); // BlackM: Added icon parameter
@@ -354,7 +361,9 @@ namespace Content.Client.Chat.UI
         {
             base.FrameUpdate(args);
 
-            var timeLeft = (float)(_deathTime - _timing.RealTime).TotalSeconds;
+            // BlackM
+            var deathTime = _deathTime > _soundHoldUntil ? _deathTime : _soundHoldUntil;
+            var timeLeft = (float)(deathTime - _timing.RealTime).TotalSeconds;
             if (_entityManager.Deleted(_senderEntity) || timeLeft <= 0)
             {
                 // Timer spawn to prevent concurrent modification exception.
@@ -419,12 +428,24 @@ namespace Content.Client.Chat.UI
             OnDied?.Invoke(_senderEntity, this);
         }
 
+        // BlackM
+        public void HoldUntilSoundEnds(TimeSpan duration)
+        {
+            var until = _timing.RealTime + duration + FadeTime;
+            if (until > _soundHoldUntil)
+                _soundHoldUntil = until;
+        }
+
         /// <summary>
         ///     Causes the speech bubble to start fading IMMEDIATELY.
         /// </summary>
         public void FadeNow()
         {
-            if (_deathTime > _timing.RealTime)
+            // BlackM
+            var effective = _deathTime > _soundHoldUntil ? _deathTime : _soundHoldUntil;
+            _soundHoldUntil = TimeSpan.Zero;
+
+            if (effective > _timing.RealTime)
             {
                 _deathTime = _timing.RealTime + FadeTime;
             }
