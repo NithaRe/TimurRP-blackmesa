@@ -1,70 +1,103 @@
-using System;
-using System.Collections.Generic;
 using Robust.Client.Graphics;
-using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.PhraseWheel;
 
 public static class PhraseWheelIconRegistry
 {
-    private static readonly Dictionary<EntityUid, (Texture Tex, TimeSpan Expiry)> PendingIcons = new();
-    private static readonly Dictionary<EntityUid, (Action<Texture> Callback, TimeSpan Expiry)> PendingCallbacks = new();
-
     private static readonly TimeSpan MatchWindow = TimeSpan.FromSeconds(1.5);
 
-    public static void Register(EntityUid uid, Texture tex, TimeSpan now)
-    {
-        if (PendingCallbacks.Remove(uid, out var pending))
-        {
-            if (pending.Expiry >= now)
-            {
-                pending.Callback(tex);
-                return;
-            }
-        }
+    private static readonly TimeSpan PendingSoundWindow = TimeSpan.FromSeconds(0.5);
 
-        PendingIcons[uid] = (tex, now + MatchWindow);
-    }
+    private static readonly Dictionary<EntityUid, (Texture Texture, TimeSpan Time)> Icons = new();
+    private static readonly Dictionary<EntityUid, (Action<Texture> Callback, TimeSpan Time)> Pending = new();
 
-    public static Texture? TryTake(EntityUid uid, TimeSpan now, Action<Texture>? onIconReceived = null)
+    private static readonly Dictionary<EntityUid, (TimeSpan Duration, TimeSpan Time)> SoundDurations = new();
+    private static readonly Dictionary<EntityUid, (Action<TimeSpan> Callback, TimeSpan Time)> PendingSound = new();
+
+    public static void Register(EntityUid uid, Texture texture, TimeSpan now)
     {
         CleanExpired(now);
 
-        if (PendingIcons.Remove(uid, out var entry))
+        if (Pending.Remove(uid, out var pending))
         {
-            return entry.Expiry >= now ? entry.Tex : null;
+            pending.Callback(texture);
+            return;
         }
 
-        if (onIconReceived != null)
-        {
-            PendingCallbacks[uid] = (onIconReceived, now + MatchWindow);
-        }
+        Icons[uid] = (texture, now);
+    }
+
+    public static Texture? TryTake(EntityUid uid, TimeSpan now, Action<Texture>? callback = null)
+    {
+        CleanExpired(now);
+
+        if (Icons.Remove(uid, out var entry))
+            return entry.Texture;
+
+        if (callback != null)
+            Pending[uid] = (callback, now);
 
         return null;
     }
 
-    private static void CleanExpired(TimeSpan now)
+    public static void RegisterSoundDuration(EntityUid uid, TimeSpan duration, TimeSpan now)
     {
-        var toRemoveIcons = new List<EntityUid>();
-        foreach (var (uid, entry) in PendingIcons)
+        CleanExpired(now);
+
+        if (PendingSound.Remove(uid, out var pending))
         {
-            if (entry.Expiry < now)
-                toRemoveIcons.Add(uid);
-        }
-        foreach (var uid in toRemoveIcons)
-        {
-            PendingIcons.Remove(uid);
+            pending.Callback(duration);
+            return;
         }
 
-        var toRemoveCallbacks = new List<EntityUid>();
-        foreach (var (uid, entry) in PendingCallbacks)
+        SoundDurations[uid] = (duration, now);
+    }
+
+    public static TimeSpan? TryTakeSoundDuration(EntityUid uid, TimeSpan now, Action<TimeSpan>? callback = null)
+    {
+        CleanExpired(now);
+
+        if (SoundDurations.Remove(uid, out var entry))
+            return entry.Duration;
+
+        if (callback != null)
+            PendingSound[uid] = (callback, now);
+
+        return null;
+    }
+
+    public static void Clear()
+    {
+        Icons.Clear();
+        Pending.Clear();
+        SoundDurations.Clear();
+        PendingSound.Clear();
+    }
+
+    private static void CleanExpired(TimeSpan now)
+    {
+        foreach (var (uid, entry) in Icons)
         {
-            if (entry.Expiry < now)
-                toRemoveCallbacks.Add(uid);
+            if (now - entry.Time > MatchWindow)
+                Icons.Remove(uid);
         }
-        foreach (var uid in toRemoveCallbacks)
+
+        foreach (var (uid, entry) in Pending)
         {
-            PendingCallbacks.Remove(uid);
+            if (now - entry.Time > MatchWindow)
+                Pending.Remove(uid);
+        }
+
+        foreach (var (uid, entry) in SoundDurations)
+        {
+            if (now - entry.Time > MatchWindow)
+                SoundDurations.Remove(uid);
+        }
+
+        foreach (var (uid, entry) in PendingSound)
+        {
+            if (now - entry.Time > PendingSoundWindow)
+                PendingSound.Remove(uid);
         }
     }
 }

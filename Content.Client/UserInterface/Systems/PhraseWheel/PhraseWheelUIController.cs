@@ -1,106 +1,91 @@
+using System.Linq;
+using Content.Client._BlackM.PhraseWheel;
 using Content.Client.Gameplay;
 using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.MenuBar.Widgets;
 using Content.Shared._BlackM.PhraseWheel;
-using Content.Shared.Mobs;
-using Content.Shared.Mobs.Components;
 using JetBrains.Annotations;
-using Robust.Client.Player;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Client.UserInterface.Controls;
+using Robust.Shared.GameObjects;
+using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using System.Linq;
 
-// IMPORTANT: The namespace is intentionally Content.Client.UserInterface.Systems.PhraseWheel
-// so that GameTopMenuBarUIController can find this class without engine changes.
 namespace Content.Client.UserInterface.Systems.PhraseWheel;
 
 [UsedImplicitly]
 public sealed class PhraseWheelUIController : UIController, IOnStateChanged<GameplayState>
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    private const string RecentId = "__recent";
+    private const int MaxRecent = 8;
+    private static readonly Color RecentAccent = new(0.55f, 0.55f, 0.62f);
+
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IResourceCache _resCache = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
 
-    private TimeSpan _cooldownUntil = TimeSpan.Zero;
+    [Dependency] private readonly IEntitySystemManager _systems = default!;
 
-    private MenuButton? PhraseButton =>
-        UIManager.GetActiveUIWidgetOrNull<GameTopMenuBar>()?.PhraseWheelButton;
+    private PhraseWheelClientSystem _phraseSystem => _systems.GetEntitySystem<PhraseWheelClientSystem>();
 
     private PhraseWheelWindow? _window;
-    private bool _buttonSubscribed = false;
-    private string? _lastCustomColor;
-    private EntityUid? _lastAttachedEntity;
+    private MenuButton? PhraseButton => UIManager.GetActiveUIWidgetOrNull<GameTopMenuBar>()?.PhraseWheelButton;
 
+    private bool _stateActive;
+    private Color? _lastCustomColor;
+    private string? _lastCategoryId;
     private readonly LinkedList<string> _recentPhraseIds = new();
-    private const int MaxRecent = 8;
 
-    public void OnStateEntered(GameplayState state) => LoadButton();
+    public void OnStateEntered(GameplayState state)
+    {
+        _stateActive = true;
+        LoadButton();
+    }
 
     public void OnStateExited(GameplayState state)
     {
+        _stateActive = false;
         UnloadButton();
         CloseWindow();
     }
 
     public void LoadButton()
     {
+        if (!_stateActive)
+            return;
+
         if (PhraseButton == null)
         {
             Timer.Spawn(100, LoadButton);
             return;
         }
-        if (!_buttonSubscribed)
-        {
-            PhraseButton.OnPressed += OnButtonPressed;
-            _buttonSubscribed = true;
-        }
+
+        PhraseButton.OnPressed += OnButtonPressed;
         UpdateButtonVisibility();
     }
 
     public void UnloadButton()
     {
-        if (PhraseButton == null) return;
-        PhraseButton.OnPressed -= OnButtonPressed;
-        _buttonSubscribed = false;
+        if (PhraseButton != null)
+            PhraseButton.OnPressed -= OnButtonPressed;
+    }
+
+    public void HandleAttachedEntityChanged()
+    {
+        CloseWindow();
+        UpdateButtonVisibility();
     }
 
     public void UpdateButtonVisibility()
     {
-        if (PhraseButton == null) return;
-
-        var player = _playerManager.LocalSession?.AttachedEntity;
-        if (!player.HasValue || !_entityManager.HasComponent<PhraseWheelComponent>(player.Value))
-        {
-            PhraseButton.Visible = false;
+        if (PhraseButton == null)
             return;
-        }
 
-        var alive = true;
-        if (_entityManager.TryGetComponent<MobStateComponent>(player.Value, out var mobState))
-            alive = mobState.CurrentState == MobState.Alive;
-
-        PhraseButton.Visible = alive;
+        PhraseButton.Visible = _phraseSystem.TryGetLocal(out var uid, out _) && _phraseSystem.CanAct(uid);
     }
 
-    public void ForceClose()
-    {
-        CloseWindow();
-        if (PhraseButton != null)
-            PhraseButton.Visible = false;
-    }
-
-    public void HandleAttachedEntityChanged(EntityUid? newUid)
-    {
-        if (_lastAttachedEntity == newUid) return;
-        _lastAttachedEntity = newUid;
-        CloseWindow();
-        UpdateButtonVisibility();
-    }
+    public void ForceClose() => CloseWindow();
 
     private void OnButtonPressed(BaseButton.ButtonEventArgs args) => ToggleWindow();
 
@@ -114,89 +99,96 @@ public sealed class PhraseWheelUIController : UIController, IOnStateChanged<Game
             return;
         }
 
-        var player = _playerManager.LocalSession?.AttachedEntity;
-        if (player == null || !_entityManager.TryGetComponent<PhraseWheelComponent>(player.Value, out var comp))
+        if (!_phraseSystem.TryGetLocal(out var uid, out var comp) || !_phraseSystem.CanAct(uid))
             return;
 
-        if (_entityManager.TryGetComponent<MobStateComponent>(player.Value, out var mobState)
-            && mobState.CurrentState != MobState.Alive)
+        var categories = BuildCategories(comp);
+        if (categories.Count == 0)
             return;
 
-        var allPhrases = _prototypeManager.EnumeratePrototypes<PhraseWheelEntryPrototype>();
-        var filtered = comp.AllowedCategories.Count == 0
-            ? allPhrases
-            : allPhrases.Where(p => comp.AllowedCategories.Contains(p.Category));
+        var initial = categories.FindIndex(c => c.Id == _lastCategoryId);
+        if (initial < 0)
+            initial = categories[0].Phrases.Count == 0 && categories.Count > 1 ? 1 : 0;
 
-        var recentPhrases = _recentPhraseIds
-            .Select(id => _prototypeManager.TryIndex<PhraseWheelEntryPrototype>(id, out var p) ? p : null)
-            .Where(p => p != null)
-            .Select(p => p!);
+        _window = new PhraseWheelWindow(categories, _resCache, _phraseSystem.GetLocalCooldownSeconds,
+            _lastCustomColor, initial);
 
-        _window = new PhraseWheelWindow(filtered, _resCache, _lastCustomColor, recentPhrases);
         _window.OnPhraseSelected += HandlePhraseSelected;
-        _window.OnColorChanged += HandleColorChanged;
+        _window.OnColorChanged += color => _lastCustomColor = color;
         _window.OnClose += OnWindowClosed;
-        _window.OnOpen += OnWindowOpen;
-        _window.OpenCentered();
 
-        var remaining = _cooldownUntil - _timing.CurTime;
-        if (remaining > TimeSpan.Zero)
-        {
-            _window.SetPhraseButtonsEnabled(false);
-            Timer.Spawn(remaining, () => _window?.SetPhraseButtonsEnabled(true));
-        }
+        _window.OpenCentered();
+        PhraseButton?.SetClickPressed(true);
     }
 
-    private void HandlePhraseSelected(PhraseWheelEntryPrototype phrase, string? customColor)
+    private void OnWindowClosed()
     {
-        _entityManager.RaisePredictiveEvent(new PlayPhraseWheelMessage
-        {
-            PhraseId = phrase.ID,
-            CustomColor = customColor,
-        });
+        CloseWindow();
+    }
+
+    private void CloseWindow()
+    {
+        if (_window == null)
+            return;
+
+        _lastCategoryId = _window.ActiveCategoryId;
+
+        var window = _window;
+        _window = null;
+
+        window.OnPhraseSelected -= HandlePhraseSelected;
+        window.OnClose -= OnWindowClosed;
+        window.Dispose();
+
+        PhraseButton?.SetClickPressed(false);
+    }
+
+    private void HandlePhraseSelected(PhraseWheelEntryPrototype phrase, Color? customColor)
+    {
+        if (!_phraseSystem.TryRequestPlay(phrase, customColor))
+            return;
 
         _recentPhraseIds.Remove(phrase.ID);
         _recentPhraseIds.AddFirst(phrase.ID);
         while (_recentPhraseIds.Count > MaxRecent)
             _recentPhraseIds.RemoveLast();
 
-        var recentPhrases = _recentPhraseIds
-            .Select(id => _prototypeManager.TryIndex<PhraseWheelEntryPrototype>(id, out var p) ? p : null)
-            .Where(p => p != null)
-            .Select(p => p!);
-
-        _window?.UpdateRecentTab(recentPhrases);
-
-        _cooldownUntil = _timing.CurTime + PhraseWheelConstants.UseCooldown;
-        _window?.SetPhraseButtonsEnabled(false);
-        Timer.Spawn(PhraseWheelConstants.UseCooldown, () => _window?.SetPhraseButtonsEnabled(true));
-    }
-
-    private void HandleColorChanged(string? color)
-    {
-        _lastCustomColor = color;
-    }
-
-    private void OnWindowClosed()
-    {
-        if (PhraseButton != null) PhraseButton.Pressed = false;
         CloseWindow();
     }
 
-    private void OnWindowOpen()
+    private List<PhraseWheelCategoryView> BuildCategories(PhraseWheelComponent comp)
     {
-        if (PhraseButton != null) PhraseButton.Pressed = true;
-    }
+        var result = new List<PhraseWheelCategoryView>();
 
-    private void CloseWindow()
-    {
-        if (_window == null) return;
-        _window.OnPhraseSelected -= HandlePhraseSelected;
-        _window.OnColorChanged -= HandleColorChanged;
-        _window.OnClose -= OnWindowClosed;
-        _window.OnOpen -= OnWindowOpen;
-        _window.Dispose();
-        _window = null;
-        if (PhraseButton != null) PhraseButton.SetClickPressed(false);
+        var recent = _recentPhraseIds
+            .Select(id => _prototypeManager.TryIndex<PhraseWheelEntryPrototype>(id, out var p) ? p : null)
+            .Where(p => p != null && _phraseSystem.IsCategoryAllowed(comp, p.Category))
+            .Select(p => p!)
+            .ToList();
+        result.Add(new PhraseWheelCategoryView(RecentId, Loc.GetString("phrase-wheel-recent"), null, RecentAccent, recent));
+
+        var groups = _prototypeManager.EnumeratePrototypes<PhraseWheelEntryPrototype>()
+            .Where(p => _phraseSystem.IsCategoryAllowed(comp, p.Category))
+            .GroupBy(p => p.Category.Id);
+
+        var real = new List<(PhraseWheelCategoryPrototype Proto, List<PhraseWheelEntryPrototype> Phrases)>();
+        foreach (var group in groups)
+        {
+            if (!_prototypeManager.TryIndex<PhraseWheelCategoryPrototype>(group.Key, out var proto))
+                continue;
+
+            var phrases = group.OrderBy(p => p.Order).ThenBy(p => p.ID).ToList();
+            real.Add((proto, phrases));
+        }
+
+        foreach (var (proto, phrases) in real
+                     .OrderBy(r => r.Proto.Order)
+                     .ThenBy(r => r.Proto.ID))
+        {
+            var name = string.IsNullOrEmpty(proto.Name) ? proto.ID : Loc.GetString(proto.Name);
+            result.Add(new PhraseWheelCategoryView(proto.ID, name, proto.Icon, proto.Color, phrases));
+        }
+
+        return result;
     }
 }
