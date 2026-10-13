@@ -65,6 +65,15 @@ public sealed partial class DiscordAuthGui : Control
             _discordAuthManager.AuthUrl != string.Empty
                 ? _discordAuthManager.AuthUrl
                 : "Проверка...");
+
+        var hasCode = _discordAuthManager.LinkCode != string.Empty;
+        LinkInfoLabel.Visible = hasCode;
+        CodeEdit.Visible = hasCode;
+        if (hasCode)
+        {
+            LinkInfoLabel.Text = "Не получается через браузер? Введите в Discord-сервере команду /verify и этот код:";
+            CodeEdit.TextRope = new Rope.Leaf(_discordAuthManager.LinkCode);
+        }
     }
 
     protected override void Dispose(bool disposing)

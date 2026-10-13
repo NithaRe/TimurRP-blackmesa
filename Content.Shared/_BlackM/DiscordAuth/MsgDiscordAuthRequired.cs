@@ -12,11 +12,14 @@ public sealed class MsgDiscordAuthRequired : NetMessage
     public override MsgGroups MsgGroup => MsgGroups.Command;
 
     public string AuthUrl = string.Empty;
+
+    public string LinkCode = string.Empty;
     public byte[] QrCode = Array.Empty<byte>();
 
     public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
     {
         AuthUrl = buffer.ReadString();
+        LinkCode = buffer.ReadString();
         buffer.ReadPadBits();
         var length = buffer.ReadInt32();
         if (length == 0)
@@ -29,6 +32,7 @@ public sealed class MsgDiscordAuthRequired : NetMessage
     public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
     {
         buffer.Write(AuthUrl);
+        buffer.Write(LinkCode);
         buffer.WritePadBits();
         buffer.Write((int)QrCode.Length);
         if (QrCode.Length == 0)

@@ -10,6 +10,8 @@ public interface IClientDiscordAuthManager : ISharedDiscordAuthManager
 
     Texture? Qrcode { get; }
 
+    string LinkCode { get; }
+
     bool IsVerified { get; }
 
     bool IsOpt { get; }

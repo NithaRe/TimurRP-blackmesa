@@ -20,15 +20,21 @@ public sealed partial class DiscordAuthState : State
         _gui = new DiscordAuthGui();
         _userInterfaceManager.StateRoot.AddChild(_gui);
 
-        Timer.SpawnRepeating(TimeSpan.FromSeconds(5), () =>
-        {
+        SendCheck();
+
+        Timer.SpawnRepeating(TimeSpan.FromSeconds(5), SendCheck, _checkTimerCancel.Token);
+    }
+
+    private void SendCheck()
+    {
+        if (_netManager.IsConnected)
             _netManager.ClientSendMessage(new MsgDiscordAuthCheck());
-        }, _checkTimerCancel.Token);
     }
 
     protected override void Shutdown()
     {
         _checkTimerCancel.Cancel();
-        _gui!.Dispose();
+        _gui?.Dispose();
+        _gui = null;
     }
 }
