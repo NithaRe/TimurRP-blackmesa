@@ -25,3 +25,12 @@ public sealed class DiscordGuildResponse
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;
 }
+
+public sealed class DiscordLinkRequest
+{
+    [JsonPropertyName("code")]
+    public string Code { get; set; } = string.Empty;
+
+    [JsonPropertyName("discordId")]
+    public string DiscordId { get; set; } = string.Empty;
+}
