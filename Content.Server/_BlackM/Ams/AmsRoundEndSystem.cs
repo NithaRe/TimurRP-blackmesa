@@ -1,7 +1,11 @@
+using Robust.Shared.GameObjects;
+using Robust.Shared.IoC;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Content.Server._BlackM.Ams;
 using Content.Server._BlackM.Elevator;
 using Content.Server.GameTicking;
+using Content.Shared.GameTicking;
 using Content.Server.Mind;
 using Content.Shared.Mind;
 using Content.Shared.Mobs;
@@ -9,7 +13,7 @@ using Content.Shared.Mobs.Components;
 using Robust.Server.Player;
 using Robust.Shared.Enums;
 
-namespace Content.Server._BlackM.RoundEnd;
+namespace Content.Server._BlackM.Ams;
 
 public sealed class AmsRoundEndSystem : EntitySystem
 {
@@ -18,6 +22,11 @@ public sealed class AmsRoundEndSystem : EntitySystem
 
     private const string EvacuationElevatorId = "evac";
 
+    private static readonly TimeSpan CheckInterval = TimeSpan.FromSeconds(1);
+
+    [Dependency] private readonly Robust.Shared.Timing.IGameTiming _timing = default!;
+
+    private TimeSpan _nextCheck;
     private bool _tracking;
     private int _initialPoolSize;
     private int _voluntaryExcludedCount;
@@ -36,9 +45,27 @@ public sealed class AmsRoundEndSystem : EntitySystem
     {
         base.Initialize();
 
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
         SubscribeLocalEvent<AmsLaunchedEvent>(OnAmsLaunched);
         SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndText);
         SubscribeLocalEvent<BlackMElevatorArrivedEvent>(OnEvacuated);
+    }
+
+    private void OnRoundRestart(RoundRestartCleanupEvent ev)
+    {
+        _tracking = false;
+        _initialPoolSize = 0;
+        _voluntaryExcludedCount = 0;
+        _pending.Clear();
+        _finalDead.Clear();
+        _evacuated.Clear();
+        _lastKnownBody.Clear();
+        _lastKnownWasDeadOrCrit.Clear();
+    }
+
+    public bool IsEvacuated(EntityUid body)
+    {
+        return _mind.TryGetMind(body, out var mindId, out _) && _evacuated.Contains(mindId);
     }
 
     private void OnAmsLaunched(AmsLaunchedEvent ev)
@@ -85,6 +112,12 @@ public sealed class AmsRoundEndSystem : EntitySystem
 
         if (!_tracking || _pending.Count == 0)
             return;
+
+        var now = _timing.CurTime;
+        if (now < _nextCheck)
+            return;
+
+        _nextCheck = now + CheckInterval;
 
         foreach (var mindId in _pending.ToArray())
         {

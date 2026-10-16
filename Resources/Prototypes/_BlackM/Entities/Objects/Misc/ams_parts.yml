@@ -1,8 +1,6 @@
 - type: entity
   parent: BaseItem
   id: AmsPartCore
-  name: ядро АМС
-  description: Ключевой резонансный компонент антимасс-спектрометра.
   components:
   - type: Sprite
     sprite: _BlackM/Objects/ams_parts.rsi
@@ -15,8 +13,6 @@
 - type: entity
   parent: BaseItem
   id: AmsPartCoil
-  name: катушка АМС
-  description: Индукционная катушка антимасс-спектрометра.
   components:
   - type: Sprite
     sprite: _BlackM/Objects/ams_parts.rsi
@@ -29,8 +25,6 @@
 - type: entity
   parent: BaseItem
   id: AmsPartLens
-  name: фокусирующая линза АМС
-  description: Прецизионная линза для фокусировки поля.
   components:
   - type: Sprite
     sprite: _BlackM/Objects/ams_parts.rsi
@@ -43,8 +37,6 @@
 - type: entity
   parent: BaseItem
   id: AmsPartCell
-  name: энергоячейка АМС
-  description: Компактный источник питания для запуска синхронизации.
   components:
   - type: Sprite
     sprite: _BlackM/Objects/ams_parts.rsi
@@ -57,8 +49,6 @@
 - type: entity
   parent: BaseItem
   id: AmsPartStabilizer
-  name: стабилизатор АМС
-  description: Удерживает поле в стабильном состоянии на время работы.
   components:
   - type: Sprite
     sprite: _BlackM/Objects/ams_parts.rsi
@@ -71,8 +61,6 @@
 - type: entity
   parent: BaseItem
   id: AmsPartCasing
-  name: корпус АМС
-  description: Защитный корпус, замыкающий контур установки.
   components:
   - type: Sprite
     sprite: _BlackM/Objects/ams_parts.rsi

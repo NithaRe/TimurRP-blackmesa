@@ -1,0 +1,6 @@
+- files: ["ams_hum_idle.ogg", "ams_hum_sync.ogg", "ams_hum_ready.ogg", "ams_hum_active.ogg", "ams_hum_critical.ogg",
+          "ams_charge.ogg", "ams_explosion.ogg", "ams_cascade.ogg", "ams_crackle.ogg", "ams_insert.ogg",
+          "ams_calibrated.ogg", "ams_infect.ogg", "ams_powerup.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "blackm."
+  source: "https://github.com/NithaRe/TimurRP-blackmesa"

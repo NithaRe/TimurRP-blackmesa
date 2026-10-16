@@ -1,6 +1,7 @@
 using Content.Shared._BlackM.Ams;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
+using Robust.Shared.GameObjects;
 
 namespace Content.Client._BlackM.Ams;
 
@@ -18,7 +19,14 @@ public sealed class AmsBoundUserInterface : BoundUserInterface
         base.Open();
 
         _window = this.CreateWindow<AmsWindow>();
-        _window.SetEntity(Owner);
-        _window.OnLaunchPressed += () => SendMessage(new AmsLaunchButtonMessage());
+        _window.OnLaunch += () => SendMessage(new AmsLaunchButtonMessage());
+    }
+
+    protected override void UpdateState(BoundUserInterfaceState state)
+    {
+        base.UpdateState(state);
+
+        if (state is AmsBuiState s)
+            _window?.UpdateState(s);
     }
 }
