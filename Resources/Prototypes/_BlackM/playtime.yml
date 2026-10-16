@@ -1,0 +1,44 @@
+- type: blackmAchievement
+  id: Playtime10
+  name: achievement-playtime-10-name
+  description: achievement-playtime-10-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/playtime_10.png
+  tracker: Overall
+  hours: 10
+  order: 10
+
+- type: blackmAchievement
+  id: Playtime100
+  name: achievement-playtime-100-name
+  description: achievement-playtime-100-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/playtime_100.png
+  tracker: Overall
+  hours: 100
+  order: 20
+
+- type: blackmAchievement
+  id: Playtime500
+  name: achievement-playtime-500-name
+  description: achievement-playtime-500-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/playtime_500.png
+  tracker: Overall
+  hours: 500
+  order: 30
+
+- type: blackmAchievement
+  id: Playtime1000
+  name: achievement-playtime-1000-name
+  description: achievement-playtime-1000-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/playtime_1000.png
+  tracker: Overall
+  hours: 1000
+  order: 40
+
+- type: blackmAchievement
+  id: Playtime2500
+  name: achievement-playtime-2500-name
+  description: achievement-playtime-2500-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/playtime_2500.png
+  tracker: Overall
+  hours: 2500
+  order: 50

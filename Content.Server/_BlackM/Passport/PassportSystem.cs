@@ -1,3 +1,4 @@
+using Content.Server._BlackM.Achievements;
 using Content.Server.Hands.Systems;
 using Content.Server.Popups;
 using Content.Shared._BlackM.Passport;
@@ -32,6 +33,7 @@ public sealed class PassportSystem : EntitySystem
     [Dependency] private readonly PopupSystem          _popup  = default!;
     [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
     [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
+    [Dependency] private readonly AchievementsSystem _achievements = default!;
 
     private const float BureaucraticErrorChance = 0.10f;
 
@@ -134,8 +136,6 @@ public sealed class PassportSystem : EntitySystem
 
         args.PushMarkup(Loc.GetString("passport-examine-checked-by", ("name", comp.CheckedBy)));
     }
-
-    // Наайм персонала
     public bool TrySetAdditionalJob(EntityUid passportUid, string positionId, string displayName,
         PassportComponent? comp = null)
     {
@@ -204,7 +204,6 @@ public sealed class PassportSystem : EntitySystem
     {
         _ui.SetUiState(uid, PassportUiKey.Key, BuildState(comp));
     }
-
     public PassportBoundUserInterfaceState BuildState(PassportComponent comp)
     {
         var displayCity    = comp.City;
@@ -236,7 +235,19 @@ public sealed class PassportSystem : EntitySystem
             displayNumber, displayDate,
             signature, mrz1, mrz2, comp.OwnerEntity,
             comp.HasBureaucraticError, comp.ErrorField, comp.Stamp,
-            comp.AdditionalJob);
+            comp.AdditionalJob, new List<string>(comp.Badges));
+    }
+    public void RefreshBadges(EntityUid mob)
+    {
+        if (!_inv.TryGetSlotEntity(mob, "passport", out var slot) || slot == null)
+            return;
+
+        if (!TryComp<PassportComponent>(slot.Value, out var comp) || !comp.IsBound)
+            return;
+
+        comp.Badges = _achievements.GetBadgesFor(mob);
+        Dirty(slot.Value, comp);
+        UpdateUiState(slot.Value, comp);
     }
 
     public void SetStamp(EntityUid passportUid, PassportStampState stamp, PassportComponent? comp = null)
@@ -266,6 +277,7 @@ public sealed class PassportSystem : EntitySystem
         comp.IssuedDate     = DateTime.UtcNow.ToString("dd.MM.yyyy");
         comp.IsBound        = true;
         comp.Stamp          = PassportStampState.None;
+        comp.Badges         = _achievements.GetBadgesFor(characterUid);
 
         if (!IsImmuneJobId(jobId))
             TryApplyBureaucraticError(comp);

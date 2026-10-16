@@ -1,0 +1,9 @@
+- type: blackmAchievement
+  id: Ams50
+  name: achievement-ams-50-name
+  description: achievement-ams-50-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/ams_50.png
+  kind: Stat
+  stat: ams_parts
+  count: 50
+  order: 220

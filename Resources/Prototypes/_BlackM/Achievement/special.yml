@@ -1,0 +1,33 @@
+- type: blackmAchievement
+  id: AchivWhitelist
+  name: achievement-whitelist-name
+  description: achievement-whitelist-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/whitelist.png
+  kind: Manual
+  order: 920
+
+- type: blackmAchievement
+  id: TesterTrp
+  name: achievement-testertrp-name
+  description: achievement-testertrp-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/event_testertrp.png
+  kind: Date
+  dateFrom: "2026-10-17"
+  dateTo: "2027-01-01"
+  order: 310
+
+- type: blackmAchievement
+  id: AchivPlayer
+  name: achievement-player-name
+  description: achievement-player-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/player.png
+  kind: Manual
+  order: 930
+
+- type: blackmAchievement
+  id: sweekyl
+  name: achievement-swk-name
+  description: achievement-swk-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/special_founder.png
+  kind: Manual
+  order: 900

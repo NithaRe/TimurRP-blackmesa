@@ -261,6 +261,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                                SeparationOverride="8" MinWidth="230">
                             <Button Name="OptionsButton" Access="Public" StyleClasses="ButtonTerminalBlackM"
                                     Text="{Loc 'ui-lobby-options-button'}" />
+                            <!-- BlackM: achiv -->
+                            <Button Name="AchievementsButton" Access="Public" StyleClasses="ButtonTerminalBlackM"
+                                    Text="{Loc 'blackm-achievements-button'}" />
                             <Button Name="AHelpButton" Access="Public" StyleClasses="ButtonTerminalBlackM"
                                     Text="{Loc 'ui-lobby-ahelp-button'}" />
                             <vote:VoteCallMenuButton Name="CallVoteButton" StyleClasses="ButtonTerminalBlackM" />

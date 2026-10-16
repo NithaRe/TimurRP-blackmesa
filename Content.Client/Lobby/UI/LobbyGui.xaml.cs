@@ -51,6 +51,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Client._BlackM.Achievements.UI; // BlackM
 using Content.Client._BlackM.Lobby.Terminal; // BlackM
 using Content.Client.Message;
 using Content.Client.UserInterface.Systems.EscapeMenu;
@@ -76,6 +77,7 @@ namespace Content.Client.Lobby.UI
 
         private LobbyGuiState _state = LobbyGuiState.Default;
         private float _styleTimer;
+        private AchievementsWindow? _achievementsWindow;
         // BlackM end
         public LobbyGui()
         {
@@ -103,6 +105,7 @@ namespace Content.Client.Lobby.UI
 
             CollapseButton.OnPressed += _ => TogglePanel(false);
             ExpandButton.OnPressed += _ => TogglePanel(true);
+            AchievementsButton.OnPressed += _ => ToggleAchievements(); // BlackM
             // BlackM start
             TerminalSounds.AttachAll(this);
 
@@ -157,7 +160,24 @@ namespace Content.Client.Lobby.UI
         {
             base.ExitedTree();
 
+            _achievementsWindow?.Close(); // BlackM
+            _achievementsWindow = null;
+
             var overlays = IoCManager.Resolve<IOverlayManager>();
+        }
+
+        // BlackM: achiv
+        private void ToggleAchievements()
+        {
+            if (_achievementsWindow is { IsOpen: true })
+            {
+                _achievementsWindow.Close();
+                _achievementsWindow = null;
+                return;
+            }
+
+            _achievementsWindow = new AchievementsWindow();
+            _achievementsWindow.OpenCentered();
         }
 
         private void StartIntro()
