@@ -1,8 +1,6 @@
 - type: entity
   id: AmsMachine
   parent: BaseStructure
-  name: антимасс-спектрометр
-  description: Массивная синхронизирующая установка. Требует шесть ключевых компонентов для запуска.
   components:
   - type: Sprite
     sprite: _BlackM/Structures/ams_machine.rsi
@@ -20,37 +18,58 @@
         - MachineMask
         layer:
         - MachineLayer
-  - type: Ams
   - type: PointLight
     enabled: true
-    radius: 2.5
-    energy: 2
+    radius: 3
+    energy: 1.5
     color: "#3ad1ff"
+  - type: AmbientSound
+    enabled: true
+    range: 4
+    volume: -10
+    sound:
+      path: /Audio/_BlackM/Ams/ams_hum_idle.ogg
   - type: InteractionOutline
+  - type: Ams
+    chargeTime: 300
+    activeDuration: 300
+    detonationDelay: 60
   - type: ItemSlots
     slots:
       ams_part_core:
-        name: ams-ui-part-core
+        name: ams-part-core
+        insertSound:
+          path: /Audio/_BlackM/Ams/ams_insert.ogg
         whitelist:
           tags: [AmsPartCore]
       ams_part_coil:
-        name: ams-ui-part-coil
+        name: ams-part-coil
+        insertSound:
+          path: /Audio/_BlackM/Ams/ams_insert.ogg
         whitelist:
           tags: [AmsPartCoil]
       ams_part_lens:
-        name: ams-ui-part-lens
+        name: ams-part-lens
+        insertSound:
+          path: /Audio/_BlackM/Ams/ams_insert.ogg
         whitelist:
           tags: [AmsPartLens]
       ams_part_cell:
-        name: ams-ui-part-cell
+        name: ams-part-cell
+        insertSound:
+          path: /Audio/_BlackM/Ams/ams_insert.ogg
         whitelist:
           tags: [AmsPartCell]
       ams_part_stabilizer:
-        name: ams-ui-part-stabilizer
+        name: ams-part-stabilizer
+        insertSound:
+          path: /Audio/_BlackM/Ams/ams_insert.ogg
         whitelist:
           tags: [AmsPartStabilizer]
       ams_part_casing:
-        name: ams-ui-part-casing
+        name: ams-part-casing
+        insertSound:
+          path: /Audio/_BlackM/Ams/ams_insert.ogg
         whitelist:
           tags: [AmsPartCasing]
   - type: ActivatableUI

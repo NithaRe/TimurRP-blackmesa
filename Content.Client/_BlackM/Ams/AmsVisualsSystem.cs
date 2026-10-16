@@ -1,3 +1,4 @@
+using Robust.Shared.IoC;
 using System.Collections.Generic;
 using Content.Shared._BlackM.Ams;
 using Robust.Client.GameObjects;
@@ -23,13 +24,7 @@ public sealed class AmsVisualsSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-
-        SubscribeLocalEvent<AmsComponent, ComponentShutdown>(OnShutdown);
-    }
-
-    private void OnShutdown(EntityUid uid, AmsComponent component, ComponentShutdown args)
-    {
-        _currentState.Remove(uid);
+        SubscribeLocalEvent<AmsComponent, ComponentShutdown>((uid, _, _) => _currentState.Remove(uid));
     }
 
     public override void Update(float frameTime)
@@ -39,19 +34,14 @@ public sealed class AmsVisualsSystem : EntitySystem
         var query = EntityQueryEnumerator<AmsComponent, SpriteComponent>();
         while (query.MoveNext(out var uid, out var ams, out var sprite))
         {
-            UpdateSprite(uid, ams, sprite);
+            var state = GetDesiredState(ams);
+
+            if (_currentState.TryGetValue(uid, out var current) && current == state)
+                continue;
+
+            _currentState[uid] = state;
+            _sprite.LayerSetRsiState((uid, sprite), Layer, state);
         }
-    }
-
-    private void UpdateSprite(EntityUid uid, AmsComponent ams, SpriteComponent sprite)
-    {
-        var state = GetDesiredState(ams);
-
-        if (_currentState.TryGetValue(uid, out var current) && current == state)
-            return;
-
-        _currentState[uid] = state;
-        _sprite.LayerSetRsiState((uid, sprite), Layer, state);
     }
 
     private string GetDesiredState(AmsComponent ams)
@@ -59,21 +49,18 @@ public sealed class AmsVisualsSystem : EntitySystem
         switch (ams.Status)
         {
             case AmsStatus.Synchronizing:
-                if (ams.SyncStartTime.HasValue &&
-                    (_timing.CurTime - ams.SyncStartTime.Value).TotalSeconds < SyncIntroDuration)
-                {
+                if (ams.SyncStartTime is { } start && (_timing.CurTime - start).TotalSeconds < SyncIntroDuration)
                     return StateSync;
-                }
-
                 return StateSyncStatic;
 
             case AmsStatus.Ready:
                 return StateSyncStatic;
 
             case AmsStatus.Active:
+            case AmsStatus.Detonating:
                 return StateOn;
 
-            default: // Inactive, Used
+            default: // Inactive, Destroyed
                 return StateBase;
         }
     }

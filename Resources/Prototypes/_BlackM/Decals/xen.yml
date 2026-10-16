@@ -1,0 +1,13 @@
+- type: decal
+  id: AmsInfectedDecal1
+  defaultCleanable: true
+  sprite:
+    sprite: _BlackM/Decals/xen.rsi
+    state: xen2
+
+- type: decal
+  id: AmsInfectedDecal2
+  defaultCleanable: true
+  sprite:
+    sprite: _BlackM/Decals/xen.rsi
+    state: xen1

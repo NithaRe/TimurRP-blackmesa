@@ -1,0 +1,4 @@
+- files: ["frame.png", "header.png", "slot.png", "button.png", "bar_bg.png", "bar_fill.png", "hazard.png", "lambda.png", "check.png", "cross.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "blackm"
+  source: "https://github.com/NithaRe/TimurRP-blackmesa"
