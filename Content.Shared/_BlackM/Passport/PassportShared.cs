@@ -22,6 +22,7 @@ public sealed partial class PassportComponent : Component
     [DataField, AutoNetworkedField] public PassportStampState Stamp { get; set; } = PassportStampState.None;
     [DataField, AutoNetworkedField] public string AdditionalJobId { get; set; } = string.Empty;
     [DataField, AutoNetworkedField] public string AdditionalJob { get; set; } = string.Empty;
+    [DataField, AutoNetworkedField] public List<string> Badges { get; set; } = new();
 }
 
 [Serializable, NetSerializable]
@@ -49,13 +50,15 @@ public sealed class PassportBoundUserInterfaceState : BoundUserInterfaceState
     public string ErrorField;
     public PassportStampState Stamp;
     public string AdditionalJob;
+    public List<string> Badges;
 
     public PassportBoundUserInterfaceState(
         string ownerName, string surname, string city, string jobTitle,
         string passportNumber, string issuedDate,
         string signature, string mrzLine1, string mrzLine2, NetEntity? ownerEntity,
         bool hasBureaucraticError, string errorField, PassportStampState stamp,
-        string additionalJob = "")
+        string additionalJob = "",
+        List<string>? badges = null)
     {
         OwnerName            = ownerName;
         Surname              = surname;
@@ -71,6 +74,7 @@ public sealed class PassportBoundUserInterfaceState : BoundUserInterfaceState
         ErrorField           = errorField;
         Stamp                = stamp;
         AdditionalJob        = additionalJob;
+        Badges               = badges ?? new List<string>();
     }
 }
 

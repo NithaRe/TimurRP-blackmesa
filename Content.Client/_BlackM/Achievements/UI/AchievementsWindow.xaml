@@ -1,0 +1,29 @@
+<pui:PassportFramelessWindow xmlns="https://spacestation14.io"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:pui="clr-namespace:Content.Client._BlackM.Passport.UI"
+                             xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                             xmlns:style="clr-namespace:Content.Client.Stylesheets"
+                             MinSize="780 580">
+
+    <PanelContainer StyleClasses="PanelTerminalBlackM" MinSize="780 580">
+        <BoxContainer Orientation="Vertical" Margin="16 12 16 14" SeparationOverride="8">
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="12" MinSize="0 34">
+                <Label Text="{Loc 'blackm-achievements-title'}" StyleClasses="LabelTerminalBlackM"
+                       HorizontalExpand="True" VAlign="Center"/>
+                <Label Name="CounterLabel" StyleClasses="LabelTerminalBlackM" VAlign="Center"/>
+                <Button Name="CloseButton" Text="{Loc 'blackm-achievements-close'}"
+                        StyleClasses="ButtonTerminalBlackM"/>
+            </BoxContainer>
+
+            <controls:HLine Color="{x:Static style:StyleNano.TerminalGreenDim}" Thickness="2"/>
+
+            <RichTextLabel Name="HintLabel" Margin="2 0 2 4"/>
+
+            <ScrollContainer VerticalExpand="True" HorizontalExpand="True" HScrollEnabled="False">
+                <BoxContainer Name="AchievementList" Orientation="Vertical" SeparationOverride="8"
+                              HorizontalExpand="True"/>
+            </ScrollContainer>
+        </BoxContainer>
+    </PanelContainer>
+</pui:PassportFramelessWindow>
