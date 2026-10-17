@@ -23,21 +23,22 @@
 using Content.Client.Ghost;
 using Content.Client.UserInterface.Systems.Gameplay;
 using Content.Client.UserInterface.Systems.Ghost.Widgets;
-using Content.Goobstation.Shared.MisandryBox.Thunderdome;
+using Content.Shared._BlackM.Ghost.Customization;
 using Content.Shared.Ghost;
 using Content.Shared._CorvaxGoob.CCCVars; // CorvaxGoob-GhostBar
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Shared.Configuration; // CorvaxGoob-GhostBar
+using Robust.Shared.Timing;
 
 namespace Content.Client.UserInterface.Systems.Ghost;
 
 // TODO hud refactor BEFORE MERGE fix ghost gui being too far up
 public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSystem>
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!; // CorvaxGoob-GhostBar
     [Dependency] private readonly IEntityNetworkManager _net = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
     [UISystemDependency] private readonly GhostSystem? _system = default;
 
     private GhostGui? Gui => UIManager.GetActiveUIWidgetOrNull<GhostGui>();
@@ -49,10 +50,6 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         var gameplayStateLoad = UIManager.GetUIController<GameplayStateLoadController>();
         gameplayStateLoad.OnScreenLoad += OnScreenLoad;
         gameplayStateLoad.OnScreenUnload += OnScreenUnload;
-
-        // Goobstation - Thunderdome
-        _entManager.EventBus.SubscribeEvent<ThunderdomePlayerCountEvent>
-            (EventSource.Network, this, OnThunderdomePlayerCount);
     }
 
     private void OnScreenLoad()
@@ -94,6 +91,15 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
 
         Gui.Visible = _system?.IsGhost ?? false;
         Gui.Update(_system?.AvailableGhostRoleCount, _system?.Player?.CanReturnToBody, _system?.Player?.CanEnterGhostBar, _system?.Player?.CanTakeGhostRoles); // CorvaxGoob-GhostBar edit
+        Gui.UpdateRespawn(_system?.Player?.RespawnAvailableAt - _timing.CurTime);
+    }
+
+    public override void FrameUpdate(FrameEventArgs args)
+    {
+        base.FrameUpdate(args);
+
+        if (Gui is { Visible: true } gui)
+            gui.UpdateRespawn(_system?.Player?.RespawnAvailableAt - _timing.CurTime);
     }
 
     private void OnPlayerRemoved(GhostComponent component)
@@ -157,7 +163,8 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         Gui.GhostBarPressed += GhostBarPressed; // CorvaxGoob-GhostBar
         Gui.GhostBarWindow.SpawnButtonPressed += GhostBarSpawnPressed; // CorvaxGoob-GhostBar
         Gui.GhostBarButton.Visible = _cfg.GetCVar(CCCVars.GhostBarEnabled); // CorvaxGoob-GhostBar
-        Gui.ThunderdomePressed += ThunderdomePressed; // Goobstation - Thunderdome
+        Gui.CustomizationPressed += CustomizationPressed;
+        Gui.RespawnPressed += RespawnPressed;
         Gui.TargetWindow.WarpClicked += OnWarpClicked;
         Gui.TargetWindow.OnGhostnadoClicked += OnGhostnadoClicked;
 
@@ -172,7 +179,8 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         Gui.RequestWarpsPressed -= RequestWarps;
         Gui.ReturnToBodyPressed -= ReturnToBody;
         Gui.GhostRolesPressed -= GhostRolesPressed;
-        Gui.ThunderdomePressed -= ThunderdomePressed; // Goobstation - Thunderdome
+        Gui.CustomizationPressed -= CustomizationPressed;
+        Gui.RespawnPressed -= RespawnPressed;
         Gui.TargetWindow.WarpClicked -= OnWarpClicked;
 
         Gui.Hide();
@@ -205,14 +213,13 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         _system?.GhostBarSpawn();
     }
 
-    // Goobstation - Thunderdome
-    private void ThunderdomePressed()
+    private void CustomizationPressed()
     {
-        _net.SendSystemNetworkMessage(new ThunderdomeJoinRequestEvent());
+        _net.SendSystemNetworkMessage(new GhostCustomizationRequestEvent());
     }
 
-    private void OnThunderdomePlayerCount(ThunderdomePlayerCountEvent ev)
+    private void RespawnPressed()
     {
-        Gui?.UpdateThunderdome(ev.Count);
+        _net.SendSystemNetworkMessage(new GhostRespawnRequestEvent());
     }
 }

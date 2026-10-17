@@ -98,6 +98,8 @@ using Content.Server.Ghost.Components;
 using Content.Server.Mind;
 using Content.Server.Roles.Jobs;
 using Content.Shared.Actions;
+using Content.Shared.Actions.Components;
+using Content.Shared.GameTicking;
 using Content.Shared.CCVar;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
@@ -175,6 +177,9 @@ namespace Content.Server.Ghost
         private EntityQuery<GhostComponent> _ghostQuery;
         private EntityQuery<PhysicsComponent> _physicsQuery;
 
+        // Keep the deadline across ghost entities, ghost roles and reconnects.
+        private readonly Dictionary<NetUserId, TimeSpan> _respawnDeadlines = new();
+
         private static readonly ProtoId<TagPrototype> AllowGhostShownByEventTag = "AllowGhostShownByEvent";
         private static readonly ProtoId<DamageTypePrototype> AsphyxiationDamageType = "Asphyxiation";
         private static readonly ProtoId<DamageTypePrototype> IonDamageType = "Ion";
@@ -195,6 +200,9 @@ namespace Content.Server.Ghost
             SubscribeLocalEvent<GhostComponent, MindRemovedMessage>(OnMindRemovedMessage);
             SubscribeLocalEvent<GhostComponent, MindUnvisitedMessage>(OnMindUnvisitedMessage);
             SubscribeLocalEvent<GhostComponent, PlayerDetachedEvent>(OnPlayerDetached);
+            SubscribeLocalEvent<GhostComponent, PlayerAttachedEvent>(OnRespawnPlayerAttached);
+            SubscribeLocalEvent<RoundRestartCleanupEvent>(_ => _respawnDeadlines.Clear());
+            SubscribeLocalEvent<PlayerSpawnCompleteEvent>(ev => _respawnDeadlines.Remove(ev.Player.UserId));
 
             SubscribeLocalEvent<GhostOnMoveComponent, MoveInputEvent>(OnRelayMoveInput);
 
@@ -202,6 +210,7 @@ namespace Content.Server.Ghost
 
             SubscribeNetworkEvent<GhostWarpsRequestEvent>(OnGhostWarpsRequest);
             SubscribeNetworkEvent<GhostReturnToBodyRequest>(OnGhostReturnToBodyRequest);
+            SubscribeNetworkEvent<GhostRespawnRequestEvent>(OnRespawnRequest);
             SubscribeNetworkEvent<GhostWarpToTargetRequestEvent>(OnGhostWarpToTargetRequest);
             SubscribeNetworkEvent<GhostnadoRequestEvent>(OnGhostnadoRequest);
 
@@ -277,14 +286,45 @@ namespace Content.Server.Ghost
         //BlackM Respawn System
         private void OnActionRespawn(EntityUid uid, GhostComponent component, RespawnActionEvent args)
         {
+            if (!args.Handled && TryComp<ActorComponent>(uid, out var actor))
+                args.Handled = TryRespawn(actor.PlayerSession);
+        }
+
+        private void OnRespawnPlayerAttached(EntityUid uid, GhostComponent component, PlayerAttachedEvent args)
+        {
             if (!TryComp<ActorComponent>(uid, out var actor))
                 return;
-            var playerMgr = IoCManager.Resolve<IPlayerManager>();
-            NetUserId userId;
-            userId = actor.PlayerSession.UserId;
-            if (!playerMgr.TryGetSessionById(userId, out var targetPlayer))
-                return;
-            _gameTicker.Respawn(targetPlayer);
+
+            var userId = actor.PlayerSession.UserId;
+            if (!_respawnDeadlines.TryGetValue(userId, out var deadline))
+            {
+                var prototype = _prototypeManager.Index(component.RespawnAction);
+                if (!prototype.Components.TryGetComponent("Action", out var action) || action is not ActionComponent respawn)
+                    return;
+
+                deadline = _gameTiming.CurTime + (respawn.UseDelay ?? TimeSpan.Zero);
+                _respawnDeadlines.Add(userId, deadline);
+            }
+
+            component.RespawnAvailableAt = deadline;
+            Dirty(uid, component);
+        }
+
+        private void OnRespawnRequest(GhostRespawnRequestEvent msg, EntitySessionEventArgs args)
+        {
+            TryRespawn(args.SenderSession);
+        }
+
+        private bool TryRespawn(ICommonSession session)
+        {
+            if (session.AttachedEntity is not { } uid
+                || !HasComp<GhostComponent>(uid)
+                || !_respawnDeadlines.TryGetValue(session.UserId, out var deadline)
+                || _gameTiming.CurTime < deadline)
+                return false;
+
+            _gameTicker.Respawn(session);
+            return true;
         }
         //BlackM end Respawn System
 
@@ -354,15 +394,6 @@ namespace Content.Server.Ghost
             _actions.AddAction(uid, ref component.ToggleLightingActionEntity, component.ToggleLightingAction);
             _actions.AddAction(uid, ref component.ToggleFoVActionEntity, component.ToggleFoVAction);
             _actions.AddAction(uid, ref component.ToggleGhostsActionEntity, component.ToggleGhostsAction);
-            //BlackM Respawn System
-            if (_actions.AddAction(uid, ref component.RespawnActionEntity, out var actResp, component.RespawnAction)
-                && actResp.UseDelay != null)
-            {
-                var start = _gameTiming.CurTime;
-                var end = start + actResp.UseDelay.Value;
-                _actions.SetCooldown(component.RespawnActionEntity.Value, start, end);
-            }
-            //BlackM end Respawn System
         }
 
         private void OnGhostExamine(EntityUid uid, GhostComponent component, ExaminedEvent args)

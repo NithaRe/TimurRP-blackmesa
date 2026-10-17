@@ -62,8 +62,8 @@ public sealed partial class GhostComponent : Component
     [DataField]
     public EntProtoId RespawnAction = "ActionRespawn";
 
-    [DataField, AutoNetworkedField]
-    public EntityUid? RespawnActionEntity;
+    [AutoNetworkedField]
+    public TimeSpan? RespawnAvailableAt;
     //BlackM Respawn System
 
     // End actions

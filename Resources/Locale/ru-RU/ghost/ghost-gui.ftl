@@ -1,4 +1,7 @@
 ghost-gui-return-to-body-button = Вернуться в тело
+ghost-gui-customization-button = Кастомизация
+ghost-gui-respawn-button = Возродиться: { $time }
+ghost-gui-respawn-tooltip = Вернуться в лобби. Вы обязаны выбрать другого персонажа и забыть события прошлой жизни.
 ghost-gui-ghost-warp-button = Телепорт призрака
 ghost-gui-ghost-roles-button = Роли призраков ({ $count })
 ghost-gui-toggle-ghost-visibility-popup-on = Видимость призраков включена.

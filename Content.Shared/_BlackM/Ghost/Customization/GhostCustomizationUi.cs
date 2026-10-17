@@ -53,3 +53,6 @@ public sealed class GhostSpriteSelectedMessage : BoundUserInterfaceMessage
 public sealed partial class GhostCustomizationActionEvent : InstantActionEvent
 {
 }
+
+[Serializable, NetSerializable]
+public sealed class GhostCustomizationRequestEvent : EntityEventArgs;

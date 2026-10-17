@@ -36,8 +36,10 @@ public sealed partial class GhostGui : UIWidget
     public event Action? ReturnToBodyPressed;
     public event Action? GhostRolesPressed;
     public event Action? GhostBarPressed; // CorvaxGoob-GhostBar
-    public event Action? ThunderdomePressed; // Goobstation - Thunderdome
+    public event Action? CustomizationPressed;
+    public event Action? RespawnPressed;
     private int _prevNumberRoles;
+    private int _prevRespawnSeconds = -1;
 
     public GhostGui()
     {
@@ -54,7 +56,9 @@ public sealed partial class GhostGui : UIWidget
         GhostRolesButton.OnPressed += _ => GhostRolesPressed?.Invoke();
         GhostRolesButton.OnPressed += _ => GhostRolesButton.StyleClasses.Remove(StyleBase.ButtonCaution);
         GhostBarButton.OnPressed += _ => GhostBarPressed?.Invoke(); // CorvaxGoob-GhostBar
-        ThunderdomeButton.OnPressed += _ => ThunderdomePressed?.Invoke(); // Goobstation - Thunderdome
+        CustomizationButton.OnPressed += _ => CustomizationPressed?.Invoke();
+        RespawnButton.OnPressed += _ => RespawnPressed?.Invoke();
+        UpdateRespawn(null);
     }
 
     public void Hide()
@@ -88,10 +92,16 @@ public sealed partial class GhostGui : UIWidget
         TargetWindow.Populate();
     }
 
-    // Goobstation - Thunderdome
-    public void UpdateThunderdome(int playerCount)
+    public void UpdateRespawn(TimeSpan? remaining)
     {
-        ThunderdomeButton.Text = Loc.GetString("thunderdome-ghost-button", ("count", playerCount));
+        var seconds = (int) Math.Ceiling(Math.Max(0, remaining?.TotalSeconds ?? 0));
+        RespawnButton.Disabled = remaining == null || seconds > 0;
+        if (seconds == _prevRespawnSeconds)
+            return;
+
+        _prevRespawnSeconds = seconds;
+        RespawnButton.Text = Loc.GetString("ghost-gui-respawn-button",
+            ("time", $"{seconds / 60:00}:{seconds % 60:00}"));
     }
 
     protected override void Dispose(bool disposing)
