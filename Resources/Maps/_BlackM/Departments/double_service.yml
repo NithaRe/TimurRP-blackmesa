@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/02/2026 20:30:00
-  entityCount: 489
+  time: 10/17/2026 09:40:10
+  entityCount: 496
 maps: []
 grids:
 - 1
@@ -1159,6 +1159,16 @@ entities:
     - type: Transform
       pos: -1.5,7.5
       parent: 1
+  - uid: 490
+    components:
+    - type: Transform
+      pos: 7.5,-3.5
+      parent: 1
+  - uid: 491
+    components:
+    - type: Transform
+      pos: 3.5,-7.5
+      parent: 1
 - proto: CableMV
   entities:
   - uid: 36
@@ -1405,6 +1415,26 @@ entities:
     components:
     - type: Transform
       pos: -3.5,7.5
+      parent: 1
+  - uid: 492
+    components:
+    - type: Transform
+      pos: 4.5,-1.5
+      parent: 1
+  - uid: 493
+    components:
+    - type: Transform
+      pos: 4.5,-0.5
+      parent: 1
+  - uid: 494
+    components:
+    - type: Transform
+      pos: -0.5,-1.5
+      parent: 1
+  - uid: 495
+    components:
+    - type: Transform
+      pos: -1.5,-1.5
       parent: 1
 - proto: ChairWeb
   entities:
@@ -1883,6 +1913,15 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 0.36767513,-1.49494
       parent: 1
+- proto: FloorDrain
+  entities:
+  - uid: 496
+    components:
+    - type: Transform
+      pos: -2.5,-1.5
+      parent: 1
+    - type: Fixtures
+      fixtures: {}
 - proto: FoodBanana
   entities:
   - uid: 148
