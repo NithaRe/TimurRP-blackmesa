@@ -231,8 +231,6 @@
     uis:
       enum.RadarConsoleUiKey.Key:
         toggleAction: ActionGhostShowRadar
-      enum.GhostCustomizationUiKey.Key:
-        toggleAction: ActionGhostCustomization
   - type: RadarConsole
     followEntity: true
   # </Goobstation>

@@ -160,6 +160,9 @@ namespace Content.Shared.Ghost
     {
     }
 
+    [Serializable, NetSerializable]
+    public sealed class GhostRespawnRequestEvent : EntityEventArgs;
+
     // CorvaxGoob-GhostBar
     [Serializable, NetSerializable]
     public sealed class GhostBarSpawnEvent : EntityEventArgs;

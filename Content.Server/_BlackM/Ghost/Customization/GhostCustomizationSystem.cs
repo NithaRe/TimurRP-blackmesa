@@ -32,6 +32,7 @@ public sealed class GhostCustomizationSystem : EntitySystem
         SubscribeLocalEvent<GhostComponent, ComponentInit>(OnGhostInit);
         SubscribeLocalEvent<GhostComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<GhostComponent, GhostCustomizationActionEvent>(OnCustomizationAction);
+        SubscribeNetworkEvent<GhostCustomizationRequestEvent>(OnCustomizationRequest);
         SubscribeLocalEvent<GhostComponent, GhostSpriteSelectedMessage>(OnSpriteSelected);
 
         _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
@@ -66,6 +67,15 @@ public sealed class GhostCustomizationSystem : EntitySystem
 
         _ = UpdateUiStateAsync(uid);
         args.Handled = true;
+    }
+
+    private void OnCustomizationRequest(GhostCustomizationRequestEvent msg, EntitySessionEventArgs args)
+    {
+        if (args.SenderSession.AttachedEntity is not { } uid || !HasComp<GhostComponent>(uid))
+            return;
+
+        if (_ui.TryToggleUi(uid, GhostCustomizationUiKey.Key, uid))
+            _ = UpdateUiStateAsync(uid);
     }
 
     private async Task<bool> GetWhitelistCachedAsync(NetUserId userId)
