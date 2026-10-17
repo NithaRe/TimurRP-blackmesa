@@ -39,3 +39,66 @@
   category: Standard_barks
   sound:
     path: /Audio/_BlackM/Barks/oneshot-robot.ogg
+
+- type: speechBark
+  id: CitadelBloop
+  name: citadel-bark-bloop
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/bloop.ogg
+
+- type: speechBark
+  id: BarkDeltaruneRalsei
+  name: bark-deltarune-ralsei
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/deltarune-ralsei.ogg
+
+- type: speechBark
+  id: BarkMinecraftBit
+  name: bark-minecraft-bit
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/minecraft_bit.ogg
+
+- type: speechBark
+  id: BarkTsUnderswapAlphys
+  name: bark-ts-underswap-alphys
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/ts_underswap_alphys.ogg
+
+- type: speechBark
+  id: BarkUndertaleYellowAce
+  name: bark-undertale-yellow-ace
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/undertale-yellow-ace.ogg
+
+- type: speechBark
+  id: BarkUnderverseFatalErrorSans1
+  name: bark-underverse-fatal-error-sans-1
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/underverse_fatal_error_sans_1.ogg
+
+- type: speechBark
+  id: DeltaruneRewrittenCharkis
+  name: bark-deltarunerewritten-charkis
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/deltarunerewritten_charkis.ogg
+
+- type: speechBark
+  id: UndertalePapyrus
+  name: bark-undertale-papyrus
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/undertale-papyrus.ogg
+
+- type: speechBark
+  id: UndertaleYellowCeroba
+  name: bark-undertale-yellow-ceroba
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/undertale-yellow-ceroba.ogg
