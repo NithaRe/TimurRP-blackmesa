@@ -16,6 +16,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared.Alert;
+using Content.Shared.Damage;
 using Content.Shared.Nutrition.EntitySystems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -32,6 +33,9 @@ public sealed partial class ThirstComponent : Component
     [DataField("baseDecayRate")]
     [AutoNetworkedField]
     public float BaseDecayRate = 0.1f;
+
+    [DataField]
+    public DamageSpecifier? DehydrationDamage;
 
     [ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]

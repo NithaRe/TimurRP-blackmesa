@@ -120,9 +120,12 @@ public sealed partial class ResearchSystem
         if (!CanServerUnlockTechnology(client, prototype, clientDatabase, component))
             return false;
 
-        AddTechnology(serverEnt.Value, prototype);
+        if (!prototype.Repeatable)
+            AddTechnology(serverEnt.Value, prototype);
         //TrySetMainDiscipline(prototype, serverEnt.Value); // Goobstation commented
         ModifyServerPoints(serverEnt.Value, -prototype.Cost);
+        if (prototype.ResearchReward is { } reward)
+            Spawn(reward, Transform(client).Coordinates);
         UpdateTechnologyCards(serverEnt.Value);
 
         _adminLog.Add(LogType.Action, LogImpact.Medium,

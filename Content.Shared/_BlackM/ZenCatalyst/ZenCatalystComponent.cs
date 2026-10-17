@@ -16,9 +16,7 @@ public sealed partial class ZenCatalystComponent : Component
     [DataField, AutoNetworkedField]
     public List<EntProtoId> ZenMobPrototypes = new()
     {
-        "MobHeadcrabBlackM",
-        "MobHoundeyeBlackM",
-        "MobVortigauntBlackM",
+        "MobXenInfected",
     };
 
     [DataField]

@@ -132,6 +132,16 @@
     sprite: Mobs/Species/Human/parts.rsi
     state: full
   - type: Thirst
+    baseDecayRate: 0.1
+    thresholds:
+      OverHydrated: 200
+      Okay: 150
+      Thirsty: 100
+      Parched: 50
+      Dead: 0
+    dehydrationDamage:
+      types:
+        Poison: 0.25
   - type: Butcherable
     butcheringType: Spike
     spawned:

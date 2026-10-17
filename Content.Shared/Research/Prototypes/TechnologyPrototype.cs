@@ -76,6 +76,15 @@ public sealed partial class TechnologyPrototype : IPrototype
     [DataField]
     public int Cost = 10000;
 
+    [DataField]
+    public bool Repeatable;
+
+    /// <summary>
+    /// Item delivered at the purchasing research client, not when copying technology databases.
+    /// </summary>
+    [DataField]
+    public EntProtoId? ResearchReward;
+
     /// <summary>
     /// A list of <see cref="TechnologyPrototype"/>s that need to be unlocked in order to unlock this technology.
     /// </summary>

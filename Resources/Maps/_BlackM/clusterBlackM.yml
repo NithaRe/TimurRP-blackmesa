@@ -47188,7 +47188,7 @@ entities:
     - type: Transform
       pos: 12.627049,-0.27726722
       parent: 2
-- proto: LightTree
+- proto: XenLightTree
   entities:
   - uid: 5418
     components:

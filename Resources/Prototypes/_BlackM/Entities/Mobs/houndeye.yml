@@ -7,6 +7,10 @@
   - type: Houndeye
   - type: XenSampleSource
     filledCapsulePrototype: XenSampleCapsuleHoundeye
+  - type: SpawnLootOnDeath
+    table: !type:AllSelector
+      children:
+      - id: XenSampleCapsuleHoundeye
   - type: Actions
   - type: MobSpawnZap
   - type: NightVision

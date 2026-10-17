@@ -13,7 +13,7 @@
       allowedTiles:
         - FloorChromite
       entities:
-        - LightTree
+        - XenLightTree
     # Rock formations
     - !type:BiomeEntityLayer
       allowedTiles:

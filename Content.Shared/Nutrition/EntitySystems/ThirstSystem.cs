@@ -101,6 +101,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared.Alert;
+using Content.Shared.Damage;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Nutrition.Components;
@@ -108,6 +110,7 @@ using Content.Shared.Rejuvenate;
 using Content.Shared.StatusIcon;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Network;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using System.Diagnostics.CodeAnalysis;
@@ -123,6 +126,9 @@ public sealed class ThirstSystem : EntitySystem
     [Dependency] private readonly AlertsSystem _alerts = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movement = default!;
     [Dependency] private readonly SharedJetpackSystem _jetpack = default!;
+    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency] private readonly INetManager _net = default!;
 
     private static readonly ProtoId<SatiationIconPrototype> ThirstIconOverhydratedId = "ThirstIconOverhydrated";
     private static readonly ProtoId<SatiationIconPrototype> ThirstIconThirstyId = "ThirstIconThirsty";
@@ -314,11 +320,17 @@ public sealed class ThirstSystem : EntitySystem
             ModifyThirst(uid, thirst, -thirst.ActualDecayRate);
             var calculatedThirstThreshold = GetThirstThreshold(thirst, thirst.CurrentThirst);
 
-            if (calculatedThirstThreshold == thirst.CurrentThirstThreshold)
-                continue;
+            if (calculatedThirstThreshold != thirst.CurrentThirstThreshold)
+            {
+                thirst.CurrentThirstThreshold = calculatedThirstThreshold;
+                UpdateEffects(uid, thirst);
+            }
 
-            thirst.CurrentThirstThreshold = calculatedThirstThreshold;
-            UpdateEffects(uid, thirst);
+            if (_net.IsServer && thirst.CurrentThirstThreshold <= ThirstThreshold.Parched &&
+                thirst.DehydrationDamage is { } damage && !_mobState.IsDead(uid))
+            {
+                _damageable.TryChangeDamage(uid, damage, true, false);
+            }
         }
     }
 }

@@ -118,7 +118,7 @@ public abstract class SharedResearchSystem : EntitySystem
         // if (tech.Tier > disciplineTiers[tech.Discipline])    // Goobstation R&D Console rework - removed main discipline checks
         //     return false;
 
-        if (component.UnlockedTechnologies.Contains(tech.ID))
+        if (!tech.Repeatable && component.UnlockedTechnologies.Contains(tech.ID))
             return false;
 
         foreach (var prereq in tech.TechnologyPrerequisites)
@@ -149,12 +149,12 @@ public abstract class SharedResearchSystem : EntitySystem
     public int GetHighestDisciplineTier(TechnologyDatabaseComponent component, TechDisciplinePrototype techDiscipline)
     {
         var allTech = PrototypeManager.EnumeratePrototypes<TechnologyPrototype>()
-            .Where(p => p.Discipline == techDiscipline.ID && !p.Hidden).ToList();
+            .Where(p => p.Discipline == techDiscipline.ID && !p.Hidden && !p.Repeatable).ToList();
         var allUnlocked = new List<TechnologyPrototype>();
         foreach (var recipe in component.UnlockedTechnologies)
         {
             var proto = PrototypeManager.Index<TechnologyPrototype>(recipe);
-            if (proto.Discipline != techDiscipline.ID)
+            if (proto.Discipline != techDiscipline.ID || proto.Repeatable)
                 continue;
             allUnlocked.Add(proto);
         }

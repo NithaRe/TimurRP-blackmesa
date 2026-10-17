@@ -54,6 +54,8 @@ public sealed partial class FancyTechnologyInfoPanel : Control
         ResearchButton.Text = availability == ResearchAvailability.Researched
             ? Loc.GetString("research-console-menu-server-researched-button")
             : ResearchButton.Text;
+        if (proto.Repeatable)
+            ResearchButton.Text = Loc.GetString("research-console-repeatable-supply-button");
 
         Color? color = availability switch
         {
@@ -92,6 +94,10 @@ public sealed partial class FancyTechnologyInfoPanel : Control
         {
             var recipe = _proto.Index(recipeId);
             UnlocksContainer.AddChild(new MiniRecipeCardControl(proto, recipe, _proto, sprite, lathe));
+        }
+        foreach (var unlock in proto.GenericUnlocks)
+        {
+            UnlocksContainer.AddChild(new Label { Text = Loc.GetString(unlock.UnlockDescription) });
         }
     }
 
