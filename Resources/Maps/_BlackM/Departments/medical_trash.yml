@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/02/2026 18:12:46
-  entityCount: 673
+  time: 10/17/2026 09:57:02
+  entityCount: 681
 maps: []
 grids:
 - 1
@@ -1103,7 +1103,8 @@ entities:
           -6,2:
             0: 65532
           -6,3:
-            0: 48049
+            0: 43953
+            1: 4096
           -6,4:
             0: 27
         uniqueMixes:
@@ -1438,24 +1439,6 @@ entities:
     - type: Transform
       pos: -17.5,12.5
       parent: 1
-    - type: Fixtures
-      fixtures: {}
-  - uid: 20
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -18.5,19.5
-      parent: 1
-    - type: DeviceList
-      devices:
-      - 289
-      - 290
-      - 400
-      - 409
-      - 408
-      - 402
-      - 401
-      - 407
     - type: Fixtures
       fixtures: {}
 - proto: AirlockChiefMedicalOfficerLocked
@@ -2264,6 +2247,11 @@ entities:
     - type: Transform
       pos: -16.5,14.5
       parent: 1
+  - uid: 456
+    components:
+    - type: Transform
+      pos: -14.5,8.5
+      parent: 1
   - uid: 460
     components:
     - type: Transform
@@ -2284,6 +2272,11 @@ entities:
     - type: Transform
       pos: -8.5,14.5
       parent: 1
+  - uid: 525
+    components:
+    - type: Transform
+      pos: -13.5,8.5
+      parent: 1
   - uid: 612
     components:
     - type: Transform
@@ -2298,6 +2291,46 @@ entities:
     components:
     - type: Transform
       pos: -21.5,10.5
+      parent: 1
+  - uid: 674
+    components:
+    - type: Transform
+      pos: -12.5,8.5
+      parent: 1
+  - uid: 675
+    components:
+    - type: Transform
+      pos: -11.5,8.5
+      parent: 1
+  - uid: 676
+    components:
+    - type: Transform
+      pos: -11.5,7.5
+      parent: 1
+  - uid: 677
+    components:
+    - type: Transform
+      pos: -11.5,6.5
+      parent: 1
+  - uid: 678
+    components:
+    - type: Transform
+      pos: -10.5,6.5
+      parent: 1
+  - uid: 679
+    components:
+    - type: Transform
+      pos: -15.5,16.5
+      parent: 1
+  - uid: 680
+    components:
+    - type: Transform
+      pos: -15.5,15.5
+      parent: 1
+  - uid: 681
+    components:
+    - type: Transform
+      pos: -15.5,18.5
       parent: 1
 - proto: CableHV
   entities:
@@ -3091,20 +3124,6 @@ entities:
     - type: Transform
       pos: -20.95852,7.749379
       parent: 1
-- proto: FireAlarm
-  entities:
-  - uid: 284
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -18.5,20.5
-      parent: 1
-    - type: DeviceList
-      devices:
-      - 289
-      - 290
-    - type: Fixtures
-      fixtures: {}
 - proto: FirelockGlass
   entities:
   - uid: 289
@@ -4126,52 +4145,74 @@ entities:
       parent: 1
 - proto: Morgue
   entities:
-  - uid: 50
+  - uid: 20
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -22.5,14.5
+      pos: -26.5,13.5
+      parent: 1
+  - uid: 50
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -22.5,16.5
       parent: 1
   - uid: 51
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -26.5,15.5
+      pos: -22.5,15.5
+      parent: 1
+    - type: EntityStorage
+      air:
+        volume: 200
+        immutable: False
+        temperature: 293.14673
+        moles:
+        - 1.7459903
+        - 6.568249
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - uid: 284
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -22.5,14.5
       parent: 1
   - uid: 450
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -26.5,14.5
+      rot: 1.5707963267948966 rad
+      pos: -26.5,15.5
       parent: 1
   - uid: 451
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -26.5,13.5
+      rot: 1.5707963267948966 rad
+      pos: -26.5,14.5
       parent: 1
   - uid: 452
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -22.5,16.5
+      pos: -26.5,16.5
       parent: 1
   - uid: 453
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -22.5,15.5
-      parent: 1
-  - uid: 456
-    components:
-    - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -26.5,16.5
-      parent: 1
-  - uid: 525
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
       pos: -22.5,13.5
       parent: 1
 - proto: Ointment
