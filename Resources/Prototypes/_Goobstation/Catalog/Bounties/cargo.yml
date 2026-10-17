@@ -82,7 +82,7 @@
 
 - type: cargoBounty
   id: BountyMedicalPatch
-  reward: 4000
+  reward: 3000
   description: goobstation-medicalpatch-bounty-desc
   entries:
   - name: goobstation-medicalpatch-bounty-name
@@ -93,7 +93,7 @@
 
 - type: cargoBounty
   id: BountyClarke
-  reward: 20000
+  reward: 15000
   description: goobstation-clarke-bounty-desc
   entries:
   - name: goobstation-clarke-bounty-name
@@ -104,7 +104,7 @@
 
 - type: cargoBounty
   id: BountyRipleyMkII
-  reward: 15000
+  reward: 11250
   description: goobstation-ripley-bounty-desc
   entries:
   - name: goobstation-ripley-bounty-name

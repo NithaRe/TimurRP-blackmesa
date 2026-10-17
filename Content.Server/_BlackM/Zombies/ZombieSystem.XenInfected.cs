@@ -4,6 +4,9 @@ using Content.Server.Body.Components;
 using Content.Server.Temperature.Components;
 using Content.Shared.Body.Components;
 using Content.Shared.Interaction.Components;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.SSDIndicator;
@@ -15,6 +18,20 @@ namespace Content.Server.Zombies;
 
 public sealed partial class ZombieSystem
 {
+    [Dependency] private readonly MobThresholdSystem _xenThresholds = default!;
+
+    private void ReduceXenInfectedThresholds(EntityUid uid)
+    {
+        if (!TryComp<MobThresholdsComponent>(uid, out var thresholds))
+            return;
+
+        if (_xenThresholds.TryGetThresholdForState(uid, MobState.Critical, out var critical, thresholds))
+            _xenThresholds.SetMobStateThreshold(uid, critical.Value * 0.85f, MobState.Critical, thresholds);
+
+        if (_xenThresholds.TryGetThresholdForState(uid, MobState.Dead, out var dead, thresholds))
+            _xenThresholds.SetMobStateThreshold(uid, dead.Value * 0.85f, MobState.Dead, thresholds);
+    }
+
     private void OnZombieMapInit(EntityUid uid, ZombieComponent component, MapInitEvent args)
     {
         // Pre-spawned infected skip the physiology changes in ZombifyEntity.

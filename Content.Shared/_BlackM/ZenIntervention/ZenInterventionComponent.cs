@@ -27,9 +27,9 @@ public sealed partial class ZenInterventionComponent : Component
     [DataField, AutoNetworkedField]
     public List<EntProtoId> BreachMobPrototypes = new()
     {
-        "MobHeadcrabBlackM",
-        "MobHoundeyeBlackM",
-        "MobVortigauntBlackM",
+        "MobHeadcrabStationBlackM",
+        "MobHoundeyeStationBlackM",
+        "MobVortigauntStationBlackM",
     };
 
     [DataField, AutoNetworkedField]

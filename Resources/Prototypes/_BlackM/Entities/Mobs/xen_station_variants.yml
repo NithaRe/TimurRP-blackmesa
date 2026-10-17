@@ -1,0 +1,33 @@
+﻿# Station incursions must not provide expedition samples.
+- type: entity
+  parent: MobHeadcrabBlackM
+  id: MobHeadcrabStationBlackM
+  suffix: Station, No samples
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: XenSampleSource
+    remove: true
+  - type: SpawnLootOnDeath
+    remove: true
+
+- type: entity
+  parent: MobHoundeyeBlackM
+  id: MobHoundeyeStationBlackM
+  suffix: Station, No samples
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: XenSampleSource
+    remove: true
+  - type: SpawnLootOnDeath
+    remove: true
+
+- type: entity
+  parent: MobVortigauntBlackM
+  id: MobVortigauntStationBlackM
+  suffix: Station, No samples
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: XenSampleSource
+    remove: true
+  - type: SpawnLootOnDeath
+    remove: true

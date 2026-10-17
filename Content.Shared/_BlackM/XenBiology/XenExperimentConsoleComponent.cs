@@ -30,16 +30,16 @@ public sealed partial class XenExperimentConsoleComponent : Component
     [DataField]
     public List<EntProtoId> XenMobs = new()
     {
-        "MobHeadcrabBlackM",
-        "MobHoundeyeBlackM",
+        "MobHeadcrabStationBlackM",
+        "MobHoundeyeStationBlackM",
         "MobXenInfected"
     };
 
     [DataField]
     public List<EntProtoId> DangerousXenMobs = new()
     {
-        "MobHoundeyeBlackM",
-        "MobVortigauntBlackM",
+        "MobHoundeyeStationBlackM",
+        "MobVortigauntStationBlackM",
         "MobXenInfected"
     };
 

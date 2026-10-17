@@ -1,0 +1,37 @@
+﻿- type: entity
+  parent: BaseTree
+  id: XenLightTree
+  name: Xen glowing tree
+  description: A glowing Xen tree.
+  components:
+  - type: PointLight
+    radius: 2
+    energy: 4.5
+    color: "#6270bb"
+  - type: Sprite
+    sprite: Objects/Decoration/Flora/flora_treeslight.rsi
+    layers:
+    - state: tree01
+      map: ["random"]
+  - type: RandomSprite
+    available:
+    - random:
+        tree01: ""
+        tree02: ""
+        tree03: ""
+        tree04: ""
+        tree05: ""
+        tree06: ""
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/tree_fell.ogg
+          params:
+            volume: 5
+            variation: 0.05
+      - !type:DoActsBehavior
+        acts: ["Destruction"]

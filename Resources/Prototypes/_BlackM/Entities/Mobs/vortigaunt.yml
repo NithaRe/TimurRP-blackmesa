@@ -17,6 +17,10 @@
     filledCapsulePrototype: XenSampleCapsuleVortigaunt
     sampleDelay: 6
     sampleCooldown: 300
+  - type: SpawnLootOnDeath
+    table: !type:AllSelector
+      children:
+      - id: XenSampleCapsuleVortigaunt
   - type: Actions
   - type: DoAfter
   - type: Speech

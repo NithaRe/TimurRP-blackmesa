@@ -193,7 +193,7 @@ namespace Content.Server.Zombies
                     continue;
 
                 if (_random.Prob(comp.InfectionWarningChance))
-                    _popup.PopupEntity(Loc.GetString(_random.Pick(comp.InfectionWarnings)), uid, uid);
+                    _popup.PopupEntity(Loc.GetString(_random.Pick(comp.InfectionWarnings)), uid, uid, PopupType.LargeCaution);
 
                 var multiplier = _mobState.IsCritical(uid, mobState)
                     ? comp.CritDamageMultiplier

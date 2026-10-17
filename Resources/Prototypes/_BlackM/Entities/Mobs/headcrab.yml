@@ -7,6 +7,10 @@
   - type: Headcrab
   - type: XenSampleSource
     filledCapsulePrototype: XenSampleCapsuleHeadcrab
+  - type: SpawnLootOnDeath
+    table: !type:AllSelector
+      children:
+      - id: XenSampleCapsuleHeadcrab
   - type: Actions
   - type: DoAfter
   - type: Muted
@@ -53,7 +57,7 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      60: Dead
+      50: Dead
   - type: Damageable
     damageContainer: Biological
   - type: NpcFactionMember

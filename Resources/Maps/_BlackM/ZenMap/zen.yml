@@ -3690,7 +3690,7 @@ entities:
     - type: Transform
       pos: 0.54446846,0.47018164
       parent: 2
-- proto: LightTree
+- proto: XenLightTree
   entities:
   - uid: 557
     components:

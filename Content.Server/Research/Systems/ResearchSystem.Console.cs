@@ -125,7 +125,7 @@ public sealed partial class ResearchSystem
                 proto => proto.ID,
                 proto =>
                 {
-                    if (unlockedTechs.Contains(proto.ID))
+                    if (!proto.Repeatable && unlockedTechs.Contains(proto.ID))
                         return ResearchAvailability.Researched;
 
                     var prereqsMet = proto.TechnologyPrerequisites.All(p => unlockedTechs.Contains(p));

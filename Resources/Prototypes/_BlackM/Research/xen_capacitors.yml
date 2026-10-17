@@ -1,0 +1,50 @@
+﻿- type: technology
+  id: XenCapacitorSupplyMk1
+  name: research-technology-xen-capacitor-mk1
+  icon:
+    sprite: Objects/Misc/stock_parts.rsi
+    state: capacitor
+  discipline: Xen
+  tier: 2
+  cost: 250
+  repeatable: true
+  researchReward: XenExperimentCapacitorMk1
+  genericUnlocks:
+  - unlockDescription: research-technology-xen-capacitor-mk1-delivery
+  technologyPrerequisites:
+  - AbnormalArtifactManipulation
+  position: -8,2
+
+- type: technology
+  id: XenCapacitorSupplyMk2
+  name: research-technology-xen-capacitor-mk2
+  icon:
+    sprite: Objects/Misc/stock_parts.rsi
+    state: adv_capacitor
+  discipline: Xen
+  tier: 2
+  cost: 625
+  repeatable: true
+  researchReward: XenExperimentCapacitorMk2
+  genericUnlocks:
+  - unlockDescription: research-technology-xen-capacitor-mk2-delivery
+  technologyPrerequisites:
+  - AbnormalArtifactManipulation
+  position: -9,2
+
+- type: technology
+  id: XenCapacitorSupplyMk3
+  name: research-technology-xen-capacitor-mk3
+  icon:
+    sprite: Objects/Misc/stock_parts.rsi
+    state: super_capacitor
+  discipline: Xen
+  tier: 2
+  cost: 1250
+  repeatable: true
+  researchReward: XenExperimentCapacitorMk3
+  genericUnlocks:
+  - unlockDescription: research-technology-xen-capacitor-mk3-delivery
+  technologyPrerequisites:
+  - AbnormalArtifactManipulation
+  position: -10,2

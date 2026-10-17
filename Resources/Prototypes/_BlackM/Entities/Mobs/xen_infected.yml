@@ -11,8 +11,13 @@
     templateId: XenInfected
   - type: RandomHumanoidAppearance
   - type: Zombie
-    baseZombieInfectionChance: 0.2
-    minZombieInfectionChance: 0.2
+    baseZombieInfectionChance: 0.1
+    minZombieInfectionChance: 0.1
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      85: Critical
+      170: Dead
   - type: RandomMetadata
     nameSegments:
     - NamesDeathCommando

@@ -250,6 +250,7 @@ public sealed partial class ZombieSystem
         //Heals the zombie from all the damage it took while human
         if (TryComp<DamageableComponent>(target, out var damageablecomp))
             _damageable.SetAllDamage(target, damageablecomp, 0);
+        ReduceXenInfectedThresholds(target);
         _mobState.ChangeMobState(target, MobState.Alive);
 
         _faction.ClearFactions(target, dirty: false);

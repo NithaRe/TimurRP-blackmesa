@@ -32,9 +32,7 @@
     spawnInterval: 600
     spawnAmount: 2
     zenMobPrototypes:
-    - MobHeadcrabBlackM
-    - MobHoundeyeBlackM
-    - MobVortigauntBlackM
+    - MobXenInfected
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: StrongMetallic

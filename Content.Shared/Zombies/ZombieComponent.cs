@@ -133,7 +133,7 @@ public sealed partial class ZombieComponent : Component
     /// </summary>
     [DataField]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float BaseZombieInfectionChance = 1.00f; ///Goobchange
+    public float BaseZombieInfectionChance = 0.1f;
 
     /// <summary>
     /// The minimum infection chance possible. This is simply to prevent

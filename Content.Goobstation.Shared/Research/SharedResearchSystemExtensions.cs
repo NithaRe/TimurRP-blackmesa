@@ -24,10 +24,14 @@ public static class SharedResearchSystemExtensions
         IPrototypeManager prototypeManager)
     {
         var allTech = prototypeManager.EnumeratePrototypes<TechnologyPrototype>()
-            .Where(p => p.Discipline == techDiscipline.ID && !p.Hidden).ToList();
+            .Where(p => p.Discipline == techDiscipline.ID && !p.Hidden && !p.Repeatable).ToList();
 
         var percentage = (float) component.UnlockedTechnologies
-            .Where(x => prototypeManager.Index<TechnologyPrototype>(x).Discipline == techDiscipline.ID)
+            .Where(x =>
+            {
+                var tech = prototypeManager.Index<TechnologyPrototype>(x);
+                return tech.Discipline == techDiscipline.ID && !tech.Repeatable;
+            })
             .Count() / (float) allTech.Count * 100f;
 
         return (int) Math.Clamp(percentage, 0, 100);
