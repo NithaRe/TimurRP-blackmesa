@@ -1,0 +1,49 @@
+- type: entity
+  id: PassportLaserBarrier3x1
+  parent: BaseStructure
+  name: лазерный барьер паспортного контроля
+  description: Защитный барьер. Пропускает только граждан с проверенным паспортом.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,-0.5,1.5,0.5"
+        density: 1000
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        hard: true
+  - type: Sprite
+    sprite: _BlackM/Structures/passport_field.rsi
+    state: field_on
+    noRot: true
+    drawdepth: OverMobs
+  - type: InteractionOutline
+  - type: AmbientSound
+    enabled: true
+    range: 5
+    volume: -8
+    sound:
+      path: /Audio/_BlackM/ForceField/passport_field_hum.ogg
+  - type: PassportForceField
+    bumpCooldown: 0.8
+    passSound:
+      path: /Audio/_BlackM/ForceField/passport_field_pass.ogg
+    denySound:
+      path: /Audio/_BlackM/ForceField/passport_field_deny.ogg
+  - type: PointLight
+    radius: 8
+    energy: 2.0
+    color: "#ff2a2a"
+    castShadows: true
+  - type: Appearance
