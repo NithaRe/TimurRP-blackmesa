@@ -27,6 +27,14 @@ public sealed class SpeechBarksSystem : EntitySystem
     private const float WhisperHearingDistance = 5f;
 
     public const float FixedBarkInterval = 0.09f;
+
+    public const float MaxTypeDuration = 2.5f;
+    public const float MinTypeInterval = 0.02f;
+
+    public static float GetTypeInterval(int length)
+    {
+        return Math.Clamp(MaxTypeDuration / Math.Max(length, 1), MinTypeInterval, FixedBarkInterval);
+    }
     private const float FixedBarkIntervalJitter = 0.015f;
 
     private float _volume;
@@ -86,13 +94,16 @@ public sealed class SpeechBarksSystem : EntitySystem
         if (!TryGetEntity(ev.Source, out var source) || Transform(source.Value).MapID == MapId.Nullspace)
             return;
 
+        var ratio = GetTypeInterval(ev.Message.Length) / FixedBarkInterval;
+        var barkCount = Math.Max(1, (int) MathF.Ceiling(GetSyllableCount(ev.Message) * ratio));
+
         _activeBarks.Add(new ActiveBark(
             source,
             ev.SoundSpecifier,
             GetVolume(ev.Message, ev.IsWhisper),
             ev.Pitch,
             GetHearingDistance(ev.IsWhisper),
-            GetSyllableCount(ev.Message)));
+            barkCount));
     }
 
     public void PlayDataPreview(string protoId, float pitch, float lowVariation, float highVariation)

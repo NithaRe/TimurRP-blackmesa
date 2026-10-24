@@ -1,53 +1,88 @@
-using Robust.Shared.GameStates;
+using System.Numerics;
+using Robust.Shared.Maths;
 
 namespace Content.Shared._BlackM.WalkBob;
 
-/// <summary>
-/// Заставляет спрайт сущности слегка "дышать" (сжиматься/растягиваться)
-/// во время движения, имитируя классический 2D squash-and-stretch эффект ходьбы.
-/// Чисто визуальный компонент, обрабатывается только на клиенте.
-/// </summary>
 [RegisterComponent]
 public sealed partial class WalkBobComponent : Component
 {
-    // Presentation scenes move actors without a physics velocity.
-    public float? VisualSpeedOverride;
 
-    /// <summary>
-    /// Текущая фаза синусоиды качания. Не задавайте вручную, управляется системой.
-    /// </summary>
-    [DataField]
-    public float Phase;
-
-    /// <summary>
-    /// Базовая частота цикла качания (умножается на скорость движения).
-    /// </summary>
-    [DataField]
-    public float Frequency = 8f;
-
-    /// <summary>
-    /// Амплитуда сжатия/растяжения. Рекомендуется держать в пределах 0.03-0.12,
-    /// иначе эффект будет выглядеть как желе, а не как ходьба.
-    /// </summary>
-    [DataField]
-    public float Amplitude = 0.08f;
-
-    /// <summary>
-    /// Скорость движения, ниже которой эффект считается "покоем" и сбрасывается.
-    /// </summary>
     [DataField]
     public float MinSpeedThreshold = 0.05f;
 
-    /// <summary>
-    /// Скорость возврата масштаба в состояние покоя (Vector2.One) при остановке.
-    /// </summary>
     [DataField]
     public float ReturnLerpSpeed = 10f;
 
-    /// <summary>
-    /// Опциональный ключ слоя спрайта. Если null — качается весь SpriteComponent.
-    /// Используйте, если хотите качать только тело, не трогая одежду/предметы в руках.
-    /// </summary>
     [DataField]
     public string? TargetLayerKey;
+
+    [DataField]
+    public float PhasePerMeter = 2.4f;
+
+    [DataField]
+    public float WalkBobHeight = 0.055f;
+
+    [DataField]
+    public float WalkSway = 0.8f;
+
+    [DataField]
+    public float WalkSquash = 0.012f;
+
+    [DataField]
+    public float? SprintSpeedThreshold;
+
+    [DataField]
+    public float RunBobHeight = 0.03f;
+
+    [DataField]
+    public float RunSway = 1.5f;
+
+    [DataField]
+    public float RunSquash = 0.028f;
+
+    [DataField]
+    public float RunStrideMult = 1.15f;
+
+    [DataField]
+    public float PullStrideMult = 0.75f;
+
+    [DataField]
+    public float RecoilImpulse = 2f;
+
+    [DataField]
+    public float RecoilStiffness = 220f;
+
+    [DataField]
+    public float RecoilDamping = 18f;
+
+    [DataField]
+    public float RecoilTilt = 35f;
+
+    [DataField]
+    public float RecoilSquash = 0.5f;
+
+    [DataField]
+    public float BreathAmplitude = 0.003f;
+
+    [DataField]
+    public float BreathSpeed = 2.2f;
+
+    public float? VisualSpeedOverride;
+
+    public float Phase;
+    public float IdleTime;
+
+    public float ActiveWeight;
+    public float MoveWeight;
+    public float RunWeight;
+    public float PullWeight;
+
+    public Vector2 RecoilOffset;
+    public Vector2 RecoilVelocity;
+    public TimeSpan NextKickTime;
+
+    public Vector2 AppliedScale = Vector2.One;
+    public Vector2 AppliedOffset;
+    public Angle AppliedRotation = Angle.Zero;
+    public bool AppliedOnLayer;
 }
