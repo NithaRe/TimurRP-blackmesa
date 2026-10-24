@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "license": "CC0-1.0",
+  "copyright": "Original smoke puff sprites for _BlackM bullet trail",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "smoke_a"
+    },
+    {
+      "name": "smoke_b"
+    },
+    {
+      "name": "smoke_c"
+    },
+    {
+      "name": "smoke_streak"
+    },
+    {
+      "name": "smoke_anim",
+      "delays": [
+        [
+          0.04,
+          0.04,
+          0.04,
+          0.04
+        ]
+      ]
+    }
+  ]
+}

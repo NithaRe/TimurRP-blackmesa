@@ -20,6 +20,10 @@
   - type: DepartmentSpawner
     variants:
     - /Maps/_BlackM/Departments/commandhub_default.yml
+    - /Maps/_BlackM/Departments/commandhub_default.yml
+    - /Maps/_BlackM/Departments/commandhub_default.yml
+    - /Maps/_BlackM/Departments/commandhub_default.yml
+    - /Maps/_BlackM/Departments/commandhub_default.yml
     - /Maps/_BlackM/Departments/commandhub_crown.yml
 
 # sec
@@ -31,6 +35,10 @@
   - type: DepartmentSpawner
     variants:
     - /Maps/_BlackM/Departments/security_default.yml
+    - /Maps/_BlackM/Departments/security_default.yml
+    - /Maps/_BlackM/Departments/security_default.yml
+    - /Maps/_BlackM/Departments/security_default.yml
+    - /Maps/_BlackM/Departments/security_default.yml
     - /Maps/_BlackM/Departments/security_pink.yml
 
 # science
@@ -41,6 +49,10 @@
   components:
   - type: DepartmentSpawner
     variants:
+    - /Maps/_BlackM/Departments/rnd_default.yml
+    - /Maps/_BlackM/Departments/rnd_default.yml
+    - /Maps/_BlackM/Departments/rnd_default.yml
+    - /Maps/_BlackM/Departments/rnd_default.yml
     - /Maps/_BlackM/Departments/rnd_default.yml
     - /Maps/_BlackM/Departments/rnd_infected.yml
 
@@ -61,6 +73,10 @@
   components:
   - type: DepartmentSpawner
     variants:
+    - /Maps/_BlackM/Departments/medical_default.yml
+    - /Maps/_BlackM/Departments/medical_default.yml
+    - /Maps/_BlackM/Departments/medical_default.yml
+    - /Maps/_BlackM/Departments/medical_default.yml
     - /Maps/_BlackM/Departments/medical_default.yml
     - /Maps/_BlackM/Departments/medical_trash.yml
 
@@ -84,6 +100,7 @@
   components:
   - type: DepartmentSpawner
     variants: 
+    - /Maps/_BlackM/Departments/cargo_default.yml
     - /Maps/_BlackM/Departments/cargo_default.yml
     - /Maps/_BlackM/Departments/cargo_worked.yml
 
