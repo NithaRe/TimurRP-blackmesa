@@ -74,6 +74,9 @@ public sealed partial class RequirementsSelector : BoxContainer
             // {
                 // requirementsLabel
             // }
+    // BlackM end
+
+    // BlackM start
     private readonly TerminalPriorityMeter _meter = new();
     private readonly Label _lockLabel;
     private List<ProtoId<GuideEntryPrototype>>? _guides;
@@ -121,7 +124,6 @@ public sealed partial class RequirementsSelector : BoxContainer
             FontColorOverride = new Color(1f, 0.45f, 0.35f),
             MouseFilter = MouseFilterMode.Stop,
             StyleClasses = { StyleNano.StyleClassLabelTerminalBlackM },
-    // BlackM end
         };
 
         Help.OnPressed += _ =>
@@ -129,6 +131,7 @@ public sealed partial class RequirementsSelector : BoxContainer
             if (_guides != null)
                 OnOpenGuidebook?.Invoke(_guides);
         };
+
     }
 
     /// <summary>
@@ -140,9 +143,11 @@ public sealed partial class RequirementsSelector : BoxContainer
         int titleSize,
         string? description,
         TextureRect? icon = null,
-        List<ProtoId<GuideEntryPrototype>>? guides = null)
+        List<ProtoId<GuideEntryPrototype>>? guides = null,
+        bool stacked = false,
+        bool showHelp = true)
     {
-        // BlackM start
+        Orientation = stacked ? LayoutOrientation.Vertical : LayoutOrientation.Horizontal;
         // foreach (var (text, value) in items)
         // {
             // _options.AddItem(Loc.GetString(text), value);
@@ -201,6 +206,8 @@ public sealed partial class RequirementsSelector : BoxContainer
         {
             _meterValues = items.Select(i => i.Item2).ToArray();
             _meter.SetLabels(items.Select(i => Loc.GetString(i.Item1)).ToArray());
+            if (stacked)
+                _meter.HorizontalAlignment = HAlignment.Center;
             OptionsContainer.AddChild(_meter);
         }
         else
@@ -216,7 +223,7 @@ public sealed partial class RequirementsSelector : BoxContainer
 
         OptionsContainer.AddChild(_lockLabel);
 
-        Help.Visible = guides != null;
+        Help.Visible = showHelp && guides != null;
         _guides = guides;
 
         TitleLabel.Text = title;
@@ -224,7 +231,7 @@ public sealed partial class RequirementsSelector : BoxContainer
 
         if (icon != null)
         {
-            AddChild(icon);
+            HeaderContainer.AddChild(icon);
             icon.SetPositionFirst();
         }
     }
@@ -251,7 +258,7 @@ public sealed partial class RequirementsSelector : BoxContainer
         var button = new Button
         {
             Text = $"[{text.ToUpperInvariant()}]",
-            MinWidth = 90,
+            MinWidth = 66,
             HorizontalExpand = true,
         };
 
@@ -277,10 +284,10 @@ public sealed partial class RequirementsSelector : BoxContainer
         var index = _meter.Selected;
         TitleLabel.FontColorOverride = index switch
         {
-            0 => StyleNano.TerminalGreen.WithAlpha(0.4f),
-            1 => StyleNano.TerminalGreen.WithAlpha(0.75f),
-            3 => new Color(0.92f, 1f, 0.35f),
-            _ => StyleNano.TerminalGreen,
+            0 => Color.FromHex("#D1AE78"),
+            1 => Color.FromHex("#D39238"),
+            2 => Color.FromHex("#F0A52D"),
+            _ => Color.FromHex("#FFD166"),
         };
     }
 }

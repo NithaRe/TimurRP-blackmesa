@@ -138,8 +138,10 @@ public sealed partial class MiscTab : Control
         Control.AddOptionCheckBox(CCVars.CombatModeIndicatorsPointShow, ShowCombatModeIndicatorsCheckBox);
         Control.AddOptionCheckBox(CCVars.OpaqueStorageWindow, OpaqueStorageWindowCheckBox);
         Control.AddOptionCheckBox(GoobCVars.AutoFocusSearchOnBuildMenu, AutoFocusSearchOnBuildMenuCheckBox); // Goobstation Change
-        Control.AddOptionCheckBox(CCVars.ChatEnableFancyBubbles, FancySpeechBubblesCheckBox);
-        Control.AddOptionCheckBox(CCVars.ChatFancyNameBackground, FancyNameBackgroundsCheckBox);
+        // BlackM start
+        // Control.AddOptionCheckBox(CCVars.ChatEnableFancyBubbles, FancySpeechBubblesCheckBox);
+        // Control.AddOptionCheckBox(CCVars.ChatFancyNameBackground, FancyNameBackgroundsCheckBox);
+        // BlackM end
         Control.AddOptionCheckBox(CCVars.StaticStorageUI, StaticStorageUI);
 
         Control.AddOptionCheckBox(CCCVars.OfferModeIndicatorsPointShow, ShowOfferModeIndicatorsCheckBox); // CorvaxGoob-Offer

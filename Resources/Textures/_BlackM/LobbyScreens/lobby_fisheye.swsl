@@ -1,0 +1,15 @@
+light_mode unshaded;
+
+void fragment() {
+    highp vec2 centered = UV * 2.0 - 1.0;
+
+    // Lens mapping, sampled directly from the lobby viewport texture.
+    highp float radiusSquared = dot(centered, centered);
+    highp vec2 warped = centered / (1.0 + 0.16 * radiusSquared);
+    highp vec2 sampleUv = warped * 0.5 + 0.5;
+
+    highp vec4 color = zTexture(sampleUv);
+    highp float edgeShade = smoothstep(0.65, 1.45, length(centered));
+    color.rgb *= 1.0 - edgeShade * 0.18;
+    COLOR = color;
+}

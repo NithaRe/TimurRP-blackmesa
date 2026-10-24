@@ -44,6 +44,10 @@ namespace Content.Client.Viewport
         private ScalingViewportIgnoreDimension _ignoreDimension = ScalingViewportIgnoreDimension.None;
         private int _fixedRenderScale = 1;
 
+        // BlackM start
+        public ShaderInstance? PostProcessShader { get; set; }
+        // BlackM end
+
         private readonly List<CopyPixelsDelegate<Rgba32>> _queuedScreenshots = new();
 
         public int CurrentRenderScale => _curRenderScale;
@@ -179,7 +183,17 @@ namespace Content.Client.Viewport
             var drawBox = GetDrawBox();
             var drawBoxGlobal = drawBox.Translated(GlobalPixelPosition);
             _viewport.RenderScreenOverlaysBelow(handle, this, drawBoxGlobal);
+
+            // BlackM start
+            if (PostProcessShader != null)
+                handle.DrawingHandleScreen.UseShader(PostProcessShader);
+
             handle.DrawingHandleScreen.DrawTextureRect(_viewport.RenderTarget.Texture, drawBox);
+
+            if (PostProcessShader != null)
+                handle.DrawingHandleScreen.UseShader(null);
+            // BlackM end
+
             _viewport.RenderScreenOverlaysAbove(handle, this, drawBoxGlobal);
         }
 

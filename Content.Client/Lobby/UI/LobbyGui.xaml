@@ -205,10 +205,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     xmlns:info="clr-namespace:Content.Client.Info"
     xmlns:terminal="clr-namespace:Content.Client._BlackM.Lobby.Terminal"
     xmlns:widgets="clr-namespace:Content.Client.UserInterface.Systems.Chat.Widgets">
-    <TextureRect Access="Public" VerticalExpand="True" HorizontalExpand="True" Name="Background"
-                 Stretch="KeepAspectCovered" />
-    <terminal:TerminalGridBackground Name="BackgroundGrid" />
-    <terminal:TerminalBackgroundFx Name="BackgroundFx" />
+    <terminal:LobbyRoundBackground Name="RoundBackground" VerticalExpand="True" HorizontalExpand="True" />
+    <TextureRect Name="LobbyBranding" TexturePath="/Textures/_BlackM/LobbyScreens/aperture-blackmesa.png"
+                 Stretch="KeepAspectCentered" ModulateSelfOverride="#FFFFFF35"
+                 VerticalExpand="True" HorizontalExpand="True" MouseFilter="Ignore" />
+    <terminal:LobbyRoundGridOverlay Name="LobbyGridOverlay"
+                                    VerticalExpand="True" HorizontalExpand="True" MouseFilter="Ignore" />
+    <PanelContainer Name="RoundBackgroundTint" VerticalExpand="True" HorizontalExpand="True" MouseFilter="Ignore">
+        <PanelContainer.PanelOverride>
+            <gfx:StyleBoxFlat BackgroundColor="#0B080430" />
+        </PanelContainer.PanelOverride>
+        <Control VerticalExpand="True" HorizontalExpand="True" />
+    </PanelContainer>
+    <terminal:TerminalScanlines Name="LobbyVhsOverlay" LineStep="3" LineAlpha="0.024"
+                                VignetteStrength="0.004" RollingBar="True" Flicker="False"
+                                VerticalExpand="True" HorizontalExpand="True" MouseFilter="Ignore" />
 
     <BoxContainer Name="MainContainer" VerticalExpand="True" HorizontalExpand="True" Orientation="Horizontal"
                   Margin="10 10 10 10" SeparationOverride="2">
@@ -249,38 +260,35 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                       Access="Public" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 8" />
                     </BoxContainer>
 
-                    <terminal:TerminalHub Name="Hub" Access="Public" HorizontalAlignment="Center"
-                                          VerticalAlignment="Center" Margin="270 40 0 0" />
-
-                    <terminal:TerminalLogFeed HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                                              Margin="24 0 0 70" />
+                    <terminal:TerminalHub Name="Hub" Access="Public" HorizontalAlignment="Left"
+                                          VerticalAlignment="Top" Margin="12 150 0 0" />
 
                     <BoxContainer Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center"
                                   SeparationOverride="20" Margin="24 0 0 0">
                         <terminal:TerminalMenu Name="Menu" Access="Public" Orientation="Vertical"
-                                               SeparationOverride="8" MinWidth="230">
-                            <Button Name="OptionsButton" Access="Public" StyleClasses="ButtonTerminalBlackM"
+                                               SeparationOverride="4" MinWidth="252">
+                            <Button Name="OptionsButton" Access="Public" StyleClasses="JobButtonTerminalBlackM" MinSize="252 30"
                                     Text="{Loc 'ui-lobby-options-button'}" />
                             <!-- BlackM: achiv -->
-                            <Button Name="AchievementsButton" Access="Public" StyleClasses="ButtonTerminalBlackM"
+                            <Button Name="AchievementsButton" Access="Public" StyleClasses="JobButtonTerminalBlackM" MinSize="252 30"
                                     Text="{Loc 'blackm-achievements-button'}" />
-                            <Button Name="AHelpButton" Access="Public" StyleClasses="ButtonTerminalBlackM"
+                            <Button Name="AHelpButton" Access="Public" StyleClasses="JobButtonTerminalBlackM" MinSize="252 30"
                                     Text="{Loc 'ui-lobby-ahelp-button'}" />
-                            <vote:VoteCallMenuButton Name="CallVoteButton" StyleClasses="ButtonTerminalBlackM" />
-                            <Button Name="LeaveButton" Access="Public" StyleClasses="ButtonTerminalBlackM"
+                            <vote:VoteCallMenuButton Name="CallVoteButton" StyleClasses="JobButtonTerminalBlackM" MinSize="252 30" />
+                            <Button Name="LeaveButton" Access="Public" StyleClasses="JobButtonTerminalBlackM" MinSize="252 30"
                                     Text="{Loc 'ui-lobby-leave-button'}" />
-                            <Button Name="DiscordButton" Access="Public" StyleClasses="ButtonTerminalBlackM">
+                            <Button Name="DiscordButton" Access="Public" StyleClasses="JobButtonTerminalBlackM" MinSize="252 30">
                                 <BoxContainer Orientation="Horizontal" SeparationOverride="8">
                                     <TextureRect TexturePath="/Textures/_BlackM/Interface/Icons/discord.png"
-                                                 MinSize="22 22" Stretch="KeepAspectCentered"
+                                                 MinSize="18 18" Stretch="KeepAspectCentered"
                                                  VerticalAlignment="Center" />
                                     <Label Text="Discord" VAlign="Center" StyleClasses="LabelTerminalBlackM" />
                                 </BoxContainer>
                             </Button>
-                            <Button Name="BoustyButton" Access="Public" StyleClasses="ButtonTerminalBlackM">
+                            <Button Name="BoustyButton" Access="Public" StyleClasses="JobButtonTerminalBlackM" MinSize="252 30">
                                 <BoxContainer Orientation="Horizontal" SeparationOverride="8">
                                     <TextureRect TexturePath="/Textures/_BlackM/Interface/Icons/boosty.png"
-                                                 MinSize="22 22" Stretch="KeepAspectCentered"
+                                                 MinSize="18 18" Stretch="KeepAspectCentered"
                                                  VerticalAlignment="Center" />
                                     <Label Text="Boosty" VAlign="Center" StyleClasses="LabelTerminalBlackM" />
                                 </BoxContainer>
@@ -318,7 +326,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     <controls:HSpacer Spacing="10" />
                     <PanelContainer Margin="3">
                         <PanelContainer.PanelOverride>
-                            <gfx:StyleBoxFlat BackgroundColor="#030A05CC"
+                            <gfx:StyleBoxFlat BackgroundColor="#100C07A0"
                                               BorderColor="{x:Static style:StyleNano.TerminalGreenDim}"
                                               BorderThickness="1" />
                         </PanelContainer.PanelOverride>
@@ -371,7 +379,5 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </PanelContainer>
     </BoxContainer>
 
-    <terminal:TerminalScanlines Name="Scanlines" />
-    <terminal:TerminalBootOverlay Name="BootOverlay" />
 <!-- BlackM end -->
 </lobbyUi:LobbyGui>

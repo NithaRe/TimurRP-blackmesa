@@ -90,15 +90,16 @@ using Content.Client.Audio;
 using Content.Client.GameTicking.Managers;
 using Content.Client.LateJoin;
 using Content.Client.Lobby.UI;
+using Content.Client._BlackM.Lobby.Terminal;
 using Content.Client.Message;
 using Content.Client.Playtime;
 using Content.Client.UserInterface.Systems.Chat;
 using Content.Client.Voting;
 using Content.Goobstation.Common.ServerCurrency;
 using Content.Shared.CCVar;
-using Content.Shared._BlackM.CCVar; //blackM
-using Content.Shared._BlackM.Lobby; //blackM
-using Robust.Shared.Random; //blackM
+// using Content.Shared._BlackM.CCVar; //blackM
+// using Content.Shared._BlackM.Lobby; //blackM
+// using Robust.Shared.Random; //blackM
 using Robust.Client;
 using Robust.Client.Console;
 using Robust.Client.Graphics;
@@ -106,12 +107,12 @@ using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
-using Robust.Shared.Prototypes;
+// using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using System.Numerics;
-using Robust.Shared.Graphics.RSI; //blackM
-using ClientRsi = Robust.Client.Graphics.RSI; //blackM
+// using Robust.Shared.Graphics.RSI; //blackM
+// using ClientRsi = Robust.Client.Graphics.RSI; //blackM
 using System.Linq; //blackm
 
 namespace Content.Client.Lobby
@@ -130,19 +131,23 @@ namespace Content.Client.Lobby
         [Dependency] private readonly ServerCurrencySystem _serverCur = default!; // Goobstation - server currency
         [Dependency] private readonly LinkAccountManager _linkAccount = default!; // RMC - Patreon
         CorvaxGoob-Coins-end */
-        [Dependency] private readonly IPrototypeManager _protoMan = default!; // Goobstation - credits
         [Dependency] private readonly ClientsidePlaytimeTrackingManager _playtimeTracking = default!;
-        [Dependency] private readonly IRobustRandom _random = default!; // blackm lobby screen
+        // [Dependency] private readonly IPrototypeManager _protoMan = default!; // Goobstation - credits
+        // [Dependency] private readonly IRobustRandom _random = default!; // blackm lobby screen
 
-        private ISawmill _sawmill = default!; // Goobstation
         private ClientGameTicker _gameTicker = default!;
         private ContentAudioSystem _contentAudioSystem = default!;
+        // private ISawmill _sawmill = default!; // Goobstation
+        private TimeSpan? _countdownSoundStartTime;
+        private bool _countdownSoundPlayed;
 
-        //blackM
-        private ClientRsi.State? _currentLocalAnimationState;
-        private int _currentAnimationFrame;
-        private float _currentAnimationFrameTime;
-        //blackM
+        // BlackM start
+        // private ClientRsi.State? _currentLocalAnimationState;
+        // private int _currentAnimationFrame;
+        // private float _currentAnimationFrameTime;
+        private const double RoundStartSoundThresholdSeconds = 12;
+        private const string RoundStartCountdownSound = "/Audio/_BlackM/Announcements/HL1Countdown/round_countdown.ogg";
+        // BlackM end
 
         protected override Type? LinkedScreenType { get; } = typeof(LobbyGui);
         public LobbyGui? Lobby;
@@ -160,7 +165,7 @@ namespace Content.Client.Lobby
             _gameTicker = _entityManager.System<ClientGameTicker>();
             _contentAudioSystem = _entityManager.System<ContentAudioSystem>();
             _contentAudioSystem.LobbySoundtrackChanged += UpdateLobbySoundtrackInfo;
-            _sawmill = Logger.GetSawmill("lobby");
+            // _sawmill = Logger.GetSawmill("lobby");
 
             chatController.SetMainChat(true);
 
@@ -179,10 +184,9 @@ namespace Content.Client.Lobby
 
             UpdateLobbyUi();
 
-            //blackM
-            LoadBlackMLobbyBackground();
-            //blackM
-
+            // BlackM start
+            // LoadBlackMLobbyBackground();
+            // BlackM end
             Lobby.CharacterPreview.CharacterSetupButton.OnPressed += OnSetupPressed;
             //Lobby.CharacterPreview.PatronPerks.OnPressed += OnPatronPerksPressed; CorvaxGoob-Coins
             Lobby.ReadyButton.OnPressed += OnReadyPressed;
@@ -214,8 +218,7 @@ namespace Content.Client.Lobby
             Lobby!.ReadyButton.OnPressed -= OnReadyPressed;
             Lobby!.ReadyButton.OnToggled -= OnReadyToggled;
 
-            _currentLocalAnimationState = null; //blackM
-
+            // _currentLocalAnimationState = null;
             Lobby = null;
         }
 
@@ -231,52 +234,52 @@ namespace Content.Client.Lobby
             Lobby?.SwitchState(LobbyGui.LobbyGuiState.CharacterSetup);
         }
 
-        //blackM
-        private void LoadBlackMLobbyBackground()
-        {
-            var typeString = _cfg.GetCVar(BlackMCVars.LobbyBackgroundType);
-            if (!Enum.TryParse<LobbyBackgroundType>(typeString, true, out var type) || type != LobbyBackgroundType.Animation)
-            {
-                UpdateLobbyBackground();
-                return;
-            }
-
-    var rawList = _cfg.GetCVar(BlackMCVars.LobbyAnimation);
-    var paths = rawList
-        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-        .ToArray();
-
-    if (paths.Length == 0)
-    {
-        _sawmill.Warning("lobbyanim: no animation paths configured!");
-        UpdateLobbyBackground();
-        return;
-    }
-
-    var rsiPath = _random.Pick(paths);
-    const string stateId = "animation";
-
-    if (!_resourceCache.TryGetResource<RSIResource>(new ResPath(rsiPath), out var rsiResource))
-    {
-        _sawmill.Warning($"lobbyanim: RSI {rsiPath} not found!");
-        UpdateLobbyBackground();
-        return;
-    }
-
-    if (!rsiResource.RSI.TryGetState(stateId, out var state) || !state.IsAnimated)
-    {
-        UpdateLobbyBackground();
-        return;
-    }
-
-    _currentLocalAnimationState = state;
-    _currentAnimationFrame = 0;
-    _currentAnimationFrameTime = state.GetDelay(0);
-
-    if (Lobby != null)
-        Lobby.Background.Texture = state.Frame0;
-    }
-        //blackM
+        // BlackM start
+        // private void LoadBlackMLobbyBackground()
+        // {
+        //     var typeString = _cfg.GetCVar(BlackMCVars.LobbyBackgroundType);
+        //     if (!Enum.TryParse<LobbyBackgroundType>(typeString, true, out var type) || type != LobbyBackgroundType.Animation)
+        //     {
+        //         UpdateLobbyBackground();
+        //         return;
+        //     }
+        //
+        //     var rawList = _cfg.GetCVar(BlackMCVars.LobbyAnimation);
+        //     var paths = rawList
+        //         .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        //         .ToArray();
+        //
+        //     if (paths.Length == 0)
+        //     {
+        //         _sawmill.Warning("lobbyanim: no animation paths configured!");
+        //         UpdateLobbyBackground();
+        //         return;
+        //     }
+        //
+        //     var rsiPath = _random.Pick(paths);
+        //     const string stateId = "animation";
+        //
+        //     if (!_resourceCache.TryGetResource<RSIResource>(new ResPath(rsiPath), out var rsiResource))
+        //     {
+        //         _sawmill.Warning($"lobbyanim: RSI {rsiPath} not found!");
+        //         UpdateLobbyBackground();
+        //         return;
+        //     }
+        //
+        //     if (!rsiResource.RSI.TryGetState(stateId, out var state) || !state.IsAnimated)
+        //     {
+        //         UpdateLobbyBackground();
+        //         return;
+        //     }
+        //
+        //     _currentLocalAnimationState = state;
+        //     _currentAnimationFrame = 0;
+        //     _currentAnimationFrameTime = state.GetDelay(0);
+        //
+        //     if (Lobby != null)
+        //         Lobby.Background.Texture = state.Frame0;
+        // }
+        // BlackM end
 
         /* CorvaxGoob-Coins-start
         private void OnPatronPerksPressed(BaseButton.ButtonEventArgs obj)
@@ -299,32 +302,49 @@ namespace Content.Client.Lobby
 
         public override void FrameUpdate(FrameEventArgs e)
         {
-            //blackM
-            if (_currentLocalAnimationState != null && _currentLocalAnimationState.IsAnimated && Lobby != null)
-            {
-                var oldFrame = _currentAnimationFrame;
-                _currentAnimationFrameTime -= e.DeltaSeconds;
-
-                while (_currentAnimationFrameTime <= 0f)
-                {
-                    _currentAnimationFrame = (_currentAnimationFrame + 1) % _currentLocalAnimationState.DelayCount;
-                    _currentAnimationFrameTime += _currentLocalAnimationState.GetDelay(_currentAnimationFrame);
-                }
-
-                if (_currentAnimationFrame != oldFrame)
-                {
-                    Lobby.Background.Texture = _currentLocalAnimationState.GetFrame(RsiDirection.South, _currentAnimationFrame);
-                }
-            }
-            //blackM
-
+            // BlackM start
+            // if (_currentLocalAnimationState != null && _currentLocalAnimationState.IsAnimated && Lobby != null)
+            // {
+            //     var oldFrame = _currentAnimationFrame;
+            //     _currentAnimationFrameTime -= e.DeltaSeconds;
+            //
+            //     while (_currentAnimationFrameTime <= 0f)
+            //     {
+            //         _currentAnimationFrame = (_currentAnimationFrame + 1) % _currentLocalAnimationState.DelayCount;
+            //         _currentAnimationFrameTime += _currentLocalAnimationState.GetDelay(_currentAnimationFrame);
+            //     }
+            //
+            //     if (_currentAnimationFrame != oldFrame)
+            //     {
+            //         Lobby.Background.Texture = _currentLocalAnimationState.GetFrame(RsiDirection.South, _currentAnimationFrame);
+            //     }
+            // }
+            // BlackM end
             if (_gameTicker.IsGameStarted)
             {
+                _countdownSoundStartTime = null;
+                _countdownSoundPlayed = false;
                 Lobby!.StartTime.Text = string.Empty;
                 var roundTime = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
                 Lobby!.StationTime.Text = Loc.GetString("lobby-state-player-status-round-time", ("hours", roundTime.Hours), ("minutes", roundTime.Minutes));
                 return;
             }
+
+            // BlackM start
+            if (_countdownSoundStartTime != _gameTicker.StartTime)
+            {
+                _countdownSoundStartTime = _gameTicker.StartTime;
+                _countdownSoundPlayed = false;
+            }
+
+            var secondsUntilRoundStart = (_gameTicker.StartTime - _gameTiming.CurTime).TotalSeconds;
+            if (!_gameTicker.Paused && !_countdownSoundPlayed &&
+                secondsUntilRoundStart is > 0 and <= RoundStartSoundThresholdSeconds)
+            {
+                TerminalSounds.Play(RoundStartCountdownSound, -8f, 0f, 0);
+                _countdownSoundPlayed = true;
+            }
+            // BlackM end
 
             Lobby!.StationTime.Text = Loc.GetString("lobby-state-player-status-round-not-started");
             string text;
@@ -361,11 +381,12 @@ namespace Content.Client.Lobby
 
         private void LobbyStatusUpdated()
         {
-            //blackM
-            if (_cfg.GetCVar(BlackMCVars.LobbyBackgroundType) == "Animation")
-                return;
-
-            UpdateLobbyBackground();
+            // BlackM start
+            // if (_cfg.GetCVar(BlackMCVars.LobbyBackgroundType) == "Animation")
+            //     return;
+            //
+            // UpdateLobbyBackground();
+            // BlackM end
             UpdateLobbyUi();
         }
 
@@ -451,36 +472,36 @@ namespace Content.Client.Lobby
             }
         }
 
-        // Goobstation - heavily modified to add credits for lobby backgrounds
-        private void UpdateLobbyBackground()
-        {
-            return; //BlackM убрал инфу о фоне 
-            if (_gameTicker.LobbyBackground != null)
-            {
-                var lobbyBackground = _protoMan.Index(_gameTicker.LobbyBackground.Value);
-                Lobby!.Background.Texture = _resourceCache.GetResource<TextureResource>(lobbyBackground.Background);
-
-                var name = string.IsNullOrEmpty(lobbyBackground.Name)
-                    ? Loc.GetString("lobby-state-background-unknown-title")
-                    : lobbyBackground.Name;
-
-                var artist = string.IsNullOrEmpty(lobbyBackground.Artist)
-                    ? Loc.GetString("lobby-state-background-unknown-artist")
-                    : lobbyBackground.Artist;
-
-                var markup = Loc.GetString("lobby-state-background-text",
-                    ("backgroundName", name),
-                    ("backgroundArtist", artist));
-
-                //Lobby!.LobbyBackground.SetMarkup(markup);
-
-                return;
-            }
-
-            _sawmill.Warning("_gameTicker.LobbyBackground was null! No lobby background selected.");
-            Lobby!.Background.Texture = null;
-            //Lobby!.LobbyBackground.SetMarkup(Loc.GetString("lobby-state-background-no-background-text"));
-        }
+        // BlackM start
+        // private void UpdateLobbyBackground()
+        // {
+        //     return; //BlackM убрал инфу о фоне
+        //     if (_gameTicker.LobbyBackground != null)
+        //     {
+        //         var lobbyBackground = _protoMan.Index(_gameTicker.LobbyBackground.Value);
+        //         Lobby!.Background.Texture = _resourceCache.GetResource<TextureResource>(lobbyBackground.Background);
+        //
+        //         var name = string.IsNullOrEmpty(lobbyBackground.Name)
+        //             ? Loc.GetString("lobby-state-background-unknown-title")
+        //             : lobbyBackground.Name;
+        //
+        //         var artist = string.IsNullOrEmpty(lobbyBackground.Artist)
+        //             ? Loc.GetString("lobby-state-background-unknown-artist")
+        //             : lobbyBackground.Artist;
+        //
+        //         var markup = Loc.GetString("lobby-state-background-text",
+        //             ("backgroundName", name),
+        //             ("backgroundArtist", artist));
+        //
+        //         //Lobby!.LobbyBackground.SetMarkup(markup);
+        //         return;
+        //     }
+        //
+        //     _sawmill.Warning("_gameTicker.LobbyBackground was null! No lobby background selected.");
+        //     Lobby!.Background.Texture = null;
+        //     //Lobby!.LobbyBackground.SetMarkup(Loc.GetString("lobby-state-background-no-background-text"));
+        // }
+        // BlackM end
 
         private void SetReady(bool newReady)
         {

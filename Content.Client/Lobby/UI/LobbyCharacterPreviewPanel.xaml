@@ -54,7 +54,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <BoxContainer Name="Loaded" Orientation="Vertical" Visible="False">
             <PanelContainer>
                 <PanelContainer.PanelOverride>
-                    <gfx:StyleBoxFlat BackgroundColor="#030A05CC"
+                    <gfx:StyleBoxFlat BackgroundColor="#100C07CC"
                                       BorderColor="{x:Static style:StyleNano.TerminalGreenDim}"
                                       BorderThickness="1" />
                 </PanelContainer.PanelOverride>
@@ -73,7 +73,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     <BoxContainer Orientation="Horizontal" SeparationOverride="14">
                         <PanelContainer VerticalAlignment="Top">
                             <PanelContainer.PanelOverride>
-                                <gfx:StyleBoxFlat BackgroundColor="#0A2410"
+                                <gfx:StyleBoxFlat BackgroundColor="#241706"
                                                   BorderColor="{x:Static style:StyleNano.TerminalGreen}"
                                                   BorderThickness="2" />
                             </PanelContainer.PanelOverride>
@@ -81,11 +81,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 <Control Name="ViewBox" />
                                 <PanelContainer MouseFilter="Ignore">
                                     <PanelContainer.PanelOverride>
-                                        <gfx:StyleBoxFlat BackgroundColor="#2BFF6A24" />
+                                        <gfx:StyleBoxFlat BackgroundColor="#FFB52E18" />
                                     </PanelContainer.PanelOverride>
                                 </PanelContainer>
-                                <terminal:TerminalScanlines LineStep="3" LineAlpha="0.22" RollingBar="True"
-                                                            Flicker="True" VignetteStrength="0.05" />
+                                <terminal:TerminalScanlines LineStep="4" LineAlpha="0.035" RollingBar="False"
+                                                            Flicker="False" VignetteStrength="0.015" />
                             </Control>
                         </PanelContainer>
                         <BoxContainer Orientation="Vertical" VerticalAlignment="Center" HorizontalExpand="True"
