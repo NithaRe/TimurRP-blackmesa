@@ -1,5 +1,5 @@
 blackm-term-title = ПЕРСОНАЛЬНЫЙ ТЕРМИНАЛ
-blackm-term-header = ТЕРМИНАЛ ДОСТУПА // ЛОББИ
+blackm-term-header = ТЕРМИНАЛ ДОСТУПА ЛОББИ
 blackm-term-boot-uplink = УСТАНОВКА СВЯЗИ С СЕРВЕРОМ
 blackm-term-boot-modules = ЗАГРУЗКА МОДУЛЕЙ ИНТЕРФЕЙСА
 blackm-term-boot-records = ЗАГРУЗКА ЛИЧНЫХ ДЕЛ ПЕРСОНАЛА

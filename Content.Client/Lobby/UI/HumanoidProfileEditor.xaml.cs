@@ -787,10 +787,10 @@ namespace Content.Client.Lobby.UI
         {
             const int cardSize = 150;
 
-            var terminalGreen = new Color(0.2f, 1f, 0.4f);
-            var terminalGreenDim = new Color(0.08f, 0.36f, 0.14f);
-            var baseBg = new Color(0.02f, 0.03f, 0.02f, 0.75f);
-            var hoverBg = new Color(0.05f, 0.14f, 0.06f, 0.85f);
+            var terminalGreen = Color.FromHex("#FFB52E");
+            var terminalGreenDim = Color.FromHex("#805019");
+            var baseBg = new Color(0.04f, 0.03f, 0.02f, 0.75f);
+            var hoverBg = new Color(0.18f, 0.10f, 0.03f, 0.85f);
 
             var styleBox = new StyleBoxFlat
             {
@@ -1368,9 +1368,9 @@ namespace Content.Client.Lobby.UI
                     // BlackM start
                     jobGrid = new GridContainer
                     {
-                        Columns = 2,
-                        HSeparationOverride = 8,
-                        VSeparationOverride = 2,
+                        Columns = 1,
+                        HSeparationOverride = 0,
+                        VSeparationOverride = 1,
                         HorizontalExpand = true,
                     };
                     category.AddChild(jobGrid);
@@ -1390,22 +1390,18 @@ namespace Content.Client.Lobby.UI
 
                 foreach (var job in jobs)
                 {
-                    var jobContainer = new BoxContainer()
-                    {
-                        Orientation = LayoutOrientation.Horizontal,
-                        // BlackM start
-                        HorizontalExpand = true,
-                        // BlackM end
-                    };
+                    // var jobContainer = new BoxContainer()
+                    // {
+                    //     Orientation = LayoutOrientation.Horizontal,
+                    //     HorizontalExpand = true,
+                    // };
 
                     var selector = new RequirementsSelector()
                     {
-                        Margin = new Thickness(3f, 3f, 3f, 0f),
-                        // BlackM start
+                        Margin = new Thickness(2f, 1f, 2f, 1f),
                         HorizontalExpand = true,
-                        // BlackM end
                     };
-                    selector.OnOpenGuidebook += OnOpenGuidebook;
+                    // selector.OnOpenGuidebook += OnOpenGuidebook;
 
                     var icon = new TextureRect
                     {
@@ -1414,7 +1410,11 @@ namespace Content.Client.Lobby.UI
                     };
                     var jobIcon = _prototypeManager.Index(job.Icon);
                     icon.Texture = _sprite.Frame0(jobIcon.Icon);
-                    selector.Setup(items, job.LocalizedName, 200, job.LocalizedDescription, icon, job.Guides);
+                    // selector.Setup(items, job.LocalizedName, 200, job.LocalizedDescription, icon, job.Guides);
+                    // BlackM start
+                    selector.Setup(items, job.LocalizedName, 200, job.LocalizedDescription, icon, job.Guides,
+                        stacked: false, showHelp: false);
+                    // BlackM end
 
                     if (!_requirements.IsAllowed(job, (HumanoidCharacterProfile?) _preferencesManager.Preferences?.SelectedCharacter, out var reason))
                     {
@@ -1454,50 +1454,45 @@ namespace Content.Client.Lobby.UI
                         SetDirty();
                     };
 
-                    var loadoutWindowBtn = new Button()
-                    {
-                        Text = Loc.GetString("loadout-window"),
-                        HorizontalAlignment = HAlignment.Right,
-                        VerticalAlignment = VAlignment.Center,
-                        Margin = new Thickness(3f, 3f, 0f, 0f),
-                    };
-
-                    var collection = IoCManager.Instance!;
-                    var protoManager = collection.Resolve<IPrototypeManager>();
-
-                    // If no loadout found then disabled button
-                    if (!protoManager.TryIndex<RoleLoadoutPrototype>(LoadoutSystem.GetJobPrototype(job.ID), out var roleLoadoutProto))
-                    {
-                        loadoutWindowBtn.Disabled = true;
-                    }
-                    // else
-                    else
-                    {
-                        loadoutWindowBtn.OnPressed += args =>
-                        {
-                            RoleLoadout? loadout = null;
-
-                            // Clone so we don't modify the underlying loadout.
-                            Profile?.Loadouts.TryGetValue(LoadoutSystem.GetJobPrototype(job.ID), out loadout);
-                            loadout = loadout?.Clone();
-
-                            if (loadout == null)
-                            {
-                                loadout = new RoleLoadout(roleLoadoutProto.ID);
-                                loadout.SetDefault(Profile, _playerManager.LocalSession, _prototypeManager);
-                            }
-
-                            OpenLoadout(job, loadout, roleLoadoutProto);
-                        };
-                    }
+                    // BlackM start
+                    // var loadoutWindowBtn = new Button()
+                    // {
+                    //     Text = Loc.GetString("loadout-window"),
+                    //     HorizontalAlignment = HAlignment.Right,
+                    //     VerticalAlignment = VAlignment.Center,
+                    //     Margin = new Thickness(3f, 3f, 0f, 0f),
+                    // };
+                    //
+                    // var collection = IoCManager.Instance!;
+                    // var protoManager = collection.Resolve<IPrototypeManager>();
+                    //
+                    // if (!protoManager.TryIndex<RoleLoadoutPrototype>(LoadoutSystem.GetJobPrototype(job.ID), out var roleLoadoutProto))
+                    // {
+                    //     loadoutWindowBtn.Disabled = true;
+                    // }
+                    // {
+                    //     loadoutWindowBtn.OnPressed += args =>
+                    //     {
+                    //         RoleLoadout? loadout = null;
+                    //         Profile?.Loadouts.TryGetValue(LoadoutSystem.GetJobPrototype(job.ID), out loadout);
+                    //         loadout = loadout?.Clone();
+                    //
+                    //         if (loadout == null)
+                    //         {
+                    //             loadout = new RoleLoadout(roleLoadoutProto.ID);
+                    //             loadout.SetDefault(Profile, _playerManager.LocalSession, _prototypeManager);
+                    //         }
+                    //
+                    //         OpenLoadout(job, loadout, roleLoadoutProto);
+                    //     };
+                    // }
+                    // BlackM end
 
                     _jobPriorities.Add((job.ID, selector));
-                    jobContainer.AddChild(selector);
-                    // jobContainer.AddChild(loadoutWindowBtn); // blackm edit 
-                    // BlackM start
-                    // category.AddChild(jobContainer);
-                    jobGrid.AddChild(jobContainer);
-                    // BlackM end
+                    // jobContainer.AddChild(selector);
+                    // jobContainer.AddChild(loadoutWindowBtn);
+                    // jobGrid.AddChild(jobContainer);
+                    jobGrid.AddChild(selector);
                 }
             }
 

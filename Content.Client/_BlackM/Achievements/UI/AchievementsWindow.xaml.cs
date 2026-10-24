@@ -99,8 +99,8 @@ public sealed partial class AchievementsWindow : PassportFramelessWindow
         {
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = unlocked ? Color.FromHex("#06140ACC") : Color.FromHex("#030A05CC"),
-                BorderColor = StyleNano.TerminalGreenDim,
+                BackgroundColor = unlocked ? Color.FromHex("#1A1208E8") : Color.FromHex("#100C07E8"),
+                BorderColor = selected ? StyleNano.TerminalGreen : StyleNano.TerminalGreenDim,
                 BorderThickness = new Thickness(1),
             }
         };
@@ -147,7 +147,7 @@ public sealed partial class AchievementsWindow : PassportFramelessWindow
                 Value = Math.Min(current, target),
                 MinSize = new Vector2(0, 10),
                 HorizontalExpand = true,
-                BackgroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#0A1C10") },
+                BackgroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#2B1C0A") },
                 ForegroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = StyleNano.TerminalGreen },
             });
         }

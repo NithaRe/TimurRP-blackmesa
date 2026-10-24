@@ -6,7 +6,7 @@ namespace Content.Client._BlackM.Lobby.Terminal;
 
 public sealed class TerminalScanlines : Control
 {
-    private static readonly Color Phosphor = new(0.2f, 1f, 0.4f);
+    private static readonly Color Phosphor = Color.FromHex("#FFB52E");
 
     private float _time;
 
@@ -47,20 +47,20 @@ public sealed class TerminalScanlines : Control
 
         if (Flicker)
         {
-            var f = 0.004f + 0.003f * MathF.Sin(_time * 29f) * MathF.Sin(_time * 4.1f);
+            var f = 0.001f + 0.0012f * MathF.Sin(_time * 17f) * MathF.Sin(_time * 2.3f);
             if (f > 0f)
                 handle.DrawRect(new UIBox2(0, 0, w, h), Phosphor.WithAlpha(f));
         }
 
         if (RollingBar)
         {
-            const int slices = 6;
-            var barHeight = h * 0.015f;
+            const int slices = 18;
+            var barHeight = h * 0.022f;
             var top = ((_time * 0.06f) % 1.2f - 0.1f) * h;
             var slice = barHeight / slices;
             for (var i = 0; i < slices; i++)
             {
-                var a = 0.02f * MathF.Sin(MathF.PI * (i + 0.5f) / slices);
+                var a = 0.012f * MathF.Sin(MathF.PI * (i + 0.5f) / slices);
                 handle.DrawRect(new UIBox2(0, top + i * slice, w, top + (i + 1) * slice), Phosphor.WithAlpha(a));
             }
         }

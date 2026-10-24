@@ -22,7 +22,6 @@ public static class TerminalSounds
     public const string Select = Root + "term_select.ogg";
     public const string Open = Root + "term_open.ogg";
     public const string Close = Root + "term_close.ogg";
-    public const string Boot = Root + "term_boot.ogg";
 
     private static readonly Stopwatch Clock = Stopwatch.StartNew();
     private static readonly Dictionary<string, long> LastPlayed = new();

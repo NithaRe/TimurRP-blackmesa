@@ -10,7 +10,7 @@ public sealed class BlackMCVars
 
     public static readonly CVarDef<string> LobbyAnimation =
     CVarDef.Create("blackm.lobby.animation",
-        "/Textures/_BlackM/LobbyScreens/lobbyscreen.rsi,/Textures/_BlackM/LobbyScreens/lobbyscreen2.rsi", CVar.CLIENT | CVar.ARCHIVE);
+        "/Textures/_BlackM/LobbyScreens/lobbyscreen.rsi", CVar.CLIENT | CVar.ARCHIVE);
 
     public static readonly CVarDef<string> LobbyArt =
         CVarDef.Create("blackm.lobby.art", "random", CVar.CLIENT | CVar.ARCHIVE);
