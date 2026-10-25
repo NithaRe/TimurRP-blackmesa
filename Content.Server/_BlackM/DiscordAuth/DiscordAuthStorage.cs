@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -19,65 +20,87 @@ public sealed class DiscordAuthEntry
 
 public sealed class DiscordAuthStorage
 {
-    private readonly string _path;
-    private readonly object _lock = new();
-    private System.Collections.Generic.Dictionary<string, DiscordAuthEntry> _verified = new();
+    private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
 
-    public DiscordAuthStorage(string dataDir)
+    private readonly string _path;
+    private readonly ISawmill? _sawmill;
+    private readonly object _lock = new();
+    private Dictionary<string, DiscordAuthEntry> _entries = new();
+
+    public DiscordAuthStorage(string dataDir, ISawmill? sawmill = null)
     {
+        _sawmill = sawmill;
         Directory.CreateDirectory(dataDir);
         _path = Path.Combine(dataDir, "discord_auth.json");
         Load();
     }
 
+    private string BackupPath => _path + ".bak";
+
     private void Load()
     {
         lock (_lock)
         {
-            if (!File.Exists(_path))
+            foreach (var candidate in new[] { _path, BackupPath })
             {
-                _verified = new System.Collections.Generic.Dictionary<string, DiscordAuthEntry>();
-                return;
+                if (!File.Exists(candidate))
+                    continue;
+
+                try
+                {
+                    var loaded = JsonSerializer.Deserialize<Dictionary<string, DiscordAuthEntry>>(File.ReadAllText(candidate));
+                    if (loaded == null)
+                        throw new JsonException("file contains null");
+
+                    _entries = loaded;
+                    if (candidate != _path)
+                        _sawmill?.Warning($"Main storage was unreadable, restored from {candidate}");
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    var quarantine = $"{candidate}.corrupt-{DateTime.UtcNow:yyyyMMddHHmmss}";
+                    try { File.Copy(candidate, quarantine, true); } catch { /* ignore */ }
+                    _sawmill?.Error($"Failed to read {candidate} (copy saved to {quarantine}): {ex.Message}");
+                }
             }
-            try
-            {
-                _verified = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, DiscordAuthEntry>>(File.ReadAllText(_path))
-                            ?? new System.Collections.Generic.Dictionary<string, DiscordAuthEntry>();
-            }
-            catch
-            {
-                _verified = new System.Collections.Generic.Dictionary<string, DiscordAuthEntry>();
-            }
+
+            _entries = new Dictionary<string, DiscordAuthEntry>();
         }
     }
 
-    private void Save()
+    // _lock
+    private void SaveLocked()
     {
-        lock (_lock)
-        {
-            File.WriteAllText(_path, JsonSerializer.Serialize(_verified, new JsonSerializerOptions { WriteIndented = true }));
-        }
+        var tmp = _path + ".tmp";
+        File.WriteAllText(tmp, JsonSerializer.Serialize(_entries, JsonOptions));
+
+        if (File.Exists(_path))
+            File.Replace(tmp, _path, BackupPath);
+        else
+            File.Move(tmp, _path);
     }
 
     public bool IsVerified(string userId)
     {
         lock (_lock)
-            return _verified.TryGetValue(userId, out var v) && v.Verified;
+            return _entries.TryGetValue(userId, out var v) && v.Verified;
     }
 
     public bool TryGetUserIdByDiscordId(string discordId, out string userId)
     {
         lock (_lock)
+            return TryGetUserIdByDiscordIdLocked(discordId, out userId);
+    }
+
+    private bool TryGetUserIdByDiscordIdLocked(string discordId, out string userId)
+    {
+        foreach (var kv in _entries)
         {
-            foreach (var kv in _verified)
+            if (kv.Value.Verified && kv.Value.DiscordId == discordId)
             {
-                if (kv.Value.Verified
-                    && !string.IsNullOrEmpty(kv.Value.DiscordId)
-                    && kv.Value.DiscordId == discordId)
-                {
-                    userId = kv.Key;
-                    return true;
-                }
+                userId = kv.Key;
+                return true;
             }
         }
 
@@ -85,21 +108,52 @@ public sealed class DiscordAuthStorage
         return false;
     }
 
+    public bool TryLink(string userId, string ckey, string discordId, out string conflictUserId)
+    {
+        lock (_lock)
+        {
+            if (TryGetUserIdByDiscordIdLocked(discordId, out conflictUserId) && conflictUserId != userId)
+                return false;
+
+            _entries.TryGetValue(userId, out var previous);
+            _entries[userId] = new DiscordAuthEntry { Verified = true, Ckey = ckey, DiscordId = discordId };
+
+            try
+            {
+                SaveLocked();
+            }
+            catch
+            {
+                if (previous != null)
+                    _entries[userId] = previous;
+                else
+                    _entries.Remove(userId);
+                throw;
+            }
+
+            conflictUserId = string.Empty;
+            return true;
+        }
+    }
+
     public void SetVerified(string userId, string ckey, string discordId, bool verified)
     {
         lock (_lock)
-            _verified[userId] = new DiscordAuthEntry { Verified = verified, Ckey = ckey, DiscordId = discordId };
-        Save();
+        {
+            _entries[userId] = new DiscordAuthEntry { Verified = verified, Ckey = ckey, DiscordId = discordId };
+            SaveLocked();
+        }
     }
 
     public bool RemoveVerification(string userId)
     {
         lock (_lock)
         {
-            if (!_verified.Remove(userId))
+            if (!_entries.Remove(userId))
                 return false;
+
+            SaveLocked();
+            return true;
         }
-        Save();
-        return true;
     }
 }

@@ -4,9 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,12 +14,12 @@ using Content.Shared._BlackM.CCVar;
 using Content.Shared._BlackM.DiscordAuth;
 using Robust.Server.Player;
 using Robust.Server.ServerStatus;
+using Robust.Shared.Asynchronous;
 using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
-using Robust.Shared.Utility;
 
 namespace Content.Server._BlackM.DiscordAuth;
 
@@ -31,40 +30,51 @@ public sealed class DiscordAuthManager : IServerDiscordAuthManager
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IStatusHost _statusHost = default!;
     [Dependency] private readonly IResourceManager _resourceManager = default!;
+    [Dependency] private readonly ITaskManager _taskManager = default!;
 
     public event EventHandler<ICommonSession>? PlayerVerified;
 
-    private readonly HttpClient _http = new();
-    private ISawmill _sawmill = default!;
-    private DiscordAuthStorage _storage = default!;
-
-    private sealed class PendingState
+    private sealed class PendingLink
     {
         public NetUserId UserId;
         public string Ckey = string.Empty;
+        public string Code = string.Empty;
         public DateTime Expires;
-        public bool Used;
-        public bool Success;
-        public string LinkCode = string.Empty;
     }
 
-    private readonly Dictionary<string, PendingState> _pendingStates = new();
-    private readonly object _pendingLock = new();
-
-    private const string TextContentType = "text/plain; charset=utf-8";
-    private const string HtmlContentType = "text/html; charset=utf-8";
-    private const string DiscordServerInviteUrl = "https://discord.gg/8bvmPnkTPM";
-
     private const string LinkPath = "/discord/link";
-    private const string LinkCodeAlphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    private const string CodeAlphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    private const int CodeLength = 8;
+    private const int MaxBodyBytes = 2048;
+    private const int MaxBadCodesPerMinute = 20;
+
+    private static readonly TimeSpan CodeLifetime = TimeSpan.FromMinutes(10);
+    private static readonly TimeSpan CodeRefreshThreshold = TimeSpan.FromMinutes(1);
+    private static readonly TimeSpan SignatureWindow = TimeSpan.FromSeconds(60);
+    private static readonly TimeSpan CheckCooldown = TimeSpan.FromSeconds(2);
+
+    private ISawmill _sawmill = default!;
+    private DiscordAuthStorage _storage = default!;
+
+    private readonly object _lock = new();
+    private readonly Dictionary<string, PendingLink> _byCode = new();
+    private readonly Dictionary<NetUserId, PendingLink> _byUser = new();
+    private readonly Queue<DateTime> _badCodes = new();
+
+    // главный поток.
+    private readonly Dictionary<NetUserId, DateTime> _lastCheck = new();
 
     private bool _enabled;
     private bool _isOptional;
+    private string _secret = string.Empty;
+    private HashSet<IPAddress> _allowedIps = new();
 
     public void Initialize()
     {
         _sawmill = Logger.GetSawmill("blackm.discord_auth");
-        _storage = new DiscordAuthStorage(Path.Combine(_resourceManager.UserData.RootDir?.ToString() ?? "data", "discord_auth"));
+        _storage = new DiscordAuthStorage(
+            Path.Combine(_resourceManager.UserData.RootDir?.ToString() ?? "data", "discord_auth"),
+            _sawmill);
 
         _netManager.RegisterNetMessage<MsgDiscordAuthCheck>(OnAuthCheck);
         _netManager.RegisterNetMessage<MsgDiscordAuthByPass>(OnAuthByPass);
@@ -73,41 +83,43 @@ public sealed class DiscordAuthManager : IServerDiscordAuthManager
 
         _cfg.OnValueChanged(BlackMCVars.DiscordAuthEnabled, v => _enabled = v, true);
         _cfg.OnValueChanged(BlackMCVars.DiscordAuthIsOptional, v => _isOptional = v, true);
+        _cfg.OnValueChanged(BlackMCVars.DiscordAuthLinkSecret, v => _secret = v, true);
+        _cfg.OnValueChanged(BlackMCVars.DiscordAuthLinkAllowedIps, OnAllowedIpsChanged, true);
+
+        if (_enabled && string.IsNullOrEmpty(_secret))
+            _sawmill.Warning("discord_auth.link_secret is empty: /discord/link is disabled, nobody can verify!");
 
         _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
-        _statusHost.AddHandler(OnHttpCallback);
+        _statusHost.AddHandler(OnHttpRequest);
+    }
+
+    private void OnAllowedIpsChanged(string value)
+    {
+        var set = new HashSet<IPAddress>();
+        foreach (var part in value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+        {
+            if (IPAddress.TryParse(part, out var ip))
+                set.Add(ip.IsIPv4MappedToIPv6 ? ip.MapToIPv4() : ip);
+            else
+                _sawmill.Warning($"discord_auth.link_allowed_ips: '{part}' is not a valid IP, ignored");
+        }
+
+        _allowedIps = set;
     }
 
     private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
     {
+        if (e.NewStatus == SessionStatus.Disconnected)
+        {
+            _lastCheck.Remove(e.Session.UserId);
+            DropPending(e.Session.UserId);
+            return;
+        }
+
         if (!_enabled || e.NewStatus != SessionStatus.Connected)
             return;
 
         SendAuthRequiredIfNeeded(e.Session);
-    }
-
-    private async void SendAuthRequiredIfNeeded(ICommonSession session)
-    {
-        try
-        {
-            if (await IsVerified(session.UserId, default))
-            {
-                _netManager.ServerSendMessage(new MsgDiscordAuthVerified(), session.Channel);
-                return;
-            }
-
-            var (state, code) = GetOrCreatePending(session.UserId);
-            _netManager.ServerSendMessage(new MsgDiscordAuthRequired
-            {
-                AuthUrl = BuildAuthUrl(state),
-                LinkCode = FormatLinkCode(code),
-                QrCode = Array.Empty<byte>(),
-            }, session.Channel);
-        }
-        catch (Exception ex)
-        {
-            _sawmill.Error($"Failed to send discord auth requirement to {session.UserId}: {ex}");
-        }
     }
 
     private void OnAuthCheck(MsgDiscordAuthCheck message)
@@ -115,6 +127,11 @@ public sealed class DiscordAuthManager : IServerDiscordAuthManager
         if (!_playerManager.TryGetSessionByChannel(message.MsgChannel, out var session))
             return;
 
+        var now = DateTime.UtcNow;
+        if (_lastCheck.TryGetValue(session.UserId, out var last) && now - last < CheckCooldown)
+            return;
+
+        _lastCheck[session.UserId] = now;
         SendAuthRequiredIfNeeded(session);
     }
 
@@ -123,118 +140,181 @@ public sealed class DiscordAuthManager : IServerDiscordAuthManager
         if (!_isOptional)
             return;
 
-        var channel = message.MsgChannel;
-        var session = _playerManager.GetSessionByChannel(channel);
-        _netManager.ServerSendMessage(new MsgDiscordAuthVerified(), channel);
+        if (!_playerManager.TryGetSessionByChannel(message.MsgChannel, out var session))
+            return;
+
+        _netManager.ServerSendMessage(new MsgDiscordAuthVerified(), message.MsgChannel);
         PlayerVerified?.Invoke(this, session);
     }
 
-    public Task<bool> IsVerified(NetUserId userId, CancellationToken cancel)
+    private void SendAuthRequiredIfNeeded(ICommonSession session)
     {
-        if (!_enabled)
-            return Task.FromResult(true);
-
-        return Task.FromResult(_storage.IsVerified(userId.UserId.ToString()));
-    }
-
-    public Task<string> GenerateAuthLink(NetUserId userId, CancellationToken cancel)
-    {
-        var (state, _) = GetOrCreatePending(userId);
-        return Task.FromResult(BuildAuthUrl(state));
-    }
-
-    private (string State, string Code) GetOrCreatePending(NetUserId userId)
-    {
-        var ckey = _playerManager.TryGetSessionById(userId, out var s) ? s.Name : userId.UserId.ToString();
-
-        lock (_pendingLock)
+        try
         {
-            var now = DateTime.UtcNow;
-
-            foreach (var key in _pendingStates.Where(kv => kv.Value.Expires < now).Select(kv => kv.Key).ToList())
-                _pendingStates.Remove(key);
-
-            var existing = _pendingStates.FirstOrDefault(kv =>
-                kv.Value.UserId == userId
-                && !kv.Value.Used
-                && kv.Value.Expires > now.AddMinutes(5));
-
-            if (existing.Key != null)
-                return (existing.Key, existing.Value.LinkCode);
-
-            var state = Guid.NewGuid().ToString("N");
-            var code = GenerateLinkCode();
-            _pendingStates[state] = new PendingState
+            if (IsVerifiedInternal(session.UserId))
             {
-                UserId = userId,
-                Ckey = ckey,
-                Expires = now.AddMinutes(10),
-                LinkCode = code,
-            };
+                _netManager.ServerSendMessage(new MsgDiscordAuthVerified(), session.Channel);
+                return;
+            }
 
-            return (state, code);
+            var pending = GetOrCreatePending(session);
+            _netManager.ServerSendMessage(new MsgDiscordAuthRequired
+            {
+                LinkCode = FormatLinkCode(pending.Code),
+            }, session.Channel);
+        }
+        catch (Exception ex)
+        {
+            _sawmill.Error($"Failed to send discord auth requirement to {session.UserId}: {ex}");
         }
     }
 
-    private string GenerateLinkCode()
+    public Task<bool> IsVerified(NetUserId userId, CancellationToken cancel)
+        => Task.FromResult(IsVerifiedInternal(userId));
+
+    private bool IsVerifiedInternal(NetUserId userId)
+        => !_enabled || _storage.IsVerified(userId.UserId.ToString());
+
+    private PendingLink GetOrCreatePending(ICommonSession session)
+    {
+        lock (_lock)
+        {
+            var now = DateTime.UtcNow;
+            PurgeExpired(now);
+
+            if (_byUser.TryGetValue(session.UserId, out var existing))
+            {
+                if (existing.Expires - now > CodeRefreshThreshold)
+                    return existing;
+
+                _byCode.Remove(existing.Code);
+                _byUser.Remove(session.UserId);
+            }
+
+            var created = new PendingLink
+            {
+                UserId = session.UserId,
+                Ckey = session.Name,
+                Code = GenerateCode(),
+                Expires = now + CodeLifetime,
+            };
+
+            _byCode[created.Code] = created;
+            _byUser[created.UserId] = created;
+            return created;
+        }
+    }
+
+    private void DropPending(NetUserId userId)
+    {
+        lock (_lock)
+        {
+            if (_byUser.Remove(userId, out var p))
+                _byCode.Remove(p.Code);
+        }
+    }
+
+    // _lock
+    private void PurgeExpired(DateTime now)
+    {
+        List<PendingLink>? dead = null;
+        foreach (var p in _byCode.Values)
+        {
+            if (p.Expires <= now)
+                (dead ??= new()).Add(p);
+        }
+
+        if (dead == null)
+            return;
+
+        foreach (var p in dead)
+        {
+            _byCode.Remove(p.Code);
+            _byUser.Remove(p.UserId);
+        }
+    }
+
+    // _lock.
+    private string GenerateCode()
     {
         while (true)
         {
-            var chars = new char[8];
+            Span<char> chars = stackalloc char[CodeLength];
             for (var i = 0; i < chars.Length; i++)
-                chars[i] = LinkCodeAlphabet[RandomNumberGenerator.GetInt32(LinkCodeAlphabet.Length)];
+                chars[i] = CodeAlphabet[RandomNumberGenerator.GetInt32(CodeAlphabet.Length)];
 
             var code = new string(chars);
-            if (_pendingStates.Values.All(p => p.LinkCode != code))
+            if (!_byCode.ContainsKey(code))
                 return code;
         }
     }
 
-    private static string FormatLinkCode(string code) => code.Length == 8 ? $"{code[..4]}-{code[4..]}" : code;
+    private static string FormatLinkCode(string code)
+        => code.Length == CodeLength ? $"{code[..4]}-{code[4..]}" : code;
 
-    private string BuildAuthUrl(string state)
+    private async Task<bool> OnHttpRequest(IStatusHandlerContext context)
     {
-        var clientId = _cfg.GetCVar(BlackMCVars.DiscordAuthClientId);
-        var redirectUri = _cfg.GetCVar(BlackMCVars.DiscordAuthRedirectUri);
-
-        return "https://discord.com/api/oauth2/authorize" +
-               $"?client_id={Uri.EscapeDataString(clientId)}" +
-               $"&redirect_uri={Uri.EscapeDataString(redirectUri)}" +
-               "&response_type=code" +
-               "&scope=identify+guilds" +
-               $"&state={state}";
-    }
-
-    private async Task<bool> OnLinkRequest(IStatusHandlerContext context)
-    {
-        var secret = _cfg.GetCVar(BlackMCVars.DiscordAuthWebhookSecret);
-        if (string.IsNullOrEmpty(secret))
+        if (context.RequestMethod != HttpMethod.Post || context.Url.AbsolutePath != LinkPath)
             return false;
 
-        var token = string.Empty;
-        foreach (var (name, value) in context.RequestHeaders)
+        if (!_enabled || string.IsNullOrEmpty(_secret))
+            return false;
+
+        if (_allowedIps.Count > 0)
         {
-            if (name.Equals("X-Auth-Token", StringComparison.OrdinalIgnoreCase))
-            {
-                token = value.ToString();
-                break;
-            }
+            var ip = context.RemoteEndPoint.Address;
+            if (ip.IsIPv4MappedToIPv6)
+                ip = ip.MapToIPv4();
+
+            if (!_allowedIps.Contains(ip))
+                return false;
         }
 
-        if (!CryptographicOperations.FixedTimeEquals(Encoding.UTF8.GetBytes(token), Encoding.UTF8.GetBytes(secret)))
+        try
         {
-            await context.RespondAsync("{\"error\":\"unauthorized\"}", HttpStatusCode.Unauthorized, "application/json");
-            return true;
+            await HandleLink(context);
+        }
+        catch (Exception ex)
+        {
+            _sawmill.Error($"Discord link request failed: {ex}");
+            await Error(context, HttpStatusCode.InternalServerError, "internal");
+        }
+
+        return true;
+    }
+
+    private async Task HandleLink(IStatusHandlerContext context)
+    {
+        var body = await ReadBodyAsync(context.RequestBody);
+        if (body == null)
+        {
+            await Error(context, HttpStatusCode.RequestEntityTooLarge, "too_large");
+            return;
+        }
+
+        var timestamp = GetHeader(context, "X-Timestamp");
+        var signature = GetHeader(context, "X-Signature");
+
+        if (!long.TryParse(timestamp, out var ts)
+            || Math.Abs(DateTimeOffset.UtcNow.ToUnixTimeSeconds() - ts) > SignatureWindow.TotalSeconds
+            || !VerifySignature(timestamp, body, signature))
+        {
+            await Error(context, HttpStatusCode.Unauthorized, "unauthorized");
+            return;
+        }
+
+        if (IsRateLimited())
+        {
+            await Error(context, HttpStatusCode.TooManyRequests, "rate_limited");
+            return;
         }
 
         DiscordLinkRequest? request;
         try
         {
-            using var reader = new StreamReader(context.RequestBody, Encoding.UTF8);
-            var body = await reader.ReadToEndAsync();
-            request = body.Length is > 0 and < 2048 ? JsonSerializer.Deserialize<DiscordLinkRequest>(body) : null;
+            request = JsonSerializer.Deserialize<DiscordLinkRequest>(body);
         }
-        catch
+        catch (JsonException)
         {
             request = null;
         }
@@ -242,264 +322,131 @@ public sealed class DiscordAuthManager : IServerDiscordAuthManager
         var code = (request?.Code ?? string.Empty)
             .Replace("-", "").Replace(" ", "").Trim().ToUpperInvariant();
 
-        if (request == null || code.Length != 8 || !ulong.TryParse(request.DiscordId, out _))
+        if (request == null
+            || code.Length != CodeLength
+            || request.DiscordId.Length is 0 or > 20
+            || !ulong.TryParse(request.DiscordId, out _))
         {
-            await context.RespondAsync("{\"error\":\"bad_request\"}", HttpStatusCode.BadRequest, "application/json");
-            return true;
+            await Error(context, HttpStatusCode.BadRequest, "bad_request");
+            return;
         }
 
-        var discordId = request.DiscordId;
-
-        PendingState? entry = null;
-        lock (_pendingLock)
+        PendingLink? entry;
+        lock (_lock)
         {
-            var now = DateTime.UtcNow;
-            foreach (var p in _pendingStates.Values)
-            {
-                if (p.LinkCode == code && !p.Used && p.Expires > now)
-                {
-                    entry = p;
-                    p.Used = true;
-                    break;
-                }
-            }
+            PurgeExpired(DateTime.UtcNow);
+            if (_byCode.Remove(code, out entry))
+                _byUser.Remove(entry.UserId);
         }
 
         if (entry == null)
         {
-            await context.RespondAsync("{\"error\":\"code_not_found\"}", HttpStatusCode.NotFound, "application/json");
-            return true;
-        }
-
-        try
-        {
-            var thisUserId = entry.UserId.UserId.ToString();
-
-            if (_storage.TryGetUserIdByDiscordId(discordId, out var existingUserId) && existingUserId != thisUserId)
-            {
-                lock (_pendingLock)
-                    entry.Used = false;
-
-                await context.RespondAsync("{\"error\":\"discord_already_linked\"}", HttpStatusCode.Conflict, "application/json");
-                return true;
-            }
-
-            _storage.SetVerified(thisUserId, entry.Ckey, discordId, true);
-
-            lock (_pendingLock)
-            {
-                entry.Success = true;
-                entry.Expires = DateTime.UtcNow.AddMinutes(2);
-            }
-
-            if (_playerManager.TryGetSessionById(entry.UserId, out var session))
-            {
-                _netManager.ServerSendMessage(new MsgDiscordAuthVerified(), session.Channel);
-                PlayerVerified?.Invoke(this, session);
-            }
-
-            _ = NotifyBotAsync(discordId, entry.Ckey, thisUserId);
-
-            var ok = JsonSerializer.Serialize(new { ok = true, ckey = entry.Ckey });
-            await context.RespondAsync(ok, HttpStatusCode.OK, "application/json");
-        }
-        catch (Exception ex)
-        {
-            lock (_pendingLock)
-                entry.Used = false;
-
-            _sawmill.Error($"Discord manual link failed: {ex}");
-            await context.RespondAsync("{\"error\":\"internal\"}", HttpStatusCode.InternalServerError, "application/json");
-        }
-
-        return true;
-    }
-
-    private async Task<bool> OnHttpCallback(IStatusHandlerContext context)
-    {
-        if (context.RequestMethod == HttpMethod.Post && context.Url.AbsolutePath == LinkPath)
-            return await OnLinkRequest(context);
-
-        var callbackPath = _cfg.GetCVar(BlackMCVars.DiscordAuthCallbackPath);
-        if (context.RequestMethod != HttpMethod.Get || context.Url.AbsolutePath != callbackPath)
-            return false;
-
-        var query = System.Web.HttpUtility.ParseQueryString(context.Url.Query);
-        var code = query["code"];
-        var state = query["state"];
-
-        if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(state))
-        {
-            await context.RespondAsync("Отсутствует code/state.", HttpStatusCode.BadRequest, TextContentType);
-            return true;
-        }
-
-        PendingState entry;
-        lock (_pendingLock)
-        {
-            if (!_pendingStates.TryGetValue(state, out entry!) || entry.Expires < DateTime.UtcNow)
-            {
-                _pendingStates.Remove(state);
-                context.RespondAsync(
-                    "Ссылка устарела, зайдите на сервер заново.",
-                    HttpStatusCode.BadRequest, TextContentType);
-                return true;
-            }
-
-            if (entry.Used)
-            {
-                var msg = entry.Success
-                    ? "Вы уже подтвердили аккаунт. Можно закрыть эту вкладку и вернуться в игру."
-                    : "Эта ссылка уже была использована и подтверждение не удалось. Зайдите на сервер заново.";
-                context.RespondAsync(
-                    $"<html><body style='font-family:sans-serif;text-align:center;margin-top:15%'><h2>{msg}</h2></body></html>",
-                    entry.Success ? HttpStatusCode.OK : HttpStatusCode.BadRequest, HtmlContentType);
-                return true;
-            }
-
-            entry.Used = true;
-        }
-
-        try
-        {
-            var (success, discordId, inGuild) = await CompleteVerification(code);
-
-            lock (_pendingLock)
-            {
-                entry.Success = success && inGuild;
-                entry.Expires = DateTime.UtcNow.AddMinutes(2);
-            }
-
-            if (!success || string.IsNullOrEmpty(discordId))
-            {
-                await context.RespondAsync(
-                    "Верификация не пройдена - убедитесь, что вы авторизовались через Discord.",
-                    HttpStatusCode.Forbidden, TextContentType);
-                return true;
-            }
-
-            if (!inGuild)
-            {
-                await context.RespondAsync(
-                    "<html><body style='font-family:sans-serif;text-align:center;margin-top:15%'>" +
-                    "<h2>Вы не состоите на нашем Discord-сервере.</h2>" +
-                    $"<p>Вступите по ссылке <a href='{DiscordServerInviteUrl}'>{DiscordServerInviteUrl}</a> " +
-                    "и повторите авторизацию.</p></body></html>",
-                    HttpStatusCode.Forbidden, HtmlContentType);
-                return true;
-            }
-
-            var thisUserId = entry.UserId.UserId.ToString();
-
-            if (_storage.TryGetUserIdByDiscordId(discordId, out var existingUserId)
-                && existingUserId != thisUserId)
-            {
-                lock (_pendingLock)
-                {
-                    entry.Success = false;
-                }
-
-                await context.RespondAsync(
-                    "<html><body style='font-family:sans-serif;text-align:center;margin-top:15%'>" +
-                    "<h2>Этот Discord-аккаунт уже привязан к другому аккаунту SS14.</h2>" +
-                    "<p>Если это ошибка - обратитесь к администрации.</p></body></html>",
-                    HttpStatusCode.Conflict, HtmlContentType);
-                return true;
-            }
-
-            _storage.SetVerified(thisUserId, entry.Ckey, discordId, true);
-
-            if (_playerManager.TryGetSessionById(entry.UserId, out var session))
-            {
-                _netManager.ServerSendMessage(new MsgDiscordAuthVerified(), session.Channel);
-                PlayerVerified?.Invoke(this, session);
-            }
-
-            _ = NotifyBotAsync(discordId, entry.Ckey, thisUserId);
-
-            await context.RespondAsync(
-                "<html><body style='font-family:sans-serif;text-align:center;margin-top:15%'>" +
-                "<h2>Готово!</h2><p>Можете закрыть эту вкладку и вернуться в игру.</p></body></html>",
-                HttpStatusCode.OK, HtmlContentType);
-        }
-        catch (Exception ex)
-        {
-            _sawmill.Error($"Discord auth callback failed: {ex}");
-            await context.RespondAsync("Внутренняя ошибка.", HttpStatusCode.InternalServerError, TextContentType);
-        }
-
-        return true;
-    }
-
-    private async Task<(bool Success, string? DiscordId, bool InGuild)> CompleteVerification(string code)
-    {
-        var clientId = _cfg.GetCVar(BlackMCVars.DiscordAuthClientId);
-        var clientSecret = _cfg.GetCVar(BlackMCVars.DiscordAuthClientSecret);
-        var redirectUri = _cfg.GetCVar(BlackMCVars.DiscordAuthRedirectUri);
-        var requiredGuildId = _cfg.GetCVar(BlackMCVars.DiscordAuthGuildId);
-
-        var tokenReq = new FormUrlEncodedContent(new Dictionary<string, string>
-        {
-            ["client_id"] = clientId,
-            ["client_secret"] = clientSecret,
-            ["grant_type"] = "authorization_code",
-            ["code"] = code,
-            ["redirect_uri"] = redirectUri,
-        });
-
-        using var tokenResp = await _http.PostAsync("https://discord.com/api/oauth2/token", tokenReq);
-        if (!tokenResp.IsSuccessStatusCode)
-            return (false, null, false);
-
-        var token = JsonSerializer.Deserialize<DiscordTokenResponse>(await tokenResp.Content.ReadAsStringAsync());
-        if (token == null || string.IsNullOrEmpty(token.AccessToken))
-            return (false, null, false);
-
-        using var userReq = new HttpRequestMessage(HttpMethod.Get, "https://discord.com/api/users/@me");
-        userReq.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
-
-        using var userResp = await _http.SendAsync(userReq);
-        if (!userResp.IsSuccessStatusCode)
-            return (false, null, false);
-
-        var user = JsonSerializer.Deserialize<DiscordUserResponse>(await userResp.Content.ReadAsStringAsync());
-        if (user == null || string.IsNullOrEmpty(user.Id))
-            return (false, null, false);
-
-        if (string.IsNullOrEmpty(requiredGuildId))
-            return (true, user.Id, true);
-
-        using var guildsReq = new HttpRequestMessage(HttpMethod.Get, "https://discord.com/api/users/@me/guilds");
-        guildsReq.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
-
-        using var guildsResp = await _http.SendAsync(guildsReq);
-        if (!guildsResp.IsSuccessStatusCode)
-            return (true, user.Id, false);
-
-        var guilds = JsonSerializer.Deserialize<List<DiscordGuildResponse>>(await guildsResp.Content.ReadAsStringAsync())
-                     ?? new List<DiscordGuildResponse>();
-
-        var inGuild = guilds.Any(g => g.Id == requiredGuildId);
-        return (true, user.Id, inGuild);
-    }
-
-    private async Task NotifyBotAsync(string discordId, string ckey, string userId)
-    {
-        var webhookUrl = _cfg.GetCVar(BlackMCVars.DiscordAuthWebhookUrl);
-        if (string.IsNullOrEmpty(webhookUrl))
+            RegisterBadCode();
+            await Error(context, HttpStatusCode.NotFound, "code_not_found");
             return;
+        }
 
+        if (!_storage.TryLink(entry.UserId.UserId.ToString(), entry.Ckey, request.DiscordId, out _))
+        {
+            lock (_lock)
+            {
+                if (entry.Expires > DateTime.UtcNow && !_byUser.ContainsKey(entry.UserId))
+                {
+                    _byCode[entry.Code] = entry;
+                    _byUser[entry.UserId] = entry;
+                }
+            }
+
+            await Error(context, HttpStatusCode.Conflict, "discord_already_linked");
+            return;
+        }
+
+        NotifyVerified(entry.UserId);
+
+        _sawmill.Info($"Linked discord {request.DiscordId} to {entry.Ckey} ({entry.UserId})");
+        await context.RespondAsync(
+            JsonSerializer.Serialize(new { ok = true, ckey = entry.Ckey, userId = entry.UserId.UserId.ToString() }),
+            HttpStatusCode.OK,
+            "application/json");
+    }
+
+    private void NotifyVerified(NetUserId userId)
+    {
+        _taskManager.RunOnMainThread(() =>
+        {
+            if (!_playerManager.TryGetSessionById(userId, out var session))
+                return;
+
+            _netManager.ServerSendMessage(new MsgDiscordAuthVerified(), session.Channel);
+            PlayerVerified?.Invoke(this, session);
+        });
+    }
+
+    private bool VerifySignature(string timestamp, byte[] body, string signatureHex)
+    {
+        byte[] provided;
         try
         {
-            var payload = JsonSerializer.Serialize(new { discordId, ckey, userId });
-            using var content = new StringContent(payload, Encoding.UTF8, "application/json");
-            content.Headers.Add("X-Auth-Token", _cfg.GetCVar(BlackMCVars.DiscordAuthWebhookSecret));
-
-            await _http.PostAsync(webhookUrl, content);
+            provided = Convert.FromHexString(signatureHex);
         }
-        catch
+        catch (FormatException)
         {
-            // ignore
+            return false;
+        }
+
+        var prefix = Encoding.UTF8.GetBytes(timestamp + ".");
+        var message = new byte[prefix.Length + body.Length];
+        Buffer.BlockCopy(prefix, 0, message, 0, prefix.Length);
+        Buffer.BlockCopy(body, 0, message, prefix.Length, body.Length);
+
+        using var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(_secret));
+        return CryptographicOperations.FixedTimeEquals(provided, hmac.ComputeHash(message));
+    }
+
+    private bool IsRateLimited()
+    {
+        lock (_lock)
+        {
+            var cutoff = DateTime.UtcNow.AddMinutes(-1);
+            while (_badCodes.Count > 0 && _badCodes.Peek() < cutoff)
+                _badCodes.Dequeue();
+
+            return _badCodes.Count >= MaxBadCodesPerMinute;
         }
     }
+
+    private void RegisterBadCode()
+    {
+        lock (_lock)
+            _badCodes.Enqueue(DateTime.UtcNow);
+    }
+
+    private static string GetHeader(IStatusHandlerContext context, string name)
+    {
+        foreach (var (key, value) in context.RequestHeaders)
+        {
+            if (key.Equals(name, StringComparison.OrdinalIgnoreCase))
+                return value.ToString();
+        }
+
+        return string.Empty;
+    }
+
+    private static async Task<byte[]?> ReadBodyAsync(Stream stream)
+    {
+        using var ms = new MemoryStream();
+        var buffer = new byte[512];
+        int read;
+        while ((read = await stream.ReadAsync(buffer)) > 0)
+        {
+            ms.Write(buffer, 0, read);
+            if (ms.Length > MaxBodyBytes)
+                return null;
+        }
+
+        return ms.ToArray();
+    }
+
+    private static Task Error(IStatusHandlerContext context, HttpStatusCode status, string error)
+        => context.RespondAsync($"{{\"error\":\"{error}\"}}", status, "application/json");
 }

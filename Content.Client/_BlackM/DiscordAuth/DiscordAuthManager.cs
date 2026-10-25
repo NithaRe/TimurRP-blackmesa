@@ -1,11 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using Content.Client.Gameplay;
 using Content.Client.Lobby;
 using Content.Shared._BlackM.CCVar;
 using Content.Shared._BlackM.DiscordAuth;
-using Robust.Client.Graphics;
 using Robust.Client.State;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
@@ -19,8 +17,6 @@ public sealed partial class DiscordAuthManager : Content.Corvax.Interfaces.Clien
     [Dependency] private IStateManager _stateManager = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
 
-    public string AuthUrl { get; private set; } = string.Empty;
-    public Texture? Qrcode { get; private set; }
     public string LinkCode { get; private set; } = string.Empty;
     public bool IsVerified { get; private set; } = false;
     public bool IsOpt { get; private set; }
@@ -57,9 +53,7 @@ public sealed partial class DiscordAuthManager : Content.Corvax.Interfaces.Clien
         _bypassed = false;
         _returnState = null;
         IsVerified = false;
-        AuthUrl = string.Empty;
         LinkCode = string.Empty;
-        Qrcode = null;
     }
 
     private void EnforceAuthState()
@@ -87,14 +81,7 @@ public sealed partial class DiscordAuthManager : Content.Corvax.Interfaces.Clien
 
         IsVerified = false;
         _authRequired = true;
-
-        AuthUrl = message.AuthUrl;
         LinkCode = message.LinkCode;
-        if (message.QrCode.Length > 0)
-        {
-            using var ms = new MemoryStream(message.QrCode);
-            Qrcode = Texture.LoadFromPNGStream(ms);
-        }
 
         EnterAuthState();
 
