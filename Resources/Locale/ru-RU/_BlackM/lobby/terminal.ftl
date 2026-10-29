@@ -1,12 +1,4 @@
-blackm-term-title = ПЕРСОНАЛЬНЫЙ ТЕРМИНАЛ
-blackm-term-header = ТЕРМИНАЛ ДОСТУПА ЛОББИ
-blackm-term-boot-uplink = УСТАНОВКА СВЯЗИ С СЕРВЕРОМ
-blackm-term-boot-modules = ЗАГРУЗКА МОДУЛЕЙ ИНТЕРФЕЙСА
-blackm-term-boot-records = ЗАГРУЗКА ЛИЧНЫХ ДЕЛ ПЕРСОНАЛА
-blackm-term-boot-clock = СИНХРОНИЗАЦИЯ ЧАСОВ КОМПЛЕКСА
-blackm-term-boot-lobby = ПОДГОТОВКА ЛОББИ
-blackm-term-boot-access = ПРОВЕРКА ДОПУСКА
-blackm-term-boot-ready = ДОСТУП РАЗРЕШЁН
+blackm-term-header = ЛОББИ
 
 blackm-hub-title = КАРТОТЕКА ПЕРСОНАЛА
 blackm-hub-catalog = [ КАТАЛОГ ]
@@ -38,6 +30,7 @@ blackm-sex-unsexed = Бесполый
 blackm-setup-sections = [ РАЗДЕЛЫ ]
 blackm-file-title = ЛИЧНОЕ ДЕЛО СОТРУДНИКА
 blackm-file-status = СТАТУС: ДЕЙСТВУЮЩИЙ
+blackm-file-case = ДЕЛО
 blackm-serverinfo-title = [ СВОДКА СЕРВЕРА ]
 blackm-serverinfo-online = НА СВЯЗИ
 
@@ -47,14 +40,3 @@ blackm-latejoin-all = ВСЕ ДОЛЖНОСТИ
 blackm-latejoin-slots = СЛОТЫ
 blackm-latejoin-count = ДОСТУПНО ДОЛЖНОСТЕЙ: { $count }
 blackm-latejoin-hint = Выберите должность, чтобы войти в раунд.
-
-blackm-log-1 = СВЯЗЬ С ЦЕНТРОМ УПРАВЛЕНИЯ ... УСТОЙЧИВА
-blackm-log-2 = СКАНИРОВАНИЕ СЕКТОРА C ... ЗАВЕРШЕНО
-blackm-log-3 = СИНХРОНИЗАЦИЯ БИОМЕТРИЧЕСКОЙ БАЗЫ ... 94%
-blackm-log-4 = РЕЕСТР ПЕРСОНАЛА ОБНОВЛЁН
-blackm-log-5 = ВНИМАНИЕ: ВЕРОЯТНОСТЬ КАСКАДА РЕЗОНАНСА 0.0003%
-blackm-log-6 = КОНТУР ОХЛАЖДЕНИЯ 3 ... В НОРМЕ
-blackm-log-7 = СЧИТЫВАТЕЛИ ПРОПУСКОВ ... В СЕТИ
-blackm-log-8 = ПРОВЕРКА ЦЕЛОСТНОСТИ ШЛЮЗОВ ... ОК
-blackm-log-9 = РЕЗЕРВНОЕ ПИТАНИЕ ... 100%
-blackm-log-10 = ПЕРЕДАЧА ЖУРНАЛОВ НА АРХИВНЫЙ СЕРВЕР

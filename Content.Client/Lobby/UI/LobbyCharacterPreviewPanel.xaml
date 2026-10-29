@@ -58,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                       BorderColor="{x:Static style:StyleNano.TerminalGreenDim}"
                                       BorderThickness="1" />
                 </PanelContainer.PanelOverride>
-                <BoxContainer Orientation="Vertical" SeparationOverride="6" Margin="8">
+                <BoxContainer Orientation="Vertical" SeparationOverride="8" Margin="10">
                     <BoxContainer Orientation="Horizontal">
                         <Label Text="{Loc 'blackm-file-title'}" StyleClasses="LabelTerminalBlackM"
                                HorizontalExpand="True" ClipText="True" />
@@ -70,6 +70,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             <gfx:StyleBoxFlat BackgroundColor="{x:Static style:StyleNano.TerminalGreenDim}" />
                         </PanelContainer.PanelOverride>
                     </PanelContainer>
+                    <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                        <Button Name="PrevButton" Text="&lt;" StyleClasses="FlatButtonTerminalBlackM"
+                                MinSize="40 30" ToolTip="Предыдущий персонаж" />
+                        <PanelContainer HorizontalExpand="True">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#FFB52E10" />
+                            </PanelContainer.PanelOverride>
+                            <Label Name="SlotLabel" StyleClasses="LabelTerminalBlackM" Align="Center"
+                                   HorizontalExpand="True" VerticalAlignment="Center" Margin="0 4" />
+                        </PanelContainer>
+                        <Button Name="NextButton" Text="&gt;" StyleClasses="FlatButtonTerminalBlackM"
+                                MinSize="40 30" ToolTip="Следующий персонаж" />
+                    </BoxContainer>
+                    <BoxContainer Name="ChipRow" Orientation="Horizontal" SeparationOverride="4"
+                                  HorizontalAlignment="Center" />
                     <BoxContainer Orientation="Horizontal" SeparationOverride="14">
                         <PanelContainer VerticalAlignment="Top">
                             <PanelContainer.PanelOverride>
@@ -77,8 +92,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                                   BorderColor="{x:Static style:StyleNano.TerminalGreen}"
                                                   BorderThickness="2" />
                             </PanelContainer.PanelOverride>
-                            <Control SetSize="112 112" RectClipContent="True">
+                            <Control Name="PortraitArea" SetSize="150 176" RectClipContent="True"
+                                     MouseFilter="Stop" ToolTip="rotate">
                                 <Control Name="ViewBox" />
+                                <PanelContainer Name="ScanBar" Visible="False" MouseFilter="Ignore"
+                                                VerticalAlignment="Top" MinSize="0 3">
+                                    <PanelContainer.PanelOverride>
+                                        <gfx:StyleBoxFlat BackgroundColor="#FFD27AD0" />
+                                    </PanelContainer.PanelOverride>
+                                </PanelContainer>
                                 <PanelContainer MouseFilter="Ignore">
                                     <PanelContainer.PanelOverride>
                                         <gfx:StyleBoxFlat BackgroundColor="#FFB52E18" />
@@ -88,11 +110,35 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                                             Flicker="False" VignetteStrength="0.015" />
                             </Control>
                         </PanelContainer>
-                        <BoxContainer Orientation="Vertical" VerticalAlignment="Center" HorizontalExpand="True"
-                                      SeparationOverride="4">
-                            <Label Name="FieldInfo" StyleClasses="LabelTerminalBlackM" HorizontalExpand="True"
+                        <BoxContainer Name="InfoColumn" Orientation="Vertical" VerticalAlignment="Top"
+                                      HorizontalExpand="True" SeparationOverride="5">
+                            <Label Name="NameLabel" StyleClasses="LabelTerminalBlackM" HorizontalExpand="True"
                                    ClipText="True" />
-                            <PanelContainer MinSize="0 1" Margin="0 4 0 2">
+                            <PanelContainer MinSize="0 1" Margin="0 2 0 2">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="{x:Static style:StyleNano.TerminalGreenDim}" />
+                                </PanelContainer.PanelOverride>
+                            </PanelContainer>
+                            <BoxContainer Orientation="Horizontal" SeparationOverride="14">
+                                <BoxContainer Orientation="Vertical">
+                                    <Label Name="KeySpecies" StyleClasses="LabelTerminalBlackM" Modulate="#FFFFFF90" />
+                                    <Label Name="KeyAge" StyleClasses="LabelTerminalBlackM" Modulate="#FFFFFF90" />
+                                    <Label Name="KeySex" StyleClasses="LabelTerminalBlackM" Modulate="#FFFFFF90" />
+                                    <Label Name="KeyJob" StyleClasses="LabelTerminalBlackM" Modulate="#FFFFFF90" />
+                                </BoxContainer>
+                                <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                                    <Label Name="ValSpecies" StyleClasses="LabelTerminalBlackM" ClipText="True" />
+                                    <Label Name="ValAge" StyleClasses="LabelTerminalBlackM" ClipText="True" />
+                                    <Label Name="ValSex" StyleClasses="LabelTerminalBlackM" ClipText="True" />
+                                    <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                                        <TextureRect Name="JobIcon" Visible="False" TextureScale="2 2"
+                                                     Stretch="KeepCentered" VerticalAlignment="Center" />
+                                        <Label Name="ValJob" StyleClasses="LabelTerminalBlackM" ClipText="True"
+                                               HorizontalExpand="True" />
+                                    </BoxContainer>
+                                </BoxContainer>
+                            </BoxContainer>
+                            <PanelContainer MinSize="0 1" Margin="0 2 0 2">
                                 <PanelContainer.PanelOverride>
                                     <gfx:StyleBoxFlat BackgroundColor="{x:Static style:StyleNano.TerminalGreenDim}" />
                                 </PanelContainer.PanelOverride>
@@ -102,6 +148,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             <Label Name="FileId" StyleClasses="LabelTerminalBlackM" Modulate="#FFFFFF60" />
                         </BoxContainer>
                     </BoxContainer>
+
+                    <PanelContainer MinSize="0 1">
+                        <PanelContainer.PanelOverride>
+                            <gfx:StyleBoxFlat BackgroundColor="{x:Static style:StyleNano.TerminalGreenDim}" />
+                        </PanelContainer.PanelOverride>
+                    </PanelContainer>
+                    <terminal:TerminalHub Name="Hub" Access="Public" />
                     <Button Name="CharacterSetup" Visible="False"
                             Text="{Loc 'lobby-character-preview-panel-character-setup-button'}"
                             HorizontalAlignment="Center"
