@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client._BlackM.Lobby.Terminal;
 using Content.Shared._BlackM.WelcomeMessage;
 using Robust.Client.GameObjects;
 using Robust.Shared.Audio;
@@ -29,15 +30,6 @@ public sealed class WelcomeMessageSystem : EntitySystem
 
     private readonly Random _rng = new();
 
-    private static readonly string[] FontPaths =
-    {
-        "/Fonts/_BlackM/welcome.ttf",
-        "/Fonts/NotoSansMono/NotoSansMono-Regular.ttf",
-        "/Fonts/NotoSans/NotoSansMono-Regular.ttf",
-        "/Fonts/NotoSans/NotoSans-Regular.ttf",
-        "/EngineFonts/NotoSans/NotoSans-Regular.ttf",
-    };
-
     private WelcomeMessageControl? _current;
     private Font? _font;
     private string? _fontPath;
@@ -53,18 +45,10 @@ public sealed class WelcomeMessageSystem : EntitySystem
         if (_font != null && _fontPath != null)
             return;
 
-        foreach (var path in FontPaths)
-        {
-            if (_res.TryGetResource<FontResource>(path, out var resource))
-            {
-                _font = new VectorFont(resource, 12);
-                _fontPath = path;
-                return;
-            }
-        }
-
-        _fontPath = FontPaths[^1];
-        _font = new VectorFont(_res.GetResource<FontResource>(_fontPath), 12);
+        _font = TerminalFonts.Bold(_res, 12);
+        _fontPath = _res.ContentFileExists(TerminalFonts.PrimaryBold)
+            ? TerminalFonts.PrimaryBold
+            : "/Fonts/_BlackM/Tektur-Regular.ttf";
     }
 
     private void OnMessage(WelcomeMessageEvent ev)
@@ -88,8 +72,11 @@ public sealed class WelcomeMessageSystem : EntitySystem
 
         control.PlaySound += PlayWelcomeSound;
 
-        _ui.PopupRoot.AddChild(control);
-        LayoutContainer.SetAnchorAndMarginPreset(control, LayoutContainer.LayoutPreset.TopLeft, margin: 20);
+        Control parent = _ui.ActiveScreen ?? (Control) _ui.PopupRoot;
+        parent.AddChild(control);
+
+        if (parent is LayoutContainer)
+            LayoutContainer.SetAnchorAndMarginPreset(control, LayoutContainer.LayoutPreset.TopLeft, margin: 20);
 
         _current = control;
     }
