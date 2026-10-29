@@ -111,6 +111,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Content.Client._BlackM.PhraseWheel; // BlackM: Phrase wheel icon registry
 using Content.Client._BlackM.SpeechBarks; // BlackM: typewriter
+using Content.Shared.IdentityManagement;
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -156,22 +157,22 @@ namespace Content.Client.Chat.UI
         public const float SpeechMaxWidth = 256;
 
         // BlackM start
-        private const string BubbleFontPath = "/Fonts/_BlackM/Tektur-Regular.ttf";
+        private const string BubbleFontPath = "/Fonts/_BlackM/Bubble/Grand9KPixelCyrillic.ttf";
         private const int BubbleFontSize = 13;
         private static readonly Color OutlineColor = Color.Black;
 
-        private static readonly Color BoxColor = Color.FromHex("#0B0804");
-        private const float BoxAlpha = 0.25f;
-        private const float BoxBorderAlpha = 0.25f;
-        private const float BoxPaddingX = 6f;
-        private const float BoxPaddingY = 3f;
+        private const float OutlineScale = 1f;
+        private const float DesignPixelsPerEm = 8f;
+        private static readonly Color WhisperColor = Color.FromHex("#888888");
+        private static readonly Color YellColor = Color.FromHex("#d85b58");
+        private static readonly Color LoocColor = Color.FromHex("#70bfff");
+        private static readonly Color EmoteColor = Color.FromHex("#d98ab5");
+
         private static readonly Dictionary<int, Font?> BubbleFonts = new();
 
-        private static readonly Color EmoteColor = Color.FromHex("#ffd479");
-        private static readonly Color WhisperColor = Color.FromHex("#aab4c8");
-        private static readonly Color YellColor = Color.FromHex("#ff6b5f");
         private const int WhisperFontSizeDelta = 2;
-        private const float WhisperAlpha = 0.8f;
+        private const int YellFontSizeDelta = 4;
+        private const float WhisperAlpha = 0.95f;
         private const float FadeInTime = 0.12f;
         private TimeSpan _spawnTime;
         private float _typeInterval = SpeechBarksSystem.FixedBarkInterval;
@@ -208,7 +209,7 @@ namespace Content.Client.Chat.UI
                     return new FancyTextSpeechBubble(message, senderEntity, "whisperBox", icon: icon); // BlackM: Pass icon to FancyTextSpeechBubble
 
                 case SpeechType.Looc:
-                    return new TextSpeechBubble(message, senderEntity, "emoteBox", Color.FromHex("#48d1cc"), icon); // BlackM: Pass icon to TextSpeechBubble
+                    return new TextSpeechBubble(message, senderEntity, "loocBox", icon: icon); // BlackM: Pass icon to TextSpeechBubble
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -310,8 +311,10 @@ namespace Content.Client.Chat.UI
         private static readonly Regex BbTagRegex =
             new(@"\[/?[a-zA-Z][a-zA-Z0-9]*(=(""[^""]*""|[^\]\s]+))?(\s+[a-zA-Z0-9]+=(""[^""]*""|[^\]\s]+))*\]", RegexOptions.Compiled);
 
-        private static readonly Regex ColorTagRegex =
-            new(@"\[color=(?:""([^""]*)""|([^\]\s]+))\]", RegexOptions.Compiled);
+        private static float GetOutlineThickness(int fontSize)
+        {
+            return fontSize * 96f / 72f / DesignPixelsPerEm * OutlineScale;
+        }
 
         private Font? GetBubbleFont(int size)
         {
@@ -332,31 +335,37 @@ namespace Content.Client.Chat.UI
             return font;
         }
 
-        protected Control BuildTextBubble(string markup, Color? fontColor, Texture? icon, bool typewriter, string speechStyleClass)
+        protected static bool IsYell(ChatMessage message)
+        {
+            var wrapped = message.WrappedMessage;
+            var headerEnd = wrapped.IndexOf("[/BubbleHeader]", StringComparison.Ordinal);
+            if (headerEnd >= 0)
+                wrapped = wrapped.Substring(headerEnd);
+
+            return wrapped.Contains("[bold]", StringComparison.Ordinal) ||
+                   wrapped.Contains("[bolditalic]", StringComparison.Ordinal);
+        }
+
+        protected Control BuildTextBubble(string markup, Color? fontColor, Texture? icon, bool typewriter, string speechStyleClass, string? speakerName = null, bool yell = false)
         {
             var whisper = speechStyleClass == "whisperBox";
-            var emote = speechStyleClass == "emoteBox" && fontColor == null;
+            var emote = speechStyleClass == "emoteBox";
+            var looc = speechStyleClass == "loocBox";
 
-            var color = Color.White;
-            var colorMatch = ColorTagRegex.Match(markup);
-            if (colorMatch.Success)
-            {
-                var value = colorMatch.Groups[1].Success ? colorMatch.Groups[1].Value : colorMatch.Groups[2].Value;
-                if (Color.TryParse(value, out var parsed))
-                    color = parsed;
-            }
+            yell = yell && typewriter && !whisper && !emote && !looc;
+            _shake = yell;
 
-            if (typewriter)
-                _shake = markup.Contains("[bold]", StringComparison.Ordinal);
-
-            if (fontColor != null)
-                color = fontColor.Value;
+            Color color;
+            if (whisper)
+                color = WhisperColor;
+            else if (yell)
+                color = YellColor;
+            else if (looc)
+                color = LoocColor;
             else if (emote)
                 color = EmoteColor;
-            else if (whisper)
-                color = WhisperColor;
-            else if (_shake)
-                color = YellColor;
+            else
+                color = fontColor ?? GetPlayerSpeechColor(speakerName);
 
             var plain = BbTagRegex.Replace(markup, string.Empty)
                 .Replace("\\[", "[")
@@ -371,40 +380,56 @@ namespace Content.Client.Chat.UI
             var outline = OutlineColor;
             var size = BubbleFontSize;
 
-            if (whisper)
+            if (yell)
+            {
+                size = BubbleFontSize + YellFontSizeDelta;
+            }
+            else if (whisper)
             {
                 size = Math.Max(BubbleFontSize - WhisperFontSizeDelta, 6);
                 color = color.WithAlpha(WhisperAlpha);
                 outline = outline.WithAlpha(WhisperAlpha * 0.8f);
             }
 
-            _text = new OutlinedText(plain, GetBubbleFont(size), color, outline, SpeechMaxWidth, !typewriter);
+            _text = new OutlinedText(plain, GetBubbleFont(size), color, outline, GetOutlineThickness(size), SpeechMaxWidth, !typewriter);
 
             _revealed = 0;
             _typewriterAccumulated = 0f;
             _typeInterval = SpeechBarksSystem.GetTypeInterval(_text.TotalLength);
             _typewriterActive = typewriter && _text.TotalLength > 0;
 
-            var inner = WrapWithIcon(_text, icon);
+            return WrapWithIcon(_text, icon);
+        }
 
-            // blackm
-            var boxAlpha = whisper ? BoxAlpha * 0.8f : BoxAlpha;
-            var borderAlpha = whisper ? BoxBorderAlpha * 0.8f : BoxBorderAlpha;
+        private Color GetPlayerSpeechColor(string? speakerName)
+        {
+            if (!string.IsNullOrWhiteSpace(speakerName))
+                speakerName = BbTagRegex.Replace(speakerName, string.Empty).Trim();
 
-            return new PanelContainer
+            if (string.IsNullOrWhiteSpace(speakerName))
+                speakerName = Identity.Name(_senderEntity, _entityManager);
+
+            if (string.IsNullOrWhiteSpace(speakerName))
+                speakerName = _entityManager.GetNetEntity(_senderEntity).Id.ToString();
+
+            var hash = 2166136261u;
+            foreach (var character in speakerName)
             {
-                PanelOverride = new StyleBoxFlat
-                {
-                    BackgroundColor = BoxColor.WithAlpha(boxAlpha),
-                    BorderColor = color.WithAlpha(borderAlpha),
-                    BorderThickness = new Thickness(1),
-                    ContentMarginLeftOverride = BoxPaddingX,
-                    ContentMarginRightOverride = BoxPaddingX,
-                    ContentMarginTopOverride = BoxPaddingY,
-                    ContentMarginBottomOverride = BoxPaddingY,
-                },
-                Children = { inner },
-            };
+                hash ^= character;
+                hash *= 16777619;
+            }
+
+            hash ^= hash >> 16;
+            hash *= 0x85ebca6bu;
+            hash ^= hash >> 13;
+            hash *= 0xc2b2ae35u;
+            hash ^= hash >> 16;
+
+            var hue = (hash % 360) / 360f;
+            var saturation = 0.55f + ((hash >> 9) % 4) * 0.1f;
+            var lightness = 0.62f + ((hash >> 13) % 3) * 0.06f;
+
+            return Color.FromHsl(new Vector4(hue, saturation, lightness, 1f));
         }
 
         private void UpdateTypewriter(float deltaSeconds)
@@ -570,7 +595,13 @@ namespace Content.Client.Chat.UI
 
         protected override Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null, Texture? icon = null) // BlackM: Added icon parameter
         {
-            return BuildTextBubble(message.WrappedMessage, fontColor, icon, typewriter: false, speechStyleClass);
+            var speakerName = SharedChatSystem.GetStringInsideTag(message, "BubbleHeader");
+
+            var content = SharedChatSystem.GetStringInsideTag(message, "BubbleContent");
+            if (string.IsNullOrWhiteSpace(content))
+                content = message.WrappedMessage;
+
+            return BuildTextBubble(content, fontColor, icon, typewriter: false, speechStyleClass, speakerName);
         }
     }
 
@@ -584,9 +615,11 @@ namespace Content.Client.Chat.UI
 
         protected override Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null, Texture? icon = null) // BlackM: Added icon parameter
         {
-            // бля да похуй уже на эти коменты тут уже всё В ГОВНЕ
             var typewriter = speechStyleClass != "whisperBox";
-            return BuildTextBubble(SharedChatSystem.GetStringInsideTag(message, "BubbleContent"), fontColor, icon, typewriter, speechStyleClass);
+            var speakerName = SharedChatSystem.GetStringInsideTag(message, "BubbleHeader");
+            var content = SharedChatSystem.GetStringInsideTag(message, "BubbleContent");
+
+            return BuildTextBubble(content, fontColor, icon, typewriter, speechStyleClass, speakerName, yell: IsYell(message));
         }
     }
 
@@ -594,12 +627,12 @@ namespace Content.Client.Chat.UI
     public sealed class OutlinedText : BoxContainer
     {
         private readonly List<string> _lines = new();
-        private readonly List<Label> _labels = new();
+        private readonly List<OutlinedTextLine> _textLines = new();
         private readonly List<int> _shown = new();
 
         public int TotalLength { get; }
 
-        public OutlinedText(string text, Font? font, Color color, Color outline, float maxWidth, bool revealAll)
+        public OutlinedText(string text, Font? font, Color color, Color outline, float outlineThickness, float maxWidth, bool revealAll)
         {
             Orientation = LayoutOrientation.Vertical;
             SeparationOverride = 0;
@@ -612,20 +645,9 @@ namespace Content.Client.Chat.UI
                 TotalLength += line.Length;
 
                 var size = MeasureText(line, font);
-                var label = new Label
-                {
-                    FontColorOverride = color,
-                    MinSize = size,
-                };
-
-                if (font != null)
-                    label.FontOverride = font;
-
-                var holder = new Control { HorizontalAlignment = HAlignment.Center };
-                holder.AddChild(label);
-
-                AddChild(holder);
-                _labels.Add(label);
+                var textLine = new OutlinedTextLine(line, font, color, outline, outlineThickness, size, !revealAll);
+                AddChild(textLine);
+                _textLines.Add(textLine);
                 _shown.Add(-1);
             }
 
@@ -648,26 +670,206 @@ namespace Content.Client.Chat.UI
 
             foreach (var word in text.Split(' ', StringSplitOptions.RemoveEmptyEntries))
             {
-                if (current.Length == 0)
+                if (current.Length > 0)
                 {
-                    current = word;
-                    continue;
+                    var candidate = current + " " + word;
+                    if (MeasureText(candidate, font).X <= maxWidth)
+                    {
+                        current = candidate;
+                        continue;
+                    }
+
+                    lines.Add(current);
+                    current = string.Empty;
                 }
 
-                var candidate = current + " " + word;
-                if (MeasureText(candidate, font).X > maxWidth)
+                var start = 0;
+                while (start < word.Length)
                 {
-                    lines.Add(current);
-                    current = word;
-                }
-                else
-                {
-                    current = candidate;
+                    var end = start;
+                    var lastFit = start;
+
+                    while (end < word.Length)
+                    {
+                        var charLength = char.IsHighSurrogate(word[end]) &&
+                                         end + 1 < word.Length &&
+                                         char.IsLowSurrogate(word[end + 1])
+                            ? 2
+                            : 1;
+                        var nextEnd = end + charLength;
+                        var width = MeasureText(word.Substring(start, nextEnd - start), font).X;
+                        if (width > maxWidth && lastFit > start)
+                            break;
+
+                        lastFit = nextEnd;
+                        end = nextEnd;
+
+                        if (width > maxWidth)
+                            break;
+                    }
+
+                    var chunk = word.Substring(start, lastFit - start);
+                    start = lastFit;
+
+                    if (start < word.Length)
+                        lines.Add(chunk);
+                    else
+                        current = chunk;
                 }
             }
 
             if (current.Length > 0 || lines.Count == 0)
                 lines.Add(current);
+        }
+
+        private sealed class OutlinedTextLine : Control
+        {
+            private const int MaxOutlinePixels = 3;
+            private const double AppearSeconds = 0.14;
+            private const float RiseDistance = 3f;
+
+            private readonly IGameTiming _timing;
+            private readonly string _text;
+            private readonly Font _font;
+            private readonly Color _color;
+            private readonly Color _outline;
+            private readonly float _thickness;
+            private readonly float _pad;
+            private readonly bool _animate;
+            private readonly double[] _revealTimes;
+
+            private int _shown;
+            private float _cachedScale = -1f;
+            private Vector2[] _offsets = Array.Empty<Vector2>();
+
+            public OutlinedTextLine(string text, Font? font, Color color, Color outline, float outlineThickness, Vector2 textSize, bool animate)
+            {
+                _timing = IoCManager.Resolve<IGameTiming>();
+                _text = text;
+                _font = font ?? CreateFallbackFont();
+                _color = color;
+                _outline = outline;
+                _thickness = outlineThickness;
+                _animate = animate;
+                _pad = MathF.Ceiling(outlineThickness);
+
+                _revealTimes = new double[text.Length];
+                Array.Fill(_revealTimes, double.NegativeInfinity);
+
+                MinSize = textSize + new Vector2(_pad * 2, _pad * 2);
+                HorizontalAlignment = HAlignment.Center;
+            }
+
+            public void SetShown(int count)
+            {
+                count = Math.Clamp(count, 0, _text.Length);
+                if (count == _shown)
+                    return;
+
+                if (_animate && count > _shown)
+                {
+                    var now = _timing.RealTime.TotalSeconds;
+                    for (var i = _shown; i < count; i++)
+                    {
+                        _revealTimes[i] = now;
+                    }
+                }
+
+                _shown = count;
+            }
+
+            protected override void Draw(DrawingHandleScreen handle)
+            {
+                if (_shown == 0)
+                    return;
+
+                var scale = UIScale;
+                if (_cachedScale != scale)
+                {
+                    BuildOffsets(scale);
+                    _cachedScale = scale;
+                }
+
+                var now = _timing.RealTime.TotalSeconds;
+                var padPixels = MathF.Round(_pad * scale);
+                var origin = new Vector2(padPixels, padPixels + _font.GetAscent(scale));
+                var rise = RiseDistance * scale;
+
+                foreach (var offset in _offsets)
+                {
+                    DrawPass(handle, scale, now, origin + offset, rise, true);
+                }
+
+                DrawPass(handle, scale, now, origin, rise, false);
+            }
+
+            private void DrawPass(DrawingHandleScreen handle, float scale, double now, Vector2 origin, float rise, bool outline)
+            {
+                var x = origin.X;
+                var i = 0;
+
+                while (i < _shown)
+                {
+                    if (!Rune.TryGetRuneAt(_text, i, out var rune))
+                    {
+                        i++;
+                        continue;
+                    }
+
+                    var length = rune.Utf16SequenceLength;
+                    if (i + length > _shown)
+                        break;
+
+                    var progress = (float) Math.Clamp((now - _revealTimes[i]) / AppearSeconds, 0.0, 1.0);
+                    var eased = 1f - MathF.Pow(1f - progress, 3f);
+                    var baseline = new Vector2(x, origin.Y + MathF.Round((1f - eased) * rise));
+                    var color = outline ? GetOutlineColor(eased) : GetTextColor(eased);
+
+                    x += _font.DrawChar(handle, rune, baseline, scale, color);
+                    i += length;
+                }
+            }
+
+            private Color GetTextColor(float eased)
+            {
+                return new Color(
+                    1f + (_color.R - 1f) * eased,
+                    1f + (_color.G - 1f) * eased,
+                    1f + (_color.B - 1f) * eased,
+                    _color.A * eased);
+            }
+
+            private Color GetOutlineColor(float eased)
+            {
+                return _outline.WithAlpha(_outline.A * eased);
+            }
+
+            private void BuildOffsets(float scale)
+            {
+                var t = Math.Clamp((int) MathF.Round(_thickness * scale), 1, MaxOutlinePixels);
+                var list = new List<Vector2>();
+
+                for (var dx = -t; dx <= t; dx++)
+                {
+                    for (var dy = -t; dy <= t; dy++)
+                    {
+                        if (dx == 0 && dy == 0)
+                            continue;
+
+                        if (dx * dx + dy * dy <= t * t + 1)
+                            list.Add(new Vector2(dx, dy));
+                    }
+                }
+
+                _offsets = list.ToArray();
+            }
+
+            private static Font CreateFallbackFont()
+            {
+                var cache = IoCManager.Resolve<IResourceCache>();
+                var resource = cache.GetResource<FontResource>(new ResPath("/Fonts/NotoSans/NotoSans-Regular.ttf"));
+                return new VectorFont(resource, 12);
+            }
         }
 
         public void SetRevealed(int count)
@@ -684,7 +886,7 @@ namespace Content.Client.Chat.UI
                     continue;
 
                 _shown[i] = take;
-                _labels[i].Text = line.Substring(0, take);
+                _textLines[i].SetShown(take);
             }
         }
     }

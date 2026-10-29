@@ -20,6 +20,11 @@ public sealed class PopupUIController : UIController, IOnStateEntered<GameplaySt
 {
     [UISystemDependency] private readonly PopupSystem? _popup = default!;
 
+    private const string PopupFontPath = "/Fonts/_BlackM/Bubble/Grand9KPixelCyrillic.ttf"; // BlackM
+    private const int SmallFontSize = 12; // BlackM
+    private const int MediumFontSize = 14; // BlackM
+    private const int LargeFontSize = 17; // BlackM
+
     private Font _smallFont = default!;
     private Font _mediumFont = default!;
     private Font _largeFont = default!;
@@ -31,9 +36,12 @@ public sealed class PopupUIController : UIController, IOnStateEntered<GameplaySt
         base.Initialize();
         var cache = IoCManager.Resolve<IResourceCache>();
 
-        _smallFont = new VectorFont(cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Italic.ttf"), 10);
-        _mediumFont = new VectorFont(cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Italic.ttf"), 12);
-        _largeFont = new VectorFont(cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-BoldItalic.ttf"), 14);
+        // BlackM start
+        var fontResource = cache.GetResource<FontResource>(PopupFontPath);
+        _smallFont = new VectorFont(fontResource, SmallFontSize);
+        _mediumFont = new VectorFont(fontResource, MediumFontSize);
+        _largeFont = new VectorFont(fontResource, LargeFontSize);
+        // BlackM end
     }
 
     public void OnStateEntered(GameplayState state)
