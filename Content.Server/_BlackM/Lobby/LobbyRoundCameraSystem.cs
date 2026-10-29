@@ -10,6 +10,7 @@ using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 
@@ -21,17 +22,26 @@ public sealed class LobbyRoundCameraSystem : EntitySystem
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly ViewSubscriberSystem _viewSubscriber = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
 
     private readonly HashSet<ICommonSession> _viewers = new();
     private GameTicker _gameTicker = default!;
     private EntityUid? _camera;
-    private EntityUid? _cameraTarget;
-    private float _targetChangeTimer;
-    private float _cameraFollowTimer;
 
-    private const float TargetChangeInterval = 18f;
-    private const float CameraFollowInterval = 0.1f;
+    private EntityUid? _cameraGrid;
+    private Vector2 _pos;
+    private Vector2 _vel;
+    private Vector2 _waypoint;
+    private bool _hasWaypoint;
+
+    private const float CruiseSpeed = 1.3f;
+    private const float SlowRadius = 6f;
+    private const float ArriveRadius = 4f;
+    private const float MinSpeedFactor = 0.35f;
+    private const float Smoothing = 0.7f;
+    private const float MinLeg = 12f;
+    private const float MaxLeg = 50f;
 
     public override void Initialize()
     {
@@ -56,24 +66,27 @@ public sealed class LobbyRoundCameraSystem : EntitySystem
     {
         base.Update(frameTime);
 
-        if (_gameTicker.RunLevel != GameRunLevel.InRound || _camera is not { } camera || !Exists(camera))
+        if (_gameTicker.RunLevel != GameRunLevel.InRound || _camera is not { } camera || !Exists(camera) ||
+            _cameraGrid is not { } grid || !Exists(grid))
             return;
 
-        _targetChangeTimer += frameTime;
-        _cameraFollowTimer += frameTime;
+        var toTarget = _waypoint - _pos;
+        var dist = toTarget.Length();
 
-        if (_cameraTarget == null || !IsValidCameraTarget(_cameraTarget.Value) || _targetChangeTimer >= TargetChangeInterval)
+        if (!_hasWaypoint || dist < ArriveRadius)
         {
-            SelectCameraTarget();
-            _targetChangeTimer = 0f;
+            PickWaypoint(grid);
+            toTarget = _waypoint - _pos;
+            dist = toTarget.Length();
         }
 
-        if (_cameraFollowTimer < CameraFollowInterval)
-            return;
+        var speed = CruiseSpeed * MathF.Max(MinSpeedFactor, MathF.Min(1f, dist / SlowRadius));
+        var desired = dist > 0.001f ? toTarget / dist * speed : Vector2.Zero;
 
-        _cameraFollowTimer = 0f;
-        if (_cameraTarget is { } target && IsValidCameraTarget(target))
-            FollowTarget(camera, target);
+        _vel = Vector2.Lerp(_vel, desired, 1f - MathF.Exp(-Smoothing * frameTime));
+        _pos += _vel * frameTime;
+
+        _transform.SetCoordinates(camera, new EntityCoordinates(grid, _pos));
     }
 
     private void OnRunLevelChanged(GameRunLevelChangedEvent ev)
@@ -152,48 +165,70 @@ public sealed class LobbyRoundCameraSystem : EntitySystem
 
         _camera = SpawnAttachedTo("BlackMLobbyRoundCamera", new EntityCoordinates(grid, Vector2.Zero));
         AlignCameraToGrid(_camera.Value, grid);
+        StartDrift(grid);
     }
 
-    private void SelectCameraTarget()
+    private void StartDrift(EntityUid grid)
     {
-        var targets = new List<EntityUid>();
-        foreach (var session in _playerManager.Sessions)
-        {
-            if (session.Status != SessionStatus.InGame || !_gameTicker.UserHasJoinedGame(session) ||
-                session.AttachedEntity is not { } entity || !IsValidCameraTarget(entity))
-                continue;
+        _cameraGrid = grid;
+        _vel = Vector2.Zero;
+        _hasWaypoint = false;
 
-            targets.Add(entity);
-        }
+        if (TryRandomTile(grid, out var start))
+            _pos = start;
 
-        if (targets.Count == 0)
-        {
-            _cameraTarget = null;
+        if (_camera is { } camera && Exists(camera))
+            _transform.SetCoordinates(camera, new EntityCoordinates(grid, _pos));
+
+        PickWaypoint(grid);
+    }
+
+    private void PickWaypoint(EntityUid grid)
+    {
+        if (!TryComp<MapGridComponent>(grid, out var gridComp))
             return;
+
+        var tiles = _map.GetAllTiles(grid, gridComp).ToList();
+        if (tiles.Count == 0)
+            return;
+
+        var best = _pos;
+        var found = false;
+
+        for (var i = 0; i < 20; i++)
+        {
+            var tile = tiles[_random.Next(tiles.Count)];
+            var candidate = new Vector2(tile.GridIndices.X + 0.5f, tile.GridIndices.Y + 0.5f) * gridComp.TileSize;
+            var leg = (candidate - _pos).Length();
+
+            best = candidate;
+            found = true;
+
+            if (leg >= MinLeg && leg <= MaxLeg)
+                break;
         }
 
-        var next = targets[_random.Next(targets.Count)];
-        if (targets.Count > 1 && next == _cameraTarget)
-            next = targets[(_random.Next(targets.Count - 1) + targets.IndexOf(next) + 1) % targets.Count];
+        if (!found)
+            return;
 
-        _cameraTarget = next;
+        _waypoint = best;
+        _hasWaypoint = true;
     }
 
-    private bool IsValidCameraTarget(EntityUid target)
+    private bool TryRandomTile(EntityUid grid, out Vector2 position)
     {
-        return Exists(target) && !HasComp<GhostComponent>(target) &&
-               HasComp<TransformComponent>(target) && Transform(target).MapUid != null;
-    }
+        position = default;
 
-    private void FollowTarget(EntityUid camera, EntityUid target)
-    {
-        var targetTransform = Transform(target);
-        _transform.SetCoordinates(camera, targetTransform.Coordinates);
+        if (!TryComp<MapGridComponent>(grid, out var gridComp))
+            return false;
 
-        if (targetTransform.GridUid is { } grid && Exists(grid))
-            AlignCameraToGrid(camera, grid);
-        else
-            _transform.SetWorldRotation(camera, Angle.Zero);
+        var tiles = _map.GetAllTiles(grid, gridComp).ToList();
+        if (tiles.Count == 0)
+            return false;
+
+        var tile = tiles[_random.Next(tiles.Count)];
+        position = new Vector2(tile.GridIndices.X + 0.5f, tile.GridIndices.Y + 0.5f) * gridComp.TileSize;
+        return true;
     }
 
     private void AlignCameraToGrid(EntityUid camera, EntityUid grid)
@@ -232,8 +267,8 @@ public sealed class LobbyRoundCameraSystem : EntitySystem
             QueueDel(camera);
 
         _camera = null;
-        _cameraTarget = null;
-        _targetChangeTimer = 0f;
-        _cameraFollowTimer = 0f;
+        _cameraGrid = null;
+        _hasWaypoint = false;
+        _vel = Vector2.Zero;
     }
 }

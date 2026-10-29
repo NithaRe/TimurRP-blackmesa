@@ -22,6 +22,8 @@ public sealed partial class LobbyRoundBackground : Control
     [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
+    private const float LobbyZoomMultiplier = 0.7f;
+
     private LobbyRoundCameraSystem? _cameraSystem;
     private NetEntity? _pendingCamera;
     private EntityUid? _activeCamera;
@@ -31,9 +33,9 @@ public sealed partial class LobbyRoundBackground : Control
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
-        RoundView.PostProcessShader = _prototypeManager.Index<Robust.Client.Graphics.ShaderPrototype>("LobbyFisheye").InstanceUnique();
+        RoundView.PostProcessShader = _prototypeManager.Index<Robust.Client.Graphics.ShaderPrototype>("LobbyRoundBlur").InstanceUnique();
         RoundView.Visible = false;
-        Fallback.Visible = true;
+        Signal.ShowSearching();
         RoundView.OnResized += UpdateViewportSize;
     }
 
@@ -77,12 +79,13 @@ public sealed partial class LobbyRoundBackground : Control
             {
                 Position = eye.Eye.Position,
                 Rotation = eye.Eye.Rotation,
-                Zoom = eye.Eye.Zoom,
+                Zoom = eye.Eye.Zoom * LobbyZoomMultiplier,
                 Offset = eye.Eye.Offset,
                 DrawFov = eye.Eye.DrawFov,
                 DrawLight = eye.Eye.DrawLight,
             };
             RoundView.Eye = _cameraEye;
+            Signal.Acquire();
         }
 
         var targetEye = eye.Eye;
@@ -94,7 +97,7 @@ public sealed partial class LobbyRoundBackground : Control
                 Vector2.Lerp(_cameraEye.Position.Position, targetEye.Position.Position, blend),
                 targetEye.Position.MapId);
 
-        _cameraEye.Zoom = targetEye.Zoom;
+        _cameraEye.Zoom = targetEye.Zoom * LobbyZoomMultiplier;
         _cameraEye.Offset = targetEye.Offset;
         _cameraEye.DrawFov = targetEye.DrawFov;
         _cameraEye.DrawLight = targetEye.DrawLight;
@@ -117,7 +120,8 @@ public sealed partial class LobbyRoundBackground : Control
         RoundView.Eye = null;
         _cameraEye = null;
         RoundView.Visible = camera != null;
-        Fallback.Visible = camera == null;
+        if (camera == null)
+            Signal.ShowSearching();
     }
 
     private void UpdateViewportSize()

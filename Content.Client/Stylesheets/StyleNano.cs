@@ -289,6 +289,8 @@ namespace Content.Client.Stylesheets
         public const string StyleClassItemListTerminalBlackM = "ItemListTerminalBlackM";
         public const string StyleClassSliderTerminalBlackM = "SliderTerminalBlackM";
         public const string StyleClassLineEditTerminalBlackM = "LineEditTerminalBlackM";
+        public const string StyleClassFlatButtonTerminalBlackM = "FlatButtonTerminalBlackM";
+        public const string StyleClassActionButtonTerminalBlackM = "ActionButtonTerminalBlackM";
         // BlackM end
 
         public static readonly Color ButtonColorCautionDefault = Color.FromHex("#ab3232");
@@ -375,6 +377,7 @@ namespace Content.Client.Stylesheets
             // BlackM start
             var terminalBold12 = TerminalFonts.Bold(resCache, 12);
             var terminalBold14 = TerminalFonts.Bold(resCache, 14);
+
             // BlackM end
             var robotoMonoBold14 = resCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 14);
             var windowHeaderTex = resCache.GetTexture("/Textures/Interface/Nano/window_header.png");
@@ -1707,6 +1710,142 @@ namespace Content.Client.Stylesheets
                             ContentMarginTopOverride = 4,
                             ContentMarginBottomOverride = 4,
                         }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassFlatButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassNormal}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.FromHex("#FFB52E10"),
+                            ContentMarginLeftOverride = 12,
+                            ContentMarginRightOverride = 12,
+                            ContentMarginTopOverride = 5,
+                            ContentMarginBottomOverride = 5,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassFlatButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassHover}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.FromHex("#FFB52E2C"),
+                            BorderColor = TerminalGreen,
+                            BorderThickness = new Thickness(3, 0, 0, 0),
+                            ContentMarginLeftOverride = 12,
+                            ContentMarginRightOverride = 12,
+                            ContentMarginTopOverride = 5,
+                            ContentMarginBottomOverride = 5,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassFlatButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassPressed}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.FromHex("#FFB52E48"),
+                            BorderColor = TerminalGreen,
+                            BorderThickness = new Thickness(0, 0, 0, 2),
+                            ContentMarginLeftOverride = 12,
+                            ContentMarginRightOverride = 12,
+                            ContentMarginTopOverride = 5,
+                            ContentMarginBottomOverride = 5,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassFlatButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassDisabled}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.FromHex("#FFFFFF08"),
+                            ContentMarginLeftOverride = 12,
+                            ContentMarginRightOverride = 12,
+                            ContentMarginTopOverride = 5,
+                            ContentMarginBottomOverride = 5,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorChild(
+                new SelectorElement(typeof(Button), new[] {StyleClassFlatButtonTerminalBlackM}, null, null),
+                new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty("font", terminalBold12),
+                        new StyleProperty(Label.StylePropertyAlignMode, Label.AlignMode.Center),
+                        new StyleProperty(Label.StylePropertyFontColor, TerminalGreen),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassActionButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassNormal}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.FromHex("#FFB52E40"),
+                            BorderColor = Color.FromHex("#FFB52E"),
+                            BorderThickness = new Thickness(2),
+                            ContentMarginLeftOverride = 16,
+                            ContentMarginRightOverride = 16,
+                            ContentMarginTopOverride = 8,
+                            ContentMarginBottomOverride = 8,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassActionButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassHover}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.FromHex("#FFB52E88"),
+                            BorderColor = Color.FromHex("#FFE29A"),
+                            BorderThickness = new Thickness(2),
+                            ContentMarginLeftOverride = 16,
+                            ContentMarginRightOverride = 16,
+                            ContentMarginTopOverride = 8,
+                            ContentMarginBottomOverride = 8,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassActionButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassPressed}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.FromHex("#2FBF5A66"),
+                            BorderColor = Color.FromHex("#4DFF88"),
+                            BorderThickness = new Thickness(2),
+                            ContentMarginLeftOverride = 16,
+                            ContentMarginRightOverride = 16,
+                            ContentMarginTopOverride = 8,
+                            ContentMarginBottomOverride = 8,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorElement(typeof(ContainerButton), new[] {StyleClassActionButtonTerminalBlackM}, null, new[] {ContainerButton.StylePseudoClassDisabled}),
+                    new[]
+                    {
+                        new StyleProperty(ContainerButton.StylePropertyStyleBox, new StyleBoxFlat
+                        {
+                            BackgroundColor = Color.FromHex("#FFFFFF0A"),
+                            BorderColor = Color.FromHex("#FFFFFF28"),
+                            BorderThickness = new Thickness(1),
+                            ContentMarginLeftOverride = 16,
+                            ContentMarginRightOverride = 16,
+                            ContentMarginTopOverride = 8,
+                            ContentMarginBottomOverride = 8,
+                        }),
+                    }),
+
+                new StyleRule(new SelectorChild(
+                new SelectorElement(typeof(Button), new[] {StyleClassActionButtonTerminalBlackM}, null, null),
+                new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty("font", terminalBold12),
+                        new StyleProperty(Label.StylePropertyAlignMode, Label.AlignMode.Center),
+                        new StyleProperty(Label.StylePropertyFontColor, Color.FromHex("#FFF1CC")),
                     }),
 
                 new StyleRule(new SelectorElement(typeof(TabContainer), new[] {StyleClassTabContainerTerminalBlackM}, null, null),

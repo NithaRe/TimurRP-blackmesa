@@ -2,13 +2,13 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:terminal="clr-namespace:Content.Client._BlackM.Lobby.Terminal"
          xmlns:viewport="clr-namespace:Content.Client.Viewport">
-    <terminal:LobbyRoundGridFallback Name="Fallback"
-                                      HorizontalExpand="True"
-                                      VerticalExpand="True"
-                                      MouseFilter="Ignore" />
     <viewport:ScalingViewport Name="RoundView"
                               HorizontalExpand="True"
                               VerticalExpand="True"
                               MouseFilter="Ignore"
                               RenderScaleMode="CeilInt" />
+    <terminal:LobbyNoSignal Name="Signal"
+                            HorizontalExpand="True"
+                            VerticalExpand="True"
+                            MouseFilter="Ignore" />
 </Control>

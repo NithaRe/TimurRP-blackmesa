@@ -552,7 +552,7 @@ namespace Content.Client.LateJoin
             _gameTicker = _entitySystem.GetEntitySystem<ClientGameTicker>();
             _sawmill = _logManager.GetSawmill("latejoin.panel");
 
-            MinSize = new Vector2(860, 560);
+            MinSize = new Vector2(960, 600); // blackm
 
             var titleFont = TerminalFonts.Bold(_cache, 16);
             _smallFont = TerminalFonts.Bold(_cache, 10);
@@ -606,7 +606,7 @@ namespace Content.Client.LateJoin
             var sidebarColumn = new BoxContainer
             {
                 Orientation = LayoutOrientation.Vertical,
-                MinSize = new Vector2(220, 0),
+                MinSize = new Vector2(300, 0),
                 SeparationOverride = 8,
                 Children =
                 {
@@ -623,7 +623,7 @@ namespace Content.Client.LateJoin
 
             _grid = new GridContainer
             {
-                Columns = 3,
+                Columns = 2,
                 HSeparationOverride = 6,
                 VSeparationOverride = 6,
                 HorizontalExpand = true,
@@ -866,14 +866,46 @@ namespace Content.Client.LateJoin
         {
             var button = new Button
             {
-                Text = $"{label.ToUpperInvariant()}  [{count:00}]",
                 ToggleMode = true,
                 Group = _deptGroup,
                 Pressed = pressed,
                 HorizontalExpand = true,
-                ClipText = true,
+                MinSize = new Vector2(0, 32),
+                ToolTip = label,
                 StyleClasses = { StyleNano.StyleClassButtonTerminalBlackM },
             };
+
+            // 29 10
+            button.Label.Visible = false;
+            button.AddChild(new BoxContainer
+            {
+                Orientation = LayoutOrientation.Horizontal,
+                SeparationOverride = 8,
+                Margin = new Thickness(8, 0, 8, 0),
+                VerticalAlignment = VAlignment.Center,
+                MouseFilter = Control.MouseFilterMode.Ignore,
+                Children =
+                {
+                    new Label
+                    {
+                        Text = label.ToUpperInvariant(),
+                        FontOverride = TerminalFonts.Bold(_cache, 12),
+                        FontColorOverride = StyleNano.TerminalGreen,
+                        ClipText = true,
+                        HorizontalExpand = true,
+                        VerticalAlignment = VAlignment.Center,
+                        MouseFilter = Control.MouseFilterMode.Ignore,
+                    },
+                    new Label
+                    {
+                        Text = $"[{count:00}]",
+                        FontOverride = TerminalFonts.Bold(_cache, 12),
+                        FontColorOverride = StyleNano.TerminalGreen.WithAlpha(0.7f),
+                        VerticalAlignment = VAlignment.Center,
+                        MouseFilter = Control.MouseFilterMode.Ignore,
+                    },
+                },
+            });
 
             button.OnPressed += _ =>
             {
@@ -921,6 +953,7 @@ namespace Content.Client.LateJoin
             var name = new Label
             {
                 Text = job.LocalizedName,
+                FontOverride = TerminalFonts.Bold(_cache, 13),
                 ClipText = true,
                 HorizontalExpand = true,
                 StyleClasses = { StyleNano.StyleClassLabelTerminalBlackM },
@@ -961,8 +994,9 @@ namespace Content.Client.LateJoin
 
             var tile = new JobTile(job.ID, slots, amount)
             {
-                MinSize = new Vector2(190, 54),
+                MinSize = new Vector2(300, 56),
                 HorizontalExpand = true,
+                ToolTip = job.LocalizedName,
                 Children = { row },
             };
 
