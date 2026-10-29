@@ -9,6 +9,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Server._BlackM.Expedition;
 using Content.Shared.Procedural;
 using Content.Shared.Salvage.Expeditions;
 using Content.Shared.Dataset;
@@ -32,14 +33,20 @@ public sealed partial class SalvageSystem
         if (!data.Missions.TryGetValue(args.Index, out var missionparams))
             return;
 
-        var cdUid = Spawn(CoordinatesDisk, Transform(uid).Coordinates);
-        SpawnMission(missionparams, station.Value, cdUid);
+        // BlackM edit
+        var portalSystem = EntityManager.System<ExpeditionPortalSystem>();
+        if (portalSystem.FindEntrance(station.Value) is not { } portalUid)
+        {
+            portalSystem.WarnNoPortal(uid);
+            return;
+        }
+
+        SpawnMission(missionparams, station.Value, portalUid);
 
         data.ActiveMission = args.Index;
         var mission = GetMission(_prototypeManager.Index<SalvageDifficultyPrototype>(missionparams.Difficulty), missionparams.Seed);
         data.NextOffer = _timing.CurTime + mission.Duration + TimeSpan.FromSeconds(1);
 
-        _labelSystem.Label(cdUid, GetFTLName(_prototypeManager.Index(PlanetNames), missionparams.Seed));
         _audio.PlayPvs(component.PrintSound, uid);
 
         UpdateConsoles((station.Value, data));

@@ -20,6 +20,7 @@ using System.Linq;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Server._BlackM.Expedition;
 using Content.Server.Atmos.Components;
 using Content.Server.Atmos.EntitySystems;
 using Robust.Shared.CPUJob.JobQueues;
@@ -108,22 +109,10 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         MetaDataComponent? metadata = null;
         var grid = _entManager.EnsureComponent<MapGridComponent>(mapUid);
         var random = new Random(_missionParams.Seed);
-        var destComp = _entManager.AddComponent<FTLDestinationComponent>(mapUid);
-        destComp.BeaconsOnly = true;
-        destComp.RequireCoordinateDisk = true;
-        destComp.Enabled = true;
+        // FTLDestination/FTLBeacon
         _metaData.SetEntityName(
             mapUid,
             _entManager.System<SharedSalvageSystem>().GetFTLName(_prototypeManager.Index(SalvageSystem.PlanetNames), _missionParams.Seed));
-        _entManager.AddComponent<FTLBeaconComponent>(mapUid);
-
-        // Saving the mission mapUid to a CD is made optional, in case one is somehow made in a process without a CD entity
-        if (CoordinatesDisk.HasValue)
-        {
-            var cd = _entManager.EnsureComponent<ShuttleDestinationCoordinatesComponent>(CoordinatesDisk.Value);
-            cd.Destination = mapUid;
-            _entManager.Dirty(CoordinatesDisk.Value, cd);
-        }
 
         // Setup mission configs
         // As we go through the config the rating will deplete so we'll go for most important to least important.
@@ -334,6 +323,9 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
                     throw new NotImplementedException();
             }
         }
+
+        if (CoordinatesDisk.HasValue)
+            _entManager.System<ExpeditionPortalSystem>().LinkToMission(CoordinatesDisk.Value, mapUid, grid);
 
         return true;
     }
