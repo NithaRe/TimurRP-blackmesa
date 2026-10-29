@@ -100,6 +100,7 @@
   equipment:
     #eyes: ClothingEyesGlassesMeson
     passport: PassportBM #BlackM pass
+    ears: ClothingHeadsetEngineering
     #belt: ClothingBeltUtilityEngineering
   #storage:
     #back:

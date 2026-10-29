@@ -198,6 +198,7 @@
   equipment:
     id: AccessCardHolderCMO #BlackM id
     passport: PassportBM #BlackM pass
+    ears: ClothingHeadsetCMO
 #   eyes: ClothingEyesGlassesMed # Goobstation # CorvaxGoob-loadouts: replaced on a ChiefMedicalOfficerGlasses loadout
     belt: ClothingBeltMedicalFilled
   storage:

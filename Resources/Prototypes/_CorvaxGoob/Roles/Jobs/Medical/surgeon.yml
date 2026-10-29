@@ -32,6 +32,7 @@
     #shoes: ClothingShoesColorWhite
     id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
+    ears: ClothingHeadsetMedical
     #mask: ClothingMaskSterile
 
 - type: chameleonOutfit

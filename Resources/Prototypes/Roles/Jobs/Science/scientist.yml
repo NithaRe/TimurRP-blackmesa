@@ -92,6 +92,7 @@
   id: ScientistGear
   equipment:
     passport: PassportBM #BlackM pass
+    ears: ClothingHeadsetScience
   #storage:
     #back:
     #- Stuff

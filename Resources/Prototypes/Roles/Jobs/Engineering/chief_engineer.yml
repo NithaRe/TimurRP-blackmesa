@@ -188,6 +188,7 @@
     passport: PassportBM #BlackM pass
     eyes: ClothingEyesGlassesMeson
     belt: ClothingBeltUtilityEngineering
+    ears: ClothingHeadsetCE
   storage:
     back:
     - Flash

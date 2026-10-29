@@ -76,6 +76,7 @@
     shoes: ClothingShoesColorWhite
     id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
+    ears: ClothingHeadsetScience
     #pocket2: BookScientistsGuidebook
   #storage:
     #back:

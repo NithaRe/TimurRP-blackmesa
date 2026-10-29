@@ -1,0 +1,33 @@
+- type: soundCollection
+  id: BlackMRadioSendStart
+  files:
+    - /Audio/_BlackM/Radio/send_start_1.ogg
+    - /Audio/_BlackM/Radio/send_start_2.ogg
+    - /Audio/_BlackM/Radio/send_start_3.ogg
+
+- type: soundCollection
+  id: BlackMRadioSendEnd
+  files:
+    - /Audio/_BlackM/Radio/send_end_1.ogg
+    - /Audio/_BlackM/Radio/send_end_2.ogg
+    - /Audio/_BlackM/Radio/send_end_3.ogg
+
+- type: soundCollection
+  id: BlackMRadioReceive
+  files:
+    - /Audio/_BlackM/Radio/receive_1.ogg
+    - /Audio/_BlackM/Radio/receive_2.ogg
+    - /Audio/_BlackM/Radio/receive_3.ogg
+
+- type: soundCollection
+  id: BlackMRadioStatic
+  files:
+    - /Audio/_BlackM/Radio/static_1.ogg
+    - /Audio/_BlackM/Radio/static_2.ogg
+    - /Audio/_BlackM/Radio/static_3.ogg
+
+- type: soundCollection
+  id: BlackMRadioAmbient
+  files:
+    - /Audio/_BlackM/Radio/ambient_1.ogg
+    - /Audio/_BlackM/Radio/ambient_2.ogg

@@ -98,6 +98,7 @@
   equipment:
     id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
+    ears: ClothingHeadsetCargo
     #pocket1: AppraisalTool
   #storage:
     #back:
