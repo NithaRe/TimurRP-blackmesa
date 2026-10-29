@@ -1,0 +1,77 @@
+- type: entity
+  id: ExpeditionPortalBase
+  abstract: true
+  name: портальная дыра экспедиций
+  components:
+  - type: Transform
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: Fixtures
+    fixtures:
+      portalFixture:
+        shape:
+          !type:PhysShapeCircle
+          radius: 1.0
+        hard: false
+        mask:
+        - Impassable
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
+  - type: ExpeditionPortal
+    enterSound:
+      path: /Audio/Effects/teleport_departure.ogg
+    exitSound:
+      path: /Audio/Effects/teleport_arrival.ogg
+  - type: Appearance
+  - type: Sprite
+    sprite: _BlackM/Structures/Machines/expedition_portal.rsi
+    drawdepth: Objects
+    layers:
+    - state: base
+    - state: vortex-off
+      shader: unshaded
+      map: [ "enum.ExpeditionPortalLayers.Vortex" ]
+    - state: lights-off
+      shader: unshaded
+      map: [ "enum.ExpeditionPortalLayers.Lights" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.ExpeditionPortalVisuals.State:
+        enum.ExpeditionPortalLayers.Vortex:
+          Off: { state: vortex-off }
+          On: { state: vortex-on }
+        enum.ExpeditionPortalLayers.Lights:
+          Off: { state: lights-off }
+          On: { state: lights-on }
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 7
+    sound:
+      path: /Audio/_BlackM/Machines/expedition_portal/portal_ambient.ogg
+  - type: PointLight
+    enabled: false
+    radius: 3.5
+    energy: 1.4
+    color: "#b060ff"
+
+- type: entity
+  parent: ExpeditionPortalBase
+  id: ExpeditionPortalEntrance
+  name: портальная дыра экспедиций
+  description: Проход в зону экспедиции. Активируется через консоль экспедиций.
+  components:
+  - type: InteractionOutline
+
+- type: entity
+  parent: ExpeditionPortalBase
+  id: ExpeditionPortalExit
+  name: обратная портальная дыра
+  description: Возвращает в комплекс Чёрная меза.
+  components:
+  - type: InteractionOutline
+  - type: ExpeditionPortal
+    isExit: true
