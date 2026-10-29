@@ -1,0 +1,19 @@
+- files: ["receive_1.ogg", "receive_2.ogg", "receive_3.ogg", "send_start_1.ogg", "send_start_2.ogg", "send_start_3.ogg", "send_end_1.ogg", "send_end_2.ogg", "send_end_3.ogg", "ambient_1.ogg", "ambient_2.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "by tgstation"
+  source: "https://github.com/tgstation/tgstation/blob/master/sound/items/radio/radio_receive.ogg (original: https://freesound.org/people/JovianSounds/sounds/524205/)"
+
+- files: ["static_1.ogg", "static_2.ogg", "static_3.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "tgstation"
+  source: "https://github.com/tgstation/tgstation/blob/master/sound/effects/hallucinations/radio_static.ogg"
+
+- files: ["optional/radio_talk.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "tgstation"
+  source: "https://github.com/tgstation/tgstation/blob/master/sound/items/radio/radio_talk.ogg (original: https://freesound.org/people/cs2975871/sounds/514185/)"
+
+- files: ["optional/radio_important.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "radio_important.ogg by morganpurkis"
+  source: "https://github.com/tgstation/tgstation/blob/master/sound/items/radio/radio_important.ogg (original: https://freesound.org/people/morganpurkis/sounds/392972/)"

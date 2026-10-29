@@ -69,6 +69,8 @@ using Content.Shared.Chat;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.Radio.Components;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Configuration; // BlackM
+using Content.Shared._BlackM.CCVar; // BlackM
 
 namespace Content.Server.Radio.EntitySystems;
 
@@ -85,6 +87,7 @@ public sealed class RadioDeviceSystem : EntitySystem
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly LanguageSystem _language = default!;
     [Dependency] private readonly SharedPowerReceiverSystem _power = default!; // Goob
+    [Dependency] private readonly IConfigurationManager _cfg = default!; // BlackM
 
     // Used to prevent a shitter from using a bunch of radios to spam chat.
     private HashSet<(string, EntityUid, RadioChannelPrototype)> _recentlySent = new();
@@ -272,7 +275,9 @@ public sealed class RadioDeviceSystem : EntitySystem
 
         var name = Loc.GetString("speech-name-relay",
             ("speaker", Name(uid)),
-            ("originalName", nameEv.VoiceName));
+            ("originalName", _cfg.GetCVar(BlackMCVars.RadioHideNames) // BlackM
+                ? Loc.GetString("blackm-radio-unknown-voice")
+                : nameEv.VoiceName));
 
         // log to chat so people can identity the speaker/source, but avoid clogging ghost chat if there are many radios
         var message = args.OriginalChatMsg.Message; // The chat system will handle the rest and re-obfuscate if needed.

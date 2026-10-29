@@ -112,6 +112,7 @@
   equipment:
     #belt: ClothingBeltMedicalFilled
     passport: PassportBM #BlackM pass
+    ears: ClothingHeadsetMedical
   #storage:
     #back:
     #- Stuff

@@ -47,6 +47,7 @@ using Content.Server.Chat.Systems;
 using Content.Server._EinsteinEngines.Language;
 using Content.Server.Power.Components;
 using Content.Server.Radio.Components;
+using Content.Shared._BlackM.CCVar; // BlackM
 using Content.Shared.Chat;
 using Content.Shared.Database;
 using Content.Shared._EinsteinEngines.Language;
@@ -202,9 +203,26 @@ public sealed partial class RadioSystem : EntitySystem
         }
         // CorvaxGoob-Anonymous-Radio-End
 
+        // BlackM - hide job icon
+        if (!_cfg.GetCVar(BlackMCVars.RadioShowJobIcons))
+        {
+            jobIcon = null;
+            jobName = string.Empty;
+        }
+
+        // BlackM - hide speaker
+        var logName = name;
+        if (_cfg.GetCVar(BlackMCVars.RadioHideNames))
+            name = Loc.GetString("blackm-radio-unknown-voice");
+
+        // BlackM
+        var radioText = message;
+        var distorted = escapeMarkup && TryDistortMessage(message, out radioText);
+        // BlackM
+
         var content = escapeMarkup
-            ? FormattedMessage.EscapeText(message)
-            : message;
+            ? FormattedMessage.EscapeText(radioText)
+            : radioText;
 
         // var wrappedMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
         //     ("color", channel.Color),
@@ -247,6 +265,10 @@ public sealed partial class RadioSystem : EntitySystem
         var hasActiveServer = HasActiveServer(sourceMapId, channel.ID);
         var sourceServerExempt = _exemptQuery.HasComp(radioSource);
 
+        // BlackM
+        if (canSend)
+            _radioSfx.OnTransmit(messageSource, radioSource, message.Length, distorted);
+
         var radioQuery = EntityQueryEnumerator<ActiveRadioComponent, TransformComponent>();
         while (canSend && radioQuery.MoveNext(out var receiver, out var radio, out var transform))
         {
@@ -277,8 +299,8 @@ public sealed partial class RadioSystem : EntitySystem
             RaiseLocalEvent(receiver, ref ev);
         }
 
-        if (name != Name(messageSource))
-            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {name} on {channel.LocalizedName}: {message}");
+        if (logName != Name(messageSource))
+            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {logName} on {channel.LocalizedName}: {message}");
         else
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} on {channel.LocalizedName}: {message}");
 

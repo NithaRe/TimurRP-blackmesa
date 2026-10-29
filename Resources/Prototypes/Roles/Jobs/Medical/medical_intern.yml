@@ -94,6 +94,7 @@
     shoes: ClothingShoesColorWhite
     id: AccessCardHolder #BlackM id
     passport: PassportBM #BlackM pass
+    ears: ClothingHeadsetMedical
     #belt: ClothingBeltMedicalFilled
     #pocket2: BookMedicalReferenceBook
   #storage:
