@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client.Stylesheets;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -18,8 +19,7 @@ public enum WelcomeSound
 public sealed class WelcomeMessageControl : Control
 {
     private const float TopOffset = 280f;
-    private const float BackgroundAlpha = 0.55f;
-    private const float TextWidth = 340f;
+    private const float TextWidth = 360f;
     private const float PortraitScale = 4f;
     private const float CharsPerSecond = 38f;
     private const float FadeIn = 0.5f;
@@ -27,6 +27,12 @@ public sealed class WelcomeMessageControl : Control
     private const float FadeOut = 0.7f;
     private const int TitleSize = 13;
     private const int BodySize = 12;
+
+    private static readonly Color Amber = StyleNano.TerminalGreen;        // #FFB52E
+    private static readonly Color AmberDim = StyleNano.TerminalGreenDim;  // #805019
+    private static readonly Color PanelBack = StyleNano.TerminalBlack;    // #0B0804
+    private const string AmberHex = "#FFB52E";
+    private const string BodyHex = "#F2E6CF";
 
     private readonly Random _rng = new();
     private readonly string _text;
@@ -40,8 +46,6 @@ public sealed class WelcomeMessageControl : Control
     private float _time;
     private int _lastShown = -1;
     private bool _lastCursor;
-    private float _nextGlitch = 3f;
-    private float _glitchUntil;
 
     private bool _appearPlayed;
     private bool _disappearPlayed;
@@ -67,27 +71,35 @@ public sealed class WelcomeMessageControl : Control
             HorizontalAlignment = HAlignment.Left,
             VerticalAlignment = VAlignment.Top,
             Margin = new Thickness(0, TopOffset, 0, 0),
-            MouseFilter = MouseFilterMode.Ignore,
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = Color.Black.WithAlpha(BackgroundAlpha),
-                ContentMarginLeftOverride = 6,
-                ContentMarginRightOverride = 8,
-                ContentMarginTopOverride = 5,
-                ContentMarginBottomOverride = 5
+                BackgroundColor = PanelBack.WithAlpha(0.84f),
+                BorderColor = AmberDim,
+                BorderThickness = new Thickness(1),
+                ContentMarginLeftOverride = 10,
+                ContentMarginRightOverride = 12,
+                ContentMarginTopOverride = 8,
+                ContentMarginBottomOverride = 10
             }
         };
 
-        _content = new BoxContainer
-        {
-            Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            SeparationOverride = 8
-        };
+        var titleLabel = new RichTextLabel();
+        titleLabel.SetMessage(Msg(">> " + title.ToUpperInvariant(), TitleSize, AmberHex));
 
-        var left = new BoxContainer
+        var header = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
-            VerticalAlignment = VAlignment.Top
+            SeparationOverride = 4,
+            Children =
+            {
+                titleLabel,
+                new PanelContainer
+                {
+                    MinHeight = 1,
+                    HorizontalExpand = true,
+                    PanelOverride = new StyleBoxFlat { BackgroundColor = AmberDim }
+                }
+            }
         };
 
         var portraitPanel = new PanelContainer
@@ -95,9 +107,9 @@ public sealed class WelcomeMessageControl : Control
             HorizontalAlignment = HAlignment.Center,
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = Color.FromHex("#0b3d2b"),
-                BorderColor = Color.FromHex("#4fd6a0").WithAlpha(0.6f),
-                BorderThickness = new Thickness(1)
+                BackgroundColor = Color.FromHex("#241706"),
+                BorderColor = Amber,
+                BorderThickness = new Thickness(2)
             }
         };
         portraitPanel.AddChild(new TextureRect
@@ -105,65 +117,59 @@ public sealed class WelcomeMessageControl : Control
             Texture = portrait,
             Stretch = TextureRect.StretchMode.KeepAspectCentered,
             MinSize = new Vector2(portrait.Width, portrait.Height) * PortraitScale,
-            Modulate = Color.FromHex("#bfffe0")
+            Modulate = Color.FromHex("#FFEBCB")
         });
         portraitPanel.AddChild(new VhsOverlay(strong: true));
-        left.AddChild(portraitPanel);
 
-        var plate = new PanelContainer
+        var left = new BoxContainer
         {
-            HorizontalAlignment = HAlignment.Center,
-            PanelOverride = new StyleBoxFlat { BackgroundColor = Color.Black.WithAlpha(0.85f) }
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            VerticalAlignment = VAlignment.Top,
+            SeparationOverride = 4,
+            Children = { portraitPanel }
         };
-        plate.AddChild(new Label
-        {
-            Text = sender,
-            FontOverride = font,
-            HorizontalAlignment = HAlignment.Center
-        });
-        left.AddChild(plate);
 
+        _typed = new RichTextLabel();
         var right = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
             MinWidth = TextWidth,
-            MaxWidth = TextWidth
+            MaxWidth = TextWidth,
+            Children = { _typed }
         };
 
-        var titleBox = new BoxContainer
+        _content = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            SeparationOverride = 12,
+            Children = { left, right }
+        };
+
+        panel.AddChild(new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
-            HorizontalAlignment = HAlignment.Left
-        };
-        var titleLabel = new RichTextLabel();
-        titleLabel.SetMessage(Msg(title.ToUpperInvariant(), TitleSize));
-        titleBox.AddChild(titleLabel);
-        titleBox.AddChild(new PanelContainer
-        {
-            MinHeight = 1,
-            HorizontalExpand = true,
-            Margin = new Thickness(0, 1, 0, 4),
-            PanelOverride = new StyleBoxFlat { BackgroundColor = Color.White.WithAlpha(0.9f) }
+            SeparationOverride = 8,
+            Children = { header, _content }
         });
-        right.AddChild(titleBox);
-
-        _typed = new RichTextLabel();
-        right.AddChild(_typed);
-
-        _content.AddChild(left);
-        _content.AddChild(right);
-        panel.AddChild(_content);
-
         panel.AddChild(new VhsOverlay(strong: false));
 
         AddChild(panel);
+
+        IgnoreMouse(this);
     }
 
-    private FormattedMessage Msg(string raw, int size, string? tail = null)
+    private static void IgnoreMouse(Control control)
+    {
+        control.MouseFilter = MouseFilterMode.Ignore;
+        foreach (var child in control.Children)
+            IgnoreMouse(child);
+    }
+
+    private FormattedMessage Msg(string raw, int size, string colorHex, string? tail = null)
     {
         var esc = FormattedMessage.EscapeText(raw);
         return FormattedMessage.FromMarkupPermissive(
-            $"[font=\"{_fontPath}\" size={size}]{esc}{tail}[/font]");
+            $"[font=\"{_fontPath}\" size={size}][color={colorHex}]{esc}[/color]{tail}[/font]");
     }
 
     protected override void FrameUpdate(FrameEventArgs args)
@@ -202,16 +208,8 @@ public sealed class WelcomeMessageControl : Control
         else
             alpha = 1f;
 
-        var glitching = _time < FadeIn + 0.3f || _time < _glitchUntil;
-        if (_time >= _nextGlitch && _time >= _glitchUntil)
-        {
-            _glitchUntil = _time + 0.12f;
-            _nextGlitch = _time + 2.5f + (float) _rng.NextDouble() * 3f;
-        }
-
-        var flicker = glitching
-            ? 0.55f + (float) _rng.NextDouble() * 0.45f
-            : 0.94f + (float) _rng.NextDouble() * 0.06f;
+        var glitching = _time < FadeIn + 0.3f;
+        var flicker = glitching ? 0.55f + (float) _rng.NextDouble() * 0.45f : 1f;
         Modulate = Color.White.WithAlpha(alpha * flicker);
 
         if (glitching)
@@ -238,9 +236,9 @@ public sealed class WelcomeMessageControl : Control
             _lastShown = shown;
             _lastCursor = cursorOn;
             var tail = _time >= _typeStart
-                ? cursorOn ? "_" : "[color=#ffffff00]_[/color]"
+                ? cursorOn ? $"[color={AmberHex}]_[/color]" : "[color=#ffffff00]_[/color]"
                 : null;
-            _typed.SetMessage(Msg(_text.Substring(0, shown), BodySize, tail));
+            _typed.SetMessage(Msg(_text.Substring(0, shown), BodySize, BodyHex, tail));
         }
     }
 }
@@ -272,8 +270,8 @@ public sealed class VhsOverlay : Control
         var lineH = Math.Max(1, (int) UIScale);
         var step = Math.Max(2, (int) ((_strong ? 2f : 3f) * UIScale));
         var color = _strong
-            ? Color.FromHex("#031a10").WithAlpha(0.55f)
-            : Color.Black.WithAlpha(0.22f);
+            ? Color.FromHex("#1A1004").WithAlpha(0.45f)
+            : Color.Black.WithAlpha(0.16f);
 
         for (var y = 0; y < h; y += step)
             handle.DrawRect(UIBox2.FromDimensions(0, y, w, lineH), color);
@@ -285,7 +283,7 @@ public sealed class VhsOverlay : Control
         if (bottom > top)
         {
             handle.DrawRect(UIBox2.FromDimensions(0, top, w, bottom - top),
-                Color.FromHex("#a8ffd8").WithAlpha(_strong ? 0.10f : 0.05f));
+                Color.FromHex("#FFD27A").WithAlpha(_strong ? 0.08f : 0.04f));
         }
     }
 }

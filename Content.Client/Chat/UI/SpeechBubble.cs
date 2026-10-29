@@ -156,9 +156,15 @@ namespace Content.Client.Chat.UI
         public const float SpeechMaxWidth = 256;
 
         // BlackM start
-        private const string BubbleFontPath = "/Fonts/_BlackM/BubbleFont.ttf";
+        private const string BubbleFontPath = "/Fonts/_BlackM/Tektur-Regular.ttf";
         private const int BubbleFontSize = 13;
         private static readonly Color OutlineColor = Color.Black;
+
+        private static readonly Color BoxColor = Color.FromHex("#0B0804");
+        private const float BoxAlpha = 0.25f;
+        private const float BoxBorderAlpha = 0.25f;
+        private const float BoxPaddingX = 6f;
+        private const float BoxPaddingY = 3f;
         private static readonly Dictionary<int, Font?> BubbleFonts = new();
 
         private static readonly Color EmoteColor = Color.FromHex("#ffd479");
@@ -380,8 +386,25 @@ namespace Content.Client.Chat.UI
             _typewriterActive = typewriter && _text.TotalLength > 0;
 
             var inner = WrapWithIcon(_text, icon);
-            inner.Margin = new Thickness(2);
-            return inner;
+
+            // blackm
+            var boxAlpha = whisper ? BoxAlpha * 0.8f : BoxAlpha;
+            var borderAlpha = whisper ? BoxBorderAlpha * 0.8f : BoxBorderAlpha;
+
+            return new PanelContainer
+            {
+                PanelOverride = new StyleBoxFlat
+                {
+                    BackgroundColor = BoxColor.WithAlpha(boxAlpha),
+                    BorderColor = color.WithAlpha(borderAlpha),
+                    BorderThickness = new Thickness(1),
+                    ContentMarginLeftOverride = BoxPaddingX,
+                    ContentMarginRightOverride = BoxPaddingX,
+                    ContentMarginTopOverride = BoxPaddingY,
+                    ContentMarginBottomOverride = BoxPaddingY,
+                },
+                Children = { inner },
+            };
         }
 
         private void UpdateTypewriter(float deltaSeconds)
@@ -547,7 +570,6 @@ namespace Content.Client.Chat.UI
 
         protected override Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null, Texture? icon = null) // BlackM: Added icon parameter
         {
-            // BlackM: эмоции и LOOC - без typewriter
             return BuildTextBubble(message.WrappedMessage, fontColor, icon, typewriter: false, speechStyleClass);
         }
     }
@@ -562,8 +584,9 @@ namespace Content.Client.Chat.UI
 
         protected override Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null, Texture? icon = null) // BlackM: Added icon parameter
         {
-            // BlackM: речь и шёпот - с typewriter
-            return BuildTextBubble(SharedChatSystem.GetStringInsideTag(message, "BubbleContent"), fontColor, icon, typewriter: true, speechStyleClass);
+            // бля да похуй уже на эти коменты тут уже всё В ГОВНЕ
+            var typewriter = speechStyleClass != "whisperBox";
+            return BuildTextBubble(SharedChatSystem.GetStringInsideTag(message, "BubbleContent"), fontColor, icon, typewriter, speechStyleClass);
         }
     }
 
@@ -571,7 +594,7 @@ namespace Content.Client.Chat.UI
     public sealed class OutlinedText : BoxContainer
     {
         private readonly List<string> _lines = new();
-        private readonly List<Label[]> _labels = new();
+        private readonly List<Label> _labels = new();
         private readonly List<int> _shown = new();
 
         public int TotalLength { get; }
@@ -589,46 +612,24 @@ namespace Content.Client.Chat.UI
                 TotalLength += line.Length;
 
                 var size = MeasureText(line, font);
-                var holder = new Control { HorizontalAlignment = HAlignment.Center };
-                var layers = new List<Label>();
-
-                for (var dx = -1; dx <= 1; dx++)
+                var label = new Label
                 {
-                    for (var dy = -1; dy <= 1; dy++)
-                    {
-                        if (dx == 0 && dy == 0)
-                            continue;
+                    FontColorOverride = color,
+                    MinSize = size,
+                };
 
-                        layers.Add(MakeLabel(font, outline, size, new Thickness(1 + dx, 1 + dy, 1 - dx, 1 - dy)));
-                    }
-                }
+                if (font != null)
+                    label.FontOverride = font;
 
-                layers.Add(MakeLabel(font, color, size, new Thickness(1)));
-
-                foreach (var l in layers)
-                    holder.AddChild(l);
+                var holder = new Control { HorizontalAlignment = HAlignment.Center };
+                holder.AddChild(label);
 
                 AddChild(holder);
-                _labels.Add(layers.ToArray());
+                _labels.Add(label);
                 _shown.Add(-1);
             }
 
             SetRevealed(revealAll ? TotalLength : 0);
-        }
-
-        private static Label MakeLabel(Font? font, Color color, Vector2 fullSize, Thickness margin)
-        {
-            var label = new Label
-            {
-                FontColorOverride = color,
-                MinSize = fullSize,
-                Margin = margin,
-            };
-
-            if (font != null)
-                label.FontOverride = font;
-
-            return label;
         }
 
         private static Vector2 MeasureText(string text, Font? font)
@@ -683,10 +684,7 @@ namespace Content.Client.Chat.UI
                     continue;
 
                 _shown[i] = take;
-                var part = line.Substring(0, take);
-
-                foreach (var l in _labels[i])
-                    l.Text = part;
+                _labels[i].Text = line.Substring(0, take);
             }
         }
     }
