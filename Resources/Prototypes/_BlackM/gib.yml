@@ -19,7 +19,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: _BlackM/Gib/splat.rsi
+    sprite: _BlackM/Effects/Gib/splat.rsi
     drawdepth: FloorObjects
     noRot: false
 
