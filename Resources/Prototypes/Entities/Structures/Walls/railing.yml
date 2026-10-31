@@ -76,9 +76,9 @@
   components:
   - type: Sprite
     drawdepth: SmallObjects
-    sprite: Structures/Walls/railing.rsi
+    sprite: _BlackM/Structures/Walls/railing.rsi #BlackM
   - type: Icon
-    sprite: Structures/Walls/railing.rsi
+    sprite: _BlackM/Structures/Walls/railing.rsi #BlackM
   - type: Physics
     bodyType: Static
   - type: InteractionOutline
