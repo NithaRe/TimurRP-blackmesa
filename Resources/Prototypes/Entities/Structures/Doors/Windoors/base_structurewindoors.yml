@@ -242,7 +242,7 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: Structures/Doors/Windoors/windoor.rsi
+    sprite: _BlackM/Structures/Doors/Windoors/windoor.rsi #BlackM
     layers:
     - state: secure_underlay
     - state: closed
