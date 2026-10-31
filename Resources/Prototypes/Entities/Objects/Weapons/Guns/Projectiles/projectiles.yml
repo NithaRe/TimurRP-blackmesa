@@ -169,22 +169,11 @@
   description: If you can see this you're probably dead!
   abstract: true
   components:
-  - type: Trail
-    color: "#858585FF"
-    scale: 0.25
-    frequency: 0.012
-    lifetime: 0.16
-    lerpTime: 0.02
-    alphaLerpAmount: 0.2
-    alphaLerpTarget: 0
-    scaleLerpAmount: 0.08
-    scaleLerpTarget: 0.7
-    sprite:
-      sprite: /Textures/_BlackM/Effects/bullet_smoke.rsi
-      state: smoke_a
   - type: Reflective
   - type: FlyBySound
   - type: Clickable
+  - type: Shot
+    smoke: true
   - type: Sprite
     noRot: false
     sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi

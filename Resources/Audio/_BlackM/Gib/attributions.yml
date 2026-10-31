@@ -1,0 +1,4 @@
+- files: ["gib1.ogg", "gib2.ogg", "gib3.ogg", "drops1.ogg", "drops2.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Effects/gib1-3, Effects/Fluids/splat, blood1, blood2, slosh, Effects/explosion_small1, Effects/hit_kick."
+  source: "https://github.com/space-wizards/space-station-14/tree/master/Resources/Audio/Effects"

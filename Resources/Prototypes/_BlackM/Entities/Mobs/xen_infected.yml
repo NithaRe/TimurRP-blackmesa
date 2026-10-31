@@ -25,6 +25,28 @@
     color: "#808080"
     activateSound: null
     deactivateSound: null
+  - type: Gib
+    partsLifetime: 4
+    bloodColor: "#7d0a0d"
+    burstStrength: 1
+    splatCount: 8
+    splatRadius: 1.3
+    splats:
+    - BlackMGibSplat1
+    - BlackMGibSplat2
+    - BlackMGibSplat3
+    - BlackMGibSplat4
+    sound: !type:SoundCollectionSpecifier
+      collection: BlackMGib
+      params:
+        variation: 0.08
+        volume: 2
+    dropsSound: !type:SoundCollectionSpecifier
+      collection: BlackMGibDrops
+      params:
+        volume: -2
+    shakeStrength: 2
+    shakeRadius: 9
   - type: NpcFactionMember
     factions:
     - BlackMXen

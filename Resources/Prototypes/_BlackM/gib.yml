@@ -1,0 +1,82 @@
+- type: soundCollection
+  id: BlackMGib
+  files:
+  - /Audio/_BlackM/Gib/gib1.ogg
+  - /Audio/_BlackM/Gib/gib2.ogg
+  - /Audio/_BlackM/Gib/gib3.ogg
+
+- type: soundCollection
+  id: BlackMGibDrops
+  files:
+  - /Audio/_BlackM/Gib/drops1.ogg
+  - /Audio/_BlackM/Gib/drops2.ogg
+
+- type: entity
+  id: BlackMGibSplatBase
+  abstract: true
+  name: кровавые брызги
+  description: Свежая кровь. Совсем недавно это было живым.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _BlackM/Effects/Gib/splat.rsi
+    drawdepth: FloorObjects
+    noRot: false
+
+- type: entity
+  parent: BlackMGibSplatBase
+  id: BlackMGibSplat1
+  components:
+  - type: Sprite
+    state: splat1
+
+- type: entity
+  parent: BlackMGibSplatBase
+  id: BlackMGibSplat2
+  components:
+  - type: Sprite
+    state: splat2
+
+- type: entity
+  parent: BlackMGibSplatBase
+  id: BlackMGibSplat3
+  components:
+  - type: Sprite
+    state: splat3
+
+- type: entity
+  parent: BlackMGibSplatBase
+  id: BlackMGibSplat4
+  components:
+  - type: Sprite
+    state: splat4
+
+# - type: entity
+#   parent: MobBase
+#   id: MobBlackMSomething
+#   components:
+#   - type: Gib
+#     partsLifetime: 4
+#     partsScatter: 0.3     
+#     bloodColor: "#7d0a0d"  
+#     burstStrength: 1 
+#     splatCount: 6
+#     splatRadius: 1.3        
+#     splats:
+#     - BlackMGibSplat1
+#     - BlackMGibSplat2
+#     - BlackMGibSplat3
+#     - BlackMGibSplat4
+#     sound: !type:SoundCollectionSpecifier
+#       collection: BlackMGib
+#       params:
+#         variation: 0.06
+#         volume: 2
+#     dropsSound: !type:SoundCollectionSpecifier
+#       collection: BlackMGibDrops
+#       params:
+#         volume: -2
+#     shockRange: 3  
+#     shockForce: 4           
+#     shakeStrength: 2
+#     shakeRadius: 8
