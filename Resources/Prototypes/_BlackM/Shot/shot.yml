@@ -1,0 +1,23 @@
+- type: entity
+  id: BlackMMuzzleLight
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: PointLight
+    radius: 5
+    energy: 3.2
+    softness: 0.9
+    color: "#ffb44d"
+  - type: TimedDespawn
+    lifetime: 0.07
+
+- type: entity
+  id: BlackMImpactLight
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: PointLight
+    radius: 2.2
+    energy: 1.6
+    softness: 0.8
+    color: "#ffa040"
+  - type: TimedDespawn
+    lifetime: 0.05
