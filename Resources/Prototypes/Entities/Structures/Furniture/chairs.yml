@@ -262,6 +262,7 @@
   parent: ChairBase
   components:
   - type: Sprite
+    sprite: _BlackM/Structures/Furniture/chairs.rsi # BlackM
     state: chair
   - type: Construction
     graph: Seat
@@ -274,6 +275,7 @@
   suffix: White
   components:
   - type: Sprite
+    sprite: Structures/Furniture/chairs.rsi
     state: chair-greyscale
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
     convertTo: CosmicChair
@@ -285,6 +287,7 @@
   description: Apply butt.
   components:
   - type: Sprite
+    sprite: _BlackM/Structures/Furniture/chairs.rsi # BlackM
     state: stool
   - type: Construction
     graph: Seat
@@ -296,6 +299,7 @@
   parent: StoolBase
   components:
   - type: Sprite
+    sprite: _BlackM/Structures/Furniture/chairs.rsi # BlackM
     state: bar
   - type: Construction
     graph: Seat
@@ -320,6 +324,7 @@
   parent: OfficeChairBase # Goobstation - make the rolly chairs roll! CorvaxGoob Changes : Reverted
   components:
   - type: Sprite
+    sprite: _BlackM/Structures/Furniture/chairs.rsi # BlackM
     state: office-white
   - type: Construction
     graph: Seat
@@ -331,6 +336,7 @@
   parent: ChairOfficeLight
   components:
   - type: Sprite
+    sprite: _BlackM/Structures/Furniture/chairs.rsi # BlackM
     state: office-dark
   - type: Construction
     graph: Seat
@@ -343,6 +349,7 @@
   description: It looks comfy.
   components:
   - type: Sprite
+    sprite: _BlackM/Structures/Furniture/chairs.rsi # BlackM
     state: comfy
   - type: Construction
     graph: Seat
@@ -370,6 +377,7 @@
   parent: UnanchoredChairBase
   components:
   - type: Sprite
+    sprite: _BlackM/Structures/Furniture/chairs.rsi # BlackM
     state: wooden
   - type: Construction
     graph: Seat
@@ -415,6 +423,7 @@
   description: Looks uncomfortable.
   components:
   - type: Sprite
+    sprite: Structures/Furniture/chairs.rsi
     state: ritual
   - type: Construction
     graph: RitualSeat
@@ -439,6 +448,7 @@
   description: It's staring back.
   components:
   - type: Sprite
+    sprite: Structures/Furniture/chairs.rsi
     state: cursed
   - type: Strap
     buckleSound:

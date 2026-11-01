@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2020 Git-Nivrak <59925169+Git-Nivrak@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2020 Paul Ritter <ritter.paul1@googlemail.com>
 # SPDX-FileCopyrightText: 2020 Peter Wedder <burneddi@gmail.com>
-# SPDX-FileCopyrightText: 2020 Víctor Aguilera Puerto <6766154+Zumorica@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2020 VÃctor Aguilera Puerto <6766154+Zumorica@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2020 Ygg01 <daniel.fath7@gmail.com>
 # SPDX-FileCopyrightText: 2021 DrSmugleaf <DrSmugleaf@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2021 Galactic Chimp <GalacticChimpanzee@gmail.com>
@@ -205,9 +205,9 @@
   description: A square piece of metal standing on four metal legs.
   components:
   - type: Sprite
-    sprite: Structures/Furniture/Tables/generic.rsi
+    sprite: _BlackM/Structures/Furniture/Tables/generic.rsi # BlackM
   - type: Icon
-    sprite: Structures/Furniture/Tables/generic.rsi
+    sprite: _BlackM/Structures/Furniture/Tables/generic.rsi # BlackM
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: Metallic
@@ -575,9 +575,9 @@
   description: Do not apply fire to this. Rumour says it burns easily.
   components:
   - type: Sprite
-    sprite: Structures/Furniture/Tables/wood.rsi
+    sprite: _BlackM/Structures/Furniture/Tables/wood.rsi # BlackM
   - type: Icon
-    sprite: Structures/Furniture/Tables/wood.rsi
+    sprite: _BlackM/Structures/Furniture/Tables/wood.rsi # BlackM
   - type: Damageable
     damageModifierSet: Wood
   - type: Destructible

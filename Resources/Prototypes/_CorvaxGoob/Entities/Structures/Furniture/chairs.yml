@@ -21,6 +21,7 @@
   suffix: Vehicle
   components:
   - type: Sprite
+    sprite: _BlackM/Structures/Furniture/chairs.rsi # BlackM
     state: office-white
   - type: Construction
     graph: Seat
@@ -33,6 +34,7 @@
   suffix: Vehicle
   components:
   - type: Sprite
+    sprite: _BlackM/Structures/Furniture/chairs.rsi # BlackM
     state: office-dark
   - type: Construction
     graph: Seat
