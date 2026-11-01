@@ -1,4 +1,4 @@
-using System.Numerics;
+﻿using System.Numerics;
 using Content.Shared._BlackM.Shot;
 using Robust.Shared.Map;
 
@@ -12,8 +12,7 @@ public sealed class ShotState
     public Vector2 Dir;
     public float Age;
     public float Dist;
-
+    public float TrailAcc;
     public bool Visible = true;
-
     public float Phase;
 }

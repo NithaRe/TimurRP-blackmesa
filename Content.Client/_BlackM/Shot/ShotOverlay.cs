@@ -1,8 +1,10 @@
+﻿using System.Linq;
 using System.Numerics;
 using Content.Shared._BlackM.Shot;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Shared.Enums;
+using Robust.Shared.Graphics;
 using Robust.Shared.Map;
 using Robust.Shared.Maths;
 using Robust.Shared.Random;
@@ -14,25 +16,27 @@ public sealed class ShotOverlay : Overlay
 {
     [Dependency] private readonly IRobustRandom _random = default!;
 
-    private const int MaxParticles = 300;
+    private const string Path = "/Textures/_BlackM/Effects/Shot/";
+    private const int MaxParticles = 500;
+    private const int MaxTrailPoints = 2500;
     private const int TracerSteps = 7;
     private static readonly float Px = 1f / EyeManager.PixelsPerMeter;
 
-    private static readonly (float A, float L)[] MuzzleSpikes =
-    {
-        (-MathF.PI + 0.0f, 0.12f), (-2.4f, 0.18f), (-1.45f, 0.30f), (-0.72f, 0.52f), (-0.30f, 0.82f),
-        (0f, 1.0f), (0.30f, 0.82f), (0.72f, 0.52f), (1.45f, 0.30f), (2.4f, 0.18f),
-    };
-
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
-    private readonly Texture _smoke;
-    private readonly Dictionary<EntityUid, ShotState> _states;
-    private readonly List<Particle> _particles = new();
-    private readonly Vector2[] _buf = new Vector2[128];
-    private readonly Vector2[] _ring = new Vector2[64];
+    private readonly Texture[][] _puffs;
+    private readonly Texture[] _wisps;
+    private readonly Texture[][] _impacts;
 
-    private enum Kind { Flash, Spark, Smoke }
+    private readonly Dictionary<EntityUid, ShotState> _states;
+    private readonly IShotWorld _world;
+    private readonly List<Particle> _particles = new();
+
+    private readonly Dictionary<EntityUid, Ribbon> _open = new();
+    private readonly List<Ribbon> _ribbons = new();
+    private int _trailPoints;
+
+    private enum Kind { Puff, Impact, Spark }
 
     private sealed class Particle
     {
@@ -42,73 +46,134 @@ public sealed class ShotOverlay : Overlay
         public float Z, VZ;
         public bool Falls;
         public int Bounces;
+        public float Rise;
         public float Age, Life;
         public float Size;
-        public float Rot;
+        public float Rot, Spin;
         public float Drag;
         public float Alpha = 1f;
-        public Color Color, Color2, Color3;
-        public (float A, float L)[]? Spikes;
-        public float Valley = 0.24f;
-        public float EndSize;
+        public Texture[]? Frames;
+        public Color Color;
+        public Color? Lit;
+        public float LitFrac = 0.2f;
+        public float Vis = -1f;
+        public int TileX = int.MinValue, TileY = int.MinValue;
     }
 
-    public ShotOverlay(IResourceCache cache, Dictionary<EntityUid, ShotState> states)
+    private sealed class TrailPoint
+    {
+        public Vector2 Pos;
+        public Vector2 Perp;
+        public float Dist;
+        public float Age;
+        public float Seed;
+        public int Variant;
+        public float Vis = -1f;
+    }
+
+    private sealed class Ribbon
+    {
+        public MapId Map;
+        public readonly List<TrailPoint> Points = new();
+        public float Phase, Wavelength, Omega, Amp, Life, Width, Alpha, Rise;
+        public Color Color;
+        public Color Warm;
+        public float HeadDist;
+        public bool Open = true;
+    }
+
+    public ShotOverlay(IResourceCache cache, Dictionary<EntityUid, ShotState> states, IShotWorld world)
     {
         IoCManager.InjectDependencies(this);
         _states = states;
-        _smoke = cache.GetResource<TextureResource>("/Textures/_BlackM/Effects/Shot/smoke.png").Texture;
+        _world = world;
+
+        var smoke = cache.GetResource<RSIResource>(Path + "smoke.rsi").RSI;
+        _puffs = Enumerable.Range(1, 4).Select(i => Frames(smoke, $"puff{i}")).ToArray();
+
+        var trail = cache.GetResource<RSIResource>(Path + "trail.rsi").RSI;
+        _wisps = Enumerable.Range(1, 6).Select(i => Frames(trail, $"wisp{i}")[0]).ToArray();
+
+        var impact = cache.GetResource<RSIResource>(Path + "impact.rsi").RSI;
+        _impacts = Enumerable.Range(1, 2).Select(i => Frames(impact, $"impact_fire{i}")).ToArray();
     }
 
-    public void Muzzle(MapId map, Vector2 pos, Vector2 dir, ShotComponent c)
+    private static Texture[] Frames(RSI rsi, string state)
+        => rsi[state].GetFrames(default);
+
+    public void BeginTrail(EntityUid uid, MapId map, ShotComponent c)
     {
-        var s = c.MuzzleScale;
-        var angle = MathF.Atan2(dir.Y, dir.X) + _random.NextFloat(-0.07f, 0.07f);
+        if (!_random.Prob(c.TrailChance))
+            return;
 
-        var spikes = new (float A, float L)[MuzzleSpikes.Length];
-        for (var i = 0; i < spikes.Length; i++)
-            spikes[i] = (MuzzleSpikes[i].A, MuzzleSpikes[i].L * _random.NextFloat(0.82f, 1.12f));
-
-        Add(new Particle
+        var r = new Ribbon
         {
-            Kind = Kind.Flash, Map = map, Pos = pos + dir * 0.10f, Rot = angle, Life = 0.065f,
-            Size = 0.95f * s, Spikes = spikes, Valley = 0.24f,
-            Color = c.TracerColor, Color2 = Color.InterpolateBetween(c.TracerColor, c.CoreColor, 0.6f), Color3 = c.CoreColor,
+            Map = map,
+            Phase = _random.NextFloat(6.28f),
+            Wavelength = _random.NextFloat(1.0f, 1.7f),
+            Omega = _random.NextFloat(2.5f, 4.5f) * (_random.Prob(0.5f) ? 1f : -1f),
+            Amp = 0.14f * c.TrailWave,
+            Life = c.TrailLife * _random.NextFloat(0.85f, 1.15f),
+            Width = c.TrailWidth,
+            Alpha = c.SmokeAlpha,
+            Rise = 0.22f,
+            Color = c.SmokeColor,
+            Warm = Color.InterpolateBetween(c.TracerColor, Color.White, 0.5f),
+        };
+
+        _open[uid] = r;
+        _ribbons.Add(r);
+    }
+
+    public void AddTrailPoint(EntityUid uid, Vector2 pos, Vector2 dir, float dist)
+    {
+        if (!_open.TryGetValue(uid, out var r) || _trailPoints >= MaxTrailPoints)
+            return;
+
+        r.Points.Add(new TrailPoint
+        {
+            Pos = pos,
+            Perp = new Vector2(-dir.Y, dir.X),
+            Dist = dist,
+            Seed = _random.NextFloat(-1f, 1f),
+            Variant = _random.Next(_wisps.Length),
         });
 
-        for (var i = 0; i < (int) MathF.Round(5 * s); i++)
-        {
-            var a = angle + _random.NextFloat(-0.38f, 0.38f);
-            Add(new Particle
-            {
-                Kind = Kind.Spark, Map = map, Pos = pos + dir * 0.12f,
-                Vel = new Vector2(MathF.Cos(a), MathF.Sin(a)) * _random.NextFloat(8f, 16f),
-                Drag = 6f, Life = _random.NextFloat(0.08f, 0.16f), Size = _random.NextFloat(0.30f, 0.65f),
-                Color = Color.InterpolateBetween(c.TracerColor, c.CoreColor, _random.NextFloat(0f, 0.7f)),
-            });
-        }
+        r.HeadDist = dist;
+    }
 
-        if (c.Smoke)
-        {
-            for (var i = 0; i < 2; i++)
-                AddSmoke(map, pos + dir * 0.3f, dir * _random.NextFloat(1f, 2.4f), 0.2f * s, 0.7f * s, 0.18f);
-        }
+    public void EndTrail(EntityUid uid)
+    {
+        if (_open.Remove(uid, out var r))
+            r.Open = false;
+    }
+
+    private static Vector2 Displace(Ribbon r, TrailPoint p)
+    {
+        var grow = 0.15f + 1.3f * MathF.Sqrt(Math.Clamp(p.Age / r.Life, 0f, 1f));
+        var wave = MathF.Sin(p.Dist * MathF.Tau / r.Wavelength + r.Phase + p.Age * r.Omega) * r.Amp * grow;
+        wave += MathF.Sin(p.Dist * MathF.Tau / (r.Wavelength * 0.62f) + r.Phase * 1.7f - p.Age * r.Omega * 1.3f)
+                * r.Amp * grow * 0.18f;
+        var drift = p.Seed * 0.05f * p.Age;
+        return p.Pos + p.Perp * (wave + drift) + new Vector2(0f, p.Age * r.Rise * 0.55f);
     }
 
     public void Impact(MapId map, Vector2 pos, Vector2 dir, ShotComponent c)
     {
         var s = c.ImpactScale;
-        var backAngle = MathF.Atan2(-dir.Y, -dir.X);
-
-        var spikes = new (float A, float L)[8];
-        for (var k = 0; k < 8; k++)
-            spikes[k] = (-MathF.PI + k * MathF.PI / 4f, (k % 2 == 0 ? 1.0f : 0.62f) * _random.NextFloat(0.85f, 1.1f));
+        var back = new Vector2(-dir.X, -dir.Y);
+        var backAngle = MathF.Atan2(back.Y, back.X);
 
         Add(new Particle
         {
-            Kind = Kind.Flash, Map = map, Pos = pos, Rot = _random.NextFloat(6.28f), Life = 0.055f,
-            Size = 0.55f * s, Spikes = spikes, Valley = 0.22f,
-            Color = c.TracerColor, Color2 = Color.InterpolateBetween(c.TracerColor, c.CoreColor, 0.6f), Color3 = c.CoreColor,
+            Kind = Kind.Impact,
+            Map = map,
+            Pos = pos,
+            Rot = _random.NextFloat(6.28f),
+            Life = 0.085f,
+            Size = 1.0f * s,
+            Frames = _random.Pick(_impacts),
+            Color = Color.White,
         });
 
         for (var i = 0; i < (int) MathF.Round(8 * s); i++)
@@ -116,31 +181,50 @@ public sealed class ShotOverlay : Overlay
             var a = backAngle + _random.NextFloat(-1.2f, 1.2f);
             Add(new Particle
             {
-                Kind = Kind.Spark, Map = map, Pos = pos,
+                Kind = Kind.Spark,
+                Map = map,
+                Pos = pos,
                 Vel = new Vector2(MathF.Cos(a), MathF.Sin(a)) * _random.NextFloat(2.2f, 6.5f),
-                Z = _random.NextFloat(0.05f, 0.2f), VZ = _random.NextFloat(1f, 3.2f), Falls = true,
-                Bounces = _random.Prob(0.4f) ? 1 : 0, Drag = 2.4f,
-                Life = _random.NextFloat(0.3f, 0.65f), Size = _random.NextFloat(0.2f, 0.45f),
+                Z = _random.NextFloat(0.05f, 0.2f),
+                VZ = _random.NextFloat(1f, 3.2f),
+                Falls = true,
+                Bounces = _random.Prob(0.4f) ? 1 : 0,
+                Drag = 2.4f,
+                Life = _random.NextFloat(0.3f, 0.65f),
+                Size = _random.NextFloat(0.2f, 0.45f),
                 Color = Color.InterpolateBetween(c.TracerColor, c.CoreColor, _random.NextFloat(0f, 0.7f)),
             });
         }
 
-        if (c.Smoke)
+        if (!c.Smoke)
+            return;
+
+        var sz = c.SmokeScale * s;
+        for (int i = 0, n = Count(2, c.SmokeAmount); i < n; i++)
         {
-            for (var i = 0; i < 2; i++)
-                AddSmoke(map, pos, new Vector2(-dir.X, -dir.Y) * _random.NextFloat(0.3f, 1f), 0.15f * s, 0.55f * s, 0.16f);
+            Add(new Particle
+            {
+                Kind = Kind.Puff,
+                Map = map,
+                Pos = pos + _random.NextAngle().ToVec() * 0.1f,
+                Vel = back * _random.NextFloat(0.4f, 1.6f) + _random.NextAngle().ToVec() * 0.5f,
+                Drag = 2.4f,
+                Life = _random.NextFloat(0.8f, 1.3f),
+                Size = _random.NextFloat(0.45f, 0.8f) * sz,
+                Rot = _random.NextFloat(6.28f),
+                Spin = _random.NextFloat(-0.9f, 0.9f),
+                Frames = _random.Pick(_puffs),
+                Alpha = 0.65f * c.SmokeAlpha,
+                Color = c.SmokeColor,
+                Lit = c.TracerColor,
+                LitFrac = 0.22f,
+                Rise = _random.NextFloat(0.3f, 0.5f),
+            });
         }
     }
 
-    private void AddSmoke(MapId map, Vector2 pos, Vector2 vel, float size, float endSize, float alpha)
-    {
-        Add(new Particle
-        {
-            Kind = Kind.Smoke, Map = map, Pos = pos, Vel = vel, Drag = 3f, Life = _random.NextFloat(0.5f, 0.9f),
-            Size = size, Rot = _random.NextFloat(6.28f), Alpha = alpha, Color = new Color(0.78f, 0.78f, 0.8f),
-            EndSize = endSize,
-        });
-    }
+    private int Count(float baseCount, float amount)
+        => Math.Max(0, (int) MathF.Round(baseCount * amount + _random.NextFloat(-0.4f, 0.4f)));
 
     private void Add(Particle p)
     {
@@ -151,6 +235,7 @@ public sealed class ShotOverlay : Overlay
     protected override void FrameUpdate(FrameEventArgs args)
     {
         var dt = args.DeltaSeconds;
+        UpdateRibbons(dt);
 
         for (var i = _particles.Count - 1; i >= 0; i--)
         {
@@ -163,8 +248,34 @@ public sealed class ShotOverlay : Overlay
                 continue;
             }
 
+            var target = _world.Visible(p.Map, p.Pos) ? 1f : 0f;
+            p.Vis = p.Vis < 0f ? target : p.Vis + Math.Clamp(target - p.Vis, -dt * 7f, dt * 7f);
+
+            p.Rot += p.Spin * dt;
+            var oldPos = p.Pos;
             p.Pos += p.Vel * dt;
             p.Vel *= MathF.Max(0f, 1f - p.Drag * dt);
+
+            if (p.Kind == Kind.Puff && p.Vel.LengthSquared() > 0.01f)
+            {
+                var tx = (int) MathF.Floor(p.Pos.X);
+                var ty = (int) MathF.Floor(p.Pos.Y);
+                if (tx != p.TileX || ty != p.TileY)
+                {
+                    p.TileX = tx;
+                    p.TileY = ty;
+
+                    if (_world.Blocked(p.Map, p.Pos))
+                    {
+                        p.Pos = oldPos;
+                        p.Vel = Vector2.Zero;
+                        p.Life = MathF.Min(p.Life, p.Age + 0.4f);
+                    }
+                }
+            }
+
+            if (p.Rise != 0f)
+                p.Z += p.Rise * dt;
 
             if (!p.Falls)
                 continue;
@@ -189,14 +300,52 @@ public sealed class ShotOverlay : Overlay
         }
     }
 
+    private void UpdateRibbons(float dt)
+    {
+        _trailPoints = 0;
+
+        for (var i = _ribbons.Count - 1; i >= 0; i--)
+        {
+            var r = _ribbons[i];
+            var pts = r.Points;
+
+            var expired = 0;
+            foreach (var p in pts)
+            {
+                p.Age += dt;
+                if (p.Age > r.Life)
+                    expired++;
+            }
+
+            if (expired > 0)
+                pts.RemoveRange(0, Math.Min(expired, pts.Count));
+
+            foreach (var p in pts)
+            {
+                var target = _world.Visible(r.Map, p.Pos) ? 1f : 0f;
+                p.Vis = p.Vis < 0f ? target : p.Vis + Math.Clamp(target - p.Vis, -dt * 7f, dt * 7f);
+            }
+
+            if (!r.Open && pts.Count == 0)
+            {
+                _ribbons.RemoveAt(i);
+                continue;
+            }
+
+            _trailPoints += pts.Count;
+        }
+    }
+
     protected override void Draw(in OverlayDrawArgs args)
     {
         var handle = args.WorldHandle;
-        var view = args.WorldAABB.Enlarged(4f);
+        var view = args.WorldAABB.Enlarged(5f);
+
+        DrawRibbons(handle, view, args.MapId);
 
         foreach (var st in _states.Values)
         {
-            if (!st.Visible || st.Map != args.MapId || !view.Contains(st.Pos))
+            if (!st.Visible || st.Map != args.MapId || !view.Contains(st.Pos) || !_world.Visible(st.Map, st.Pos))
                 continue;
 
             DrawTracer(handle, st);
@@ -204,41 +353,133 @@ public sealed class ShotOverlay : Overlay
 
         foreach (var p in _particles)
         {
-            if (p.Map != args.MapId || !view.Contains(p.Pos))
-                continue;
+            if (p.Kind == Kind.Puff)
+                DrawParticle(handle, p, view, args.MapId);
+        }
 
-            var t = Math.Clamp(p.Age / p.Life, 0f, 1f);
-            var drawPos = p.Pos + new Vector2(0f, p.Z * 0.55f);
-
-            switch (p.Kind)
-            {
-                case Kind.Flash:
-                    DrawFlash(handle, p, drawPos, t);
-                    break;
-
-                case Kind.Spark:
-                {
-                    var rot = MathF.Atan2(p.Vel.Y + p.VZ * 0.55f, p.Vel.X);
-                    var speed = MathF.Sqrt(p.Vel.LengthSquared() + p.VZ * p.VZ * 0.3f);
-                    var len = MathF.Max(p.Size * 0.4f, p.Size * Math.Clamp(speed / 12f, 0.3f, 1f));
-                    var a = 1f - t;
-                    handle.SetTransform(Matrix3Helpers.CreateTransform(drawPos, rot));
-                    handle.DrawRect(new Box2(-len, -Px * 0.75f, 0f, Px * 0.75f), Tint(p.Color, a));
-                    break;
-                }
-
-                case Kind.Smoke:
-                {
-                    var size = MathHelper.Lerp(p.Size, p.EndSize, t);
-                    var a = p.Alpha * MathF.Sin(MathF.PI * MathF.Pow(t, 0.55f));
-                    handle.SetTransform(Matrix3Helpers.CreateTransform(drawPos, p.Rot));
-                    handle.DrawTextureRect(_smoke, Box2.CenteredAround(Vector2.Zero, new Vector2(size)), Tint(p.Color, a));
-                    break;
-                }
-            }
+        foreach (var p in _particles)
+        {
+            if (p.Kind != Kind.Puff)
+                DrawParticle(handle, p, view, args.MapId);
         }
 
         handle.SetTransform(Matrix3x2.Identity);
+    }
+
+    private void DrawRibbons(DrawingHandleWorld handle, Box2 view, MapId map)
+    {
+        foreach (var r in _ribbons)
+        {
+            if (r.Map != map || r.Points.Count < 2)
+                continue;
+
+            var pts = r.Points;
+            var prev = Displace(r, pts[0]);
+
+            for (var i = 1; i < pts.Count; i++)
+            {
+                var a = pts[i - 1];
+                var b = pts[i];
+                var pb = Displace(r, b);
+                var pa = prev;
+                prev = pb;
+
+                var vis = MathF.Min(a.Vis, b.Vis);
+                if (vis <= 0.01f || !view.Contains(pb))
+                    continue;
+
+                var d = pb - pa;
+                var len = d.Length();
+                if (len < 0.01f)
+                    continue;
+
+                var t = Math.Clamp((a.Age + b.Age) * 0.5f / r.Life, 0f, 1f);
+
+                var fromHead = MathF.Max(0f, r.HeadDist - (a.Dist + b.Dist) * 0.5f);
+                var alpha = r.Alpha * Smooth(0f, 0.9f, fromHead) * MathF.Pow(1f - t, 1.1f) * vis;
+                alpha *= 0.9f + 0.1f * b.Seed;
+
+                var taper = 0.30f + 0.70f * Smooth(0f, 2.2f, fromHead);
+                var width = r.Width * (0.5f + 1.9f * MathF.Pow(t, 0.6f)) * taper;
+
+                var heat = MathF.Exp(-(a.Age + b.Age) * 0.5f / 0.18f);
+                var color = Color.InterpolateBetween(r.Color, r.Warm, heat * 0.55f);
+
+                var tex = _wisps[a.Variant];
+                var center = (pa + pb) * 0.5f;
+                var angle = MathF.Atan2(d.Y, d.X);
+
+                DrawTex(handle, tex, center, angle, new Vector2(len * 2.0f, width * 2.1f), Tint(color, alpha * 0.34f));
+                DrawTex(handle, tex, center, angle, new Vector2(len * 2.0f, width), Tint(color, alpha));
+            }
+        }
+    }
+
+    private static float Smooth(float a, float b, float x)
+    {
+        var t = Math.Clamp((x - a) / (b - a), 0f, 1f);
+        return t * t * (3f - 2f * t);
+    }
+
+    private void DrawParticle(DrawingHandleWorld handle, Particle p, Box2 view, MapId map)
+    {
+        if (p.Map != map || p.Vis <= 0.01f || !view.Contains(p.Pos))
+            return;
+
+        var t = Math.Clamp(p.Age / p.Life, 0f, 1f);
+        var drawPos = p.Pos + new Vector2(0f, p.Z * 0.55f);
+
+        switch (p.Kind)
+        {
+            case Kind.Puff:
+                DrawAnim(handle, p.Frames!, t, drawPos, p.Rot, new Vector2(p.Size), SmokeColor(p, t), p.Alpha * p.Vis, true);
+                break;
+
+            case Kind.Impact:
+                DrawAnim(handle, p.Frames!, t, drawPos, p.Rot, new Vector2(p.Size), Color.White, p.Vis, false);
+                break;
+
+            case Kind.Spark:
+            {
+                var rot = MathF.Atan2(p.Vel.Y + p.VZ * 0.55f, p.Vel.X);
+                var speed = MathF.Sqrt(p.Vel.LengthSquared() + p.VZ * p.VZ * 0.3f);
+                var len = MathF.Max(p.Size * 0.4f, p.Size * Math.Clamp(speed / 12f, 0.3f, 1f));
+                handle.SetTransform(Matrix3Helpers.CreateTransform(drawPos, rot));
+                handle.DrawRect(new Box2(-len, -Px * 0.75f, 0f, Px * 0.75f), Tint(p.Color, (1f - t) * p.Vis));
+                break;
+            }
+        }
+    }
+
+    private static Color SmokeColor(Particle p, float t)
+        => p.Lit is { } lit
+            ? Color.InterpolateBetween(lit, p.Color, Math.Clamp(t / p.LitFrac, 0f, 1f))
+            : p.Color;
+
+    private static void DrawAnim(DrawingHandleWorld handle, Texture[] frames, float t, Vector2 center, float rot,
+        Vector2 size, Color color, float alpha, bool blend)
+    {
+        var pos = Math.Clamp(t, 0f, 1f) * (frames.Length - 1);
+        var i = (int) pos;
+        var f = pos - i;
+
+        if (!blend || i >= frames.Length - 1)
+        {
+            DrawTex(handle, frames[Math.Min(i, frames.Length - 1)], center, rot, size, Tint(color, alpha));
+            return;
+        }
+
+        DrawTex(handle, frames[i], center, rot, size, Tint(color, alpha * (1f - f)));
+        DrawTex(handle, frames[i + 1], center, rot, size, Tint(color, alpha * f));
+    }
+
+    private static void DrawTex(DrawingHandleWorld handle, Texture tex, Vector2 center, float rot, Vector2 size, Color color)
+    {
+        if (color.A <= 0.01f)
+            return;
+
+        handle.SetTransform(Matrix3Helpers.CreateTransform(center, rot));
+        handle.DrawTextureRect(tex, Box2.CenteredAround(Vector2.Zero, size), color);
     }
 
     private void DrawTracer(DrawingHandleWorld handle, ShotState st)
@@ -270,46 +511,6 @@ public sealed class ShotOverlay : Overlay
         }
 
         handle.DrawRect(new Box2(-Px * 2f, -core * 0.75f, Px * 1.5f, core * 0.75f), c.CoreColor);
-    }
-
-    private void DrawFlash(DrawingHandleWorld handle, Particle p, Vector2 pos, float t)
-    {
-        if (p.Spikes == null)
-            return;
-
-        var shrink = 1f - 0.35f * t;
-        var alpha = 1f - 0.5f * t;
-        handle.SetTransform(Matrix3Helpers.CreateTransform(pos, p.Rot));
-
-        DrawStar(handle, p.Spikes, p.Valley, p.Size * shrink, Tint(p.Color, alpha));
-        DrawStar(handle, p.Spikes, p.Valley, p.Size * shrink * 0.62f, Tint(p.Color2, alpha));
-        DrawStar(handle, p.Spikes, p.Valley, p.Size * shrink * 0.30f, Tint(p.Color3, alpha));
-    }
-
-    private void DrawStar(DrawingHandleWorld handle, (float A, float L)[] spikes, float valley, float size, Color color)
-    {
-        var n = spikes.Length;
-        var points = 0;
-
-        for (var k = 0; k < n; k++)
-        {
-            var (a, l) = spikes[k];
-            var a2 = spikes[(k + 1) % n].A + (k == n - 1 ? MathF.Tau : 0f);
-            var m = (a + a2) * 0.5f;
-
-            _ring[points++] = new Vector2(MathF.Cos(a), MathF.Sin(a)) * l * size;
-            _ring[points++] = new Vector2(MathF.Cos(m), MathF.Sin(m)) * valley * size;
-        }
-
-        var count = 0;
-        for (var k = 0; k < points; k++)
-        {
-            _buf[count++] = Vector2.Zero;
-            _buf[count++] = _ring[k];
-            _buf[count++] = _ring[(k + 1) % points];
-        }
-
-        handle.DrawPrimitives(DrawPrimitiveTopology.TriangleList, _buf.AsSpan(0, count), color);
     }
 
     private static Color Tint(Color c, float alpha)

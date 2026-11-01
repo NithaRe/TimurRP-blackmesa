@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "https://kenney.nl/assets",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "impact_fire1",
+      "delays": [
+        [
+          0.02,
+          0.03,
+          0.04
+        ]
+      ]
+    },
+    {
+      "name": "impact_fire2",
+      "delays": [
+        [
+          0.02,
+          0.03,
+          0.04
+        ]
+      ]
+    },
+    {
+      "name": "impact_green1",
+      "delays": [
+        [
+          0.02,
+          0.03,
+          0.04
+        ]
+      ]
+    },
+    {
+      "name": "impact_green2",
+      "delays": [
+        [
+          0.02,
+          0.03,
+          0.04
+        ]
+      ]
+    },
+    {
+      "name": "impact_blue1",
+      "delays": [
+        [
+          0.02,
+          0.03,
+          0.04
+        ]
+      ]
+    },
+    {
+      "name": "impact_blue2",
+      "delays": [
+        [
+          0.02,
+          0.03,
+          0.04
+        ]
+      ]
+    },
+    {
+      "name": "impact_red1",
+      "delays": [
+        [
+          0.02,
+          0.03,
+          0.04
+        ]
+      ]
+    },
+    {
+      "name": "impact_red2",
+      "delays": [
+        [
+          0.02,
+          0.03,
+          0.04
+        ]
+      ]
+    }
+  ]
+}
