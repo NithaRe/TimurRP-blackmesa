@@ -189,8 +189,8 @@
     - BrigmedicGlasses # CorvaxGoob-loadouts
     - BrigmedicJumpsuit
     - BrigmedicOuterClothing
-    - MedicalGloves
-    - BrigmedicBackpack
+  #   - MedicalGloves
+  #  - BrigmedicBackpack
     - SecurityMelee # EE parity, make corpsman able to carry weapons like the rest of security
     - SecurityShoes
     - SecurityNeck
@@ -257,7 +257,7 @@
     - MedicalDoctorHead
     - MedicalMask
     - VirologistJumpsuit
-    - MedicalGloves
+  #  - MedicalGloves
     - VirologistBackpack
     - VirologistOuterClothing
     - MedicalShoes

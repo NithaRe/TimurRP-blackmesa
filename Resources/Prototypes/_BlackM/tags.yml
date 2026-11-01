@@ -14,3 +14,5 @@
   id: AmsPartStabilizer
 - type: Tag
   id: AmsPartCasing
+- type: Tag
+  id: HECU

@@ -257,40 +257,35 @@
   desc: salvage-dungeon-mod-experiment
   proto: Experiment
   biomes:
-    #- LowDesert
-    - Grasslands
-    - Asteroid
     - Zen # BlackM
 
-- type: salvageDungeonMod
-  id: LavaBrig
-  desc: salvage-dungeon-mod-lava-brig
-  proto: LavaBrig
-  biomes:
-    - Lava
-    - Asteroid
+# - type: salvageDungeonMod
+#   id: LavaBrig
+#   desc: salvage-dungeon-mod-lava-brig
+#   proto: LavaBrig
+#   biomes:
+#     - Lava
+#     - Asteroid
 
 - type: salvageDungeonMod
   id: Mineshaft
   desc: salvage-dungeon-mod-mineshaft
   proto: Mineshaft
   biomes:
-    - Caves
-    - Asteroid
     - Zen # BlackM
 
-- type: salvageDungeonMod
-  id: SnowyLabs
-  desc: salvage-dungeon-mod-snowy-labs
-  proto: SnowyLabs
-  biomes:
-    - Snow
-    - Asteroid
+# - type: salvageDungeonMod
+#   id: SnowyLabs
+#   desc: salvage-dungeon-mod-snowy-labs
+#   proto: SnowyLabs
+#   biomes:
+#     - Snow
+#     - Asteroid
 
-- type: salvageDungeonMod
-  id: Haunted
-  desc: salvage-dungeon-mod-haunted
-  proto: Haunted
-  biomes:
-    - Caves
-    - Asteroid
+# - type: salvageDungeonMod
+#   id: Haunted
+#   desc: salvage-dungeon-mod-haunted
+#   proto: Haunted
+#   biomes:
+#     - Caves
+#     - Asteroid

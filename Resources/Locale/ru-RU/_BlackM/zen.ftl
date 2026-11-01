@@ -3,3 +3,5 @@ ent-KultapkaZenInfected = Заражённый зен-Существо
 
 ent-KultapkaZen2 = Зен-Существо
     .desc = Говорят, успокаивает нервы перед испытаниями.
+
+salvage-biome-mod-zen-desc = Зен

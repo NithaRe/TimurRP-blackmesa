@@ -1,16 +1,11 @@
 - type: entity
+  abstract: true
   name: Хаундай
-  id: MobHoundeyeBlackM
+  id: MobHoundeyeBlackMBase
   parent: SimpleMobBase
   description: Стайное существо из Зен. Воет — замедляет. Таранит — отбрасывает.
   components:
   - type: Houndeye
-  - type: XenSampleSource
-    filledCapsulePrototype: XenSampleCapsuleHoundeye
-  - type: SpawnLootOnDeath
-    table: !type:AllSelector
-      children:
-      - id: XenSampleCapsuleHoundeye
   - type: Actions
   - type: MobSpawnZap
   - type: NightVision
@@ -81,3 +76,14 @@
         - MobMask
         layer:
         - MobLayer
+
+- type: entity
+  parent: MobHoundeyeBlackMBase
+  id: MobHoundeyeBlackM
+  components:
+  - type: XenSampleSource
+    filledCapsulePrototype: XenSampleCapsuleHoundeye
+  - type: SpawnLootOnDeath
+    table: !type:AllSelector
+      children:
+      - id: XenSampleCapsuleHoundeye

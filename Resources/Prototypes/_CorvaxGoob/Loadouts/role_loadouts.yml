@@ -2,10 +2,10 @@
   id: JobSurgeon
   groups:
     - Inventory
-    - SurgeonHead
+  #  - SurgeonHead
     - MedicalEyewear
     - SurgeonJumpsuit
-    - MedicalGloves
+  #  - MedicalGloves
     - MedicalBackpack
     - MedicalShoes
     - SurgeonScalpel

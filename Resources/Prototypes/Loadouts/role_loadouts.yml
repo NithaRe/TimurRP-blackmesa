@@ -691,7 +691,7 @@
     - MedicalMask
     - ChiefMedicalOfficerGlasses # CorvaxGoob-loadouts: MedicalEyewear > ChiefMedicalOfficerGlasses
     - ChiefMedicalOfficerJumpsuit
-    - MedicalGloves
+  #  - MedicalGloves
     - MedicalBackpack
     - ChiefMedicalOfficerOuterClothing
     #  - ChiefMedicalOfficerNeck #blackM
@@ -713,7 +713,7 @@
     - MedicalMask
     - MedicalEyewear
     - MedicalDoctorJumpsuit
-    - MedicalGloves
+  #  - MedicalGloves
     - MedicalBackpack
     - MedicalDoctorOuterClothing
     - MedicalShoes
@@ -750,7 +750,7 @@
     - ChemistHead # Goobstation
     - MedicalMask
     - ChemistJumpsuit
-    - MedicalGloves
+  #  - MedicalGloves
     - ChemistBackpack
     - ChemistOuterClothing
     - MedicalShoes
@@ -771,7 +771,7 @@
     - MedicalMask
     - MedicalEyewear
     - ParamedicJumpsuit
-    - MedicalGloves
+  #  - MedicalGloves
     - MedicalBackpack
     - ParamedicOuterClothing
     - ParamedicShoes
