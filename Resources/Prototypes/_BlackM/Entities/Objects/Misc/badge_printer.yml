@@ -11,7 +11,6 @@
           map: ["enum.PowerDeviceVisualLayers.Powered"]
     - type: BadgePrinter
       cardSlotId: badge_printer_card_slot
-      paperPrototype: Paper
       maxBadgesPerPrint: 6
       availableBadges:
         - proto: BadgeSecurity

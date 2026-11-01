@@ -4,7 +4,7 @@
   suffix: Kovak Checkpoint
   components:
   - type: NavMapBeacon
-    defaultText: КПП
+    defaultText: default-station-beacon-kovak-checkpoint
     color: "#54327d"
 
 - type: entity
@@ -13,7 +13,7 @@
   suffix: Kovak Interrogation
   components:
   - type: NavMapBeacon
-    defaultText: Допросная
+    defaultText: default-station-beacon-kovak-interrogation
     color: "#54327d"
 
 - type: entity
@@ -22,7 +22,7 @@
   suffix: Kovak
   components:
   - type: NavMapBeacon
-    defaultText: Ковак
+    defaultText: default-station-beacon-kovak
     color: "#54327d"
 
 - type: entity
@@ -31,7 +31,7 @@
   suffix: Kovak Prison
   components:
   - type: NavMapBeacon
-    defaultText: Тюрьма
+    defaultText: default-station-beacon-kovak-prison
     color: "#54327d"
 
 - type: entity
@@ -40,7 +40,7 @@
   suffix: Kovak Operator
   components:
   - type: NavMapBeacon
-    defaultText: Оператор ковак
+    defaultText: default-station-beacon-kovak-operator
     color: "#54327d"
 
 - type: entity
@@ -49,7 +49,7 @@
   suffix: Kovak Head
   components:
   - type: NavMapBeacon
-    defaultText: Глава ковак
+    defaultText: default-station-beacon-kovak-head
     color: "#54327d"
 
 - type: entity
@@ -58,7 +58,7 @@
   suffix: Kovak Locker Room
   components:
   - type: NavMapBeacon
-    defaultText: Раздевалка ковак
+    defaultText: default-station-beacon-kovak-locker
     color: "#54327d"
 
 - type: entity
@@ -67,7 +67,7 @@
   suffix: Kovak Holding Cell
   components:
   - type: NavMapBeacon
-    defaultText: КПЗ
+    defaultText: default-station-beacon-kovak-holding
     color: "#54327d"
 
 - type: entity
@@ -76,7 +76,7 @@
   suffix: Medical Morgue
   components:
   - type: NavMapBeacon
-    defaultText: Морг
+    defaultText: default-station-beacon-med-morgue
     color: "#b0beff"
 
 - type: entity
@@ -85,7 +85,7 @@
   suffix: Medical Wards
   components:
   - type: NavMapBeacon
-    defaultText: Палаты
+    defaultText: default-station-beacon-med-wards
     color: "#b0beff"
 
 - type: entity
@@ -94,7 +94,7 @@
   suffix: Medical Storage
   components:
   - type: NavMapBeacon
-    defaultText: Склад
+    defaultText: default-station-beacon-med-storage
     color: "#b0beff"
 
 - type: entity
@@ -103,7 +103,7 @@
   suffix: Medical Reception
   components:
   - type: NavMapBeacon
-    defaultText: Приемная
+    defaultText: default-station-beacon-med-reception
     color: "#b0beff"
 
 - type: entity
@@ -112,7 +112,7 @@
   suffix: Medical Surgery
   components:
   - type: NavMapBeacon
-    defaultText: Хирургия
+    defaultText: default-station-beacon-med-surgery
     color: "#b0beff"
 
 - type: entity
@@ -121,7 +121,7 @@
   suffix: Chief Medical Officer
   components:
   - type: NavMapBeacon
-    defaultText: Глав Врач
+    defaultText: default-station-beacon-med-chief
     color: "#b0beff"
 
 - type: entity
@@ -130,7 +130,7 @@
   suffix: Science Reception
   components:
   - type: NavMapBeacon
-    defaultText: Приемная
+    defaultText: default-station-beacon-sci-reception
     color: "#ff9100"
 
 - type: entity
@@ -139,7 +139,7 @@
   suffix: Robotics
   components:
   - type: NavMapBeacon
-    defaultText: Робототехника
+    defaultText: default-station-beacon-sci-robotics
     color: "#ff9100"
 
 - type: entity
@@ -148,7 +148,7 @@
   suffix: Artifacts Lab
   components:
   - type: NavMapBeacon
-    defaultText: Артефакты
+    defaultText: default-station-beacon-sci-artifacts
     color: "#ff9100"
 
 - type: entity
@@ -157,7 +157,7 @@
   suffix: Zen Research
   components:
   - type: NavMapBeacon
-    defaultText: Изучение Зена
+    defaultText: default-station-beacon-sci-zen-research
     color: "#ff9100"
 
 - type: entity
@@ -166,7 +166,7 @@
   suffix: Science Storage
   components:
   - type: NavMapBeacon
-    defaultText: Склад
+    defaultText: default-station-beacon-sci-storage
     color: "#ff9100"
 
 - type: entity
@@ -175,7 +175,7 @@
   suffix: Research Director
   components:
   - type: NavMapBeacon
-    defaultText: Научный руководитель
+    defaultText: default-station-beacon-sci-director
     color: "#ff9100"
 
 - type: entity
@@ -184,7 +184,7 @@
   suffix: AME
   components:
   - type: NavMapBeacon
-    defaultText: Анти масс спектрометр
+    defaultText: default-station-beacon-eng-ame
     color: "#ffff00"
 
 - type: entity
@@ -193,7 +193,7 @@
   suffix: DAM
   components:
   - type: NavMapBeacon
-    defaultText: ДАМ
+    defaultText: default-station-beacon-eng-dam
     color: "#ffff00"
 
 - type: entity
@@ -202,7 +202,7 @@
   suffix: Chief Engineer
   components:
   - type: NavMapBeacon
-    defaultText: Главный инженер
+    defaultText: default-station-beacon-eng-chief
     color: "#ffff00"
 
 - type: entity
@@ -211,9 +211,8 @@
   suffix: SMES
   components:
   - type: NavMapBeacon
-    defaultText: Смэсы
+    defaultText: default-station-beacon-eng-smes
     color: "#ffff00"
-
 
 - type: entity
   parent: DefaultStationBeacon
@@ -221,7 +220,7 @@
   suffix: Cargo Reception
   components:
   - type: NavMapBeacon
-    defaultText: Приемная
+    defaultText: default-station-beacon-cargo-reception
     color: "#a17b4a"
 
 - type: entity
@@ -230,7 +229,7 @@
   suffix: Quartermaster
   components:
   - type: NavMapBeacon
-    defaultText: Квартирмейстер
+    defaultText: default-station-beacon-cargo-quartermaster
     color: "#a17b4a"
 
 - type: entity
@@ -239,7 +238,7 @@
   suffix: Cargo Main Hall
   components:
   - type: NavMapBeacon
-    defaultText: Основной зал
+    defaultText: default-station-beacon-cargo-main-hall
     color: "#a17b4a"
 
 - type: entity
@@ -248,7 +247,7 @@
   suffix: Cargo Sale
   components:
   - type: NavMapBeacon
-    defaultText: Продажа
+    defaultText: default-station-beacon-cargo-sale
     color: "#a17b4a"
 
 - type: entity
@@ -257,7 +256,7 @@
   suffix: Cargo Order Receiving
   components:
   - type: NavMapBeacon
-    defaultText: Получение заказов
+    defaultText: default-station-beacon-cargo-orders
     color: "#a17b4a"
 
 - type: entity
@@ -266,7 +265,7 @@
   suffix: Complex Director
   components:
   - type: NavMapBeacon
-    defaultText: Руководитель комплекса
+    defaultText: default-station-beacon-command-director
     color: "#ffffff"
 
 - type: entity
@@ -275,7 +274,7 @@
   suffix: Bridge Command
   components:
   - type: NavMapBeacon
-    defaultText: Командование комплекса
+    defaultText: default-station-beacon-command-bridge
     color: "#ffffff"
 
 - type: entity
@@ -284,7 +283,7 @@
   suffix: Bureaucracy
   components:
   - type: NavMapBeacon
-    defaultText: Бюрократия
+    defaultText: default-station-beacon-command-bureaucracy
     color: "#ffffff"
 
 - type: entity
@@ -293,7 +292,7 @@
   suffix: Assembly Hall
   components:
   - type: NavMapBeacon
-    defaultText: Зал сбора
+    defaultText: default-station-beacon-command-assembly-hall
     color: "#ffffff"
 
 - type: entity
@@ -302,7 +301,7 @@
   suffix: Elevator Arrival
   components:
   - type: NavMapBeacon
-    defaultText: Лифт Прибытие
+    defaultText: default-station-beacon-elevator-arrival
     color: "#9e9e9e"
 
 - type: entity
@@ -311,7 +310,7 @@
   suffix: Elevator Departure
   components:
   - type: NavMapBeacon
-    defaultText: Лифт Отхода
+    defaultText: default-station-beacon-elevator-departure
     color: "#9e9e9e"
 
 - type: entity
@@ -320,7 +319,7 @@
   suffix: Elevator Staff
   components:
   - type: NavMapBeacon
-    defaultText: Лифт Персонала
+    defaultText: default-station-beacon-elevator-staff
     color: "#9e9e9e"
 
 - type: entity
@@ -329,7 +328,7 @@
   suffix: AMS Room
   components:
   - type: NavMapBeacon
-    defaultText: Автоматическая комната АМС
+    defaultText: default-station-beacon-ams-room
     color: "#ff3b3b"
 
 - type: entity
@@ -338,7 +337,7 @@
   suffix: Zen Expedition
   components:
   - type: NavMapBeacon
-    defaultText: Экспедиции ЗЕН
+    defaultText: default-station-beacon-zen-expedition
     color: "#7cff6b"
 
 - type: entity
@@ -347,7 +346,7 @@
   suffix: Zen Portal
   components:
   - type: NavMapBeacon
-    defaultText: Портал в ЗЕН
+    defaultText: default-station-beacon-zen-portal
     color: "#7cff6b"
 
 - type: entity
@@ -356,5 +355,5 @@
   suffix: Zen Expedition Storage
   components:
   - type: NavMapBeacon
-    defaultText: Склад ЗЕН экспедиций
+    defaultText: default-station-beacon-zen-expedition-storage
     color: "#7cff6b"

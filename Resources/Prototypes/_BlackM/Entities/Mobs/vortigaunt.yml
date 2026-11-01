@@ -1,6 +1,7 @@
 - type: entity
+  abstract: true
   name: Вортигонт
-  id: MobVortigauntBlackM
+  id: MobVortigauntBlackMBase
   parent: SimpleMobBase
   description: пришелец из Зен. Его изумрудные молнии — последнее, что видят многие.
   components:
@@ -13,14 +14,6 @@
     stunWaveRange: 5
     stunDuration: 2.5
     stunWaveDamage: 8
-  - type: XenSampleSource
-    filledCapsulePrototype: XenSampleCapsuleVortigaunt
-    sampleDelay: 6
-    sampleCooldown: 300
-  - type: SpawnLootOnDeath
-    table: !type:AllSelector
-      children:
-      - id: XenSampleCapsuleVortigaunt
   - type: Actions
   - type: DoAfter
   - type: Speech
@@ -95,6 +88,19 @@
         - MobMask
         layer:
         - MobLayer
+
+- type: entity
+  parent: MobVortigauntBlackMBase
+  id: MobVortigauntBlackM
+  components:
+  - type: XenSampleSource
+    filledCapsulePrototype: XenSampleCapsuleVortigaunt
+    sampleDelay: 6
+    sampleCooldown: 300
+  - type: SpawnLootOnDeath
+    table: !type:AllSelector
+      children:
+      - id: XenSampleCapsuleVortigaunt
 
 - type: entity
   name: спавнер вортигонта

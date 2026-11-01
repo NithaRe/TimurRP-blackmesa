@@ -1259,7 +1259,7 @@
   name: loadout-group-roboticist-gloves
   minLimit: 0
   loadouts:
-  - LatexGloves
+  #- LatexGloves
   - PurpleGloves
   - RobohandsGloves
 
@@ -1421,11 +1421,11 @@
 #  - BrigmedicVestArmor
   #Corvax-Goob-brigmedic-loadout-update-end
 
-- type: loadoutGroup
-  id: BrigmedicBackpack
-  name: loadout-group-brigmedic-backpack
-  loadouts:
-  - BrigmedicBackpack
+# - type: loadoutGroup
+#  id: BrigmedicBackpack
+#  name: loadout-group-brigmedic-backpack
+#  loadouts:
+#  - BrigmedicBackpack
 #  - BrigmedicSatchel #blackm 
 #  - BrigmedicDuffel #blackm
 #  - BrigmedicMessenger #blackm   

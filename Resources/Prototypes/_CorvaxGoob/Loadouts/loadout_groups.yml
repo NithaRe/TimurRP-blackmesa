@@ -1,11 +1,11 @@
 # Medical
-- type: loadoutGroup
-  id: SurgeonHead
-  name: loadout-group-surgeon-head
-  loadouts:
-  - BlueSurgeryCap
-  - GreenSurgeryCap
-  - PurpleSurgeryCap
+# - type: loadoutGroup
+#  id: SurgeonHead
+#  name: loadout-group-surgeon-head
+#  loadouts:
+  #- BlueSurgeryCap
+  #- GreenSurgeryCap
+  #- PurpleSurgeryCap
 
 - type: loadoutGroup
   id: SurgeonJumpsuit

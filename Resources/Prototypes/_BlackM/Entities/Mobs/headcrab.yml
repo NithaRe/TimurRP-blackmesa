@@ -1,16 +1,11 @@
 - type: entity
+  abstract: true
   name: Хедкраб
-  id: MobHeadcrabBlackM
+  id: MobHeadcrabBlackMBase
   parent: SimpleMobBase
   description: Паразит из другого измерения. Ищет новый череп.
   components:
   - type: Headcrab
-  - type: XenSampleSource
-    filledCapsulePrototype: XenSampleCapsuleHeadcrab
-  - type: SpawnLootOnDeath
-    table: !type:AllSelector
-      children:
-      - id: XenSampleCapsuleHeadcrab
   - type: Actions
   - type: DoAfter
   - type: Muted
@@ -91,3 +86,14 @@
         - MobMask
         layer:
         - MobLayer
+
+- type: entity
+  parent: MobHeadcrabBlackMBase
+  id: MobHeadcrabBlackM
+  components:
+  - type: XenSampleSource
+    filledCapsulePrototype: XenSampleCapsuleHeadcrab
+  - type: SpawnLootOnDeath
+    table: !type:AllSelector
+      children:
+      - id: XenSampleCapsuleHeadcrab

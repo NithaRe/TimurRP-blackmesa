@@ -1290,7 +1290,7 @@
   name: loadout-group-scientist-gloves
   minLimit: 0
   loadouts:
-  - LatexGloves
+#  - LatexGloves
 #  - PurpleGloves
   - RobohandsGloves
 
@@ -1612,13 +1612,13 @@
   - MedicalDoctorPDA
   - SeniorPhysicianPDA
 
-- type: loadoutGroup
-  id: MedicalGloves
-  name: loadout-group-medical-gloves
-  minLimit: 1 # CorvaxGoob-loadouts: 0 > 1
-  loadouts:
-  - LatexGloves
-  - NitrileGloves
+# - type: loadoutGroup
+#  id: MedicalGloves
+#  name: loadout-group-medical-gloves
+#  minLimit: 1 # CorvaxGoob-loadouts: 0 > 1
+#  loadouts:
+#  - LatexGloves
+# - NitrileGloves
 
 - type: loadoutGroup
   id: MedicalMask

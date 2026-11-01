@@ -1,4 +1,4 @@
 - type: salvageBiomeMod
   id: Zen
-  desc: Зен
+  desc: salvage-biome-mod-zen-desc
   biome: Zen
