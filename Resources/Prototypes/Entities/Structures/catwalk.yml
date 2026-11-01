@@ -40,10 +40,10 @@
   components:
   - type: Clickable
   - type: Sprite
-    sprite: Structures/catwalk.rsi
+    sprite: _BlackM/Structures/catwalk.rsi # BlackM
     drawdepth: FloorTiles
   - type: Icon
-    sprite: Structures/catwalk.rsi
+    sprite: _BlackM/Structures/catwalk.rsi # BlackM
     state: catwalk_preview
   - type: Transform
     anchored: true
