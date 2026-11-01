@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "https://kenney.nl/assets/smoke-particles",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "bullet"
+    },
+    {
+      "name": "bullet_rifle"
+    },
+    {
+      "name": "bullet_pellet"
+    },
+    {
+      "name": "bullet_green"
+    },
+    {
+      "name": "bullet_blue"
+    },
+    {
+      "name": "bullet_red"
+    }
+  ]
+}

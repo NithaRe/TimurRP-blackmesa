@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "https://kenney.nl/assets",
+  "size": {
+    "x": 64,
+    "y": 16
+  },
+  "states": [
+    {
+      "name": "wisp1"
+    },
+    {
+      "name": "wisp2"
+    },
+    {
+      "name": "wisp3"
+    },
+    {
+      "name": "wisp4"
+    },
+    {
+      "name": "wisp5"
+    },
+    {
+      "name": "wisp6"
+    }
+  ]
+}
