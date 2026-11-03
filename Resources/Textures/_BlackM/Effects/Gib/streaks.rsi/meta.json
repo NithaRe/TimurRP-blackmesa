@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "https://kenney.nl/assets",
+  "size": {
+    "x": 24,
+    "y": 6
+  },
+  "states": [
+    {
+      "name": "streak1"
+    },
+    {
+      "name": "streak2"
+    }
+  ]
+}

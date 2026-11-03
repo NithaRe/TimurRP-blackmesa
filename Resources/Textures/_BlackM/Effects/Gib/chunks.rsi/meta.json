@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "https://kenney.nl/assets",
+  "size": {
+    "x": 16,
+    "y": 16
+  },
+  "states": [
+    {
+      "name": "meat1"
+    },
+    {
+      "name": "meat2"
+    },
+    {
+      "name": "meat3"
+    },
+    {
+      "name": "meat4"
+    },
+    {
+      "name": "organ1"
+    },
+    {
+      "name": "organ2"
+    },
+    {
+      "name": "bone1"
+    },
+    {
+      "name": "bone2"
+    },
+    {
+      "name": "bone3"
+    }
+  ]
+}

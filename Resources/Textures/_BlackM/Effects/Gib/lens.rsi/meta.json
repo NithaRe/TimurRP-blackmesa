@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "https://kenney.nl/assets",
+  "size": {
+    "x": 128,
+    "y": 128
+  },
+  "states": [
+    {
+      "name": "lens1"
+    },
+    {
+      "name": "lens2"
+    },
+    {
+      "name": "lens3"
+    },
+    {
+      "name": "lens4"
+    },
+    {
+      "name": "lens5"
+    }
+  ]
+}
