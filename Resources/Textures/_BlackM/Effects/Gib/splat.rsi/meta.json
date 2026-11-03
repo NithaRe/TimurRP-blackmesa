@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "license": "CC0-1.0",
-  "copyright": "Generated procedurally for _BlackM Gib",
+  "license": "CC-BY-SA-3.0",
+  "copyright": "https://kenney.nl/assets",
   "size": {
     "x": 64,
     "y": 64
@@ -18,6 +18,18 @@
     },
     {
       "name": "splat4"
+    },
+    {
+      "name": "splat5"
+    },
+    {
+      "name": "splat6"
+    },
+    {
+      "name": "splat7"
+    },
+    {
+      "name": "splat8"
     }
   ]
 }

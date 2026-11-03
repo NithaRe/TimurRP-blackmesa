@@ -4,9 +4,10 @@ using Content.Shared._BlackM.Gib;
 using Content.Shared.Camera;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs;
+using Content.Shared.Physics;
 using Robust.Server.Audio;
-using Robust.Shared.Audio;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
@@ -26,12 +27,20 @@ public sealed class GibSystem : EntitySystem
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IMapManager _mapMan = default!;
     [Dependency] private readonly SharedTransformSystem _xform = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly IComponentFactory _compFactory = default!;
+
+    private EntityQuery<OccluderComponent> _occluders;
+
+    private const float ClearanceRadius = 1.8f;
 
     public override void Initialize()
     {
         base.Initialize();
+        _occluders = GetEntityQuery<OccluderComponent>();
         SubscribeLocalEvent<GibComponent, MobStateChangedEvent>(OnMobStateChanged);
     }
 
@@ -53,8 +62,12 @@ public sealed class GibSystem : EntitySystem
                 QueueDel(item);
         }
 
+        var (reach, push) = ComputeClearance(mapPos);
+        var burstPos = mapPos.Position + push;
+
         RaiseNetworkEvent(
-            new GibBurstEvent(mapPos.MapId, mapPos.Position, comp.BurstStrength, comp.BloodColor),
+            new GibBurstEvent(mapPos.MapId, burstPos, comp.BurstStrength, comp.BloodColor, reach,
+                comp.Chunks, comp.Nova, comp.ScreenEffect),
             Filter.Pvs(coords, entityMan: EntityManager));
 
         if (comp.Sound != null)
@@ -80,16 +93,92 @@ public sealed class GibSystem : EntitySystem
         if (comp.ShockRange > 0 && comp.ShockForce > 0)
             Shockwave(ent.Owner, mapPos, comp.ShockRange, comp.ShockForce);
 
-        SpawnSplats(comp, coords);
+        SpawnSplats(comp, mapPos);
 
-        var gibs = _body.GibBody(ent.Owner, gibOrgans: false, launchGibs: comp.LaunchParts,
-            splatModifier: comp.PartsScatter);
+        if (comp.SuppressBlood && _compFactory.TryGetRegistration("Bloodstream", out var bloodstream))
+            RemComp(ent.Owner, bloodstream.Type);
+
+        var gibs = _body.GibBody(ent.Owner, gibOrgans: false, launchGibs: false);
 
         foreach (var gib in gibs)
-            SetupFade(gib, comp.PartsLifetime, comp.FadeDuration, 0.4f);
+        {
+            SetupFade(gib, comp.PartsLifetime, comp.FadeDuration, 0.4f, 0f);
+
+            if (comp.LaunchParts)
+                LaunchPart(gib, comp.PartsSpeed, comp.PartsSpin);
+
+            if (comp.BloodTrail)
+            {
+                var trail = EnsureComp<GibTrailComponent>(gib);
+                trail.Color = comp.BloodColor;
+                Dirty(gib, trail);
+            }
+        }
 
         if (!TerminatingOrDeleted(ent.Owner))
             QueueDel(ent.Owner);
+    }
+
+    private void LaunchPart(EntityUid part, float speed, float spin)
+    {
+        if (!TryComp<PhysicsComponent>(part, out var body))
+            return;
+
+        var dir = _random.NextAngle().ToVec();
+        var v = speed * _random.NextFloat(0.55f, 1.1f);
+
+        _physics.SetLinearVelocity(part, dir * v, body: body);
+        _physics.SetAngularVelocity(part, _random.NextFloat(-spin, spin), body: body);
+    }
+
+    private bool RayBlocked(MapId map, Vector2 from, Vector2 to, out float distance)
+    {
+        var delta = to - from;
+        var len = delta.Length();
+        distance = len;
+
+        if (len < 0.05f)
+            return false;
+
+        var ray = new CollisionRay(from, delta / len, (int) CollisionGroup.Opaque);
+        var hitAny = false;
+
+        foreach (var hit in _physics.IntersectRay(map, ray, len, returnOnFirstHit: false))
+        {
+            if (!_occluders.TryComp(hit.HitEntity, out var occluder) || !occluder.Enabled)
+                continue;
+
+            if (hit.Distance < distance)
+            {
+                distance = hit.Distance;
+                hitAny = true;
+            }
+        }
+
+        return hitAny;
+    }
+
+    private (float Reach, Vector2 Push) ComputeClearance(MapCoordinates center)
+    {
+        var minDist = ClearanceRadius;
+        var push = Vector2.Zero;
+
+        for (var i = 0; i < 8; i++)
+        {
+            var angle = i * MathF.PI / 4f;
+            var dir = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
+
+            if (!RayBlocked(center.MapId, center.Position, center.Position + dir * ClearanceRadius, out var dist))
+                continue;
+
+            minDist = MathF.Min(minDist, dist);
+            push -= dir * (ClearanceRadius - dist) * 0.30f;
+        }
+
+        if (push.LengthSquared() > 0.36f)
+            push = Vector2.Normalize(push) * 0.6f;
+
+        return (Math.Clamp(minDist / ClearanceRadius, 0.55f, 1f), push);
     }
 
     private void Shockwave(EntityUid source, MapCoordinates center, float range, float force)
@@ -99,9 +188,13 @@ public sealed class GibSystem : EntitySystem
             if (body.Owner == source || body.Comp.BodyType != BodyType.Dynamic)
                 continue;
 
-            var offset = _xform.GetWorldPosition(body.Owner) - center.Position;
+            var targetPos = _xform.GetWorldPosition(body.Owner);
+            var offset = targetPos - center.Position;
             var dist = offset.Length();
             if (dist >= range)
+                continue;
+
+            if (RayBlocked(center.MapId, center.Position, targetPos, out _))
                 continue;
 
             var dir = dist > 0.01f ? offset / dist : _random.NextAngle().ToVec();
@@ -112,7 +205,7 @@ public sealed class GibSystem : EntitySystem
         }
     }
 
-    private void SpawnSplats(GibComponent comp, EntityCoordinates coords)
+    private void SpawnSplats(GibComponent comp, MapCoordinates center)
     {
         if (comp.Splats.Count == 0)
             return;
@@ -120,22 +213,45 @@ public sealed class GibSystem : EntitySystem
         for (var i = 0; i < comp.SplatCount; i++)
         {
             var dist = comp.SplatRadius * MathF.Sqrt(_random.NextFloat());
-            var offset = _random.NextAngle().ToVec() * dist;
+            var dir = _random.NextAngle().ToVec();
+            var target = center.Position + dir * dist;
+
+            if (RayBlocked(center.MapId, center.Position, target, out var hit))
+            {
+                if (hit < 0.5f)
+                    continue;
+
+                dist = hit - 0.35f;
+                target = center.Position + dir * dist;
+            }
+
+            var at = new MapCoordinates(target, center.MapId);
+            if (!HasFloor(at))
+                continue;
+
             var proto = _random.Pick(comp.Splats);
-            var delay = TimeSpan.FromSeconds(0.05 + dist / comp.SplatRadius * 0.35 + _random.NextFloat() * 0.1);
+            var delay = TimeSpan.FromSeconds(0.05 + dist / MathF.Max(comp.SplatRadius, 0.1f) * 0.35 + _random.NextFloat() * 0.1);
             var lifetime = comp.SplatLifetime;
-            var spawnAt = coords.Offset(offset);
 
             Timer.Spawn(delay, () =>
             {
-                var splat = Spawn(proto, spawnAt);
+                var splat = Spawn(proto, at);
                 _xform.SetLocalRotation(splat, _random.NextAngle());
-                SetupFade(splat, lifetime, 4f, 1f);
+                SetupFade(splat, lifetime, 4f, 1f, 0.2f);
             });
         }
     }
 
-    private void SetupFade(EntityUid uid, float lifetime, float fadeDuration, float endScale)
+    private bool HasFloor(MapCoordinates coords)
+    {
+        if (!_mapMan.TryFindGridAt(coords, out var gridUid, out var grid))
+            return false;
+
+        var tile = _map.GetTileRef(gridUid, grid, _map.MapToGrid(gridUid, coords));
+        return !tile.Tile.IsEmpty;
+    }
+
+    private void SetupFade(EntityUid uid, float lifetime, float fadeDuration, float endScale, float growTime)
     {
         var despawn = EnsureComp<TimedDespawnComponent>(uid);
         despawn.Lifetime = lifetime;
@@ -145,6 +261,7 @@ public sealed class GibSystem : EntitySystem
         fade.Lifetime = lifetime;
         fade.FadeDuration = Math.Min(fadeDuration, lifetime);
         fade.EndScale = endScale;
+        fade.GrowTime = growTime;
         Dirty(uid, fade);
     }
 

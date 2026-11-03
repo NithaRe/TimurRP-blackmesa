@@ -12,11 +12,21 @@ public sealed class GibBurstEvent : EntityEventArgs
     public float Strength;
     public Color Color;
 
-    public GibBurstEvent(MapId map, Vector2 position, float strength, Color color)
+    public float Reach;
+
+    public bool Chunks;
+    public bool Nova;
+    public bool Screen;
+
+    public GibBurstEvent(MapId map, Vector2 position, float strength, Color color, float reach, bool chunks, bool nova, bool screen)
     {
         Map = map;
         Position = position;
         Strength = strength;
         Color = color;
+        Reach = reach;
+        Chunks = chunks;
+        Nova = nova;
+        Screen = screen;
     }
 }

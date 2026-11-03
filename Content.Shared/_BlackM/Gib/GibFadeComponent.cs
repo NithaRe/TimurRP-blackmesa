@@ -16,4 +16,10 @@ public sealed partial class GibFadeComponent : Component
 
     [DataField, AutoNetworkedField]
     public float EndScale = 0.4f;
+
+    [DataField, AutoNetworkedField]
+    public float GrowTime;
+
+    [DataField, AutoNetworkedField]
+    public float StartScale = 0.35f;
 }
