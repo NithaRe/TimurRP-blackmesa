@@ -1,17 +1,44 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Made for _BlackM",
+  "copyright": "Made for BlackM",
   "size": {
-    "x": 32,
-    "y": 32
+    "x": 64,
+    "y": 64
   },
   "states": [
     {
       "name": "icon",
-      "directions": 1,
       "delays": [
-        [0.4, 0.4, 0.4, 0.4]
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "broken",
+      "delays": [
+        [
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15
+        ]
       ]
     }
   ]

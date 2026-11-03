@@ -4,28 +4,34 @@ using Content.Shared._BlackM.ZenIntervention;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Client.UserInterface.Controls;
-using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.ZenIntervention;
 
 public sealed class ZenInterventionUIController : UIController, IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>
 {
-    private const float BarHeight = 42f;
-    private const float BarWidth = 340f;
-    private const float GapFromToolbar = 12f;
+    private const float GapFromToolbar = 4f;
 
     [Dependency] private readonly IEntityManager _entityManager = default!;
 
     private ZenInterventionBarControl? _bar;
+    private float _lastX = float.NaN;
+    private float _lastY = float.NaN;
+    private float _lastScale = float.NaN;
 
     private GameTopMenuBar? TopMenuBar => UIManager.GetActiveUIWidgetOrNull<GameTopMenuBar>();
 
     public void OnStateEntered(GameplayState state)
     {
+        DestroyBar();
+
+        _lastX = float.NaN;
+        _lastY = float.NaN;
+        _lastScale = float.NaN;
+
         _bar = new ZenInterventionBarControl
         {
-            MouseFilter = Control.MouseFilterMode.Ignore,
+            Visible = false,
         };
 
         LayoutContainer.SetAnchorLeft(_bar, 0f);
@@ -33,13 +39,37 @@ public sealed class ZenInterventionUIController : UIController, IOnStateEntered<
         LayoutContainer.SetAnchorTop(_bar, 0f);
         LayoutContainer.SetAnchorBottom(_bar, 0f);
 
-        UIManager.PopupRoot.AddChild(_bar);
+        AttachToScreen();
     }
 
     public void OnStateExited(GameplayState state)
     {
-        _bar?.Orphan();
+        DestroyBar();
+    }
+
+    private void DestroyBar()
+    {
+        if (_bar?.Parent != null)
+            _bar.Orphan();
+
         _bar = null;
+    }
+
+    private UIScreen? AttachToScreen()
+    {
+        var screen = UIManager.ActiveScreen;
+        if (screen == null || _bar == null)
+            return null;
+
+        if (_bar.Parent != screen)
+        {
+            if (_bar.Parent != null)
+                _bar.Orphan();
+
+            screen.AddChild(_bar);
+        }
+
+        return screen;
     }
 
     public override void FrameUpdate(FrameEventArgs args)
@@ -49,58 +79,63 @@ public sealed class ZenInterventionUIController : UIController, IOnStateEntered<
         if (_bar == null)
             return;
 
-        RepositionBar();
-
         var query = _entityManager.EntityQueryEnumerator<ZenInterventionComponent>();
-        if (query.MoveNext(out _, out var comp))
+        if (!query.MoveNext(out _, out var comp))
         {
-            _bar.BreachFraction = comp.MaxLevel > 0f ? comp.BreachThreshold / comp.MaxLevel : 0.6f;
-            _bar.SetProgress(comp.Level, comp.MaxLevel);
-        }
-    }
-
-    private void RepositionBar()
-    {
-        if (_bar == null)
+            _bar.Visible = false;
             return;
+        }
 
+        var screen = AttachToScreen();
         var topBar = TopMenuBar;
-        if (topBar == null || !topBar.Visible)
+        if (screen == null || topBar == null || !topBar.Visible)
         {
             _bar.Visible = false;
             return;
         }
 
-        if (IsAnyWindowOpen())
-        {
-            _bar.Visible = false;
-            return;
-        }
+        _bar.SetState(new ZenBarState(
+            comp.Level,
+            comp.MaxLevel,
+            comp.GainPerMinute,
+            comp.BreachThreshold,
+            comp.Enabled,
+            comp.BreachTriggered,
+            comp.WaveActive,
+            comp.NextWaveTime,
+            comp.WaveInterval,
+            comp.BreachSpawnAmount,
+            comp.WaveSpawnAmount));
 
-        _bar.Visible = true;
+        var pos = topBar.GlobalPosition - screen.GlobalPosition;
 
-        var pos = topBar.GlobalPosition;
-        var toolbarHeight = topBar.Height;
+        var k = topBar.Height > 0f ? topBar.Height / ZenInterventionBarControl.DesignHeight : 1f;
+        var barW = ZenInterventionBarControl.DesignWidth * k;
+        var barH = ZenInterventionBarControl.DesignHeight * k;
 
-        var x = pos.X + topBar.Width + GapFromToolbar;
-        var y = pos.Y + (toolbarHeight - BarHeight) / 2f;
+        var x = pos.X + topBar.Width + GapFromToolbar * k;
+        var maxX = screen.Width - barW - 4f;
+        if (x > maxX)
+            x = maxX;
+        if (x < 0f)
+            x = 0f;
+
+        var y = pos.Y + (topBar.Height - barH) / 2f;
         if (y < 0f)
             y = 0f;
 
-        LayoutContainer.SetMarginLeft(_bar, x);
-        LayoutContainer.SetMarginRight(_bar, x + BarWidth);
-        LayoutContainer.SetMarginTop(_bar, y);
-        LayoutContainer.SetMarginBottom(_bar, y + BarHeight);
-    }
-
-    private bool IsAnyWindowOpen()
-    {
-        foreach (var child in UIManager.WindowRoot.Children)
+        if (x != _lastX || y != _lastY || k != _lastScale)
         {
-            if (child is BaseWindow { Visible: true })
-                return true;
+            _lastX = x;
+            _lastY = y;
+            _lastScale = k;
+
+            LayoutContainer.SetMarginLeft(_bar, x);
+            LayoutContainer.SetMarginRight(_bar, x + barW);
+            LayoutContainer.SetMarginTop(_bar, y);
+            LayoutContainer.SetMarginBottom(_bar, y + barH);
         }
 
-        return false;
+        _bar.Visible = true;
     }
 }

@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server.Chat.Systems;
+using Content.Server.GameTicking;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
 using Content.Shared._BlackM.ZenIntervention;
@@ -25,8 +26,13 @@ public sealed class ZenInterventionSystem : EntitySystem
     [Dependency] private readonly ChatSystem _chatSystem = default!;
     [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
     [Dependency] private readonly StationSystem _station = default!;
+    [Dependency] private readonly GameTicker _gameTicker = default!;
+
+    private const float SyncInterval = 1f;
 
     private EntityUid? _singleton;
+    private bool _roundWasActive;
+    private float _syncAccumulator;
 
     public override void Initialize()
     {
@@ -38,11 +44,25 @@ public sealed class ZenInterventionSystem : EntitySystem
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
     {
         _singleton = null;
+        _roundWasActive = false;
+        _syncAccumulator = 0f;
     }
 
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        if (_gameTicker.RunLevel != GameRunLevel.InRound)
+        {
+            _roundWasActive = false;
+            return;
+        }
+
+        if (!_roundWasActive)
+        {
+            _roundWasActive = true;
+            ResetState();
+        }
 
         EnsureSingleton();
 
@@ -67,7 +87,12 @@ public sealed class ZenInterventionSystem : EntitySystem
 
         comp.Level = newLevel >= comp.MaxLevel ? comp.MaxLevel : newLevel;
 
-        Dirty(uid, comp);
+        _syncAccumulator += frameTime;
+        if (_syncAccumulator >= SyncInterval || comp.Level >= comp.MaxLevel)
+        {
+            _syncAccumulator = 0f;
+            Dirty(uid, comp);
+        }
     }
 
     private void CheckBreach(ZenInterventionComponent comp)
@@ -309,6 +334,7 @@ public sealed class ZenInterventionSystem : EntitySystem
         comp.BreachTriggered = false;
         comp.WaveActive = false;
         comp.NextWaveTime = TimeSpan.Zero;
+        _syncAccumulator = 0f;
         Dirty(_singleton!.Value, comp);
     }
 }
