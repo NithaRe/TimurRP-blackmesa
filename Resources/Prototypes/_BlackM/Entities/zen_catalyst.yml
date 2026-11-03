@@ -7,6 +7,8 @@
   - type: Sprite
     sprite: _BlackM/Structures/zen_catalyst.rsi
     state: icon
+    offset: 0,0.5
+    noRot: true
   - type: Icon
     sprite: _BlackM/Structures/zen_catalyst.rsi
     state: icon
@@ -42,8 +44,60 @@
         !type:DamageTrigger
         damage: 35
       behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          ZenCatalystBrokenBlackM:
+            min: 1
+            max: 1
       - !type:PlaySoundBehavior
         sound:
           collection: GlassBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: BaseStructureDynamic
+  id: ZenCatalystBrokenBlackM
+  name: разрушенный катализатор зена
+  description: Расколотые останки кристалла Зен. Внутри ещё тлеет слабое свечение, но разломы больше не открываются.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/zen_catalyst.rsi
+    state: broken
+    offset: 0,0.5
+    noRot: true
+  - type: Icon
+    sprite: _BlackM/Structures/zen_catalyst.rsi
+    state: broken
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.3
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: PointLight
+    enabled: true
+    color: "#FF9A3C"
+    radius: 1.5
+    energy: 0.6
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Glass
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

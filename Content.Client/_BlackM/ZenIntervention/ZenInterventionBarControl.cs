@@ -5,187 +5,238 @@ using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.IoC;
+using Robust.Shared.Localization;
 using Robust.Shared.Maths;
 using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.ZenIntervention;
 
-public sealed class ZenInterventionBarControl : LayoutContainer
+public enum ZenStage
 {
-    private const string TrackTexturePath = "/Textures/_BlackM/Interface/zen_bar_track.png";
-    private const string FillTexturePath = "/Textures/_BlackM/Interface/zen_bar_fill.png";
+    Calm,
+    Breach,
+    Cascade,
+}
 
-    private const string BreachRsiPath = "/Textures/_BlackM/Effects/spawn_zap.rsi";
-    private const string BreachState = "zap";
-    private const float BreachFrameDelay = 0.095f;
+public readonly record struct ZenBarState(
+    float Level,
+    float MaxLevel,
+    float GainPerMinute,
+    float BreachThreshold,
+    bool Enabled,
+    bool BreachTriggered,
+    bool WaveActive,
+    TimeSpan NextWaveTime,
+    TimeSpan WaveInterval,
+    int BreachSpawnAmount,
+    int WaveSpawnAmount)
+{
+    public float Fraction => MaxLevel > 0f ? Math.Clamp(Level / MaxLevel, 0f, 1f) : 0f;
+    public float BreachFraction => MaxLevel > 0f ? Math.Clamp(BreachThreshold / MaxLevel, 0f, 1f) : 0.6f;
 
-    private const string HeadcrabRsiPath = "/Textures/_BlackM/Mobs/headcrab.rsi";
-    private const string HeadcrabState = "walking";
+    public ZenStage Stage =>
+        Level >= MaxLevel - 0.001f ? ZenStage.Cascade
+        : Level >= BreachThreshold ? ZenStage.Breach
+        : ZenStage.Calm;
+}
+
+public static class ZenInterventionPalette
+{
+    public const string CalmHex = "#5fd38d";
+    public const string BreachHex = "#e8b83c";
+    public const string CascadeHex = "#e5484d";
+
+    public static readonly Color Calm = Color.FromHex(CalmHex);
+    public static readonly Color Breach = Color.FromHex(BreachHex);
+    public static readonly Color Cascade = Color.FromHex(CascadeHex);
+
+    public static Color ForStage(ZenStage stage) => stage switch
+    {
+        ZenStage.Cascade => Cascade,
+        ZenStage.Breach => Breach,
+        _ => Calm,
+    };
+
+    public static string HexForStage(ZenStage stage) => stage switch
+    {
+        ZenStage.Cascade => CascadeHex,
+        ZenStage.Breach => BreachHex,
+        _ => CalmHex,
+    };
+}
+
+public sealed class ZenInterventionBarControl : PanelContainer
+{
+    public const float DesignWidth = 36f;
+    public const float DesignHeight = 62f;
+
+    private const float IconSize = 32f;
+    private const float IconLeft = (DesignWidth - IconSize) / 2f;
+    private const float IconTop = 6f;
+    private const int CrystalRows = 31;
+
+    private const float DigitsTop = 46f;
+    private const int DigitCellW = 8;
+    private const int DigitCellH = 10;
+
+    private const string CrystalPath = "/Textures/_BlackM/Interface/ZenIntervention/zen_crystal.png";
+    private const string DigitsPath = "/Textures/_BlackM/Interface/ZenIntervention/zen_digits.png";
+
+    private static readonly Color TileColor = Color.FromHex("#3c4350");
+    private static readonly Color TileHover = Color.FromHex("#4a5266");
+    private static readonly Color TileBorder = Color.FromHex("#242830");
+    private static readonly Color Lavender = Color.FromHex("#7b7e9e");
+    private static readonly Color CrystalEmpty = Color.FromHex("#666b8a");
 
     [Dependency] private readonly IResourceCache _resourceCache = default!;
 
-    private static readonly Color FillLow = new(80, 220, 110, 255);
-    private static readonly Color FillMid = new(230, 190, 30, 255);
-    private static readonly Color FillHigh = new(230, 40, 40, 255);
+    private readonly StyleBoxFlat _panelStyle;
+    private Texture? _crystal;
+    private Texture? _digits;
 
-    private readonly Label _label;
+    private bool _hasState;
+    private bool _hovered;
+    private float _time;
+    private float _displayFraction;
+    private Color _color = ZenInterventionPalette.Calm;
 
-    private Texture? _trackTexture;
-    private Texture? _fillTexture;
-    private Texture[] _headcrabFrames = System.Array.Empty<Texture>();
-    private Texture[] _breachFrames = System.Array.Empty<Texture>();
-
-    private const float HeadcrabFrameDelay = 0.1f;
-
-    private float _animTime;
-    private int _frameIndex;
-
-    private float _breachAnimTime;
-    private int _breachFrameIndex;
-
-    public float Fraction { get; private set; }
-
-    public float BreachFraction { get; set; } = 0.6f;
+    public ZenBarState State { get; private set; }
 
     public ZenInterventionBarControl()
     {
         IoCManager.InjectDependencies(this);
 
-        MinHeight = 32;
+        MinSize = new Vector2(DesignWidth, DesignHeight);
 
-        _label = new Label
+        MouseFilter = MouseFilterMode.Stop;
+        TooltipDelay = 0.1f;
+        TooltipSupplier = _ => new ZenInterventionTooltip(this);
+
+        _panelStyle = new StyleBoxFlat
         {
-            Align = Label.AlignMode.Center,
-            VAlign = Label.VAlignMode.Bottom,
-            FontColorOverride = Color.White,
-            Text = "0%",
-            MouseFilter = MouseFilterMode.Ignore,
+            BackgroundColor = TileColor,
+            BorderColor = TileBorder,
+            BorderThickness = new Thickness(1),
         };
-        SetAnchorPreset(_label, LayoutPreset.Wide);
-        AddChild(_label);
+        PanelOverride = _panelStyle;
 
-        LoadTextures();
+        if (_resourceCache.TryGetResource<TextureResource>(CrystalPath, out var crystal))
+            _crystal = crystal.Texture;
+
+        if (_resourceCache.TryGetResource<TextureResource>(DigitsPath, out var digits))
+            _digits = digits.Texture;
     }
 
-    private void LoadTextures()
+    public void SetState(ZenBarState state)
     {
-        if (_resourceCache.TryGetResource<TextureResource>(TrackTexturePath, out var trackRes))
-            _trackTexture = trackRes.Texture;
+        State = state;
 
-        if (_resourceCache.TryGetResource<TextureResource>(FillTexturePath, out var fillRes))
-            _fillTexture = fillRes.Texture;
-
-        if (_resourceCache.TryGetResource<RSIResource>(BreachRsiPath, out var breachRsiRes)
-            && breachRsiRes.RSI.TryGetState(BreachState, out var breachState))
+        if (!_hasState)
         {
-            _breachFrames = breachState.GetFrames(Robust.Shared.Graphics.RSI.RsiDirection.South);
-        }
-
-        if (_resourceCache.TryGetResource<RSIResource>(HeadcrabRsiPath, out var rsiRes)
-            && rsiRes.RSI.TryGetState(HeadcrabState, out var state))
-        {
-            _headcrabFrames = state.GetFrames(Robust.Shared.Graphics.RSI.RsiDirection.East);
-
-            if (_headcrabFrames.Length == 0)
-                _headcrabFrames = state.GetFrames(Robust.Shared.Graphics.RSI.RsiDirection.South);
+            _displayFraction = state.Fraction;
+            _color = ZenInterventionPalette.ForStage(state.Stage);
+            _hasState = true;
         }
     }
 
-    public void SetProgress(float level, float maxLevel)
+    protected override void MouseEntered()
     {
-        var fraction = maxLevel > 0f ? level / maxLevel : 0f;
-        Fraction = fraction < 0f ? 0f : fraction > 1f ? 1f : fraction;
+        base.MouseEntered();
+        _hovered = true;
+    }
 
-        _label.Text = $"{level:0}%";
+    protected override void MouseExited()
+    {
+        base.MouseExited();
+        _hovered = false;
     }
 
     protected override void FrameUpdate(FrameEventArgs args)
     {
         base.FrameUpdate(args);
 
-        if (_headcrabFrames.Length > 0)
-        {
-            _animTime += args.DeltaSeconds;
+        var dt = args.DeltaSeconds;
+        _time += dt;
 
-            if (_animTime >= HeadcrabFrameDelay)
-            {
-                _animTime -= HeadcrabFrameDelay;
-                _frameIndex = (_frameIndex + 1) % _headcrabFrames.Length;
-            }
-        }
+        var target = State.Fraction;
+        _displayFraction += (target - _displayFraction) * MathF.Min(1f, dt * 6f);
+        if (MathF.Abs(target - _displayFraction) < 0.0005f)
+            _displayFraction = target;
 
-        if (_breachFrames.Length > 0)
-        {
-            _breachAnimTime += args.DeltaSeconds;
+        _color = Color.InterpolateBetween(_color, ZenInterventionPalette.ForStage(State.Stage), MathF.Min(1f, dt * 4f));
 
-            if (_breachAnimTime >= BreachFrameDelay)
-            {
-                _breachAnimTime -= BreachFrameDelay;
-                _breachFrameIndex = (_breachFrameIndex + 1) % _breachFrames.Length;
-            }
-        }
+        var stage = State.Stage;
+        var blink = stage == ZenStage.Cascade && ((int) (_time * 4f)) % 2 == 0;
+
+        var tile = _hovered ? TileHover : TileColor;
+        if (stage == ZenStage.Cascade)
+            tile = Color.InterpolateBetween(tile, ZenInterventionPalette.Cascade, blink ? 0.18f : 0.06f);
+
+        _panelStyle.BackgroundColor = tile;
     }
 
     protected override void Draw(DrawingHandleScreen handle)
     {
         base.Draw(handle);
 
-        var sizeInt = PixelSize;
-        if (sizeInt.X <= 0 || sizeInt.Y <= 0)
+        var px = PixelSize;
+        if (px.X <= 0 || px.Y <= 0)
             return;
 
-        var size = new Vector2(sizeInt.X, sizeInt.Y);
+        var s = MathF.Min(px.X / DesignWidth, px.Y / DesignHeight);
+        UIBox2 B(float l, float t, float r, float b) =>
+            new(MathF.Round(l * s), MathF.Round(t * s), MathF.Round(r * s), MathF.Round(b * s));
 
-        var textAreaHeight = size.Y * 0.26f;
-        var barArea = size.Y - textAreaHeight;
+        var stage = State.Stage;
+        var blink = stage == ZenStage.Cascade && ((int) (_time * 4f)) % 2 == 0;
 
-        var barHeight = barArea * 0.42f;
-        var barTop = barArea - barHeight;
+        var jitter = 0f;
+        if (stage == ZenStage.Cascade)
+            jitter = ((int) (_time * 14f) % 4) switch { 1 => 1f, 3 => -1f, _ => 0f };
 
-        var breachSize = barArea;
-        var trackWidth = size.X - breachSize;
-        if (trackWidth < 1f)
-            trackWidth = 1f;
-
-        var fillColor = Fraction >= 0.999f ? FillHigh : Fraction >= BreachFraction ? FillMid : FillLow;
-
-        if (_trackTexture != null)
+        if (_crystal != null)
         {
-            handle.DrawTextureRect(_trackTexture, new UIBox2(0, barTop, trackWidth, barArea));
+            var box = B(IconLeft + jitter, IconTop, IconLeft + jitter + IconSize, IconTop + IconSize);
+            handle.DrawTextureRect(_crystal, box, CrystalEmpty);
+
+            var rows = (int) MathF.Round(_displayFraction * CrystalRows);
+            if (rows > 0)
+            {
+                var ps = box.Width / _crystal.Width;
+                var fillColor = blink ? Color.InterpolateBetween(_color, Color.White, 0.35f) : _color;
+
+                var dst = new UIBox2(box.Left, MathF.Round(box.Bottom - rows * ps), box.Right, box.Bottom);
+                var src = new UIBox2(0, _crystal.Height - rows, _crystal.Width, _crystal.Height);
+                handle.DrawTextureRectRegion(_crystal, dst, src, fillColor);
+
+                var topDst = new UIBox2(dst.Left, dst.Top, dst.Right, MathF.Min(dst.Bottom, dst.Top + ps));
+                var topSrc = new UIBox2(0, _crystal.Height - rows, _crystal.Width, _crystal.Height - rows + 1);
+                handle.DrawTextureRectRegion(_crystal, topDst, topSrc, Color.InterpolateBetween(fillColor, Color.White, 0.5f));
+            }
         }
 
-        if (_fillTexture != null && Fraction > 0.01f)
-        {
-            var fillWidth = Fraction * trackWidth;
-            var srcWidth = Fraction * _fillTexture.Width;
-            var srcBox = new UIBox2(0, 0, srcWidth, _fillTexture.Height);
-            var fillBox = new UIBox2(0, barTop, fillWidth, barArea);
-            handle.DrawTextureRectRegion(_fillTexture, fillBox, srcBox, fillColor);
-        }
-
-        if (_breachFrames.Length > 0)
-        {
-            var breachBox = new UIBox2(size.X - breachSize, 0, size.X, breachSize);
-            handle.DrawTextureRect(_breachFrames[_breachFrameIndex], breachBox);
-        }
-
-        if (_headcrabFrames.Length > 0)
-        {
-            var texture = _headcrabFrames[_frameIndex];
-
-            var iconSize = size.Y * 1.4f;
-            var travel = trackWidth - iconSize * 0.6f;
-            if (travel < 0f)
-                travel = 0f;
-
-            var iconX = Fraction * travel;
-
-            var iconY = barTop - iconSize * 0.55f;
-
-            var dstBox = new UIBox2(iconX, iconY, iconX + iconSize, iconY + iconSize);
-
-            handle.DrawTextureRect(texture, dstBox);
-        }
+        DrawPercent(handle, B, (int) MathF.Floor(State.Fraction * 100f),
+            stage == ZenStage.Calm ? Lavender : ZenInterventionPalette.ForStage(stage));
     }
 
+    private void DrawPercent(DrawingHandleScreen handle, Func<float, float, float, float, UIBox2> box, int value, Color color)
+    {
+        if (_digits == null)
+            return;
+
+        var text = value + "%";
+        var x = (DesignWidth - text.Length * DigitCellW) / 2f;
+
+        foreach (var ch in text)
+        {
+            var idx = ch == '%' ? 10 : ch - '0';
+            if (idx >= 0 && idx <= 10)
+            {
+                var src = new UIBox2(idx * DigitCellW, 0, (idx + 1) * DigitCellW, DigitCellH);
+                handle.DrawTextureRectRegion(_digits, box(x, DigitsTop, x + DigitCellW, DigitsTop + DigitCellH), src, color);
+            }
+
+            x += DigitCellW;
+        }
+    }
 }
