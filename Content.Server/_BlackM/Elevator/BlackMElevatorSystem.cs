@@ -5,10 +5,11 @@ using Content.Server.Station.Systems;
 using Content.Shared._BlackM.Elevator;
 using Content.Shared.Buckle;
 using Content.Shared.Buckle.Components;
-using Content.Shared.Camera;
 using Content.Shared.Chat;
+using Content.Shared.Examine;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Popups;
 using Content.Shared.Tag;
 using Content.Shared.Movement.Pulling.Systems;
 using Robust.Shared.Audio.Systems;
@@ -29,7 +30,6 @@ public sealed class BlackMElevatorSystem : EntitySystem
     [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
     [Dependency] private readonly SharedTransformSystem _xform = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedCameraRecoilSystem _recoil = default!;
     [Dependency] private readonly ChatSystem _chatSystem = default!;
     [Dependency] private readonly SharedPointLightSystem _lights = default!;
     [Dependency] private readonly SharedBuckleSystem _buckle = default!;
@@ -38,6 +38,7 @@ public sealed class BlackMElevatorSystem : EntitySystem
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly TagSystem _tag = default!;
     [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -45,6 +46,7 @@ public sealed class BlackMElevatorSystem : EntitySystem
 
         SubscribeLocalEvent<PlayerSpawningEvent>(OnPlayerSpawning, before: new[] { typeof(SpawnPointSystem) });
         SubscribeLocalEvent<BlackMElevatorLightComponent, MapInitEvent>(OnLightMapInit);
+        SubscribeLocalEvent<BlackMElevatorDispatcherComponent, ExaminedEvent>(OnDispatcherExamined);
     }
 
     private void OnPlayerSpawning(PlayerSpawningEvent ev)
@@ -188,13 +190,8 @@ public sealed class BlackMElevatorSystem : EntitySystem
             switch (comp.State)
             {
                 case BlackMElevatorState.Boarding:
-                    if (now >= comp.BoardingEnd)
-                    {
-                        if (comp.Evacuation)
-                            BeginEvacDeparture(uid, comp);
-                        else
-                            StartDescent(uid, comp);
-                    }
+                    if (!comp.Evacuation && now >= comp.BoardingEnd)
+                        StartDescent(uid, comp);
                     break;
 
                 case BlackMElevatorState.Descending:
@@ -233,13 +230,17 @@ public sealed class BlackMElevatorSystem : EntitySystem
         comp.AnnounceIndex = 0;
         comp.HeavyIndex = 0;
         comp.FadedOut = false;
-        comp.NextShake = now + TimeSpan.FromSeconds(2.5);
+        comp.Braked = false;
+        comp.NextShake = now + TimeSpan.FromSeconds(_random.NextFloat(3f, 5f));
+        comp.NextRideSync = now;
 
         SetLightMode(uid, comp, BlackMElevatorLightMode.Dim);
 
         if (comp.StartSound != null)
             _audio.PlayPvs(comp.StartSound, uid);
-        Shake(comp, comp.HeavyShakeStrength);
+
+        Jolt(comp.Passengers, comp.HeavyShakeStrength);
+        SyncRide(comp, now);
 
     }
 
@@ -257,14 +258,25 @@ public sealed class BlackMElevatorSystem : EntitySystem
         while (comp.HeavyIndex < comp.HeavyShakes.Count && elapsed >= comp.HeavyShakes[comp.HeavyIndex])
         {
             comp.HeavyIndex++;
-            Shake(comp, comp.HeavyShakeStrength);
+            Jolt(comp.Passengers, comp.HeavyShakeStrength);
             FlickerLights(uid, comp, 0.4f, 0.9f);
         }
 
-        if (now >= comp.NextShake)
+        var brakeAt = comp.BrakeAt ?? comp.DescentTime - comp.FadeOutLead - 1.5f;
+        if (!comp.Braked && elapsed >= brakeAt)
         {
-            comp.NextShake = now + TimeSpan.FromSeconds(_random.NextFloat(2f, 4f));
-            Shake(comp, _random.NextFloat(comp.SmallShakeMin, comp.SmallShakeMax));
+            comp.Braked = true;
+            Jolt(comp.Passengers, comp.BrakeStrength);
+            comp.NextRideSync = now;
+        }
+
+        if (now >= comp.NextRideSync)
+            SyncRide(comp, now);
+
+        if (!comp.Braked && now >= comp.NextShake)
+        {
+            comp.NextShake = now + TimeSpan.FromSeconds(_random.NextFloat(3f, 6f));
+            Jolt(comp.Passengers, _random.NextFloat(comp.SmallShakeMin, comp.SmallShakeMax));
 
             if (_random.Prob(0.25f))
                 FlickerLights(uid, comp, 0.15f, 0.4f);
@@ -286,6 +298,7 @@ public sealed class BlackMElevatorSystem : EntitySystem
     private void Arrive(EntityUid uid, BlackMElevatorComponent comp)
     {
         CleanPassengers(comp);
+        SendToPassengers(comp.Passengers, new BlackMElevatorRideEvent(false, 0f));
 
         var dests = new List<EntityUid>();
         var q = EntityQueryEnumerator<BlackMElevatorDestinationComponent>();
@@ -310,8 +323,9 @@ public sealed class BlackMElevatorSystem : EntitySystem
                 ReleaseHolds(p);
                 _xform.SetCoordinates(p, Transform(dest).Coordinates);
                 RaiseLocalEvent(new BlackMElevatorArrivedEvent(p, comp.Id));
-                _recoil.KickCamera(p, _random.NextAngle().ToVec() * 0.5f);
             }
+
+            Jolt(comp.Passengers, comp.LandingStrength);
 
             SendFade(comp.Passengers, false, comp.FadeInTime);
             comp.Passengers.Clear();
@@ -358,37 +372,124 @@ public sealed class BlackMElevatorSystem : EntitySystem
         return false;
     }
 
+    private const float ScanInterval = 0.5f;
+
     private void UpdateEvacuation(EntityUid uid, BlackMElevatorComponent comp, TimeSpan now)
     {
+        HashSet<EntityUid>? occupants = null;
+        if (now >= comp.NextScan)
+        {
+            comp.NextScan = now + TimeSpan.FromSeconds(ScanInterval);
+            occupants = CollectEvacPassengers(comp.Id);
+        }
+
         switch (comp.State)
         {
             case BlackMElevatorState.Idle:
                 if (!comp.Enabled)
+                {
+                    if (occupants != null)
+                        PopupNewcomers(comp, occupants, Loc.GetString("blackm-elevator-popup-disabled"));
                     return;
+                }
 
-                comp.State = BlackMElevatorState.Boarding;
-                comp.BoardingEnd = now + TimeSpan.FromSeconds(comp.BoardingDelay);
-                comp.BoardingWarned = false;
-                var boarding = Loc.GetString(comp.BoardingMessage, ("seconds", (int) comp.BoardingDelay));
-                if (comp.GlobalAnnounce)
-                    AnnounceGlobal(Loc.GetString(comp.Sender), boarding, Color.Cyan);
-                SayAtBoarding(comp.Id, boarding);
-                break;
+                OpenBoarding(comp);
+                return;
 
             case BlackMElevatorState.Boarding:
                 if (!comp.Enabled)
                 {
+                    StopCountdown(comp, null);
                     comp.State = BlackMElevatorState.Idle;
                     return;
                 }
 
-                if (!comp.BoardingWarned && comp.BoardingEnd - now <= TimeSpan.FromSeconds(10))
+                UpdateBoarding(uid, comp, now, occupants);
+                return;
+
+            case BlackMElevatorState.Descending:
+            case BlackMElevatorState.Cooldown:
+                if (occupants != null)
                 {
-                    comp.BoardingWarned = true;
-                    SayAtBoarding(comp.Id, Loc.GetString(comp.ClosingMessage));
+                    PopupNewcomers(comp, occupants, Loc.GetString("blackm-elevator-popup-away",
+                        ("seconds", SecondsUntilReturn(comp, now))));
                 }
-                break;
+                return;
         }
+    }
+
+    private void OpenBoarding(BlackMElevatorComponent comp)
+    {
+        comp.State = BlackMElevatorState.Boarding;
+        comp.CountdownActive = false;
+        comp.BoardingWarned = false;
+        comp.LastCountdownSecond = int.MaxValue;
+        comp.InZone.Clear();
+        comp.Faded.Clear();
+
+        var boarding = Loc.GetString(comp.BoardingMessage, ("seconds", (int) comp.BoardingDelay));
+        if (comp.GlobalAnnounce)
+            AnnounceGlobal(Loc.GetString(comp.Sender), boarding, Color.Cyan);
+        SayAtBoarding(comp.Id, boarding);
+    }
+
+    private void UpdateBoarding(EntityUid uid, BlackMElevatorComponent comp, TimeSpan now, HashSet<EntityUid>? occupants)
+    {
+        if (!comp.CountdownActive)
+        {
+            if (occupants == null)
+                return;
+
+            if (occupants.Count == 0)
+            {
+                comp.InZone.Clear();
+                return;
+            }
+
+            comp.CountdownActive = true;
+            comp.BoardingEnd = now + TimeSpan.FromSeconds(comp.BoardingDelay);
+            comp.BoardingWarned = comp.BoardingDelay <= comp.ClosingWarningAt + 1f;
+            comp.LastCountdownSecond = int.MaxValue;
+            SayAtBoarding(comp.Id, Loc.GetString(comp.CountdownStartMessage, ("seconds", (int) comp.BoardingDelay)));
+        }
+
+        var remaining = (float) (comp.BoardingEnd - now).TotalSeconds;
+        var seconds = (int) MathF.Ceiling(MathF.Max(remaining, 0f));
+
+        if (occupants != null)
+            PopupNewcomers(comp, occupants, Loc.GetString("blackm-elevator-popup-boarding", ("seconds", seconds)));
+
+        if (!comp.BoardingWarned && remaining <= comp.ClosingWarningAt)
+        {
+            comp.BoardingWarned = true;
+            SayAtBoarding(comp.Id, Loc.GetString(comp.ClosingMessage, ("seconds", (int) comp.ClosingWarningAt)));
+        }
+
+        if (seconds > 0 && seconds <= comp.PopupCountdownFrom && seconds < comp.LastCountdownSecond)
+        {
+            comp.LastCountdownSecond = seconds;
+            var text = Loc.GetString("blackm-elevator-popup-countdown", ("seconds", seconds));
+            foreach (var p in comp.InZone)
+            {
+                _popup.PopupEntity(text, p, p, PopupType.Large);
+            }
+        }
+
+        if (comp.DepartFadeTime > 0f && remaining <= comp.DepartFadeTime)
+        {
+            var fade = new List<EntityUid>();
+            foreach (var p in comp.InZone)
+            {
+                if (comp.Faded.Add(p))
+                    fade.Add(p);
+            }
+
+            if (fade.Count > 0)
+                SendFade(fade, true, MathF.Max(remaining, 0.1f));
+        }
+
+        if (remaining <= 0f)
+            BeginEvacDeparture(uid, comp);
     }
 
     private void BeginEvacDeparture(EntityUid uid, BlackMElevatorComponent comp)
@@ -398,8 +499,8 @@ public sealed class BlackMElevatorSystem : EntitySystem
 
         if (boarded.Count == 0 || grid == null)
         {
-            comp.BoardingEnd = _timing.CurTime + TimeSpan.FromSeconds(comp.BoardingDelay);
-            comp.BoardingWarned = true;
+            StopCountdown(comp, null);
+            SayAtBoarding(comp.Id, Loc.GetString(comp.CancelMessage));
             return;
         }
 
@@ -415,7 +516,92 @@ public sealed class BlackMElevatorSystem : EntitySystem
             comp.Passengers.Add(p);
         }
 
+        SendFade(boarded, false, comp.FadeInTime);
+        StopCountdown(comp, boarded);
         StartDescent(uid, comp);
+    }
+
+    private void StopCountdown(BlackMElevatorComponent comp, HashSet<EntityUid>? boarded)
+    {
+        var restore = new List<EntityUid>();
+        foreach (var p in comp.Faded)
+        {
+            if (boarded == null || !boarded.Contains(p))
+                restore.Add(p);
+        }
+
+        if (restore.Count > 0)
+            SendFade(restore, false, 0.5f);
+
+        comp.Faded.Clear();
+        comp.InZone.Clear();
+        comp.CountdownActive = false;
+        comp.BoardingWarned = false;
+        comp.LastCountdownSecond = int.MaxValue;
+    }
+
+    private void PopupNewcomers(BlackMElevatorComponent comp, HashSet<EntityUid> occupants, string text)
+    {
+        foreach (var p in occupants)
+        {
+            if (!comp.InZone.Contains(p))
+                _popup.PopupEntity(text, p, p, PopupType.Medium);
+        }
+
+        comp.InZone.Clear();
+        comp.InZone.UnionWith(occupants);
+    }
+
+    private int SecondsUntilReturn(BlackMElevatorComponent comp, TimeSpan now)
+    {
+        var elapsed = (float) (now - comp.StateStart).TotalSeconds;
+        var left = comp.State switch
+        {
+            BlackMElevatorState.Descending => comp.DescentTime - elapsed + comp.CooldownTime,
+            BlackMElevatorState.Cooldown => comp.CooldownTime - elapsed,
+            _ => 0f,
+        };
+
+        return (int) MathF.Ceiling(MathF.Max(left, 0f));
+    }
+
+    private void OnDispatcherExamined(Entity<BlackMElevatorDispatcherComponent> ent, ref ExaminedEvent args)
+    {
+        if (ent.Comp.ElevatorId is not { } id)
+            return;
+
+        var q = EntityQueryEnumerator<BlackMElevatorComponent>();
+        while (q.MoveNext(out _, out var comp))
+        {
+            if (!comp.Evacuation || comp.Id != id)
+                continue;
+
+            args.PushMarkup(StatusText(comp));
+            return;
+        }
+    }
+
+    private string StatusText(BlackMElevatorComponent comp)
+    {
+        var now = _timing.CurTime;
+
+        switch (comp.State)
+        {
+            case BlackMElevatorState.Descending:
+            case BlackMElevatorState.Cooldown:
+                return Loc.GetString("blackm-elevator-examine-away", ("seconds", SecondsUntilReturn(comp, now)));
+        }
+
+        if (!comp.Enabled)
+            return Loc.GetString("blackm-elevator-examine-disabled");
+
+        if (comp.State == BlackMElevatorState.Boarding && comp.CountdownActive)
+        {
+            var seconds = (int) MathF.Ceiling(MathF.Max((float) (comp.BoardingEnd - now).TotalSeconds, 0f));
+            return Loc.GetString("blackm-elevator-examine-boarding", ("seconds", seconds));
+        }
+
+        return Loc.GetString("blackm-elevator-examine-ready", ("seconds", (int) comp.BoardingDelay));
     }
 
     private HashSet<EntityUid> CollectEvacPassengers(string elevatorId)
@@ -452,11 +638,27 @@ public sealed class BlackMElevatorSystem : EntitySystem
             colorOverride: color);
     }
 
-    private void Shake(BlackMElevatorComponent comp, float strength)
+    private void Jolt(IEnumerable<EntityUid> targets, float strength)
     {
-        foreach (var p in comp.Passengers)
+        if (strength <= 0f)
+            return;
+
+        SendToPassengers(targets, new BlackMElevatorJoltEvent(strength));
+    }
+
+    private void SyncRide(BlackMElevatorComponent comp, TimeSpan now)
+    {
+        comp.NextRideSync = now + TimeSpan.FromSeconds(1);
+        var intensity = comp.RumbleIntensity * (comp.Braked ? 0.4f : 1f);
+        SendToPassengers(comp.Passengers, new BlackMElevatorRideEvent(intensity > 0f, intensity));
+    }
+
+    private void SendToPassengers(IEnumerable<EntityUid> targets, EntityEventArgs ev)
+    {
+        foreach (var t in targets)
         {
-            _recoil.KickCamera(p, _random.NextAngle().ToVec() * strength);
+            if (TryComp(t, out ActorComponent? actor))
+                RaiseNetworkEvent(ev, actor.PlayerSession);
         }
     }
 

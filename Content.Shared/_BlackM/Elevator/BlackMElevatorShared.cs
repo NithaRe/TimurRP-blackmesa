@@ -33,3 +33,27 @@ public sealed class BlackMElevatorFadeEvent : EntityEventArgs
         Text = text;
     }
 }
+
+[Serializable, NetSerializable]
+public sealed class BlackMElevatorRideEvent : EntityEventArgs
+{
+    public readonly bool Active;
+    public readonly float Intensity;
+
+    public BlackMElevatorRideEvent(bool active, float intensity)
+    {
+        Active = active;
+        Intensity = intensity;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class BlackMElevatorJoltEvent : EntityEventArgs
+{
+    public readonly float Strength;
+
+    public BlackMElevatorJoltEvent(float strength)
+    {
+        Strength = strength;
+    }
+}

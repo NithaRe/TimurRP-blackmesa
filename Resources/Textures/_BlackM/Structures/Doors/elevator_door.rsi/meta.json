@@ -1,0 +1,203 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "idk blackm",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "closed"
+        },
+        {
+            "name": "open"
+        },
+        {
+            "name": "opening",
+            "delays": [
+                [
+                    0.12,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.2
+                ]
+            ]
+        },
+        {
+            "name": "closing",
+            "delays": [
+                [
+                    0.12,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.2
+                ]
+            ]
+        },
+        {
+            "name": "assembly"
+        },
+        {
+            "name": "closed_unlit"
+        },
+        {
+            "name": "open_unlit"
+        },
+        {
+            "name": "opening_unlit",
+            "delays": [
+                [
+                    0.12,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.2
+                ]
+            ]
+        },
+        {
+            "name": "closing_unlit",
+            "delays": [
+                [
+                    0.12,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.2
+                ]
+            ]
+        },
+        {
+            "name": "bolted_unlit"
+        },
+        {
+            "name": "emergency_unlit",
+            "delays": [
+                [
+                    0.4,
+                    0.4
+                ]
+            ]
+        },
+        {
+            "name": "deny_unlit",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
+        },
+        {
+            "name": "panel_open"
+        },
+        {
+            "name": "panel_opening",
+            "delays": [
+                [
+                    0.12,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.2
+                ]
+            ]
+        },
+        {
+            "name": "panel_closing",
+            "delays": [
+                [
+                    0.12,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.2
+                ]
+            ]
+        },
+        {
+            "name": "welded"
+        },
+        {
+            "name": "sparks",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
+        },
+        {
+            "name": "sparks_broken",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
+        },
+        {
+            "name": "sparks_damaged",
+            "delays": [
+                [
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15
+                ]
+            ]
+        },
+        {
+            "name": "sparks_open",
+            "delays": [
+                [
+                    0.12,
+                    0.12,
+                    0.12,
+                    0.12,
+                    0.12,
+                    0.12
+                ]
+            ]
+        }
+    ]
+}
