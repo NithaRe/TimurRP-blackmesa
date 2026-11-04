@@ -71,6 +71,13 @@ namespace Content.Server.GameTicking
         private TimeSpan _roundStartTime;
 
         /// <summary>
+        /// The scheduled time for the current lobby countdown, or zero if it has not started.
+        /// </summary>
+        public TimeSpan RoundStartTime => _roundStartCountdownHasNotStartedYetDueToNoPlayers
+            ? TimeSpan.Zero
+            : _roundStartTime;
+
+        /// <summary>
         /// How long before RoundStartTime do we load maps.
         /// </summary>
         [ViewVariables]

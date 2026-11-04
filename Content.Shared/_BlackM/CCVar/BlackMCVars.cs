@@ -83,4 +83,13 @@ public sealed class BlackMCVars
 
     public static readonly CVarDef<bool> RadioHideNames =
         CVarDef.Create("blackm.radio_hide_names", true, CVar.SERVERONLY);
+
+    public static readonly CVarDef<bool> StartingLootVoteRequired =
+        CVarDef.Create("blackm.startloot.vote_required", true, CVar.SERVERONLY);
+
+    public static readonly CVarDef<int> StartingLootVoteStartSeconds =
+        CVarDef.Create("blackm.startloot.vote_start_seconds", 60, CVar.SERVERONLY);
+
+    public static readonly CVarDef<int> StartingLootVoteDurationSeconds =
+        CVarDef.Create("blackm.startloot.vote_duration_seconds", 30, CVar.SERVERONLY);
 }
