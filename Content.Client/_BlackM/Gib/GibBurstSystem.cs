@@ -38,6 +38,7 @@ public sealed class GibBurstSystem : EntitySystem, IGibWorld
         _particles = new GibParticleOverlay(_cache, this);
         _screen = new GibScreenOverlay(_cache);
         _overlays.AddOverlay(_particles);
+        _overlays.AddOverlay(_particles.Floor);
         _overlays.AddOverlay(_screen);
         SubscribeNetworkEvent<GibBurstEvent>(OnBurst);
     }
@@ -46,6 +47,7 @@ public sealed class GibBurstSystem : EntitySystem, IGibWorld
     {
         base.Shutdown();
         _overlays.RemoveOverlay(_particles);
+        _overlays.RemoveOverlay(_particles.Floor);
         _overlays.RemoveOverlay(_screen);
     }
 

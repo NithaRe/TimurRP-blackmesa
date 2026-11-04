@@ -9,6 +9,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Maths;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using DrawDepth = Content.Shared.DrawDepth.DrawDepth;
 
 namespace Content.Client._BlackM.Gib;
 
@@ -20,7 +21,13 @@ public sealed class GibParticleOverlay : Overlay
     private const int MaxParticles = 1400;
     private const float Gravity = 18f;
 
-    public override OverlaySpace Space => OverlaySpace.WorldSpace;
+    public const int AirDepth = (int) DrawDepth.Items;
+
+    public const int FloorDepth = (int) DrawDepth.FloorObjects;
+
+    public override OverlaySpace Space => OverlaySpace.WorldSpaceEntities;
+
+    public readonly GibFloorOverlay Floor;
 
     private readonly Texture[][] _burst;
     private readonly Texture[][] _nova;
@@ -63,6 +70,8 @@ public sealed class GibParticleOverlay : Overlay
     {
         IoCManager.InjectDependencies(this);
         _world = world;
+        ZIndex = AirDepth;
+        Floor = new GibFloorOverlay(this) { ZIndex = FloorDepth };
 
         RSI Load(string name) => cache.GetResource<RSIResource>(Path + name).RSI;
         Texture[] Anim(RSI rsi, string state) => rsi[state].GetFrames(default);
@@ -362,10 +371,22 @@ public sealed class GibParticleOverlay : Overlay
         var handle = args.WorldHandle;
         var view = args.WorldAABB.Enlarged(5f);
 
-        DrawPass(handle, view, args.MapId, static k => k is Kind.Stain or Kind.Nova);
         DrawPass(handle, view, args.MapId, static k => k == Kind.Mist);
         DrawPass(handle, view, args.MapId, static k => k == Kind.Burst);
         DrawPass(handle, view, args.MapId, static k => k is Kind.Chunk or Kind.Drop or Kind.Streak);
+
+        handle.SetTransform(Matrix3x2.Identity);
+    }
+
+    internal void DrawFloor(in OverlayDrawArgs args)
+    {
+        if (_particles.Count == 0)
+            return;
+
+        var handle = args.WorldHandle;
+        var view = args.WorldAABB.Enlarged(5f);
+
+        DrawPass(handle, view, args.MapId, static k => k is Kind.Stain or Kind.Nova);
 
         handle.SetTransform(Matrix3x2.Identity);
     }
@@ -473,4 +494,19 @@ public sealed class GibParticleOverlay : Overlay
         handle.SetTransform(Matrix3Helpers.CreateTransform(center, rot));
         handle.DrawTextureRect(tex, Box2.CenteredAround(Vector2.Zero, size), color);
     }
+}
+
+public sealed class GibFloorOverlay : Overlay
+{
+    private readonly GibParticleOverlay _owner;
+
+    public override OverlaySpace Space => OverlaySpace.WorldSpaceEntities;
+
+    public GibFloorOverlay(GibParticleOverlay owner)
+    {
+        _owner = owner;
+    }
+
+    protected override void Draw(in OverlayDrawArgs args)
+        => _owner.DrawFloor(args);
 }

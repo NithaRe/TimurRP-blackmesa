@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using Content.Shared._BlackM.Shot;
 using Content.Shared.Physics;
+using Content.Shared.Projectiles;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Client.ResourceManagement;
@@ -28,9 +29,14 @@ public sealed class ShotSystem : EntitySystem, IShotWorld
     private const string ImpactLight = "BlackMImpactLight";
     private const float TrailSpacing = 0.22f;
 
+    private const float MuzzleOffset = 0.45f;
+
+    private const float MaxBackfill = 6f;
+
     private readonly Dictionary<EntityUid, ShotState> _states = new();
     private ShotOverlay _overlay = default!;
     private EntityQuery<OccluderComponent> _occluders;
+    private EntityQuery<ProjectileComponent> _projectiles;
 
     private readonly Dictionary<(MapId, Vector2i), bool> _visCache = new();
     private float _visTimer;
@@ -39,6 +45,7 @@ public sealed class ShotSystem : EntitySystem, IShotWorld
     {
         base.Initialize();
         _occluders = GetEntityQuery<OccluderComponent>();
+        _projectiles = GetEntityQuery<ProjectileComponent>();
         _overlay = new ShotOverlay(_cache, _states, this);
         _overlays.AddOverlay(_overlay);
         SubscribeLocalEvent<ShotComponent, ComponentShutdown>(OnShutdown);
@@ -73,6 +80,8 @@ public sealed class ShotSystem : EntitySystem, IShotWorld
 
             if (!_states.TryGetValue(uid, out var st))
             {
+                var back = BackDistance(uid, xform.MapID, pos, dir);
+
                 st = new ShotState
                 {
                     Comp = shot,
@@ -81,13 +90,21 @@ public sealed class ShotSystem : EntitySystem, IShotWorld
                     Dir = dir,
                     Visible = shot.Tracer && _random.Prob(shot.TracerChance),
                     Phase = _random.NextFloat(6.28f),
+                    Dist = back,
                 };
                 _states[uid] = st;
 
                 if (trail)
                 {
                     _overlay.BeginTrail(uid, st.Map, shot);
-                    _overlay.AddTrailPoint(uid, pos, dir, 0f);
+
+                    var start = pos - dir * back;
+                    for (var d = 0f; d < back; d += TrailSpacing)
+                    {
+                        _overlay.AddTrailPoint(uid, start + dir * d, dir, d);
+                    }
+
+                    _overlay.AddTrailPoint(uid, pos, dir, back);
                 }
             }
 
@@ -108,6 +125,24 @@ public sealed class ShotSystem : EntitySystem, IShotWorld
                 }
             }
         }
+    }
+
+    private float BackDistance(EntityUid uid, MapId map, Vector2 pos, Vector2 dir)
+    {
+        if (!_projectiles.TryComp(uid, out var proj))
+            return 0f;
+
+        var source = proj.Weapon ?? proj.Shooter;
+        if (source is not { } src || TerminatingOrDeleted(src))
+            return 0f;
+
+        var srcXform = Transform(src);
+        if (srcXform.MapID != map)
+            return 0f;
+
+        var srcPos = _xform.GetWorldPosition(srcXform);
+        var back = Vector2.Dot(pos - srcPos, dir) - MuzzleOffset;
+        return Math.Clamp(back, 0f, MaxBackfill);
     }
 
     private void OnShutdown(Entity<ShotComponent> ent, ref ComponentShutdown args)
