@@ -1,0 +1,7 @@
+uniform lowp vec4 outline_color;
+uniform lowp float outline_alpha;
+
+void fragment() {
+    lowp vec4 tex = zTexture(UV);
+    COLOR = vec4(outline_color.rgb, tex.a * outline_alpha);
+}

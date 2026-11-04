@@ -1,0 +1,94 @@
+- type: startingLootPool
+  id: BlackMDefault
+  rolls: 2
+  entries:
+  - id: ToyRubberDuck
+    weight: 6
+  - id: BaseFigurineCheapo
+    weight: 10
+  - id: RubberChicken
+    weight: 10
+  - id: ToyAi
+    weight: 2
+  - id: ToyNuke
+    weight: 8
+  - id: ToyIan
+    weight: 8
+  - id: FoamCrossbow
+    weight: 8
+  - id: RevolverCapGun
+    weight: 8
+  - id: RevolverCapGunFake
+    weight: 8
+  - id: PlushieGhost
+    weight: 8
+  - id: PlushieBee
+    weight: 8
+  - id: PlushieLizard
+    weight: 8
+  - id: PlushieCarp
+    weight: 8
+  - id: PlushieMoth
+    weight: 8
+  - id: ToyFigurineClown
+    weight: 8
+  - id: ToyFigurineCaptain
+    weight: 8
+  - id: ToyRipley
+    weight: 6
+  - id: Basketball
+    weight: 8
+  - id: Football
+    weight: 8
+  - id: BeachBall
+    weight: 8
+  - id: BalloonCorgi
+    weight: 8
+  - id: BikeHorn
+    weight: 8
+  - id: WhoopieCushion
+    weight: 8
+  - id: PlasticBanana
+    weight: 8
+  - id: ClownRecorder
+    weight: 8
+  - id: NewtonCradle
+    weight: 8
+  - id: ToyHammer
+    weight: 8
+  - id: ToySword
+    weight: 6
+  - id: Flare
+    weight: 8
+  - id: FlashlightLantern
+    weight: 8
+  - id: Binoculars
+    weight: 6
+  - id: HandLabeler
+    weight: 6
+  - id: Soap
+    weight: 8
+  - id: SprayBottleWater
+    weight: 8
+  - id: Ointment
+    weight: 6
+  - id: Gauze
+    weight: 6
+  - id: FoodSnackChocolate
+    weight: 8
+  - id: FoodSnackEnergy
+    weight: 8
+  - id: FoodSnackPistachios
+    weight: 8
+  - id: FoodDonutPlain
+    weight: 8
+  - id: FoodApple
+    weight: 8
+  - id: Lighter
+    weight: 6
+  - id: DiceBag
+    weight: 6
+  - id: CrayonRainbow
+    weight: 6
+  - id: Pen
+    weight: 8
