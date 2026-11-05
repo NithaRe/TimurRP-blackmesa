@@ -48,6 +48,8 @@ public sealed partial class BlackMElevatorComponent : Component
     [DataField] public LocId BoardingMessage = "blackm-elevator-evac-boarding";
     [DataField] public LocId ClosingMessage = "blackm-elevator-evac-closing";
     [DataField] public LocId DepartingMessage = "blackm-elevator-evac-departing";
+    [DataField] public LocId CountdownStartMessage = "blackm-elevator-countdown-start";
+    [DataField] public LocId CancelMessage = "blackm-elevator-cancel";
     [DataField] public LocId FadeText = "blackm-elevator-fade-text";
 
     [DataField] public string DestinationId = "default";
@@ -60,10 +62,23 @@ public sealed partial class BlackMElevatorComponent : Component
     [DataField] public float FadeInTime = 2.5f;
     [DataField] public float EmergencyLightsAt = 22f;
 
+    [DataField] public float ClosingWarningAt = 10f;
+
+    [DataField] public int PopupCountdownFrom = 5;
+
+    [DataField] public float DepartFadeTime = 1.2f;
+
     [DataField] public float SmallShakeMin = 0.12f;
     [DataField] public float SmallShakeMax = 0.28f;
     [DataField] public float HeavyShakeStrength = 0.9f;
     [DataField] public List<float> HeavyShakes = new() { 15f, 24f };
+
+    [DataField] public float RumbleIntensity = 1f;
+
+    [DataField] public float? BrakeAt;
+
+    [DataField] public float BrakeStrength = 0.6f;
+    [DataField] public float LandingStrength = 0.45f;
 
     [DataField] public List<BlackMElevatorAnnouncement> Announcements = new();
 
@@ -78,7 +93,14 @@ public sealed partial class BlackMElevatorComponent : Component
     public int AnnounceIndex;
     public int HeavyIndex;
     public bool BoardingWarned;
+    public bool CountdownActive;
+    public int LastCountdownSecond = int.MaxValue;
+    public TimeSpan NextScan;
+    public readonly HashSet<EntityUid> InZone = new();
+    public readonly HashSet<EntityUid> Faded = new();
     public bool FadedOut;
+    public bool Braked;
+    public TimeSpan NextRideSync;
     public readonly HashSet<EntityUid> Passengers = new();
     public readonly HashSet<EntityUid> Waiting = new();
 }

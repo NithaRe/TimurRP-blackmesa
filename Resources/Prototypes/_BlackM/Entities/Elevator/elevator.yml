@@ -112,7 +112,7 @@
       id: evac
       evacuation: true
       destinationId: evac
-      boardingDelay: 45 
+      boardingDelay: 30
       fadeText: blackm-elevator-evac-fade-text
       announcements:
         - at: 2
@@ -183,7 +183,7 @@
       enabled: true 
       globalAnnounce: false 
       destinationId: oneway
-      boardingDelay: 10
+      boardingDelay: 20
       sender: blackm-elevator-oneway-sender
       boardingMessage: blackm-elevator-oneway-boarding
       closingMessage: blackm-elevator-oneway-closing

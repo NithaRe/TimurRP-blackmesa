@@ -1,0 +1,18 @@
+- type: entity
+  parent: Airlock
+  id: AirlockElevatorBlackM
+  name: дверь лифта
+  description: Тяжёлая раздвижная дверь грузового лифта.
+  suffix: BlackM
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Doors/elevator_door.rsi
+
+- type: entity
+  parent: AirlockElevatorBlackM
+  id: AirlockElevatorClosedBlackM
+  suffix: Locked
+  components:
+  - type: Door
+    clickOpen: false
+    bumpOpen: false
