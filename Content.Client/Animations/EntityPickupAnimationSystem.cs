@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 
 using System.Numerics;
+using Content.Client._BlackM.WalkBob; // BlackM
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
 using Robust.Shared.Animations;
@@ -24,6 +25,14 @@ public sealed class EntityPickupAnimationSystem : EntitySystem
     [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly SpriteSystem _sprite = default!;
     [Dependency] private readonly TransformSystem _transform = default!;
+
+    // BlackM start
+    private const float PickupLength = 0.16f;
+    private const int PickupSteps = 6;
+    private const float ArcHeight = 0.18f;
+    private const float EndScale = 0.55f;
+    private const float SpinDegrees = 20f;
+    // BlackM end
 
     public override void Initialize()
     {
@@ -73,23 +82,56 @@ public sealed class EntityPickupAnimationSystem : EntitySystem
         despawn.Lifetime = 0.25f;
         _transform.SetLocalRotationNoLerp(animatableClone, initialAngle);
 
+        // BlackM start
+        var parent = initial.EntityId;
+        var worldMatrix = _transform.GetWorldMatrix(parent);
+        RaiseLocalEvent(new PickupReachEvent(
+            Transform(parent).MapID,
+            Vector2.Transform(initial.Position, worldMatrix),
+            Vector2.Transform(final, worldMatrix)));
+
+        var baseScale = sprite.Scale;
+        var baseRotation = sprite.Rotation;
+        var spin = uid.Id % 2 == 0 ? SpinDegrees : -SpinDegrees;
+        var stepTime = PickupLength / PickupSteps;
+
+        var position = new AnimationTrackComponentProperty
+        {
+            ComponentType = typeof(TransformComponent),
+            Property = nameof(TransformComponent.LocalPosition),
+            InterpolationMode = AnimationInterpolationMode.Linear,
+        };
+        var scale = new AnimationTrackComponentProperty
+        {
+            ComponentType = typeof(SpriteComponent),
+            Property = nameof(SpriteComponent.Scale),
+            InterpolationMode = AnimationInterpolationMode.Linear,
+        };
+        var rotation = new AnimationTrackComponentProperty
+        {
+            ComponentType = typeof(SpriteComponent),
+            Property = nameof(SpriteComponent.Rotation),
+            InterpolationMode = AnimationInterpolationMode.Linear,
+        };
+
+        for (var i = 0; i <= PickupSteps; i++)
+        {
+            var t = (float) i / PickupSteps;
+            var eased = 1f - (1f - t) * (1f - t); // ease-out: fast start, soft arrival
+            var arc = 4f * t * (1f - t) * ArcHeight; // small hop up on the way to the hand
+            var keyTime = i == 0 ? 0f : stepTime;
+
+            position.KeyFrames.Add(new KeyFrame(
+                Vector2.Lerp(initial.Position, final, eased) + new Vector2(0f, arc), keyTime));
+            scale.KeyFrames.Add(new KeyFrame(baseScale * (1f + (EndScale - 1f) * eased), keyTime));
+            rotation.KeyFrames.Add(new KeyFrame(baseRotation + Angle.FromDegrees(spin * eased), keyTime));
+        }
+
         _animations.Play(new Entity<AnimationPlayerComponent>(animatableClone, animations), new Animation
         {
-            Length = TimeSpan.FromMilliseconds(125),
-            AnimationTracks =
-            {
-                new AnimationTrackComponentProperty
-                {
-                    ComponentType = typeof(TransformComponent),
-                    Property = nameof(TransformComponent.LocalPosition),
-                    InterpolationMode = AnimationInterpolationMode.Linear,
-                    KeyFrames =
-                    {
-                        new KeyFrame(initial.Position, 0),
-                        new KeyFrame(final, 0.125f)
-                    }
-                },
-            }
+            Length = TimeSpan.FromSeconds(PickupLength),
+            AnimationTracks = { position, scale, rotation },
         }, "fancy_pickup_anim");
+        // BlackM end
     }
 }

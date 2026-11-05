@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Shared._BlackM.WalkBob;
+using Content.Shared.Buckle.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Movement.Components;
@@ -11,6 +12,7 @@ using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Shared.Maths;
+using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 
@@ -24,19 +26,18 @@ public sealed class WalkBobSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly StandingStateSystem _standing = default!;
 
-    private const float RunBlendSpeed = 6f;
-    private const float KickCooldown = 0.04f;
+    private const float KickCooldown = 0.05f;
     private const float FallbackSprintThreshold = 3.5f;
+    private const float SpringStep = 1f / 120f;
 
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<WalkBobComponent, ComponentShutdown>(OnShutdown);
-
         SubscribeLocalEvent<GunComponent, GunShotEvent>(OnGunShot);
-
         SubscribeNetworkEvent<MuzzleFlashEvent>(OnMuzzleFlash);
+        SubscribeLocalEvent<PickupReachEvent>(OnPickupReach);
     }
 
     private void OnShutdown(EntityUid uid, WalkBobComponent component, ComponentShutdown args)
@@ -45,7 +46,53 @@ public sealed class WalkBobSystem : EntitySystem
             Apply(uid, sprite, component, Vector2.One, Vector2.Zero, Angle.Zero);
     }
 
-    #region fire
+    private void OnPickupReach(PickupReachEvent ev)
+    {
+        EntityUid? best = null;
+        var bestDist = 0.5f;
+
+        var query = EntityQueryEnumerator<WalkBobComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out _, out var xform))
+        {
+            if (xform.MapID != ev.MapId)
+                continue;
+
+            var dist = (_transform.GetWorldPosition(xform) - ev.To).Length();
+            if (dist >= bestDist)
+                continue;
+
+            best = uid;
+            bestDist = dist;
+        }
+
+        if (best is { } user)
+            Reach(user, ev.To, ev.From);
+    }
+
+    public void Reach(EntityUid user, Vector2 userWorldPos, Vector2 targetWorldPos)
+    {
+        if (!TryComp<WalkBobComponent>(user, out var bob) || !CanAnimate(user))
+            return;
+
+        var dir = WorldToScreen(new MapCoordinates(userWorldPos, Transform(user).MapID), targetWorldPos - userWorldPos);
+        bob.ReachDirection = dir.LengthSquared() > 0.0225f ? Vector2.Normalize(dir) : Vector2.Zero;
+        bob.ReachTimeLeft = bob.ReachDuration;
+    }
+
+    public void Throw(EntityUid user, Vector2 worldDir)
+    {
+        if (!TryComp<WalkBobComponent>(user, out var bob) || !CanAnimate(user))
+            return;
+
+        var dir = WorldToScreen(_transform.GetMapCoordinates(user), worldDir);
+        if (dir.LengthSquared() < 0.0001f)
+            return;
+
+        bob.ThrowDirection = Vector2.Normalize(dir);
+        bob.ThrowTimeLeft = bob.ThrowDuration;
+    }
+
+    #region Recoil
 
     private void OnGunShot(EntityUid gunUid, GunComponent gun, ref GunShotEvent args)
     {
@@ -56,22 +103,14 @@ public sealed class WalkBobSystem : EntitySystem
         if (!HasComp<WalkBobComponent>(user))
             return;
 
-        Vector2 dir;
+        var dir = Vector2.Zero;
         if (gun.ShootCoordinates is { } coords && coords.IsValid(EntityManager))
-        {
-            var from = _transform.GetMapCoordinates(user).Position;
-            var to = _transform.ToMapCoordinates(coords).Position;
-            dir = to - from;
-        }
-        else
-        {
-            dir = FacingVector(user);
-        }
+            dir = _transform.ToMapCoordinates(coords).Position - _transform.GetMapCoordinates(user).Position;
 
         if (dir.LengthSquared() < 0.0001f)
             dir = FacingVector(user);
 
-        Kick(user, Vector2.Normalize(dir));
+        Kick(user, Vector2.Normalize(dir), GunStrength(gun));
     }
 
     private void OnMuzzleFlash(MuzzleFlashEvent ev)
@@ -84,26 +123,35 @@ public sealed class WalkBobSystem : EntitySystem
         if (!HasComp<WalkBobComponent>(user))
             return;
 
-        Kick(user, FacingVector(user));
+        var strength = TryComp<GunComponent>(gun, out var gunComp) ? GunStrength(gunComp) : 1f;
+        Kick(user, FacingVector(user), strength);
     }
 
-    private void Kick(EntityUid user, Vector2 worldDir)
+    private static float GunStrength(GunComponent gun)
     {
-        if (!TryComp<WalkBobComponent>(user, out var bob))
+        var recoil = Math.Clamp(gun.CameraRecoilScalarModified, 0.5f, 1.5f);
+        var rate = gun.FireRateModified > 0.01f ? gun.FireRateModified : gun.FireRate;
+        var rateFactor = rate > 0.01f ? Math.Clamp(MathF.Sqrt(4f / rate), 0.6f, 1.2f) : 1f;
+        return recoil * rateFactor;
+    }
+
+    private void Kick(EntityUid user, Vector2 worldDir, float strength)
+    {
+        if (!TryComp<WalkBobComponent>(user, out var bob) || !CanAnimate(user))
             return;
 
         if (_timing.CurTime < bob.NextKickTime)
             return;
         bob.NextKickTime = _timing.CurTime + TimeSpan.FromSeconds(KickCooldown);
 
-        var screenDir = WorldToScreen(worldDir);
-        var vel = bob.RecoilVelocity - screenDir * bob.RecoilImpulse;
+        var dir = WorldToScreen(_transform.GetMapCoordinates(user), worldDir);
+        if (dir.LengthSquared() < 0.0001f)
+            return;
+        dir = Vector2.Normalize(dir);
 
-        var max = bob.RecoilImpulse * 1.5f;
-        if (vel.LengthSquared() > max * max)
-            vel = Vector2.Normalize(vel) * max;
-
-        bob.RecoilVelocity = vel;
+        var boost = MathF.Tau * bob.RecoilReturn * MathF.E;
+        bob.RecoilVelocity -= dir * bob.RecoilKick * strength * boost;
+        bob.RecoilRotationVelocity += dir.X * bob.RecoilTilt * strength * boost;
     }
 
     #endregion
@@ -112,108 +160,120 @@ public sealed class WalkBobSystem : EntitySystem
     {
         base.FrameUpdate(frameTime);
 
-        var dt = MathF.Min(frameTime, 0.1f);
+        var dt = Math.Clamp(frameTime, 0.0001f, 0.1f);
 
-        var query = EntityQueryEnumerator<WalkBobComponent, SpriteComponent>();
-        while (query.MoveNext(out var uid, out var bob, out var sprite))
+        var query = EntityQueryEnumerator<WalkBobComponent, SpriteComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var bob, out var sprite, out var xform))
         {
-            UpdateBob(uid, bob, sprite, dt);
+            UpdateBob(uid, bob, sprite, xform, dt);
         }
     }
 
-    private void UpdateBob(EntityUid uid, WalkBobComponent bob, SpriteComponent sprite, float dt)
+    private void UpdateBob(EntityUid uid, WalkBobComponent bob, SpriteComponent sprite, TransformComponent xform, float dt)
     {
-        var canAnimate = CanAnimate(uid);
+        var alive = CanAnimate(uid);
+        var k = 1f - MathF.Exp(-bob.Smoothing * dt);
 
-        float speed;
-
+        var velocity = Vector2.Zero;
         if (bob.VisualSpeedOverride is { } over)
         {
-            speed = over;
+            velocity = WorldToScreen(_transform.GetMapCoordinates(uid, xform), FacingVector(uid)) * over;
         }
-        else if (TryComp<PhysicsComponent>(uid, out var physics))
+        else if (alive && IsSelfMoving(uid) && TryComp<PhysicsComponent>(uid, out var physics))
         {
-            var vel = physics.LinearVelocity;
-            speed = vel.Length();
+            var parentRot = xform.ParentUid.IsValid() ? _transform.GetWorldRotation(xform.ParentUid) : Angle.Zero;
+            velocity = WorldToScreen(_transform.GetMapCoordinates(uid, xform), parentRot.RotateVec(physics.LinearVelocity));
         }
-        else
+
+        var speed = velocity.Length();
+        if (speed > bob.MaxAnimatedSpeed)
         {
+            velocity = Vector2.Zero;
             speed = 0f;
         }
 
-        var moving = canAnimate && speed > bob.MinSpeedThreshold;
+        var moving = alive && speed > bob.MinSpeedThreshold;
         var running = moving && speed >= GetSprintThreshold(uid, bob);
 
-        var kBlend = 1f - MathF.Exp(-bob.ReturnLerpSpeed * dt);
-        var kRun = 1f - MathF.Exp(-RunBlendSpeed * dt);
-
-        bob.ActiveWeight = Lerp(bob.ActiveWeight, canAnimate ? 1f : 0f, kBlend);
-        bob.MoveWeight = Lerp(bob.MoveWeight, moving ? 1f : 0f, kBlend);
-        bob.RunWeight = Lerp(bob.RunWeight, running ? 1f : 0f, kRun);
-
-        var pulling = canAnimate
-                      && TryComp<PullerComponent>(uid, out var puller)
-                      && puller.Pulling is { } pulled
-                      && Exists(pulled);
-
-        bob.PullWeight = Lerp(bob.PullWeight, pulling ? 1f : 0f, kBlend);
-
-        var stride = Lerp(1f, bob.RunStrideMult, bob.RunWeight)
-                     * Lerp(1f, bob.PullStrideMult, bob.PullWeight);
+        bob.ActiveWeight = Lerp(bob.ActiveWeight, alive ? 1f : 0f, k);
+        bob.MoveWeight = Lerp(bob.MoveWeight, moving ? 1f : 0f, k);
+        bob.RunWeight = Lerp(bob.RunWeight, running ? 1f : 0f, k);
 
         if (moving)
-            bob.Phase = (bob.Phase + speed * dt * bob.PhasePerMeter * stride) % MathF.Tau;
-        else if (bob.MoveWeight < 0.01f)
+            bob.VerticalWeight = Lerp(bob.VerticalWeight, MathF.Abs(velocity.Y) / speed, k);
+
+        if (moving)
+            bob.Phase = (bob.Phase + speed * dt * bob.PhasePerMeter) % MathF.Tau;
+        else if (bob.MoveWeight < 0.02f)
             bob.Phase = 0f;
 
-        bob.IdleTime += dt;
+        if (running)
+            bob.Exertion = MathF.Min(1f, bob.Exertion + dt / MathF.Max(bob.ExertionBuildTime, 0.01f));
+        else
+            bob.Exertion = MathF.Max(0f, bob.Exertion - dt / MathF.Max(bob.ExertionRecoverTime, 0.01f));
 
-        if (bob.RecoilOffset != Vector2.Zero || bob.RecoilVelocity != Vector2.Zero)
+        bob.BreathPhase = (bob.BreathPhase + Lerp(bob.BreathRate, bob.BreathRateExerted, bob.Exertion) * dt) % MathF.Tau;
+
+        var omega = MathF.Tau * bob.RecoilReturn;
+        CriticalSpring(ref bob.RecoilOffset.X, ref bob.RecoilVelocity.X, omega, dt);
+        CriticalSpring(ref bob.RecoilOffset.Y, ref bob.RecoilVelocity.Y, omega, dt);
+        CriticalSpring(ref bob.RecoilRotation, ref bob.RecoilRotationVelocity, omega, dt);
+
+        if (bob.RecoilOffset.LengthSquared() > bob.RecoilMax * bob.RecoilMax)
+            bob.RecoilOffset = Vector2.Normalize(bob.RecoilOffset) * bob.RecoilMax;
+
+        var reach = 0f;
+        if (bob.ReachTimeLeft > 0f)
         {
-            var sdt = MathF.Min(dt, 1f / 30f);
-            var acc = -bob.RecoilOffset * bob.RecoilStiffness - bob.RecoilVelocity * bob.RecoilDamping;
-            bob.RecoilVelocity += acc * sdt;
-            bob.RecoilOffset += bob.RecoilVelocity * sdt;
+            bob.ReachTimeLeft = MathF.Max(0f, bob.ReachTimeLeft - dt);
+            var u = 1f - bob.ReachTimeLeft / MathF.Max(bob.ReachDuration, 0.01f);
+            reach = MathF.Sin(MathF.PI * MathF.Pow(u, 0.6f)) * bob.ActiveWeight;
+        }
 
-            if (bob.RecoilOffset.LengthSquared() < 1e-8f && bob.RecoilVelocity.LengthSquared() < 1e-6f)
-            {
-                bob.RecoilOffset = Vector2.Zero;
-                bob.RecoilVelocity = Vector2.Zero;
-            }
+        var swing = 0f;
+        if (bob.ThrowTimeLeft > 0f)
+        {
+            bob.ThrowTimeLeft = MathF.Max(0f, bob.ThrowTimeLeft - dt);
+            var u = 1f - bob.ThrowTimeLeft / MathF.Max(bob.ThrowDuration, 0.01f);
+            swing = MathF.Sin(MathF.PI * MathF.Pow(u, 0.35f)) * bob.ActiveWeight;
         }
 
         var w = bob.MoveWeight;
-        var r = bob.RunWeight;
-        var p = bob.PullWeight;
-        var a = bob.ActiveWeight;
 
-        var s = MathF.Sin(bob.Phase);
-        var hop = MathF.Abs(s);
+        var rotDeg = bob.RecoilRotation
+                     - bob.ReachDirection.X * bob.ReachAngle * reach
+                     - bob.ThrowDirection.X * bob.ThrowAngle * swing;
+        rotDeg = Math.Clamp(rotDeg, -bob.MaxRotation, bob.MaxRotation);
 
-        var bobHeight = Lerp(bob.WalkBobHeight, bob.RunBobHeight, r) * Lerp(1f, 0.7f, p);
-        var swayDeg = Lerp(bob.WalkSway, bob.RunSway, r);
-        var squash = Lerp(bob.WalkSquash, bob.RunSquash, r);
+        var breath = 0.5f - 0.5f * MathF.Cos(bob.BreathPhase + uid.Id * 0.7f);
+        var breathAmp = Lerp(bob.BreathAmplitude, bob.BreathAmplitudeExerted, bob.Exertion) * (1f - w) * bob.ActiveWeight;
+        var scaleY = (1f + breath * breathAmp) * (1f - bob.ReachDip * reach);
 
-        var centeredHop = hop - 0.637f;
-        var offset = new Vector2(0f, centeredHop * bobHeight) * w;
-        offset.X += MathF.Sin(bob.Phase - 0.7f) * 0.025f * p * w;
-        var runAccent = Lerp(0.35f, 1f, r);
-        var rotDeg = s * swayDeg * w * runAccent;
-        var stretch = (hop - 0.5f) * squash * w * runAccent;
+        var theta = rotDeg * MathF.PI / 180f;
+        var foot = bob.FootOffset * scaleY;
+        var stepShift = MathF.Sin(bob.Phase) * bob.StepShift * Lerp(1f, bob.RunShiftMult, bob.RunWeight)
+                        * bob.VerticalWeight * w;
 
-        var breath = MathF.Sin(bob.IdleTime * bob.BreathSpeed + uid.Id * 0.7f);
-        stretch += breath * bob.BreathAmplitude * (1f - w) * a;
-        offset.Y += breath * bob.BreathAmplitude * 0.18f * (1f - w) * a;
+        var offset = bob.RecoilOffset
+                     + bob.ReachDirection * bob.ReachShift * reach
+                     + bob.ThrowDirection * bob.ThrowShift * swing
+                     + new Vector2(stepShift, 0f)
+                     + new Vector2(
+            -foot * MathF.Sin(theta),
+            -bob.FootOffset + foot * MathF.Cos(theta));
 
-        if (bob.RecoilOffset != Vector2.Zero)
-        {
-            offset += bob.RecoilOffset;
-            rotDeg -= bob.RecoilOffset.X * bob.RecoilTilt;
-            stretch -= bob.RecoilOffset.Length() * bob.RecoilSquash;
-        }
+        Apply(uid, sprite, bob, new Vector2(1f, scaleY), offset, new Angle(theta));
+    }
 
-        var scale = new Vector2(1f - stretch * 0.5f, 1f + stretch);
-        Apply(uid, sprite, bob, scale, offset, Angle.FromDegrees(rotDeg));
+    private bool IsSelfMoving(EntityUid uid)
+    {
+        if (TryComp<PullableComponent>(uid, out var pullable) && pullable.BeingPulled)
+            return false;
+
+        if (TryComp<BuckleComponent>(uid, out var buckle) && buckle.Buckled)
+            return false;
+
+        return true;
     }
 
     private bool CanAnimate(EntityUid uid)
@@ -251,6 +311,9 @@ public sealed class WalkBobSystem : EntitySystem
             bob.AppliedScale = Vector2.One;
             bob.AppliedOffset = Vector2.Zero;
             bob.AppliedRotation = Angle.Zero;
+            bob.WrittenScale = Vector2.One;
+            bob.WrittenOffset = Vector2.Zero;
+            bob.WrittenRotation = Angle.Zero;
             bob.AppliedOnLayer = onLayer;
         }
 
@@ -279,11 +342,13 @@ public sealed class WalkBobSystem : EntitySystem
             curRotation = sprite.Rotation;
         }
 
-        var baseScale = new Vector2(
-            SafeDiv(curScale.X, bob.AppliedScale.X),
-            SafeDiv(curScale.Y, bob.AppliedScale.Y));
-        var baseOffset = curOffset - bob.AppliedOffset;
-        var baseRotation = curRotation - bob.AppliedRotation;
+        var baseScale = ApproxEq(curScale, bob.WrittenScale)
+            ? new Vector2(SafeDiv(curScale.X, bob.AppliedScale.X), SafeDiv(curScale.Y, bob.AppliedScale.Y))
+            : curScale;
+        var baseOffset = ApproxEq(curOffset, bob.WrittenOffset) ? curOffset - bob.AppliedOffset : curOffset;
+        var baseRotation = MathF.Abs((float) (curRotation - bob.WrittenRotation).Theta) < 0.0001f
+            ? curRotation - bob.AppliedRotation
+            : curRotation;
 
         var newScale = baseScale * scale;
         var newOffset = baseOffset + offset;
@@ -305,14 +370,46 @@ public sealed class WalkBobSystem : EntitySystem
         bob.AppliedScale = scale;
         bob.AppliedOffset = offset;
         bob.AppliedRotation = rotation;
+        bob.WrittenScale = newScale;
+        bob.WrittenOffset = newOffset;
+        bob.WrittenRotation = newRotation;
     }
 
     #region Helpers
 
-    private Vector2 WorldToScreen(Vector2 worldVec)
+    private static void CriticalSpring(ref float x, ref float v, float omega, float dt)
     {
-        var rot = _eye.CurrentEye.Rotation;
-        return (-rot).RotateVec(worldVec);
+        var steps = Math.Max(1, (int) MathF.Ceiling(dt / SpringStep));
+        var h = dt / steps;
+
+        for (var i = 0; i < steps; i++)
+        {
+            var acc = -omega * omega * x - 2f * omega * v;
+            v += acc * h;
+            x += v * h;
+        }
+
+        if (MathF.Abs(x) < 1e-5f && MathF.Abs(v) < 1e-4f)
+        {
+            x = 0f;
+            v = 0f;
+        }
+    }
+
+    private Vector2 WorldToScreen(MapCoordinates origin, Vector2 worldVec)
+    {
+        var length = worldVec.Length();
+        if (length < 1e-5f)
+            return Vector2.Zero;
+
+        if (origin.MapId != _eye.CurrentEye.Position.MapId)
+            return (-_eye.CurrentEye.Rotation).RotateVec(worldVec);
+
+        var a = _eye.MapToScreen(origin).Position;
+        var b = _eye.MapToScreen(new MapCoordinates(origin.Position + worldVec / length, origin.MapId)).Position;
+        var screen = new Vector2(b.X - a.X, a.Y - b.Y);
+
+        return screen.LengthSquared() < 1e-6f ? Vector2.Zero : Vector2.Normalize(screen) * length;
     }
 
     private Vector2 FacingVector(EntityUid uid)

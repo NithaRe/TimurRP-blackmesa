@@ -1,0 +1,41 @@
+- type: entity
+  id: AmsSampleCart
+  parent: BaseStructureDynamic
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/ams_sample_cart.rsi
+    noRot: true
+    offset: 0,0.25
+    layers:
+    - state: base
+    - state: glow
+      shader: unshaded
+      visible: false
+      map: [ "glow" ]
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.3
+        density: 80
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Pullable
+  - type: InteractionOutline
+  - type: AmsSample
+  - type: PointLight
+    enabled: true
+    radius: 1.5
+    energy: 1
+    color: "#ffd86a"
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.AmsSampleVisuals.Active:
+        glow:
+          True: { visible: true }
+          False: { visible: false }

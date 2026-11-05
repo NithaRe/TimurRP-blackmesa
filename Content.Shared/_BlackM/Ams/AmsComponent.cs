@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
+using Content.Shared.Stacks;
 using Robust.Shared.GameObjects;
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Manager.Attributes;
 using Robust.Shared.ViewVariables;
@@ -34,6 +37,16 @@ public enum AmsPartType : byte
     Casing,
 }
 
+[DataDefinition]
+public sealed partial class AmsReinforcement
+{
+    [DataField(required: true)]
+    public ProtoId<StackPrototype> Stack;
+
+    [DataField]
+    public int Amount = 5;
+}
+
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class AmsComponent : Component
 {
@@ -55,7 +68,7 @@ public sealed partial class AmsComponent : Component
     [DataField]
     public float ActiveDuration = 300f;
 
-    [DataField]
+    [DataField, AutoNetworkedField]
     public float DetonationDelay = 60f;
 
     [DataField]
@@ -73,6 +86,29 @@ public sealed partial class AmsComponent : Component
     };
 
     [DataField]
+    public Dictionary<string, AmsReinforcement> Reinforcements = new();
+
+    [DataField]
+    public float ReinforceDelay = 2f;
+
+    [DataField]
+    public bool RequireSample = true;
+
+    [DataField, AutoNetworkedField]
+    public Vector2 SampleOffset = new(0f, -1f);
+
+    [DataField, AutoNetworkedField]
+    public float SampleRange = 0.6f;
+
+    [DataField, AutoNetworkedField]
+    public bool Primed;
+
+    [ViewVariables] public readonly Dictionary<string, int> Reinforced = new();
+    [ViewVariables] public readonly HashSet<string> Levers = new();
+    [ViewVariables] public EntityUid? Sample;
+    [ViewVariables] public TimeSpan NextSampleCheck;
+
+    [DataField]
     public int SpecialDoorRequiredParts = 4;
 
     [DataField]
@@ -88,26 +124,44 @@ public sealed partial class AmsComponent : Component
     public float InfectionEndRate = 10f;
 
     [DataField] public string ExplosionType = "Default";
+
     [DataField] public float CoreIntensity = 60000f;
     [DataField] public float CoreSlope = 5f;
     [DataField] public float CoreMaxTileIntensity = 200f;
 
-    [DataField] public int WaveCount = 14;
-    [DataField] public float WaveInterval = 0.7f;
-    [DataField] public int ExplosionsPerWave = 4;
-    [DataField] public float WaveIntensity = 3500f;
-    [DataField] public float WaveSlope = 4f;
-    [DataField] public float WaveMaxTileIntensity = 90f;
+    [DataField] public float WaveSpeed = 14f;
+
+    [DataField] public int WaveExplosionSpacing = 7;
+
+    [DataField] public float WaveExplosionChance = 0.45f;
+
+    [DataField] public float WaveExplosionsPerSecond = 14f;
+
+    [DataField] public float WaveIntensity = 600f;
+    [DataField] public float WaveSlope = 3f;
+    [DataField] public float WaveMaxTileIntensity = 30f;
+
+    [DataField] public float WaveScorchChance = 0.12f;
+
+    [DataField] public EntProtoId PortalPrototype = "AmsXenPortal";
+
+    [DataField] public float PortalIntervalStart = 4f;
+    [DataField] public float PortalIntervalEnd = 0.6f;
+
+    [DataField] public List<EntProtoId> PortalSpawns = new();
+    [DataField] public float PortalSpawnChance = 0.25f;
 
     [DataField]
     public float RoundEndDelay = 30f;
 
     [ViewVariables] public bool HecuSpawned;
+
+    [ViewVariables] public bool Launched;
     [ViewVariables] public bool ClosingWarningSent;
     [ViewVariables] public bool SpecialDoorOpened;
     [ViewVariables] public TimeSpan NextUiUpdate;
     [ViewVariables] public TimeSpan NextFlicker;
-    [ViewVariables] public EntityUid? RiftEffect;
+    [ViewVariables] public TimeSpan NextPortal;
 }
 
 [RegisterComponent]
@@ -115,6 +169,18 @@ public sealed partial class AmsPartComponent : Component
 {
     [DataField(required: true)]
     public AmsPartType PartType;
+}
+
+[RegisterComponent]
+public sealed partial class AmsSampleComponent : Component
+{
+    [ViewVariables] public bool Used;
+}
+
+[Serializable, NetSerializable]
+public enum AmsSampleVisuals : byte
+{
+    Active,
 }
 
 [RegisterComponent]
@@ -143,5 +209,14 @@ public static class AmsHelpers
             AmsStatus.Ready or AmsStatus.Active or AmsStatus.Detonating or AmsStatus.Destroyed => 1f,
             _ => 0f,
         };
+    }
+
+    public static float GetDetonationProgress(AmsComponent ams, TimeSpan now)
+    {
+        if (ams.Status != AmsStatus.Detonating || ams.DetonationTime is not { } t)
+            return ams.Status == AmsStatus.Destroyed ? 1f : 0f;
+
+        var left = (float) (t - now).TotalSeconds;
+        return 1f - Math.Clamp(left / MathF.Max(ams.DetonationDelay, 1f), 0f, 1f);
     }
 }

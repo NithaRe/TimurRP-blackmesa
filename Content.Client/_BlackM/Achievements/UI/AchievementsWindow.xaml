@@ -3,27 +3,60 @@
                              xmlns:pui="clr-namespace:Content.Client._BlackM.Passport.UI"
                              xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
                              xmlns:style="clr-namespace:Content.Client.Stylesheets"
-                             MinSize="780 580">
+                             MinSize="900 680" MaxSize="900 680">
 
-    <PanelContainer StyleClasses="PanelTerminalBlackM" MinSize="780 580">
-        <BoxContainer Orientation="Vertical" Margin="16 12 16 14" SeparationOverride="8">
+    <PanelContainer StyleClasses="PanelTerminalBlackM" MinSize="900 680" MaxSize="900 680">
+        <BoxContainer Orientation="Vertical" Margin="16 12 16 14" SeparationOverride="10">
 
+            <!-- Заголовок -->
             <BoxContainer Orientation="Horizontal" SeparationOverride="12" MinSize="0 34">
                 <Label Text="{Loc 'blackm-achievements-title'}" StyleClasses="LabelTerminalBlackM"
                        HorizontalExpand="True" VAlign="Center"/>
-                <Label Name="CounterLabel" StyleClasses="LabelTerminalBlackM" VAlign="Center"/>
+                <Label Name="EarnedLabel" StyleClasses="LabelTerminalBlackM" VAlign="Center"/>
                 <Button Name="CloseButton" Text="{Loc 'blackm-achievements-close'}"
                         StyleClasses="ButtonTerminalBlackM"/>
             </BoxContainer>
 
             <controls:HLine Color="{x:Static style:StyleNano.TerminalGreenDim}" Thickness="2"/>
 
-            <RichTextLabel Name="HintLabel" Margin="2 0 2 4"/>
+            <!-- Что висит в паспорте -->
+            <PanelContainer Name="StripPanel">
+                <BoxContainer Orientation="Vertical" Margin="10 8 10 10" SeparationOverride="6">
+                    <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+                        <Label Text="{Loc 'blackm-achievements-passport-label'}" StyleClasses="LabelTerminalBlackM"
+                               HorizontalExpand="True"/>
+                        <Label Name="CounterLabel" StyleClasses="LabelTerminalBlackM"/>
+                    </BoxContainer>
+                    <BoxContainer Name="SlotStrip" Orientation="Horizontal" SeparationOverride="8"
+                                  HorizontalAlignment="Center"/>
+                </BoxContainer>
+            </PanelContainer>
 
+            <!-- Фильтры -->
+            <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                <Button Name="FilterAll" Text="{Loc 'blackm-achievements-filter-all'}"
+                        StyleClasses="ButtonTerminalBlackM" ToggleMode="True"/>
+                <Button Name="FilterEarned" Text="{Loc 'blackm-achievements-filter-earned'}"
+                        StyleClasses="ButtonTerminalBlackM" ToggleMode="True"/>
+                <Button Name="FilterLocked" Text="{Loc 'blackm-achievements-filter-locked'}"
+                        StyleClasses="ButtonTerminalBlackM" ToggleMode="True"/>
+                <Button Name="FilterPassport" Text="{Loc 'blackm-achievements-filter-passport'}"
+                        StyleClasses="ButtonTerminalBlackM" ToggleMode="True"/>
+            </BoxContainer>
+
+            <!-- Список -->
             <ScrollContainer VerticalExpand="True" HorizontalExpand="True" HScrollEnabled="False">
-                <BoxContainer Name="AchievementList" Orientation="Vertical" SeparationOverride="8"
-                              HorizontalExpand="True"/>
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="14"
+                              Margin="0 0 6 0">
+                    <BoxContainer Name="SectionList" Orientation="Vertical" SeparationOverride="14"
+                                  HorizontalExpand="True"/>
+                    <Label Name="EmptyLabel" Text="{Loc 'blackm-achievements-empty'}"
+                           StyleClasses="LabelTerminalBlackM" Align="Center" Visible="False"
+                           Margin="0 40 0 0"/>
+                </BoxContainer>
             </ScrollContainer>
+
+            <RichTextLabel Name="HintLabel" Margin="2 0 2 0"/>
         </BoxContainer>
     </PanelContainer>
 </pui:PassportFramelessWindow>

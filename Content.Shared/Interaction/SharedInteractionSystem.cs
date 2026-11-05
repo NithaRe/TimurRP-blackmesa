@@ -1394,6 +1394,7 @@ namespace Content.Shared.Interaction
                 return false;
 
             _verbSystem.ExecuteVerb(verbs.First(), user, target);
+            RaiseLocalEvent(new Content.Shared._BlackM.AltActionEffect.AltInteractedEvent(user, target)); // BlackM effect
             return true;
         }
         #endregion

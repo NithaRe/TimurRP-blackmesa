@@ -1,5 +1,13 @@
 - type: entity
+  abstract: true
   parent: BaseItem
+  id: BaseAmsPart
+  components:
+  - type: Item
+    size: Ginormous
+
+- type: entity
+  parent: BaseAmsPart
   id: AmsPartCore
   components:
   - type: Sprite
@@ -11,7 +19,7 @@
     tags: [AmsPartCore]
 
 - type: entity
-  parent: BaseItem
+  parent: BaseAmsPart
   id: AmsPartCoil
   components:
   - type: Sprite
@@ -23,7 +31,7 @@
     tags: [AmsPartCoil]
 
 - type: entity
-  parent: BaseItem
+  parent: BaseAmsPart
   id: AmsPartLens
   components:
   - type: Sprite
@@ -35,7 +43,7 @@
     tags: [AmsPartLens]
 
 - type: entity
-  parent: BaseItem
+  parent: BaseAmsPart
   id: AmsPartCell
   components:
   - type: Sprite
@@ -47,7 +55,7 @@
     tags: [AmsPartCell]
 
 - type: entity
-  parent: BaseItem
+  parent: BaseAmsPart
   id: AmsPartStabilizer
   components:
   - type: Sprite
@@ -59,7 +67,7 @@
     tags: [AmsPartStabilizer]
 
 - type: entity
-  parent: BaseItem
+  parent: BaseAmsPart
   id: AmsPartCasing
   components:
   - type: Sprite

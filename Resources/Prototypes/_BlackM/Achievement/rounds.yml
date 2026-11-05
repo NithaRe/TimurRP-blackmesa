@@ -1,4 +1,14 @@
 - type: blackmAchievement
+  id: Rounds1
+  name: achievement-rounds-1-name
+  description: achievement-rounds-1-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/rounds_1.png
+  kind: Stat
+  stat: rounds_played
+  count: 1
+  order: 105
+
+- type: blackmAchievement
   id: Rounds10
   name: achievement-rounds-10-name
   description: achievement-rounds-10-desc
@@ -27,3 +37,24 @@
   stat: rounds_played
   count: 100
   order: 130
+
+
+- type: blackmAchievement
+  id: Rounds250
+  name: achievement-rounds-250-name
+  description: achievement-rounds-250-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/rounds_250.png
+  kind: Stat
+  stat: rounds_played
+  count: 250
+  order: 140
+
+- type: blackmAchievement
+  id: Rounds500
+  name: achievement-rounds-500-name
+  description: achievement-rounds-500-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/rounds_500.png
+  kind: Stat
+  stat: rounds_played
+  count: 500
+  order: 150

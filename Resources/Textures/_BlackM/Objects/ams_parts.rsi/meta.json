@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Made for the _BlackM TimurRP",
+  "copyright": "core: teslalink from Baystation12 (https://github.com/Baystation12/Baystation12, icons/obj/stock_parts.dmi); coil: smes_coil_transmission from Baystation12 (https://github.com/Baystation12/Baystation12, icons/obj/stock_parts.dmi); lens: alien_laser from CEV-Eris (https://github.com/discordia-space/CEV-Eris, icons/obj/stock_parts.dmi); cell: b_st from CEV-Eris (https://github.com/discordia-space/CEV-Eris, icons/obj/power_cells.dmi); stabilizer: bin_debug from CEV-Eris (https://github.com/discordia-space/CEV-Eris, icons/obj/stock_parts.dmi); casing: battery0 from Baystation12 (https://github.com/Baystation12/Baystation12, icons/obj/stock_parts.dmi)",
   "size": {
     "x": 32,
     "y": 32
@@ -9,27 +9,27 @@
   "states": [
     {
       "name": "core",
-      "directions": 1
+      "delays": [
+        [
+          1.0,
+          0.06
+        ]
+      ]
     },
     {
-      "name": "coil",
-      "directions": 1
+      "name": "coil"
     },
     {
-      "name": "lens",
-      "directions": 1
+      "name": "lens"
     },
     {
-      "name": "cell",
-      "directions": 1
+      "name": "cell"
     },
     {
-      "name": "stabilizer",
-      "directions": 1
+      "name": "stabilizer"
     },
     {
-      "name": "casing",
-      "directions": 1
+      "name": "casing"
     }
   ]
 }

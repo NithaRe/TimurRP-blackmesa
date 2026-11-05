@@ -1,6 +1,59 @@
-- files: ["ams_hum_idle.ogg", "ams_hum_sync.ogg", "ams_hum_ready.ogg", "ams_hum_active.ogg", "ams_hum_critical.ogg",
-          "ams_charge.ogg", "ams_explosion.ogg", "ams_cascade.ogg", "ams_crackle.ogg", "ams_insert.ogg",
-          "ams_calibrated.ogg", "ams_infect.ogg", "ams_powerup.ogg"]
-  license: "CC-BY-SA-3.0"
-  copyright: "blackm."
-  source: "https://github.com/NithaRe/TimurRP-blackmesa"
+- files: ["ams_hum_idle.ogg"]
+  license: "CC0-1.0"
+  copyright: "'Scifi_Generator_Lp' by Euphrosyyn (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/452768/"
+
+- files: ["ams_hum_sync.ogg"]
+  license: "CC0-1.0"
+  copyright: "'Forcefield Hum 2' by Zeraora; 'Electric Zap Loop' by Resaural (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/812392/"
+
+- files: ["ams_hum_active.ogg"]
+  license: "CC0-1.0"
+  copyright: "'evil space ship warp core hum loop' by qubodup; 'Big Tesla coil sound cut.wav' by follytowers (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/861430/"
+
+- files: ["ams_hum_ready.ogg"]
+  license: "CC0-1.0"
+  copyright: "'evil space ship warp core hum loop' by qubodup; 'Big Tesla coil sound cut.wav' by follytowers (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/861430/"
+
+- files: ["ams_hum_critical.ogg"]
+  license: "CC0-1.0"
+  copyright: "'ELECArc_Electric arc hum and buzz. A longer movement of electricity, a power station switching arc when decoupled. designed with synth_Anton Bushinskiy_AB FX' by pryanic; 'Cinematic Deep Rumble' by swiftoid (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/776446/"
+
+- files: ["ams_powerup.ogg"]
+  license: "CC0-1.0"
+  copyright: "'Machine Start Up:Power Down.wav' by Taylor_Pro_Sounds (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/210333/"
+
+- files: ["ams_calibrated.ogg"]
+  license: "CC0-1.0"
+  copyright: "'Machine Charge.wav' by Glitchedtones; 'Sci-Fi Gateway' by Bachsambora (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/375925/"
+
+- files: ["ams_crackle.ogg"]
+  license: "CC0-1.0"
+  copyright: "'Electricity' by FlashTrauma; 'ELECTRIC_ZAP_001.wav' by JoelAudio (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/398274/"
+
+- files: ["ams_charge.ogg"]
+  license: "CC0-1.0"
+  copyright: "'Power Charge' by Sojan (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/407052/"
+
+- files: ["ams_cascade.ogg"]
+  license: "CC0-1.0"
+  copyright: "'Cinematic Deep Rumble' by swiftoid (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/184313/"
+
+- files: ["ams_explosion.ogg"]
+  license: "CC0-1.0"
+  copyright: "'Huge Explosion' by unfa (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/259300/"
+
+- files: ["ams_portal.ogg"]
+  license: "CC0-1.0"
+  copyright: "'Sci Fi portal' by Bzourk (freesound.org), mixed/edited for TimurRP"
+  source: "https://freesound.org/s/322059/"

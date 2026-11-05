@@ -1,32 +1,52 @@
 <controls:FancyWindow xmlns="https://spacestation14.io"
                       xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
                       Title="{Loc 'ams-ui-title'}"
-                      MinSize="520 580"
-                      SetSize="540 620">
-    <PanelContainer Name="RootPanel">
-        <BoxContainer Orientation="Vertical" Margin="22 20 22 22" SeparationOverride="12">
-            <PanelContainer Name="HeaderPanel">
-                <BoxContainer Orientation="Horizontal" Margin="16 10 16 10" SeparationOverride="12">
-                    <TextureRect Name="Logo" VerticalAlignment="Center"/>
-                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalAlignment="Center">
-                        <Label Name="StatusLabel" StyleClasses="LabelBig"/>
-                        <Label Name="HintLabel" StyleClasses="LabelSubText"/>
-                    </BoxContainer>
-                    <Label Name="TimerLabel" StyleClasses="LabelBig" VerticalAlignment="Center"/>
-                </BoxContainer>
-            </PanelContainer>
-            <TextureRect Name="Hazard"/>
-            <BoxContainer Orientation="Vertical" SeparationOverride="4">
+                      MinSize="540 530"
+                      SetSize="560 550">
+    <BoxContainer Orientation="Vertical" Margin="10 8 10 10" SeparationOverride="8">
+        <!-- Шапка: состояние, таймер, подсказка -->
+        <PanelContainer Name="HeaderPanel">
+            <BoxContainer Orientation="Vertical" Margin="10 6 10 8" SeparationOverride="2">
                 <BoxContainer Orientation="Horizontal">
-                    <Label Text="{Loc 'ams-ui-charge'}" StyleClasses="LabelSubText" HorizontalExpand="True"/>
-                    <Label Name="ChargeLabel"/>
+                    <Label Text="{Loc 'ams-ui-status'}" StyleClasses="LabelSubText" HorizontalExpand="True" />
+                    <Label Name="TimerCaption" StyleClasses="LabelSubText" />
                 </BoxContainer>
-                <ProgressBar Name="ChargeBar" MinValue="0" MaxValue="1" MinHeight="22"/>
+                <BoxContainer Orientation="Horizontal">
+                    <Label Name="StatusLabel" StyleClasses="LabelBig" HorizontalExpand="True" />
+                    <Label Name="TimerLabel" StyleClasses="LabelBig" />
+                </BoxContainer>
+                <RichTextLabel Name="HintLabel" Margin="0 2 0 0" />
             </BoxContainer>
-            <Label Text="{Loc 'ams-ui-parts'}" StyleClasses="LabelSubText"/>
-            <GridContainer Name="PartsGrid" Columns="2" HSeparationOverride="8" VSeparationOverride="8"/>
-            <Control VerticalExpand="True"/>
-            <Button Name="ActionButton" MinHeight="50"/>
+        </PanelContainer>
+
+        <!-- Заряд -->
+        <BoxContainer Orientation="Vertical" SeparationOverride="3">
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="{Loc 'ams-ui-charge'}" StyleClasses="LabelSubText" HorizontalExpand="True" />
+                <Label Name="ChargeLabel" />
+            </BoxContainer>
+            <ProgressBar Name="ChargeBar" MinValue="0" MaxValue="1" MinHeight="20" />
         </BoxContainer>
-    </PanelContainer>
+
+        <!-- Компоненты -->
+        <BoxContainer Orientation="Vertical" SeparationOverride="4">
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="{Loc 'ams-ui-parts'}" StyleClasses="LabelSubText" HorizontalExpand="True" />
+                <Label Name="PartsCountLabel" StyleClasses="LabelSubText" />
+            </BoxContainer>
+            <PanelContainer StyleClasses="LowDivider" />
+            <GridContainer Name="PartsGrid" Columns="2" HSeparationOverride="6" VSeparationOverride="6" />
+        </BoxContainer>
+
+        <!-- Образец -->
+        <PanelContainer Name="SamplePanel">
+            <BoxContainer Orientation="Horizontal" Margin="10 6 10 6" SeparationOverride="8">
+                <Label Text="{Loc 'ams-ui-sample'}" StyleClasses="LabelSubText" />
+                <Label Name="SampleLabel" HorizontalExpand="True" />
+            </BoxContainer>
+        </PanelContainer>
+
+        <Control VerticalExpand="True" />
+        <Button Name="ActionButton" MinHeight="40" />
+    </BoxContainer>
 </controls:FancyWindow>

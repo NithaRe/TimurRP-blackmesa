@@ -31,3 +31,43 @@
   icon: /Textures/_BlackM/Interface/Passport/Badges/special_founder.png
   kind: Manual
   order: 900
+
+- type: blackmAchievement
+  id: AchivHero
+  name: achievement-hero-name
+  description: achievement-hero-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/manual_hero.png
+  kind: Manual
+  order: 940
+
+- type: blackmAchievement
+  id: AchivSurvivor
+  name: achievement-survivor-name
+  description: achievement-survivor-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/manual_survivor.png
+  kind: Manual
+  order: 950
+
+- type: blackmAchievement
+  id: AchivBugHunter
+  name: achievement-bughunter-name
+  description: achievement-bughunter-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/manual_bughunter.png
+  kind: Manual
+  order: 960
+
+- type: blackmAchievement
+  id: AchivMedic
+  name: achievement-medic-name
+  description: achievement-medic-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/manual_medic.png
+  kind: Manual
+  order: 970
+
+- type: blackmAchievement
+  id: AchivSponsor
+  name: achievement-sponsor-name
+  description: achievement-sponsor-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/manual_sponsor.png
+  kind: Manual
+  order: 980
