@@ -3,61 +3,61 @@
   rolls: 2
   entries:
   - id: ToyRubberDuck
-    weight: 6
+    weight: 3
   - id: BaseFigurineCheapo
-    weight: 10
+    weight: 4
   - id: RubberChicken
-    weight: 10
+    weight: 4
   - id: ToyAi
-    weight: 2
+    weight: 1
   - id: ToyNuke
-    weight: 8
+    weight: 3
   - id: ToyIan
-    weight: 8
+    weight: 3
   - id: FoamCrossbow
-    weight: 8
+    weight: 3
   - id: RevolverCapGun
-    weight: 8
+    weight: 3
   - id: RevolverCapGunFake
-    weight: 8
+    weight: 3
   - id: PlushieGhost
-    weight: 8
+    weight: 3
   - id: PlushieBee
-    weight: 8
+    weight: 3
   - id: PlushieLizard
-    weight: 8
+    weight: 3
   - id: PlushieCarp
-    weight: 8
+    weight: 3
   - id: PlushieMoth
-    weight: 8
+    weight: 3
   - id: ToyFigurineClown
-    weight: 8
+    weight: 3
   - id: ToyFigurineCaptain
-    weight: 8
+    weight: 3
   - id: ToyRipley
-    weight: 6
+    weight: 2
   - id: Basketball
-    weight: 8
+    weight: 3
   - id: Football
-    weight: 8
+    weight: 3
   - id: BeachBall
-    weight: 8
+    weight: 3
   - id: BalloonCorgi
-    weight: 8
+    weight: 3
   - id: BikeHorn
-    weight: 8
+    weight: 4
   - id: WhoopieCushion
-    weight: 8
+    weight: 3
   - id: PlasticBanana
-    weight: 8
+    weight: 3
   - id: ClownRecorder
-    weight: 8
+    weight: 3
   - id: NewtonCradle
-    weight: 8
+    weight: 3
   - id: ToyHammer
-    weight: 8
+    weight: 3
   - id: ToySword
-    weight: 6
+    weight: 2
   - id: Flare
     weight: 8
   - id: FlashlightLantern
@@ -87,8 +87,210 @@
   - id: Lighter
     weight: 6
   - id: DiceBag
-    weight: 6
+    weight: 3
   - id: CrayonRainbow
     weight: 6
   - id: Pen
     weight: 8
+  - id: Screwdriver
+    weight: 5
+  - id: Wrench
+    weight: 5
+  - id: Wirecutter
+    weight: 5
+  - id: Crowbar
+    weight: 3
+  - id: Multitool
+    weight: 2
+  - id: WelderMini
+    weight: 3
+  - id: HandheldGPSBasic
+    weight: 3
+  - id: RadioHandheld
+    weight: 3
+  - id: trayScanner
+    weight: 2
+  - id: AppraisalTool
+    weight: 2
+  - id: RemoteSignaller
+    weight: 2
+  - id: PowerCellSmall
+    weight: 4
+  - id: PowerCellMedium
+    weight: 2
+  - id: CableApcStack10
+    weight: 4
+  - id: LightBulb
+    weight: 3
+  - id: LightTube
+    weight: 3
+  - id: SprayBottleSpaceCleaner
+    weight: 3
+  - id: Brutepack
+    weight: 5
+  - id: PillDylovene
+    weight: 4
+  - id: PillTricordrazine
+    weight: 3
+  - id: PillKelotane
+    weight: 3
+  - id: PillBicaridine
+    weight: 3
+  - id: EmergencyMedipen
+    weight: 2
+  - id: Tourniquet
+    weight: 2
+  - id: Bloodpack
+    weight: 2
+  - id: HandheldHealthAnalyzer
+    weight: 1
+  - id: FoodTinBeans
+    weight: 5
+  - id: FoodTinPeaches
+    weight: 5
+  - id: FoodTinMRE
+    weight: 3
+  - id: FoodSnackNutribrick
+    weight: 4
+  - id: FoodSnackMREBrownie
+    weight: 3
+  - id: ClothingHandsGlovesColorBlack
+    weight: 3
+  - id: ClothingHandsGlovesColorYellowBudget
+    weight: 3
+  - id: ClothingHandsGlovesFingerless
+    weight: 3
+  - id: ClothingEyesGlassesSunglasses
+    weight: 3
+  - id: ClothingHeadHatHardhatYellow
+    weight: 3
+  - id: ClothingOuterVestHazard
+    weight: 2
+  - id: ClothingBeltUtility
+    weight: 2
+  - id: ClothingMaskBandBlack
+    weight: 3
+  - id: ClothingNeckScarfStripedRed
+    weight: 3
+  - id: ClothingHeadHatWelding
+    weight: 1
+  - id: ClothingEyesGlassesMeson
+    weight: 1
+  - id: FoodSnackRaisins
+    weight: 4
+  - id: FoodSnackChips
+    weight: 5
+  - id: FoodSnackBoritos
+    weight: 4
+  - id: FoodSnackCheesie
+    weight: 4
+  - id: FoodSnackPopcorn
+    weight: 4
+  - id: FoodSnackSemki
+    weight: 4
+  - id: FoodSnackCookieFortune
+    weight: 3
+  - id: FoodSnackChocolateBar
+    weight: 4
+  - id: FoodBanana
+    weight: 4
+  - id: FoodOrange
+    weight: 4
+  - id: FoodCarrot
+    weight: 3
+  - id: FoodBakedCookie
+    weight: 3
+  - id: FoodBakedMuffin
+    weight: 3
+  - id: FoodDonutPink
+    weight: 3
+  - id: FoodDonutChocolate
+    weight: 3
+  - id: DrinkWaterBottleFull
+    weight: 6
+  - id: DrinkColaCan
+    weight: 5
+  - id: DrinkSpaceMountainWindCan
+    weight: 4
+  - id: DrinkDrGibbCan
+    weight: 4
+  - id: DrinkLemonLimeCan
+    weight: 4
+  - id: DrinkSpaceUpCan
+    weight: 4
+  - id: DrinkIcedTeaCan
+    weight: 4
+  - id: DrinkMug
+    weight: 3
+  - id: DrinkMugBlack
+    weight: 2
+  - id: DrinkMugMoebius
+    weight: 2
+  - id: CigPackGreen
+    weight: 3
+  - id: CigPackRed
+    weight: 3
+  - id: Matchbox
+    weight: 4
+  - id: CheapLighter
+    weight: 4
+  - id: FlippoLighter
+    weight: 1
+  - id: Paper
+    weight: 6
+  - id: PenCap
+    weight: 3
+  - id: LuxuryPen
+    weight: 1
+  - id: CrayonBox
+    weight: 3
+  - id: BoxFolderBlue
+    weight: 3
+  - id: BoxFolderYellow
+    weight: 3
+  - id: BookRandomStory
+    weight: 3
+  - id: RubberStampApproved
+    weight: 1
+  - id: TowelColorWhite
+    weight: 4
+  - id: Cane
+    weight: 2
+  - id: SpaceCash10
+    weight: 4
+  - id: GlowstickRed
+    weight: 3
+  - id: GlowstickBlue
+    weight: 3
+  - id: GlowstickYellow
+    weight: 3
+  - id: Whistle
+    weight: 3
+  - id: HarmonicaInstrument
+    weight: 2
+  - id: CassetteTape
+    weight: 2
+  - id: TapeRecorder
+    weight: 1
+  - id: HydroponicsToolMiniHoe
+    weight: 3
+  - id: TomatoSeeds
+    weight: 3
+  - id: BananaSeeds
+    weight: 3
+  - id: PlushieSharkBlue
+    weight: 3
+  - id: PlushiePenguin
+    weight: 3
+  - id: PlushieHampter
+    weight: 3
+  - id: PlushieSlime
+    weight: 2
+  - id: ToyMouse
+    weight: 3
+  - id: d6Dice
+    weight: 3
+  - id: CardDeckNanotrasen
+    weight: 3
+  - id: SnapPopBox
+    weight: 3

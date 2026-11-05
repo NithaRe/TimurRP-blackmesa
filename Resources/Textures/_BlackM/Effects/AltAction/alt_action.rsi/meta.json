@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "blackm",
+  "size": {
+    "x": 24,
+    "y": 24
+  },
+  "states": [
+    {
+      "name": "ring",
+      "delays": [
+        [
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06
+        ]
+      ]
+    }
+  ]
+}

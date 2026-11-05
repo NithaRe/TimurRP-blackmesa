@@ -8,6 +8,7 @@ using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
+using Robust.Shared.Input;
 using Robust.Shared.IoC;
 using Robust.Shared.Localization;
 using Robust.Shared.Maths;
@@ -15,6 +16,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.Achievements.UI;
+
 [GenerateTypedNameReferences]
 public sealed partial class AchievementsWindow : PassportFramelessWindow
 {
@@ -22,9 +24,47 @@ public sealed partial class AchievementsWindow : PassportFramelessWindow
     [Dependency] private readonly IResourceCache       _resources = default!;
     [Dependency] private readonly IEntitySystemManager _sysMan    = default!;
 
+    private const float IconSize = 64f;
+    private const float SlotSize = 72f;
+    private const float ColumnWidth = 414f;
+
+    private static readonly Color CardBg         = Color.FromHex("#17100AE8");
+    private static readonly Color CardBgLocked   = Color.FromHex("#0D0A06E8");
+    private static readonly Color CardBgSelected = Color.FromHex("#1C2114F0");
+    private static readonly Color BorderLocked   = Color.FromHex("#3A3020");
+    private static readonly Color TextDim        = Color.FromHex("#8C8064");
+    private static readonly Color MaxWarn        = Color.FromHex("#D0763A");
+
+    private enum Filter : byte { All, Earned, Locked, Passport }
+
+    private sealed class Section
+    {
+        public BoxContainer Root = default!;
+        public Label Header = default!;
+        public BoxContainer Left = default!;
+        public BoxContainer Right = default!;
+        public readonly List<Card> Cards = new();
+        public string Title = string.Empty;
+        public int Total;
+        public int Earned;
+    }
+
+    private sealed class Card
+    {
+        public AchievementPrototype Proto = default!;
+        public PanelContainer Panel = default!;
+        public Button Toggle = default!;
+        public Section Section = default!;
+        public bool Unlocked;
+    }
+
     private readonly AchievementsClientSystem _system;
     private readonly HashSet<string> _selected = new();
     private readonly HashSet<string> _unlocked = new();
+    private readonly Dictionary<string, Card> _cards = new();
+    private readonly List<Section> _sections = new();
+
+    private Filter _filter = Filter.All;
     private bool _suppressToggle;
 
     public AchievementsWindow()
@@ -36,8 +76,23 @@ public sealed partial class AchievementsWindow : PassportFramelessWindow
 
         HintLabel.SetMessage(FormattedMessage.FromUnformatted(
             Loc.GetString("blackm-achievements-hint", ("max", AchievementsConst.MaxBadges))));
+        HintLabel.Modulate = new Color(1f, 1f, 1f, 0.6f);
+
+        StripPanel.PanelOverride = new StyleBoxFlat
+        {
+            BackgroundColor = Color.FromHex("#0B0805E8"),
+            BorderColor = StyleNano.TerminalGreenDim,
+            BorderThickness = new Thickness(1),
+        };
 
         CloseButton.OnPressed += _ => Close();
+
+        var group = new ButtonGroup();
+        SetupFilter(FilterAll, Filter.All, group);
+        SetupFilter(FilterEarned, Filter.Earned, group);
+        SetupFilter(FilterLocked, Filter.Locked, group);
+        SetupFilter(FilterPassport, Filter.Passport, group);
+        FilterAll.Pressed = true;
 
         _system.StateUpdated += OnStateUpdated;
         OnClose += () => _system.StateUpdated -= OnStateUpdated;
@@ -47,15 +102,29 @@ public sealed partial class AchievementsWindow : PassportFramelessWindow
 
         _system.Request();
     }
+
     protected override DragMode GetDragModeFor(Vector2 relativeMousePos)
         => relativeMousePos.Y < 52f ? DragMode.Move : DragMode.None;
+
+    private void SetupFilter(Button button, Filter filter, ButtonGroup group)
+    {
+        button.Group = group;
+        button.OnPressed += _ =>
+        {
+            _filter = filter;
+            ApplyFilter();
+        };
+    }
+
+    // state
 
     private void OnStateUpdated()
     {
         var state = _system.State;
         if (state == null)
             return;
-        var same = AchievementList.ChildCount > 0
+
+        var same = _cards.Count > 0
                    && _selected.SetEquals(state.Selected)
                    && _unlocked.SetEquals(state.Unlocked);
 
@@ -67,112 +136,466 @@ public sealed partial class AchievementsWindow : PassportFramelessWindow
         foreach (var id in state.Unlocked)
             _unlocked.Add(id);
 
-        UpdateCounter();
-
         if (!same)
             Rebuild(state);
+
+        RefreshAll();
     }
 
-    private void UpdateCounter()
+    private List<AchievementPrototype> SortedPrototypes()
     {
-        CounterLabel.Text = Loc.GetString("blackm-achievements-counter",
-            ("count", _selected.Count), ("max", AchievementsConst.MaxBadges));
+        var protos = new List<AchievementPrototype>(_prototype.EnumeratePrototypes<AchievementPrototype>());
+        protos.Sort(CompareProto);
+        return protos;
     }
+
+    private static int CompareProto(AchievementPrototype a, AchievementPrototype b)
+        => a.Order != b.Order ? a.Order.CompareTo(b.Order) : string.CompareOrdinal(a.ID, b.ID);
+
+    // build
 
     private void Rebuild(AchievementsStateEvent state)
     {
-        AchievementList.RemoveAllChildren();
+        SectionList.RemoveAllChildren();
+        _cards.Clear();
+        _sections.Clear();
 
-        var protos = new List<AchievementPrototype>(_prototype.EnumeratePrototypes<AchievementPrototype>());
-        protos.Sort((a, b) => a.Order != b.Order ? a.Order.CompareTo(b.Order) : string.CompareOrdinal(a.ID, b.ID));
+        var bySection = new Dictionary<string, Section>();
 
-        foreach (var proto in protos)
+        foreach (var proto in SortedPrototypes())
         {
+            var key = SectionKey(proto);
+            if (!bySection.TryGetValue(key, out var section))
+            {
+                section = CreateSection(key);
+                bySection[key] = section;
+                _sections.Add(section);
+                SectionList.AddChild(section.Root);
+            }
+
             state.Progress.TryGetValue(proto.ID, out var current);
-            AchievementList.AddChild(BuildRow(proto, current, _unlocked.Contains(proto.ID), _selected.Contains(proto.ID)));
+            var card = CreateCard(proto, current, _unlocked.Contains(proto.ID), section);
+            _cards[proto.ID] = card;
+            section.Cards.Add(card);
+
+            section.Total++;
+            if (card.Unlocked)
+                section.Earned++;
+        }
+
+        foreach (var section in _sections)
+        {
+            section.Header.Text = section.Title + "   " + Loc.GetString("blackm-achievements-section-count",
+                ("earned", section.Earned), ("total", section.Total));
         }
     }
 
-    private Control BuildRow(AchievementPrototype proto, float current, bool unlocked, bool selected)
+    private static string SectionKey(AchievementPrototype proto)
     {
-        var panel = new PanelContainer
+        return proto.Kind switch
         {
-            PanelOverride = new StyleBoxFlat
+            AchievementKind.Playtime => "blackm-achievements-section-playtime",
+            AchievementKind.Stat     => "blackm-achievements-section-progress",
+            AchievementKind.Date     => "blackm-achievements-section-events",
+            _                        => "blackm-achievements-section-special",
+        };
+    }
+
+    private static Section CreateSection(string locKey)
+    {
+        var section = new Section { Title = Loc.GetString(locKey) };
+
+        section.Root = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            SeparationOverride = 6,
+        };
+
+        section.Header = new Label();
+        section.Header.StyleClasses.Add("LabelTerminalBlackM");
+        section.Root.AddChild(section.Header);
+
+        section.Root.AddChild(new PanelContainer
+        {
+            MinSize = new Vector2(0, 1),
+            HorizontalExpand = true,
+            PanelOverride = new StyleBoxFlat { BackgroundColor = StyleNano.TerminalGreenDim.WithAlpha(0.5f) },
+        });
+
+        var columns = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            HorizontalExpand = true,
+            SeparationOverride = 10,
+        };
+        section.Left = CreateColumn();
+        section.Right = CreateColumn();
+        columns.AddChild(section.Left);
+        columns.AddChild(section.Right);
+        section.Root.AddChild(columns);
+
+        return section;
+    }
+
+    private static BoxContainer CreateColumn()
+    {
+        return new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            MinWidth = ColumnWidth,
+            MaxWidth = ColumnWidth,
+            SeparationOverride = 10,
+        };
+    }
+
+    private Card CreateCard(AchievementPrototype proto, float current, bool unlocked, Section section)
+    {
+        var name = Loc.GetString(proto.Name);
+        var desc = Loc.GetString(proto.Description);
+
+        var card = new Card
+        {
+            Proto = proto,
+            Unlocked = unlocked,
+            Section = section,
+            Panel = new PanelContainer
             {
-                BackgroundColor = unlocked ? Color.FromHex("#1A1208E8") : Color.FromHex("#100C07E8"),
-                BorderColor = selected ? StyleNano.TerminalGreen : StyleNano.TerminalGreenDim,
-                BorderThickness = new Thickness(1),
-            }
+                HorizontalExpand = true,
+                MouseFilter = MouseFilterMode.Pass,
+            },
         };
 
         var row = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            SeparationOverride = 14,
-            Margin = new Thickness(10),
+            SeparationOverride = 12,
+            Margin = new Thickness(10, 8, 10, 8),
         };
+
         var icon = new TextureRect
         {
-            MinSize = new Vector2(80, 80),
-            Stretch = TextureRect.StretchMode.KeepAspectCentered,
+            MinSize = new Vector2(IconSize, IconSize),
+            Stretch = TextureRect.StretchMode.KeepCentered,
             VerticalAlignment = Control.VAlignment.Center,
         };
         if (_resources.TryGetResource<TextureResource>(proto.Icon, out var tex))
             icon.Texture = tex.Texture;
         if (!unlocked)
-            icon.Modulate = new Color(0.28f, 0.28f, 0.28f, 0.9f);
+            icon.Modulate = new Color(0.25f, 0.25f, 0.25f, 0.85f);
         row.AddChild(icon);
+
         var info = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
             HorizontalExpand = true,
             VerticalAlignment = Control.VAlignment.Center,
-            SeparationOverride = 5,
+            SeparationOverride = 4,
         };
 
-        var name = new Label { Text = Loc.GetString(proto.Name) };
-        name.StyleClasses.Add("LabelTerminalBlackM");
-        info.AddChild(name);
-
-        var desc = new RichTextLabel();
-        desc.SetMessage(FormattedMessage.FromUnformatted(Loc.GetString(proto.Description)));
-        info.AddChild(desc);
-        var target = proto.Target;
-        if (target > 0)
+        var top = new BoxContainer
         {
-            info.AddChild(new ProgressBar
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            SeparationOverride = 8,
+        };
+
+        var nameLabel = new Label { Text = name, HorizontalExpand = true, ClipText = true, VAlign = Label.VAlignMode.Center };
+        nameLabel.StyleClasses.Add("LabelTerminalBlackM");
+        if (!unlocked)
+            nameLabel.Modulate = new Color(1f, 1f, 1f, 0.6f);
+        top.AddChild(nameLabel);
+
+        card.Toggle = new Button
+        {
+            ToggleMode = true,
+            Disabled = !unlocked,
+            MinSize = new Vector2(118, 28),
+            VerticalAlignment = Control.VAlignment.Center,
+        };
+        card.Toggle.StyleClasses.Add("ButtonTerminalBlackM");
+        card.Toggle.OnToggled += args => OnToggle(card, args.Pressed);
+        top.AddChild(card.Toggle);
+        info.AddChild(top);
+
+        var descLabel = new RichTextLabel { HorizontalExpand = true };
+        descLabel.SetMessage(FormattedMessage.FromUnformatted(desc));
+        descLabel.Modulate = unlocked ? Color.White : new Color(1f, 1f, 1f, 0.55f);
+        info.AddChild(descLabel);
+
+        info.AddChild(CreateProgress(proto, current, unlocked));
+
+        row.AddChild(info);
+        card.Panel.AddChild(row);
+        return card;
+    }
+
+    private static Control CreateProgress(AchievementPrototype proto, float current, bool unlocked)
+    {
+        var box = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            SeparationOverride = 8,
+        };
+
+        var label = new Label { Text = ProgressText(proto, current, unlocked) };
+        label.StyleClasses.Add("LabelTerminalBlackM");
+
+        var target = proto.Target;
+        if (!unlocked && target > 0)
+        {
+            box.AddChild(new ProgressBar
             {
                 MinValue = 0,
                 MaxValue = target,
                 Value = Math.Min(current, target),
-                MinSize = new Vector2(0, 10),
+                MinSize = new Vector2(0, 8),
                 HorizontalExpand = true,
+                VerticalAlignment = Control.VAlignment.Center,
                 BackgroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#2B1C0A") },
                 ForegroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = StyleNano.TerminalGreen },
             });
+            label.FontColorOverride = TextDim;
+        }
+        else if (unlocked)
+        {
+            label.FontColorOverride = StyleNano.TerminalGreen;
+        }
+        else
+        {
+            label.FontColorOverride = TextDim;
         }
 
-        var progress = new Label { Text = ProgressText(proto, current, unlocked) };
-        progress.StyleClasses.Add("LabelTerminalBlackM");
-        progress.Modulate = new Color(1f, 1f, 1f, 0.65f);
-        info.AddChild(progress);
-        row.AddChild(info);
-        var toggle = new Button
-        {
-            ToggleMode = true,
-            Pressed = selected,
-            Disabled = !unlocked,
-            MinSize = new Vector2(190, 38),
-            VerticalAlignment = Control.VAlignment.Center,
-        };
-        toggle.StyleClasses.Add("ButtonTerminalBlackM");
-        SetToggleText(toggle, unlocked, selected);
-        toggle.OnToggled += args => OnToggle(proto, toggle, args.Pressed);
-        row.AddChild(toggle);
-
-        panel.AddChild(row);
-        return panel;
+        box.AddChild(label);
+        return box;
     }
+
+    // refresh
+
+    private void RefreshAll()
+    {
+        _suppressToggle = true;
+        foreach (var card in _cards.Values)
+            RefreshCard(card);
+        _suppressToggle = false;
+
+        RefreshStrip();
+        UpdateCounters();
+        ApplyFilter();
+    }
+
+    private void RefreshCard(Card card)
+    {
+        var selected = _selected.Contains(card.Proto.ID);
+
+        card.Panel.PanelOverride = new StyleBoxFlat
+        {
+            BackgroundColor = !card.Unlocked ? CardBgLocked : selected ? CardBgSelected : CardBg,
+            BorderColor = !card.Unlocked ? BorderLocked : selected ? StyleNano.TerminalGreen : StyleNano.TerminalGreenDim,
+            BorderThickness = new Thickness(selected ? 2 : 1),
+        };
+
+        card.Toggle.Pressed = selected;
+        card.Toggle.Text = !card.Unlocked
+            ? Loc.GetString("blackm-achievements-locked")
+            : selected
+                ? Loc.GetString("blackm-achievements-remove")
+                : Loc.GetString("blackm-achievements-add");
+    }
+
+    private void UpdateCounters(bool maxReached = false)
+    {
+        var total = _cards.Count;
+        var earned = 0;
+        foreach (var card in _cards.Values)
+        {
+            if (card.Unlocked)
+                earned++;
+        }
+
+        EarnedLabel.Text = Loc.GetString("blackm-achievements-earned-counter", ("count", earned), ("total", total));
+
+        if (maxReached)
+        {
+            CounterLabel.Text = Loc.GetString("blackm-achievements-max", ("max", AchievementsConst.MaxBadges));
+            CounterLabel.FontColorOverride = MaxWarn;
+        }
+        else
+        {
+            CounterLabel.Text = Loc.GetString("blackm-achievements-counter",
+                ("count", _selected.Count), ("max", AchievementsConst.MaxBadges));
+            CounterLabel.FontColorOverride = null;
+        }
+    }
+
+    private List<AchievementPrototype> OrderedSelection()
+    {
+        var ordered = new List<AchievementPrototype>();
+        foreach (var id in _selected)
+        {
+            if (_prototype.TryIndex<AchievementPrototype>(id, out var p))
+                ordered.Add(p);
+        }
+
+        ordered.Sort(CompareProto);
+        return ordered;
+    }
+
+    private void RefreshStrip()
+    {
+        SlotStrip.RemoveAllChildren();
+        var ordered = OrderedSelection();
+
+        for (var i = 0; i < AchievementsConst.MaxBadges; i++)
+        {
+            var filled = i < ordered.Count;
+
+            var slot = new PanelContainer
+            {
+                MinSize = new Vector2(SlotSize, SlotSize),
+                MaxSize = new Vector2(SlotSize, SlotSize),
+                MouseFilter = MouseFilterMode.Stop,
+                PanelOverride = new StyleBoxFlat
+                {
+                    BackgroundColor = filled ? Color.FromHex("#1A1A10F0") : Color.FromHex("#0A0805C0"),
+                    BorderColor = filled ? StyleNano.TerminalGreen : BorderLocked,
+                    BorderThickness = new Thickness(1),
+                },
+            };
+
+            if (filled)
+            {
+                var proto = ordered[i];
+                var icon = new TextureRect
+                {
+                    Stretch = TextureRect.StretchMode.KeepCentered,
+                    HorizontalExpand = true,
+                    VerticalExpand = true,
+                };
+                if (_resources.TryGetResource<TextureResource>(proto.Icon, out var tex))
+                    icon.Texture = tex.Texture;
+                slot.AddChild(icon);
+
+                slot.ToolTip = Loc.GetString(proto.Name) + "\n" + Loc.GetString("blackm-achievements-slot-remove");
+                var id = proto.ID;
+                slot.OnKeyBindDown += args =>
+                {
+                    if (args.Function != EngineKeyFunctions.UIClick)
+                        return;
+
+                    args.Handle();
+                    SetSelected(id, false);
+                };
+            }
+            else
+            {
+                slot.ToolTip = Loc.GetString("blackm-achievements-slot-empty");
+                var num = new Label
+                {
+                    Text = (i + 1).ToString(),
+                    Align = Label.AlignMode.Center,
+                    VAlign = Label.VAlignMode.Center,
+                    HorizontalExpand = true,
+                    VerticalExpand = true,
+                    FontColorOverride = BorderLocked,
+                };
+                slot.AddChild(num);
+            }
+
+            SlotStrip.AddChild(slot);
+        }
+    }
+
+    private void ApplyFilter()
+    {
+        var anyVisible = false;
+
+        foreach (var section in _sections)
+        {
+            section.Left.RemoveAllChildren();
+            section.Right.RemoveAllChildren();
+
+            var shown = 0;
+            foreach (var card in section.Cards)
+            {
+                if (!PassesFilter(card))
+                    continue;
+
+                (shown % 2 == 0 ? section.Left : section.Right).AddChild(card.Panel);
+                shown++;
+            }
+
+            section.Root.Visible = shown > 0;
+            anyVisible |= shown > 0;
+        }
+
+        EmptyLabel.Visible = !anyVisible && _cards.Count > 0;
+    }
+
+    private bool PassesFilter(Card card)
+    {
+        return _filter switch
+        {
+            Filter.Earned   => card.Unlocked,
+            Filter.Locked   => !card.Unlocked,
+            Filter.Passport => _selected.Contains(card.Proto.ID),
+            _               => true,
+        };
+    }
+
+    // selection
+
+    private void OnToggle(Card card, bool pressed)
+    {
+        if (_suppressToggle)
+            return;
+
+        SetSelected(card.Proto.ID, pressed);
+    }
+
+    private void SetSelected(string id, bool selected)
+    {
+        if (selected)
+        {
+            if (!_unlocked.Contains(id))
+                return;
+
+            if (!_selected.Contains(id) && _selected.Count >= AchievementsConst.MaxBadges)
+            {
+                if (_cards.TryGetValue(id, out var full))
+                {
+                    _suppressToggle = true;
+                    RefreshCard(full);
+                    _suppressToggle = false;
+                }
+
+                UpdateCounters(maxReached: true);
+                return;
+            }
+
+            _selected.Add(id);
+        }
+        else
+        {
+            _selected.Remove(id);
+        }
+
+        if (_cards.TryGetValue(id, out var card))
+        {
+            _suppressToggle = true;
+            RefreshCard(card);
+            _suppressToggle = false;
+        }
+
+        RefreshStrip();
+        UpdateCounters();
+
+        if (_filter == Filter.Passport)
+            ApplyFilter();
+
+        _system.SetSelected(OrderedSelection().ConvertAll(p => p.ID));
+    }
+
+    // text
 
     private static string ProgressText(AchievementPrototype proto, float current, bool unlocked)
     {
@@ -187,50 +610,5 @@ public sealed partial class AchievementsWindow : PassportFramelessWindow
                 ("current", current.ToString("0")), ("needed", proto.Count.ToString())),
             _ => Loc.GetString("blackm-achievements-special"),
         };
-    }
-
-    private static void SetToggleText(Button button, bool unlocked, bool selected)
-    {
-        button.Text = !unlocked
-            ? Loc.GetString("blackm-achievements-locked")
-            : selected
-                ? Loc.GetString("blackm-achievements-in-passport")
-                : Loc.GetString("blackm-achievements-not-in-passport");
-    }
-
-    private void OnToggle(AchievementPrototype proto, Button button, bool pressed)
-    {
-        if (_suppressToggle)
-            return;
-
-        if (pressed)
-        {
-            if (_selected.Count >= AchievementsConst.MaxBadges)
-            {
-                _suppressToggle = true;
-                button.Pressed = false;
-                _suppressToggle = false;
-                CounterLabel.Text = Loc.GetString("blackm-achievements-max", ("max", AchievementsConst.MaxBadges));
-                return;
-            }
-
-            _selected.Add(proto.ID);
-        }
-        else
-        {
-            _selected.Remove(proto.ID);
-        }
-
-        SetToggleText(button, true, pressed);
-        UpdateCounter();
-        var ordered = new List<AchievementPrototype>();
-        foreach (var id in _selected)
-        {
-            if (_prototype.TryIndex<AchievementPrototype>(id, out var p))
-                ordered.Add(p);
-        }
-
-        ordered.Sort((a, b) => a.Order != b.Order ? a.Order.CompareTo(b.Order) : string.CompareOrdinal(a.ID, b.ID));
-        _system.SetSelected(ordered.ConvertAll(p => p.ID));
     }
 }

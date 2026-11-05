@@ -1,0 +1,7 @@
+- type: blackmAchievement
+  id: AchivArchitect
+  name: achievement-architect-name
+  description: achievement-architect-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/special_architect.png
+  kind: Manual
+  order: 905

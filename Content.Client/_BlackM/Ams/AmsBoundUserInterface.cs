@@ -20,6 +20,7 @@ public sealed class AmsBoundUserInterface : BoundUserInterface
 
         _window = this.CreateWindow<AmsWindow>();
         _window.OnLaunch += () => SendMessage(new AmsLaunchButtonMessage());
+        _window.OnLever += slot => SendMessage(new AmsLeverMessage(slot));
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

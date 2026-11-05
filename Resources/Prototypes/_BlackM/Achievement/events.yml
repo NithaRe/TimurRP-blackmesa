@@ -1,0 +1,29 @@
+- type: blackmAchievement
+  id: EventHalloween2026
+  name: achievement-halloween-name
+  description: achievement-halloween-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/event_halloween.png
+  kind: Date
+  dateFrom: "2026-10-25"
+  dateTo: "2026-11-02"
+  order: 320
+
+- type: blackmAchievement
+  id: EventNewYear2027
+  name: achievement-newyear-name
+  description: achievement-newyear-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/event_newyear.png
+  kind: Date
+  dateFrom: "2026-12-25"
+  dateTo: "2027-01-08"
+  order: 330
+
+- type: blackmAchievement
+  id: EventAprilFools2027
+  name: achievement-aprilfools-name
+  description: achievement-aprilfools-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/event_aprilfools.png
+  kind: Date
+  dateFrom: "2027-04-01"
+  dateTo: "2027-04-02"
+  order: 340

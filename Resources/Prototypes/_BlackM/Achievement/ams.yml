@@ -1,4 +1,14 @@
 - type: blackmAchievement
+  id: Ams10
+  name: achievement-ams-10-name
+  description: achievement-ams-10-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/ams_10.png
+  kind: Stat
+  stat: ams_parts
+  count: 10
+  order: 210
+
+- type: blackmAchievement
   id: Ams50
   name: achievement-ams-50-name
   description: achievement-ams-50-desc
@@ -7,3 +17,13 @@
   stat: ams_parts
   count: 50
   order: 220
+
+- type: blackmAchievement
+  id: Ams200
+  name: achievement-ams-200-name
+  description: achievement-ams-200-desc
+  icon: /Textures/_BlackM/Interface/Passport/Badges/ams_200.png
+  kind: Stat
+  stat: ams_parts
+  count: 200
+  order: 230

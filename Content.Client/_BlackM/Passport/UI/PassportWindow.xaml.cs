@@ -122,6 +122,10 @@ public sealed partial class PassportWindow : PassportFramelessWindow
 
         return font;
     }
+    private const float BadgeRailCenterX = 48f;
+    private const float BadgeTopY        = 24f;
+    private const float BadgeSlotStep    = 98f;
+
     private readonly List<(Control Parent, Control Child)> _badgeControls = new();
     private int _badgeCount;
 
@@ -158,16 +162,18 @@ public sealed partial class PassportWindow : PassportFramelessWindow
         var board = index % 2 == 0 ? LeftBoard : RightBoard;
         var slot = index / 2;
 
+        var size = new Vector2(tex.Texture.Width, tex.Texture.Height);
         var icon = new TextureRect
         {
             Texture = tex.Texture,
             Stretch = TextureRect.StretchMode.Keep,
-            MinSize = new Vector2(80, 80),
+            MinSize = size,
+            MaxSize = size,
             MouseFilter = MouseFilterMode.Stop,
             ToolTip = Loc.GetString(proto.Name) + "\n" + Loc.GetString(proto.Description),
             HorizontalAlignment = HAlignment.Left,
             VerticalAlignment = VAlignment.Top,
-            Margin = new Thickness(8, 24 + slot * 98, 0, 0),
+            Margin = new Thickness(BadgeRailCenterX - size.X / 2f, BadgeTopY + slot * BadgeSlotStep, 0, 0),
         };
 
         board.AddChild(icon);

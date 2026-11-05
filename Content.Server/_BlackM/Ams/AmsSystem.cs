@@ -12,8 +12,13 @@ using Content.Server.Light.EntitySystems;
 using Content.Server.RoundEnd;
 using Content.Shared._BlackM.Ams;
 using Content.Shared.Audio;
-using Content.Shared.Camera;
 using Content.Shared.Containers.ItemSlots;
+using Content.Shared.DoAfter;
+using Content.Shared.Interaction;
+using Content.Shared.Movement.Pulling.Components;
+using Content.Shared.Movement.Pulling.Systems;
+using Content.Shared.Popups;
+using Content.Shared.Stacks;
 using Content.Server._BlackM.Achievements;
 using Content.Shared.Doors.Components;
 using Content.Shared.Doors.Systems;
@@ -34,6 +39,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Maths;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
@@ -67,10 +73,15 @@ public sealed class AmsSystem : EntitySystem
     [Dependency] private readonly RoundEndSystem _roundEnd = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedCameraRecoilSystem _recoil = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly AmsRoundEndSystem _amsRoundEnd = default!;
     [Dependency] private readonly AmsAchievementsSystem _amsAchievements = default!;
+    [Dependency] private readonly SharedStackSystem _stack = default!;
+    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly PullingSystem _pulling = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
 
     private readonly Dictionary<(EntityUid Machine, EntityUid Part), EntityUid> _partInsertActors = new();
 
@@ -93,6 +104,8 @@ public sealed class AmsSystem : EntitySystem
     private static readonly SoundPathSpecifier SyncAnnounceSound = new("/Audio/_BlackM/Announcements/announcesync.ogg");
     private static readonly SoundPathSpecifier AnnounceSound = new("/Audio/_BlackM/Announcements/announceams.ogg");
     private static readonly SoundPathSpecifier HecuSound = new("/Audio/_BlackM/Announcements/hecucrack.ogg");
+    private static readonly SoundPathSpecifier LeverSound = new("/Audio/Machines/machine_switch.ogg");
+    private static readonly SoundPathSpecifier ReinforceSound = new("/Audio/Items/ratchet.ogg");
 
     private readonly record struct Look(SoundPathSpecifier Sound, float Volume, float Range, string Color, float Energy, float Radius);
 
@@ -100,9 +113,9 @@ public sealed class AmsSystem : EntitySystem
     {
         [AmsStatus.Inactive]      = new(HumIdle,     -10f,  4f, "#3ad1ff", 1.5f, 3f),
         [AmsStatus.Synchronizing] = new(HumSync,      -6f,  8f, "#3affb0", 2.5f, 5f),
-        [AmsStatus.Ready]         = new(HumReady,     -5f, 10f, "#8dfff0", 3.5f, 6f),
-        [AmsStatus.Active]        = new(HumActive,    -3f, 14f, "#9dff4a", 5f,   8f),
-        [AmsStatus.Detonating]    = new(HumCritical,   0f, 18f, "#ff3b30", 6f,  10f),
+        [AmsStatus.Ready]         = new(HumReady,     -5f, 10f, "#7fe6ff", 3.5f, 6f),
+        [AmsStatus.Active]        = new(HumActive,    -3f, 14f, "#7fe6ff", 5f,   8f),
+        [AmsStatus.Detonating]    = new(HumCritical,   0f, 18f, "#5dff3a", 6f,  10f),
     };
 
     public override void Initialize()
@@ -117,6 +130,9 @@ public sealed class AmsSystem : EntitySystem
         SubscribeLocalEvent<AmsComponent, EntRemovedFromContainerMessage>(OnPartRemoved);
         SubscribeLocalEvent<AmsComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<AmsComponent, AmsLaunchButtonMessage>(OnLaunchButton);
+        SubscribeLocalEvent<AmsComponent, AmsLeverMessage>(OnLever);
+        SubscribeLocalEvent<AmsComponent, InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<AmsComponent, AmsReinforceDoAfterEvent>(OnReinforceDoAfter);
     }
 
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
@@ -126,6 +142,7 @@ public sealed class AmsSystem : EntitySystem
         _savedEmergencyColors.Clear();
         _infections.Clear();
         _sequences.Clear();
+        _blastParams.Clear();
     }
 
     private void OnMapInit(EntityUid uid, AmsComponent ams, MapInitEvent args)
@@ -136,7 +153,9 @@ public sealed class AmsSystem : EntitySystem
     private void OnShutdown(EntityUid uid, AmsComponent ams, ComponentShutdown args)
     {
         _infections.Remove(uid);
-        _sequences.Remove(uid);
+
+        if (_sequences.TryGetValue(uid, out var seq) && !seq.Blasting)
+            _sequences.Remove(uid);
     }
 
     public override void Update(float frameTime)
@@ -186,6 +205,15 @@ public sealed class AmsSystem : EntitySystem
 
         switch (ams.Status)
         {
+            case AmsStatus.Inactive:
+                if (ams.Primed && ams.RequireSample && now >= ams.NextSampleCheck)
+                {
+                    ams.NextSampleCheck = now + TimeSpan.FromSeconds(0.5);
+                    if (FindSample(uid, ams) is { } sample)
+                        StartSync(uid, ams, sample);
+                }
+                break;
+
             case AmsStatus.Synchronizing:
                 if (ams.SyncStartTime is not { } start)
                     break;
@@ -201,16 +229,18 @@ public sealed class AmsSystem : EntitySystem
                 }
 
                 if (elapsed >= ams.ChargeTime)
-                {
-                    SetStatus(uid, ams, AmsStatus.Ready);
-                    Announce(Loc.GetString("ams-announce-sync-ready"), SyncAnnounceSound, Color.Gray);
-                    _audio.PlayPvs(ReadySound, uid, AudioParams.Default.WithMaxDistance(14f));
-                    RestoreLights();
-                }
+                    ActivateField(uid, ams);
 
                 break;
 
+            case AmsStatus.Ready:
+                ActivateField(uid, ams);
+                break;
+
             case AmsStatus.Active:
+                if (!ams.Launched)
+                    Launch(uid, ams);
+
                 if (ams.ActiveEndTime is not { } end)
                     break;
 
@@ -226,38 +256,86 @@ public sealed class AmsSystem : EntitySystem
                     BeginDetonation(uid, ams);
 
                 break;
+
+            case AmsStatus.Detonating:
+                UpdatePortals(uid, ams, now);
+                break;
         }
     }
 
     private void OnLaunchButton(EntityUid uid, AmsComponent ams, AmsLaunchButtonMessage args)
     {
-        switch (ams.Status)
+        if (ams.Status != AmsStatus.Inactive || ams.RequireSample || !ams.Primed)
+            return;
+
+        StartSync(uid, ams, null);
+    }
+
+    private void StartSync(EntityUid uid, AmsComponent ams, EntityUid? sample)
+    {
+        ams.SyncStartTime = _timing.CurTime;
+        ams.HecuSpawned = false;
+        ams.Launched = false;
+
+        if (sample is { } cart)
+            LockSample(uid, ams, cart);
+
+        SetStatus(uid, ams, AmsStatus.Synchronizing);
+        Announce(Loc.GetString("ams-announce-sync-started", ("minutes", Minutes(ams.ChargeTime))),
+            SyncAnnounceSound, Color.Gray);
+        _audio.PlayPvs(PowerUpSound, uid, AudioParams.Default.WithMaxDistance(16f));
+        TurnOffAllLights(uid);
+        PushUi(uid, ams);
+    }
+
+    private void ActivateField(EntityUid uid, AmsComponent ams)
+    {
+        ams.ActiveEndTime = _timing.CurTime + TimeSpan.FromSeconds(ams.ActiveDuration);
+        ams.ClosingWarningSent = false;
+        ams.Launched = false;
+        SetStatus(uid, ams, AmsStatus.Active);
+        Launch(uid, ams);
+    }
+
+    private void Launch(EntityUid uid, AmsComponent ams)
+    {
+        if (ams.Launched)
+            return;
+
+        ams.Launched = true;
+        ams.ActiveEndTime ??= _timing.CurTime + TimeSpan.FromSeconds(ams.ActiveDuration);
+
+        Try("announce", () => Announce(Loc.GetString("ams-announce-launched", ("minutes", Minutes(ams.ActiveDuration))),
+            AnnounceSound, Color.Gray));
+
+        Try("evacuation", () =>
         {
-            case AmsStatus.Inactive:
-                if (CountFilled(uid, ams) < ams.PartSlots.Count)
-                    return;
+            if (_elevator.SetEvacuation(EvacuationElevatorId, true))
+                Announce(Loc.GetString("ams-announce-evac-available"), AnnounceSound, Color.Gray);
+            else
+                Log.Warning($"AMS: лифт эвакуации '{EvacuationElevatorId}' не найден или уже запущен.");
+        });
 
-                ams.SyncStartTime = _timing.CurTime;
-                ams.HecuSpawned = false;
-                SetStatus(uid, ams, AmsStatus.Synchronizing);
-                Announce(Loc.GetString("ams-announce-sync-started"), SyncAnnounceSound, Color.Gray);
-                _audio.PlayPvs(PowerUpSound, uid, AudioParams.Default.WithMaxDistance(16f));
-                TurnOffAllLights(uid);
-                break;
+        Try("launched event", () => RaiseLocalEvent(new AmsLaunchedEvent()));
+        Try("sound", () => _audio.PlayPvs(ReadySound, uid, AudioParams.Default.WithMaxDistance(14f)));
+        Try("lights", RestoreLights);
 
-            case AmsStatus.Ready:
-                ams.ActiveEndTime = _timing.CurTime + TimeSpan.FromSeconds(ams.ActiveDuration);
-                ams.ClosingWarningSent = false;
-                SetStatus(uid, ams, AmsStatus.Active);
-                Announce(Loc.GetString("ams-announce-launched"), AnnounceSound, Color.Gray);
+        PushUi(uid, ams);
+    }
 
-                if (_elevator.SetEvacuation(EvacuationElevatorId, true))
-                    Announce(Loc.GetString("ams-announce-evac-available"), AnnounceSound, Color.Gray);
-
-                RaiseLocalEvent(new AmsLaunchedEvent());
-                break;
+    private void Try(string what, Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch (Exception e)
+        {
+            Log.Error($"AMS: ошибка на шаге '{what}': {e}");
         }
     }
+
+    private static int Minutes(float seconds) => Math.Max(1, (int) MathF.Round(seconds / 60f));
 
     private void BeginDetonation(EntityUid uid, AmsComponent ams)
     {
@@ -265,6 +343,7 @@ public sealed class AmsSystem : EntitySystem
 
         ams.ActiveEndTime = null;
         ams.DetonationTime = _timing.CurTime + TimeSpan.FromSeconds(ams.DetonationDelay);
+        ams.NextPortal = _timing.CurTime + TimeSpan.FromSeconds(3);
         SetStatus(uid, ams, AmsStatus.Detonating);
 
         Announce(Loc.GetString("ams-announce-cascade-start", ("seconds", (int) ams.DetonationDelay)),
@@ -316,6 +395,8 @@ public sealed class AmsSystem : EntitySystem
         if (_itemSlots.TryGetSlot(uid, slotId, out var slot))
             _itemSlots.SetLock(uid, slot, true);
 
+        ams.Reinforced[slotId] = 0;
+
         _zenIntervention.AdjustLevel(-ams.ZenReductionPerPart);
         OpenRandomPoolDoor();
         OpenLootRoomForSlot(slotId);
@@ -326,7 +407,175 @@ public sealed class AmsSystem : EntitySystem
             OpenSpecialDoor(ams);
         }
 
+        UpdatePrimed(uid, ams);
         PushUi(uid, ams);
+    }
+
+    private bool IsInstalled(EntityUid uid, string slotId)
+        => _itemSlots.TryGetSlot(uid, slotId, out var slot) && slot.HasItem;
+
+    private int Needed(AmsComponent ams, string slotId)
+        => ams.Reinforcements.TryGetValue(slotId, out var r) ? r.Amount : 0;
+
+    private bool IsSecured(EntityUid uid, AmsComponent ams, string slotId)
+        => IsInstalled(uid, slotId) && ams.Reinforced.GetValueOrDefault(slotId) >= Needed(ams, slotId);
+
+    private string? FindSlotForStack(EntityUid uid, AmsComponent ams, string stackType)
+    {
+        foreach (var slotId in ams.PartSlots)
+        {
+            if (!ams.Reinforcements.TryGetValue(slotId, out var r) || r.Stack != stackType)
+                continue;
+
+            if (IsInstalled(uid, slotId) && !IsSecured(uid, ams, slotId))
+                return slotId;
+        }
+
+        return null;
+    }
+
+    private void OnInteractUsing(EntityUid uid, AmsComponent ams, InteractUsingEvent args)
+    {
+        if (args.Handled || !TryComp<StackComponent>(args.Used, out var stack))
+            return;
+
+        if (ams.Status != AmsStatus.Inactive)
+            return;
+
+        if (FindSlotForStack(uid, ams, stack.StackTypeId) is not { } slotId)
+        {
+            foreach (var r in ams.Reinforcements.Values)
+            {
+                if (r.Stack != stack.StackTypeId)
+                    continue;
+
+                _popup.PopupEntity(Loc.GetString("ams-popup-nothing-to-reinforce"), uid, args.User);
+                args.Handled = true;
+                return;
+            }
+
+            return;
+        }
+
+        args.Handled = true;
+
+        var doAfter = new DoAfterArgs(EntityManager, args.User, ams.ReinforceDelay, new AmsReinforceDoAfterEvent(),
+            uid, target: uid, used: args.Used)
+        {
+            BreakOnMove = true,
+            BreakOnDamage = true,
+            NeedHand = true,
+        };
+
+        if (_doAfter.TryStartDoAfter(doAfter))
+            _audio.PlayPvs(ReinforceSound, uid);
+    }
+
+    private void OnReinforceDoAfter(EntityUid uid, AmsComponent ams, AmsReinforceDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Handled || args.Used is not { } used || ams.Status != AmsStatus.Inactive)
+            return;
+
+        if (!TryComp<StackComponent>(used, out var stack) ||
+            FindSlotForStack(uid, ams, stack.StackTypeId) is not { } slotId)
+            return;
+
+        args.Handled = true;
+
+        var need = Needed(ams, slotId) - ams.Reinforced.GetValueOrDefault(slotId);
+        var take = Math.Min(need, stack.Count);
+        if (take <= 0 || !_stack.Use(used, take, stack))
+            return;
+
+        ams.Reinforced[slotId] = ams.Reinforced.GetValueOrDefault(slotId) + take;
+
+        var part = Loc.GetString(slotId.Replace('_', '-'));
+        if (IsSecured(uid, ams, slotId))
+        {
+            _popup.PopupEntity(Loc.GetString("ams-popup-secured", ("part", part)), uid, args.User);
+            _audio.PlayPvs(ReinforceSound, uid);
+        }
+        else
+        {
+            _popup.PopupEntity(Loc.GetString("ams-popup-reinforce-progress", ("part", part),
+                ("left", Needed(ams, slotId) - ams.Reinforced[slotId])), uid, args.User);
+        }
+
+        PushUi(uid, ams);
+    }
+
+    private void OnLever(EntityUid uid, AmsComponent ams, AmsLeverMessage args)
+    {
+        if (ams.Status != AmsStatus.Inactive || !ams.PartSlots.Contains(args.Slot))
+            return;
+
+        if (!ams.Levers.Contains(args.Slot) && !IsSecured(uid, ams, args.Slot))
+            return;
+
+        if (!ams.Levers.Add(args.Slot))
+            ams.Levers.Remove(args.Slot);
+
+        _audio.PlayPvs(LeverSound, uid, AudioParams.Default.WithVolume(-2f));
+        UpdatePrimed(uid, ams);
+        PushUi(uid, ams);
+    }
+
+    private void UpdatePrimed(EntityUid uid, AmsComponent ams)
+    {
+        var primed = ams.Status == AmsStatus.Inactive;
+        foreach (var slotId in ams.PartSlots)
+        {
+            if (!IsSecured(uid, ams, slotId) || !ams.Levers.Contains(slotId))
+            {
+                primed = false;
+                break;
+            }
+        }
+
+        if (ams.Primed == primed)
+            return;
+
+        ams.Primed = primed;
+        Dirty(uid, ams);
+
+        if (primed)
+        {
+            _audio.PlayPvs(ChargeSound, uid, AudioParams.Default.WithVolume(-6f).WithMaxDistance(12f));
+            Announce(Loc.GetString(ams.RequireSample ? "ams-announce-primed-sample" : "ams-announce-primed"),
+                AnnounceSound, Color.Gray);
+        }
+    }
+
+    private EntityUid? FindSample(EntityUid uid, AmsComponent ams)
+    {
+        var spot = Transform(uid).Coordinates.Offset(ams.SampleOffset);
+        foreach (var ent in _lookup.GetEntitiesInRange<AmsSampleComponent>(spot, ams.SampleRange))
+        {
+            if (!ent.Comp.Used)
+                return ent.Owner;
+        }
+
+        return null;
+    }
+
+    private void LockSample(EntityUid uid, AmsComponent ams, EntityUid cart)
+    {
+        if (!TryComp<AmsSampleComponent>(cart, out var sample))
+            return;
+
+        sample.Used = true;
+        ams.Sample = cart;
+
+        if (TryComp<PullableComponent>(cart, out var pullable) && pullable.BeingPulled)
+            _pulling.TryStopPull(cart, pullable);
+        _transform.AnchorEntity(cart, Transform(cart));
+        _appearance.SetData(cart, AmsSampleVisuals.Active, true);
+
+        if (TryComp<PointLightComponent>(cart, out var light))
+        {
+            _pointLight.SetEnergy(cart, 4f, light);
+            _pointLight.SetRadius(cart, 3f, light);
+        }
     }
 
     #endregion
@@ -352,16 +601,27 @@ public sealed class AmsSystem : EntitySystem
 
     private void PushUi(EntityUid uid, AmsComponent ams)
     {
-        var filled = new List<string>();
+        var parts = new List<AmsPartUiData>();
         foreach (var id in ams.PartSlots)
         {
-            if (_itemSlots.TryGetSlot(uid, id, out var slot) && slot.HasItem)
-                filled.Add(id);
+            string? material = null;
+            var needed = 0;
+            if (ams.Reinforcements.TryGetValue(id, out var r))
+            {
+                material = Loc.GetString($"ams-material-{r.Stack}");
+                needed = r.Amount;
+            }
+
+            parts.Add(new AmsPartUiData(id, IsInstalled(uid, id), material,
+                ams.Reinforced.GetValueOrDefault(id), needed, ams.Levers.Contains(id)));
         }
+
+        var sampleInPlace = ams.Sample != null ||
+                            (ams.Status == AmsStatus.Inactive && ams.RequireSample && FindSample(uid, ams) != null);
 
         _ui.SetUiState(uid, AmsUiKey.Key,
             new AmsBuiState(ams.Status, ams.SyncStartTime, ams.ActiveEndTime, ams.DetonationTime,
-                ams.ChargeTime, new List<string>(ams.PartSlots), filled));
+                ams.ChargeTime, parts, ams.RequireSample, sampleInPlace, ams.Primed));
     }
 
     #endregion
@@ -388,16 +648,6 @@ public sealed class AmsSystem : EntitySystem
             _pointLight.SetEnabled(uid, false);
         }
 
-        var wantRift = ams.Status is AmsStatus.Active or AmsStatus.Detonating;
-        if (wantRift && ams.RiftEffect == null)
-        {
-            ams.RiftEffect = Spawn("AmsEffectRift", Transform(uid).Coordinates);
-        }
-        else if (!wantRift && ams.RiftEffect is { } rift)
-        {
-            QueueDel(rift);
-            ams.RiftEffect = null;
-        }
     }
 
     private void UpdateFlicker(EntityUid uid, AmsComponent ams)
@@ -411,7 +661,7 @@ public sealed class AmsSystem : EntitySystem
 
         ams.NextFlicker = now + TimeSpan.FromSeconds(_random.NextFloat(0.08f, 0.3f));
         _pointLight.SetEnergy(uid, _random.NextFloat(2f, 9f));
-        _pointLight.SetColor(uid, _random.Prob(0.25f) ? Color.White : Color.FromHex("#ff3b30"));
+        _pointLight.SetColor(uid, _random.Prob(0.25f) ? Color.White : Color.FromHex("#5dff3a"));
     }
 
     #endregion
@@ -685,22 +935,30 @@ public sealed class AmsSystem : EntitySystem
 
     private sealed class Sequence
     {
-        public EntityUid Grid;
-        public bool HasGrid;
         public MapId Map;
         public MapCoordinates Epicenter;
         public EntityCoordinates EpicenterLocal;
 
         public TimeSpan NextPulse;
-        public TimeSpan NextWave;
         public bool Blasting;
         public bool Warned30, Warned10, ChargePlayed;
 
-        public int Wave;
+        public TimeSpan BlastStart;
+        public TimeSpan LastTick;
+        public TimeSpan NextKill;
         public float MaxDist;
-        public List<Vector2i>[] Buckets = Array.Empty<List<Vector2i>>();
-        public List<(EntityUid Light, float Dist)> Lights = new();
+        public float Budget;
+
+        public readonly List<(MapCoordinates Pos, float Dist)> Points = new();
+        public readonly List<(EntityUid Grid, Vector2 Local, float Dist)> Scorch = new();
+        public readonly List<(EntityUid Light, float Dist)> Lights = new();
+        public int PointIndex, ScorchIndex, LightIndex;
+        public float NextRumble;
     }
+
+    private const int ScorchPerTick = 60;
+    private const float KillInterval = 0.25f;
+    private const float RumbleStep = 18f;
 
     private readonly Dictionary<EntityUid, Sequence> _sequences = new();
 
@@ -710,21 +968,13 @@ public sealed class AmsSystem : EntitySystem
             return;
 
         var xform = Transform(uid);
-        var seq = new Sequence
+        _sequences[uid] = new Sequence
         {
             Map = xform.MapID,
             Epicenter = _transform.GetMapCoordinates(uid, xform),
             EpicenterLocal = xform.Coordinates,
             NextPulse = _timing.CurTime,
         };
-
-        if (xform.GridUid is { } grid && HasComp<MapGridComponent>(grid))
-        {
-            seq.Grid = grid;
-            seq.HasGrid = true;
-        }
-
-        _sequences[uid] = seq;
     }
 
     private void UpdateSequences()
@@ -736,23 +986,26 @@ public sealed class AmsSystem : EntitySystem
 
         foreach (var (uid, seq) in _sequences.ToArray())
         {
-            if (!TryComp<AmsComponent>(uid, out var ams))
-            {
-                _sequences.Remove(uid);
-                continue;
-            }
-
             if (!seq.Blasting)
+            {
+                if (!TryComp<AmsComponent>(uid, out var ams))
+                {
+                    _sequences.Remove(uid);
+                    continue;
+                }
+
                 UpdateCountdown(uid, ams, seq, now);
-            else if (now >= seq.NextWave)
-                DoWave(uid, ams, seq, now);
+            }
+            else
+            {
+                UpdateBlast(uid, seq, now);
+            }
         }
     }
 
     private void UpdateCountdown(EntityUid uid, AmsComponent ams, Sequence seq, TimeSpan now)
     {
         var remaining = (float) ((ams.DetonationTime ?? now) - now).TotalSeconds;
-        var progress = 1f - Math.Clamp(remaining / MathF.Max(ams.DetonationDelay, 1f), 0f, 1f);
 
         if (!seq.Warned30 && remaining <= 30f)
         {
@@ -774,17 +1027,12 @@ public sealed class AmsSystem : EntitySystem
 
         if (now >= seq.NextPulse)
         {
-            Kick(seq, 0.15f + 0.6f * progress);
+            var progress = AmsHelpers.GetDetonationProgress(ams, now);
+            var offset = _random.NextAngle().ToVec() * _random.NextFloat(1f, 2f + 8f * progress);
+            _audio.PlayPvs(CrackleSound, seq.EpicenterLocal.Offset(offset),
+                AudioParams.Default.WithMaxDistance(16f).WithVolume(-2f + 4f * progress));
 
-            var radius = 1.5f + 8f * progress;
-            var offset = _random.NextAngle().ToVec() * _random.NextFloat(0.4f, 1f) * radius;
-            var coords = seq.EpicenterLocal.Offset(offset);
-
-            Spawn("AmsEffectArc", coords);
-            if (_random.Prob(0.5f))
-                _audio.PlayPvs(CrackleSound, coords, AudioParams.Default.WithMaxDistance(14f));
-
-            seq.NextPulse = now + TimeSpan.FromSeconds(MathHelper.Lerp(2.0f, 0.35f, progress));
+            seq.NextPulse = now + TimeSpan.FromSeconds(MathHelper.Lerp(1.6f, 0.3f, progress));
         }
 
         if (remaining <= 0f)
@@ -794,6 +1042,9 @@ public sealed class AmsSystem : EntitySystem
     private void StartBlast(EntityUid uid, AmsComponent ams, Sequence seq, TimeSpan now)
     {
         seq.Blasting = true;
+        seq.BlastStart = now;
+        seq.LastTick = now;
+        seq.NextKill = now;
 
         SetStatus(uid, ams, AmsStatus.Destroyed);
         RaiseLocalEvent(new AmsDetonatedEvent());
@@ -803,137 +1054,236 @@ public sealed class AmsSystem : EntitySystem
         _explosion.QueueExplosion(seq.Epicenter, ams.ExplosionType, ams.CoreIntensity, ams.CoreSlope,
             ams.CoreMaxTileIntensity, null);
 
-        Spawn("AmsEffectShockwaveHuge", seq.EpicenterLocal);
-        Spawn("AmsEffectBlastFlash", seq.EpicenterLocal);
-        Kick(seq, 3.5f);
+        PrepareBlast(ams, seq);
 
-        if (seq.HasGrid)
-            PrepareWaves(ams, seq);
+        _blastParams[uid] = (ams.ExplosionType, ams.WaveIntensity, ams.WaveSlope, ams.WaveMaxTileIntensity,
+            ams.WaveSpeed, ams.WaveExplosionsPerSecond, ams.RoundEndDelay, ams.InfectionDecals.ToArray());
 
-        seq.NextWave = now + TimeSpan.FromSeconds(seq.Buckets.Length == 0 ? 3.0 : 0.4);
+        RaiseNetworkEvent(new AmsBlastEvent((int) seq.Map, seq.Epicenter.Position, ams.WaveSpeed,
+            seq.MaxDist + 2f, now), Filter.BroadcastMap(seq.Map));
+
+        _infections.Remove(uid);
+        QueueDel(uid);
     }
 
-    private void PrepareWaves(AmsComponent ams, Sequence seq)
-    {
-        if (!TryComp<MapGridComponent>(seq.Grid, out var grid) || ams.WaveCount <= 0)
-            return;
+    private readonly Dictionary<EntityUid, (string Type, float Intensity, float Slope, float MaxTile, float Speed,
+        float PerSecond, float RoundEndDelay, string[] Decals)> _blastParams = new();
 
-        var origin = _map.TileIndicesFor(seq.Grid, grid, seq.EpicenterLocal);
-        var tiles = new List<(Vector2i Pos, float Dist)>();
+    private void PrepareBlast(AmsComponent ams, Sequence seq)
+    {
+        var epicenter = seq.Epicenter.Position;
+        var spacing = Math.Max(1, ams.WaveExplosionSpacing);
         var max = 1f;
 
-        foreach (var tile in _map.GetAllTiles(seq.Grid, grid))
+        var grids = EntityQueryEnumerator<MapGridComponent, TransformComponent>();
+        while (grids.MoveNext(out var gridUid, out var grid, out var gridXform))
         {
-            var dx = tile.GridIndices.X - origin.X;
-            var dy = tile.GridIndices.Y - origin.Y;
-            var dist = MathF.Sqrt(dx * dx + dy * dy);
-            tiles.Add((tile.GridIndices, dist));
-            max = MathF.Max(max, dist);
+            if (gridXform.MapID != seq.Map)
+                continue;
+
+            foreach (var tile in _map.GetAllTiles(gridUid, grid))
+            {
+                var idx = tile.GridIndices;
+                var local = new Vector2(idx.X * grid.TileSize, idx.Y * grid.TileSize);
+                var world = _map.GridTileToWorldPos(gridUid, grid, idx);
+                var dist = (world - epicenter).Length();
+                max = MathF.Max(max, dist);
+
+                if (Mod(idx.X, spacing) == 0 && Mod(idx.Y, spacing) == 0 && _random.Prob(ams.WaveExplosionChance))
+                    seq.Points.Add((new MapCoordinates(world, seq.Map), dist));
+
+                if (ams.InfectionDecals.Count > 0 && _random.Prob(ams.WaveScorchChance))
+                    seq.Scorch.Add((gridUid, local, dist));
+            }
         }
 
         seq.MaxDist = max;
-        seq.Buckets = new List<Vector2i>[ams.WaveCount];
-        for (var i = 0; i < ams.WaveCount; i++)
-            seq.Buckets[i] = new List<Vector2i>();
-
-        foreach (var (pos, dist) in tiles)
-            seq.Buckets[Math.Min(ams.WaveCount - 1, (int) (dist / max * ams.WaveCount))].Add(pos);
+        seq.Points.Sort((a, b) => a.Dist.CompareTo(b.Dist));
+        seq.Scorch.Sort((a, b) => a.Dist.CompareTo(b.Dist));
 
         var lamps = EntityQueryEnumerator<PoweredLightComponent, TransformComponent>();
         while (lamps.MoveNext(out var lamp, out _, out var xform))
         {
-            if (xform.GridUid != seq.Grid)
+            if (xform.MapID != seq.Map)
                 continue;
 
-            var tp = _map.TileIndicesFor(seq.Grid, grid, xform.Coordinates);
-            var dx = tp.X - origin.X;
-            var dy = tp.Y - origin.Y;
-            seq.Lights.Add((lamp, MathF.Sqrt(dx * dx + dy * dy)));
+            seq.Lights.Add((lamp, (_transform.GetWorldPosition(xform) - epicenter).Length()));
         }
+
+        seq.Lights.Sort((a, b) => a.Dist.CompareTo(b.Dist));
     }
 
-    private void DoWave(EntityUid uid, AmsComponent ams, Sequence seq, TimeSpan now)
+    private static int Mod(int a, int m) => ((a % m) + m) % m;
+
+    private void UpdateBlast(EntityUid uid, Sequence seq, TimeSpan now)
     {
-        if (seq.Wave >= seq.Buckets.Length || !TryComp<MapGridComponent>(seq.Grid, out var grid))
+        if (!_blastParams.TryGetValue(uid, out var p))
         {
-            Finish(uid, ams, seq);
+            _sequences.Remove(uid);
             return;
         }
 
-        var bucket = seq.Buckets[seq.Wave];
-        var count = Math.Min(bucket.Count, ams.ExplosionsPerWave);
+        var dt = (float) (now - seq.LastTick).TotalSeconds;
+        seq.LastTick = now;
 
-        for (var i = 0; i < count; i++)
+        var radius = p.Speed * (float) (now - seq.BlastStart).TotalSeconds;
+
+        seq.Budget = MathF.Min(seq.Budget + p.PerSecond * dt, p.PerSecond);
+        while (seq.PointIndex < seq.Points.Count && seq.Points[seq.PointIndex].Dist <= radius && seq.Budget >= 1f)
         {
-            var tile = bucket[_random.Next(bucket.Count)];
-            var coords = _map.GridTileToLocal(seq.Grid, grid, tile);
-
-            _explosion.QueueExplosion(_transform.ToMapCoordinates(coords), ams.ExplosionType, ams.WaveIntensity,
-                ams.WaveSlope, ams.WaveMaxTileIntensity, null);
-
-            Spawn("AmsEffectBlastFlash", coords);
-
-            if (i == 0)
-                _audio.PlayPvs(CascadeSound, coords, AudioParams.Default.WithMaxDistance(45f));
+            var (pos, _) = seq.Points[seq.PointIndex++];
+            seq.Budget -= 1f;
+            _explosion.QueueExplosion(pos, p.Type, p.Intensity, p.Slope, p.MaxTile, null);
         }
 
-        if (seq.Wave % 3 == 0)
-            Spawn(seq.Wave < seq.Buckets.Length / 2 ? "AmsEffectShockwaveLarge" : "AmsEffectShockwaveHuge", seq.EpicenterLocal);
-
-        var radius = seq.MaxDist * (seq.Wave + 1) / seq.Buckets.Length;
-        seq.Lights.RemoveAll(l =>
+        var scorched = 0;
+        while (seq.ScorchIndex < seq.Scorch.Count && seq.Scorch[seq.ScorchIndex].Dist <= radius &&
+               scorched++ < ScorchPerTick)
         {
-            if (l.Dist > radius)
-                return false;
+            var (grid, local, _) = seq.Scorch[seq.ScorchIndex++];
+            if (!Exists(grid))
+                continue;
 
-            if (Exists(l.Light))
-                _poweredLight.TryDestroyBulb(l.Light);
-            return true;
-        });
+            _decals.TryAddDecal(_random.Pick(p.Decals), new EntityCoordinates(grid, local), out _,
+                rotation: Angle.FromDegrees(90 * _random.Next(4)), cleanable: false);
+        }
 
-        Kick(seq, 1.4f);
+        while (seq.LightIndex < seq.Lights.Count && seq.Lights[seq.LightIndex].Dist <= radius)
+        {
+            var (light, _) = seq.Lights[seq.LightIndex++];
+            if (Exists(light))
+                _poweredLight.TryDestroyBulb(light);
+        }
 
-        seq.Wave++;
+        if (radius >= seq.NextRumble && radius <= seq.MaxDist)
+        {
+            seq.NextRumble = radius + RumbleStep;
+            foreach (var session in _players.Sessions)
+            {
+                if (session.AttachedEntity is not { } ent || Transform(ent).MapID != seq.Map)
+                    continue;
 
-        seq.NextWave = now + TimeSpan.FromSeconds(seq.Wave >= seq.Buckets.Length ? 2.5 : ams.WaveInterval);
+                var dist = (_transform.GetWorldPosition(ent) - seq.Epicenter.Position).Length();
+                if (MathF.Abs(dist - radius) < RumbleStep * 1.5f)
+                    _audio.PlayEntity(CascadeSound, ent, ent, AudioParams.Default.WithVolume(-2f));
+            }
+        }
+
+        if (now >= seq.NextKill)
+        {
+            seq.NextKill = now + TimeSpan.FromSeconds(KillInterval);
+            KillInRadius(seq, radius);
+        }
+
+        var done = radius >= seq.MaxDist + 2f &&
+                   seq.PointIndex >= seq.Points.Count &&
+                   seq.ScorchIndex >= seq.Scorch.Count;
+
+        if (done)
+            Finish(uid, seq, p.RoundEndDelay);
     }
 
-    private void Finish(EntityUid uid, AmsComponent ams, Sequence seq)
+    private void Finish(EntityUid uid, Sequence seq, float roundEndDelay)
     {
-        if (seq.HasGrid)
-            KillRemainingOnGrid(seq.Grid);
-
-        Kick(seq, 2.5f);
+        KillInRadius(seq, float.MaxValue);
         Announce(Loc.GetString("ams-announce-detonated"), AnnounceSound, Color.Red);
 
-        _roundEnd.EndRound(TimeSpan.FromSeconds(ams.RoundEndDelay));
+        _roundEnd.EndRound(TimeSpan.FromSeconds(roundEndDelay));
 
         _sequences.Remove(uid);
-        QueueDel(uid);
+        _blastParams.Remove(uid);
     }
 
-    private void KillRemainingOnGrid(EntityUid grid)
+    private void KillInRadius(Sequence seq, float radius)
     {
+        var epicenter = seq.Epicenter.Position;
         var query = EntityQueryEnumerator<MobStateComponent, TransformComponent>();
         while (query.MoveNext(out var mob, out var state, out var xform))
         {
-            if (xform.GridUid != grid || state.CurrentState == MobState.Dead || _amsRoundEnd.IsEvacuated(mob))
+            if (xform.MapID != seq.Map || state.CurrentState == MobState.Dead || _amsRoundEnd.IsEvacuated(mob))
+                continue;
+
+            if (radius < float.MaxValue && (_transform.GetWorldPosition(xform) - epicenter).Length() > radius)
                 continue;
 
             _mobState.ChangeMobState(mob, MobState.Dead, state);
         }
     }
 
-    private void Kick(Sequence seq, float strength)
+    #endregion
+
+    #region portals
+
+    private const int PortalAttempts = 8;
+
+    private void UpdatePortals(EntityUid uid, AmsComponent ams, TimeSpan now)
     {
+        if (now < ams.NextPortal)
+            return;
+
+        var progress = AmsHelpers.GetDetonationProgress(ams, now);
+        ams.NextPortal = now + TimeSpan.FromSeconds(
+            MathHelper.Lerp(ams.PortalIntervalStart, ams.PortalIntervalEnd, progress) * _random.NextFloat(0.7f, 1.3f));
+
+        var map = Transform(uid).MapID;
+        var targets = new List<EntityUid>();
         foreach (var session in _players.Sessions)
         {
-            if (session.AttachedEntity is not { } ent || Transform(ent).MapID != seq.Map)
+            if (session.AttachedEntity is not { } ent || Transform(ent).MapID != map || !_mobState.IsAlive(ent) ||
+                _amsRoundEnd.IsEvacuated(ent))
                 continue;
 
-            var dist = (_transform.GetWorldPosition(ent) - seq.Epicenter.Position).Length();
-            _recoil.KickCamera(ent, _random.NextAngle().ToVec() * (strength / (1f + dist / 12f)));
+            targets.Add(ent);
         }
+
+        if (targets.Count == 0)
+            return;
+
+        var target = _random.Pick(targets);
+        if (FindPortalSpot(target) is not { } spot)
+            return;
+
+        Spawn(ams.PortalPrototype, spot);
+
+        if (ams.PortalSpawns.Count > 0 && _random.Prob(ams.PortalSpawnChance))
+            Spawn(_random.Pick(ams.PortalSpawns), spot);
+    }
+
+    private EntityCoordinates? FindPortalSpot(EntityUid target)
+    {
+        var xform = Transform(target);
+        if (xform.GridUid is not { } gridUid || !TryComp<MapGridComponent>(gridUid, out var grid))
+            return null;
+
+        var center = _map.TileIndicesFor(gridUid, grid, xform.Coordinates);
+
+        for (var i = 0; i < PortalAttempts; i++)
+        {
+            var offset = _random.NextAngle().ToVec() * _random.NextFloat(3f, 10f);
+            var idx = center + new Vector2i((int) MathF.Round(offset.X), (int) MathF.Round(offset.Y));
+
+            if (!_map.TryGetTileRef(gridUid, grid, idx, out var tile) || tile.Tile.IsEmpty)
+                continue;
+
+            if (IsTileBlocked(gridUid, grid, idx))
+                continue;
+
+            return _map.GridTileToLocal(gridUid, grid, idx);
+        }
+
+        return null;
+    }
+
+    private bool IsTileBlocked(EntityUid gridUid, MapGridComponent grid, Vector2i idx)
+    {
+        var anchored = _map.GetAnchoredEntitiesEnumerator(gridUid, grid, idx);
+        while (anchored.MoveNext(out var ent))
+        {
+            if (TryComp<OccluderComponent>(ent, out var occ) && occ.Enabled)
+                return true;
+        }
+
+        return false;
     }
 
     #endregion

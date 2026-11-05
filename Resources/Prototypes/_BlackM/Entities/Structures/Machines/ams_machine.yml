@@ -34,6 +34,41 @@
     chargeTime: 300
     activeDuration: 300
     detonationDelay: 60
+    requireSample: true
+    sampleOffset: 0,-1
+    sampleRange: 0.6
+    reinforceDelay: 2
+    reinforcements:
+      ams_part_core:
+        stack: Plasteel
+        amount: 5
+      ams_part_coil:
+        stack: Steel
+        amount: 10
+      ams_part_lens:
+        stack: Glass
+        amount: 10
+      ams_part_cell:
+        stack: Plastic
+        amount: 5
+      ams_part_stabilizer:
+        stack: Plasteel
+        amount: 3
+      ams_part_casing:
+        stack: Steel
+        amount: 15
+    waveSpeed: 14
+    waveExplosionSpacing: 7
+    waveExplosionChance: 0.45
+    waveExplosionsPerSecond: 14
+    portalPrototype: AmsXenPortal
+    portalIntervalStart: 4
+    portalIntervalEnd: 0.6
+    portalSpawns:
+    - MobHoundeyeBlackM
+    - MobVortigauntBlackM
+    - MobHeadcrabBlackM
+    portalSpawnChance: 0.25
   - type: ItemSlots
     slots:
       ams_part_core:

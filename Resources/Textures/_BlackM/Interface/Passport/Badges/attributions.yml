@@ -1,0 +1,19 @@
+- files: ["rounds_50.png", "rounds_100.png", "ams_50.png", "event_halloween.png", "event_newyear.png", "manual_survivor.png", "manual_bughunter.png", "manual_sponsor.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from tgstation at https://github.com/tgstation/tgstation/blob/master/icons/obj/clothing/accessories.dmi; cropped and upscaled"
+  source: "https://github.com/tgstation/tgstation/blob/master/icons/obj/clothing/accessories.dmi"
+
+- files: ["whitelist.png", "player.png", "special_founder.png", "playtime_1000.png", "playtime_2500.png", "rounds_1.png", "rounds_250.png", "rounds_500.png", "ams_200.png", "manual_hero.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from Baystation12 at https://github.com/Baystation12/Baystation12/blob/dev/maps/torch/icons/obj/obj_accessories_solgov.dmi; cropped and upscaled"
+  source: "https://github.com/Baystation12/Baystation12/blob/dev/maps/torch/icons/obj/obj_accessories_solgov.dmi"
+
+- files: ["event_testertrp.png", "ams_10.png", "event_aprilfools.png", "manual_medic.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from space-station-14, made by AsikKEsel at https://github.com/space-wizards/space-station-14/tree/master/Resources/Textures/Clothing/Neck/Medals; cropped and upscaled"
+  source: "https://github.com/space-wizards/space-station-14/tree/master/Resources/Textures/Clothing/Neck/Medals"
+
+- files: ["rounds_10.png", "playtime_10.png", "playtime_100.png", "playtime_500.png"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from CM-SS13 (cmss13-devs); cropped and upscaled"
+  source: "https://github.com/cmss13-devs/cmss13/blob/master/icons/obj/items/clothing/accessory/medals.dmi"

@@ -1,5 +1,7 @@
-using Robust.Shared.IoC;
+using System;
 using System.Collections.Generic;
+using Robust.Shared.IoC;
+using Robust.Shared.Maths;
 using Content.Shared._BlackM.Ams;
 using Robust.Client.GameObjects;
 using Robust.Shared.GameObjects;
@@ -24,7 +26,11 @@ public sealed class AmsVisualsSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<AmsComponent, ComponentShutdown>((uid, _, _) => _currentState.Remove(uid));
+        SubscribeLocalEvent<AmsComponent, ComponentShutdown>((uid, _, _) =>
+        {
+            _currentState.Remove(uid);
+            _tinted.Remove(uid);
+        });
     }
 
     public override void Update(float frameTime)
@@ -34,6 +40,8 @@ public sealed class AmsVisualsSystem : EntitySystem
         var query = EntityQueryEnumerator<AmsComponent, SpriteComponent>();
         while (query.MoveNext(out var uid, out var ams, out var sprite))
         {
+            UpdateFlicker(uid, ams, sprite);
+
             var state = GetDesiredState(ams);
 
             if (_currentState.TryGetValue(uid, out var current) && current == state)
@@ -42,6 +50,26 @@ public sealed class AmsVisualsSystem : EntitySystem
             _currentState[uid] = state;
             _sprite.LayerSetRsiState((uid, sprite), Layer, state);
         }
+    }
+
+    private readonly HashSet<EntityUid> _tinted = new();
+
+    private void UpdateFlicker(EntityUid uid, AmsComponent ams, SpriteComponent sprite)
+    {
+        if (ams.Status != AmsStatus.Detonating)
+        {
+            if (_tinted.Remove(uid))
+                _sprite.SetColor((uid, sprite), Color.White);
+            return;
+        }
+
+        _tinted.Add(uid);
+
+        var t = (float) _timing.RealTime.TotalSeconds;
+        var progress = AmsHelpers.GetDetonationProgress(ams, _timing.CurTime);
+        var flicker = 0.5f + 0.5f * MathF.Sin(t * (8f + 22f * progress)) * MathF.Sin(t * 3.1f);
+        var green = Color.FromHex("#9dff8a");
+        _sprite.SetColor((uid, sprite), Color.InterpolateBetween(Color.White, green, 0.35f + 0.5f * flicker * progress));
     }
 
     private string GetDesiredState(AmsComponent ams)
