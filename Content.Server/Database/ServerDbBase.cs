@@ -350,8 +350,10 @@ namespace Content.Server.Database
 
             // CorvaxGoob-TTS-Start
             // BlackM - Barks
-            var barkProto = string.IsNullOrEmpty(profile.BarkProto) ? "Human1" : profile.BarkProto;
-            var barkPitch = profile.BarkPitch <= 0f ? 1f : profile.BarkPitch;
+            var barkProto = string.IsNullOrEmpty(profile.BarkProto) ? BarkData.DefaultProto : profile.BarkProto;
+            var barkPitch = profile.BarkPitch <= 0f ? BarkData.DefaultPitch : profile.BarkPitch;
+            var barkSpeed = profile.BarkSpeed <= 0f ? BarkData.DefaultSpeed : profile.BarkSpeed;
+            var barkMode = profile.BarkMode is >= 0 and <= (int) BarkMode.Words ? (BarkMode) profile.BarkMode : BarkData.DefaultMode;
             var voice = profile.Voice;
             if (voice == String.Empty)
                 voice = SharedHumanoidAppearanceSystem.DefaultSexVoice[sex];
@@ -427,7 +429,7 @@ namespace Content.Server.Database
                 // barkVoice // Goob Station - Barks // CorvaxGoob-Revert : DB conflicts
                 )  
                 {
-                    Bark = new BarkData(barkProto, barkPitch, 0.1f, 0.5f), // BlackM - Barks
+                    Bark = new BarkData(barkProto, barkPitch, profile.BarkVariation, barkSpeed, barkMode), // BlackM - Barks
                 };
                 }
         private static Profile ConvertProfiles(HumanoidCharacterProfile humanoid, int slot, Profile? profile = null)
@@ -481,6 +483,9 @@ namespace Content.Server.Database
             // BlackM - Barks
             profile.BarkProto = humanoid.Bark.Proto;
             profile.BarkPitch = humanoid.Bark.Pitch;
+            profile.BarkVariation = humanoid.Bark.Variation;
+            profile.BarkSpeed = humanoid.Bark.Speed;
+            profile.BarkMode = (int) humanoid.Bark.Mode;
 
             profile.Loadouts.Clear();
 

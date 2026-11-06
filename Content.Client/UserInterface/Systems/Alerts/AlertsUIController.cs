@@ -18,6 +18,10 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Client.Alerts;
+// BlackM start: needs HUD
+using Content.Shared.Nutrition.EntitySystems;
+using NeedsHudWidget = Content.Client._BlackM.NeedsHud.NeedsHud;
+// BlackM end: needs HUD
 using Content.Client.Gameplay;
 using Content.Client.UserInterface.Systems.Alerts.Widgets;
 using Content.Client.UserInterface.Systems.Gameplay;
@@ -75,10 +79,31 @@ public sealed class AlertsUIController : UIController, IOnStateEntered<GameplayS
 
     private void SystemOnSyncAlerts(object? sender, IReadOnlyDictionary<AlertKey, AlertState> e)
     {
-        if (sender is ClientAlertsSystem system)
+        // BlackM start: needs HUD
+        if (sender is not ClientAlertsSystem system)
+            return;
+
+        if (_player.LocalEntity is not { } player || UIManager.GetActiveUIWidgetOrNull<NeedsHudWidget>() == null)
         {
             UI?.SyncControls(system, system.AlertOrder, e);
+            return;
         }
+
+        var showFood = EntityManager.System<HungerSystem>().TryGetNeedsHudValues(player, out _, out _, out _, out _);
+        var showWater = EntityManager.System<ThirstSystem>().TryGetNeedsHudValues(player, out _, out _, out _, out _);
+        var filtered = new Dictionary<AlertKey, AlertState>();
+        foreach (var (key, state) in e)
+        {
+            if (key.AlertType is { } type && system.TryGet(type, out var alert) &&
+                ((showFood && (alert.ID == "Peckish" || alert.ID == "Starving")) ||
+                 (showWater && (alert.ID == "Thirsty" || alert.ID == "Parched"))))
+                continue;
+
+            filtered[key] = state;
+        }
+
+        UI?.SyncControls(system, system.AlertOrder, filtered);
+        // BlackM end: needs HUD
     }
 
     public void OnSystemLoaded(ClientAlertsSystem system)

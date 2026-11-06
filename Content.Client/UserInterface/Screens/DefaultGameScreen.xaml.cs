@@ -39,7 +39,9 @@ public sealed partial class DefaultGameScreen : InGameScreen
         SetAnchorAndMarginPreset(Hotbar, LayoutPreset.BottomWide, margin: 5);
         SetAnchorAndMarginPreset(Chat, LayoutPreset.TopRight, margin: 10);
         SetAnchorAndMarginPreset(Alerts, LayoutPreset.TopRight, margin: 10);
-        SetAnchorAndMarginPreset(Targeting, LayoutPreset.BottomRight, margin: 5); // Shitmed Change
+        // BlackM start: needs HUD
+        SetAnchorAndMarginPreset(VitalsAndTargeting, LayoutPreset.BottomRight, margin: 5); // Shitmed Change
+        // BlackM end: needs HUD
 
         Chat.OnResized += ChatOnResized;
         Chat.OnChatResizeFinish += ChatOnResizeFinish;
@@ -56,7 +58,9 @@ public sealed partial class DefaultGameScreen : InGameScreen
 
     private void ResizeAlertsContainer()
     {
-        float indent = Chat.Size.Y + Targeting.Size.Y + 120;
+        // BlackM start: needs HUD
+        float indent = Chat.Size.Y + VitalsAndTargeting.Size.Y + 120;
+        // BlackM end: needs HUD
         Alerts.AlertContainer.MaxGridHeight = Math.Max(MainViewport.Size.Y - indent, 1);
     }
 

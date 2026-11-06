@@ -1,0 +1,9 @@
+blackm-needs-food = СЫТОСТЬ
+blackm-needs-water = ВОДА
+blackm-needs-state-normal = НОРМА
+blackm-needs-state-warning = МАЛО
+blackm-needs-state-critical = СРОЧНО
+blackm-needs-food-warning = Вы голодны. Поешьте, пока не стало хуже.
+blackm-needs-food-critical = Сильный голод! Срочно найдите еду.
+blackm-needs-water-warning = Вы хотите пить. Попейте, пока не стало хуже.
+blackm-needs-water-critical = Сильная жажда! Срочно найдите воду.

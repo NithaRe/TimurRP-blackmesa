@@ -1,5 +1,7 @@
 using System.Numerics;
+using Content.Goobstation.Shared.Sprinting;
 using Content.Shared._BlackM.WalkBob;
+using Content.Shared.Damage.Components;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -173,16 +175,19 @@ public sealed class WalkBobSystem : EntitySystem
     {
         var alive = CanAnimate(uid);
         var k = 1f - MathF.Exp(-bob.Smoothing * dt);
+        var mapCoords = _transform.GetMapCoordinates(uid, xform);
 
         var velocity = Vector2.Zero;
+        var sprinting = false;
         if (bob.VisualSpeedOverride is { } over)
         {
-            velocity = WorldToScreen(_transform.GetMapCoordinates(uid, xform), FacingVector(uid)) * over;
+            velocity = WorldToScreen(mapCoords, FacingVector(uid)) * over;
         }
         else if (alive && IsSelfMoving(uid) && TryComp<PhysicsComponent>(uid, out var physics))
         {
             var parentRot = xform.ParentUid.IsValid() ? _transform.GetWorldRotation(xform.ParentUid) : Angle.Zero;
-            velocity = WorldToScreen(_transform.GetMapCoordinates(uid, xform), parentRot.RotateVec(physics.LinearVelocity));
+            velocity = WorldToScreen(mapCoords, parentRot.RotateVec(physics.LinearVelocity));
+            sprinting = TryComp<SprinterComponent>(uid, out var sprinter) && sprinter.IsSprinting;
         }
 
         var speed = velocity.Length();
@@ -193,26 +198,47 @@ public sealed class WalkBobSystem : EntitySystem
         }
 
         var moving = alive && speed > bob.MinSpeedThreshold;
-        var running = moving && speed >= GetSprintThreshold(uid, bob);
+        var gait = moving ? GetGait(uid, bob, speed, sprinting) : 0f;
 
         bob.ActiveWeight = Lerp(bob.ActiveWeight, alive ? 1f : 0f, k);
         bob.MoveWeight = Lerp(bob.MoveWeight, moving ? 1f : 0f, k);
-        bob.RunWeight = Lerp(bob.RunWeight, running ? 1f : 0f, k);
+        bob.RunWeight = Lerp(bob.RunWeight, gait, k);
 
         if (moving)
-            bob.VerticalWeight = Lerp(bob.VerticalWeight, MathF.Abs(velocity.Y) / speed, k);
-
-        if (moving)
-            bob.Phase = (bob.Phase + speed * dt * bob.PhasePerMeter) % MathF.Tau;
+            bob.Phase = (bob.Phase + speed * dt * bob.PhasePerMeter * Lerp(1f, bob.RunStrideMult, bob.RunWeight)) % MathF.Tau;
         else if (bob.MoveWeight < 0.02f)
             bob.Phase = 0f;
 
-        if (running)
-            bob.Exertion = MathF.Min(1f, bob.Exertion + dt / MathF.Max(bob.ExertionBuildTime, 0.01f));
+        var kick = 0f;
+        if (moving != bob.WasMoving)
+            kick = bob.SquashStartStop * (moving ? 1f : 0.5f + 0.5f * bob.RunWeight);
+        bob.WasMoving = moving;
+
+        // Soft start/stop settle.
+        bob.SquashVelocity += kick * MathF.Tau * bob.SquashFrequency;
+        Spring(ref bob.Squash, ref bob.SquashVelocity, 0f, bob.SquashFrequency, bob.SquashDamping, dt);
+
+        // Smooth per-step wave, peak at footfall.
+        var stepWave = 0.5f - 0.5f * MathF.Cos(2f * bob.Phase);
+        var stepSquash = Lerp(bob.SquashWalk, bob.SquashRun, bob.RunWeight) * bob.MoveWeight * (stepWave - 0.3f);
+        var totalSquash = Math.Clamp(bob.Squash + stepSquash, -bob.SquashMax * 0.5f, bob.SquashMax);
+
+        if (gait > 0.5f)
+            bob.Exertion = MathF.Min(1f, bob.Exertion + dt * (gait - 0.4f) / 0.6f / MathF.Max(bob.ExertionBuildTime, 0.01f));
         else
             bob.Exertion = MathF.Max(0f, bob.Exertion - dt / MathF.Max(bob.ExertionRecoverTime, 0.01f));
 
-        bob.BreathPhase = (bob.BreathPhase + Lerp(bob.BreathRate, bob.BreathRateExerted, bob.Exertion) * dt) % MathF.Tau;
+        var exertion = bob.Exertion;
+        if (TryComp<StaminaComponent>(uid, out var stamina) && stamina.CritThreshold > 0f)
+            exertion = MathF.Max(exertion, Math.Clamp(stamina.StaminaDamage / stamina.CritThreshold * bob.StaminaExertion, 0f, 1f));
+
+        if (!bob.BreathSeeded)
+        {
+            bob.BreathPhase = uid.Id * 0.7f % MathF.Tau;
+            bob.BreathSeeded = true;
+        }
+
+        bob.BreathPhase = (bob.BreathPhase + Lerp(bob.BreathRate, bob.BreathRateExerted, exertion) * dt) % MathF.Tau;
 
         var omega = MathF.Tau * bob.RecoilReturn;
         CriticalSpring(ref bob.RecoilOffset.X, ref bob.RecoilVelocity.X, omega, dt);
@@ -239,30 +265,59 @@ public sealed class WalkBobSystem : EntitySystem
         }
 
         var w = bob.MoveWeight;
+        var squash = totalSquash * bob.ActiveWeight;
+
+        var bp = bob.BreathPhase;
+        var breath = 0.5f - 0.5f * MathF.Cos(bp + 0.35f * MathF.Sin(bp));
+        var breathAmp = Lerp(bob.BreathAmplitude, bob.BreathAmplitudeExerted, exertion)
+                        * Lerp(1f, bob.BreathWhileMoving, w) * bob.ActiveWeight;
+
+        var scaleY = (1f + breath * breathAmp) * (1f - squash) * (1f - bob.ReachDip * reach);
+        var scaleX = (1f + breath * breathAmp * 0.25f) * (1f + squash * 0.6f);
 
         var rotDeg = bob.RecoilRotation
                      - bob.ReachDirection.X * bob.ReachAngle * reach
                      - bob.ThrowDirection.X * bob.ThrowAngle * swing;
         rotDeg = Math.Clamp(rotDeg, -bob.MaxRotation, bob.MaxRotation);
 
-        var breath = 0.5f - 0.5f * MathF.Cos(bob.BreathPhase + uid.Id * 0.7f);
-        var breathAmp = Lerp(bob.BreathAmplitude, bob.BreathAmplitudeExerted, bob.Exertion) * (1f - w) * bob.ActiveWeight;
-        var scaleY = (1f + breath * breathAmp) * (1f - bob.ReachDip * reach);
-
         var theta = rotDeg * MathF.PI / 180f;
         var foot = bob.FootOffset * scaleY;
-        var stepShift = MathF.Sin(bob.Phase) * bob.StepShift * Lerp(1f, bob.RunShiftMult, bob.RunWeight)
-                        * bob.VerticalWeight * w;
 
         var offset = bob.RecoilOffset
                      + bob.ReachDirection * bob.ReachShift * reach
                      + bob.ThrowDirection * bob.ThrowShift * swing
-                     + new Vector2(stepShift, 0f)
                      + new Vector2(
-            -foot * MathF.Sin(theta),
-            -bob.FootOffset + foot * MathF.Cos(theta));
+                         -foot * MathF.Sin(theta),
+                         -bob.FootOffset + foot * MathF.Cos(theta));
 
-        Apply(uid, sprite, bob, new Vector2(1f, scaleY), offset, new Angle(theta));
+        Apply(uid, sprite, bob, new Vector2(scaleX, scaleY), offset, new Angle(theta));
+    }
+
+    // 0 walk, 0.6 run, 1 sprint
+    private float GetGait(EntityUid uid, WalkBobComponent bob, float speed, bool sprinting)
+    {
+        if (sprinting)
+            return 1f;
+
+        var walk = 2.5f;
+        var run = FallbackSprintThreshold + 1f;
+        if (TryComp<MovementSpeedModifierComponent>(uid, out var mod))
+        {
+            walk = mod.CurrentWalkSpeed;
+            run = mod.CurrentSprintSpeed;
+        }
+
+        if (bob.SprintSpeedThreshold is { } threshold)
+            run = threshold;
+
+        if (run <= walk * 1.05f)
+            return Math.Clamp(speed / MathF.Max(run, 0.1f), 0f, 1f) * 0.6f;
+
+        var gait = Math.Clamp((speed - walk) / (run - walk), 0f, 1f) * 0.6f;
+        if (speed > run * 1.1f)
+            gait = MathF.Max(gait, 0.6f + 0.4f * Math.Clamp((speed - run) / MathF.Max(run * 0.35f, 0.1f), 0f, 1f));
+
+        return gait;
     }
 
     private bool IsSelfMoving(EntityUid uid)
@@ -282,20 +337,6 @@ public sealed class WalkBobSystem : EntitySystem
             return false;
 
         return !_standing.IsDown(uid);
-    }
-
-    private float GetSprintThreshold(EntityUid uid, WalkBobComponent bob)
-    {
-        if (bob.SprintSpeedThreshold is { } threshold)
-            return threshold;
-
-        if (TryComp<MovementSpeedModifierComponent>(uid, out var mod)
-            && mod.CurrentSprintSpeed > mod.CurrentWalkSpeed * 1.1f)
-        {
-            return mod.CurrentWalkSpeed + (mod.CurrentSprintSpeed - mod.CurrentWalkSpeed) * 0.6f;
-        }
-
-        return FallbackSprintThreshold;
     }
 
     private void Apply(EntityUid uid, SpriteComponent sprite, WalkBobComponent bob,
@@ -376,6 +417,20 @@ public sealed class WalkBobSystem : EntitySystem
     }
 
     #region Helpers
+
+    private static void Spring(ref float x, ref float v, float target, float frequency, float damping, float dt)
+    {
+        var w = MathF.Tau * frequency;
+        var steps = Math.Max(1, (int) MathF.Ceiling(dt / SpringStep));
+        var h = dt / steps;
+
+        for (var i = 0; i < steps; i++)
+        {
+            var acc = -w * w * (x - target) - 2f * damping * w * v;
+            v += acc * h;
+            x += v * h;
+        }
+    }
 
     private static void CriticalSpring(ref float x, ref float v, float omega, float dt)
     {

@@ -228,6 +228,22 @@ public sealed class ThirstSystem : EntitySystem
         }
     }
 
+    // BlackM start: needs HUD
+    public bool TryGetNeedsHudValues(EntityUid uid, out float current, out float maximum, out float warning, out float consequence)
+    {
+        current = maximum = warning = consequence = 0f;
+        if (!TryComp<ThirstComponent>(uid, out var component) ||
+            !component.ThirstThresholds.TryGetValue(ThirstThreshold.OverHydrated, out maximum) ||
+            !component.ThirstThresholds.TryGetValue(ThirstThreshold.Thirsty, out warning) ||
+            !component.ThirstThresholds.TryGetValue(ThirstThreshold.Parched, out consequence))
+            return false;
+
+        current = component.CurrentThirst;
+        return current >= 0f && maximum > 0f && warning > consequence;
+    }
+
+    // BlackM end: needs HUD
+
     public bool TryGetStatusIconPrototype(ThirstComponent component, [NotNullWhen(true)] out SatiationIconPrototype? prototype)
     {
         switch (component.CurrentThirstThreshold)

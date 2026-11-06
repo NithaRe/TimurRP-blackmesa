@@ -1,34 +1,37 @@
-using Robust.Shared.Serialization;
 using Robust.Shared.Audio;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._BlackM.SpeechBarks;
 
 [Serializable, NetSerializable]
 public sealed class PlaySpeechBarksEvent : EntityEventArgs
 {
-    public NetEntity? Source;
-    public string? Message;
-    public SoundSpecifier SoundSpecifier;
+    public NetEntity Source;
+    public int MessageId;
+    public SoundSpecifier Sound;
     public float Pitch;
-    public float LowVariation;
-    public float HighVariation;
+    public float Variation;
+    public float Speed;
+    public BarkMode Mode;
     public bool IsWhisper;
 
     public PlaySpeechBarksEvent(
         NetEntity source,
-        string? message,
-        SoundSpecifier soundSpecifier,
+        int messageId,
+        SoundSpecifier sound,
         float pitch,
-        float lowVariation,
-        float highVariation,
+        float variation,
+        float speed,
+        BarkMode mode,
         bool isWhisper)
     {
         Source = source;
-        Message = message;
-        SoundSpecifier = soundSpecifier;
+        MessageId = messageId;
+        Sound = sound;
         Pitch = pitch;
-        LowVariation = lowVariation;
-        HighVariation = highVariation;
+        Variation = variation;
+        Speed = speed;
+        Mode = mode;
         IsWhisper = isWhisper;
     }
 }

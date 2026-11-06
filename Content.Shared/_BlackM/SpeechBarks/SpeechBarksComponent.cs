@@ -2,9 +2,9 @@ using Robust.Shared.GameStates;
 
 namespace Content.Shared._BlackM.SpeechBarks;
 
-[RegisterComponent, NetworkedComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class SpeechBarksComponent : Component
 {
-    [DataField, ViewVariables(VVAccess.ReadWrite)]
+    [DataField, AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
     public BarkData Data = new();
 }

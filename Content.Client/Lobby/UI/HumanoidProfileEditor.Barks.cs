@@ -3,9 +3,8 @@
 // SPDX-FileCopyrightText: 2025 pheenty <fedorlukin2006@gmail.com>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
-//using Content.Goobstation.Common.Barks;
-using System.Linq;
 using Content.Client._BlackM.SpeechBarks;
+using Content.Client._BlackM.SpeechBarks.UI;
 using Content.Shared._BlackM.CCVar;
 using Content.Shared._BlackM.SpeechBarks;
 
@@ -14,86 +13,190 @@ namespace Content.Client.Lobby.UI;
 public sealed partial class HumanoidProfileEditor
 {
     private List<BlackMBarkPrototype> _barkList = new();
+    private BarkPickerWindow? _barkPicker;
+    private bool _barkUpdating;
+
+    private static readonly BarkMode[] BarkModes = { BarkMode.Syllables, BarkMode.Letters, BarkMode.Words };
 
     private void InitializeBarks()
     {
         if (!_cfgManager.GetCVar(BlackMCVars.BarksEnabled))
         {
-            BarksContainer.Visible = false;
-            BarkPitchContainer.Visible = false;
+            BarksSection.Visible = false;
             return;
         }
 
-        BarksContainer.Visible = true;
-        BarkPitchContainer.Visible = true;
+        BarksSection.Visible = true;
+        _barkList = SpeechBarksSystem.GetSelectableBarks(_prototypeManager);
 
-        _barkList = _prototypeManager
-            .EnumeratePrototypes<BlackMBarkPrototype>()
-            .Where(b => b.RoundStart)
-            .OrderBy(b => Loc.GetString(b.Name))
-            .ToList();
+        BarkPitchSlider.MinValue = _cfgManager.GetCVar(BlackMCVars.BarksMinPitch);
+        BarkPitchSlider.MaxValue = Math.Max(BarkPitchSlider.MinValue, _cfgManager.GetCVar(BlackMCVars.BarksMaxPitch));
+        BarkVariationSlider.MinValue = BarkData.MinVariation;
+        BarkVariationSlider.MaxValue = BarkData.MaxVariation;
+        BarkSpeedSlider.MinValue = BarkData.MinSpeed;
+        BarkSpeedSlider.MaxValue = BarkData.MaxSpeed;
 
-        BarkVoiceButton.Clear();
-
-        for (var i = 0; i < _barkList.Count; i++)
+        BarkModeButton.Clear();
+        for (var i = 0; i < BarkModes.Length; i++)
         {
-            BarkVoiceButton.AddItem(Loc.GetString(_barkList[i].Name), i);
+            BarkModeButton.AddItem(Loc.GetString($"blackm-bark-mode-{BarkModes[i].ToString().ToLowerInvariant()}"), i);
         }
 
-        BarkVoiceButton.OnItemSelected += args =>
-        {
-            BarkVoiceButton.SelectId(args.Id);
-            SetBarkProto(_barkList[args.Id].ID);
-        };
-
-        BarkVoicePlayButton.OnPressed += _ => PlayPreviewBark();
-        BarkPitchSlider.OnValueChanged += _ => SetBarkPitch(BarkPitchSlider.Value);
+        BarkPrevButton.OnPressed += _ => CycleBark(-1);
+        BarkNextButton.OnPressed += _ => CycleBark(1);
+        BarkPickButton.OnPressed += _ => OpenBarkPicker();
+        BarkVoicePlayButton.OnPressed += _ => PlayBarkPreview();
         BarkResetButton.OnPressed += _ => ResetBark();
+        BarkPreviewEdit.OnTextEntered += _ => PlayBarkPreview();
+
+        BarkPitchSlider.OnValueChanged += _ => UpdateBark(b => b.WithPitch(MathF.Round(BarkPitchSlider.Value, 2)));
+        BarkVariationSlider.OnValueChanged += _ => UpdateBark(b => b.WithVariation(MathF.Round(BarkVariationSlider.Value, 2)));
+        BarkSpeedSlider.OnValueChanged += _ => UpdateBark(b => b.WithSpeed(MathF.Round(BarkSpeedSlider.Value, 2)));
+
+        BarkModeButton.OnItemSelected += args =>
+        {
+            BarkModeButton.SelectId(args.Id);
+            UpdateBark(b => b.WithMode(BarkModes[args.Id]));
+        };
     }
 
     private void UpdateBarkVoiceControls()
     {
-        if (Profile is null || !_cfgManager.GetCVar(BlackMCVars.BarksEnabled))
+        if (Profile is null || !BarksSection.Visible)
             return;
 
-        var index = _barkList.FindIndex(b => b.ID == Profile.Bark.Proto);
-        if (index != -1)
-            BarkVoiceButton.SelectId(index);
+        _barkUpdating = true;
+        try
+        {
+            var bark = Profile.Bark;
 
-        BarkPitchSlider.Value = Profile.Bark.Pitch;
-        BarkPitchLabel.Text = Profile.Bark.Pitch.ToString("F2");
+            BarkPickButton.Text = GetBarkName(bark.Proto);
+            BarkPitchSlider.Value = bark.Pitch;
+            BarkVariationSlider.Value = bark.Variation;
+            BarkSpeedSlider.Value = bark.Speed;
+            BarkModeButton.SelectId(Math.Max(0, Array.IndexOf(BarkModes, bark.Mode)));
+
+            UpdateBarkLabels(bark);
+            _barkPicker?.SetSelected(bark.Proto);
+        }
+        finally
+        {
+            _barkUpdating = false;
+        }
     }
 
-    private void SetBarkProto(string barkId)
+    private void UpdateBarkLabels(BarkData bark)
     {
-        Profile = Profile?.WithBark(Profile.Bark.WithProto(barkId));
+        BarkPitchLabel.Text = bark.Pitch.ToString("F2");
+        BarkVariationLabel.Text = $"±{bark.Variation * 100:F0}%";
+        BarkSpeedLabel.Text = $"x{bark.Speed:F2}";
+    }
+
+    private void UpdateBark(Func<BarkData, BarkData> change)
+    {
+        if (_barkUpdating || Profile is null)
+            return;
+
+        var bark = change(Profile.Bark);
+        if (bark.Equals(Profile.Bark))
+            return;
+
+        Profile = Profile.WithBark(bark);
+        UpdateBarkLabels(bark);
         IsDirty = true;
     }
 
-    private void SetBarkPitch(float pitch)
+    private string GetBarkName(string protoId)
     {
-        Profile = Profile?.WithBark(Profile.Bark.WithPitch(pitch));
-        BarkPitchLabel.Text = pitch.ToString("F2");
-        IsDirty = true;
+        return _prototypeManager.TryIndex<BlackMBarkPrototype>(protoId, out var proto)
+            ? Loc.GetString(proto.Name)
+            : protoId;
     }
 
-    private void ResetBark()
-    {
-        Profile = Profile?.WithBark(new BarkData(Profile.Bark.Proto, 1f, 0.1f, 0.5f));
-        BarkPitchSlider.Value = 1f;
-        BarkPitchLabel.Text = "1.00";
-        IsDirty = true;
-    }
-
-    private void PlayPreviewBark()
+    private void SetBarkProto(string barkId, bool preview)
     {
         if (Profile is null)
             return;
 
-        _entManager.System<SpeechBarksSystem>().PlayDataPreview(
-            Profile.Bark.Proto,
-            Profile.Bark.Pitch,
-            Profile.Bark.MinVar,
-            Profile.Bark.MaxVar);
+        UpdateBark(b => b.WithProto(barkId));
+        BarkPickButton.Text = GetBarkName(barkId);
+        _barkPicker?.SetSelected(barkId);
+
+        if (preview)
+            PlayBarkPreview();
+    }
+
+    private void CycleBark(int delta)
+    {
+        if (Profile is null || _barkList.Count == 0)
+            return;
+
+        var index = _barkList.FindIndex(b => b.ID == Profile.Bark.Proto);
+        index = index < 0 ? 0 : (index + delta + _barkList.Count) % _barkList.Count;
+        SetBarkProto(_barkList[index].ID, true);
+    }
+
+    private void OpenBarkPicker()
+    {
+        if (Profile is null)
+            return;
+
+        if (_barkPicker == null)
+        {
+            _barkPicker = new BarkPickerWindow(_barkList);
+            _barkPicker.OnBarkSelected += id => SetBarkProto(id, false);
+            _barkPicker.OnBarkPreview += PlayBarkPreview;
+            _barkPicker.OnClose += () =>
+            {
+                _barkPicker = null;
+                _entManager.System<SpeechBarksSystem>().StopPreview();
+            };
+        }
+
+        _barkPicker.SetSelected(Profile.Bark.Proto);
+        _barkPicker.OpenCentered();
+    }
+
+    private string GetBarkPreviewText()
+    {
+        var text = BarkPreviewEdit.Text.Trim();
+        return string.IsNullOrEmpty(text) ? Loc.GetString("blackm-bark-preview-default") : text;
+    }
+
+    private void PlayBarkPreview()
+    {
+        if (Profile is null)
+            return;
+
+        PlayBarkPreview(Profile.Bark);
+    }
+
+    private void PlayBarkPreview(string protoId)
+    {
+        if (Profile is null)
+            return;
+
+        PlayBarkPreview(Profile.Bark.WithProto(protoId));
+    }
+
+    private void PlayBarkPreview(BarkData data)
+    {
+        var text = GetBarkPreviewText();
+        BarkPreviewLabel.Text = string.Empty;
+
+        _entManager.System<SpeechBarksSystem>().PlayPreview(
+            data,
+            text,
+            count => BarkPreviewLabel.Text = text[..Math.Clamp(count, 0, text.Length)]);
+    }
+
+    private void ResetBark()
+    {
+        if (Profile is null)
+            return;
+
+        var proto = Profile.Bark.Proto;
+        UpdateBark(_ => new BarkData(proto, BarkData.DefaultPitch, BarkData.DefaultVariation, BarkData.DefaultSpeed, BarkData.DefaultMode));
+        UpdateBarkVoiceControls();
     }
 }

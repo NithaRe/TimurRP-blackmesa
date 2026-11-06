@@ -7,6 +7,10 @@
   components:
   - type: Tag
     tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
     - HECU
   - type: RandomHumanoidAppearance
     randomizeName: false
@@ -43,6 +47,10 @@
   components:
   - type: Tag
     tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
     - HECU
   - type: NpcFactionMember
     factions:

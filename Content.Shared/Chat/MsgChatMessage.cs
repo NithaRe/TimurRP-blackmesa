@@ -60,6 +60,7 @@ namespace Content.Shared.Chat
         public string? AudioPath;
         public float AudioVolume;
         public bool CanCoalesce; // Goobstation Edit
+        public int? BarkMessageId;
 
         [NonSerialized]
         public bool Read;

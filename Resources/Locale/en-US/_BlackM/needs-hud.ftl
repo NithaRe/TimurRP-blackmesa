@@ -1,0 +1,9 @@
+blackm-needs-food = FOOD
+blackm-needs-water = WATER
+blackm-needs-state-normal = OK
+blackm-needs-state-warning = LOW
+blackm-needs-state-critical = URGENT
+blackm-needs-food-warning = You are hungry. Eat before it affects your well-being.
+blackm-needs-food-critical = Severe hunger! Find food now.
+blackm-needs-water-warning = You are thirsty. Drink before it affects your well-being.
+blackm-needs-water-critical = Severe thirst! Find a drink now.

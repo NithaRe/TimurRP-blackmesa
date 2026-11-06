@@ -1,16 +1,19 @@
-using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
-using Content.Shared._BlackM.SpeechBarks;
+using System.Linq;
 using Content.Shared._BlackM.CCVar;
+using Content.Shared._BlackM.SpeechBarks;
+using Robust.Client.Audio;
+using Robust.Client.Player;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
-using Robust.Client.Player;
-using Robust.Client.Audio;
-using Robust.Shared.Timing;
 using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
+using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.SpeechBarks;
+
+public sealed record BarkVoice(SoundSpecifier Sound, float Pitch, float Variation, float Speed, BarkMode Mode);
 
 public sealed class SpeechBarksSystem : EntitySystem
 {
@@ -21,31 +24,29 @@ public sealed class SpeechBarksSystem : EntitySystem
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
-    private const float MinimalVolume = -10f;
-    private const float WhisperFade = 4f;
+    private const float BaseVolume = -10f;
+    private const float WhisperVolume = -6f;
+    private const float LoudVolume = 2f;
     private const float NormalHearingDistance = 10f;
     private const float WhisperHearingDistance = 5f;
-
-    public const float FixedBarkInterval = 0.09f;
-
-    public const float MaxTypeDuration = 2.5f;
-    public const float MinTypeInterval = 0.02f;
-
-    public static float GetTypeInterval(int length)
-    {
-        return Math.Clamp(MaxTypeDuration / Math.Max(length, 1), MinTypeInterval, FixedBarkInterval);
-    }
-    private const float FixedBarkIntervalJitter = 0.015f;
+    private static readonly TimeSpan PendingLifetime = TimeSpan.FromSeconds(60);
 
     private float _volume;
+    private bool _clientEnabled;
+    private bool _serverEnabled;
 
-    private readonly List<ActiveBark> _activeBarks = new();
+    private readonly Dictionary<(EntityUid Source, int MessageId), PendingVoice> _pending = new();
+    private readonly List<(EntityUid Source, int MessageId)> _toRemove = new();
+
+    private ActivePreview? _preview;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        _cfg.OnValueChanged(BlackMCVars.BarksVolume, v => _volume = v, true);
+        _cfg.OnValueChanged(BlackMCVars.BarksVolume, OnVolumeChanged, true);
+        _cfg.OnValueChanged(BlackMCVars.ReplaceTTSWithBarks, OnClientEnabledChanged, true);
+        _cfg.OnValueChanged(BlackMCVars.BarksEnabled, OnServerEnabledChanged, true);
 
         SubscribeNetworkEvent<PlaySpeechBarksEvent>(OnPlaySpeechBarks);
     }
@@ -53,148 +54,214 @@ public sealed class SpeechBarksSystem : EntitySystem
     public override void Shutdown()
     {
         base.Shutdown();
-        _cfg.UnsubValueChanged(BlackMCVars.BarksVolume, v => _volume = v);
+
+        _cfg.UnsubValueChanged(BlackMCVars.BarksVolume, OnVolumeChanged);
+        _cfg.UnsubValueChanged(BlackMCVars.ReplaceTTSWithBarks, OnClientEnabledChanged);
+        _cfg.UnsubValueChanged(BlackMCVars.BarksEnabled, OnServerEnabledChanged);
+
+        _pending.Clear();
+        _preview = null;
     }
 
-    private float GetVolume(string message, bool isWhisper)
+    private void OnVolumeChanged(float value) => _volume = value;
+    private void OnClientEnabledChanged(bool value) => _clientEnabled = value;
+    private void OnServerEnabledChanged(bool value) => _serverEnabled = value;
+
+    public bool Enabled => _clientEnabled && _serverEnabled;
+
+    public bool ExpectsVoice(EntityUid uid)
     {
-        var volume = isWhisper ? _volume - WhisperFade : _volume;
-
-        if (message.EndsWith("!"))
-            volume += 1.5f;
-
-        return MinimalVolume + SharedAudioSystem.GainToVolume(volume);
+        return Enabled && HasComp<SpeechBarksComponent>(uid);
     }
 
-    private float GetHearingDistance(bool isWhisper)
+    public BarkData? GetSpeakerData(EntityUid uid)
     {
-        return isWhisper ? WhisperHearingDistance : NormalHearingDistance;
-    }
-
-    private static int GetSyllableCount(string message)
-    {
-        var count = 0;
-        foreach (var c in message)
-        {
-            if (!char.IsWhiteSpace(c))
-                count++;
-        }
-
-        return Math.Max(count, 1);
+        return TryComp<SpeechBarksComponent>(uid, out var comp) ? comp.Data : null;
     }
 
     private void OnPlaySpeechBarks(PlaySpeechBarksEvent ev)
     {
-        if (!_cfg.GetCVar(BlackMCVars.ReplaceTTSWithBarks))
-            return;
-
-        if (ev.Message == null)
+        if (!Enabled)
             return;
 
         if (!TryGetEntity(ev.Source, out var source) || Transform(source.Value).MapID == MapId.Nullspace)
             return;
 
-        var ratio = GetTypeInterval(ev.Message.Length) / FixedBarkInterval;
-        var barkCount = Math.Max(1, (int) MathF.Ceiling(GetSyllableCount(ev.Message) * ratio));
-
-        _activeBarks.Add(new ActiveBark(
-            source,
-            ev.SoundSpecifier,
-            GetVolume(ev.Message, ev.IsWhisper),
-            ev.Pitch,
-            GetHearingDistance(ev.IsWhisper),
-            barkCount));
+        var voice = new BarkVoice(ev.Sound, ev.Pitch, ev.Variation, ev.Speed, ev.Mode);
+        _pending[(source.Value, ev.MessageId)] = new PendingVoice(voice, _timing.RealTime + PendingLifetime);
     }
 
-    public void PlayDataPreview(string protoId, float pitch, float lowVariation, float highVariation)
+    public bool TryClaimVoice(EntityUid uid, int messageId, out BarkVoice voice)
     {
-        if (!_proto.TryIndex<BlackMBarkPrototype>(protoId, out var proto))
-            return;
+        voice = default!;
+        if (!_pending.Remove((uid, messageId), out var pending) || pending.Expires < _timing.RealTime)
+            return false;
 
-        _activeBarks.Add(new ActiveBark(
-            null,
-            proto.Sound,
-            GetVolume("Test message", false),
-            pitch,
-            GetHearingDistance(false),
-            10));
+        voice = pending.Voice;
+        return true;
     }
 
-    public override void Update(float frameTime)
+    public void PlayCue(EntityUid? source, BarkVoice voice, BarkCue cue, bool whisper, bool loud)
     {
-        base.Update(frameTime);
-
-        if (_player.LocalSession == null)
+        if (_volume <= 0f || _player.LocalSession is not { } session)
             return;
 
-        for (var i = _activeBarks.Count - 1; i >= 0; i--)
+        var volume = BaseVolume + SharedAudioSystem.GainToVolume(_volume);
+        if (whisper)
+            volume += WhisperVolume;
+        if (loud)
+            volume += LoudVolume;
+
+        var variation = voice.Variation > 0f ? _random.NextFloat(-voice.Variation, voice.Variation) : 0f;
+        var pitch = Math.Clamp(voice.Pitch * (1f + cue.PitchShift) * (1f + variation), 0.2f, 4f);
+
+        var audioParams = AudioParams.Default
+            .WithPitchScale(pitch)
+            .WithVolume(volume)
+            .WithMaxDistance(whisper ? WhisperHearingDistance : NormalHearingDistance);
+
+        var sound = _audio.ResolveSound(voice.Sound);
+
+        if (source == null)
         {
-            var bark = _activeBarks[i];
+            _audio.PlayGlobal(sound, session, audioParams);
+            return;
+        }
 
-            if (bark.NextSound > _timing.CurTime)
-                continue;
+        if (Deleted(source.Value))
+            return;
 
-            if (bark.SyllablesPlayed >= bark.SyllableCount)
-            {
-                _activeBarks.RemoveAt(i);
-                continue;
-            }
+        if (source == _player.LocalEntity)
+            _audio.PlayGlobal(sound, source.Value, audioParams);
+        else
+            _audio.PlayEntity(sound, session, source.Value, audioParams);
+    }
 
-            var audioParams = AudioParams.Default
-                .WithPitchScale(_random.NextFloat(bark.Pitch - 0.1f, bark.Pitch + 0.1f))
-                .WithVolume(bark.Volume)
-                .WithMaxDistance(bark.Distance);
+    public bool TryResolveSound(BarkData data, out SoundSpecifier sound)
+    {
+        if (data.Sound != null)
+        {
+            sound = data.Sound;
+            return true;
+        }
 
-            bark.SyllablesPlayed++;
-            bark.NextSound = _timing.CurTime + TimeSpan.FromSeconds(
-                _random.NextFloat(FixedBarkInterval - FixedBarkIntervalJitter, FixedBarkInterval + FixedBarkIntervalJitter));
+        if (_proto.TryIndex(data.Proto, out var proto) ||
+            _proto.TryIndex<BlackMBarkPrototype>(BarkData.DefaultProto, out proto))
+        {
+            sound = proto.Sound;
+            return true;
+        }
 
-            if (bark.Source == null)
-            {
-                if (bark.HadSource)
-                    _activeBarks.RemoveAt(i);
-                else
-                    _audio.PlayGlobal(_audio.ResolveSound(bark.Sound), _player.LocalSession, audioParams);
+        sound = default!;
+        return false;
+    }
 
-                continue;
-            }
+    public void PlayPreview(BarkData data, string text, Action<int>? onReveal = null, Action? onFinished = null)
+    {
+        StopPreview();
 
-            if (_player.LocalEntity is { Valid: true } localPlayer)
-            {
-                if (bark.Source == localPlayer)
-                    _audio.PlayGlobal(_audio.ResolveSound(bark.Sound), localPlayer, audioParams);
-                else
-                    _audio.PlayEntity(_audio.ResolveSound(bark.Sound), _player.LocalSession, bark.Source.Value, audioParams);
-            }
-            else
-            {
-                _activeBarks.RemoveAt(i);
-            }
+        if (string.IsNullOrWhiteSpace(text) || !TryResolveSound(data, out var sound))
+            return;
+
+        var voice = new BarkVoice(sound, data.Pitch, data.Variation, data.Speed, data.Mode);
+        var timeline = SpeechBarkTimeline.Build(text, data.Speed, data.Mode);
+
+        _preview = new ActivePreview(voice, timeline, _timing.RealTime, text.TrimEnd().EndsWith('!'), onReveal, onFinished);
+    }
+
+    public void StopPreview()
+    {
+        var preview = _preview;
+        _preview = null;
+        preview?.OnFinished?.Invoke();
+    }
+
+    public override void FrameUpdate(float frameTime)
+    {
+        base.FrameUpdate(frameTime);
+
+        UpdatePreview();
+
+        if (_pending.Count == 0)
+            return;
+
+        var now = _timing.RealTime;
+        foreach (var (key, pending) in _pending)
+        {
+            if (pending.Expires < now || Deleted(key.Source))
+                _toRemove.Add(key);
+        }
+
+        foreach (var key in _toRemove)
+        {
+            _pending.Remove(key);
+        }
+
+        _toRemove.Clear();
+    }
+
+    private void UpdatePreview()
+    {
+        if (_preview is not { } preview)
+            return;
+
+        var elapsed = (float) (_timing.RealTime - preview.Start).TotalSeconds;
+        var timeline = preview.Timeline;
+
+        var revealed = timeline.RevealedAt(elapsed);
+        if (revealed != preview.Revealed)
+        {
+            preview.Revealed = revealed;
+            preview.OnReveal?.Invoke(revealed);
+        }
+
+        var due = -1;
+        while (preview.NextCue < timeline.Cues.Count && timeline.Cues[preview.NextCue].Time <= elapsed)
+        {
+            due = preview.NextCue++;
+        }
+
+        if (due >= 0)
+            PlayCue(null, preview.Voice, timeline.Cues[due], false, preview.Loud);
+
+        if (elapsed >= timeline.Duration && preview.NextCue >= timeline.Cues.Count && _preview == preview)
+        {
+            _preview = null;
+            preview.OnReveal?.Invoke(timeline.Length);
+            preview.OnFinished?.Invoke();
         }
     }
 
-    private sealed class ActiveBark
+    public static List<BlackMBarkPrototype> GetSelectableBarks(IPrototypeManager proto)
     {
-        public readonly EntityUid? Source;
-        public readonly bool HadSource;
-        public readonly SoundSpecifier Sound;
-        public readonly float Volume;
-        public readonly float Pitch;
-        public readonly float Distance;
-        public readonly int SyllableCount;
+        return proto.EnumeratePrototypes<BlackMBarkPrototype>()
+            .Where(b => b.RoundStart)
+            .OrderBy(b => Robust.Shared.Localization.Loc.GetString(b.Name).ToLowerInvariant())
+            .ToList();
+    }
 
-        public TimeSpan NextSound = TimeSpan.Zero;
-        public int SyllablesPlayed;
+    private readonly record struct PendingVoice(BarkVoice Voice, TimeSpan Expires);
 
-        public ActiveBark(EntityUid? source, SoundSpecifier sound, float volume, float pitch, float distance, int syllableCount)
+    private sealed class ActivePreview
+    {
+        public readonly BarkVoice Voice;
+        public readonly SpeechBarkTimeline Timeline;
+        public readonly TimeSpan Start;
+        public readonly bool Loud;
+        public readonly Action<int>? OnReveal;
+        public readonly Action? OnFinished;
+
+        public int NextCue;
+        public int Revealed = -1;
+
+        public ActivePreview(BarkVoice voice, SpeechBarkTimeline timeline, TimeSpan start, bool loud, Action<int>? onReveal, Action? onFinished)
         {
-            Source = source;
-            HadSource = source.HasValue;
-            Sound = sound;
-            Volume = volume;
-            Pitch = pitch;
-            Distance = distance;
-            SyllableCount = syllableCount;
+            Voice = voice;
+            Timeline = timeline;
+            Start = start;
+            Loud = loud;
+            OnReveal = onReveal;
+            OnFinished = onFinished;
         }
     }
 }

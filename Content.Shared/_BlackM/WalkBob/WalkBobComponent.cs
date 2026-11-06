@@ -3,6 +3,7 @@ using Robust.Shared.Maths;
 
 namespace Content.Shared._BlackM.WalkBob;
 
+// Tiles (1 px = 0.03125), degrees.
 [RegisterComponent]
 public sealed partial class WalkBobComponent : Component
 {
@@ -16,7 +17,7 @@ public sealed partial class WalkBobComponent : Component
     public float MinSpeedThreshold = 0.15f;
 
     [DataField]
-    public float MaxAnimatedSpeed = 8f;
+    public float MaxAnimatedSpeed = 9f;
 
     [DataField]
     public float? SprintSpeedThreshold;
@@ -25,34 +26,55 @@ public sealed partial class WalkBobComponent : Component
     public float Smoothing = 8f;
 
     [DataField]
-    public float MaxRotation = 6f;
+    public float MaxRotation = 7f;
 
     [DataField]
     public float PhasePerMeter = 2.2f;
 
     [DataField]
-    public float StepShift = 0.022f;
+    public float RunStrideMult = 0.85f;
 
     [DataField]
-    public float RunShiftMult = 1.3f;
+    public float SquashWalk = 0.022f;
 
     [DataField]
-    public float BreathAmplitude = 0.02f;
+    public float SquashRun = 0.035f;
+
+    [DataField]
+    public float SquashStartStop = 0.02f;
+
+    [DataField]
+    public float SquashFrequency = 3f;
+
+    [DataField]
+    public float SquashDamping = 0.75f;
+
+    [DataField]
+    public float SquashMax = 0.06f;
+
+    [DataField]
+    public float BreathAmplitude = 0.025f;
 
     [DataField]
     public float BreathRate = 1.6f;
 
     [DataField]
-    public float BreathAmplitudeExerted = 0.032f;
+    public float BreathAmplitudeExerted = 0.065f;
 
     [DataField]
-    public float BreathRateExerted = 3.6f;
+    public float BreathRateExerted = 5f;
 
     [DataField]
-    public float ExertionBuildTime = 6f;
+    public float BreathWhileMoving = 0.4f;
 
     [DataField]
-    public float ExertionRecoverTime = 6f;
+    public float ExertionBuildTime = 5f;
+
+    [DataField]
+    public float ExertionRecoverTime = 7f;
+
+    [DataField]
+    public float StaminaExertion = 1.2f;
 
     [DataField]
     public float RecoilKick = 0.08f;
@@ -90,12 +112,15 @@ public sealed partial class WalkBobComponent : Component
     public float? VisualSpeedOverride;
 
     public float Phase;
+    public float Squash;
+    public float SquashVelocity;
+    public bool WasMoving;
     public float BreathPhase;
     public float Exertion;
+    public bool BreathSeeded;
 
     public float ActiveWeight = 1f;
     public float MoveWeight;
-    public float VerticalWeight;
     public float RunWeight;
 
     public Vector2 RecoilOffset;

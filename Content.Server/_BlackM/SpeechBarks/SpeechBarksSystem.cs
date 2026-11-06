@@ -1,12 +1,11 @@
-using Robust.Shared.Prototypes;
-using Content.Shared._BlackM.SpeechBarks;
-using Content.Shared._BlackM.CCVar;
 using Content.Server.Chat.Systems;
+using Content.Shared._BlackM.CCVar;
+using Content.Shared._BlackM.SpeechBarks;
+using Robust.Shared.Audio;
 using Robust.Shared.Configuration;
-using Content.Server.Mind;
 using Robust.Shared.Player;
-using Content.Server.Examine;
-using Content.Shared.Ghost;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.SpeechBarks;
 
@@ -14,68 +13,93 @@ public sealed class SpeechBarksSystem : EntitySystem
 {
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly ExamineSystem _examine = default!;
-
-    private const float HearingRange = 10f;
+    [Dependency] private readonly IGameTiming _timing = default!;
 
     private bool _enabled;
 
-    private readonly HashSet<EntityUid> _suppressed = new();
+    private readonly Dictionary<EntityUid, GameTick> _suppressed = new();
 
     public override void Initialize()
     {
         base.Initialize();
 
-        _cfg.OnValueChanged(BlackMCVars.BarksEnabled, value => _enabled = value, true);
+        _cfg.OnValueChanged(BlackMCVars.BarksEnabled, OnEnabledChanged, true);
 
         SubscribeLocalEvent<SpeechBarksComponent, EntitySpokeEvent>(OnEntitySpoke);
     }
 
+    public override void Shutdown()
+    {
+        base.Shutdown();
+        _cfg.UnsubValueChanged(BlackMCVars.BarksEnabled, OnEnabledChanged);
+    }
+
+    private void OnEnabledChanged(bool value)
+    {
+        _enabled = value;
+    }
+
     public void SuppressNextBark(EntityUid uid)
     {
-        _suppressed.Add(uid);
+        _suppressed[uid] = _timing.CurTick;
+    }
+
+    private bool ConsumeSuppression(EntityUid uid)
+    {
+        return _suppressed.Remove(uid, out var tick) && tick == _timing.CurTick;
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        if (_suppressed.Count > 0)
+            _suppressed.Clear();
     }
 
     private void OnEntitySpoke(EntityUid uid, SpeechBarksComponent component, EntitySpokeEvent args)
     {
-        if (_suppressed.Remove(uid))
+        if (ConsumeSuppression(uid))
             return;
 
-        if (!_enabled)
+        if (!_enabled || !args.Language.SpeechOverride.RequireSpeech || args.BarkMessageId == null)
             return;
 
         var transformEvent = new TransformSpeakerBarkEvent(uid, component.Data.Clone());
         RaiseLocalEvent(uid, transformEvent);
 
         var data = transformEvent.Data;
-        var sound = data.Sound ?? _proto.Index(data.Proto).Sound;
-        var message = args.Message;
-        var isWhisper = args.IsWhisper;
+        if (!TryGetSound(data, out var sound))
+            return;
 
-        var sourceCoords = Transform(uid).Coordinates;
-
-        foreach (var listener in _lookup.GetEntitiesInRange(sourceCoords, HearingRange))
-        {
-            if (!_mind.TryGetMind(listener, out _, out var mind))
-                continue;
-
-            if (mind.UserId == null || !_player.TryGetSessionById(mind.UserId, out var session))
-                continue;
-
-            if (!HasComp<GhostHearingComponent>(listener) && !_examine.InRangeUnOccluded(listener, uid, HearingRange))
-                continue;
-
-            RaiseNetworkEvent(new PlaySpeechBarksEvent(
+        RaiseNetworkEvent(new PlaySpeechBarksEvent(
                 GetNetEntity(uid),
-                message,
+                args.BarkMessageId.Value,
                 sound,
                 data.Pitch,
-                data.MinVar,
-                data.MaxVar,
-                isWhisper), session);
+                Math.Clamp(data.Variation, BarkData.MinVariation, BarkData.MaxVariation),
+                Math.Clamp(data.Speed, BarkData.MinSpeed, BarkData.MaxSpeed),
+                data.Mode,
+                args.IsWhisper),
+            Filter.Pvs(uid));
+    }
+
+    private bool TryGetSound(BarkData data, out SoundSpecifier sound)
+    {
+        if (data.Sound != null)
+        {
+            sound = data.Sound;
+            return true;
         }
+
+        if (_proto.TryIndex(data.Proto, out var proto) ||
+            _proto.TryIndex<BlackMBarkPrototype>(BarkData.DefaultProto, out proto))
+        {
+            sound = proto.Sound;
+            return true;
+        }
+
+        sound = default!;
+        return false;
     }
 }

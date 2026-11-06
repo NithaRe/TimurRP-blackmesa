@@ -983,6 +983,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("age");
 
+                    b.Property<int>("BarkMode")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("bark_mode");
+
                     b.Property<float>("BarkPitch")
                         .HasColumnType("REAL")
                         .HasColumnName("bark_pitch");
@@ -991,6 +995,14 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("bark_proto");
+
+                    b.Property<float>("BarkSpeed")
+                        .HasColumnType("REAL")
+                        .HasColumnName("bark_speed");
+
+                    b.Property<float>("BarkVariation")
+                        .HasColumnType("REAL")
+                        .HasColumnName("bark_variation");
 
                     b.Property<string>("CharacterName")
                         .IsRequired()
