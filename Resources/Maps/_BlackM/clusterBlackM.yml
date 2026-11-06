@@ -4,7 +4,7 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/01/2026 19:56:05
+  time: 11/06/2026 12:09:55
   entityCount: 12292
 maps:
 - 1
@@ -7708,6 +7708,23 @@ entities:
     - type: Transform
       pos: 32.5,8.5
       parent: 2
+- proto: AirlockElevatorBlackM
+  entities:
+  - uid: 3784
+    components:
+    - type: Transform
+      pos: 1.5,-35.5
+      parent: 2
+  - uid: 3935
+    components:
+    - type: Transform
+      pos: -42.5,2.5
+      parent: 2
+  - uid: 11297
+    components:
+    - type: Transform
+      pos: 42.5,30.5
+      parent: 2
 - proto: AirlockEngineeringLocked
   entities:
   - uid: 118
@@ -7931,7 +7948,7 @@ entities:
       access:
       - - Maintenance
     - type: Door
-      secondsUntilStateChange: -58005.414
+      secondsUntilStateChange: -58134.062
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -8059,7 +8076,7 @@ entities:
       pos: -19.5,-2.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -42489.527
+      secondsUntilStateChange: -42618.176
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -28641,26 +28658,6 @@ entities:
     - type: Transform
       pos: -19.5,-16.5
       parent: 2
-- proto: ContrabandDetector
-  entities:
-  - uid: 3784
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 1.5,-35.5
-      parent: 2
-  - uid: 3935
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -42.5,2.5
-      parent: 2
-  - uid: 11744
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 42.5,30.5
-      parent: 2
 - proto: ConveyorBelt
   entities:
   - uid: 2002
@@ -47313,7 +47310,7 @@ entities:
       pos: -29.5,-9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -57600.95
+      secondsUntilStateChange: -57729.598
       state: Opening
 - proto: IngotGold
   entities:
@@ -78874,5 +78871,5 @@ entities:
       pos: -30.5,-15.5
       parent: 2
     - type: ZenCatalyst
-      nextSpawnTime: 1473.0710539
+      nextSpawnTime: 971.6500019
 ...
