@@ -53,6 +53,11 @@ public sealed partial class DungeonJob
         if (!ValidateResume())
             return;
 
+        // BlackM start: rooms without power nodes do not need auto-cabling.
+        if (cableTiles.Count == 0)
+            return;
+        // BlackM end
+
         var startNodes = new List<Vector2i>(cableTiles);
         random.Shuffle(startNodes);
         var start = startNodes[0];

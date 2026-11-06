@@ -1,0 +1,11 @@
+
+- type: entity
+  parent: BaseItem
+  id: BlackMUndergroundResearchDisk
+  name: expedition research disk
+  description: A marked research disk recovered from the underground complex.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Research/researchdisk.rsi
+    state: icon

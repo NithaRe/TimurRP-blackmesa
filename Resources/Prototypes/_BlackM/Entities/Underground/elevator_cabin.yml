@@ -1,0 +1,8 @@
+- type: entity
+  parent: BlackMElevatorController
+  id: BlackMUndergroundCabinController
+  name: underground expedition elevator controller
+  components:
+  - type: BlackMElevator
+    id: underground-expedition
+    globalAnnounce: false

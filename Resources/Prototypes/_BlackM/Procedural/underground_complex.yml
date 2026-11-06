@@ -1,0 +1,103 @@
+- type: dungeonConfig
+  id: BlackMUndergroundComplex
+  layers:
+  - !type:PrefabDunGen
+    roomWhitelist:
+      tags:
+      - BlackMUndergroundRoom
+    presets:
+    - Bucket
+    - Wow
+    - SpaceShip
+    - Tall
+    - BlackMUndergroundCross
+    - BlackMUndergroundHook
+    - BlackMUndergroundZigzag
+    - BlackMUndergroundBranches
+
+  - !type:CorridorDunGen
+    width: 3
+    tile: FloorSteel
+
+  - !type:RoomEntranceDunGen
+    tile: FloorSteel
+    contents: BlackMUndergroundNoDoors
+
+  - !type:EntranceFlankDunGen
+    tile: FloorSteel
+    contents: ExperimentWindow # BlackM
+
+  - !type:ExternalWindowDunGen
+    tile: FloorSteel
+    contents: ExperimentWindow # BlackM
+
+  - !type:WallMountDunGen
+    contents: ScienceLabsWalls
+    tile: FloorSteel
+
+  - !type:BoundaryWallDunGen
+    wall: WallSolid
+    tile: FloorSteel
+
+  - !type:JunctionDunGen
+    width: 1
+    tile: FloorSteel
+    contents: BlackMUndergroundNoDoors
+
+  - !type:JunctionDunGen
+    width: 3
+    tile: FloorSteel
+    contents: BlackMUndergroundNoDoors
+
+  - !type:AutoCablingDunGen
+    entity: CableApcExtension
+
+  - !type:CornerClutterDunGen
+    contents: BaseClutter
+
+  - !type:CorridorDecalSkirtingDunGen
+    cardinalDecals:
+      South: BrickTileWhiteLineS
+      East: BrickTileWhiteLineE
+      North: BrickTileWhiteLineN
+      West: BrickTileWhiteLineW
+    cornerDecals:
+      SouthEast: BrickTileWhiteCornerSe
+      SouthWest: BrickTileWhiteCornerSw
+      NorthEast: BrickTileWhiteCornerNe
+      NorthWest: BrickTileWhiteCornerNw
+    pocketDecals:
+      SouthWest: BrickTileWhiteInnerSw
+      SouthEast: BrickTileWhiteInnerSe
+      NorthWest: BrickTileWhiteInnerNw
+      NorthEast: BrickTileWhiteInnerNe
+
+  - !type:EntityTableDunGen
+    minCount: 8
+    maxCount: 14
+    table: !type:NestedSelector
+      tableId: SalvageScrapSpawnerCommon
+  - !type:EntityTableDunGen
+    minCount: 2
+    maxCount: 4
+    table: !type:NestedSelector
+      tableId: SalvageTreasureSpawnerCommon
+  - !type:MobsDunGen
+    minCount: 6
+    maxCount: 10
+    contents: BlackMUndergroundXenMobs
+
+- type: entityTable
+  id: BlackMUndergroundXenMobs
+  table: !type:GroupSelector
+    children:
+    - id: MobHeadcrabBlackM
+      weight: 6
+    - id: MobHoundeyeBlackM
+      weight: 3
+    - id: MobVortigauntBlackM
+      weight: 1
+
+- type: entityTable
+  id: BlackMUndergroundNoDoors
+  table: !type:NoneSelector

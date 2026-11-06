@@ -1,0 +1,13 @@
+- type: entity
+  parent: XenSampleCapsuleHeadcrab
+  id: BlackMUndergroundHeadcrabSample
+  name: expedition headcrab sample
+  description: A marked capsule of headcrab tissue for the expedition contract.
+  categories: [ HideSpawnMenu ]
+
+- type: entity
+  parent: XenSampleCapsuleHoundeye
+  id: BlackMUndergroundHoundeyeSample
+  name: expedition houndeye sample
+  description: A marked capsule of houndeye tissue for the expedition contract.
+  categories: [ HideSpawnMenu ]
