@@ -102,3 +102,122 @@
   category: Standard_barks
   sound:
     path: /Audio/_BlackM/Barks/undertale-yellow-ceroba.ogg
+
+- type: speechBark
+  id: BarkDstWilson
+  name: bark-dst-wilson
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_wilson.ogg
+
+- type: speechBark
+  id: BarkDstWillow
+  name: bark-dst-willow
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_willow.ogg
+
+- type: speechBark
+  id: BarkDstWolfgang
+  name: bark-dst-wolfgang
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_wolfgang.ogg
+
+- type: speechBark
+  id: BarkDstWendy
+  name: bark-dst-wendy
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_wendy.ogg
+
+- type: speechBark
+  id: BarkDstWX78
+  name: bark-dst-wx78
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_wx78.ogg
+
+- type: speechBark
+  id: BarkDstWickerbottom
+  name: bark-dst-wickerbottom
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_wickerbottom.ogg
+
+- type: speechBark
+  id: BarkDstWoodie
+  name: bark-dst-woodie
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_woodie.ogg
+
+- type: speechBark
+  id: BarkDstMaxwell
+  name: bark-dst-maxwell
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_maxwell.ogg
+
+- type: speechBark
+  id: BarkDstWigfrid
+  name: bark-dst-wigfrid
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_wigfrid.ogg
+
+- type: speechBark
+  id: BarkDstWebber
+  name: bark-dst-webber
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_webber.ogg
+
+- type: speechBark
+  id: BarkDstWinona
+  name: bark-dst-winona
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_winona.ogg
+
+- type: speechBark
+  id: BarkDstWarly
+  name: bark-dst-warly
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_warly.ogg
+
+- type: speechBark
+  id: BarkDstWortox
+  name: bark-dst-wortox
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_wortox.ogg
+
+- type: speechBark
+  id: BarkDstWormwood
+  name: bark-dst-wormwood
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_wormwood.ogg
+
+- type: speechBark
+  id: BarkDstWurt
+  name: bark-dst-wurt
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_wurt.ogg
+
+- type: speechBark
+  id: BarkDstWalter
+  name: bark-dst-walter
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_walter.ogg
+
+- type: speechBark
+  id: BarkDstWanda
+  name: bark-dst-wanda
+  category: Standard_barks
+  sound:
+    path: /Audio/_BlackM/Barks/dst_wanda.ogg

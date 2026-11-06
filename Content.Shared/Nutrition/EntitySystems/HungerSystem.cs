@@ -326,6 +326,22 @@ public sealed class HungerSystem : EntitySystem
         }
     }
 
+    // BlackM start: needs HUD
+    public bool TryGetNeedsHudValues(EntityUid uid, out float current, out float maximum, out float warning, out float consequence)
+    {
+        current = maximum = warning = consequence = 0f;
+        if (!TryComp<HungerComponent>(uid, out var component) ||
+            !component.Thresholds.TryGetValue(HungerThreshold.Overfed, out maximum) ||
+            !component.Thresholds.TryGetValue(HungerThreshold.Peckish, out warning) ||
+            !component.Thresholds.TryGetValue(HungerThreshold.Starving, out consequence))
+            return false;
+
+        current = GetHunger(component);
+        return maximum > 0f && warning > consequence;
+    }
+
+    // BlackM end: needs HUD
+
     public bool TryGetStatusIconPrototype(HungerComponent component, [NotNullWhen(true)] out SatiationIconPrototype? prototype)
     {
         switch (component.CurrentThreshold)

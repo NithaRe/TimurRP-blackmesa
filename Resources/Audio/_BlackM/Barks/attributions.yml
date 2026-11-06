@@ -34,3 +34,7 @@
   license: "CC-BY-SA-3.0"
   copyright: "Original sounds by Team Undertale Yellow for 'Undertale Yellow' game."
   source: "https://gamejolt.com/games/UndertaleYellow/136925"
+- files: ["dst_wilson.ogg", "dst_willow.ogg", "dst_wolfgang.ogg", "dst_wendy.ogg", "dst_wx78.ogg", "dst_wickerbottom.ogg", "dst_woodie.ogg", "dst_maxwell.ogg", "dst_wigfrid.ogg", "dst_webber.ogg", "dst_winona.ogg", "dst_warly.ogg", "dst_wortox.ogg", "dst_wormwood.ogg", "dst_wurt.ogg", "dst_walter.ogg", "dst_wanda.ogg"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "Character voice sounds by Klei Entertainment for 'Don't Starve Together'. Trimmed to short bark clips."
+  source: "https://store.steampowered.com/app/322330/Dont_Starve_Together/"

@@ -1,0 +1,12 @@
+- type: entity
+  parent: ClothingShoesBootsJack
+  id: ClothingShoesBootsHecu
+  name: ботинки HECU
+  description: Армейские ботинки бойца HECU.
+  components:
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepSpurs
+      params:
+        variation: 0.09
+        volume: -6

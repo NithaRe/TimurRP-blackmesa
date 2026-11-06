@@ -36,7 +36,9 @@ public sealed partial class SeparatedChatGameScreen : InGameScreen
         SetAnchorAndMarginPreset(Ghost, LayoutPreset.BottomWide, margin: 80);
         SetAnchorAndMarginPreset(Hotbar, LayoutPreset.BottomWide, margin: 5);
         SetAnchorAndMarginPreset(Alerts, LayoutPreset.TopRight, margin: 10); // Goobstation Change
-        SetAnchorAndMarginPreset(Targeting, LayoutPreset.BottomRight, margin: 5);
+        // BlackM start: needs HUD
+        SetAnchorAndMarginPreset(VitalsAndTargeting, LayoutPreset.BottomRight, margin: 5);
+        // BlackM end: needs HUD
 
         ScreenContainer.OnSplitResizeFinished += () =>
             OnChatResized?.Invoke(new Vector2(ScreenContainer.SplitFraction, 0));

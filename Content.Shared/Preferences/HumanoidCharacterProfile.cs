@@ -600,6 +600,7 @@ namespace Content.Shared.Preferences
             if (CivilianClothing != other.CivilianClothing) return false; // blackm civilian
             if (CivilianClothingSeed != other.CivilianClothingSeed) return false; // blackm civilian
             if (FlavorText != other.FlavorText) return false;
+            if (!Bark.Equals(other.Bark)) return false; // BlackM bark
             return Appearance.MemberwiseEquals(other.Appearance);
         }
 
@@ -767,6 +768,8 @@ namespace Content.Shared.Preferences
             if (voice is null || !CanHaveVoice(voice, Sex))
                 Voice = SharedHumanoidAppearanceSystem.DefaultSexVoice[sex];
             // CorvaxGoob-TTS-End
+
+            Bark = BarkData.Sanitize(Bark, prototypeManager, configManager); // BlackM bark
 
             // Checks prototypes exist for all loadouts and dump / set to default if not.
             var toRemove = new ValueList<string>();

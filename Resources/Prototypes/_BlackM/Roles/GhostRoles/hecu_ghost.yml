@@ -23,7 +23,7 @@
     head: ClothingHeadHelmetBasicHecu
     jumpsuit: ClothingUniformJumpsuitHecu
     mask: ClothingMaskGasHECU
-    shoes: ClothingShoesBootsJack
+    shoes: ClothingShoesBootsHecu
     back: ClothingBackpackMerc
     id: AccessCardHolderHecu
     ears: ClothingHeadsetAltCentCom

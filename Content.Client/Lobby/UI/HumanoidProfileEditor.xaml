@@ -151,23 +151,39 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 </BoxContainer> -->
                                 <!-- end Goobstation: port EE height/width sliders -->
                                 <!-- Corvax-Frontier-Barks-Start -->
-                                <BoxContainer HorizontalExpand="True" Visible="False" Name="BarksContainer">
-                                    <Label Text="{Loc 'blackm-bark-label'}" />
-                                    <Control HorizontalExpand="True"/>
-                                    <OptionButton Name="BarkVoiceButton" HorizontalAlignment="Right" />
-                                    <!-- BlackM start -->
-                                    <!--
-                                    <Button Name="BarkVoicePlayButton" Text="▶" MaxWidth="80" />
-                                    -->
-                                    <Button Name="BarkVoicePlayButton" Text="&gt;" MaxWidth="80" />
-                                    <!-- BlackM end -->
+                                <!-- BlackM barks start -->
+                                <BoxContainer Name="BarksSection" Orientation="Vertical" HorizontalExpand="True" Visible="False" Margin="0 5 0 0">
+                                    <BoxContainer HorizontalExpand="True">
+                                        <Label Text="{Loc 'blackm-bark-label'}" MinWidth="110" />
+                                        <Button Name="BarkPrevButton" Text="&lt;" StyleClasses="OpenRight" MinWidth="28" />
+                                        <Button Name="BarkPickButton" HorizontalExpand="True" ClipText="True" StyleClasses="OpenBoth" ToolTip="{Loc 'blackm-bark-picker-title'}" />
+                                        <Button Name="BarkNextButton" Text="&gt;" StyleClasses="OpenLeft" MinWidth="28" />
+                                        <Button Name="BarkVoicePlayButton" Text="{Loc 'blackm-bark-play'}" Margin="5 0 0 0" />
+                                    </BoxContainer>
+                                    <BoxContainer HorizontalExpand="True">
+                                        <Label Text="{Loc 'blackm-bark-pitch-label'}" MinWidth="110" />
+                                        <Slider Name="BarkPitchSlider" MinValue="0.5" MaxValue="2" Value="1" HorizontalExpand="True" Margin="5 0 5 0" />
+                                        <Label Name="BarkPitchLabel" MinWidth="50" />
+                                    </BoxContainer>
+                                    <BoxContainer HorizontalExpand="True">
+                                        <Label Text="{Loc 'blackm-bark-variation-label'}" MinWidth="110" />
+                                        <Slider Name="BarkVariationSlider" MinValue="0" MaxValue="0.5" Value="0.1" HorizontalExpand="True" Margin="5 0 5 0" />
+                                        <Label Name="BarkVariationLabel" MinWidth="50" />
+                                    </BoxContainer>
+                                    <BoxContainer HorizontalExpand="True">
+                                        <Label Text="{Loc 'blackm-bark-speed-label'}" MinWidth="110" />
+                                        <Slider Name="BarkSpeedSlider" MinValue="0.5" MaxValue="2" Value="1" HorizontalExpand="True" Margin="5 0 5 0" />
+                                        <Label Name="BarkSpeedLabel" MinWidth="50" />
+                                    </BoxContainer>
+                                    <BoxContainer HorizontalExpand="True">
+                                        <Label Text="{Loc 'blackm-bark-mode-label'}" MinWidth="110" />
+                                        <OptionButton Name="BarkModeButton" HorizontalExpand="True" Margin="5 0 5 0" />
+                                        <Button Name="BarkResetButton" Text="{Loc 'blackm-bark-reset'}" />
+                                    </BoxContainer>
+                                    <LineEdit Name="BarkPreviewEdit" HorizontalExpand="True" PlaceHolder="{Loc 'blackm-bark-preview-placeholder'}" Margin="0 4 0 0" />
+                                    <Label Name="BarkPreviewLabel" HorizontalExpand="True" ClipText="True" FontColorOverride="#B8B8C8" Margin="2 2 0 0" />
                                 </BoxContainer>
-                                <BoxContainer HorizontalExpand="True" Visible="False" Name="BarkPitchContainer">
-                                    <Label Text="{Loc 'blackm-bark-pitch-label'}" MinWidth="110" />
-                                    <Slider Name="BarkPitchSlider" MinValue="0.5" MaxValue="2" Value="1" HorizontalExpand="True" Margin="5 0 5 0" />
-                                    <Label Name="BarkPitchLabel" MinWidth="40" />
-                                    <Button Name="BarkResetButton" Text="X" MaxWidth="90" Margin="5 0 0 0" />
-                                </BoxContainer>
+                                <!-- BlackM barks end -->
                                 <!-- Corvax-Frontier-Barks-End -->
                             </BoxContainer>
                             <!-- Skin -->

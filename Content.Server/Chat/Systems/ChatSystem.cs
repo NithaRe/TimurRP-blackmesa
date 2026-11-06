@@ -109,6 +109,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Shared._BlackM.SpeechBarks;
 using Content.Goobstation.Common.Chat;
 using Content.Goobstation.Common.Traits;
 using Content.Goobstation.Shared.Loudspeaker.Events; // goob - loudspeakers
@@ -191,6 +192,8 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly ScryingOrbSystem _scrying = default!; // Goobstation Change
     [Dependency] private readonly CollectiveMindUpdateSystem _collectiveMind = default!; // Goobstation - Starlight collective mind port
     [Dependency] private readonly LanguageSystem _language = default!; // Einstein Engines - Language
+
+    private int _nextBarkMessageId;
 
     public const int VoiceRange = 10; // how far voice goes in world units
     public const int WhisperClearRange = 2; // how far whisper goes while still being understandable, in world units
@@ -766,6 +769,10 @@ public sealed partial class ChatSystem : SharedChatSystem
         var wrappedObfuscated = WrapPublicMessage(source, name, obfuscated, language: language, colorOverride);
         // Einstein Engines - Language end
 
+        var barkMessageId = language.SpeechOverride.RequireSpeech && HasComp<SpeechBarksComponent>(source)
+            ? unchecked(++_nextBarkMessageId)
+            : (int?) null;
+
         SendInVoiceRange(
             ChatChannel.Local,
             name,
@@ -776,10 +783,11 @@ public sealed partial class ChatSystem : SharedChatSystem
             source,
             range,
             languageOverride: language, // Einstein Engines - Language
-            checkLOS: typeLOS // Floofstation - Check Line-Of-Sight
+            checkLOS: typeLOS, // Floofstation - Check Line-Of-Sight
+            barkMessageId: barkMessageId
             );
 
-        var ev = new EntitySpokeEvent(source, message, null, false, language); // Einstein Engines - Language
+        var ev = new EntitySpokeEvent(source, message, null, false, language, barkMessageId); // Einstein Engines - Language
         RaiseLocalEvent(source, ev, true);
 
         // To avoid logging any messages sent by entities that are not players, like vendors, cloning, etc.
@@ -855,6 +863,10 @@ public sealed partial class ChatSystem : SharedChatSystem
         (!CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Parent.Name == "en")
         || (CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Name == "en")); // Einstein Engines - Language
 
+        var barkMessageId = language.SpeechOverride.RequireSpeech && HasComp<SpeechBarksComponent>(source)
+            ? unchecked(++_nextBarkMessageId)
+            : (int?) null;
+
         foreach (var (session, data) in GetRecipients(source, WhisperMuffledRange))
         {
             if (session.AttachedEntity is not { Valid: true } listener)
@@ -901,14 +913,14 @@ public sealed partial class ChatSystem : SharedChatSystem
                 wrappedMessage = WrapWhisperMessage(source, "chat-manager-entity-whisper-unknown-wrap-message", string.Empty, result, language, colorOverride);
             }
 
-            _chatManager.ChatMessageToOne(ChatChannel.Whisper, result, wrappedMessage, source, false, session.Channel);
+            _chatManager.ChatMessageToOne(ChatChannel.Whisper, result, wrappedMessage, source, false, session.Channel, barkMessageId: barkMessageId);
         }
 
         var replayWrap = WrapWhisperMessage(source, "chat-manager-entity-whisper-wrap-message", name, message, language, colorOverride);
         _replay.RecordServerMessage(new ChatMessage(ChatChannel.Whisper, message, replayWrap, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
         // Einstein Engines - Languages end
 
-        var ev = new EntitySpokeEvent(source, message, channel, true, language); // Einstein Engines - Languages
+        var ev = new EntitySpokeEvent(source, message, channel, true, language, barkMessageId); // Einstein Engines - Languages
         RaiseLocalEvent(source, ev, true);
         if (!hideLog)
             if (originalMessage == message)
@@ -1107,7 +1119,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         ChatTransmitRange range,
         NetUserId? author = null,
         LanguagePrototype? languageOverride = null, // Einstein Engines - Language
-        bool checkLOS = false // Floofstation - Check Line-Of-Sight
+        bool checkLOS = false, // Floofstation - Check Line-Of-Sight
+        int? barkMessageId = null
         )
     {
         var language = languageOverride ?? _language.GetLanguage(source); // Einstein Engines - Language
@@ -1138,9 +1151,9 @@ public sealed partial class ChatSystem : SharedChatSystem
 
             // If the channel does not support languages, or the entity can understand the message, send the original message, otherwise send the obfuscated version
             if (channel == ChatChannel.LOOC || channel == ChatChannel.Emotes || _language.CanUnderstand(listener, language.ID))
-                _chatManager.ChatMessageToOne(channel, message, wrappedMessage, source, entHideChat, session.Channel, author: author);
+                _chatManager.ChatMessageToOne(channel, message, wrappedMessage, source, entHideChat, session.Channel, author: author, barkMessageId: barkMessageId);
             else
-                _chatManager.ChatMessageToOne(channel, obfuscated, obfuscatedWrappedMessage, source, entHideChat, session.Channel, author: author);
+                _chatManager.ChatMessageToOne(channel, obfuscated, obfuscatedWrappedMessage, source, entHideChat, session.Channel, author: author, barkMessageId: barkMessageId);
             // Einstein Engines - Language end
         }
 
@@ -1471,6 +1484,7 @@ public sealed class EntitySpokeEvent : EntityEventArgs
     public readonly string Message;
     public readonly bool IsWhisper;
     public readonly LanguagePrototype Language;
+    public readonly int? BarkMessageId;
 
     /// <summary>
     ///     If the entity was trying to speak into a radio, this was the channel they were trying to access. If a radio
@@ -1478,13 +1492,14 @@ public sealed class EntitySpokeEvent : EntityEventArgs
     /// </summary>
     public RadioChannelPrototype? Channel;
 
-    public EntitySpokeEvent(EntityUid source, string message, RadioChannelPrototype? channel, bool isWhisper, LanguagePrototype language) // Einstein Engines - Language
+    public EntitySpokeEvent(EntityUid source, string message, RadioChannelPrototype? channel, bool isWhisper, LanguagePrototype language, int? barkMessageId = null) // Einstein Engines - Language
     {
         Source = source;
         Message = message;
         Channel = channel;
         IsWhisper = isWhisper;
         Language = language;
+        BarkMessageId = barkMessageId;
     }
 }
 

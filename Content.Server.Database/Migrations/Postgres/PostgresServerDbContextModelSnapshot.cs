@@ -1046,6 +1046,10 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("integer")
                         .HasColumnName("age");
 
+                    b.Property<int>("BarkMode")
+                        .HasColumnType("integer")
+                        .HasColumnName("bark_mode");
+
                     b.Property<float>("BarkPitch")
                         .HasColumnType("real")
                         .HasColumnName("bark_pitch");
@@ -1054,6 +1058,14 @@ namespace Content.Server.Database.Migrations.Postgres
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("bark_proto");
+
+                    b.Property<float>("BarkSpeed")
+                        .HasColumnType("real")
+                        .HasColumnName("bark_speed");
+
+                    b.Property<float>("BarkVariation")
+                        .HasColumnType("real")
+                        .HasColumnName("bark_variation");
 
                     b.Property<string>("CharacterName")
                         .IsRequired()

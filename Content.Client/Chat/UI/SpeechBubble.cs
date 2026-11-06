@@ -111,6 +111,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Content.Client._BlackM.PhraseWheel; // BlackM: Phrase wheel icon registry
 using Content.Client._BlackM.SpeechBarks; // BlackM: typewriter
+using Content.Shared._BlackM.SpeechBarks; // BlackM: barks
 using Content.Shared.IdentityManagement;
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
@@ -175,10 +176,10 @@ namespace Content.Client.Chat.UI
         private const float WhisperAlpha = 0.95f;
         private const float FadeInTime = 0.12f;
         private TimeSpan _spawnTime;
-        private float _typeInterval = SpeechBarksSystem.FixedBarkInterval;
         // BlackM end
 
         private readonly EntityUid _senderEntity;
+        private readonly int? _barkMessageId;
 
         /// <summary>
         /// The time at which this bubble will die.
@@ -222,6 +223,7 @@ namespace Content.Client.Chat.UI
         {
             IoCManager.InjectDependencies(this);
             _senderEntity = senderEntity;
+            _barkMessageId = message.BarkMessageId;
             _transformSystem = _entityManager.System<SharedTransformSystem>();
 
             // Use text clipping so new messages don't overlap old ones being pushed up.
@@ -298,8 +300,19 @@ namespace Content.Client.Chat.UI
         // BlackM start
         private OutlinedText? _text;
         private int _revealed;
-        private float _typewriterAccumulated;
         private bool _typewriterActive;
+
+        private const float VoiceWaitTime = 0.15f;
+        private const float VoiceDeadline = 2f;
+        private SpeechBarksSystem? _barks;
+        private SpeechBarkTimeline _timeline = SpeechBarkTimeline.Empty;
+        private BarkVoice? _voice;
+        private float _typingElapsed;
+        private float _voiceWait;
+        private int _nextCue;
+        private bool _barksActive;
+        private bool _barkWhisper;
+        private bool _barkLoud;
 
         private const float ShakeAmplitude = 1.5f;
         private const float ShakeInterval = 0.04f;
@@ -394,9 +407,8 @@ namespace Content.Client.Chat.UI
             _text = new OutlinedText(plain, GetBubbleFont(size), color, outline, GetOutlineThickness(size), SpeechMaxWidth, !typewriter);
 
             _revealed = 0;
-            _typewriterAccumulated = 0f;
-            _typeInterval = SpeechBarksSystem.GetTypeInterval(_text.TotalLength);
             _typewriterActive = typewriter && _text.TotalLength > 0;
+            SetupBarks(_text, whisper, yell, emote || looc);
 
             return WrapWithIcon(_text, icon);
         }
@@ -432,30 +444,85 @@ namespace Content.Client.Chat.UI
             return Color.FromHsl(new Vector4(hue, saturation, lightness, 1f));
         }
 
+        private void SetupBarks(OutlinedText text, bool whisper, bool loud, bool silent)
+        {
+            _barks = _entityManager.System<SpeechBarksSystem>();
+            _barkWhisper = whisper;
+            _barkLoud = loud;
+            _barksActive = !silent && text.TotalLength > 0 && _barkMessageId != null && _barks.Enabled;
+            _voice = null;
+            _typingElapsed = 0f;
+            _voiceWait = 0f;
+            _nextCue = 0;
+
+            var data = _barks.GetSpeakerData(_senderEntity);
+            _timeline = SpeechBarkTimeline.Build(text.Text, data?.Speed ?? BarkData.DefaultSpeed, data?.Mode ?? BarkData.DefaultMode, text.LineStarts);
+        }
+
         private void UpdateTypewriter(float deltaSeconds)
         {
-            if (!_typewriterActive || _text == null)
+            if (_text == null || !_typewriterActive && !_barksActive)
                 return;
 
-            if (_revealed >= _text.TotalLength)
+            if (_barksActive && _voice == null && _barks != null)
             {
-                _typewriterActive = false;
+                if (_barkMessageId is { } messageId && _barks.TryClaimVoice(_senderEntity, messageId, out var voice))
+                {
+                    _voice = voice;
+                    _timeline = SpeechBarkTimeline.Build(_text.Text, voice.Speed, voice.Mode, _text.LineStarts);
+                }
+                else
+                {
+                    _voiceWait += deltaSeconds;
+                    if (_voiceWait < VoiceWaitTime)
+                    {
+                        if (_typewriterActive)
+                            _deathTime += TimeSpan.FromSeconds(deltaSeconds);
+                        return;
+                    }
+
+                    if (_voiceWait >= VoiceDeadline)
+                        _barksActive = false;
+                }
+            }
+
+            var before = _typingElapsed;
+            _typingElapsed += deltaSeconds;
+
+            if (_typewriterActive)
+            {
+                var typed = MathF.Min(_typingElapsed, _timeline.Duration) - MathF.Min(before, _timeline.Duration);
+                if (typed > 0f)
+                    _deathTime += TimeSpan.FromSeconds(typed);
+
+                var revealed = _typingElapsed >= _timeline.Duration
+                    ? _text.TotalLength
+                    : Math.Min(_timeline.RevealedAt(_typingElapsed), _text.TotalLength);
+
+                if (revealed != _revealed)
+                {
+                    _revealed = Math.Max(_revealed, revealed);
+                    _text.SetRevealed(_revealed);
+                }
+
+                if (_revealed >= _text.TotalLength)
+                    _typewriterActive = false;
+            }
+
+            if (!_barksActive || _voice == null || _barks == null)
                 return;
-            }
 
-            _typewriterAccumulated += deltaSeconds;
-
-            while (_typewriterAccumulated >= _typeInterval && _revealed < _text.TotalLength)
+            var due = -1;
+            while (_nextCue < _timeline.Cues.Count && _timeline.Cues[_nextCue].Time <= _typingElapsed)
             {
-                _typewriterAccumulated -= _typeInterval;
-                _deathTime += TimeSpan.FromSeconds(_typeInterval);
-                _revealed++;
+                due = _nextCue++;
             }
 
-            _text.SetRevealed(_revealed);
+            if (due >= 0)
+                _barks.PlayCue(_senderEntity, _voice, _timeline.Cues[due], _barkWhisper, _barkLoud);
 
-            if (_revealed >= _text.TotalLength)
-                _typewriterActive = false;
+            if (_nextCue >= _timeline.Cues.Count)
+                _barksActive = false;
         }
         // BlackM end
 
@@ -631,6 +698,10 @@ namespace Content.Client.Chat.UI
         private readonly List<int> _shown = new();
 
         public int TotalLength { get; }
+        public string Text { get; }
+        public IReadOnlySet<int> LineStarts => _lineStarts;
+
+        private readonly HashSet<int> _lineStarts = new();
 
         public OutlinedText(string text, Font? font, Color color, Color outline, float outlineThickness, float maxWidth, bool revealAll)
         {
@@ -642,6 +713,9 @@ namespace Content.Client.Chat.UI
 
             foreach (var line in _lines)
             {
+                if (TotalLength > 0)
+                    _lineStarts.Add(TotalLength);
+
                 TotalLength += line.Length;
 
                 var size = MeasureText(line, font);
@@ -651,6 +725,7 @@ namespace Content.Client.Chat.UI
                 _shown.Add(-1);
             }
 
+            Text = string.Concat(_lines);
             SetRevealed(revealAll ? TotalLength : 0);
         }
 

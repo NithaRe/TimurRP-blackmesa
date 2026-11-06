@@ -583,7 +583,11 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
 
         EnsureDefaultMarkings(uid, humanoid);
         SetTTSVoice(uid, profile.Voice, humanoid); // CorvaxGoob-TTS
-        EnsureComp<SpeechBarksComponent>(uid).Data = profile.Bark.Clone(); // BlackM Barks
+        // BlackM Barks-Start
+        var speechBarks = EnsureComp<SpeechBarksComponent>(uid);
+        speechBarks.Data = profile.Bark.Clone();
+        Dirty(uid, speechBarks);
+        // BlackM Barks-End
         // CorvaxGoob-Revert : DB conflicts
         // SetBarkVoice(uid, profile.BarkVoice, humanoid); // Goob Station - Barks
 

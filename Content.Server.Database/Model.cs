@@ -334,6 +334,9 @@ namespace Content.Server.Database
         public string Voice { get; set; } = null!; // Corvax-TTS
         public string BarkProto { get; set; } = null!; // BlackM - Barks
         public float BarkPitch { get; set; } = 1f; // BlackM - Barks
+        public float BarkVariation { get; set; } = 0.1f; // BlackM - Barks
+        public float BarkSpeed { get; set; } = 1f; // BlackM - Barks
+        public int BarkMode { get; set; } = 1; // BlackM - Barks
         [Column(TypeName = "jsonb")] public JsonDocument? Markings { get; set; } = null!;
         public string HairName { get; set; } = null!;
         public string HairColor { get; set; } = null!;
