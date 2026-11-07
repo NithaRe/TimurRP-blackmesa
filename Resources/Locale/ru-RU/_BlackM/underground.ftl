@@ -101,10 +101,24 @@ underground-mission-fast-sample-desc = За 5 минут добудьте обр
 underground-mission-lost-disk = Утерянный диск
 underground-mission-lost-disk-desc = Найдите отмеченный исследовательский диск в комплексе и доставьте к консоли.
 underground-terminal-type-item = ПОИСК ПРЕДМЕТА
-underground-terminal-item-instructions = Найдите диск в одной из комнат. После возвращения примените его к консоли.
-underground-mission-item-accepted = Диск принят. Заберите награду через консоль.
+underground-terminal-item-instructions = Найдите предмет в одной из комнат. После возвращения примените его к консоли.
+underground-mission-item-accepted = Предмет принят. Заберите награду через консоль.
 ent-BlackMUndergroundResearchDisk = контрактный исследовательский диск
     .desc = Отмеченный диск с данными. Доставьте его к консоли экспедиции.
 
 ent-BlackMUndergroundConsole = экспедиционный терминал подземного комплекса
 .desc = Терминал для выбора контракта и организации экспедиций в подземный комплекс.
+
+underground-mission-lost-multitool = Инструмент неизвестного инженера
+underground-mission-lost-multitool-desc = Найдите необычный мультитул с экраном и верните его к консоли. Кто-то явно умел открывать закрытые двери.
+underground-mission-lost-scanner = Разбитый глаз
+underground-mission-lost-scanner-desc = Найдите корпус летающего сканера и доставьте его к консоли. На сохранившейся линзе видны следы многочисленных вспышек.
+underground-mission-lost-rifle = Сломанная импульсная винтовка
+underground-mission-lost-rifle-desc = Найдите повреждённую импульсную винтовку и верните её к консоли. В архивах комплекса нет данных о её производителе.
+
+ent-BlackMUndergroundLostMultitool = мультитул неизвестного инженера
+    .desc = Необычный инструмент с экраном и набором щупов. Похоже, его владелец предпочитал обходить препятствия, а не взламывать их силой.
+ent-BlackMUndergroundLostScannerFrame = корпус неизвестного сканера
+    .desc = Пустой корпус небольшого летательного аппарата. Его единственный глаз давно погас, но линза всё ещё цела.
+ent-BlackMUndergroundLostPulseRifle = сломанная импульсная винтовка
+    .desc = Повреждённое оружие неизвестной конструкции. Импульсный механизм выгорел; стрелять из него невозможно.

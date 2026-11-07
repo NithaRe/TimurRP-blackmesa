@@ -9,3 +9,36 @@
   - type: Sprite
     sprite: Objects/Specific/Research/researchdisk.rsi
     state: icon
+
+- type: entity
+  parent: BaseItem
+  id: BlackMUndergroundLostMultitool
+  name: lost multitool
+  description: An unusual multipurpose tool recovered from the underground complex.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Specific/Underground/lost_items.rsi
+    state: multitool
+
+- type: entity
+  parent: BaseItem
+  id: BlackMUndergroundLostScannerFrame
+  name: lost scanner chassis
+  description: The empty chassis of an unidentified flying scanner.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Specific/Underground/lost_items.rsi
+    state: scanner_frame
+
+- type: entity
+  parent: BaseItem
+  id: BlackMUndergroundLostPulseRifle
+  name: broken pulse rifle
+  description: A damaged experimental pulse rifle. It no longer works.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Specific/Underground/lost_items.rsi
+    state: pulse_rifle

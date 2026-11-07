@@ -190,7 +190,7 @@ public sealed class UndergroundMapSystem : EntitySystem
         {
             if (candidates.Count == 0)
                 return false;
-            var item = Spawn("BlackMUndergroundResearchDisk", _maps.GridTileToLocal(site.Map, grid, candidates[0]));
+            var item = Spawn(UndergroundMissions.ItemPrototype(mission), _maps.GridTileToLocal(site.Map, grid, candidates[0]));
             var marker = EnsureComp<UndergroundMissionSampleComponent>(item);
             marker.Console = owner;
             marker.Generation = generation;

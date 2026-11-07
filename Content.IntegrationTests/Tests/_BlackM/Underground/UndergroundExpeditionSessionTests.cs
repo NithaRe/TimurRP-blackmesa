@@ -1,5 +1,6 @@
 using System;
 using Content.Server._BlackM.Underground;
+using Content.Shared._BlackM.Underground;
 using NUnit.Framework;
 
 namespace Content.IntegrationTests.Tests._BlackM.Underground;
@@ -110,4 +111,26 @@ public sealed class UndergroundExpeditionSessionTests
         Assert.That(run.CleanupFinished(), Is.False);
         Assert.That(run.TryBeginGeneration(out _), Is.False);
     }
+    [TestCase(UndergroundMission.LostResearchDisk, "BlackMUndergroundResearchDisk")]
+    [TestCase(UndergroundMission.LostMultitool, "BlackMUndergroundLostMultitool")]
+    [TestCase(UndergroundMission.LostScannerFrame, "BlackMUndergroundLostScannerFrame")]
+    [TestCase(UndergroundMission.LostPulseRifle, "BlackMUndergroundLostPulseRifle")]
+    public void LostItemsUseDeliveryRulesAndDistinctPrototypes(UndergroundMission mission, string prototype)
+    {
+        Assert.That(UndergroundMissions.IsValid(mission), Is.True);
+        Assert.That(UndergroundMissions.IsItem(mission), Is.True);
+        Assert.That(UndergroundMissions.IsDelivery(mission), Is.True);
+        Assert.That(UndergroundMissions.IsSample(mission), Is.False);
+        Assert.That(UndergroundMissions.Goal(mission), Is.EqualTo(1));
+        Assert.That(UndergroundMissions.DurationSeconds(mission), Is.EqualTo(600));
+        Assert.That(UndergroundMissions.RewardAmount(mission), Is.EqualTo(2500));
+        Assert.That(UndergroundMissions.ItemPrototype(mission), Is.EqualTo(prototype));
+    }
+
+    [Test]
+    public void NonItemMissionsCannotResolveAnItemPrototype()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => UndergroundMissions.ItemPrototype(UndergroundMission.HeadcrabHunt));
+    }
+
 }

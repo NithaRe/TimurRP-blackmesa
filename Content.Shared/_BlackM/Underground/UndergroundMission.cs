@@ -12,13 +12,24 @@ public enum UndergroundMission : byte
     FastHeadcrabHunt,
     FastHeadcrabSample,
     LostResearchDisk,
+    LostMultitool,
+    LostScannerFrame,
+    LostPulseRifle,
 }
 
 public static class UndergroundMissions
 {
-    public static bool IsValid(UndergroundMission mission) => mission is UndergroundMission.HeadcrabHunt or UndergroundMission.HoundeyeHunt or UndergroundMission.HeadcrabSample or UndergroundMission.HoundeyeSample or UndergroundMission.FastHeadcrabHunt or UndergroundMission.FastHeadcrabSample or UndergroundMission.LostResearchDisk;
+    public static bool IsValid(UndergroundMission mission) => mission is UndergroundMission.HeadcrabHunt or UndergroundMission.HoundeyeHunt or UndergroundMission.HeadcrabSample or UndergroundMission.HoundeyeSample or UndergroundMission.FastHeadcrabHunt or UndergroundMission.FastHeadcrabSample or UndergroundMission.LostResearchDisk or UndergroundMission.LostMultitool or UndergroundMission.LostScannerFrame or UndergroundMission.LostPulseRifle;
     public static bool IsSample(UndergroundMission mission) => mission is UndergroundMission.HeadcrabSample or UndergroundMission.HoundeyeSample or UndergroundMission.FastHeadcrabSample;
-    public static bool IsItem(UndergroundMission mission) => mission == UndergroundMission.LostResearchDisk;
+    public static bool IsItem(UndergroundMission mission) => mission is UndergroundMission.LostResearchDisk or UndergroundMission.LostMultitool or UndergroundMission.LostScannerFrame or UndergroundMission.LostPulseRifle;
+    public static string ItemPrototype(UndergroundMission mission) => mission switch
+    {
+        UndergroundMission.LostResearchDisk => "BlackMUndergroundResearchDisk",
+        UndergroundMission.LostMultitool => "BlackMUndergroundLostMultitool",
+        UndergroundMission.LostScannerFrame => "BlackMUndergroundLostScannerFrame",
+        UndergroundMission.LostPulseRifle => "BlackMUndergroundLostPulseRifle",
+        _ => throw new ArgumentOutOfRangeException(nameof(mission), mission, "Mission is not an item delivery."),
+    };
     public static bool IsDelivery(UndergroundMission mission) => IsSample(mission) || IsItem(mission);
     public static bool IsHoundeye(UndergroundMission mission) => mission is UndergroundMission.HoundeyeHunt or UndergroundMission.HoundeyeSample;
     public static int Goal(UndergroundMission mission) => IsDelivery(mission) ? 1 : mission == UndergroundMission.FastHeadcrabHunt || IsHoundeye(mission) ? 3 : 4;
