@@ -70,14 +70,14 @@ public sealed class ZenInterventionBarControl : PanelContainer
     public const float DesignWidth = 36f;
     public const float DesignHeight = 62f;
 
-    private const float IconSize = 32f;
-    private const float IconLeft = (DesignWidth - IconSize) / 2f;
-    private const float IconTop = 6f;
+    internal const float IconSize = 32f;
+    internal const float IconLeft = (DesignWidth - IconSize) / 2f;
+    internal const float IconTop = 6f;
     private const int CrystalRows = 31;
 
-    private const float DigitsTop = 46f;
+    internal const float DigitsTop = 46f;
     private const int DigitCellW = 8;
-    private const int DigitCellH = 10;
+    internal const int DigitCellH = 10;
 
     private const string CrystalPath = "/Textures/_BlackM/Interface/ZenIntervention/zen_crystal.png";
     private const string DigitsPath = "/Textures/_BlackM/Interface/ZenIntervention/zen_digits.png";

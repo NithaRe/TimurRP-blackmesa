@@ -3,7 +3,7 @@ zen-intervention-ui-tooltip-desc = Граница между мирами сла
 zen-intervention-ui-tooltip-level = Текущий уровень: { $level }% (+{ $gain }% в минуту)
 
 zen-intervention-ui-stage-calm-title = Затишье (0–{ $threshold }%)
-zen-intervention-ui-stage-calm-desc = Аномалии незначительны, существа Зена не проявляются.
+zen-intervention-ui-stage-calm-desc = Существа не появляются (Катализатор зена работает независимо).
 zen-intervention-ui-stage-breach-title = Прорыв (с { $threshold }%)
 zen-intervention-ui-stage-breach-desc = Один раз открываются разломы: по комплексу появляются существа Зена (×{ $count }).
 zen-intervention-ui-stage-cascade-title = Аномальный разрыв (100%)
