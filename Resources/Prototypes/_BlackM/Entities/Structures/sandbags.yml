@@ -1,0 +1,38 @@
+﻿- type: entity
+  parent: BaseStructure
+  id: SandbagsBlackM
+  name: sandbag barricade
+  description: A low field fortification made from stacked sandbags.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/sandbags.rsi
+    state: base
+    drawdepth: WallTops
+  - type: Fixtures
+    fixtures:
+      barricade:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.49,-0.49,0.49,-0.38"
+        density: 500
+        mask:
+        - FullTileMask
+        layer:
+        - TableLayer
+        - LowImpassable
+  - type: RotationDrawDepth
+    southDrawDepth: OverMobs
+  - type: Climbable
+  - type: Anchorable
+  - type: Rotatable
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: Barricade
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]

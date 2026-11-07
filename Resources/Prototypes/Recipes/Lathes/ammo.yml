@@ -37,60 +37,60 @@
   id: MagazineRifle
   result: MagazineRifle
   materials:
-    Steel: 475
+    Steel: 1425
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazineRifleIncendiary
   result: MagazineRifleIncendiary
   materials:
-    Steel: 25
-    Plastic: 450
+    Steel: 75
+    Plastic: 1350
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazineRiflePractice
   result: MagazineRiflePractice
   materials:
-    Steel: 175
+    Steel: 525
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazineRifleUranium
   result: MagazineRifleUranium
   materials:
-    Steel: 25
-    Plastic: 300
-    Uranium: 300
+    Steel: 75
+    Plastic: 900
+    Uranium: 900
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxRifle
   result: MagazineBoxRifle
   materials:
-    Steel: 750
+    Steel: 2250
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxRifleIncendiary
   result: MagazineBoxRifleIncendiary
   materials:
-    Plastic: 750
+    Plastic: 2250
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxRiflePractice
   result: MagazineBoxRiflePractice
   materials:
-    Steel: 250
+    Steel: 750
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxRifleUranium
   result: MagazineBoxRifleUranium
   materials:
-    Plastic: 500
-    Uranium: 500
+    Plastic: 1500
+    Uranium: 1500
 
 # .30 Rifle
 - type: latheRecipe
@@ -120,7 +120,7 @@
   id: MagazineLightRiflePractice
   result: MagazineLightRiflePractice
   materials:
-    Steel: 205
+    Steel: 615
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
@@ -136,7 +136,7 @@
   id: MagazineBoxLightRifle
   result: MagazineBoxLightRifle
   materials:
-    Steel: 900
+    Steel: 2700
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
@@ -173,31 +173,31 @@
   id: MagazinePistol
   result: MagazinePistol
   materials:
-    Steel: 145
+    Steel: 435
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazinePistolIncendiary
   result: MagazinePistolIncendiary
   materials:
-    Steel: 25
-    Plastic: 120
+    Steel: 75
+    Plastic: 360
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazinePistolPractice
   result: MagazinePistolPractice
   materials:
-    Steel: 85
+    Steel: 255
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazinePistolUranium
   result: MagazinePistolUranium
   materials:
-    Steel: 25
-    Plastic: 65
-    Uranium: 120
+    Steel: 75
+    Plastic: 195
+    Uranium: 360
 
 - type: latheRecipe
   parent: BaseEmptyAmmoRecipe
@@ -211,31 +211,31 @@
   id: MagazinePistolSubMachineGun
   result: MagazinePistolSubMachineGun
   materials:
-    Steel: 300
+    Steel: 900
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazinePistolSubMachineGunIncendiary
   result: MagazinePistolSubMachineGunIncendiary
   materials:
-    Steel: 25
-    Plastic: 275
+    Steel: 75
+    Plastic: 825
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazinePistolSubMachineGunPractice
   result: MagazinePistolSubMachineGunPractice
   materials:
-    Steel: 150
+    Steel: 450
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazinePistolSubMachineGunUranium
   result: MagazinePistolSubMachineGunUranium
   materials:
-    Steel: 25
-    Plastic: 250
-    Uranium: 250
+    Steel: 75
+    Plastic: 750
+    Uranium: 750
 
 - type: latheRecipe
   parent: BaseEmptyAmmoRecipe
@@ -249,36 +249,36 @@
   id: MagazinePistolSubMachineGunTopMounted
   result: MagazinePistolSubMachineGunTopMounted
   materials:
-    Steel: 300
+    Steel: 900
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxPistol
   result: MagazineBoxPistol
   materials:
-    Steel: 600
+    Steel: 1800
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxPistolIncendiary
   result: MagazineBoxPistolIncendiary
   materials:
-    Plastic: 600
+    Plastic: 1800
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxPistolPractice
   result: MagazineBoxPistolPractice
   materials:
-    Steel: 300
+    Steel: 900
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxPistolUranium
   result: MagazineBoxPistolUranium
   materials:
-    Plastic: 300
-    Uranium: 600
+    Plastic: 900
+    Uranium: 1800
 
 # .45 Magnum
 - type: latheRecipe
@@ -293,60 +293,60 @@
   id: SpeedLoaderMagnum
   result: SpeedLoaderMagnum
   materials:
-    Steel: 190
+    Steel: 570
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: SpeedLoaderMagnumIncendiary
   result: SpeedLoaderMagnumIncendiary
   materials:
-    Steel: 50
-    Plastic: 150
+    Steel: 150
+    Plastic: 450
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: SpeedLoaderMagnumPractice
   result: SpeedLoaderMagnumPractice
   materials:
-    Steel: 90
+    Steel: 270
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: SpeedLoaderMagnumUranium
   result: SpeedLoaderMagnumUranium
   materials:
-    Steel: 50
-    Plastic: 150
-    Uranium: 110
+    Steel: 150
+    Plastic: 450
+    Uranium: 330
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxMagnum
   result: MagazineBoxMagnum
   materials:
-    Steel: 240
+    Steel: 720
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxMagnumIncendiary
   result: MagazineBoxMagnumIncendiary
   materials:
-    Plastic: 240
+    Plastic: 720
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxMagnumPractice
   result: MagazineBoxMagnumPractice
   materials:
-    Steel: 60
+    Steel: 180
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: MagazineBoxMagnumUranium
   result: MagazineBoxMagnumUranium
   materials:
-    Plastic: 240
-    Uranium: 180
+    Plastic: 720
+    Uranium: 540
 
 # .50 Shell
 - type: latheRecipe
@@ -361,88 +361,88 @@
   id: MagazineShotgun
   result: MagazineShotgun
   materials:
-    Steel: 240
+    Steel: 720
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazineShotgunIncendiary
   result: MagazineShotgunIncendiary
   materials:
-    Steel: 100
-    Plastic: 190
+    Steel: 300
+    Plastic: 570
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazineShotgunBeanbag
   result: MagazineShotgunBeanbag
   materials:
-    Steel: 150
-    Plastic: 140
+    Steel: 450
+    Plastic: 420
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazineShotgunSlug
   result: MagazineShotgunSlug
   materials:
-    Steel: 190
-    Plastic: 100
+    Steel: 570
+    Plastic: 300
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: BoxLethalshot
   result: BoxLethalshot
   materials:
-    Steel: 320
+    Steel: 960
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: BoxShotgunIncendiary
   result: BoxShotgunIncendiary
   materials:
-    Steel: 80
-    Plastic: 320
+    Steel: 240
+    Plastic: 960
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: BoxShotgunPractice
   result: BoxShotgunPractice
   materials:
-    Steel: 80
+    Steel: 240
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: BoxShotgunUranium
   result: BoxShotgunUranium
   materials:
-    Plastic: 320
-    Uranium: 240
+    Plastic: 960
+    Uranium: 720
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: BoxBeanbag
   result: BoxBeanbag
   materials:
-    Steel: 160
-    Plastic: 240
+    Steel: 480
+    Plastic: 720
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: BoxShotgunSlug
   result: BoxShotgunSlug
   materials:
-    Steel: 240
-    Plastic: 160
+    Steel: 720
+    Plastic: 480
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe
   id: BoxShellTranquilizer
   result: BoxShellTranquilizer
   materials:
-    Plastic: 240
-    Steel: 160
-    Glass: 80
-    Plasma: 160
-    Silver: 80
+    Plastic: 720
+    Steel: 480
+    Glass: 240
+    Plasma: 480
+    Silver: 240
 
 - type: latheRecipe
   parent: BaseAmmoBoxRecipe

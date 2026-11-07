@@ -527,30 +527,15 @@
 - type: entity
   id: RCD
   parent: [ BaseItem, BaseEngineeringContraband ]
-  name: RCD
-  description: The rapid construction device can be used to quickly place and remove various station structures and fixtures. Requires compressed matter to function.
+  name: military RCD
+  description: Deploys wooden and steel barricades, folding barricades, and sandbags using compressed matter. General construction is not supported.
   components:
   - type: RCD
     availablePrototypes:
-    - WallSolid
-    - FloorSteel
-    - Plating
-    - Catwalk
-    - Grille
-    - Window
-    - WindowDirectional
-    - WindowReinforcedDirectional
-    - ReinforcedWindow
-    - Airlock
-    - AirlockGlass
-    - Firelock
-    - TubeLight
-    - BulbLight
-    - LVCable
-    - MVCable
-    - HVCable
-    - CableTerminal
-    - Deconstruct
+    - MilitaryBarricadeWood
+    - MilitaryBarricadeSteel
+    - MilitaryBarricadeGate
+    - MilitarySandbags
   - type: LimitedCharges
     maxCharges: 45
   - type: Sprite
@@ -631,8 +616,8 @@
 - type: entity
   id: RCDRecharging
   parent: RCD
-  name: experimental RCD
-  description: Cyborg-mounted Rapid Construction Device which creates compressed matter on the fly using an internal fabricator.
+  name: experimental military RCD
+  description: A self-recharging military construction device for deploying field fortifications.
   suffix: AutoRecharge
   components:
   - type: LimitedCharges
@@ -644,8 +629,8 @@
   id: RCDExperimental
   parent: RCD
   suffix: Admeme
-  name: experimental RCD
-  description: A bluespace-enhanced rapid construction device that passively generates its own compressed matter.
+  name: experimental military RCD
+  description: A military construction device that continuously generates compressed matter for field fortifications.
   components:
   - type: AutoRecharge
     rechargeDuration: 1

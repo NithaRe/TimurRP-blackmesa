@@ -12,6 +12,7 @@
 - type: latheRecipePack
   id: SharedBoardsStatic
   recipes:
+  - AmsPartsOrderComputerCircuitboard
   - ProtolatheMachineCircuitboard
   - AutolatheMachineCircuitboard
   - CircuitImprinterMachineCircuitboard

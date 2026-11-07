@@ -243,8 +243,8 @@
 - type: entity
   parent: RCD
   id: RCDRechargingCE
-  name: experimental RCD
-  description: Rapid Construction Device which creates compressed matter on the fly using an internal fabricator.
+  name: experimental military RCD
+  description: A self-recharging military construction device for deploying field fortifications.
   suffix: AutoRecharge
   components:
   - type: LimitedCharges

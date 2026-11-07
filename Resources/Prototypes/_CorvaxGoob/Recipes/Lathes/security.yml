@@ -14,11 +14,11 @@
   id: MagazineLargeCaliber
   result: MagazineLargeCaliber
   materials:
-    Steel: 500
+    Steel: 1500
 
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazineBoxLargeCaliber
   result: MagazineBoxLargeCaliber
   materials:
-    Steel: 1000
+    Steel: 3000

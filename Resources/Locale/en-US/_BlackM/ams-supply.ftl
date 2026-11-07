@@ -1,0 +1,15 @@
+﻿ent-ComputerAmsPartsOrders = AMS components console
+    .desc = Orders all six AMS components and lists their acquisition methods.
+ent-AmsPartsOrderComputerCircuitboard = AMS components console board
+    .desc = A circuitboard for an anti-mass spectrometer components console.
+ams-parts-console-heading = BLACK MESA / AMS COMPONENTS
+ams-parts-acquisition-tab = Acquisition
+ams-parts-acquisition-title = Component acquisition
+ams-parts-acquisition-AmsPartCore = Researching AMS Components (5000 points) delivers one core at the research console and announces the reward. It can also be printed at the science techfab immediately, without research. Purchasing is a fallback.
+ams-parts-acquisition-AmsPartCoil = Print at the science techfab from round start, without research: 323 steel and 484 silver. Alternatively, purchase it here.
+ams-parts-acquisition-AmsPartLens = Print at the science techfab from round start, without research: 645 glass and 161 silver. Alternatively, purchase it here.
+ams-parts-acquisition-AmsPartCell = Print at the science techfab from round start, without research: 323 steel, 161 plastic and 161 uranium. Alternatively, purchase it here.
+ams-parts-acquisition-AmsPartStabilizer = Find the stabilizer in maintenance near the Xen catalyst instead of purchasing it. It can also be printed at the science techfab from round start, without research.
+ams-parts-acquisition-AmsPartCasing = The cheapest component to manufacture: 400 steel and 80 plastic at the science techfab from round start, without research. Purchasing is optional.
+ams-parts-research-reward-description = Delivers one AMS core at the research console and announces the reward.
+ams-parts-research-reward-announcement = Anti-mass spectrometer component research complete. An AMS core has been delivered at the science department research console.

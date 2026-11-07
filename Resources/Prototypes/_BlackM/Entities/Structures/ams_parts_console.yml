@@ -1,0 +1,20 @@
+﻿- type: entity
+  parent: ComputerCargoOrders
+  id: ComputerAmsPartsOrders
+  name: AMS components console
+  description: Procurement and acquisition records for all six anti-mass spectrometer components.
+  components:
+  - type: CargoOrderConsole
+    allowedGroups:
+    - AmsParts
+  - type: Computer
+    board: AmsPartsOrderComputerCircuitboard
+
+- type: entity
+  parent: CargoRequestComputerCircuitboard
+  id: AmsPartsOrderComputerCircuitboard
+  name: AMS components console board
+  description: A computer circuitboard for an AMS components console.
+  components:
+  - type: ComputerBoard
+    prototype: ComputerAmsPartsOrders

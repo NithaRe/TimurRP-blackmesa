@@ -23,6 +23,37 @@
 
 - type: entity
   parent: BaseWall
+  id: WallVaultBlackM
+  name: укреплённая стена хранилища
+  description: Укреплённая стена хранилища. Не может быть разрушена или разобрана
+  suffix: Black Mesa, Indestructible
+  components:
+  - type: Godmode
+  - type: Sprite
+    sprite: Structures/Walls/solid.rsi
+  - type: Icon
+    sprite: Structures/Walls/solid.rsi
+    state: rgeneric
+  - type: IconSmooth
+    key: walls
+    base: reinf_over
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 2000
+  - type: RadiationBlocker
+    resistance: 5
+  - type: RustRequiresPathStage
+    pathStage: 11
+
+- type: entity
+  parent: BaseWall
   id: WallReinforcedInfectedBlackM
   name: Заражённая укреплённая стена
   description: Толстый слой металла, покрытый неизвестной биомассой.

@@ -35,6 +35,8 @@ public sealed partial class CargoTerminalWindow : BaseWindow
     private CargoProductPrototype? _selected;
     private string? _category;
     private bool _showApproved;
+    private bool _amsCatalog;
+    private bool _amsGuideBuilt;
     private float _refreshElapsed;
     private long _pendingTotal;
     private readonly List<CargoProductPrototype> _products = new();
@@ -66,6 +68,7 @@ public sealed partial class CargoTerminalWindow : BaseWindow
         CloseButton.OnPressed += _ => Close();
         CatalogTab.OnPressed += _ => ShowFunds(false);
         FundsTab.OnPressed += _ => ShowFunds(true);
+        AmsGuideTab.OnPressed += _ => ShowAmsGuide();
         SearchBar.OnTextChanged += _ => PopulateProducts();
         CompactCategories.OnItemSelected += args => SelectCategory(_categories[args.Id]);
         PendingTab.OnPressed += _ => ShowOrders(false);
@@ -88,8 +91,22 @@ public sealed partial class CargoTerminalWindow : BaseWindow
     {
         _owner = owner;
         Requester.Text = requester;
+        var allowed = _entity.GetComponentOrNull<CargoOrderConsoleComponent>(owner)?.AllowedGroups;
+        _amsCatalog = allowed?.Contains("AmsParts") == true;
+        AmsGuideTab.Visible = _amsCatalog;
+        FundsTab.Visible = !_amsCatalog;
+        if (_amsCatalog)
+        {
+            HeadingLabel.Text = Loc.GetString("ams-parts-console-heading");
+            ShowAmsGuide();
+        }
         FitToScreen();
         UpdateAccount();
+        if (_amsCatalog)
+        {
+            RecenterWindow(new Vector2(0.5f, 0.5f));
+            MoveToFront();
+        }
     }
 
     /// <summary>Applies the authoritative catalog and orders without losing the draft or filters.</summary>
@@ -106,6 +123,8 @@ public sealed partial class CargoTerminalWindow : BaseWindow
         }
 
         _products.Sort((left, right) => string.Compare(left.Name, right.Name, StringComparison.CurrentCultureIgnoreCase));
+        if (_amsCatalog && !_amsGuideBuilt && _products.Count > 0)
+            PopulateAmsGuide();
         if (_selected != null)
             _selected = _products.Find(product => product.ID == _selected.ID);
 
@@ -267,8 +286,65 @@ public sealed partial class CargoTerminalWindow : BaseWindow
         CapacityLabel.Text = Loc.GetString("blackm-cargo-capacity", ("count", _state.Count), ("capacity", _state.Capacity));
     }
 
+    private void PopulateAmsGuide()
+    {
+        _amsGuideBuilt = true;
+        foreach (var product in _products)
+        {
+            var row = new BoxContainer
+            {
+                Orientation = BoxContainer.LayoutOrientation.Vertical,
+                SeparationOverride = 6,
+            };
+            var heading = new BoxContainer
+            {
+                SeparationOverride = 8,
+                MinHeight = 34,
+                MouseFilter = MouseFilterMode.Ignore,
+            };
+            heading.AddChild(new TextureRect
+            {
+                Texture = _entity.System<SpriteSystem>().Frame0(product.Icon),
+                SetSize = new Vector2(24, 24),
+                CanShrink = true,
+                Stretch = TextureRect.StretchMode.KeepAspectCentered,
+                MouseFilter = MouseFilterMode.Ignore,
+            });
+            heading.AddChild(new Label
+            {
+                Text = product.Name,
+                ClipText = true,
+                HorizontalExpand = true,
+                MouseFilter = MouseFilterMode.Ignore,
+            });
+            heading.AddChild(new Label
+            {
+                Text = Money(product.Cost),
+                SetWidth = 82,
+                Align = Label.AlignMode.Right,
+                MouseFilter = MouseFilterMode.Ignore,
+            });
+            row.AddChild(heading);
+            var description = new RichTextLabel();
+            description.SetMessage(Loc.GetString($"ams-parts-acquisition-{product.Product}"));
+            row.AddChild(description);
+            row.AddChild(new PanelContainer { SetHeight = 1, StyleClasses = { "TerminalRule" } });
+            AmsGuideList.AddChild(row);
+        }
+    }
+
+    private void ShowAmsGuide()
+    {
+        CatalogPage.Visible = FundsPage.Visible = false;
+        CatalogTab.Pressed = FundsTab.Pressed = false;
+        AmsGuideTab.Pressed = AmsGuidePage.Visible = true;
+    }
+
     private void ShowFunds(bool funds)
     {
+        if (funds && _amsCatalog)
+            return;
+        AmsGuideTab.Pressed = AmsGuidePage.Visible = false;
         CatalogTab.Pressed = !funds;
         FundsTab.Pressed = funds;
         CatalogPage.Visible = !funds;
