@@ -1,0 +1,53 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Based on elevator_door.rsi by idk blackm, https://github.com/NithaRe/TimurRP-blackmesa/tree/blackmesa/Resources/Textures/_BlackM/Structures/Doors/elevator_door.rsi",
+    "size": {
+        "x": 160,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "closed"
+        },
+        {
+            "name": "open"
+        },
+        {
+            "name": "opening",
+            "delays": [
+                [
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14
+                ]
+            ]
+        },
+        {
+            "name": "closing",
+            "delays": [
+                [
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14
+                ]
+            ]
+        }
+    ]
+}

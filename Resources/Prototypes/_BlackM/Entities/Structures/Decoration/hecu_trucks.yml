@@ -1,0 +1,151 @@
+# HECU trucks. Separate map decoration variants; original vehicles remain unchanged.
+
+- type: entity
+  parent: RMCPropVehicleTruck
+  id: BlackMHECUTruck
+  name: грузовик HECU
+  suffix: HECU, обычный
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_medium.rsi
+    state: truck
+
+- type: entity
+  parent: RMCPropVehicleTruckCargo
+  id: BlackMHECUTruckCargo
+  name: грузовик HECU
+  suffix: HECU, с грузом
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_medium.rsi
+    state: truck_cargo
+
+- type: entity
+  parent: RMCPropVehicleTruckMining
+  id: BlackMHECUTruckEquipment
+  name: грузовик HECU
+  suffix: HECU, с оборудованием
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_medium.rsi
+    state: truck_mining
+
+- type: entity
+  parent: RMCPropVehicleLoaderTruckTeal
+  id: BlackMHECULoader
+  name: грузовик HECU
+  suffix: HECU, тягач
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: armored_truck_teal
+
+- type: entity
+  parent: RMCPropVehicleLoaderTruckTealF
+  id: BlackMHECULoaderF
+  name: грузовик HECU
+  suffix: HECU, тягач, в другую сторону
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: armored_truck_teal_f
+
+- type: entity
+  parent: RMCPropVehicleLoaderTruckTealFilled
+  id: BlackMHECULoaderCargo
+  name: грузовик HECU
+  suffix: HECU, тягач с грузом
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: armored_truck_teal_loaded
+
+- type: entity
+  parent: RMCPropVehicleLoaderTruckTealFilledF
+  id: BlackMHECULoaderCargoF
+  name: грузовик HECU
+  suffix: HECU, тягач с грузом, в другую сторону
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: armored_truck_teal_loaded_f
+
+- type: entity
+  parent: RMCPropVehicleSmallTruckBrown
+  id: BlackMHECUSmallTruck
+  name: грузовик HECU
+  suffix: HECU, малый
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: small_truck_brown
+
+- type: entity
+  parent: RMCPropVehicleSmallTruckBrownF
+  id: BlackMHECUSmallTruckF
+  name: грузовик HECU
+  suffix: HECU, малый, в другую сторону
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: small_truck_brown_f
+
+- type: entity
+  parent: RMCPropVehicleSmallTruckBrownCargo
+  id: BlackMHECUSmallTruckCargo
+  name: грузовик HECU
+  suffix: HECU, малый с грузом
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: small_truck_brown_cargo
+
+- type: entity
+  parent: RMCPropVehicleSmallTruckBrownCargoF
+  id: BlackMHECUSmallTruckCargoF
+  name: грузовик HECU
+  suffix: HECU, малый с грузом, в другую сторону
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: small_truck_brown_cargo_f
+
+- type: entity
+  parent: RMCPropVehicleSmallTruckBrownCargoAlt
+  id: BlackMHECUSmallTruckBarrels
+  name: грузовик HECU
+  suffix: HECU, малый с бочками
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: small_truck_brown_cargobarrels
+
+- type: entity
+  parent: RMCPropVehicleSmallTruckBrownCargoAltF
+  id: BlackMHECUSmallTruckBarrelsF
+  name: грузовик HECU
+  suffix: HECU, малый с бочками, в другую сторону
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: small_truck_brown_cargobarrels_f
+
+- type: entity
+  parent: RMCPropVehicleLongTruckBrown
+  id: BlackMHECULongTruck
+  name: грузовик HECU
+  suffix: HECU, длинный
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: longtruck_brown
+
+- type: entity
+  parent: RMCPropVehicleLongTruckBrownF
+  id: BlackMHECULongTruckF
+  name: грузовик HECU
+  suffix: HECU, длинный, в другую сторону
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hecu_trucks_large.rsi
+    state: longtruck_brown_f
