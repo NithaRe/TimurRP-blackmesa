@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/06/2026 08:01:37
-  entityCount: 190
+  time: 11/06/2026 13:35:26
+  entityCount: 191
 maps:
 - 1
 grids:
@@ -291,12 +291,12 @@ entities:
     - type: Transform
       pos: 0.5,-1.5
       parent: 2
-  - uid: 58
+  - uid: 90
     components:
     - type: Transform
       pos: 18.5,2.5
       parent: 65
-  - uid: 90
+  - uid: 141
     components:
     - type: Transform
       pos: 34.5,0.5
@@ -1049,6 +1049,13 @@ entities:
     - type: Transform
       pos: 34.5,3.5
       parent: 127
+- proto: WallDirectional
+  entities:
+  - uid: 58
+    components:
+    - type: Transform
+      pos: 0.5,-1.5
+      parent: 2
 - proto: WallSolid
   entities:
   - uid: 5
