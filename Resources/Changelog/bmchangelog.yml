@@ -843,3 +843,18 @@ Entries:
       message: я ebal.
   id: 139
   time: '2026-11-07T08:49:44.0000000+00:00'
+# PR #154
+- author: sweekyl
+  changes:
+    - type: Add
+      message: Добавлена широкая дверь лифта
+    - type: Add
+      message: Система подземн эксп
+    - type: Add
+      message: Добавлены указатели лифта.
+    - type: Add
+      message: Добавлены грузовики в стиле HECU.
+    - type: Tweak
+      message: Обновлена карта хеку.
+  id: 140
+  time: '2026-11-07T13:04:34.0000000+00:00'
