@@ -1,0 +1,9 @@
+﻿blackm-screen-setup-title = Screen setup
+blackm-screen-setup-intro = Did you know you can play this game without black bars? Give it a try!
+blackm-screen-setup-fullhd = Full HD / ×3 / 20
+blackm-screen-setup-2k = 2K / ×4 / 21
+blackm-screen-setup-scale = Fixed scale
+blackm-screen-setup-scale-value = ×{ $scale }
+blackm-screen-setup-width = Game screen width
+blackm-screen-setup-skip = Skip
+blackm-screen-setup-continue = Save and continue

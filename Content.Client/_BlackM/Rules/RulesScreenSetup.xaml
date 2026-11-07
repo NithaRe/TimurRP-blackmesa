@@ -1,0 +1,34 @@
+﻿<rules:RulesScreenSetup xmlns="https://spacestation14.io"
+    xmlns:rules="clr-namespace:Content.Client._BlackM.Rules"
+    HorizontalExpand="True" VerticalExpand="True" MouseFilter="Stop">
+    <PanelContainer Name="SettingsPanel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="24" SetWidth="480">
+        <ScrollContainer HScrollEnabled="False" ReturnMeasure="True">
+            <BoxContainer Orientation="Vertical" Margin="24" SeparationOverride="16">
+                <Label Text="{Loc 'blackm-screen-setup-title'}" StyleClasses="LabelHeadingBigger" ClipText="True" />
+                <RichTextLabel Name="Introduction" />
+                <BoxContainer SeparationOverride="8">
+                    <Button Name="FullHdButton" Text="{Loc 'blackm-screen-setup-fullhd'}" ToolTip="1920 × 1080" ToggleMode="True" HorizontalExpand="True" MinHeight="40" />
+                    <Button Name="TwoKButton" Text="{Loc 'blackm-screen-setup-2k'}" ToolTip="2560 × 1440" ToggleMode="True" HorizontalExpand="True" MinHeight="40" />
+                </BoxContainer>
+                <BoxContainer Orientation="Vertical" SeparationOverride="8">
+                    <BoxContainer>
+                        <Label Text="{Loc 'blackm-screen-setup-scale'}" HorizontalExpand="True" />
+                        <Label Name="ScaleValue" MinWidth="40" Align="Right" />
+                    </BoxContainer>
+                    <Slider Name="ScaleSlider" MinValue="1" MaxValue="5" Rounded="True" MinHeight="24" />
+                </BoxContainer>
+                <BoxContainer Orientation="Vertical" SeparationOverride="8">
+                    <BoxContainer>
+                        <Label Text="{Loc 'blackm-screen-setup-width'}" HorizontalExpand="True" />
+                        <Label Name="WidthValue" MinWidth="40" Align="Right" />
+                    </BoxContainer>
+                    <Slider Name="WidthSlider" Rounded="True" MinHeight="24" />
+                </BoxContainer>
+                <BoxContainer SeparationOverride="8">
+                    <Button Name="SkipButton" Text="{Loc 'blackm-screen-setup-skip'}" MinHeight="40" />
+                    <Button Name="ContinueButton" Text="{Loc 'blackm-screen-setup-continue'}" HorizontalExpand="True" MinHeight="40" />
+                </BoxContainer>
+            </BoxContainer>
+        </ScrollContainer>
+    </PanelContainer>
+</rules:RulesScreenSetup>

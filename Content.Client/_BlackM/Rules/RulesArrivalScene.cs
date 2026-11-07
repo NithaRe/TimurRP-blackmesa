@@ -5,8 +5,11 @@ using System.Numerics;
 using Content.Client.Humanoid;
 using Content.Client.Clothing;
 using Content.Client.Lobby;
+using Content.Client.UserInterface.Controls;
+using Content.Client.UserInterface.Systems.Viewport;
 using Content.Client.Viewport;
 using Content.Shared._BlackM.WalkBob;
+using Content.Shared.CCVar;
 using Content.Shared.Doors.Components;
 using Content.Shared.Doors.Systems;
 using Content.Shared.Humanoid.Prototypes;
@@ -14,7 +17,9 @@ using Content.Shared.Inventory;
 using Content.Shared.Physics;
 using Content.Shared.Preferences;
 using Robust.Client.GameObjects;
+using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
+using Robust.Shared.Configuration;
 using Robust.Shared.EntitySerialization;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Graphics;
@@ -39,7 +44,9 @@ public sealed class RulesArrivalScene : Control
     [Dependency] private readonly IComponentFactory _components = default!;
     [Dependency] private readonly IClientPreferencesManager _preferences = default!;
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private readonly IConfigurationManager _cfg = default!;
     private readonly ScalingViewport _viewport;
+    private MainViewport? _screenPreview;
     private readonly Robust.Shared.Graphics.Eye _eye = new() { DrawFov = false, DrawLight = true, Zoom = new Vector2(1.0f) };
     private static readonly Vector2 Entrance = new(9.5f, -0.5f);
     private static readonly Vector2 Checkpoint = new(19.1f, -0.5f);
@@ -158,6 +165,61 @@ public sealed class RulesArrivalScene : Control
         _viewport.AlwaysRender = true;
         SetProgress(0, 0);
         return true;
+    }
+
+    public void SetScreenPreview(bool enabled)
+    {
+        if (_map == null)
+            return;
+        if (enabled)
+        {
+            // Use the same scaling control as the actual game, not an approximation of its zoom.
+            if (_screenPreview == null)
+            {
+                _screenPreview = new MainViewport
+                {
+                    HorizontalExpand = true,
+                    VerticalExpand = true,
+                    MouseFilter = MouseFilterMode.Ignore,
+                };
+                _screenPreview.Viewport.HorizontalExpand = true;
+                _screenPreview.Viewport.VerticalExpand = true;
+                _screenPreview.Viewport.MouseFilter = MouseFilterMode.Ignore;
+                AddChild(_screenPreview);
+            }
+            _viewport.Visible = _viewport.AlwaysRender = false;
+            _screenPreview.Visible = true;
+            _screenPreview.Viewport.Eye = _eye;
+            _screenPreview.Viewport.AlwaysRender = true;
+            SetProgress(0.7f, 0);
+            RefreshScreenPreview();
+        }
+        else
+        {
+            if (_screenPreview != null)
+            {
+                _screenPreview.Visible = false;
+                _screenPreview.Viewport.AlwaysRender = false;
+                _screenPreview.Viewport.Eye = null;
+            }
+            _viewport.Visible = _viewport.AlwaysRender = true;
+            SetProgress(0, 0);
+        }
+    }
+
+    public void RefreshScreenPreview()
+    {
+        if (_screenPreview == null)
+            return;
+        var min = _cfg.GetCVar(CCVars.ViewportMinimumWidth);
+        var max = _cfg.GetCVar(CCVars.ViewportMaximumWidth);
+        var width = Math.Clamp(_cfg.GetCVar(CCVars.ViewportWidth), min, max);
+        if (_cfg.GetCVar(CCVars.ViewportVerticalFit) && _cfg.GetCVar(CCVars.ViewportStretch))
+            width = max;
+        _screenPreview.Viewport.ViewportSize = new Vector2i(
+            EyeManager.PixelsPerMeter * width,
+            EyeManager.PixelsPerMeter * ViewportUIController.ViewportHeight);
+        _screenPreview.UpdateCfg();
     }
 
     private void SetRoadEdges()
@@ -357,6 +419,12 @@ public sealed class RulesArrivalScene : Control
         _viewport.Visible = false;
         _viewport.AlwaysRender = false;
         _viewport.Eye = null;
+        if (_screenPreview != null)
+        {
+            _screenPreview.Visible = false;
+            _screenPreview.Viewport.AlwaysRender = false;
+            _screenPreview.Viewport.Eye = null;
+        }
         var map = _map;
         _map = null;
         // Defer deletion until render and physics traversal have finished.

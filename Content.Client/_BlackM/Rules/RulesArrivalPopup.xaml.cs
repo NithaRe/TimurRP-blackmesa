@@ -19,7 +19,7 @@ namespace Content.Client._BlackM.Rules;
 public sealed partial class RulesArrivalPopup : Control
 {
     [Dependency] private readonly IResourceCache _resources = default!;
-    private enum Stage { Starting, FadingIn, Walking, Reading, Burning, Leaving, FadingOut, Finished }
+    private enum Stage { Starting, ScreenSetup, FadingIn, Walking, Reading, Burning, Leaving, FadingOut, Finished }
     private readonly HashSet<BoundKeyFunction> _movement = new();
     private bool _greeted;
     private Stage _stage;
@@ -27,6 +27,7 @@ public sealed partial class RulesArrivalPopup : Control
     private float _remaining;
     private bool _hasScene;
     private bool _skipIntro;
+    private bool _screenSetupFinished;
     private string _speech = string.Empty;
     private float _speechTime;
     private int _speechLength = -1;
@@ -94,6 +95,9 @@ public sealed partial class RulesArrivalPopup : Control
         OpenButton.OnPressed += _ => OpenDocument();
         QuitButton.OnPressed += _ => OnQuitPressed?.Invoke();
         SignButton.OnPressed += _ => Sign();
+        ScreenSetup.OnSettingsChanged += Scene.RefreshScreenPreview;
+        ScreenSetup.OnContinuePressed += CompleteScreenSetup;
+        ScreenSetup.OnSkipPressed += CompleteScreenSetup;
     }
 
     public void Initialize(float waitTime, bool skipIntro)
@@ -102,11 +106,32 @@ public sealed partial class RulesArrivalPopup : Control
         _skipIntro = skipIntro;
     }
 
+    private void CompleteScreenSetup()
+    {
+        if (_stage is not (Stage.Starting or Stage.ScreenSetup))
+            return;
+        _screenSetupFinished = true;
+        ScreenSetup.Visible = false;
+        if (_stage == Stage.ScreenSetup)
+            BeginRulesArrival();
+    }
+
+    private void BeginRulesArrival()
+    {
+        Scene.SetScreenPreview(false);
+        _dimmerStyle.BackgroundColor = Color.Black;
+        _stage = Stage.FadingIn;
+        _elapsed = 0;
+        GrabKeyboardFocus();
+        if (!_hasScene || _skipIntro)
+            OpenDocument();
+    }
+
     private void OpenDocument()
     {
         if (_stage is Stage.Burning or Stage.Leaving or Stage.FadingOut or Stage.Finished)
             return;
-        if (_stage == Stage.Starting)
+        if (_stage is Stage.Starting or Stage.ScreenSetup)
         {
             _skipIntro = true;
             return;
@@ -290,11 +315,17 @@ public sealed partial class RulesArrivalPopup : Control
                     Logger.ErrorS("rules-arrival", $"Unable to load arrival scene: {exception}");
                     Scene.Release();
                 }
-                _stage = Stage.FadingIn;
                 _elapsed = 0;
-                GrabKeyboardFocus();
-                if (!_hasScene || _skipIntro)
-                    OpenDocument();
+                if (_screenSetupFinished)
+                {
+                    BeginRulesArrival();
+                }
+                else
+                {
+                    _stage = Stage.ScreenSetup;
+                    Scene.SetScreenPreview(true);
+                    _dimmerStyle.BackgroundColor = Color.Transparent;
+                }
                 break;
             case Stage.FadingIn:
                 _elapsed += args.DeltaSeconds;

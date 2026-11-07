@@ -63,4 +63,5 @@
         </BoxContainer>
     </PanelContainer>
     <rules:RulesDossierBurn Name="BurnEffect" Visible="False" MouseFilter="Ignore" />
+    <rules:RulesScreenSetup Name="ScreenSetup" />
 </rules:RulesArrivalPopup>
