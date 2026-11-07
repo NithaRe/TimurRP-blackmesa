@@ -1,165 +1,76 @@
 // SPDX-FileCopyrightText: 2024 Piras314 <92357316+Piras314@users.noreply.github.com>
 // SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
 // SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
-//
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-// From https://github.com/DeltaV-Station/Delta-v/
-// Dependencies
-const fs = require("fs");
-const yaml = require("js-yaml");
-const axios = require("axios");
+// Reads the merged PR event. Never checks out or executes the PR branch.
+const fs = require('fs');
+const yaml = require('js-yaml');
 
-// Use GitHub token if available
-if (process.env.GITHUB_TOKEN) axios.defaults.headers.common["Authorization"] = `Bearer ${process.env.GITHUB_TOKEN}`;
-
-// Regexes
-const HeaderRegex = /^\s*(?::cl:|🆑) *([a-z0-9_\- ,]+)?\s+/im; // :cl: or 🆑 [0] followed by optional author name [1]
-const EntryRegex = /^ *[*-]? *(add|remove|tweak|fix): *([^\n\r]+)\r?$/img; // * or - followed by change type [0] and change message [1]
-const CommentRegex = /<!--.*?-->/gs; // HTML comments
-
-// Main function
-async function main() {
-    // Get PR details
-    const pr = await axios.get(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/pulls/${process.env.PR_NUMBER}`);
-    const { merged_at, body, user } = pr.data;
-
-    // Remove comments from the body
-    commentlessBody = body.replace(CommentRegex, '');
-
-    // Get author
-    const headerMatch = HeaderRegex.exec(commentlessBody);
-    if (!headerMatch) {
-        console.log("No changelog entry found, skipping");
-        return;
+function parseChanges(body, fallbackAuthor) {
+    const clean = (body || '').replace(/<!--[^]*?-->/g, '');
+    const header = /^[ \t]*(?::cl:|🆑)(?:[ \t]+([a-z0-9_, -]+))?[ \t]*$/im.exec(clean);
+    if (!header) return null;
+    const author = (header[1] || fallbackAuthor || '').trim();
+    if (!author) throw new Error('Changelog author is missing');
+    const types = { add: 'Add', remove: 'Remove', tweak: 'Tweak', fix: 'Fix' };
+    const changes = [];
+    const lines = clean.slice(header.index + header[0].length).split(/\r?\n/);
+    for (const line of lines) {
+        if (/^[ \t]*#{1,6}[ \t]/.test(line) || /^[ \t]*(?::cl:|🆑)/i.test(line)) break;
+        const match = /^[ \t]*(?:[-*][ \t]*)?(add|remove|tweak|fix):[ \t]*(\S.*?)[ \t]*$/i.exec(line);
+        if (match) changes.push({ type: types[match[1].toLowerCase()], message: match[2] });
     }
+    return changes.length ? { author, changes } : null;
+}
 
-    let author = headerMatch[1];
-    if (!author) {
-        console.log("No author found, setting it to author of the PR\n");
-        author = user.login;
+function updateChangelog(text, pr) {
+    if (!pr || !pr.merged || !pr.merged_at || !Number.isSafeInteger(pr.number) || pr.number < 1) {
+        throw new Error('A merged PR with a valid number and merge time is required');
     }
-
-    // Get all changes from the body
-    const entries = getChanges(commentlessBody);
-
-
-    // Time is something like 2021-08-29T20:00:00Z
-    // Time should be something like 2023-02-18T00:00:00.0000000+00:00
-    let time = merged_at;
-    if (time)
-    {
-        time = time.replace("z", ".0000000+00:00").replace("Z", ".0000000+00:00");
+    const parsed = parseChanges(pr.body, pr.user && pr.user.login);
+    if (!parsed) return null;
+    const marker = `# PR #${pr.number}`;
+    if (text.split(/\r?\n/).includes(marker)) return null;
+    const data = yaml.load(text, { schema: yaml.JSON_SCHEMA });
+    if (!data || data.Name !== 'BlackM' || !Array.isArray(data.Entries)) {
+        throw new Error('Expected the BlackM changelog with an Entries list');
     }
-    else
-    {
-        console.log("Pull request was not merged, skipping");
-        return;
+    const lines = text.split(/\r?\n/);
+    const entryHeader = lines.findIndex(line => /^Entries:\s*$/.test(line));
+    if (entryHeader < 0 || lines.slice(entryHeader + 1).some(line => /^[A-Za-z_][\w-]*:/.test(line))) {
+        throw new Error('Entries must be the last top-level property');
     }
-
-
-    // Construct changelog yml entry
+    const ids = data.Entries.map(entry => entry.id);
+    if (ids.some(id => !Number.isSafeInteger(id) || id < 1)) throw new Error('Invalid existing changelog id');
+    const date = new Date(pr.merged_at);
+    if (Number.isNaN(date.getTime())) throw new Error('Invalid PR merge time');
     const entry = {
-        author: author,
-        changes: entries,
-        id: getHighestCLNumber() + 1,
-        time: time,
+        author: parsed.author,
+        changes: parsed.changes,
+        id: Math.max(0, ...ids) + 1,
+        time: date.toISOString().slice(0, 19) + '.0000000+00:00',
     };
-
-    console.log('entry (line 63): ', entry);
-
-    // Write changelogs
-    writeChangelog(entry);
-
-    console.log(`Changelog updated with changes from PR #${process.env.PR_NUMBER}`);
+    const result = text.replace(/\s*$/, '\n') + marker + '\n' + yaml.dump([entry], { lineWidth: -1, noRefs: true });
+    const verified = yaml.load(result, { schema: yaml.JSON_SCHEMA });
+    if (verified.Name !== data.Name || verified.Order !== data.Order || verified.Entries.length !== data.Entries.length + 1) {
+        throw new Error('Changelog validation failed');
+    }
+    return result;
 }
 
-
-// Code chunking
-
-// Get all changes from the PR body
-function getChanges(body) {
-    const matches = [];
-    const entries = [];
-
-    for (const match of body.matchAll(EntryRegex)) {
-        matches.push([match[1], match[2]]);
-    }
-
-    if (!matches)
-    {
-        console.log("No changes found, skipping");
+function main() {
+    const event = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
+    const file = 'Resources/Changelog/bmchangelog.yml';
+    const original = fs.readFileSync(file, 'utf8');
+    const updated = updateChangelog(original, event.pull_request);
+    if (updated === null) {
+        console.log('No valid :cl: entries, or this PR was already processed.');
         return;
     }
-
-
-    // Check change types and construct changelog entry
-    matches.forEach((entry) => {
-        let type;
-
-        switch (entry[0].toLowerCase()) {
-            case "add":
-                type = "Add";
-                break;
-            case "remove":
-                type = "Remove";
-                break;
-            case "tweak":
-                type = "Tweak";
-                break;
-            case "fix":
-                type = "Fix";
-                break;
-            default:
-                break;
-        }
-
-        if (type) {
-            entries.push({
-                type: type,
-                message: entry[1],
-            });
-        }
-    });
-
-    return entries;
+    fs.writeFileSync(file, updated);
+    console.log(`Added changelog for PR #${event.pull_request.number}.`);
 }
 
-// Get the highest changelog number from the changelogs file
-function getHighestCLNumber() {
-    // Read changelogs file
-    const file = fs.readFileSync(`../../${process.env.CHANGELOG_DIR}`, "utf8");
-
-    // Get list of CL numbers
-    const data = yaml.load(file);
-    const entries = data && data.Entries ? Array.from(data.Entries) : [];
-    const clNumbers = entries.map((entry) => entry.id);
-
-    // Return highest changelog number
-    return Math.max(...clNumbers, 0);
-}
-
-function writeChangelog(entry) {
-    let data = { Entries: [] };
-
-    // Create a new changelogs file if it does not exist
-    if (fs.existsSync(`../../${process.env.CHANGELOG_DIR}`)) {
-        const file = fs.readFileSync(`../../${process.env.CHANGELOG_DIR}`, "utf8");
-        data = yaml.load(file);
-    }
-
-    console.log('entry (line 145): ', entry);
-    console.log('data (line 146): ', data);
-
-    data.Entries.push(entry);
-
-    // Write updated changelogs file
-    fs.writeFileSync(
-        `../../${process.env.CHANGELOG_DIR}`,
-        "Name: Gooblog\nOrder: -1\nEntries:\n" + // IF YOU ARE A FORK, CHANGE THIS!!!!!!!!!!!!
-            yaml.dump(data.Entries, { indent: 2 }).replace(/^---/, "")
-    );
-}
-
-// Run main
-main();
+if (require.main === module) main();
+module.exports = { parseChanges, updateChangelog };
