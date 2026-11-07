@@ -85,6 +85,9 @@ public sealed partial class TechnologyPrototype : IPrototype
     [DataField]
     public EntProtoId? ResearchReward;
 
+    [DataField]
+    public LocId? ResearchRewardAnnouncement;
+
     /// <summary>
     /// A list of <see cref="TechnologyPrototype"/>s that need to be unlocked in order to unlock this technology.
     /// </summary>

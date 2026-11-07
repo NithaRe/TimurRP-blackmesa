@@ -7,7 +7,7 @@
         <BoxContainer Orientation="Vertical" SeparationOverride="4">
             <BoxContainer SeparationOverride="12" MinHeight="32">
                 <cargo:CargoTerminalLogo SetSize="34 34" MouseFilter="Ignore" />
-                <Label Text="{Loc 'blackm-cargo-heading'}" StyleClasses="TerminalHeading" HorizontalExpand="True" ClipText="True" />
+                <Label Name="HeadingLabel" Text="{Loc 'blackm-cargo-heading'}" StyleClasses="TerminalHeading" HorizontalExpand="True" ClipText="True" />
                 <Label Name="BalanceLabel" />
                 <Button Name="CloseButton" Text="&#215;" SetWidth="32" ToolTip="{Loc 'blackm-cargo-close'}" />
             </BoxContainer>
@@ -15,6 +15,7 @@
             <BoxContainer SeparationOverride="6">
                 <Button Name="CatalogTab" Text="{Loc 'blackm-cargo-catalog'}" ToggleMode="True" Pressed="True" />
                 <Button Name="FundsTab" Text="{Loc 'blackm-cargo-funds'}" ToggleMode="True" />
+                <Button Name="AmsGuideTab" Text="{Loc 'ams-parts-acquisition-tab'}" Visible="False" ToggleMode="True" />
                 <Label Name="AccountLabel" HorizontalExpand="True" Align="Right" ClipText="True" />
             </BoxContainer>
             <BoxContainer Name="CatalogPage" VerticalExpand="True" SeparationOverride="10">
@@ -82,6 +83,12 @@
                     </BoxContainer>
                 </BoxContainer>
             </BoxContainer>
+            <ScrollContainer Name="AmsGuidePage" Visible="False" VerticalExpand="True" HScrollEnabled="False">
+                <BoxContainer Orientation="Vertical" SeparationOverride="12" Margin="4">
+                    <Label Text="{Loc 'ams-parts-acquisition-title'}" StyleClasses="TerminalHeading" ClipText="True" />
+                    <BoxContainer Name="AmsGuideList" Orientation="Vertical" SeparationOverride="12" />
+                </BoxContainer>
+            </ScrollContainer>
             <ScrollContainer Name="FundsPage" Visible="False" VerticalExpand="True" HScrollEnabled="False">
                 <BoxContainer Orientation="Vertical" SeparationOverride="12" Margin="4">
                     <Label Text="{Loc 'blackm-cargo-funds'}" StyleClasses="TerminalHeading" />

@@ -1,6 +1,7 @@
 ﻿using Content.Server.Chat.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared.Research.Prototypes;
+using Robust.Shared.Localization;
 
 namespace Content.Server.Research.Systems;
 

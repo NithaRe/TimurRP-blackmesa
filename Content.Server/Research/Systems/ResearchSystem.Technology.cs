@@ -125,7 +125,10 @@ public sealed partial class ResearchSystem
         //TrySetMainDiscipline(prototype, serverEnt.Value); // Goobstation commented
         ModifyServerPoints(serverEnt.Value, -prototype.Cost);
         if (prototype.ResearchReward is { } reward)
+        {
             Spawn(reward, Transform(client).Coordinates);
+            AnnounceResearchReward(client, prototype);
+        }
         UpdateTechnologyCards(serverEnt.Value);
 
         _adminLog.Add(LogType.Action, LogImpact.Medium,
