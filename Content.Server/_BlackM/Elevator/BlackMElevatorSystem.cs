@@ -1,3 +1,4 @@
+using System.Numerics;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
 using Content.Server.Spawners.EntitySystems;
@@ -18,6 +19,8 @@ using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
+using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
@@ -212,11 +215,118 @@ public sealed class BlackMElevatorSystem : EntitySystem
         }
     }
 
+    public bool TryStartCargoTrip(EntityUid elevator, EntityUid origin, EntityUid destination,
+        IReadOnlyCollection<EntityUid> cargo)
+    {
+        if (TerminatingOrDeleted(elevator) || TerminatingOrDeleted(origin) || TerminatingOrDeleted(destination) ||
+            !TryComp<BlackMElevatorComponent>(elevator, out var comp) || comp.Evacuation ||
+            comp.State != BlackMElevatorState.Idle || comp.Passengers.Count != 0 || comp.Waiting.Count != 0 ||
+            HasComp<BlackMElevatorCargoTripComponent>(elevator))
+        {
+            return false;
+        }
+
+        var originXform = Transform(origin);
+        if (originXform.GridUid == null || originXform.ParentUid != originXform.GridUid ||
+            Transform(elevator).GridUid != originXform.GridUid ||
+            Transform(destination).GridUid == null ||
+            Transform(destination).ParentUid != Transform(destination).GridUid)
+        {
+            return false;
+        }
+
+        var offsets = new Dictionary<EntityUid, Vector2>();
+        foreach (var entity in cargo)
+        {
+            if (TerminatingOrDeleted(entity) || entity == elevator || entity == origin || entity == destination ||
+                offsets.ContainsKey(entity))
+            {
+                return false;
+            }
+
+            var xform = Transform(entity);
+            if (xform.ParentUid != originXform.ParentUid || xform.Anchored ||
+                (TryComp<PhysicsComponent>(entity, out var physics) && physics.BodyType == BodyType.Static))
+            {
+                return false;
+            }
+
+            offsets.Add(entity, xform.LocalPosition - originXform.LocalPosition);
+        }
+
+        var trip = AddComp<BlackMElevatorCargoTripComponent>(elevator);
+        trip.Target = destination;
+        foreach (var (entity, offset) in offsets)
+        {
+            trip.Offsets.Add(entity, offset);
+            comp.Passengers.Add(entity);
+        }
+
+        StartDescent(elevator, comp);
+        return comp.State == BlackMElevatorState.Descending;
+    }
+
+    private void ArriveCargoTrip(EntityUid uid, BlackMElevatorComponent comp, BlackMElevatorCargoTripComponent trip)
+    {
+        CleanPassengers(comp);
+        SendToPassengers(comp.Passengers, new BlackMElevatorRideEvent(false, 0f));
+        var succeeded = !TerminatingOrDeleted(trip.Target);
+
+        if (succeeded)
+        {
+            var targetXform = Transform(trip.Target);
+            if (targetXform.GridUid == null || targetXform.ParentUid != targetXform.GridUid)
+            {
+                succeeded = false;
+            }
+            else
+            {
+                foreach (var (entity, offset) in trip.Offsets)
+                {
+                    if (TerminatingOrDeleted(entity))
+                        continue;
+
+                    // A caller must keep the cabin isolated while the trip is running.
+                    var entityXform = Transform(entity);
+                    if (entityXform.GridUid != Transform(uid).GridUid ||
+                        entityXform.ParentUid != Transform(uid).GridUid || entityXform.Anchored)
+                    {
+                        succeeded = false;
+                        continue;
+                    }
+
+                    try
+                    {
+                        ReleaseHolds(entity);
+                        _xform.SetCoordinates(entity, new EntityCoordinates(targetXform.ParentUid, targetXform.LocalPosition + offset));
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error($"Could not transfer {ToPrettyString(entity)} in elevator {ToPrettyString(uid)}: {e}");
+                        succeeded = false;
+                    }
+                }
+            }
+        }
+
+        if (succeeded)
+            Jolt(comp.Passengers, comp.LandingStrength);
+
+        SendFade(comp.Passengers, false, comp.FadeInTime);
+        comp.Passengers.Clear();
+        SetLightMode(uid, comp, BlackMElevatorLightMode.Normal);
+        comp.State = BlackMElevatorState.Cooldown;
+        comp.StateStart = _timing.CurTime;
+        RemComp<BlackMElevatorCargoTripComponent>(uid);
+        var ev = new BlackMElevatorCargoTripFinishedEvent(succeeded);
+        RaiseLocalEvent(uid, ref ev);
+    }
+
     private void StartDescent(EntityUid uid, BlackMElevatorComponent comp)
     {
         CleanPassengers(comp);
 
-        if (comp.Passengers.Count == 0)
+        if (comp.Passengers.Count == 0 && !HasComp<BlackMElevatorCargoTripComponent>(uid))
         {
             comp.State = BlackMElevatorState.Idle;
             return;
@@ -297,6 +407,12 @@ public sealed class BlackMElevatorSystem : EntitySystem
 
     private void Arrive(EntityUid uid, BlackMElevatorComponent comp)
     {
+        if (TryComp<BlackMElevatorCargoTripComponent>(uid, out var cargoTrip))
+        {
+            ArriveCargoTrip(uid, comp, cargoTrip);
+            return;
+        }
+
         CleanPassengers(comp);
         SendToPassengers(comp.Passengers, new BlackMElevatorRideEvent(false, 0f));
 

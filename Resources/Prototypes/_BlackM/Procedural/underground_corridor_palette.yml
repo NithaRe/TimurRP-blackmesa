@@ -1,0 +1,5 @@
+- type: dungeonRoom
+  id: BlackMUndergroundCorridorPalette
+  size: 15,3
+  atlas: /Maps/_BlackM/Underground/corridor_palette.yml
+  offset: 0,0

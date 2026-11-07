@@ -1,0 +1,73 @@
+- type: entity
+  id: BlackMUndergroundConsole
+  name: underground elevator console
+  description: A console for a short expedition into the underground complex.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.4"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _BlackM/Structures/Machines/underground_terminal.rsi
+    drawdepth: SmallObjects
+    layers:
+    - state: base
+    - state: screen
+      shader: unshaded
+  - type: UndergroundConsole
+  - type: ActivatableUI
+    key: enum.UndergroundConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.UndergroundConsoleUiKey.Key:
+        type: UndergroundConsoleBoundUserInterface
+
+- type: entity
+  parent: BlackMUndergroundConsole
+  id: BlackMUndergroundReturnConsole
+  categories: [ HideSpawnMenu ]
+  name: underground elevator return console
+  components:
+  - type: UndergroundConsole
+    isReturn: true
+
+- type: entity
+  parent: MarkerBase
+  id: BlackMUndergroundBoardingZone
+  name: underground elevator boarding zone
+  description: Mapping marker. Place at the centre of the elevator boarding area.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: blue
+    drawdepth: Overdoors
+  - type: UndergroundBoardingZone
+
+- type: entity
+  parent: MarkerBase
+  id: BlackMUndergroundLandingPoint
+  name: underground elevator landing point
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: green
+    drawdepth: Overdoors
+    visible: false

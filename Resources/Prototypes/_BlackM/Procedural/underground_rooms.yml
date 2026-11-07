@@ -1,0 +1,415 @@
+- type: Tag
+  id: BlackMUndergroundRoom
+
+# Rooms
+# Large
+# - 17x5
+- type: dungeonRoom
+  id: BlackMUndergroundScience17x5a
+  size: 17,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 0,0
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience17x5b
+  size: 17,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 18,0
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience17x5c
+  size: 17,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 36,0
+  tags:
+    - BlackMUndergroundRoom
+
+# - 7x7
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x7a
+  size: 7,7
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 0,42
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x7b
+  size: 7,7
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 8,42
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x7c
+  size: 7,7
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 16,42
+  tags:
+    - BlackMUndergroundRoom
+
+# Medium
+# - 11x5
+- type: dungeonRoom
+  id: BlackMUndergroundScience11x5a
+  size: 11,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 0,6
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience11x5b
+  size: 11,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 12,6
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience11x5c
+  size: 11,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 24,6
+  tags:
+    - BlackMUndergroundRoom
+
+# - 7x5
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x5a
+  size: 7,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 0,12
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x5b
+  size: 7,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 8,12
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x5c
+  size: 7,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 16,12
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x5d
+  size: 7,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 24,12
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x5e
+  size: 7,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 32,12
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x5f
+  size: 7,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 40,12
+  tags:
+    - BlackMUndergroundRoom
+
+# - 13x3
+- type: dungeonRoom
+  id: BlackMUndergroundScience13x3a
+  size: 13,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 0,30
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience13x3b
+  size: 13,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 14,30
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience13x3c
+  size: 13,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 28,30
+  tags:
+    - BlackMUndergroundRoom
+
+# - 11x3
+- type: dungeonRoom
+  id: BlackMUndergroundScience11x3a
+  size: 11,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 0,34
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience11x3b
+  size: 11,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 12,34
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience11x3c
+  size: 11,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 24,34
+  tags:
+    - BlackMUndergroundRoom
+
+# - 7x3
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x3a
+  size: 7,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 0,38
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x3b
+  size: 7,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 8,38
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x3c
+  size: 7,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 16,38
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x3d
+  size: 7,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 24,38
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x3e
+  size: 7,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 32,38
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience7x3f
+  size: 7,3
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 40,38
+  tags:
+    - BlackMUndergroundRoom
+
+# Small
+# - 5x5
+- type: dungeonRoom
+  id: BlackMUndergroundScience5x5a
+  size: 5,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 0,18
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience5x5b
+  size: 5,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 6,18
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience5x5c
+  size: 5,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 12,18
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience5x5d
+  size: 5,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 18,18
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience5x5e
+  size: 5,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 24,18
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience5x5f
+  size: 5,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 30,18
+  tags:
+    - BlackMUndergroundRoom
+
+# - 3x5
+- type: dungeonRoom
+  id: BlackMUndergroundScience3x5a
+  size: 3,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 0,24
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience3x5b
+  size: 3,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 4,24
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience3x5c
+  size: 3,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 8,24
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience3x5d
+  size: 3,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 12,24
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience3x5e
+  size: 3,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 16,24
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundScience3x5f
+  size: 3,5
+  atlas: /Maps/_BlackM/Dungeon/underground_rooms.yml
+  offset: 20,24
+  tags:
+    - BlackMUndergroundRoom
+# Blank atlas rooms. Boundaries and entrances are generated separately.
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty01
+  size: 5,5
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 0,0
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty02
+  size: 5,5
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 6,0
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty03
+  size: 5,5
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 12,0
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty04
+  size: 7,5
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 0,8
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty05
+  size: 7,5
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 8,8
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty06
+  size: 7,5
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 16,8
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty07
+  size: 7,7
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 0,16
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty08
+  size: 7,7
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 8,16
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty09
+  size: 7,7
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 16,16
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty10
+  size: 11,5
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 0,24
+  tags:
+    - BlackMUndergroundRoom
+
+- type: dungeonRoom
+  id: BlackMUndergroundEmpty11
+  size: 11,5
+  atlas: /Maps/_BlackM/Dungeon/underground_empty_rooms.yml
+  offset: 12,24
+  tags:
+    - BlackMUndergroundRoom

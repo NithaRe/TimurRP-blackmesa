@@ -1,0 +1,19 @@
+- type: entity
+  id: BlackMUndergroundCabinDoor
+  parent: BaseMaterialDoor
+  name: underground elevator door
+  description: A self-contained elevator door.
+  suffix: BlackM
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Doors/elevator_door.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+  - type: Door
+    bumpOpen: true
+    clickOpen: true
+    openSound:
+      path: /Audio/Machines/airlock_open.ogg
+    closeSound:
+      path: /Audio/Machines/airlock_close.ogg
