@@ -92,11 +92,11 @@
   - Weapons
   completetime: 4
   materials:
-    Steel: 100
-    Plastic: 100
-    Glass: 50
-    Plasma: 50
-    Silver: 50
+    Steel: 300
+    Plastic: 300
+    Glass: 150
+    Plasma: 150
+    Silver: 150
 
 - type: latheRecipe
   id: Signaller

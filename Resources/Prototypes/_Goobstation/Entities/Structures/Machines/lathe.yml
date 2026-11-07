@@ -182,6 +182,7 @@
     idleState: icon
     runningState: icon
     staticPacks:
+    - AmsPartsPack
     - SharedBoardsStatic
     - EngineeringBoardsStatic
     - CircuitFloorsStatic
@@ -203,7 +204,6 @@
     - MiscSignallersStatic
     dynamicPacks:
     - XenExperimentEquipment # BlackM added - Xen experiment capacitors
-    - AmsPartsPack # BlackM added - AMS parts
     - AdvancedTools
     - ScienceEquipment
     - ScienceClothing

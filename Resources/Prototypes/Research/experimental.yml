@@ -74,13 +74,10 @@
   discipline: Experimental
   tier: 1
   cost: 5000
-  recipeUnlocks:
-  - AmsPartCore 
-  - AmsPartCoil 
-  - AmsPartLens 
-  - AmsPartCell 
-  - AmsPartStabilizer
-  - AmsPartCasing
+  researchReward: AmsPartCore
+  researchRewardAnnouncement: ams-parts-research-reward-announcement
+  genericUnlocks:
+  - unlockDescription: ams-parts-research-reward-description
   position: -2,1
   technologyPrerequisites:
   - BasicAnomalousResearch
