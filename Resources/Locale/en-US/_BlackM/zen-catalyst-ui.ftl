@@ -1,0 +1,10 @@
+﻿zen-catalyst-ui-title = Xen Catalyst
+zen-catalyst-ui-active = Catalyst active.
+zen-catalyst-ui-inactive = No active catalysts.
+zen-catalyst-ui-description = Periodically opens rifts at random locations throughout the facility.
+zen-catalyst-ui-wave = Up to { $count } creatures appear every { $minutes } min.
+zen-catalyst-ui-next-wave = Next discharge in { $time }.
+zen-catalyst-ui-count = Active catalysts: { $count }.
+zen-catalyst-ui-number = Catalyst #{ $number }
+zen-catalyst-ui-stop = Destroy the catalyst to stop its discharges. Creatures that have already appeared will remain.
+zen-catalyst-ui-idle = No catalyst discharges are occurring. Xen intervention operates independently.

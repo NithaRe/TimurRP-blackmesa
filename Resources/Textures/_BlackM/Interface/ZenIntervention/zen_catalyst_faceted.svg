@@ -1,0 +1,12 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" id="zen-catalyst" width="32" height="32" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <path fill="#cdcdcd" d="M3 9 1 16 4 26 8 28 6 16Z"/>
+  <path fill="#919191" d="M3 9 8 12 10 21 8 28 6 16Z"/>
+  <path fill="#fff" d="M3 9 1 16 6 16Z"/>
+  <path fill="#cdcdcd" d="M29 13 23 19 22 28 25 29 27 20Z"/>
+  <path fill="#919191" d="M29 13 31 20 29 27 25 29 27 20Z"/>
+  <path fill="#fff" d="M29 13 23 19 27 20Z"/>
+  <path fill="#cdcdcd" d="M17 1 10 11 10 26 16 30 17 12Z"/>
+  <path fill="#919191" d="M17 1 24 11 22 27 16 30 17 12Z"/>
+  <path fill="#fff" d="M17 1 12 10 17 10Z"/>
+  <path fill="#fff" d="M12 13H14V25H12Z"/>
+</svg>

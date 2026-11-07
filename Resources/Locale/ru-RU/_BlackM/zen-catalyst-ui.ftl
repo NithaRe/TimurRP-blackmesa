@@ -1,0 +1,10 @@
+﻿zen-catalyst-ui-title = Катализатор Зена
+zen-catalyst-ui-active = Катализатор активен.
+zen-catalyst-ui-inactive = Катализатор неактивен.
+zen-catalyst-ui-description = Периодически открывает разломы в случайных местах комплекса, порождая зен заражённых.
+zen-catalyst-ui-wave = Каждые { $minutes } мин. появляется до { $count } существ.
+zen-catalyst-ui-next-wave = Следующий выброс через { $time }.
+zen-catalyst-ui-count = Активных катализаторов: { $count }.
+zen-catalyst-ui-number = Катализатор №{ $number }
+zen-catalyst-ui-stop = Уничтожьте катализатор в технических помещениях, чтобы остановить появление существ.
+zen-catalyst-ui-idle = Катализатор больше не порождает существ. Вмешательство Зена работает независимо.
