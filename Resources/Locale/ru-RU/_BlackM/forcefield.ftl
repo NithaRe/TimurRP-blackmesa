@@ -1,1 +1,1 @@
-passport-forcefield-denied = нету доступа
+passport-forcefield-denied = нет доступа
