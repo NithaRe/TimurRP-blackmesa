@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/07/2026 12:36:36
-  entityCount: 12309
+  time: 11/07/2026 13:15:28
+  entityCount: 12310
 maps:
 - 1
 grids:
@@ -7954,7 +7954,7 @@ entities:
       access:
       - - Maintenance
     - type: Door
-      secondsUntilStateChange: -59379.316
+      secondsUntilStateChange: -59530.82
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -8082,7 +8082,7 @@ entities:
       pos: -19.5,-2.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -43863.43
+      secondsUntilStateChange: -44014.934
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -9856,6 +9856,13 @@ entities:
     components:
     - type: Transform
       pos: -44.5,2.5
+      parent: 2
+- proto: BlackMElevatorDispatcher
+  entities:
+  - uid: 11791
+    components:
+    - type: Transform
+      pos: 26.5,36.5
       parent: 2
 - proto: BlackMSignLiftDirectional
   entities:
@@ -47379,7 +47386,7 @@ entities:
       pos: -29.5,-9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -58974.85
+      secondsUntilStateChange: -59126.355
       state: Opening
 - proto: IngotGold
   entities:
@@ -66646,14 +66653,6 @@ entities:
     - type: Transform
       pos: 28.5,-27.5
       parent: 2
-  - uid: 121
-    components:
-    - type: Transform
-      pos: -42.5,12.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 124
     components:
     - type: Transform
@@ -66663,11 +66662,6 @@ entities:
     components:
     - type: Transform
       pos: 51.5,25.5
-      parent: 2
-  - uid: 128
-    components:
-    - type: Transform
-      pos: -42.5,9.5
       parent: 2
   - uid: 130
     components:
@@ -66791,11 +66785,6 @@ entities:
     - type: Transform
       pos: 23.5,-29.5
       parent: 2
-  - uid: 263
-    components:
-    - type: Transform
-      pos: 47.5,10.5
-      parent: 2
   - uid: 301
     components:
     - type: Transform
@@ -66836,20 +66825,11 @@ entities:
     - type: Transform
       pos: 19.5,36.5
       parent: 2
-  - uid: 347
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -12.5,-27.5
-      parent: 2
   - uid: 348
     components:
     - type: Transform
-      pos: 7.5,-34.5
+      pos: 7.5,-32.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 358
     components:
     - type: Transform
@@ -66954,14 +66934,6 @@ entities:
     - type: Transform
       pos: 25.5,14.5
       parent: 2
-  - uid: 479
-    components:
-    - type: Transform
-      pos: -10.5,-28.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 482
     components:
     - type: Transform
@@ -67017,7 +66989,7 @@ entities:
   - uid: 595
     components:
     - type: Transform
-      pos: 3.5,-31.5
+      pos: 3.5,-35.5
       parent: 2
   - uid: 596
     components:
@@ -67027,16 +66999,8 @@ entities:
   - uid: 597
     components:
     - type: Transform
-      pos: 3.5,-32.5
+      pos: 3.5,-34.5
       parent: 2
-  - uid: 602
-    components:
-    - type: Transform
-      pos: -42.5,13.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 609
     components:
     - type: Transform
@@ -67342,15 +67306,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 19.5,35.5
       parent: 2
-  - uid: 1869
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -9.5,-31.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 1879
     components:
     - type: Transform
@@ -67493,14 +67448,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 3.5,-40.5
       parent: 2
-  - uid: 2706
-    components:
-    - type: Transform
-      pos: -9.5,-29.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 2717
     components:
     - type: Transform
@@ -67523,14 +67470,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 34.5,6.5
       parent: 2
-  - uid: 3003
-    components:
-    - type: Transform
-      pos: -9.5,-28.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 3081
     components:
     - type: Transform
@@ -67564,17 +67503,6 @@ entities:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 28.5,29.5
-      parent: 2
-  - uid: 3371
-    components:
-    - type: Transform
-      pos: 51.5,11.5
-      parent: 2
-  - uid: 3377
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -9.5,-33.5
       parent: 2
   - uid: 3380
     components:
@@ -67610,15 +67538,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -33.5,26.5
       parent: 2
-  - uid: 3401
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -10.5,-33.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 3406
     components:
     - type: Transform
@@ -67773,20 +67692,11 @@ entities:
       rot: 3.141592653589793 rad
       pos: -15.5,-33.5
       parent: 2
-  - uid: 3487
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -14.5,-33.5
-      parent: 2
   - uid: 3488
     components:
     - type: Transform
-      pos: 7.5,-32.5
+      pos: 7.5,-34.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 3505
     components:
     - type: Transform
@@ -67807,19 +67717,6 @@ entities:
     - type: Transform
       pos: 51.5,27.5
       parent: 2
-  - uid: 3513
-    components:
-    - type: Transform
-      pos: 47.5,15.5
-      parent: 2
-  - uid: 3514
-    components:
-    - type: Transform
-      pos: 47.5,14.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 3515
     components:
     - type: Transform
@@ -68063,19 +67960,8 @@ entities:
   - uid: 3573
     components:
     - type: Transform
-      pos: 6.5,-31.5
+      pos: 6.5,-35.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 3574
-    components:
-    - type: Transform
-      pos: -43.5,13.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 3575
     components:
     - type: Transform
@@ -68224,11 +68110,8 @@ entities:
   - uid: 3613
     components:
     - type: Transform
-      pos: 4.5,-31.5
+      pos: 4.5,-35.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 3614
     components:
     - type: Transform
@@ -68344,15 +68227,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 15.5,12.5
       parent: 2
-  - uid: 4004
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -12.5,-33.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 4005
     components:
     - type: Transform
@@ -68495,15 +68369,6 @@ entities:
     - type: Transform
       pos: 48.5,25.5
       parent: 2
-  - uid: 4152
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -12.5,-28.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 4158
     components:
     - type: Transform
@@ -68557,23 +68422,11 @@ entities:
     - type: Transform
       pos: -40.5,24.5
       parent: 2
-  - uid: 4255
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -14.5,-30.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 4261
     components:
     - type: Transform
       pos: 7.5,-33.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 4273
     components:
     - type: Transform
@@ -68754,16 +68607,6 @@ entities:
     - type: Transform
       pos: 29.5,34.5
       parent: 2
-  - uid: 4499
-    components:
-    - type: Transform
-      pos: 51.5,14.5
-      parent: 2
-  - uid: 4500
-    components:
-    - type: Transform
-      pos: 51.5,15.5
-      parent: 2
   - uid: 4501
     components:
     - type: Transform
@@ -68789,14 +68632,6 @@ entities:
     - type: Transform
       pos: -19.5,-30.5
       parent: 2
-  - uid: 4603
-    components:
-    - type: Transform
-      pos: -13.5,-28.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 4608
     components:
     - type: Transform
@@ -68807,14 +68642,6 @@ entities:
     - type: Transform
       pos: -21.5,-31.5
       parent: 2
-  - uid: 4610
-    components:
-    - type: Transform
-      pos: -14.5,-29.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 4611
     components:
     - type: Transform
@@ -68829,11 +68656,6 @@ entities:
     components:
     - type: Transform
       pos: -34.5,-22.5
-      parent: 2
-  - uid: 4615
-    components:
-    - type: Transform
-      pos: -9.5,-30.5
       parent: 2
   - uid: 4616
     components:
@@ -68918,11 +68740,6 @@ entities:
     - type: Transform
       pos: 30.5,39.5
       parent: 2
-  - uid: 5036
-    components:
-    - type: Transform
-      pos: 51.5,10.5
-      parent: 2
   - uid: 5042
     components:
     - type: Transform
@@ -69005,14 +68822,6 @@ entities:
     - type: Transform
       pos: -32.5,-22.5
       parent: 2
-  - uid: 5105
-    components:
-    - type: Transform
-      pos: 51.5,12.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5106
     components:
     - type: Transform
@@ -69117,36 +68926,13 @@ entities:
   - uid: 5182
     components:
     - type: Transform
-      pos: 5.5,-31.5
+      pos: 5.5,-35.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 5184
-    components:
-    - type: Transform
-      pos: 51.5,13.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5185
     components:
     - type: Transform
-      pos: 7.5,-31.5
+      pos: 7.5,-35.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 5186
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -14.5,-31.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5188
     components:
     - type: Transform
@@ -69242,15 +69028,6 @@ entities:
     - type: Transform
       pos: 49.5,30.5
       parent: 2
-  - uid: 5292
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -11.5,-33.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5309
     components:
     - type: Transform
@@ -69316,15 +69093,6 @@ entities:
     - type: Transform
       pos: -13.5,33.5
       parent: 2
-  - uid: 5386
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -14.5,-32.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5388
     components:
     - type: Transform
@@ -69459,23 +69227,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 37.5,19.5
       parent: 2
-  - uid: 5506
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -13.5,-33.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 5513
-    components:
-    - type: Transform
-      pos: -43.5,7.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5514
     components:
     - type: Transform
@@ -69545,15 +69296,6 @@ entities:
     - type: Transform
       pos: -31.5,29.5
       parent: 2
-  - uid: 5544
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -9.5,-32.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5549
     components:
     - type: Transform
@@ -69570,14 +69312,6 @@ entities:
     - type: Transform
       pos: 24.5,38.5
       parent: 2
-  - uid: 5571
-    components:
-    - type: Transform
-      pos: -42.5,7.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5574
     components:
     - type: Transform
@@ -69605,28 +69339,12 @@ entities:
     - type: Transform
       pos: -34.5,27.5
       parent: 2
-  - uid: 5582
-    components:
-    - type: Transform
-      pos: -42.5,8.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5587
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 32.5,35.5
       parent: 2
-  - uid: 5591
-    components:
-    - type: Transform
-      pos: -42.5,11.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5592
     components:
     - type: Transform
@@ -69832,14 +69550,6 @@ entities:
     - type: Transform
       pos: -2.5,-36.5
       parent: 2
-  - uid: 5672
-    components:
-    - type: Transform
-      pos: -47.5,9.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5673
     components:
     - type: Transform
@@ -69888,14 +69598,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 32.5,36.5
       parent: 2
-  - uid: 5743
-    components:
-    - type: Transform
-      pos: -47.5,13.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 5768
     components:
     - type: Transform
@@ -70164,14 +69866,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 12.5,-31.5
       parent: 2
-  - uid: 7024
-    components:
-    - type: Transform
-      pos: -47.5,12.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 7026
     components:
     - type: Transform
@@ -70208,14 +69902,6 @@ entities:
     - type: Transform
       pos: 8.5,30.5
       parent: 2
-  - uid: 7039
-    components:
-    - type: Transform
-      pos: -46.5,7.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 7041
     components:
     - type: Transform
@@ -70230,11 +69916,8 @@ entities:
   - uid: 7046
     components:
     - type: Transform
-      pos: 6.5,-35.5
+      pos: 5.5,-31.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 7053
     components:
     - type: Transform
@@ -70332,11 +70015,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 37.5,24.5
       parent: 2
-  - uid: 7443
-    components:
-    - type: Transform
-      pos: -14.5,-28.5
-      parent: 2
   - uid: 7447
     components:
     - type: Transform
@@ -70382,22 +70060,7 @@ entities:
   - uid: 7516
     components:
     - type: Transform
-      pos: 4.5,-35.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 7535
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 48.5,15.5
-      parent: 2
-  - uid: 7540
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 48.5,10.5
+      pos: 4.5,-31.5
       parent: 2
   - uid: 7545
     components:
@@ -70420,11 +70083,8 @@ entities:
   - uid: 7552
     components:
     - type: Transform
-      pos: 5.5,-35.5
+      pos: 7.5,-31.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 7553
     components:
     - type: Transform
@@ -71039,27 +70699,6 @@ entities:
     - type: Transform
       pos: 19.5,17.5
       parent: 2
-  - uid: 9365
-    components:
-    - type: Transform
-      pos: -44.5,7.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 9366
-    components:
-    - type: Transform
-      pos: -47.5,7.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 9367
-    components:
-    - type: Transform
-      pos: -45.5,7.5
-      parent: 2
   - uid: 9430
     components:
     - type: Transform
@@ -71077,58 +70716,17 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 21.5,-12.5
       parent: 2
-  - uid: 9462
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -10.5,-27.5
-      parent: 2
   - uid: 9466
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: -20.5,-11.5
       parent: 2
-  - uid: 9469
-    components:
-    - type: Transform
-      pos: -47.5,11.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 9470
-    components:
-    - type: Transform
-      pos: -47.5,10.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 9471
-    components:
-    - type: Transform
-      pos: -46.5,13.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 9472
-    components:
-    - type: Transform
-      pos: -45.5,13.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 9473
     components:
     - type: Transform
-      pos: -44.5,13.5
+      pos: 6.5,-31.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 9474
     components:
     - type: Transform
@@ -71168,45 +70766,6 @@ entities:
     components:
     - type: Transform
       pos: -45.5,14.5
-      parent: 2
-  - uid: 9493
-    components:
-    - type: Transform
-      pos: -47.5,8.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 9529
-    components:
-    - type: Transform
-      pos: 7.5,-35.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 9574
-    components:
-    - type: Transform
-      pos: 50.5,10.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
-  - uid: 9575
-    components:
-    - type: Transform
-      pos: 49.5,10.5
-      parent: 2
-  - uid: 9578
-    components:
-    - type: Transform
-      pos: 50.5,15.5
-      parent: 2
-  - uid: 9579
-    components:
-    - type: Transform
-      pos: 49.5,15.5
       parent: 2
   - uid: 9705
     components:
@@ -73248,11 +72807,8 @@ entities:
   - uid: 11480
     components:
     - type: Transform
-      pos: 47.5,13.5
+      pos: 3.5,-32.5
       parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 11481
     components:
     - type: Transform
@@ -73267,7 +72823,7 @@ entities:
   - uid: 11483
     components:
     - type: Transform
-      pos: 47.5,11.5
+      pos: 3.5,-31.5
       parent: 2
   - uid: 11487
     components:
@@ -74306,15 +73862,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 39.5,-1.5
       parent: 2
-  - uid: 11969
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 3.5,-34.5
-      parent: 2
-    - type: Godmode
-      oldDamage:
-        woundSeverityMultipliers: {}
   - uid: 11974
     components:
     - type: Transform
@@ -75488,11 +75035,6 @@ entities:
     - type: Transform
       pos: -43.5,4.5
       parent: 2
-  - uid: 8123
-    components:
-    - type: Transform
-      pos: 3.5,-35.5
-      parent: 2
   - uid: 8124
     components:
     - type: Transform
@@ -75655,11 +75197,6 @@ entities:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 11.5,-24.5
-      parent: 2
-  - uid: 8335
-    components:
-    - type: Transform
-      pos: 0.5,-35.5
       parent: 2
   - uid: 8384
     components:
@@ -75866,6 +75403,11 @@ entities:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 30.5,-12.5
+      parent: 2
+  - uid: 11792
+    components:
+    - type: Transform
+      pos: 0.5,-35.5
       parent: 2
   - uid: 12013
     components:
@@ -77714,6 +77256,303 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -33.5,7.5
       parent: 2
+- proto: WallVaultBlackM
+  entities:
+  - uid: 121
+    components:
+    - type: Transform
+      pos: -43.5,7.5
+      parent: 2
+  - uid: 128
+    components:
+    - type: Transform
+      pos: -42.5,8.5
+      parent: 2
+  - uid: 263
+    components:
+    - type: Transform
+      pos: 47.5,10.5
+      parent: 2
+  - uid: 347
+    components:
+    - type: Transform
+      pos: -14.5,-28.5
+      parent: 2
+  - uid: 479
+    components:
+    - type: Transform
+      pos: -10.5,-27.5
+      parent: 2
+  - uid: 602
+    components:
+    - type: Transform
+      pos: -44.5,7.5
+      parent: 2
+  - uid: 1869
+    components:
+    - type: Transform
+      pos: -9.5,-29.5
+      parent: 2
+  - uid: 2706
+    components:
+    - type: Transform
+      pos: -10.5,-28.5
+      parent: 2
+  - uid: 3003
+    components:
+    - type: Transform
+      pos: -12.5,-28.5
+      parent: 2
+  - uid: 3371
+    components:
+    - type: Transform
+      pos: 51.5,11.5
+      parent: 2
+  - uid: 3377
+    components:
+    - type: Transform
+      pos: -9.5,-31.5
+      parent: 2
+  - uid: 3401
+    components:
+    - type: Transform
+      pos: -9.5,-32.5
+      parent: 2
+  - uid: 3487
+    components:
+    - type: Transform
+      pos: -11.5,-33.5
+      parent: 2
+  - uid: 3513
+    components:
+    - type: Transform
+      pos: 47.5,15.5
+      parent: 2
+  - uid: 3514
+    components:
+    - type: Transform
+      pos: 47.5,14.5
+      parent: 2
+  - uid: 3574
+    components:
+    - type: Transform
+      pos: -45.5,7.5
+      parent: 2
+  - uid: 4004
+    components:
+    - type: Transform
+      pos: -10.5,-33.5
+      parent: 2
+  - uid: 4152
+    components:
+    - type: Transform
+      pos: -13.5,-28.5
+      parent: 2
+  - uid: 4255
+    components:
+    - type: Transform
+      pos: -14.5,-32.5
+      parent: 2
+  - uid: 4499
+    components:
+    - type: Transform
+      pos: 51.5,14.5
+      parent: 2
+  - uid: 4500
+    components:
+    - type: Transform
+      pos: 51.5,15.5
+      parent: 2
+  - uid: 4603
+    components:
+    - type: Transform
+      pos: -14.5,-30.5
+      parent: 2
+  - uid: 4610
+    components:
+    - type: Transform
+      pos: -14.5,-31.5
+      parent: 2
+  - uid: 4615
+    components:
+    - type: Transform
+      pos: -9.5,-28.5
+      parent: 2
+  - uid: 5036
+    components:
+    - type: Transform
+      pos: 51.5,10.5
+      parent: 2
+  - uid: 5105
+    components:
+    - type: Transform
+      pos: 51.5,12.5
+      parent: 2
+  - uid: 5184
+    components:
+    - type: Transform
+      pos: 51.5,13.5
+      parent: 2
+  - uid: 5186
+    components:
+    - type: Transform
+      pos: -14.5,-33.5
+      parent: 2
+  - uid: 5292
+    components:
+    - type: Transform
+      pos: -9.5,-33.5
+      parent: 2
+  - uid: 5386
+    components:
+    - type: Transform
+      pos: -13.5,-33.5
+      parent: 2
+  - uid: 5506
+    components:
+    - type: Transform
+      pos: -12.5,-33.5
+      parent: 2
+  - uid: 5513
+    components:
+    - type: Transform
+      pos: -42.5,12.5
+      parent: 2
+  - uid: 5544
+    components:
+    - type: Transform
+      pos: -9.5,-30.5
+      parent: 2
+  - uid: 5571
+    components:
+    - type: Transform
+      pos: -42.5,9.5
+      parent: 2
+  - uid: 5582
+    components:
+    - type: Transform
+      pos: -42.5,11.5
+      parent: 2
+  - uid: 5591
+    components:
+    - type: Transform
+      pos: -42.5,7.5
+      parent: 2
+  - uid: 5672
+    components:
+    - type: Transform
+      pos: -47.5,13.5
+      parent: 2
+  - uid: 5743
+    components:
+    - type: Transform
+      pos: -47.5,9.5
+      parent: 2
+  - uid: 7024
+    components:
+    - type: Transform
+      pos: -47.5,10.5
+      parent: 2
+  - uid: 7039
+    components:
+    - type: Transform
+      pos: -44.5,13.5
+      parent: 2
+  - uid: 7443
+    components:
+    - type: Transform
+      pos: -14.5,-29.5
+      parent: 2
+  - uid: 7535
+    components:
+    - type: Transform
+      pos: 48.5,15.5
+      parent: 2
+  - uid: 7540
+    components:
+    - type: Transform
+      pos: 48.5,10.5
+      parent: 2
+  - uid: 8123
+    components:
+    - type: Transform
+      pos: -43.5,13.5
+      parent: 2
+  - uid: 8335
+    components:
+    - type: Transform
+      pos: -45.5,13.5
+      parent: 2
+  - uid: 9365
+    components:
+    - type: Transform
+      pos: -42.5,13.5
+      parent: 2
+  - uid: 9366
+    components:
+    - type: Transform
+      pos: -12.5,-27.5
+      parent: 2
+  - uid: 9367
+    components:
+    - type: Transform
+      pos: -47.5,11.5
+      parent: 2
+  - uid: 9462
+    components:
+    - type: Transform
+      pos: -47.5,12.5
+      parent: 2
+  - uid: 9469
+    components:
+    - type: Transform
+      pos: -47.5,8.5
+      parent: 2
+  - uid: 9470
+    components:
+    - type: Transform
+      pos: -47.5,7.5
+      parent: 2
+  - uid: 9471
+    components:
+    - type: Transform
+      pos: -46.5,7.5
+      parent: 2
+  - uid: 9472
+    components:
+    - type: Transform
+      pos: -46.5,13.5
+      parent: 2
+  - uid: 9493
+    components:
+    - type: Transform
+      pos: 50.5,10.5
+      parent: 2
+  - uid: 9529
+    components:
+    - type: Transform
+      pos: 49.5,10.5
+      parent: 2
+  - uid: 9574
+    components:
+    - type: Transform
+      pos: 50.5,15.5
+      parent: 2
+  - uid: 9575
+    components:
+    - type: Transform
+      pos: 49.5,15.5
+      parent: 2
+  - uid: 9578
+    components:
+    - type: Transform
+      pos: 47.5,13.5
+      parent: 2
+  - uid: 9579
+    components:
+    - type: Transform
+      pos: 47.5,11.5
+      parent: 2
 - proto: WallWood
   entities:
   - uid: 137
@@ -78930,5 +78769,5 @@ entities:
       pos: -30.5,-15.5
       parent: 2
     - type: ZenCatalyst
-      nextSpawnTime: 8034.648306
+      nextSpawnTime: 794.2711527
 ...
