@@ -1,3 +1,4 @@
+#bark
 - type: speechBark
   id: DefaultBark
   name: bark-variant-defaultbark
