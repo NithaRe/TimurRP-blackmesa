@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: BaseSign
+  id: BlackMSignLiftWall
+  name: табличка лифта
+  suffix: BlackM
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Wallmounts/lift_signs.rsi
+    state: elevator_dock
+
+- type: entity
+  parent: BaseSignDirectional
+  id: BlackMSignLiftDirectional
+  name: указатель лифта
+  suffix: BlackM
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Wallmounts/lift_signs.rsi
+    state: elevator_direction

@@ -1,0 +1,42 @@
+# Five-tile, horizontal signal-controlled elevator door.
+- type: entity
+  id: BlackMWideElevatorDoor
+  parent: BaseShutter
+  name: дверь грузового лифта
+  suffix: BlackM, 5 тайлов
+  components:
+  - type: Transform
+    noRot: true
+  - type: Sprite
+    sprite: _BlackM/Structures/Doors/elevator_wide.rsi
+    noRot: true
+    drawdepth: BlastDoors
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-2.49,-0.49,2.49,0.49"
+        density: 100
+        mask:
+        - FullTileMask
+        layer:
+        - AirlockLayer
+  - type: Door
+    bumpOpen: false
+    clickOpen: false
+    canPry: false
+    canCrush: false
+    changeAirtight: false
+    openTimeOne: 1.4
+    openTimeTwo: 0.14
+    closeTimeOne: 1.4
+    closeTimeTwo: 0.14
+    openingAnimationTime: 1.54
+    closingAnimationTime: 1.54
+  # Airtight in BaseShutter covers only the central tile, not the full doorway.
+  - type: Airtight
+    airBlocked: false
+  - type: BlackMWideDoorSafety
