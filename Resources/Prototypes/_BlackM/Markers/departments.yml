@@ -20,11 +20,6 @@
   - type: DepartmentSpawner
     variants:
     - /Maps/_BlackM/Departments/commandhub_default.yml
-    - /Maps/_BlackM/Departments/commandhub_default.yml
-    - /Maps/_BlackM/Departments/commandhub_default.yml
-    - /Maps/_BlackM/Departments/commandhub_default.yml
-    - /Maps/_BlackM/Departments/commandhub_default.yml
-    - /Maps/_BlackM/Departments/commandhub_crown.yml
 
 # sec
 - type: entity
@@ -35,11 +30,6 @@
   - type: DepartmentSpawner
     variants:
     - /Maps/_BlackM/Departments/security_default.yml
-    - /Maps/_BlackM/Departments/security_default.yml
-    - /Maps/_BlackM/Departments/security_default.yml
-    - /Maps/_BlackM/Departments/security_default.yml
-    - /Maps/_BlackM/Departments/security_default.yml
-    - /Maps/_BlackM/Departments/security_pink.yml
 
 # science
 - type: entity
@@ -74,11 +64,6 @@
   - type: DepartmentSpawner
     variants:
     - /Maps/_BlackM/Departments/medical_default.yml
-    - /Maps/_BlackM/Departments/medical_default.yml
-    - /Maps/_BlackM/Departments/medical_default.yml
-    - /Maps/_BlackM/Departments/medical_default.yml
-    - /Maps/_BlackM/Departments/medical_default.yml
-    - /Maps/_BlackM/Departments/medical_trash.yml
 
 # Service
 - type: entity
@@ -89,8 +74,6 @@
   - type: DepartmentSpawner
     variants:
     - /Maps/_BlackM/Departments/barstyle_default.yml
-    - /Maps/_BlackM/Departments/barstyle_cyber.yml
-    - /Maps/_BlackM/Departments/double_service.yml
     
 # Cargo
 - type: entity
@@ -101,8 +84,6 @@
   - type: DepartmentSpawner
     variants: 
     - /Maps/_BlackM/Departments/cargo_default.yml
-    - /Maps/_BlackM/Departments/cargo_default.yml
-    - /Maps/_BlackM/Departments/cargo_worked.yml
 
 - type: entity
   parent: MarkerBase
