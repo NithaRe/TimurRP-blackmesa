@@ -1,0 +1,62 @@
+﻿- type: rcd
+  id: MilitaryBarricadeWood
+  name: military-rcd-barricade-wood
+  category: Main
+  sprite:
+    sprite: Structures/barricades.rsi
+    state: barricade_full
+  mode: ConstructObject
+  prototype: Barricade
+  cost: 2
+  delay: 1
+  collisionMask: FullTileMask
+  rotation: Fixed
+  fx: EffectRCDConstruct1
+
+- type: rcd
+  id: MilitaryBarricadeSteel
+  name: military-rcd-barricade-steel
+  category: Main
+  sprite:
+    sprite: _Goobstation/Structures/Walls/Barricades/steel.rsi
+    state: base
+  mode: ConstructObject
+  prototype: BarricadeSteel
+  cost: 3
+  delay: 1
+  collisionMask: FullTileMask
+  collisionBounds: "-0.49,-0.49,0.49,-0.38"
+  rotation: User
+  fx: EffectRCDConstruct1
+
+- type: rcd
+  id: MilitaryBarricadeGate
+  name: military-rcd-barricade-gate
+  category: Main
+  sprite:
+    sprite: _Goobstation/Structures/Walls/Barricades/steel.rsi
+    state: folding
+  mode: ConstructObject
+  prototype: BarricadeSteelFolding
+  cost: 4
+  delay: 2
+  collisionMask: FullTileMask
+  collisionBounds: "-0.49,-0.49,0.49,-0.38"
+  rotation: User
+  fx: EffectRCDConstruct2
+
+- type: rcd
+  id: MilitarySandbags
+  name: military-rcd-sandbags
+  category: Main
+  sprite:
+    sprite: _BlackM/Structures/sandbags.rsi
+    state: base
+  mode: ConstructObject
+  prototype: SandbagsBlackM
+  cost: 2
+  delay: 1
+  collisionMask: FullTileMask
+  collisionBounds: "-0.49,-0.49,0.49,-0.38"
+  rotation: User
+  fx: EffectRCDConstruct1
