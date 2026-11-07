@@ -1,0 +1,9 @@
+﻿blackm-screen-setup-title = Настройка экрана
+blackm-screen-setup-intro = А вы знали, что можете играть в эту игру без черных полос? Попробуйте!
+blackm-screen-setup-fullhd = Full HD / ×3 / 20
+blackm-screen-setup-2k = 2K / ×4 / 21
+blackm-screen-setup-scale = Фиксированный масштаб
+blackm-screen-setup-scale-value = ×{ $scale }
+blackm-screen-setup-width = Ширина игрового экрана
+blackm-screen-setup-skip = Пропустить
+blackm-screen-setup-continue = Сохранить и продолжить
