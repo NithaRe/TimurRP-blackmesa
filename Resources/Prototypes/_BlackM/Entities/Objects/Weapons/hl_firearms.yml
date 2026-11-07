@@ -1,0 +1,34 @@
+- type: entity
+  id: WeaponSubMachineGunBlackMMP5
+  parent: [BaseWeaponSubMachineGun, BaseGunWieldable, BaseSecurityContraband]
+  name: MP5
+  description: A compact submachine gun. Uses .35 Auto SMG magazines.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Weapons/Guns/SMGs/mp5/big.rsi
+    layers:
+    - state: icon
+  - type: Item
+    sprite: _BlackM/Objects/Weapons/Guns/SMGs/mp5/tiny.rsi
+    size: Large
+  - type: Clothing
+    sprite: _BlackM/Objects/Weapons/Guns/SMGs/mp5/tiny.rsi
+  - type: Gun
+    fireRate: 8
+    selectedMode: FullAuto
+    availableModes:
+    - SemiAuto
+    - FullAuto
+
+- type: entity
+  id: WeaponShotgunBlackMSpas12
+  parent: WeaponShotgunEnforcer
+  name: SPAS-12
+  description: A semi-automatic shotgun. Uses shotgun shells.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Weapons/Guns/Shotguns/spas_12/big.rsi
+  - type: Item
+    sprite: _BlackM/Objects/Weapons/Guns/Shotguns/spas_12/tiny.rsi
+  - type: Clothing
+    sprite: _BlackM/Objects/Weapons/Guns/Shotguns/spas_12/tiny.rsi

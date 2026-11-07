@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Extracted from Marmio64/Halflife13 icons/obj/halflife https://github.com/Marmio64/halflife-episode13",
+  "size": {
+    "x": 64,
+    "y": 64
+  },
+  "states": [
+    {
+      "name": "decor_01"
+    },
+    {
+      "name": "decor_02"
+    },
+    {
+      "name": "decor_03"
+    },
+    {
+      "name": "decor_04"
+    },
+    {
+      "name": "decor_05"
+    },
+    {
+      "name": "decor_06"
+    },
+    {
+      "name": "decor_07"
+    },
+    {
+      "name": "decor_08"
+    },
+    {
+      "name": "decor_09"
+    },
+    {
+      "name": "decor_10"
+    },
+    {
+      "name": "decor_11"
+    },
+    {
+      "name": "decor_12"
+    },
+    {
+      "name": "decor_13"
+    },
+    {
+      "name": "decor_14"
+    },
+    {
+      "name": "decor_15"
+    },
+    {
+      "name": "decor_16"
+    },
+    {
+      "name": "decor_17"
+    },
+    {
+      "name": "decor_18"
+    },
+    {
+      "name": "decor_19"
+    },
+    {
+      "name": "decor_20"
+    },
+    {
+      "name": "decor_21"
+    },
+    {
+      "name": "decor_22"
+    },
+    {
+      "name": "decor_23"
+    },
+    {
+      "name": "decor_24"
+    },
+    {
+      "name": "decor_25"
+    },
+    {
+      "name": "decor_26"
+    },
+    {
+      "name": "decor_27"
+    },
+    {
+      "name": "decor_28"
+    },
+    {
+      "name": "decor_29"
+    },
+    {
+      "name": "decor_30"
+    },
+    {
+      "name": "decor_31"
+    },
+    {
+      "name": "decor_32"
+    },
+    {
+      "name": "decor_33"
+    }
+  ]
+}

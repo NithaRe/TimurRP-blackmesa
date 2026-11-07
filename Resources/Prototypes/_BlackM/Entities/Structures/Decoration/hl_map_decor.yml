@@ -1,0 +1,437 @@
+- type: entity
+  id: BaseBlackMMapDecor
+  abstract: true
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 30
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Sprite
+    noRot: true
+
+- type: entity
+  id: BaseBlackMMapDecorSolid
+  parent: BaseStructure
+  abstract: true
+  components:
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Sprite
+    noRot: true
+
+- type: entity
+  id: BlackMDecorChemicalTank
+  parent: BaseBlackMMapDecorSolid
+  name: chemical tank
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_01
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_01
+
+- type: entity
+  id: BlackMDecorChemicalContainer
+  parent: BaseBlackMMapDecorSolid
+  name: chemical container
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_02
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_02
+
+- type: entity
+  id: BlackMDecorBrokenChemicalContainer
+  parent: BaseBlackMMapDecorSolid
+  name: broken chemical container
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_03
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_03
+
+- type: entity
+  id: BlackMDecorChemicalSet
+  parent: BaseBlackMMapDecorSolid
+  name: chemical apparatus
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_04
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_04
+
+- type: entity
+  id: BlackMDecorWorkbench
+  parent: BaseBlackMMapDecorSolid
+  name: workbench
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_05
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_05
+
+- type: entity
+  id: BlackMDecorMedicalShelf
+  parent: BaseBlackMMapDecorSolid
+  name: medical shelf
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_06
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_06
+
+- type: entity
+  id: BlackMDecorMetalDesk
+  parent: BaseBlackMMapDecorSolid
+  name: metal desk
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_07
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_07
+
+- type: entity
+  id: BlackMDecorMetalShelf
+  parent: BaseBlackMMapDecorSolid
+  name: metal shelf
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_08
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_08
+
+- type: entity
+  id: BlackMDecorSurgeryTable
+  parent: BaseBlackMMapDecorSolid
+  name: surgical table
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_09
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_09
+
+- type: entity
+  id: BlackMDecorMedicalStretcher
+  parent: BaseBlackMMapDecorSolid
+  name: medical stretcher
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_10
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_10
+
+- type: entity
+  id: BlackMDecorRedPhone
+  parent: BaseBlackMMapDecor
+  name: telephone
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_11
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_11
+
+- type: entity
+  id: BlackMDecorDamagedVent
+  parent: BaseBlackMMapDecor
+  name: damaged vent
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_12
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_12
+
+- type: entity
+  id: BlackMDecorWasteBarrel
+  parent: BaseBlackMMapDecorSolid
+  name: waste barrel
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_13
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_13
+
+- type: entity
+  id: BlackMDecorHazardBarrel
+  parent: BaseBlackMMapDecorSolid
+  name: hazard barrel
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_14
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_14
+
+- type: entity
+  id: BlackMDecorWasteBarrels
+  parent: BaseBlackMMapDecorSolid
+  name: waste barrels
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_15
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_15
+
+- type: entity
+  id: BlackMDecorConcreteBarrier
+  parent: BaseBlackMMapDecorSolid
+  name: concrete barrier
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_16
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_16
+
+- type: entity
+  id: BlackMDecorBrokenOfficeChair
+  parent: BaseBlackMMapDecorSolid
+  name: broken office chair
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_17
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_17
+
+- type: entity
+  id: BlackMDecorFallenOfficeChair
+  parent: BaseBlackMMapDecorSolid
+  name: toppled office chair
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_18
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_18
+
+- type: entity
+  id: BlackMDecorScatteredPapers
+  parent: BaseBlackMMapDecor
+  name: scattered papers
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_19
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_19
+
+- type: entity
+  id: BlackMDecorDebris
+  parent: BaseBlackMMapDecor
+  name: debris
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_20
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_20
+
+- type: entity
+  id: BlackMDecorPalletStack
+  parent: BaseBlackMMapDecorSolid
+  name: stack of pallets
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_21
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_21
+
+- type: entity
+  id: BlackMDecorOpenHatch
+  parent: BaseBlackMMapDecor
+  name: open hatch
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_22
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_22
+
+- type: entity
+  id: BlackMDecorXenMushrooms
+  parent: BaseBlackMMapDecor
+  name: Xen mushrooms
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_23
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_23
+
+- type: entity
+  id: BlackMDecorXenMound
+  parent: BaseBlackMMapDecor
+  name: Xen growth
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_24
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_24
+
+- type: entity
+  id: BlackMDecorBarbedWireFence
+  parent: BaseBlackMMapDecorSolid
+  name: barbed wire fence
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_25
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_25
+
+- type: entity
+  id: BlackMDecorDirtyMattress
+  parent: BaseBlackMMapDecor
+  name: dirty mattress
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_26
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_26
+
+- type: entity
+  id: BlackMDecorBareMetalBed
+  parent: BaseBlackMMapDecorSolid
+  name: bare metal bed
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_27
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_27
+
+- type: entity
+  id: BlackMDecorCardboardBoxes
+  parent: BaseBlackMMapDecor
+  name: cardboard boxes
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_28
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_28
+
+- type: entity
+  id: BlackMDecorBrickPile
+  parent: BaseBlackMMapDecor
+  name: stack of bricks
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_29
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_29
+
+- type: entity
+  id: BlackMDecorBookPile
+  parent: BaseBlackMMapDecor
+  name: scattered books
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_30
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_30
+
+- type: entity
+  id: BlackMDecorTrashBag
+  parent: BaseBlackMMapDecor
+  name: garbage bag
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_31
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_31
+
+- type: entity
+  id: BlackMDecorTrashBags
+  parent: BaseBlackMMapDecor
+  name: pile of garbage bags
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_32
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_32
+
+- type: entity
+  id: BlackMDecorDiscardedBottles
+  parent: BaseBlackMMapDecor
+  name: discarded bottles
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_33
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_decor.rsi
+    state: decor_33
