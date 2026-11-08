@@ -9,6 +9,15 @@ public enum UndergroundConsoleUiKey : byte
 }
 
 [Serializable, NetSerializable]
+public enum UndergroundTabletUiKey : byte
+{
+    Key,
+}
+
+[Serializable, NetSerializable]
+public sealed class UndergroundTabletEarlyReturnMessage : BoundUserInterfaceMessage;
+
+[Serializable, NetSerializable]
 public enum UndergroundConsolePhase : byte
 {
     Offline,

@@ -8,8 +8,12 @@ using Content.Shared.Chat;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Interaction;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Popups;
 using Robust.Server.GameObjects;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
@@ -23,6 +27,13 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
     private const int MaxGenerationAttempts = 5;
     private static readonly TimeSpan BoardingDuration = TimeSpan.FromSeconds(12);
     private static readonly TimeSpan AnnouncementDelay = TimeSpan.FromSeconds(1);
+    private static readonly TimeSpan EarlyReturnDelay = TimeSpan.FromSeconds(60);
+    private static readonly SoundPathSpecifier OpenSound = new("/Audio/_BlackM/Interface/Terminal/term_open.ogg");
+    private static readonly SoundPathSpecifier SelectSound = new("/Audio/_BlackM/Interface/Terminal/term_select.ogg");
+    private static readonly SoundPathSpecifier ConfirmSound = new("/Audio/_BlackM/Interface/Terminal/term_confirm.ogg");
+    private static readonly SoundPathSpecifier RewardSound = new("/Audio/Machines/high_tech_confirm.ogg");
+    private static readonly SoundPathSpecifier ErrorSound = new("/Audio/_BlackM/Interface/Terminal/term_error.ogg");
+    private static readonly SoundPathSpecifier LocatorSound = new("/Audio/Items/locator_beep.ogg");
 
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly UndergroundMapSystem _sites = default!;
@@ -34,6 +45,9 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedTransformSystem _transforms = default!;
 
     public override void Initialize()
     {
@@ -42,6 +56,11 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
         SubscribeLocalEvent<UndergroundConsoleComponent, InteractUsingEvent>(OnSampleUsed);
         SubscribeLocalEvent<UndergroundMissionTargetComponent, MobStateChangedEvent>(OnMissionTargetStateChanged);
         SubscribeLocalEvent<UndergroundRideOwnerComponent, BlackMElevatorCargoTripFinishedEvent>(OnRideFinished);
+        Subs.BuiEvents<UndergroundTabletComponent>(UndergroundTabletUiKey.Key, subs =>
+        {
+            subs.Event<BoundUIOpenedEvent>(OnTabletOpened);
+            subs.Event<UndergroundTabletEarlyReturnMessage>(OnTabletEarlyReturn);
+        });
         Subs.BuiEvents<UndergroundConsoleComponent>(UndergroundConsoleUiKey.Key, subs =>
         {
             subs.Event<BoundUIOpenedEvent>(OnUiOpened);
@@ -60,7 +79,32 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
 
     private void OnUiOpened(Entity<UndergroundConsoleComponent> ent, ref BoundUIOpenedEvent args)
     {
+        _audio.PlayPvs(OpenSound, ent.Owner);
         UpdateConsole(ent.Owner);
+    }
+
+    private void OnTabletOpened(Entity<UndergroundTabletComponent> ent, ref BoundUIOpenedEvent args)
+    {
+        _audio.PlayPvs(OpenSound, ent.Owner);
+        UpdateTablet(ent.Owner, ent.Comp);
+    }
+
+    private void OnTabletEarlyReturn(Entity<UndergroundTabletComponent> ent,
+        ref UndergroundTabletEarlyReturnMessage args)
+    {
+        if (!TryComp<HandsComponent>(args.Actor, out var hands) ||
+            !_hands.IsHolding((args.Actor, hands), ent.Owner) ||
+            ent.Comp.Console is not { } owner || TerminatingOrDeleted(owner) ||
+            !TryComp<UndergroundRunComponent>(owner, out var run) ||
+            run.Session.GenerationId != ent.Comp.Generation || run.Site is not { } site ||
+            Transform(args.Actor).MapUid != site.Map ||
+            !run.Session.TryRequestEarlyReturn(_timing.CurTime, EarlyReturnDelay))
+            return;
+
+        _audio.PlayPvs(ConfirmSound, ent.Owner);
+        Warn(run, "underground-expedition-early-departure", (int) EarlyReturnDelay.TotalSeconds);
+        Announce(run.LandingDispatcher, "underground-dispatcher-return-boarding");
+        UpdateRun(owner, run);
     }
 
     private void OnStart(Entity<UndergroundConsoleComponent> ent, ref UndergroundConsoleStartMessage args)
@@ -92,6 +136,7 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
             }
             if (!run.Session.TryBeginGeneration(out var generation))
                 return;
+            _audio.PlayPvs(ConfirmSound, ent.Owner);
             run.MissionProgress = 0;
             run.MissionClaimed = false;
             run.MissionReturned = false;
@@ -118,6 +163,7 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
             return;
         }
 
+        _audio.PlayPvs(ConfirmSound, ent.Owner);
         run.BoardingDispatcher = dispatcher;
         var announcementAt = _timing.CurTime + AnnouncementDelay;
         run.OutboundAnnouncementAt = announcementAt;
@@ -131,6 +177,7 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
             run.Session.Phase != UndergroundExpeditionPhase.Idle || run.MissionRewardAvailable ||
             !UndergroundMissions.IsValid(args.Mission) || !IsNearConsole(args.Actor, ent.Owner))
             return;
+        _audio.PlayPvs(SelectSound, ent.Owner);
         run.Mission = args.Mission;
         run.MissionProgress = 0;
         UpdateRun(ent.Owner, run);
@@ -178,6 +225,7 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
             sample.Console != ent.Owner || sample.Generation != run.Session.GenerationId || sample.Mission != run.Mission)
             return;
         args.Handled = true;
+        _audio.PlayPvs(ConfirmSound, ent.Owner);
         run.MissionProgress = 1;
         run.MissionRewardAvailable = true;
         QueueDel(args.Used);
@@ -194,6 +242,7 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
         run.MissionRewardAvailable = false;
         run.MissionClaimed = true;
         run.MissionProgress = 0;
+        _audio.PlayPvs(RewardSound, ent.Owner);
         Spawn(UndergroundMissions.Reward(run.Mission), Transform(args.Actor).Coordinates);
         UpdateRun(ent.Owner, run);
     }
@@ -410,6 +459,13 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
         if (!returning)
         {
             run.Session.OutboundFinished(true, _timing.CurTime, TimeSpan.FromSeconds(UndergroundMissions.DurationSeconds(run.Mission)));
+            // Remove tablets left from earlier generations before issuing the new one.
+            RemoveTablets(owner);
+            // Issue one tablet at the landing point for this expedition only.
+            var tablet = Spawn("BlackMUndergroundContractTablet", Transform(run.Landing).Coordinates);
+            var tabletComp = EnsureComp<UndergroundTabletComponent>(tablet);
+            tabletComp.Console = owner;
+            tabletComp.Generation = run.Session.GenerationId;
             UpdateRun(owner, run);
             return;
         }
@@ -422,6 +478,7 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
         }
 
         run.Session.ReturnFinished(true);
+        RemoveTablets(owner);
         UpdateRun(owner, run);
         QueueDel(site.Map);
         QueueDel(cabin.Map);
@@ -554,7 +611,63 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
     private void Error(EntityUid console, EntityUid actor, string key)
     {
         if (!TerminatingOrDeleted(console) && !TerminatingOrDeleted(actor))
+        {
+            _audio.PlayPvs(ErrorSound, console);
             _popup.PopupEntity(Loc.GetString(key), console, actor, PopupType.MediumCaution);
+        }
+    }
+
+    private void RemoveTablets(EntityUid owner)
+    {
+        var tablets = EntityQueryEnumerator<UndergroundTabletComponent>();
+        while (tablets.MoveNext(out var uid, out var tablet))
+        {
+            if (tablet.Console == owner && !TerminatingOrDeleted(uid))
+                QueueDel(uid);
+        }
+    }
+
+    // The locator follows only this expedition's loose delivery objective.
+    // It runs only while the tablet is held and the expedition is exploring.
+    private void UpdateLocators(TimeSpan now)
+    {
+        var tablets = EntityQueryEnumerator<UndergroundTabletComponent, TransformComponent>();
+        while (tablets.MoveNext(out var uid, out var tablet, out var tabletTransform))
+        {
+            if (TerminatingOrDeleted(uid) || now < tablet.NextLocatorPing)
+                continue;
+            tablet.NextLocatorPing = now + TimeSpan.FromSeconds(1);
+            var holder = tabletTransform.ParentUid;
+            if (!TryComp<HandsComponent>(holder, out var hands) ||
+                !_hands.IsHolding((holder, hands), uid) ||
+                tablet.Console is not { } owner || TerminatingOrDeleted(owner) ||
+                !TryComp<UndergroundRunComponent>(owner, out var run) ||
+                run.Session.GenerationId != tablet.Generation ||
+                run.Session.Phase != UndergroundExpeditionPhase.Exploring ||
+                !UndergroundMissions.IsDelivery(run.Mission) || run.Site is not { } site ||
+                tabletTransform.MapUid != site.Map)
+                continue;
+
+            var holderPosition = _transforms.GetWorldPosition(tabletTransform);
+            var nearest = float.PositiveInfinity;
+            var targets = EntityQueryEnumerator<UndergroundMissionSampleComponent, TransformComponent>();
+            while (targets.MoveNext(out var target, out var sample, out var targetTransform))
+            {
+                // A recovered item in a hand/container is already found: stop pinging it.
+                if (TerminatingOrDeleted(target) || sample.Console != owner ||
+                    sample.Generation != tablet.Generation || sample.Mission != run.Mission ||
+                    targetTransform.MapUid != site.Map || targetTransform.GridUid is not { } grid ||
+                    targetTransform.ParentUid != grid)
+                    continue;
+                var distance = (_transforms.GetWorldPosition(targetTransform) - holderPosition).Length();
+                nearest = Math.Min(nearest, distance);
+            }
+            if (float.IsPositiveInfinity(nearest))
+                continue;
+
+            tablet.NextLocatorPing = now + UndergroundLocator.GetInterval(nearest);
+            _audio.PlayPvs(LocatorSound, holder, AudioParams.Default.WithVolume(-7f));
+        }
     }
 
     private void Fail(EntityUid owner, UndergroundRunComponent run)
@@ -568,6 +681,7 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
     {
         base.Update(frameTime);
         var now = _timing.CurTime;
+        UpdateLocators(now);
         var query = EntityQueryEnumerator<UndergroundRunComponent>();
         while (query.MoveNext(out var owner, out var run))
         {
@@ -620,6 +734,40 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
     private void UpdateRun(EntityUid owner, UndergroundRunComponent run)
     {
         UpdateConsole(owner);
+        var tablets = EntityQueryEnumerator<UndergroundTabletComponent>();
+        while (tablets.MoveNext(out var uid, out var tablet))
+        {
+            if (tablet.Console == owner)
+                UpdateTablet(uid, tablet);
+        }
+    }
+
+    private void UpdateTablet(EntityUid tablet, UndergroundTabletComponent component)
+    {
+        if (TerminatingOrDeleted(tablet))
+            return;
+        if (component.Console is not { } owner || TerminatingOrDeleted(owner) ||
+            !TryComp<UndergroundRunComponent>(owner, out var run) || run.Site == null ||
+            run.Session.GenerationId != component.Generation)
+        {
+            _ui.SetUiState(tablet, UndergroundTabletUiKey.Key,
+                new UndergroundConsoleState(UndergroundConsolePhase.Offline, 0, 0, false, false,
+                    UndergroundMission.HeadcrabHunt, 0, false, false));
+            return;
+        }
+        var phase = run.Session.Phase switch
+        {
+            UndergroundExpeditionPhase.Exploring => UndergroundConsolePhase.Exploring,
+            UndergroundExpeditionPhase.Returning => UndergroundConsolePhase.Returning,
+            UndergroundExpeditionPhase.AwaitingCleanup => UndergroundConsolePhase.Cleanup,
+            UndergroundExpeditionPhase.Faulted => UndergroundConsolePhase.Faulted,
+            _ => UndergroundConsolePhase.Offline,
+        };
+        var remaining = (int) Math.Ceiling(run.Session.TimeRemaining(_timing.CurTime).TotalSeconds);
+        _ui.SetUiState(tablet, UndergroundTabletUiKey.Key,
+            new UndergroundConsoleState(phase, remaining, UndergroundMissions.DurationSeconds(run.Mission),
+                false, run.Session.CanRequestEarlyReturn(_timing.CurTime, EarlyReturnDelay),
+                run.Mission, run.MissionProgress, false, false));
     }
 
     private void UpdateConsole(EntityUid console)
