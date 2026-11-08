@@ -1,0 +1,13 @@
+- type: entity
+  id: BMExplosionScorch
+  categories: [ HideSpawnMenu ]
+  name: scorch mark
+  components:
+  - type: Sprite
+    sprite: _BlackM/Effects/Explosion/scorch.rsi
+    state: scorch1
+    drawdepth: FloorObjects
+    noRot: false
+  - type: Tag
+    tags:
+    - HideContextMenu
