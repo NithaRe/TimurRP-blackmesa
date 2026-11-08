@@ -5,7 +5,7 @@
       "y":32
    },
    "license":"CC-BY-SA-3.0",
-   "copyright":"Taken from https://github.com/BeeStation/BeeStation-Hornet at commit 4ccd79de285e79e504308bcd6fa5908d6b7685f7",
+   "copyright":"Taken from https://github.com/BeeStation/BeeStation-Hornet at commit 4ccd79de285e79e504308bcd6fa5908d6b7685f7; dark shading blackm",
    "states":[
       {
          "name":"vent_passive",
