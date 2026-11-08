@@ -1,0 +1,78 @@
+- type: entity
+  parent: BaseAction
+  id: ActionBMCarEngine
+  name: Двигатель
+  description: Повернуть ключ — завести или заглушить двигатель.
+  components:
+  - type: Action
+    useDelay: 1.5
+    itemIconStyle: NoItem
+    icon: { sprite: Objects/Vehicles/atv.rsi, state: keys }
+  - type: InstantAction
+    event: !type:BMCarEngineActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionBMCarHorn
+  name: Сигнал
+  description: Посигналить.
+  components:
+  - type: Action
+    useDelay: 1
+    itemIconStyle: NoItem
+    icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
+  - type: InstantAction
+    event: !type:BMCarHornActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionBMCarSiren
+  name: Сирена
+  description: Включить или выключить сирену и мигалки.
+  components:
+  - type: Action
+    useDelay: 0.5
+    itemIconStyle: NoItem
+    icon: { sprite: Objects/Devices/communication.rsi, state: beacon }
+  - type: InstantAction
+    event: !type:BMCarSirenActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionBMCarLights
+  name: Фары
+  description: Включить или выключить фары.
+  components:
+  - type: Action
+    useDelay: 0.5
+    itemIconStyle: NoItem
+    icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+    iconOn: { sprite: Objects/Tools/flashlight.rsi, state: flashlight-on }
+  - type: InstantAction
+    event: !type:BMCarLightsActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionBMCarControlMode
+  name: Режим руля
+  description: "Переключить управление: относительно машины (W — газ, S — тормоз/назад, A/D — руль) или относительно экрана."
+  components:
+  - type: Action
+    useDelay: 0.5
+    itemIconStyle: NoItem
+    icon: Interface/VerbIcons/rotate_ccw.svg.192dpi.png
+  - type: InstantAction
+    event: !type:BMCarControlModeActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionBMCarExit
+  name: Выйти из машины
+  description: Открыть дверь и выйти.
+  components:
+  - type: Action
+    useDelay: 1
+    itemIconStyle: NoItem
+    icon: { sprite: Interface/Actions/actions_mecha.rsi, state: mech_eject }
+  - type: InstantAction
+    event: !type:BMCarExitActionEvent
