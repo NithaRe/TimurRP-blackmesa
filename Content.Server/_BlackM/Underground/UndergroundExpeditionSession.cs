@@ -20,6 +20,7 @@ public sealed class UndergroundExpeditionSession
     public UndergroundExpeditionPhase Phase { get; private set; } = UndergroundExpeditionPhase.Idle;
     public long GenerationId { get; private set; }
     public TimeSpan? DepartureDeadline { get; private set; }
+    public bool EarlyReturnRequested { get; private set; }
 
     private readonly HashSet<int> _sentWarnings = new();
 
@@ -31,6 +32,7 @@ public sealed class UndergroundExpeditionSession
 
         generationId = ++GenerationId;
         DepartureDeadline = null;
+        EarlyReturnRequested = false;
         _sentWarnings.Clear();
         Phase = UndergroundExpeditionPhase.Generating;
         return true;
@@ -104,6 +106,30 @@ public sealed class UndergroundExpeditionSession
         return warning;
     }
 
+    // Do not postpone the normal departure, and never reset an existing early countdown.
+    public bool CanRequestEarlyReturn(TimeSpan now, TimeSpan warningDuration)
+    {
+        return Phase == UndergroundExpeditionPhase.Exploring && !EarlyReturnRequested &&
+               warningDuration > TimeSpan.Zero && DepartureDeadline is { } deadline &&
+               now + warningDuration < deadline;
+    }
+
+    public bool TryRequestEarlyReturn(TimeSpan now, TimeSpan warningDuration)
+    {
+        if (!CanRequestEarlyReturn(now, warningDuration))
+            return false;
+
+        DepartureDeadline = now + warningDuration;
+        EarlyReturnRequested = true;
+        // The caller sends the initial warning; suppress thresholds already passed.
+        foreach (var seconds in WarningSeconds)
+        {
+            if (TimeSpan.FromSeconds(seconds) >= warningDuration)
+                _sentWarnings.Add(seconds);
+        }
+        return true;
+    }
+
     public bool TryBeginReturn(TimeSpan now)
     {
         if (Phase != UndergroundExpeditionPhase.Exploring || DepartureDeadline is not { } deadline ||
@@ -137,6 +163,7 @@ public sealed class UndergroundExpeditionSession
 
         Phase = UndergroundExpeditionPhase.Idle;
         DepartureDeadline = null;
+        EarlyReturnRequested = false;
         _sentWarnings.Clear();
         return true;
     }

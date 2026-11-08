@@ -9,6 +9,19 @@ namespace Content.IntegrationTests.Tests._BlackM.Underground;
 public sealed class UndergroundExpeditionSessionTests
 {
     [Test]
+    public void LocatorPingsFasterNearTheTargetAndClampsDistance()
+    {
+        var near = UndergroundLocator.GetInterval(0).TotalSeconds;
+        var middle = UndergroundLocator.GetInterval(15).TotalSeconds;
+        var far = UndergroundLocator.GetInterval(30).TotalSeconds;
+        Assert.That(near, Is.EqualTo(0.35).Within(0.001));
+        Assert.That(near, Is.LessThan(middle));
+        Assert.That(middle, Is.LessThan(far));
+        Assert.That(far, Is.EqualTo(2.5).Within(0.001));
+        Assert.That(UndergroundLocator.GetInterval(100).TotalSeconds, Is.EqualTo(far).Within(0.001));
+    }
+
+    [Test]
     public void TimerStartsOnlyAfterArrivalAndReturnIsIdempotent()
     {
         var run = new UndergroundExpeditionSession();
@@ -27,6 +40,35 @@ public sealed class UndergroundExpeditionSessionTests
         Assert.That(run.ReturnFinished(true), Is.True);
         Assert.That(run.CleanupFinished(), Is.True);
         Assert.That(run.Phase, Is.EqualTo(UndergroundExpeditionPhase.Idle));
+    }
+
+    [Test]
+    public void TabletEarlyReturnUsesOneMinuteAndCannotBeRepeatedOrPostponeDeadline()
+    {
+        var run = new UndergroundExpeditionSession();
+        run.TryBeginGeneration(out var id);
+        run.GenerationFinished(id, true);
+        run.TryBeginOutbound();
+        Assert.That(run.TryRequestEarlyReturn(TimeSpan.Zero, TimeSpan.FromMinutes(1)), Is.False);
+        run.OutboundFinished(true, TimeSpan.Zero, UndergroundExpeditionSession.DefaultDuration);
+        Assert.That(run.TryRequestEarlyReturn(TimeSpan.FromSeconds(20), TimeSpan.FromMinutes(1)), Is.True);
+        Assert.That(run.DepartureDeadline, Is.EqualTo(TimeSpan.FromSeconds(80)));
+        Assert.That(run.TryRequestEarlyReturn(TimeSpan.FromSeconds(21), TimeSpan.FromMinutes(1)), Is.False);
+        Assert.That(run.TryBeginReturn(TimeSpan.FromSeconds(79)), Is.False);
+        Assert.That(run.TryBeginReturn(TimeSpan.FromSeconds(80)), Is.True);
+        Assert.That(run.TryBeginReturn(TimeSpan.FromSeconds(80)), Is.False);
+    }
+
+    [Test]
+    public void EarlyRequestNeverExtendsTheExistingDeadline()
+    {
+        var run = new UndergroundExpeditionSession();
+        run.TryBeginGeneration(out var id);
+        run.GenerationFinished(id, true);
+        run.TryBeginOutbound();
+        run.OutboundFinished(true, TimeSpan.Zero, TimeSpan.FromSeconds(60));
+        Assert.That(run.TryRequestEarlyReturn(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(60)), Is.False);
+        Assert.That(run.DepartureDeadline, Is.EqualTo(TimeSpan.FromSeconds(60)));
     }
 
     [Test]

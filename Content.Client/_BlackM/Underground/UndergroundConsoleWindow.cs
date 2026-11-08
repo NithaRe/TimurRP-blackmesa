@@ -282,7 +282,7 @@ public sealed class UndergroundConsoleWindow : DefaultWindow
 
     private static string TypeKey(UndergroundMission mission) => UndergroundMissions.IsItem(mission) ? "underground-terminal-type-item" : UndergroundMissions.IsSample(mission) ? "underground-terminal-type-sample" : "underground-terminal-type-hunt";
 
-    private static string NameKey(UndergroundMission mission) => mission switch
+    internal static string NameKey(UndergroundMission mission) => mission switch
     {
         UndergroundMission.FastHeadcrabHunt => "underground-mission-fast-hunt",
         UndergroundMission.FastHeadcrabSample => "underground-mission-fast-sample",
@@ -295,7 +295,7 @@ public sealed class UndergroundConsoleWindow : DefaultWindow
         UndergroundMission.HoundeyeSample => "underground-mission-houndeye-sample",
         _ => "underground-mission-headcrab-hunt",
     };
-    private static string DescriptionKey(UndergroundMission mission) => mission switch
+    internal static string DescriptionKey(UndergroundMission mission) => mission switch
     {
         UndergroundMission.FastHeadcrabHunt => "underground-mission-fast-hunt-desc",
         UndergroundMission.FastHeadcrabSample => "underground-mission-fast-sample-desc",
@@ -308,7 +308,7 @@ public sealed class UndergroundConsoleWindow : DefaultWindow
         UndergroundMission.HoundeyeSample => "underground-mission-houndeye-sample-desc",
         _ => "underground-mission-headcrab-hunt-desc",
     };
-    private static string GetStatusKey(UndergroundConsolePhase phase) => phase switch
+    internal static string GetStatusKey(UndergroundConsolePhase phase) => phase switch
     {
         UndergroundConsolePhase.Idle => "underground-terminal-phase-idle",
         UndergroundConsolePhase.Boarding => "underground-terminal-phase-boarding",

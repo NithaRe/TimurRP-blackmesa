@@ -23,11 +23,15 @@
   - type: Clickable
   - type: InteractionOutline
   - type: Sprite
-    sprite: _BlackM/Structures/Machines/underground_terminal.rsi
+    sprite: Structures/Machines/computers.rsi
     drawdepth: SmallObjects
     layers:
-    - state: base
-    - state: screen
+    - state: computer
+    - state: generic_keyboard
+    - state: generic_keys
+      shader: unshaded
+    - sprite: _BlackM/Structures/Machines/underground_contract_screen.rsi
+      state: screen
       shader: unshaded
   - type: UndergroundConsole
   - type: ActivatableUI

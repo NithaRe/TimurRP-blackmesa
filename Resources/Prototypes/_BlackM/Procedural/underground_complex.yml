@@ -6,10 +6,6 @@
       tags:
       - BlackMUndergroundRoom
     presets:
-    - Bucket
-    - Wow
-    - SpaceShip
-    - Tall
     - BlackMUndergroundCross
     - BlackMUndergroundHook
     - BlackMUndergroundZigzag

@@ -1,0 +1,23 @@
+- type: entity
+  parent: BaseItem
+  id: BlackMUndergroundContractTablet
+  name: underground contract tablet
+  description: A portable terminal for underground expedition contracts.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Devices/underground_contract_tablet.rsi
+    layers:
+    - state: tablet
+    - state: generic
+      shader: unshaded
+  - type: Item
+    sprite: _BlackM/Objects/Devices/underground_contract_tablet.rsi
+  - type: UndergroundTablet
+  - type: ActivatableUI
+    inHandsOnly: true
+    singleUser: true
+    key: enum.UndergroundTabletUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.UndergroundTabletUiKey.Key:
+        type: UndergroundTabletBoundUserInterface
