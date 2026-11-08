@@ -1,0 +1,182 @@
+- type: entity
+  id: BlackMSecuritySUVDrivable
+  name: внедорожник охраны
+  description: Служебный внедорожник службы безопасности комплекса «Чёрная Меза». Ключ в замке зажигания, бак полный.
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _BlackM/Objects/Vehicles/security_suv.rsi
+    noRot: false
+    drawdepth: Mobs
+    layers:
+    - state: shadow
+    - state: tire_0
+      offset: 0.4375,-0.5625
+      map: [ "enum.BMCarVisualLayers.WheelFrontLeft" ]
+    - state: tire_0
+      offset: -0.4375,-0.5625
+      map: [ "enum.BMCarVisualLayers.WheelFrontRight" ]
+    - state: tire_0
+      offset: 0.4375,0.5625
+      map: [ "enum.BMCarVisualLayers.WheelRearLeft" ]
+    - state: tire_0
+      offset: -0.4375,0.5625
+      map: [ "enum.BMCarVisualLayers.WheelRearRight" ]
+    - state: body
+    - state: taillights
+      shader: unshaded
+      visible: false
+      map: [ "enum.BMCarVisualLayers.Taillights" ]
+    - state: brakelights
+      shader: unshaded
+      visible: false
+      map: [ "enum.BMCarVisualLayers.Brakelights" ]
+    - state: headlights
+      shader: unshaded
+      visible: false
+      map: [ "enum.BMCarVisualLayers.Headlights" ]
+    - state: lightbar
+      shader: unshaded
+      visible: false
+      map: [ "enum.BMCarVisualLayers.Lightbar" ]
+  - type: Icon
+    sprite: _BlackM/Objects/Vehicles/security_suv.rsi
+    state: icon
+  - type: Physics
+    bodyType: KinematicController
+    fixedRotation: true
+    linearDamping: 0
+    angularDamping: 0
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      # Capsule hull so the car slides along walls.
+      fix1:
+        shape:
+          !type:PolygonShape
+          vertices:
+          - -0.42,-0.44
+          - 0.42,-0.44
+          - 0.42,0.44
+          - -0.42,0.44
+        density: 150
+        mask:
+        - Impassable
+        - MidImpassable
+        - HighImpassable
+        layer:
+        - MidImpassable
+        - BulletImpassable
+      bmcar_front:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.42
+          position: "0,-0.44"
+        density: 150
+        mask:
+        - Impassable
+        - MidImpassable
+        - HighImpassable
+        layer:
+        - MidImpassable
+        - BulletImpassable
+      bmcar_rear:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.42
+          position: "0,0.44"
+        density: 150
+        mask:
+        - Impassable
+        - MidImpassable
+        - HighImpassable
+        layer:
+        - MidImpassable
+        - BulletImpassable
+      bmcar_bumper:
+        shape:
+          !type:PolygonShape
+          vertices:
+          - -0.5,-0.97
+          - 0.5,-0.97
+          - 0.5,0.97
+          - -0.5,0.97
+        hard: false
+        mask:
+        - MobLayer
+  # Default mover is zeroed, BMCarController drives the car.
+  - type: InputMover
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 0
+    baseSprintSpeed: 0
+    baseAcceleration: 0
+    baseFriction: 0
+    acceleration: 0
+    friction: 0
+    frictionNoInput: 0
+    baseWeightlessAcceleration: 0
+    baseWeightlessFriction: 0
+    baseWeightlessModifier: 0
+    weightlessAcceleration: 0
+    weightlessFriction: 0
+    weightlessFrictionNoInput: 0
+    weightlessModifier: 0
+  - type: NoRotateOnMove
+  - type: DoorBumpOpener
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 600
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 6
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: PointLight
+    enabled: false
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    radius: 8
+    energy: 2.5
+    color: "#fff2d1"
+    netsync: false
+  - type: ContainerContainer
+    containers:
+      bm_car_driver: !type:ContainerSlot
+      bm_car_passengers: !type:Container
+  - type: BMCar
+    passengerSeats: 1
+    maxSpeed: 8
+    reverseSpeed: 3.5
+    acceleration: 6.5
+    turnRate: 3.4
+    pivotTurnRate: 1.5
+    grip: 14
+    driftGrip: 1.6
+    tankControls: true
+    ramDamage:
+      types:
+        Blunt: 2.5
+    runOverDamage:
+      types:
+        Blunt: 12
+    crashDamage:
+      types:
+        Blunt: 4
+    occupantCrashDamage:
+      types:
+        Blunt: 3

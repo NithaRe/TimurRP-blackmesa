@@ -1,0 +1,47 @@
+- type: entity
+  id: BlackMSecuritySUV
+  parent: BaseBlackMMapDecorSolid
+  name: внедорожник охраны
+  description: Служебный внедорожник службы безопасности комплекса «Чёрная Меза».
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Vehicles/security_suv.rsi
+    noRot: false
+    layers:
+    - state: shadow
+    - state: tire_0
+      offset: 0.4375,-0.5625
+      map: [ "enum.BMCarVisualLayers.WheelFrontLeft" ]
+    - state: tire_0
+      offset: -0.4375,-0.5625
+      map: [ "enum.BMCarVisualLayers.WheelFrontRight" ]
+    - state: tire_0
+      offset: 0.4375,0.5625
+      map: [ "enum.BMCarVisualLayers.WheelRearLeft" ]
+    - state: tire_0
+      offset: -0.4375,0.5625
+      map: [ "enum.BMCarVisualLayers.WheelRearRight" ]
+    - state: body
+  - type: Icon
+    sprite: _BlackM/Objects/Vehicles/security_suv.rsi
+    state: icon
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.44,-0.88,0.44,0.88"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]

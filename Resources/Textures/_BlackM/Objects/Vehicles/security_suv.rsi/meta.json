@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "tumyrrp-blackmesa @sweekyl",
+  "size": {
+    "x": 64,
+    "y": 64
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "shadow"
+    },
+    {
+      "name": "body"
+    },
+    {
+      "name": "tire_0"
+    },
+    {
+      "name": "tire_1"
+    },
+    {
+      "name": "tire_2"
+    },
+    {
+      "name": "headlights"
+    },
+    {
+      "name": "taillights"
+    },
+    {
+      "name": "brakelights"
+    },
+    {
+      "name": "lightbar",
+      "delays": [
+        [
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09
+        ]
+      ]
+    }
+  ]
+}
