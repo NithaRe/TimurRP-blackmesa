@@ -126,7 +126,6 @@
     weightlessFrictionNoInput: 0
     weightlessModifier: 0
   - type: NoRotateOnMove
-  - type: DoorBumpOpener
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Metallic
