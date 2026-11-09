@@ -28,13 +28,19 @@ public sealed partial class WelcomeMessageSetPrototype : IPrototype
     public Vector2i PortraitCropSize = Vector2i.Zero;
 
     [DataField]
+    public Color Accent = Color.FromHex("#dfaa60");
+
+    [DataField]
     public List<ProtoId<JobPrototype>> Jobs = new();
+
+    [DataField]
+    public List<ProtoId<DepartmentPrototype>> Departments = new();
 
     [DataField(required: true)]
     public List<LocId> Messages = new();
 
     [DataField]
-    public float Duration = 6f;
+    public float Duration = 7f;
 }
 
 [Serializable, NetSerializable]
@@ -46,10 +52,11 @@ public sealed class WelcomeMessageEvent : EntityEventArgs
     public SpriteSpecifier Portrait;
     public Vector2i CropPos;
     public Vector2i CropSize;
+    public Color Accent;
     public float Duration;
 
     public WelcomeMessageEvent(string sender, string title, string text, SpriteSpecifier portrait,
-        Vector2i cropPos, Vector2i cropSize, float duration)
+        Vector2i cropPos, Vector2i cropSize, Color accent, float duration)
     {
         Sender = sender;
         Title = title;
@@ -57,6 +64,7 @@ public sealed class WelcomeMessageEvent : EntityEventArgs
         Portrait = portrait;
         CropPos = cropPos;
         CropSize = cropSize;
+        Accent = accent;
         Duration = duration;
     }
 }
