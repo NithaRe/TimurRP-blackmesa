@@ -1,0 +1,127 @@
+- type: entity
+  abstract: true
+  parent: VendingMachine
+  id: BlackMFoodVendorBase
+  components:
+  - type: FoodVendor
+    limit: 4
+    lockWhenCookPresent: true
+  - type: GenericVisualizer
+    visuals:
+      enum.FoodVendorVisuals.Locked:
+        lockLayer:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Transform
+    noRot: false
+  - type: Rotatable
+    rotateWhileAnchored: false
+    rotateWhilePulling: true
+
+- type: entity
+  parent: BlackMFoodVendorBase
+  id: BlackMFoodVendorRations
+  name: ration vendor
+  description: Dispenses standard rations to Black Mesa staff. One ration allowance per person.
+  components:
+  - type: VendingMachine
+    pack: BlackMFoodVendorRationsInventory
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
+    ejectState: eject-unshaded
+    denyState: deny-unshaded
+  - type: FoodVendor
+    group: food
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/sustenance.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: deny-unshaded
+      map: ["lockLayer"]
+      shader: unshaded
+      visible: false
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: PointLight
+    radius: 2
+    energy: 1.6
+    color: "#737785"
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+
+- type: entity
+  parent: BlackMFoodVendorBase
+  id: BlackMFoodVendorSnacks
+  name: snack vendor
+  description: Snacks for Black Mesa staff. Shares the food allowance with the ration vendor.
+  components:
+  - type: VendingMachine
+    pack: BlackMFoodVendorSnacksInventory
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
+    ejectState: eject-unshaded
+    denyState: deny-unshaded
+  - type: FoodVendor
+    group: food
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/snack-teal.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: deny-unshaded
+      map: ["lockLayer"]
+      shader: unshaded
+      visible: false
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: PointLight
+    radius: 2
+    energy: 1.6
+    color: "#207E79"
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+
+- type: entity
+  parent: BlackMFoodVendorBase
+  id: BlackMFoodVendorDrinks
+  name: drinks vendor
+  description: Water and soda for Black Mesa staff. Has its own allowance, separate from food.
+  components:
+  - type: VendingMachine
+    pack: BlackMFoodVendorDrinksInventory
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
+    ejectState: eject-unshaded
+    denyState: deny-unshaded
+  - type: FoodVendor
+    group: drink
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/soda2.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: deny-unshaded
+      map: ["lockLayer"]
+      shader: unshaded
+      visible: false
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: PointLight
+    radius: 2
+    energy: 1.6
+    color: "#3c5eb5"
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
