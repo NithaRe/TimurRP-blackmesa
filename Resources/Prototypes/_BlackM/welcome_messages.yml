@@ -5,7 +5,7 @@
   portrait: /Textures/_BlackM/Interface/welcome_portrait.png
   portraitCropPos: 4,0
   portraitCropSize: 24,18
-  duration: 6 
+  accent: "#dfaa60"
   messages:
   - blackm-welcome-msg-1
   - blackm-welcome-msg-2
@@ -20,23 +20,106 @@
   portrait: /Textures/_BlackM/Interface/welcome_portrait_sec.png
   portraitCropPos: 4,0
   portraitCropSize: 24,18
+  accent: "#6aa6dd"
   jobs:
   - SecurityCadet
   - Brigmedic
   - HeadOfSecurity
   - SecurityOfficer
   - Warden
+  departments:
+  - Security
   messages:
   - blackm-welcome-sec-1
   - blackm-welcome-sec-2
+  - blackm-welcome-sec-3
+
+- type: welcomeMessageSet
+  id: BlackMWelcomeScience
+  sender: blackm-welcome-sender-science
+  title: blackm-welcome-title-science
+  portrait: /Textures/_BlackM/Interface/welcome_portrait.png
+  portraitCropPos: 4,0
+  portraitCropSize: 24,18
+  accent: "#66c5da"
+  jobs:
+  - Scientist
+  - ResearchAssistant
+  - ResearchDirector
+  - Roboticist
+  departments:
+  - Science
+  messages:
+  - blackm-welcome-sci-1
+  - blackm-welcome-sci-2
+  - blackm-welcome-sci-3
+
+- type: welcomeMessageSet
+  id: BlackMWelcomeMedical
+  sender: blackm-welcome-sender-medical
+  title: blackm-welcome-title-medical
+  portrait: /Textures/_BlackM/Interface/welcome_portrait.png
+  portraitCropPos: 4,0
+  portraitCropSize: 24,18
+  accent: "#78c98a"
+  departments:
+  - Medical
+  messages:
+  - blackm-welcome-med-1
+  - blackm-welcome-med-2
+
+- type: welcomeMessageSet
+  id: BlackMWelcomeEngineering
+  sender: blackm-welcome-sender-engineering
+  title: blackm-welcome-title-engineering
+  portrait: /Textures/_BlackM/Interface/welcome_portrait.png
+  portraitCropPos: 4,0
+  portraitCropSize: 24,18
+  accent: "#e8bb58"
+  departments:
+  - Engineering
+  messages:
+  - blackm-welcome-eng-1
+  - blackm-welcome-eng-2
+
+- type: welcomeMessageSet
+  id: BlackMWelcomeCargo
+  sender: blackm-welcome-sender-cargo
+  title: blackm-welcome-title-cargo
+  portrait: /Textures/_BlackM/Interface/welcome_portrait.png
+  portraitCropPos: 4,0
+  portraitCropSize: 24,18
+  accent: "#d4a373"
+  departments:
+  - Cargo
+  messages:
+  - blackm-welcome-cargo-1
+  - blackm-welcome-cargo-2
+
+#- type: welcomeMessageSet
+#  id: BlackMWelcomeHecu
+#  sender: blackm-welcome-sender-hecu
+#  title: blackm-welcome-title-hecu
+#  portrait: /Textures/_BlackM/Interface/welcome_portrait_sec.png
+#  portraitCropPos: 4,0
+#  portraitCropSize: 24,18
+#  accent: "#9bb06a"
+#  jobs:
+#  - HECU
+#  messages:
+#  - blackm-welcome-hecu-1
+#  - blackm-welcome-hecu-2
 
 - type: welcomeMessageSet
   id: BlackMWelcomeCaptain
   sender: blackm-welcome-sender-captain
   title: blackm-welcome-title-captain
   portrait: /Textures/_BlackM/Interface/welcome_portrait_captain.png
-  portraitCropPos: 4,0
+  accent: "#a9b8c9"
+  duration: 8
   jobs:
   - Captain
   messages:
   - blackm-welcome-captain-1
+  - blackm-welcome-captain-2
+  - blackm-welcome-captain-3

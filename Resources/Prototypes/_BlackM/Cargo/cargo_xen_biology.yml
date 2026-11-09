@@ -1,8 +1,8 @@
 - type: cargoProduct
   id: XenRedSampleProduct
   icon:
-    sprite: Objects/Materials/materials.rsi
-    state: phoron_gem
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    state: red_sample
   product: MaterialXenRedSample1
   cost: 1000
   category: cargoproduct-category-name-science
