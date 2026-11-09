@@ -1,0 +1,12 @@
+- type: htnCompound
+  id: BMCityScannerCompound
+  branches:
+  - preconditions:
+    - !type:KeyExistsPrecondition
+      key: FollowTarget
+    tasks:
+    - !type:HTNCompoundTask
+      task: FollowCompound
+  - tasks:
+    - !type:HTNCompoundTask
+      task: IdleCompound

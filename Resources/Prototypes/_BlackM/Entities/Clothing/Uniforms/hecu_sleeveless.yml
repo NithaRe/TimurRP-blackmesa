@@ -1,0 +1,22 @@
+- type: entity
+  parent: ClothingUniformJumpsuitHecu
+  id: ClothingUniformJumpsuitHecuSleeveless
+  name: HECU sleeveless uniform
+  description: Hunt down the Freeman. Sleeves are for the weak.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/hecu_sleeveless.rsi
+  - type: Clothing
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/hecu_sleeveless.rsi
+  - type: Item
+    sprite: _BlackM/Clothing/Uniforms/Jumpsuit/hecu.rsi
+
+- type: entity
+  parent: ClothingUniformJumpsuitHecu
+  id: ClothingUniformJumpsuitHecuRandom
+  suffix: Random
+  components:
+  - type: RandomVariant
+    variants:
+    - ClothingUniformJumpsuitHecu
+    - ClothingUniformJumpsuitHecuSleeveless

@@ -1,0 +1,136 @@
+- type: entity
+  parent: BaseStructure
+  id: BlackMHecuLaserTurret
+  name: HECU laser turret
+  description: Automated HECU laser turret. Opens fire on anyone who is not HECU.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Turrets/hecu_laser_turret.rsi
+    drawdepth: Mobs
+    layers:
+    - state: base
+      map: [ "enum.HecuTurretLayers.Base" ]
+    - state: idle
+      map: [ "enum.HecuTurretLayers.Head" ]
+  - type: InteractionOutline
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 60
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Anchorable
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 3
+  - type: Gun
+    fireRate: 1.5
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser3.ogg
+  - type: HitscanBatteryAmmoProvider
+    proto: BlackMHecuTurretLaser
+    fireCost: 40
+  - type: Battery
+    maxCharge: 800
+    startingCharge: 800
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    autoRechargeRate: 80
+  - type: AmbientSound
+    enabled: true
+    volume: -8
+    range: 6
+    sound:
+      path: /Audio/_BlackM/CityScanner/scan_loop1.ogg
+  - type: HecuTurret
+    range: 9
+    rotationSpeed: 270
+    idleRotateSpeed: 45
+    fireTolerance: 8
+    prepareTime: 0.6
+    disarmDelay: 4
+    foldedPrototype: BlackMHecuLaserTurretFolded
+    idleLoopSound:
+      path: /Audio/_BlackM/CityScanner/scan_loop1.ogg
+    activeLoopSound:
+      path: /Audio/_BlackM/CityScanner/scan_loop2.ogg
+    ignoreTags:
+    - HECU
+
+- type: entity
+  parent: BaseItem
+  id: BlackMHecuLaserTurretFolded
+  name: folded HECU laser turret
+  description: A folded HECU laser turret. Heavy, needs both hands to carry. Click a floor tile to deploy.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Turrets/hecu_laser_turret_folded.rsi
+    state: icon
+  - type: Item
+    size: Ginormous
+    sprite: _BlackM/Structures/Turrets/hecu_laser_turret_folded.rsi
+  - type: MultiHandedItem
+  - type: HeldSpeedModifier
+    walkModifier: 0.8
+    sprintModifier: 0.75
+  - type: HecuTurretFolded
+    turretPrototype: BlackMHecuLaserTurret
+    deployTime: 2.5
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 3
+
+- type: hitscan
+  id: BlackMHecuTurretLaser
+  damage:
+    types:
+      Heat: 17
+  muzzleFlash:
+    sprite: _BlackM/Effects/hecu_laser.rsi
+    state: muzzle
+  travelFlash:
+    sprite: _BlackM/Effects/hecu_laser.rsi
+    state: beam
+  impactFlash:
+    sprite: _BlackM/Effects/hecu_laser.rsi
+    state: impact

@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Made for TimurRP-blackmesa (BlackM)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "crystal"
+    },
+    {
+      "name": "crystal_2"
+    },
+    {
+      "name": "crystal_3"
+    },
+    {
+      "name": "crystal-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "crystal-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "red_sample"
+    },
+    {
+      "name": "red_sample_2"
+    },
+    {
+      "name": "red_sample_3"
+    },
+    {
+      "name": "red_sample-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "red_sample-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "neural"
+    },
+    {
+      "name": "neural_2"
+    },
+    {
+      "name": "neural_3"
+    },
+    {
+      "name": "neural-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "neural-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "substrate"
+    },
+    {
+      "name": "substrate_2"
+    },
+    {
+      "name": "substrate_3"
+    },
+    {
+      "name": "substrate-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "substrate-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "catalyst"
+    },
+    {
+      "name": "catalyst_2"
+    },
+    {
+      "name": "catalyst_3"
+    },
+    {
+      "name": "catalyst-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "catalyst-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "gel"
+    },
+    {
+      "name": "gel_2"
+    },
+    {
+      "name": "gel_3"
+    },
+    {
+      "name": "gel-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "gel-inhand-right",
+      "directions": 4
+    }
+  ]
+}

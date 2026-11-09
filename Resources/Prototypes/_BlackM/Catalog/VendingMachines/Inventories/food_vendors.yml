@@ -1,0 +1,27 @@
+- type: vendingMachineInventory
+  id: BlackMFoodVendorRationsInventory
+  startingInventory:
+    FoodSnackNutribrick: 20
+    FoodTinMRE: 12
+    FoodSnackMREBrownie: 12
+    FoodTinBeans: 10
+    FoodTinPeaches: 8
+
+- type: vendingMachineInventory
+  id: BlackMFoodVendorSnacksInventory
+  startingInventory:
+    FoodSnackChips: 10
+    FoodSnackCheesie: 10
+    FoodSnackRaisins: 10
+    FoodSnackChocolate: 10
+    FoodSnackPopcorn: 8
+    FoodSnackEnergy: 8
+
+- type: vendingMachineInventory
+  id: BlackMFoodVendorDrinksInventory
+  startingInventory:
+    DrinkWaterBottleFull: 25
+    DrinkMREFlask: 10
+    DrinkColaCan: 10
+    DrinkSpaceUpCan: 8
+    DrinkLemonLimeCan: 8

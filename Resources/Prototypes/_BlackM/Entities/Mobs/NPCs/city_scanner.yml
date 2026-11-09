@@ -1,0 +1,146 @@
+- type: entity
+  id: BMCityScanner
+  parent: [ BaseMob, FlyingMobBase ]
+  name: city scanner
+  description: A Combine surveillance drone. Photographs citizens for the archive. Allegedly.
+  components:
+  - type: HTN
+    rootTask:
+      task: BMCityScannerCompound
+  - type: NpcFactionMember
+    factions:
+    - Passive
+  - type: MovementIgnoreGravity
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 3.5
+  - type: Sprite
+    drawdepth: Mobs
+    noRot: true
+    sprite: _BlackM/Mobs/CityScanner/city_scanner.rsi
+    layers:
+    - state: shadow
+      map: [ "enum.CityScannerLayers.Shadow" ]
+    - state: body
+      map: [ "enum.CityScannerLayers.Body" ]
+    - state: eye_idle
+      map: [ "enum.CityScannerLayers.Eye" ]
+      shader: unshaded
+  - type: GenericVisualizer
+    visuals:
+      enum.CityScannerVisuals.State:
+        enum.CityScannerLayers.Eye:
+          Idle: { state: eye_idle }
+          Aiming: { state: eye_aim }
+          Flash: { state: eye_flash }
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.3
+        density: 40
+        mask:
+        - FlyingMobMask
+        layer:
+        - FlyingMobLayer
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 60
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 1
+          EffectSparks:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: PointLight
+    radius: 1.6
+    energy: 1.2
+    color: "#ff4a26"
+  - type: NameIdentifier
+    group: GenericNumber
+  - type: InteractionPopup
+    successChance: 0.5
+    interactSuccessString: bm-city-scanner-pet-success
+    interactFailureString: bm-city-scanner-pet-failure
+    interactSuccessSound:
+      path: /Audio/_BlackM/CityScanner/blip1.ogg
+      params:
+        volume: -4
+  - type: AmbientSound
+    enabled: true
+    volume: -8
+    range: 5
+    sound:
+      path: /Audio/_BlackM/CityScanner/fly_loop.ogg
+  - type: ZombieImmune
+  - type: CityScanner
+
+- type: soundCollection
+  id: BMCityScannerIdle
+  files:
+  - /Audio/_BlackM/CityScanner/blip1.ogg
+  - /Audio/_BlackM/CityScanner/scan_loop2.ogg
+
+- type: entity
+  id: BMCityScannerFlashEffect
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: PointLight
+    enabled: true
+    radius: 4
+    energy: 7
+    color: "#e8f2ff"
+    netsync: false
+  - type: LightFade
+    duration: 0.35
+  - type: TimedDespawn
+    lifetime: 0.4
+
+- type: entity
+  parent: BaseItem
+  id: BMScannerPhoto
+  name: scanner photo
+  description: A fresh print from a city scanner. Still warm.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Misc/scanner_photo.rsi
+    state: icon
+  - type: Item
+    size: Tiny
+  - type: ScannerPhoto
+  - type: ActivatableUI
+    key: enum.ScannerPhotoUiKey.Key
+    requiresComplex: false
+  - type: UserInterface
+    interfaces:
+      enum.ScannerPhotoUiKey.Key:
+        type: ScannerPhotoBoundUserInterface
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_Goobstation/Items/handling/paper_pickup.ogg
+      params:
+        volume: -6
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_Goobstation/Items/handling/paper_drop.ogg
+      params:
+        volume: -6
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Goobstation/Items/handling/paper_drop.ogg
+      params:
+        volume: -6

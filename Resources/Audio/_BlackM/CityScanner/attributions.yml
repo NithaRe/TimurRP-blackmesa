@@ -1,0 +1,4 @@
+- files: ["fly_loop.ogg", "alert1.ogg", "photo1.ogg", "scan_loop1.ogg", "scan_loop2.ogg", "blip1.ogg"]
+  license: "Custom"
+  copyright: "Valve Corporation, Half-Life 2. Converted to mono OGG."
+  source: "https://store.steampowered.com/app/220/HalfLife_2/"
