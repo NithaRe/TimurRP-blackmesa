@@ -18,12 +18,20 @@
       XenCrystalConcentrate: 100
   - type: Stack
     stackType: XenCrystalConcentrate
+    baseLayer: base
+    layerStates:
+    - crystal
+    - crystal_2
+    - crystal_3
   - type: Sprite
-    sprite: Objects/Materials/ore.rsi
-    state: spacequartz
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    state: crystal_3
     layers:
-    - state: spacequartz
+    - state: crystal_3
       map: ["base"]
+  - type: Item
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    heldPrefix: crystal
 
 - type: entity
   parent: MaterialXenCrystalConcentrate
@@ -32,6 +40,11 @@
   components:
   - type: Stack
     count: 1
+  - type: Sprite
+    state: crystal
+    layers:
+    - state: crystal
+      map: ["base"]
 
 - type: entity
   parent: BaseXenMaterial
@@ -44,12 +57,20 @@
       XenOrganicSubstrate: 100
   - type: Stack
     stackType: XenOrganicSubstrate
+    baseLayer: base
+    layerStates:
+    - substrate
+    - substrate_2
+    - substrate_3
   - type: Sprite
-    sprite: Objects/Materials/materials.rsi
-    state: alienhide
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    state: substrate_3
     layers:
-    - state: alienhide
+    - state: substrate_3
       map: ["base"]
+  - type: Item
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    heldPrefix: substrate
 
 - type: entity
   parent: MaterialXenOrganicSubstrate
@@ -58,6 +79,11 @@
   components:
   - type: Stack
     count: 1
+  - type: Sprite
+    state: substrate
+    layers:
+    - state: substrate
+      map: ["base"]
 
 - type: entity
   parent: BaseXenMaterial
@@ -70,13 +96,20 @@
       XenNeuralMass: 100
   - type: Stack
     stackType: XenNeuralMass
+    baseLayer: base
+    layerStates:
+    - neural
+    - neural_2
+    - neural_3
   - type: Sprite
-    sprite: Objects/Materials/materials.rsi
-    state: bones
-    color: "#b8cf87"
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    state: neural_3
     layers:
-    - state: bones
+    - state: neural_3
       map: ["base"]
+  - type: Item
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    heldPrefix: neural
 
 - type: entity
   parent: MaterialXenNeuralMass
@@ -85,6 +118,11 @@
   components:
   - type: Stack
     count: 1
+  - type: Sprite
+    state: neural
+    layers:
+    - state: neural
+      map: ["base"]
 
 - type: entity
   parent: BaseXenMaterial
@@ -97,13 +135,20 @@
       XenResonanceGel: 100
   - type: Stack
     stackType: XenResonanceGel
+    baseLayer: base
+    layerStates:
+    - gel
+    - gel_2
+    - gel_3
   - type: Sprite
-    sprite: Objects/Materials/materials.rsi
-    state: phoron_gem
-    color: "#48d4d8"
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    state: gel_3
     layers:
-    - state: phoron_gem
+    - state: gel_3
       map: ["base"]
+  - type: Item
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    heldPrefix: gel
 
 - type: entity
   parent: MaterialXenResonanceGel
@@ -112,6 +157,11 @@
   components:
   - type: Stack
     count: 1
+  - type: Sprite
+    state: gel
+    layers:
+    - state: gel
+      map: ["base"]
 
 - type: entity
   parent: BaseXenMaterial
@@ -124,13 +174,20 @@
       XenCatalyst: 100
   - type: Stack
     stackType: XenCatalyst
+    baseLayer: base
+    layerStates:
+    - catalyst
+    - catalyst_2
+    - catalyst_3
   - type: Sprite
-    sprite: Objects/Materials/materials.rsi
-    state: diamond
-    color: "#6fff8f"
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    state: catalyst_3
     layers:
-    - state: diamond
+    - state: catalyst_3
       map: ["base"]
+  - type: Item
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    heldPrefix: catalyst
 
 - type: entity
   parent: MaterialXenCatalyst
@@ -139,6 +196,11 @@
   components:
   - type: Stack
     count: 1
+  - type: Sprite
+    state: catalyst
+    layers:
+    - state: catalyst
+      map: ["base"]
 
 - type: entity
   parent: BaseXenMaterial
@@ -151,13 +213,20 @@
       XenRedSample: 100
   - type: Stack
     stackType: XenRedSample
+    baseLayer: base
+    layerStates:
+    - red_sample
+    - red_sample_2
+    - red_sample_3
   - type: Sprite
-    sprite: Objects/Materials/materials.rsi
-    state: phoron_gem
-    color: "#b84a4a"
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    state: red_sample_3
     layers:
-    - state: phoron_gem
+    - state: red_sample_3
       map: ["base"]
+  - type: Item
+    sprite: _BlackM/Objects/Materials/xen_materials.rsi
+    heldPrefix: red_sample
 
 - type: entity
   parent: MaterialXenRedSample
@@ -166,3 +235,8 @@
   components:
   - type: Stack
     count: 1
+  - type: Sprite
+    state: red_sample
+    layers:
+    - state: red_sample
+      map: ["base"]

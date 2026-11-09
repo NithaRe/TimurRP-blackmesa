@@ -15,7 +15,7 @@
     altMode: false
   - type: WiresPanel
   - type: Sprite
-    sprite: Structures/Machines/artifact_crusher.rsi
+    sprite: _BlackM/Structures/Machines/scientific_crusher.rsi
     offset: 0,0.5
     noRot: true
     layers:

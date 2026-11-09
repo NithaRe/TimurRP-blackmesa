@@ -3,7 +3,7 @@
   stackEntity: MaterialXenCrystalConcentrate1
   name: materials-xen-crystal-concentrate
   unit: materials-unit-piece
-  icon: { sprite: Objects/Materials/ore.rsi, state: spacequartz }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: crystal }
   color: "#79d6ca"
   price: 0.5
 
@@ -12,7 +12,7 @@
   stackEntity: MaterialXenOrganicSubstrate1
   name: materials-xen-organic-substrate
   unit: materials-unit-piece
-  icon: { sprite: Objects/Materials/materials.rsi, state: alienhide }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: substrate }
   color: "#87a85e"
   price: 0.6
 
@@ -21,7 +21,7 @@
   stackEntity: MaterialXenNeuralMass1
   name: materials-xen-neural-mass
   unit: materials-unit-piece
-  icon: { sprite: Objects/Materials/materials.rsi, state: bones }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: neural }
   color: "#b8cf87"
   price: 0.8
 
@@ -30,7 +30,7 @@
   stackEntity: MaterialXenResonanceGel1
   name: materials-xen-resonance-gel
   unit: materials-unit-piece
-  icon: { sprite: Objects/Materials/materials.rsi, state: phoron_gem }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: gel }
   color: "#48d4d8"
   price: 1.5
 
@@ -39,7 +39,7 @@
   stackEntity: MaterialXenCatalyst1
   name: materials-xen-catalyst
   unit: materials-unit-piece
-  icon: { sprite: Objects/Materials/materials.rsi, state: diamond }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: catalyst }
   color: "#6fff8f"
   price: 3
 
@@ -48,6 +48,6 @@
   stackEntity: MaterialXenRedSample1
   name: materials-xen-red-sample
   unit: materials-unit-piece
-  icon: { sprite: Objects/Materials/materials.rsi, state: phoron_gem }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: red_sample }
   color: "#b84a4a"
   price: 10

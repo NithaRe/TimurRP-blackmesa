@@ -1,41 +1,41 @@
 - type: stack
   id: XenCrystalConcentrate
   name: stack-xen-crystal-concentrate
-  icon: { sprite: Objects/Materials/ore.rsi, state: spacequartz }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: crystal }
   spawn: MaterialXenCrystalConcentrate1
   maxCount: 30
 
 - type: stack
   id: XenOrganicSubstrate
   name: stack-xen-organic-substrate
-  icon: { sprite: Objects/Materials/materials.rsi, state: alienhide }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: substrate }
   spawn: MaterialXenOrganicSubstrate1
   maxCount: 30
 
 - type: stack
   id: XenNeuralMass
   name: stack-xen-neural-mass
-  icon: { sprite: Objects/Materials/materials.rsi, state: bones }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: neural }
   spawn: MaterialXenNeuralMass1
   maxCount: 30
 
 - type: stack
   id: XenResonanceGel
   name: stack-xen-resonance-gel
-  icon: { sprite: Objects/Materials/materials.rsi, state: phoron_gem }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: gel }
   spawn: MaterialXenResonanceGel1
   maxCount: 30
 
 - type: stack
   id: XenCatalyst
   name: stack-xen-catalyst
-  icon: { sprite: Objects/Materials/materials.rsi, state: diamond }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: catalyst }
   spawn: MaterialXenCatalyst1
   maxCount: 30
 
 - type: stack
   id: XenRedSample
   name: stack-xen-red-sample
-  icon: { sprite: Objects/Materials/materials.rsi, state: phoron_gem }
+  icon: { sprite: _BlackM/Objects/Materials/xen_materials.rsi, state: red_sample }
   spawn: MaterialXenRedSample1
   maxCount: 30
