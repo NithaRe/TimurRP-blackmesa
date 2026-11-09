@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Made for TimurRP-blackmesa (BlackM)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "base"
+    },
+    {
+      "name": "idle"
+    },
+    {
+      "name": "prepare",
+      "delays": [
+        [ 0.15, 0.15, 0.15, 10 ]
+      ]
+    },
+    {
+      "name": "armed"
+    },
+    {
+      "name": "fire",
+      "delays": [
+        [ 0.06, 0.06, 0.06, 0.06, 0.06, 10 ]
+      ]
+    }
+  ]
+}

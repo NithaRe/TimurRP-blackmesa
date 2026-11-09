@@ -21,7 +21,7 @@
   equipment:
     outerClothing: ClothingArmorHecuUnit
     head: ClothingHeadHelmetBasicHecu
-    jumpsuit: ClothingUniformJumpsuitHecu
+    jumpsuit: ClothingUniformJumpsuitHecuRandom
     mask: ClothingMaskGasHECU
     shoes: ClothingShoesBootsHecu
     back: ClothingBackpackMerc
