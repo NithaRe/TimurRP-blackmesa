@@ -13,6 +13,12 @@
 
                 <Label Text="{Loc 'ui-options-blackm-graphics-label'}" StyleClasses="LabelKeyText"/>
                 <CheckBox Name="DefaultAtmosphereShaderCheckBox" Text="{Loc 'ui-options-default-atmosphere-shader'}" />
+
+                <Label Text="{Loc 'ui-options-blackm-combat-label'}" StyleClasses="LabelKeyText"/>
+                <CheckBox Name="GunCrosshairCheckBox" Text="{Loc 'ui-options-gun-crosshair'}" />
+                <CheckBox Name="GunAimLineCheckBox" Text="{Loc 'ui-options-gun-aim-line'}" />
+                <CheckBox Name="GunCameraFollowCheckBox" Text="{Loc 'ui-options-gun-camera-follow'}" />
+                <ui:OptionSlider Name="GunCameraStrengthSlider" Title="{Loc 'ui-options-gun-camera-strength'}" />
             </BoxContainer>
         </ScrollContainer>
         <ui:OptionsTabControlRow Name="Control" Access="Public" />
