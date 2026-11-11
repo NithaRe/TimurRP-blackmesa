@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "_BlackM",
+  "size": {
+    "x": 256,
+    "y": 256
+  },
+  "states": [
+    {
+      "name": "shadow",
+      "directions": 4
+    },
+    {
+      "name": "car",
+      "directions": 4
+    },
+    {
+      "name": "doors_open",
+      "directions": 4
+    },
+    {
+      "name": "doors_closed",
+      "directions": 4
+    },
+    {
+      "name": "lights",
+      "directions": 4
+    }
+  ]
+}

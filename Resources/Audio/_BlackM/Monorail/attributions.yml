@@ -1,0 +1,11 @@
+- files:
+  - chime_departure.ogg
+  - chime_arrival.ogg
+  - doors_open.ogg
+  - doors_close.ogg
+  - depart.ogg
+  - horn.ogg
+  - rolling_loop.ogg
+  license: "CC-BY-SA-3.0"
+  copyright: "_BlackM."
+  source: "https://github.com/NithaRe/TimurRP-blackmesa"

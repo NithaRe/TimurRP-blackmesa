@@ -1,0 +1,301 @@
+- type: entity
+  id: BlackMMonorailTrackBase
+  abstract: true
+  name: monorail track
+  description: Steel monorail beam on support brackets.
+  placement:
+    mode: AlignMonorailTrack
+  components:
+  - type: Clickable
+  - type: Sprite
+    sprite: _BlackM/Structures/Monorail/hl_monorail_track.rsi
+    drawdepth: FloorObjects
+    noRot: false
+  - type: MonorailTrack
+
+- type: entity
+  parent: BlackMMonorailTrackBase
+  id: BlackMMonorailTrack
+  name: monorail track
+  components:
+  - type: Sprite
+    state: straight
+  - type: MonorailTrack
+    shape: Straight
+
+- type: entity
+  parent: BlackMMonorailTrackBase
+  id: BlackMMonorailTrackLong
+  name: long monorail track
+  description: Three-tile steel monorail beam.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Monorail/hl_monorail_track_large.rsi
+    state: straight_long
+  - type: MonorailTrack
+    shape: StraightLong
+
+- type: entity
+  parent: BlackMMonorailTrackBase
+  id: BlackMMonorailTrackCorner
+  name: monorail track corner
+  description: Tight monorail bend. Long cars cut it at the chord, prefer the wide curve.
+  components:
+  - type: Sprite
+    state: corner
+  - type: MonorailTrack
+    shape: Corner
+
+- type: entity
+  parent: BlackMMonorailTrackBase
+  id: BlackMMonorailTrackCurveLarge
+  name: wide monorail curve
+  description: Wide 3x3 monorail curve for full-size transit cars.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Monorail/hl_monorail_track_large.rsi
+    state: curve_large
+  - type: MonorailTrack
+    shape: CurveLarge
+
+- type: entity
+  parent: BlackMMonorailTrackBase
+  id: BlackMMonorailTrackEnd
+  name: monorail track buffer
+  description: End of the line with a hydraulic buffer.
+  components:
+  - type: Sprite
+    state: end
+  - type: MonorailTrack
+    shape: End
+
+- type: entity
+  parent: BlackMMonorailTrackBase
+  id: BlackMMonorailTrackStation
+  name: monorail station track
+  description: Monorail beam with a stop marker. The car halts here.
+  components:
+  - type: Sprite
+    state: station
+  - type: MonorailTrack
+    shape: Straight
+  - type: MonorailStop
+    line: main
+
+- type: entity
+  id: BlackMMonorailCar
+  name: BMRF transit car
+  description: Black Mesa Research Facility transit car. Runs between stations on its own. Take a seat or hold on to a pole.
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _BlackM/Structures/Monorail/hl_monorail_car.rsi
+    drawdepth: Objects
+    noRot: false
+    layers:
+    - state: shadow
+    - state: car
+    - state: doors_open
+      map: [ "enum.MonorailCarLayers.Doors" ]
+    - state: lights
+      shader: unshaded
+      map: [ "enum.MonorailCarLayers.Lights" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.MonorailCarVisuals.DoorsOpen:
+        enum.MonorailCarLayers.Doors:
+          True: { state: doors_open }
+          False: { state: doors_closed }
+  - type: PointLight
+    radius: 5
+    energy: 1.0
+    softness: 4
+    color: "#eef3ff"
+    castShadows: false
+  - type: AmbientSound
+    enabled: false
+    volume: -4
+    range: 9
+    sound:
+      path: /Audio/_BlackM/Monorail/rolling_loop.ogg
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      wallLeftSouth:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,-3.4,-1.15,-0.75"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - GlassLayer
+      wallLeftNorth:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,0.75,-1.15,3.4"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - GlassLayer
+      wallRightSouth:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "1.15,-3.4,1.5,-0.75"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - GlassLayer
+      wallRightNorth:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "1.15,0.75,1.5,3.4"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - GlassLayer
+      wallSouth:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,-3.4,1.5,-2.85"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - GlassLayer
+      wallNorth:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,2.85,1.5,3.4"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - GlassLayer
+      doorLeft:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,-0.75,-1.15,0.75"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - GlassLayer
+      doorRight:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "1.15,-0.75,1.5,0.75"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - GlassLayer
+  - type: MonorailCar
+    line: main
+    maxSpeed: 3.5
+    acceleration: 1.1
+    dwellTime: 20
+    departureWarning: 6
+    doorCloseTime: 2
+    bogieSpacing: 4.6
+    floorHalfExtents: "1.1,2.8"
+    bodyHalfExtents: "1.5,3.4"
+    wallThickness: 0.35
+    doorHalfWidth: 0.75
+    hitMinSpeed: 1
+    hitDamage:
+      types:
+        Blunt: 20
+    hitKnockdownTime: 4
+    hitThrowSpeed: 9
+    hitSound:
+      path: /Audio/Effects/hit_kick.ogg
+    hornSound:
+      path: /Audio/_BlackM/Monorail/horn.ogg
+      params:
+        volume: -3
+    seatPrototype: BlackMMonorailSeat
+    seats:
+    - offset: "-0.72,-2.35"
+      rotation: 180
+    - offset: "0.72,-2.35"
+      rotation: 180
+    - offset: "-0.72,-1.35"
+      rotation: 0
+    - offset: "0.72,-1.35"
+      rotation: 0
+    - offset: "-0.72,1.35"
+      rotation: 180
+    - offset: "0.72,1.35"
+      rotation: 180
+    - offset: "-0.72,2.35"
+      rotation: 0
+    - offset: "0.72,2.35"
+      rotation: 0
+    departureWarningSound:
+      path: /Audio/_BlackM/Monorail/chime_departure.ogg
+      params:
+        volume: -2
+    doorsCloseSound:
+      path: /Audio/_BlackM/Monorail/doors_close.ogg
+      params:
+        volume: -3
+    doorsOpenSound:
+      path: /Audio/_BlackM/Monorail/doors_open.ogg
+      params:
+        volume: -3
+    departSound:
+      path: /Audio/_BlackM/Monorail/depart.ogg
+      params:
+        volume: -4
+    arriveSound:
+      path: /Audio/_BlackM/Monorail/chime_arrival.ogg
+      params:
+        volume: -2
+    headlightPrototype: BlackMMonorailHeadlight
+    headlightInset: 0.1
+    headlightAngleOffset: 0
+    headlightColor: "#fff4e0"
+    headlightEnergy: 2.2
+    tailLightColor: "#ff3b2e"
+    tailLightEnergy: 0.7
+
+- type: entity
+  id: BlackMMonorailHeadlight
+  name: monorail headlight
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: PointLight
+    radius: 7
+    energy: 2.2
+    softness: 1.5
+    color: "#fff4e0"
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    castShadows: false
+
+- type: entity
+  id: BlackMMonorailSeat
+  name: transit seat
+  description: Padded transit seat with a steel frame.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _BlackM/Structures/Monorail/hl_monorail_seat.rsi
+    state: seat
+    drawdepth: SmallObjects
+    noRot: false
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,0"
+  - type: MonorailSeat
