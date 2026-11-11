@@ -568,6 +568,7 @@ public sealed partial class GunSystem : SharedGunSystem
         var maxTheta = Math.Max(component.MinAngleModified.Theta, component.MaxAngleModified.Theta); // goob edit reverse recoil direction for funny mechanics
         var newTheta = MathHelper.Clamp(component.CurrentAngle.Theta + component.AngleIncreaseModified.Theta - component.AngleDecayModified.Theta * timeSinceLastFire, minTheta, maxTheta); // goob edit
         component.CurrentAngle = new Angle(newTheta);
+        DirtyField(component.Owner, component, nameof(GunComponent.CurrentAngle)); // BlackM
         component.LastFire = component.NextFire;
 
         // Convert it so angle can go either side.
