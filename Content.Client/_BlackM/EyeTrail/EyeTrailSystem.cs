@@ -21,6 +21,10 @@ public sealed class EyeTrailSystem : EntitySystem
 
     private const float PixelsPerTile = 32f;
 
+    private const float MaxFrameGap = 0.25f;
+
+    private const float MinJump = 1f;
+
     internal readonly Dictionary<EntityUid, TrailState> Trails = new();
     private readonly List<EntityUid> _stale = new();
 
@@ -112,6 +116,11 @@ public sealed class EyeTrailSystem : EntitySystem
         var dir = ScreenFacing(xform, sprite, eyeRot);
         var parent = xform.ParentUid;
 
+        if (state.LastUpdate > 0f && now - state.LastUpdate > MaxFrameGap)
+            state.EndAll();
+
+        state.LastUpdate = now;
+
         if (!moving || state.Wearer != wearer || state.Parent != parent || state.Dir != dir)
             state.EndAll();
 
@@ -123,13 +132,20 @@ public sealed class EyeTrailSystem : EntitySystem
         if (!moving || !parent.IsValid() || !trail.Eyes.TryGetValue(dir, out var eyes) || eyes.Count == 0)
             return;
 
+        var inv = _transform.GetInvWorldMatrix(parent);
+
+        if (HasJumped(state, xform, sprite, inv, eyeRot, speed, now))
+        {
+            state.EndAll();
+            state.HasWearer = true;
+        }
+
         if (state.ActiveCount() == 0)
         {
             foreach (var eye in eyes)
-                state.Strands.Add(new TrailStrand { Pixel = eye });
+                state.Strands.Add(new TrailStrand { Pixel = eye, Parent = parent });
         }
 
-        var inv = _transform.GetInvWorldMatrix(parent);
         foreach (var strand in state.Strands)
         {
             if (!strand.Active)
@@ -139,6 +155,23 @@ public sealed class EyeTrailSystem : EntitySystem
             if (strand.Points.Count == 0 || (strand.Points[^1].Local - local).Length() >= trail.SampleDistance)
                 strand.Points.Add(new TrailPoint(local, now));
         }
+    }
+
+    private bool HasJumped(TrailState state, TransformComponent xform, SpriteComponent sprite, Matrix3x2 inv,
+        Angle eyeRot, float speed, float now)
+    {
+        foreach (var strand in state.Strands)
+        {
+            if (!strand.Active || strand.Points.Count == 0)
+                continue;
+
+            var last = strand.Points[^1];
+            var local = Vector2.Transform(EyeWorldPosition(xform, sprite, strand.Pixel, eyeRot), inv);
+            var allowed = MinJump + speed * (now - last.Time) * 2f;
+            return (last.Local - local).Length() > allowed;
+        }
+
+        return false;
     }
 
     public Direction ScreenFacing(TransformComponent xform, SpriteComponent sprite, Angle eyeRot)
@@ -164,6 +197,8 @@ internal sealed class TrailStrand
 {
     public bool Active = true;
     public Vector2 Pixel;
+
+    public EntityUid Parent;
     public readonly List<TrailPoint> Points = new();
 }
 
@@ -173,6 +208,7 @@ internal sealed class TrailState
     public EntityUid Parent;
     public Direction Dir = Direction.Invalid;
     public bool HasWearer;
+    public float LastUpdate;
     public readonly List<TrailStrand> Strands = new();
 
     public int ActiveCount()

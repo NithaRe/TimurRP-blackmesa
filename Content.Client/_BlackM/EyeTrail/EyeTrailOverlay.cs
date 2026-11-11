@@ -15,6 +15,9 @@ public sealed class EyeTrailOverlay : Overlay
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
 
+    // bad data).
+    private const float MaxSegmentTiles = 2f;
+
     private readonly EyeTrailSystem _system;
     private readonly SharedTransformSystem _transform;
     private readonly ShaderInstance _shader;
@@ -51,12 +54,9 @@ public sealed class EyeTrailOverlay : Overlay
         foreach (var (uid, state) in _system.Trails)
         {
             if (!_entMan.TryGetComponent<EyeTrailComponent>(uid, out var trail)
-                || trail.Colors.Count == 0
-                || !_entMan.TryGetComponent<TransformComponent>(state.Parent, out var parentXform)
-                || parentXform.MapID != args.MapId)
+                || trail.Colors.Count == 0)
                 continue;
 
-            var matrix = _transform.GetWorldMatrix(state.Parent);
             var pixel = MathF.Max(trail.PixelSize, 0.001f);
 
             TransformComponent? wearerXform = null;
@@ -67,6 +67,12 @@ public sealed class EyeTrailOverlay : Overlay
 
             foreach (var strand in state.Strands)
             {
+                if (!_entMan.TryGetComponent<TransformComponent>(strand.Parent, out var parentXform)
+                    || parentXform.MapID != args.MapId)
+                    continue;
+
+                var matrix = _transform.GetWorldMatrix(strand.Parent);
+
                 _points.Clear();
                 _ages.Clear();
 
@@ -85,7 +91,7 @@ public sealed class EyeTrailOverlay : Overlay
                 if (_points.Count < 2)
                     continue;
 
-                Rasterize();
+                Rasterize(MaxSegmentTiles / pixel);
 
                 foreach (var (cell, age) in _cells)
                 {
@@ -107,7 +113,7 @@ public sealed class EyeTrailOverlay : Overlay
     }
 
     // 8-connected 1 px line through the samples.
-    private void Rasterize()
+    private void Rasterize(float maxSegment)
     {
         _cells.Clear();
 
@@ -115,6 +121,10 @@ public sealed class EyeTrailOverlay : Overlay
         {
             var a = _points[i];
             var b = _points[i + 1];
+
+            if (Vector2.Distance(a, b) > maxSegment)
+                continue;
+
             var steps = Math.Max(1, (int) MathF.Ceiling(MathF.Max(MathF.Abs(b.X - a.X), MathF.Abs(b.Y - a.Y))));
 
             for (var s = 0; s <= steps; s++)
