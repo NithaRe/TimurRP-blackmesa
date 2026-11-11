@@ -1,0 +1,61 @@
+- type: entity
+  abstract: true
+  id: BlackMInvisibleWallBase
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    drawdepth: Overdoors
+    sprite: _BlackM/Markers/invisible_wall.rsi
+    state: wall
+  - type: Icon
+    sprite: _BlackM/Markers/invisible_wall.rsi
+    state: wall
+  - type: Tag
+    tags:
+    - ForceFixRotations
+    - Wall
+    - IgnoreImmovableRod # Goobstation
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+            bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 1000
+  - type: RustRequiresPathStage
+    pathStage: 11
+
+- type: entity
+  parent: BlackMInvisibleWallBase
+  id: BlackMInvisibleWall
+  name: невидимая стена
+  description: Невидимый неразрушаемый барьер.
+  suffix: Mapping, Indestructible
+  components:
+  - type: Airtight
+
+- type: entity
+  parent: BlackMInvisibleWallBase
+  id: BlackMInvisibleWallAirPassable
+  name: невидимая стена
+  description: Невидимый неразрушаемый барьер. Пропускает воздух.
+  suffix: Mapping, Indestructible, AirPassable
+  components:
+  - type: Sprite
+    state: wall_air
+  - type: Icon
+    state: wall_air

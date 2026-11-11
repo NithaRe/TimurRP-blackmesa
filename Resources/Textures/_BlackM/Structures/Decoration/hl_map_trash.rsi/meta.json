@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "_BlackM",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "soda_can"
+    },
+    {
+      "name": "cans_scattered"
+    },
+    {
+      "name": "cans_crushed"
+    },
+    {
+      "name": "bottles"
+    },
+    {
+      "name": "glass_shards"
+    },
+    {
+      "name": "trash_bag"
+    },
+    {
+      "name": "trash_bags_pile"
+    },
+    {
+      "name": "food_wrappers"
+    },
+    {
+      "name": "pizza_boxes"
+    },
+    {
+      "name": "coffee_cups"
+    },
+    {
+      "name": "cigarette_butts"
+    },
+    {
+      "name": "puddle_oil"
+    },
+    {
+      "name": "puddle_water"
+    },
+    {
+      "name": "floppy_disks"
+    },
+    {
+      "name": "keyboard_broken"
+    },
+    {
+      "name": "monitor_broken"
+    },
+    {
+      "name": "lab_glass_broken"
+    }
+  ]
+}

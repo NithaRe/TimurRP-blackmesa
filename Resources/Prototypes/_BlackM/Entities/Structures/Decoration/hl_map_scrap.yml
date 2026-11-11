@@ -1,0 +1,155 @@
+- type: entity
+  id: BlackMDecorRubbleSmall
+  parent: BaseBlackMMapDecor
+  name: concrete rubble
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: rubble_small
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: rubble_small
+
+- type: entity
+  id: BlackMDecorRubblePile
+  parent: BaseBlackMMapDecor
+  name: rubble pile
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: rubble_pile
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: rubble_pile
+
+- type: entity
+  id: BlackMDecorBricks
+  parent: BaseBlackMMapDecor
+  name: bricks
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: bricks
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: bricks
+
+- type: entity
+  id: BlackMDecorCeilingTileBroken
+  parent: BaseBlackMMapDecor
+  name: fallen ceiling tile
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: ceiling_tile_broken
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: ceiling_tile_broken
+
+- type: entity
+  id: BlackMDecorPlanks
+  parent: BaseBlackMMapDecor
+  name: planks
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: planks
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: planks
+
+- type: entity
+  id: BlackMDecorPalletBroken
+  parent: BaseBlackMMapDecor
+  name: broken pallet
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: pallet_broken
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: pallet_broken
+
+- type: entity
+  id: BlackMDecorPipes
+  parent: BaseBlackMMapDecor
+  name: pipe pieces
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: pipes
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: pipes
+
+- type: entity
+  id: BlackMDecorScrapMetal
+  parent: BaseBlackMMapDecor
+  name: scrap metal
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: scrap_metal
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: scrap_metal
+
+- type: entity
+  id: BlackMDecorCables
+  parent: BaseBlackMMapDecor
+  name: cables
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: cables
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: cables
+
+- type: entity
+  id: BlackMDecorBoltsNuts
+  parent: BaseBlackMMapDecor
+  name: nuts and bolts
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: bolts_nuts
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: bolts_nuts
+
+- type: entity
+  id: BlackMDecorTire
+  parent: BaseBlackMMapDecor
+  name: old tire
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: tire
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: tire
+
+- type: entity
+  id: BlackMDecorBarrelTipped
+  parent: BaseBlackMMapDecor
+  name: tipped barrel
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: barrel_tipped
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: barrel_tipped
+
+- type: entity
+  id: BlackMDecorShellCasings
+  parent: BaseBlackMMapDecor
+  name: shell casings
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: shell_casings
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_scrap.rsi
+    state: shell_casings

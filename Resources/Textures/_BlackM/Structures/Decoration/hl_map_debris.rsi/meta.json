@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "_BlackM",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "papers_scattered_1"
+    },
+    {
+      "name": "papers_scattered_2"
+    },
+    {
+      "name": "papers_scattered_3"
+    },
+    {
+      "name": "paper_balls"
+    },
+    {
+      "name": "papers_stack"
+    },
+    {
+      "name": "folder_open"
+    },
+    {
+      "name": "box_open"
+    },
+    {
+      "name": "box_closed"
+    },
+    {
+      "name": "box_crushed"
+    },
+    {
+      "name": "boxes_pile"
+    },
+    {
+      "name": "cardboard_flat"
+    },
+    {
+      "name": "box_tipped"
+    }
+  ]
+}
