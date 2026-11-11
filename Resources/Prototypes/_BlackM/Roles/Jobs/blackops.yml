@@ -1,0 +1,193 @@
+- type: department
+  id: BlackOps
+  name: department-blackops
+  description: department-blackops-description
+  editorHidden: false
+  color: "#1c1c22"
+  roles:
+  - BlackOpsLeader
+  - BlackOpsOperative
+  - BlackOpsRecon
+
+- type: job
+  id: BlackOpsLeader
+  name: job-name-blackops-leader
+  description: job-description-blackops-leader
+  playTimeTracker: JobBlackOpsLeader
+  requirements: []
+  whitelisted: true
+  weight: 20
+  startingGear: BlackOpsLeaderGear
+  icon: "JobIconBlackOpsLeader"
+  joinNotifyCrew: false
+  supervisors: job-supervisors-blackops-leader
+  setPreference: false
+  canBeAntag: false
+  skills: # CorvaxGoob-Skills
+  - All
+  accessGroups:
+  - AllAccess
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: Tag
+      tags:
+      - CanPilot
+      - FootstepSound
+      - DoorBumpOpener
+      - AnomalyHost
+
+- type: job
+  id: BlackOpsOperative
+  name: job-name-blackops-operative
+  description: job-description-blackops-operative
+  playTimeTracker: JobBlackOpsOperative
+  requirements: []
+  whitelisted: true
+  weight: 15
+  startingGear: BlackOpsOperativeGear
+  icon: "JobIconBlackOpsOperative"
+  joinNotifyCrew: false
+  supervisors: job-supervisors-blackops
+  setPreference: false
+  canBeAntag: false
+  skills: # CorvaxGoob-Skills
+  - All
+  accessGroups:
+  - AllAccess
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: Tag
+      tags:
+      - CanPilot
+      - FootstepSound
+      - DoorBumpOpener
+      - AnomalyHost
+
+- type: job
+  id: BlackOpsRecon
+  name: job-name-blackops-recon
+  description: job-description-blackops-recon
+  playTimeTracker: JobBlackOpsRecon
+  requirements: []
+  whitelisted: true
+  weight: 15
+  startingGear: BlackOpsReconGear
+  icon: "JobIconBlackOpsRecon"
+  joinNotifyCrew: false
+  supervisors: job-supervisors-blackops
+  setPreference: false
+  canBeAntag: false
+  skills: # CorvaxGoob-Skills
+  - All
+  accessGroups:
+  - AllAccess
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: Tag
+      tags:
+      - CanPilot
+      - FootstepSound
+      - DoorBumpOpener
+      - AnomalyHost
+
+- type: playTimeTracker
+  id: JobBlackOpsLeader
+
+- type: playTimeTracker
+  id: JobBlackOpsOperative
+
+- type: playTimeTracker
+  id: JobBlackOpsRecon
+
+- type: startingGear
+  id: BlackOpsLeaderGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBlackOps
+    outerClothing: ClothingOuterArmorBlackOps
+    head: ClothingHeadHelmetBlackOpsMask
+    gloves: ClothingHandsGlovesCombat
+    shoes: ClothingShoesBootsHecu
+    back: ClothingBackpackMerc
+    belt: ClothingBeltMilitaryWebbing
+    ears: ClothingHeadsetAltSyndicate
+    id: AccessCardHolderBlackOps
+    pocket1: FlashlightSeclite
+    pocket2: CombatKnife
+  inhand:
+  - WeaponSubMachineGunBlackMMP5
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - WeaponPistolMk58
+    - MagazinePistol
+    - ClothingMaskGasBlackOps
+    - GrenadeFlashBang
+    - Handcuffs
+    - Brutepack
+
+- type: startingGear
+  id: BlackOpsOperativeGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBlackOps
+    outerClothing: ClothingOuterArmorBlackOps
+    head: ClothingHeadHelmetBlackOps
+    mask: ClothingMaskGasBlackOps
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesCombat
+    shoes: ClothingShoesBootsHecu
+    back: ClothingBackpackMerc
+    belt: ClothingBeltMilitaryWebbing
+    ears: ClothingHeadsetAltSyndicate
+    id: AccessCardHolderBlackOps
+    pocket1: FlashlightSeclite
+    pocket2: CombatKnife
+  inhand:
+  - WeaponSubMachineGunBlackMMP5
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+    - Brutepack
+    - Gauze
+
+- type: startingGear
+  id: BlackOpsReconGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBlackOps
+    outerClothing: ClothingOuterArmorBlackOps
+    head: ClothingHeadHelmetBlackOpsNVG
+    mask: ClothingMaskGasBlackOps
+    gloves: ClothingHandsGlovesCombat
+    shoes: ClothingShoesBootsHecu
+    back: ClothingBackpackMerc
+    belt: ClothingBeltMilitaryWebbing
+    ears: ClothingHeadsetAltSyndicate
+    id: AccessCardHolderBlackOps
+    pocket1: FlashlightSeclite
+    pocket2: CombatKnife
+  inhand:
+  - WeaponShotgunBlackMSpas12
+  storage:
+    back:
+    - BoxLethalshot
+    - BoxLethalshot
+    - WeaponPistolMk58
+    - MagazinePistol
+    - MagazinePistol
+    - Brutepack
+    - Gauze
