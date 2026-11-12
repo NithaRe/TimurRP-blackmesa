@@ -84,7 +84,7 @@
     volume: -15
     range: 2
     sound:
-      path: /Audio/Ambience/Objects/light_hum.ogg
+      path: /Audio/_BlackM/Ambience/light_hum.ogg
   - type: MeleeSound
     soundGroups:
       Brute:

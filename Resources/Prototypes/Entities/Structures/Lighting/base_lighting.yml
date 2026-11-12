@@ -283,7 +283,7 @@
     volume: -15
     range: 2
     sound:
-      path: /Audio/Ambience/Objects/light_hum.ogg
+      path: /Audio/_BlackM/Ambience/light_hum.ogg
   - type: DamageOnInteract
     damage:
       types:
@@ -390,7 +390,7 @@
       volume: -15
       range: 2
       sound:
-        path: /Audio/Ambience/Objects/light_hum.ogg
+        path: /Audio/_BlackM/Ambience/light_hum.ogg
     - type: Sprite
       sprite: Structures/Wallmounts/Lighting/light_small.rsi
       state: base

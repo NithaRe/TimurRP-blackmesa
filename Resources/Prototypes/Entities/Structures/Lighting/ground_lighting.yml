@@ -221,7 +221,7 @@
     volume: -15
     range: 3
     sound:
-      path: /Audio/Ambience/Objects/light_hum.ogg
+      path: /Audio/_BlackM/Ambience/light_hum.ogg
   - type: DamageOnInteract
     damage:
       types:
@@ -250,7 +250,7 @@
     volume: -15
     range: 3
     sound:
-      path: /Audio/Ambience/Objects/light_hum.ogg
+      path: /Audio/_BlackM/Ambience/light_hum.ogg
   - type: DamageOnInteract
     damage:
       types:
