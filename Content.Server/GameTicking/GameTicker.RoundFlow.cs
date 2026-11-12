@@ -249,7 +249,8 @@ namespace Content.Server.GameTicking
                 ? _robustRandom.NextVector2(proto.MaxRandomOffset)
                 : Vector2.Zero;
 
-            rot ??= proto.RandomRotation
+            // BlackM
+            rot ??= proto.RandomRotation && !_cfg.GetCVar(CCVars.CameraRotationLocked)
                 ? _robustRandom.NextAngle()
                 : Angle.Zero;
 

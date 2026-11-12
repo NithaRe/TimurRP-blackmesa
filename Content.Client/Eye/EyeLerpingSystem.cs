@@ -172,6 +172,10 @@ public sealed class EyeLerpingSystem : EntitySystem
         if (!Resolve(uid, ref xform))
             return Angle.Zero;
 
+        // BlackM: camera rotation is locked to map north.
+        if (_mover.CameraRotationLocked)
+            return Angle.Zero;
+
         // If we can move then tie our eye to our inputs (these also get lerped so it should be fine).
         if (Resolve(uid, ref mover, false))
         {

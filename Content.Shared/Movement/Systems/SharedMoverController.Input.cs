@@ -99,7 +99,7 @@ namespace Content.Shared.Movement.Systems
 
             SubscribeLocalEvent<FollowedComponent, EntParentChangedMessage>(OnFollowedParentChange);
 
-            Subs.CVar(_configManager, CCVars.CameraRotationLocked, obj => CameraRotationLocked = obj, true);
+            Subs.CVar(_configManager, CCVars.CameraRotationLocked, OnCameraRotationLockedChanged, true); // BlackM
             Subs.CVar(_configManager, CCVars.GameDiagonalMovement, value => DiagonalMovementEnabled = value, true);
         }
 
@@ -201,6 +201,27 @@ namespace Content.Shared.Movement.Systems
 
         protected virtual void HandleShuttleInput(EntityUid uid, ShuttleButtons button, ushort subTick, bool state) {}
 
+        // BlackM
+        private void OnCameraRotationLockedChanged(bool value)
+        {
+            CameraRotationLocked = value;
+
+            if (!value)
+                return;
+
+            var query = EntityQueryEnumerator<InputMoverComponent>();
+            while (query.MoveNext(out var uid, out var mover))
+            {
+                if (mover.TargetRelativeRotation.Equals(Angle.Zero) && mover.RelativeRotation.Equals(Angle.Zero))
+                    continue;
+
+                mover.TargetRelativeRotation = Angle.Zero;
+                mover.RelativeRotation = Angle.Zero;
+                mover.LerpTarget = TimeSpan.Zero;
+                Dirty(uid, mover);
+            }
+        }
+
         public void RotateCamera(EntityUid uid, Angle angle)
         {
             if (CameraRotationLocked || !MoverQuery.TryGetComponent(uid, out var mover))
@@ -284,6 +305,13 @@ namespace Content.Shared.Movement.Systems
             // Regardless of what the target is don't want the eye to move at all (from the player's perspective).
             mover.RelativeRotation -= diff;
 
+            // BlackM: locked camera never keeps a relative offset between grids.
+            if (CameraRotationLocked)
+            {
+                mover.TargetRelativeRotation = Angle.Zero;
+                mover.RelativeRotation = Angle.Zero;
+            }
+
             mover.RelativeEntity = relative;
             Dirty(uid, mover);
             return true;
@@ -291,6 +319,10 @@ namespace Content.Shared.Movement.Systems
 
         public Angle GetParentGridAngle(InputMoverComponent mover)
         {
+            // BlackM: locked camera = map north
+            if (CameraRotationLocked)
+                return Angle.Zero;
+
             var rotation = mover.RelativeRotation;
 
             if (XformQuery.TryGetComponent(mover.RelativeEntity, out var relativeXform))
