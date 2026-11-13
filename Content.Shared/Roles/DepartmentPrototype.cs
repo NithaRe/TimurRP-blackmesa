@@ -118,6 +118,12 @@ public sealed partial class DepartmentPrototype : IPrototype
     public List<ProtoId<JobPrototype>> Roles = new();
 
     /// <summary>
+    /// BlackM: sh
+    /// </summary>
+    [DataField]
+    public bool ShowEventRoles;
+
+    /// <summary>
     /// Whether this is a primary department or not.
     /// For example, CE's primary department is engineering since Command has primary: false.
     /// </summary>
