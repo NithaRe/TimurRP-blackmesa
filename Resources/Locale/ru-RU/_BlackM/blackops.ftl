@@ -19,6 +19,7 @@ ghost-role-description-blackops-recon = Разведчик с прибором �
 ghost-role-rules-blackops = Вы командный антагонист. Подчиняйтесь командиру отряда и не атакуйте своих. Роль доступна только игрокам из вайтлиста; соблюдайте правила сервера и указания администрации.
 
 armor-ricochet = Рикошет!
+armor-penetrated = Есть пробитие!
 blackops-armor-penetrated = Бронежилет пробит!
 blackops-armor-ricochet-examine = Пули рикошетят от плит: [color=lightblue]{$max}%[/color] при полной стамине и [color=red]{$min}%[/color], когда сил не осталось.
 blackops-armor-ricochet-examine-current = Сейчас шанс рикошета: [color=yellow]{$chance}%[/color].
