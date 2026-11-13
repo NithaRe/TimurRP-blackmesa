@@ -85,7 +85,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     </BoxContainer>
                     <BoxContainer Name="ChipRow" Orientation="Horizontal" SeparationOverride="4"
                                   HorizontalAlignment="Center" />
-                    <BoxContainer Orientation="Horizontal" SeparationOverride="14">
+                    <BoxContainer Name="DossierRow" Orientation="Horizontal" SeparationOverride="14">
                         <PanelContainer VerticalAlignment="Top">
                             <PanelContainer.PanelOverride>
                                 <gfx:StyleBoxFlat BackgroundColor="#241706"

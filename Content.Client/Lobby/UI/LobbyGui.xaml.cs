@@ -76,6 +76,14 @@ namespace Content.Client.Lobby.UI
         private float _styleTimer;
         private float _pulseTime;
         private AchievementsWindow? _achievementsWindow;
+
+        private const float ChatComfortHeight = 170f;
+        private const float ChatRestoreMargin = 24f;
+        private const int MaxCompactLevel = 3;
+        private int _compactLevel;
+        private readonly float[] _compactGain = new float[MaxCompactLevel];
+        private float _chatHeightBeforeCompact;
+        private bool _compactMeasurePending;
         // BlackM end
         public LobbyGui()
         {
@@ -139,6 +147,7 @@ namespace Content.Client.Lobby.UI
                 return;
 
             _styleTimer = 0f;
+            UpdateAdaptiveLayout(); // BlackM
             TerminalStyler.ApplyTree(LinkBanner, true);
             TerminalStyler.ApplyTree(DevInfoBanner, true);
             TerminalSounds.AttachAll(LinkBanner);
@@ -244,6 +253,47 @@ namespace Content.Client.Lobby.UI
                     break;
             }
         }
+        private void UpdateAdaptiveLayout()
+        {
+            if (!RightSide.Visible || !Chat.Visible)
+                return;
+
+            var chatHeight = Chat.Height;
+            if (chatHeight <= 0f)
+                return;
+
+            if (_compactMeasurePending)
+            {
+                _compactMeasurePending = false;
+                _compactGain[_compactLevel - 1] = MathF.Max(0f, chatHeight - _chatHeightBeforeCompact);
+                return;
+            }
+
+            if (chatHeight < ChatComfortHeight && _compactLevel < MaxCompactLevel)
+            {
+                _chatHeightBeforeCompact = chatHeight;
+                _compactLevel++;
+                _compactMeasurePending = true;
+                ApplyCompactLevel();
+                return;
+            }
+
+            if (_compactLevel > 0 &&
+                chatHeight - _compactGain[_compactLevel - 1] >= ChatComfortHeight + ChatRestoreMargin)
+            {
+                _compactLevel--;
+                ApplyCompactLevel();
+            }
+        }
+
+        private void ApplyCompactLevel()
+        {
+            CharacterPreview.SetCompact(_compactLevel >= 1);
+            ServerInfo.Visible = _compactLevel < 2;
+            ServerInfoPanel.Visible = _compactLevel < 3;
+            Balance.Visible = _compactLevel < 3;
+        }
+        // BlackM end
 
         private void TogglePanel(bool value)
         {

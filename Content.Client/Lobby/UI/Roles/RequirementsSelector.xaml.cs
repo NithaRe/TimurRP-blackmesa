@@ -246,6 +246,20 @@ public sealed partial class RequirementsSelector : BoxContainer
         _meter.Visible = false;
     }
 
+    // BlackM start
+    public void SetInfoOnly(string text, string? tooltip)
+    {
+        _lockLabel.Text = "[ " + text.ToUpperInvariant() + " ]";
+        _lockLabel.FontColorOverride = Color.FromHex("#8FA3B8");
+        _lockLabel.TooltipSupplier = null;
+        _lockLabel.ToolTip = tooltip;
+        _lockLabel.Visible = true;
+        _options.Visible = false;
+        _meter.Visible = false;
+        TitleLabel.FontColorOverride = Color.FromHex("#A8977A");
+    }
+    // BlackM end
+
     public void UnlockRequirements()
     {
         _lockLabel.Visible = false;
