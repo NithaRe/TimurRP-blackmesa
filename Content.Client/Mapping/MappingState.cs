@@ -536,7 +536,7 @@ public sealed partial class MappingState : GameplayStateBase
                 textures.AddRange(_sprite.GetPrototypeTextures(entity).Select(t => t.Default));
                 break;
             case DecalPrototype decal:
-                textures.Add(_sprite.Frame0(decal.Sprite));
+                textures.Add(_sprite.Frame0(decal.Icon ?? decal.Sprite)); // BlackM: menu icon
                 break;
             case ContentTileDefinition tile:
                 if (tile.Sprite?.ToString() is { } sprite)

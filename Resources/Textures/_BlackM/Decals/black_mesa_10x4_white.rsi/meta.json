@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "license": "Custom",
+  "copyright": "Black Mesa / Half-Life logo.",
+  "size": {
+    "x": 320,
+    "y": 128
+  },
+  "states": [
+    {
+      "name": "full"
+    }
+  ]
+}
