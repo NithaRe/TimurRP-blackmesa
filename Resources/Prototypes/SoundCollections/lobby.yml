@@ -117,6 +117,9 @@
 - type: soundCollection
   id: LobbyMusic
   files:
+    - /Audio/Lobby/Klaxon_Beat.ogg
+    - /Audio/Lobby/CP_Violation.ogg
+    - /Audio/Lobby/Phosphor.ogg
     - /Audio/Lobby/Anomalous_Materials.ogg
     - /Audio/Lobby/Ascension_v2.ogg
     - /Audio/Lobby/Black_Mesa_Theme.ogg
