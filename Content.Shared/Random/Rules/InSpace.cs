@@ -3,6 +3,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Shared._BlackM.Environment; // BlackM - NoSpace
+
 namespace Content.Shared.Random.Rules;
 
 /// <summary>
@@ -17,6 +19,15 @@ public sealed partial class InSpaceRule : RulesRule
         {
             return Inverted;
         }
+
+        // BlackM - NoSpace
+        if (xform.MapUid is { } map
+            && entManager.TryGetComponent(map, out NoSpaceComponent? noSpace)
+            && noSpace.NoSpaceAmbience)
+        {
+            return Inverted;
+        }
+        // BlackM - NoSpace end
 
         return !Inverted;
     }

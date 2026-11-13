@@ -302,6 +302,7 @@ namespace Content.Server.Atmos.EntitySystems
 using Content.Server.Atmos.Components;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
+using Content.Shared._BlackM.Environment; // BlackM - NoSpace
 using Content.Shared.Mobs.Components;
 using Content.Shared.Physics;
 using Robust.Shared.Audio;
@@ -404,6 +405,13 @@ namespace Content.Server.Atmos.EntitySystems
 
         private void HighPressureMovements(Entity<GridAtmosphereComponent> gridAtmosphere, TileAtmosphere tile, EntityQuery<PhysicsComponent> bodies, EntityQuery<TransformComponent> xforms, EntityQuery<MovedByPressureComponent> pressureQuery, EntityQuery<MetaDataComponent> metas)
         {
+            // BlackM - NoSpace
+            if (Transform(gridAtmosphere.Owner).MapUid is { } noSpaceMap
+                && TryComp<NoSpaceComponent>(noSpaceMap, out var noSpace)
+                && noSpace.SilenceWind)
+                return;
+            // BlackM - NoSpace end
+
             // TODO ATMOS finish this
 
             // Don't play the space wind sound on tiles that are on fire...
