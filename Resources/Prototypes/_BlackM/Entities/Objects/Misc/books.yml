@@ -5,14 +5,9 @@
   description: Выдается каждому новому главе комплекса "Чёрная меза". Обязательно к прочтению.
   components:
   - type: Sprite
+    sprite: _BlackM/Objects/Misc/rule_books.rsi
     layers:
-    - state: paper
-    - state: cover_old
-      color: "#6c4718"
-    - state: decor_wingette
-      color: "#b5913c"
-    - state: icon_glow
-      color: blue
+    - state: command
   - type: GuideHelp
     guides:
     - Command
@@ -24,14 +19,9 @@
   description: Выдается каждому новому члену командования "Чёрная меза". Обязательно к прочтению.
   components:
   - type: Sprite
+    sprite: _BlackM/Objects/Misc/rule_books.rsi
     layers:
-    - state: paper
-    - state: cover_old
-      color: "#6c4718"
-    - state: decor_wingette
-      color: "#b5913c"
-    - state: icon_glow
-      color: red
+    - state: security
   - type: GuideHelp
     guides:
     - Security
@@ -43,14 +33,9 @@
   description: Выдается каждому новому члену командования "Чёрная меза". Обязательно к прочтению.
   components:
   - type: Sprite
+    sprite: _BlackM/Objects/Misc/rule_books.rsi
     layers:
-    - state: paper
-    - state: cover_old
-      color: "#6c4718"
-    - state: decor_wingette
-      color: "#b5913c"
-    - state: icon_glow
-      color: white
+    - state: engineering
   - type: GuideHelp
     guides:
     - Engineering
@@ -62,14 +47,9 @@
   description: Выдается каждому новому члену командования "Чёрная меза". Обязательно к прочтению.
   components:
   - type: Sprite
+    sprite: _BlackM/Objects/Misc/rule_books.rsi
     layers:
-    - state: paper
-    - state: cover_old
-      color: "#6c4718"
-    - state: decor_wingette
-      color: "#b5913c"
-    - state: icon_glow
-      color: orange
+    - state: cargo
   - type: GuideHelp
     guides:
     - Cargo
@@ -81,14 +61,9 @@
   description: Выдается каждому новому сотруднику комплекса "Чёрная меза". Обязательно к прочтению.
   components:
   - type: Sprite
+    sprite: _BlackM/Objects/Misc/rule_books.rsi
     layers:
-    - state: paper
-    - state: cover_old
-      color: "#6c4718"
-    - state: decor_wingette
-      color: "#b5913c"
-    - state: icon_glow
-      color: blue
+    - state: newbie
   - type: GuideHelp
     guides:
     - Newbie
@@ -100,13 +75,8 @@
   description: A blank record book for checkpoint personnel.
   components:
   - type: Sprite
+    sprite: _BlackM/Objects/Misc/rule_books.rsi
     layers:
-    - state: paper
-    - state: cover_old
-      color: "#6c4718"
-    - state: decor_wingette
-      color: "#b5913c"
-    - state: icon_glow
-      color: blue
+    - state: checkpoint
   - type: Paper
     content: book-text-kpp
