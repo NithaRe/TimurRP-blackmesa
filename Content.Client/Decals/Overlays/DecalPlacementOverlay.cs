@@ -137,10 +137,15 @@ public sealed class DecalPlacementOverlay : Overlay
         }
 
         // Nothing uses snap cardinals so probably don't need preview?
-        var aabb = Box2.UnitCentered.Translated(localPos);
-        var box = new Box2Rotated(aabb, rotation, localPos);
+        // BlackM start: preview at the real decal size
+        var texture = _sprite.Frame0(decal.Sprite);
+        var size = (Vector2) texture.Size / EyeManager.PixelsPerMeter;
+        var bottomLeft = localPos - new Vector2(0.5f, 0.5f);
+        var aabb = new Box2(bottomLeft, bottomLeft + size);
+        var box = new Box2Rotated(aabb, rotation, aabb.Center);
 
-        handle.DrawTextureRect(_sprite.Frame0(decal.Sprite), box, color);
+        handle.DrawTextureRect(texture, box, color);
+        // BlackM end
         handle.SetTransform(Matrix3x2.Identity);
     }
 }

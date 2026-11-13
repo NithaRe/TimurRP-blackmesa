@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Numerics;
+using Content.Client._BlackM.Weapons.Crosshair; // BlackM
 using Content.Client.Movement.Components;
 using Content.Client.Movement.Systems;
 using Content.Shared.Camera;
@@ -19,6 +20,7 @@ public sealed class WieldableSystem : SharedWieldableSystem
 {
     [Dependency] private readonly EyeCursorOffsetSystem _eyeOffset = default!;
     [Dependency] private readonly IClientGameTiming _gameTiming = default!;
+    [Dependency] private readonly GunAimCameraSystem _aimCamera = default!; // BlackM
 
     public override void Initialize()
     {
@@ -43,6 +45,9 @@ public sealed class WieldableSystem : SharedWieldableSystem
             return;
 
         if (!wieldableComp.Wielded)
+            return;
+
+        if (_aimCamera.Overrides(entity.Owner)) // BlackM
             return;
 
         var offset = _eyeOffset.OffsetAfterMouse(entity.Owner, null);

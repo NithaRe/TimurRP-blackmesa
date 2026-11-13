@@ -231,7 +231,7 @@ public sealed partial class GunSystem : SharedGunSystem
 
         var mousePos = _eyeManager.PixelToMap(_inputManager.MouseScreenPosition);
 
-        if (mousePos.MapId == MapId.Nullspace)
+        if (mousePos.MapId == MapId.Nullspace || mousePos.MapId != Transform(entity).MapID) // BlackM
         {
             if (gun.ShotCounter != 0)
                 RaisePredictiveEvent(new RequestStopShootEvent { Gun = GetNetEntity(gunUid) });

@@ -94,6 +94,11 @@ namespace Content.Shared.Decals
         [DataField("showMenu")] public bool ShowMenu = true;
 
         /// <summary>
+        /// BlackM: optional small icon for decal mmenu
+        /// </summary>
+        [DataField("icon")] public SpriteSpecifier? Icon { get; private set; }
+
+        /// <summary>
         /// If the decal is rotated compared to our eye should we snap it to south.
         /// </summary>
         [DataField("snapCardinals")] public bool SnapCardinals = false;

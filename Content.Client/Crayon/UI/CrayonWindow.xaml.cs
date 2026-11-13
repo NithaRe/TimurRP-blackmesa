@@ -207,7 +207,7 @@ namespace Content.Client.Crayon.UI
                 if (decalPrototype.Tags.Count > 1 && decalPrototype.Tags[1].StartsWith("crayon-"))
                     category = decalPrototype.Tags[1].Replace("crayon-", "");
                 var list = _decals.GetOrNew(category);
-                list.Add((decalPrototype.ID, _spriteSystem.Frame0(decalPrototype.Sprite)));
+                list.Add((decalPrototype.ID, _spriteSystem.Frame0(decalPrototype.Icon ?? decalPrototype.Sprite))); // BlackM: menu icon
                 _allDecals.Add(decalPrototype.ID);
             }
 

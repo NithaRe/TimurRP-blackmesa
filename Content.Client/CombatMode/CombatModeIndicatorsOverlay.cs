@@ -9,6 +9,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Numerics;
+using Content.Client._BlackM.Weapons.Crosshair; // BlackM
 using Content.Client.Hands.Systems;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Client.GameObjects;
@@ -33,6 +34,7 @@ public sealed class CombatModeIndicatorsOverlay : Overlay
     private readonly IEyeManager _eye;
     private readonly CombatModeSystem _combat;
     private readonly HandsSystem _hands = default!;
+    private readonly GunCrosshairSystem _crosshair; // BlackM
 
     private readonly Texture _gunSight;
     private readonly Texture _gunBoltSight;
@@ -52,6 +54,7 @@ public sealed class CombatModeIndicatorsOverlay : Overlay
         _eye = eye;
         _combat = combatSys;
         _hands = hands;
+        _crosshair = _entMan.System<GunCrosshairSystem>(); // BlackM
 
         var spriteSys = _entMan.EntitySysManager.GetEntitySystem<SpriteSystem>();
         _gunSight = spriteSys.Frame0(new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/crosshair_pointers.rsi"),
@@ -64,7 +67,7 @@ public sealed class CombatModeIndicatorsOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
-        if (!_combat.IsInCombatMode())
+        if (!_combat.IsInCombatMode() || _crosshair.DrawsCrosshair) // BlackM
             return false;
 
         return base.BeforeDraw(in args);

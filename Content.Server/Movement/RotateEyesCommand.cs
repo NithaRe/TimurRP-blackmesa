@@ -6,6 +6,7 @@
 using Content.Server.Administration;
 using Content.Shared.Administration;
 using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Systems;
 using Robust.Shared.Console;
 
 namespace Content.Server.Movement;
@@ -13,10 +14,19 @@ namespace Content.Server.Movement;
 [AdminCommand(AdminFlags.Fun)]
 public sealed class RotateEyesCommand : LocalizedEntityCommands
 {
+    [Dependency] private readonly SharedMoverController _controller = default!; // BlackM
+
     public override string Command => "rotateeyes";
 
     public override void Execute(IConsoleShell shell, string argStr, string[] args)
     {
+        // BlackM: shuttle.camera_rotation_locked.
+        if (_controller.CameraRotationLocked)
+        {
+            shell.WriteError("Camera rotation is locked (shuttle.camera_rotation_locked = true).");
+            return;
+        }
+
         var rotation = Angle.Zero;
 
         if (args.Length == 1)

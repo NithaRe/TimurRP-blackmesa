@@ -1,0 +1,203 @@
+- type: entity
+  id: BlackMDecorSodaCan
+  parent: BaseBlackMMapDecor
+  name: soda can
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: soda_can
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: soda_can
+
+- type: entity
+  id: BlackMDecorCansScattered
+  parent: BaseBlackMMapDecor
+  name: scattered cans
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: cans_scattered
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: cans_scattered
+
+- type: entity
+  id: BlackMDecorCansCrushed
+  parent: BaseBlackMMapDecor
+  name: crushed cans
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: cans_crushed
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: cans_crushed
+
+- type: entity
+  id: BlackMDecorBottles
+  parent: BaseBlackMMapDecor
+  name: bottles
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: bottles
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: bottles
+
+- type: entity
+  id: BlackMDecorGlassShards
+  parent: BaseBlackMMapDecor
+  name: glass shards
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: glass_shards
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: glass_shards
+
+- type: entity
+  id: BlackMDecorTrashBag2
+  parent: BaseBlackMMapDecor
+  name: trash bag
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: trash_bag
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: trash_bag
+
+- type: entity
+  id: BlackMDecorTrashBagsPile
+  parent: BaseBlackMMapDecor
+  name: pile of trash bags
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: trash_bags_pile
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: trash_bags_pile
+
+- type: entity
+  id: BlackMDecorFoodWrappers
+  parent: BaseBlackMMapDecor
+  name: food wrappers
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: food_wrappers
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: food_wrappers
+
+- type: entity
+  id: BlackMDecorPizzaBoxes
+  parent: BaseBlackMMapDecor
+  name: pizza boxes
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: pizza_boxes
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: pizza_boxes
+
+- type: entity
+  id: BlackMDecorCoffeeCups
+  parent: BaseBlackMMapDecor
+  name: coffee cups
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: coffee_cups
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: coffee_cups
+
+- type: entity
+  id: BlackMDecorCigaretteButts
+  parent: BaseBlackMMapDecor
+  name: cigarette butts
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: cigarette_butts
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: cigarette_butts
+
+- type: entity
+  id: BlackMDecorPuddleOil
+  parent: BaseBlackMMapDecor
+  name: oil puddle
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: puddle_oil
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: puddle_oil
+
+- type: entity
+  id: BlackMDecorPuddleWater
+  parent: BaseBlackMMapDecor
+  name: water puddle
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: puddle_water
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: puddle_water
+
+- type: entity
+  id: BlackMDecorFloppyDisks
+  parent: BaseBlackMMapDecor
+  name: floppy disks
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: floppy_disks
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: floppy_disks
+
+- type: entity
+  id: BlackMDecorKeyboardBroken
+  parent: BaseBlackMMapDecor
+  name: broken keyboard
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: keyboard_broken
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: keyboard_broken
+
+- type: entity
+  id: BlackMDecorMonitorBroken
+  parent: BaseBlackMMapDecor
+  name: broken monitor
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: monitor_broken
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: monitor_broken
+
+- type: entity
+  id: BlackMDecorLabGlassBroken
+  parent: BaseBlackMMapDecor
+  name: broken lab glassware
+  components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: lab_glass_broken
+  - type: Icon
+    sprite: _BlackM/Structures/Decoration/hl_map_trash.rsi
+    state: lab_glass_broken

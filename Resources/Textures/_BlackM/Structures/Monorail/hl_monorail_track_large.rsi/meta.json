@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "_BlackM",
+  "size": {
+    "x": 96,
+    "y": 96
+  },
+  "states": [
+    {
+      "name": "straight_long"
+    },
+    {
+      "name": "curve_large"
+    }
+  ]
+}

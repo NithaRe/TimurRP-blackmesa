@@ -321,7 +321,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     </BoxContainer>
                     <controls:HLine Color="{x:Static style:StyleNano.TerminalGreenDim}" Thickness="2" />
                     <controls:HSpacer Spacing="10" />
-                    <PanelContainer Margin="3">
+                    <PanelContainer Name="ServerInfoPanel" Margin="3">
                         <PanelContainer.PanelOverride>
                             <gfx:StyleBoxFlat BackgroundColor="#100C07A0"
                                               BorderColor="{x:Static style:StyleNano.TerminalGreenDim}"

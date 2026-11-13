@@ -1,7 +1,7 @@
 using System.Numerics;
 using Content.Client.Stylesheets;
-using Robust.Client.ResourceManagement;
 using Robust.Client.Graphics;
+using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Shared.Input;
 
@@ -9,17 +9,21 @@ namespace Content.Client._BlackM.Lobby.Terminal;
 
 public sealed class TerminalPriorityMeter : Control
 {
-    private const float CellW = 66f;
-    private const float CellH = 19f;
-    private const float Gap = 3f;
+    private const float CellW = 62f;
+    private const float CellH = 22f;
+    private const float Gap = 2f;
 
     private static readonly Color[] LevelColors =
     {
-        Color.FromHex("#A17A45"),
+        Color.FromHex("#9C6B55"),
         Color.FromHex("#C48327"),
         Color.FromHex("#E89B23"),
         Color.FromHex("#FFC857"),
     };
+
+    private static readonly Color HoverColor = Color.FromHex("#FFB52E");
+    private static readonly Color SelectedText = Color.FromHex("#FFD166");
+    private static readonly Color IdleText = Color.FromHex("#D4A04D");
 
     [Dependency] private readonly IResourceCache _cache = default!;
     private readonly Font _font;
@@ -43,10 +47,8 @@ public sealed class TerminalPriorityMeter : Control
     public void SetLabels(string[] labels)
     {
         _labels = labels;
-        var columns = Math.Min(labels.Length, 2);
-        var rows = columns == 0 ? 0 : (labels.Length + columns - 1) / columns;
-        MinSize = new Vector2(columns * CellW + Math.Max(0, columns - 1) * Gap,
-            rows * CellH + Math.Max(0, rows - 1) * Gap);
+        var n = labels.Length;
+        MinSize = new Vector2(n * CellW + Math.Max(0, n - 1) * Gap, n == 0 ? 0f : CellH);
     }
 
     public void Select(int index)
@@ -56,34 +58,43 @@ public sealed class TerminalPriorityMeter : Control
 
     private int ZoneAt(float x, float y)
     {
-        var column = (int) (x / (CellW + Gap));
-        var row = (int) (y / (CellH + Gap));
-        var index = row * 2 + column;
-        if (x < 0 || y < 0 || column < 0 || column > 1 || row < 0 || y - row * (CellH + Gap) > CellH ||
-            x - column * (CellW + Gap) > CellW || index >= _labels.Length)
+        if (_labels.Length == 0 || x < 0 || y < 0 || y > Math.Max(CellH, Size.Y))
             return -1;
-        return index;
+
+        var index = (int) (x / (CellW + Gap));
+        return index >= 0 && index < _labels.Length ? index : -1;
     }
 
     protected override void KeyBindDown(GUIBoundKeyEventArgs args)
     {
         base.KeyBindDown(args);
 
-        if (args.Function != EngineKeyFunctions.UIClick)
+        int target;
+        if (args.Function == EngineKeyFunctions.UIClick)
+        {
+            target = ZoneAt(args.RelativePosition.X, args.RelativePosition.Y);
+            if (target < 0)
+                return;
+        }
+        else if (args.Function == EngineKeyFunctions.UIRightClick)
+        {
+            if (_labels.Length == 0)
+                return;
+            target = 0;
+        }
+        else
+        {
             return;
-
-        var zone = ZoneAt(args.RelativePosition.X, args.RelativePosition.Y);
-        if (zone < 0)
-            return;
+        }
 
         args.Handle();
 
-        if (zone == _selected)
+        if (target == _selected)
             return;
 
-        _selected = zone;
+        _selected = target;
         TerminalSounds.Play(TerminalSounds.Select, -6f, 0.04f);
-        OnSelected?.Invoke(zone);
+        OnSelected?.Invoke(target);
     }
 
     protected override void MouseMove(GUIMouseMoveEventArgs args)
@@ -98,7 +109,7 @@ public sealed class TerminalPriorityMeter : Control
         if (zone < 0)
             return;
 
-        ToolTip = _labels[zone];
+        ToolTip = _labels[zone] + "\n" + Loc.GetString("blackm-priority-meter-hint");
         TerminalSounds.Play(TerminalSounds.Hover, -12f, 0.06f, 40);
     }
 
@@ -114,24 +125,48 @@ public sealed class TerminalPriorityMeter : Control
 
         for (var i = 0; i < _labels.Length; i++)
         {
-            var x0 = i % 2 * (CellW + Gap) * s;
-            var y0 = i / 2 * (CellH + Gap) * s;
-            var rect = new UIBox2(x0, y0, x0 + CellW * s, y0 + CellH * s);
+            var x0 = i * (CellW + Gap) * s;
+            var rect = new UIBox2(x0, 0f, x0 + CellW * s, CellH * s);
             var level = LevelColors[Math.Min(i, LevelColors.Length - 1)];
             var selected = i == _selected;
             var hovered = i == _hover;
+            var lit = i == 0 ? _selected == 0 : _selected > 0 && i <= _selected;
 
-            handle.DrawRect(rect, selected ? level.WithAlpha(0.2f) : StyleNano.TerminalBlack);
-            handle.DrawRect(rect,
-                selected ? level : hovered ? Color.FromHex("#FFB52E") : StyleNano.TerminalGreenDim, false);
-            handle.DrawRect(new UIBox2(x0, y0, x0 + CellW * s, y0 + 2 * s), level.WithAlpha(selected ? 1f : 0.35f));
+            handle.DrawRect(rect, lit ? level.WithAlpha(selected ? 0.32f : 0.16f) : StyleNano.TerminalBlack);
+            handle.DrawRect(rect, selected ? level : hovered ? HoverColor : StyleNano.TerminalGreenDim, false);
+            if (selected)
+            {
+                var inner = new UIBox2(rect.Left + s, rect.Top + s, rect.Right - s, rect.Bottom - s);
+                handle.DrawRect(inner, level.WithAlpha(0.8f), false);
+            }
 
-            var label = _labels[i];
+            handle.DrawRect(new UIBox2(x0, 0f, x0 + CellW * s, 2 * s), level.WithAlpha(lit ? 1f : 0.3f));
+
+            var label = FitLabel(handle, _labels[i], CellW * s - 6 * s, s);
             var dimensions = handle.GetDimensions(_font, label, s);
             var textX = x0 + (CellW * s - dimensions.X) * 0.5f;
-            var textY = y0 + (CellH * s - dimensions.Y) * 0.5f;
-            var textColor = selected ? Color.FromHex("#FFD166") : Color.FromHex("#D4A04D").WithAlpha(hovered ? 1f : 0.9f);
+            var textY = (CellH * s - dimensions.Y) * 0.5f + s;
+            var textColor = selected
+                ? SelectedText
+                : lit
+                    ? level
+                    : IdleText.WithAlpha(hovered ? 1f : 0.75f);
             handle.DrawString(_font, new Vector2(textX, textY), label, s, textColor);
         }
+    }
+
+    private string FitLabel(DrawingHandleScreen handle, string label, float maxWidth, float scale)
+    {
+        if (handle.GetDimensions(_font, label, scale).X <= maxWidth)
+            return label;
+
+        for (var len = label.Length - 1; len > 1; len--)
+        {
+            var cut = label[..len] + ".";
+            if (handle.GetDimensions(_font, cut, scale).X <= maxWidth)
+                return cut;
+        }
+
+        return label[..1];
     }
 }

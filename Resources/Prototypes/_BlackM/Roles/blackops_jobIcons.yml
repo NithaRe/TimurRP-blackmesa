@@ -1,0 +1,26 @@
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBlackOpsLeader
+  icon:
+    sprite: /Textures/_BlackM/Interface/Misc/blackops_job_icons.rsi
+    state: BlackOpsLeader
+  jobName: job-name-blackops-leader
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBlackOpsOperative
+  icon:
+    sprite: /Textures/_BlackM/Interface/Misc/blackops_job_icons.rsi
+    state: BlackOpsOperative
+  jobName: job-name-blackops-operative
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBlackOpsRecon
+  icon:
+    sprite: /Textures/_BlackM/Interface/Misc/blackops_job_icons.rsi
+    state: BlackOpsRecon
+  jobName: job-name-blackops-recon
+  allowSelection: false

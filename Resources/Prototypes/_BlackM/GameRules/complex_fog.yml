@@ -1,0 +1,28 @@
+- type: entity
+  id: ComplexFog
+  parent: BaseStationEventShortDelay
+  components:
+  - type: StationEvent
+    weight: 6
+    earliestStart: 15
+    reoccurrenceDelay: 40
+    startAnnouncement: station-event-complex-fog-start-announcement
+    endAnnouncement: station-event-complex-fog-end-announcement
+    startAudio:
+      path: /Audio/_BlackM/Announcements/Fog/fog_alert.ogg
+      params:
+        volume: -2
+    endAudio:
+      path: /Audio/_BlackM/Announcements/Fog/fog_end.ogg
+      params:
+        volume: -2
+    duration: 240
+    maxDuration: 420
+    eventType: Interference
+  - type: GameRule
+    chaosScore: 40
+  - type: ComplexFogRule
+    fadeInTime: 30
+    fadeOutTime: 40
+    density: 0.85
+    color: "#c3cec6"

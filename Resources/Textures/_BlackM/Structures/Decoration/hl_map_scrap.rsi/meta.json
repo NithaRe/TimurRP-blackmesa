@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "_BlackM",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "rubble_small"
+    },
+    {
+      "name": "rubble_pile"
+    },
+    {
+      "name": "bricks"
+    },
+    {
+      "name": "ceiling_tile_broken"
+    },
+    {
+      "name": "planks"
+    },
+    {
+      "name": "pallet_broken"
+    },
+    {
+      "name": "pipes"
+    },
+    {
+      "name": "scrap_metal"
+    },
+    {
+      "name": "cables"
+    },
+    {
+      "name": "bolts_nuts"
+    },
+    {
+      "name": "tire"
+    },
+    {
+      "name": "barrel_tipped"
+    },
+    {
+      "name": "shell_casings"
+    }
+  ]
+}

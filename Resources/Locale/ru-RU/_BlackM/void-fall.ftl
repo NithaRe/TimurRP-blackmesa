@@ -1,0 +1,10 @@
+blackm-void-fall-start-1 = { CAPITALIZE($name) } делает шаг в пустоту и на секунду зависает в воздухе...
+blackm-void-fall-start-2 = { CAPITALIZE($name) } смотрит вниз. Пропасть смотрит в ответ.
+blackm-void-fall-start-3 = { CAPITALIZE($name) } с очень удивлённым лицом проваливается в пропасть!
+blackm-void-fall-start-4 = { CAPITALIZE($name) } забывает, что пол здесь закончился.
+blackm-void-fall-start-5 = { CAPITALIZE($name) } машет руками как мельница, но гравитация побеждает.
+blackm-void-fall-start-6 = { CAPITALIZE($name) } исчезает во тьме с протяжным «аааааа!»
+blackm-void-fall-land-1 = { CAPITALIZE($name) } выкарабкивается из пропасти, отряхиваясь.
+blackm-void-fall-land-2 = { CAPITALIZE($name) } чудом цепляется за край и вылезает обратно.
+blackm-void-fall-land-3 = { CAPITALIZE($name) } возвращается из бездны. Выглядит помято.
+blackm-void-fall-gone = { CAPITALIZE($name) } больше не вернётся. Пропасть забрала своё.

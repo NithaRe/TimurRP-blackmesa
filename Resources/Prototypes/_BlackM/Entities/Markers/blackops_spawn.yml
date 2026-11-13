@@ -1,0 +1,41 @@
+- type: entity
+  id: SpawnPointBlackOpsLeader
+  parent: SpawnPointJobBase
+  name: Black Ops leader
+  suffix: BlackM, Whitelist
+  components:
+  - type: SpawnPoint
+    job_id: BlackOpsLeader
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _BlackM/Clothing/Head/Helmets/blackops_helmet_mask.rsi
+      state: icon
+
+- type: entity
+  id: SpawnPointBlackOpsOperative
+  parent: SpawnPointJobBase
+  name: Black Ops operative
+  suffix: BlackM, Whitelist
+  components:
+  - type: SpawnPoint
+    job_id: BlackOpsOperative
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _BlackM/Clothing/Head/Helmets/blackops_helmet.rsi
+      state: icon
+
+- type: entity
+  id: SpawnPointBlackOpsRecon
+  parent: SpawnPointJobBase
+  name: Black Ops recon
+  suffix: BlackM, Whitelist
+  components:
+  - type: SpawnPoint
+    job_id: BlackOpsRecon
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _BlackM/Clothing/Head/Helmets/blackops_helmet_nvg.rsi
+      state: icon

@@ -1383,7 +1383,8 @@ namespace Content.Client.Lobby.UI
                 // BlackM end
 
                 var jobs = department.Roles.Select(jobId => _prototypeManager.Index(jobId))
-                    .Where(job => job.SetPreference)
+                    // BlackM
+                    .Where(job => job.SetPreference || department.ShowEventRoles)
                     .ToArray();
 
                 Array.Sort(jobs, JobUIComparer.Instance);
@@ -1414,6 +1415,16 @@ namespace Content.Client.Lobby.UI
                     // BlackM start
                     selector.Setup(items, job.LocalizedName, 200, job.LocalizedDescription, icon, job.Guides,
                         stacked: false, showHelp: false);
+                    // BlackM end
+
+                    // BlackM start
+                    if (!job.SetPreference)
+                    {
+                        selector.SetInfoOnly(Loc.GetString("blackm-job-event-only"),
+                            Loc.GetString("blackm-job-event-only-tooltip", ("job", job.LocalizedName)));
+                        jobGrid.AddChild(selector);
+                        continue;
+                    }
                     // BlackM end
 
                     if (!_requirements.IsAllowed(job, (HumanoidCharacterProfile?) _preferencesManager.Preferences?.SelectedCharacter, out var reason))

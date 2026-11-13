@@ -1,0 +1,75 @@
+- type: entity
+  abstract: true
+  id: BlackMMonorailArrivalBoardBase
+  name: monorail arrival board
+  description: An LED board that shows when the next transit car arrives.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _BlackM/Structures/Monorail/hl_monorail_board.rsi
+    noRot: true
+  - type: MonorailArrivalBoard
+    searchRange: 8
+    rowLength: 13
+    rowSpacing: 7
+    stationNamePeriod: 6
+  - type: PointLight
+    radius: 1.8
+    energy: 0.8
+    softness: 1
+    color: "#ffb000"
+    castShadows: false
+
+- type: entity
+  parent: BlackMMonorailArrivalBoardBase
+  id: BlackMMonorailArrivalBoard
+  name: monorail arrival board
+  description: An LED board on a pole. Shows when the next transit car arrives.
+  components:
+  - type: Sprite
+    drawdepth: Overdoors
+    offset: 0,0.5
+    layers:
+    - state: board
+    - state: board_glow
+      shader: unshaded
+  - type: MonorailArrivalBoard
+    textOffset: 0,0.53125
+  - type: PointLight
+    offset: 0,0.55
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.18
+          position: 0,-0.35
+        density: 100
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+
+- type: entity
+  parent: BlackMMonorailArrivalBoardBase
+  id: BlackMMonorailArrivalBoardWall
+  name: wall-mounted monorail arrival board
+  description: An LED board on the wall. Shows when the next transit car arrives.
+  components:
+  - type: Sprite
+    drawdepth: WallMountedItems
+    layers:
+    - state: wall
+    - state: wall_glow
+      shader: unshaded
+  - type: MonorailArrivalBoard
+    textOffset: 0,0.09375
+  - type: WallMount
+    arc: 360

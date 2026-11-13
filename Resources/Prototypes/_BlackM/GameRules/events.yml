@@ -8,6 +8,7 @@
     - id: BureaucraticError
     - id: ClericalError
     - id: CockroachMigration
+    - id: ComplexFog # BlackM rule
     - id: MassHallucinations
     - id: MimicVendorRule
     - id: PowerGridCheck

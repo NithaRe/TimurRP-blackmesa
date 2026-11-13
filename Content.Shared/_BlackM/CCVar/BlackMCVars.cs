@@ -92,4 +92,31 @@ public sealed class BlackMCVars
 
     public static readonly CVarDef<int> StartingLootVoteDurationSeconds =
         CVarDef.Create("blackm.startloot.vote_duration_seconds", 30, CVar.SERVERONLY);
+
+    public static readonly CVarDef<bool> GunCrosshairEnabled =
+        CVarDef.Create("blackm.gun_crosshair", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    public static readonly CVarDef<bool> GunAimLineEnabled =
+        CVarDef.Create("blackm.gun_aim_line", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    public static readonly CVarDef<bool> GunCameraFollow =
+        CVarDef.Create("blackm.gun_camera_follow", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    public static readonly CVarDef<float> GunCameraStrength =
+        CVarDef.Create("blackm.gun_camera_strength", 0.6f, CVar.CLIENTONLY | CVar.ARCHIVE);
+    
+    public static readonly CVarDef<bool> VoidFallEnabled =
+        CVarDef.Create("blackm.void_fall_enabled", true, CVar.SERVERONLY);
+
+    public static readonly CVarDef<string> VoidFallParallaxes =
+        CVarDef.Create("blackm.void_fall_parallaxes", "BlackM", CVar.SERVERONLY);
+
+    public static readonly CVarDef<bool> VoidFallLethal =
+        CVarDef.Create("blackm.void_fall_lethal", false, CVar.SERVERONLY);
+
+    public static readonly CVarDef<float> VoidFallDamage =
+        CVarDef.Create("blackm.void_fall_damage", 10f, CVar.SERVERONLY);
+
+    public static readonly CVarDef<float> VoidFallScreamChance =
+        CVarDef.Create("blackm.void_fall_scream_chance", 0.5f, CVar.SERVERONLY);
 }

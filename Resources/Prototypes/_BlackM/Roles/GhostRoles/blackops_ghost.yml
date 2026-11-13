@@ -1,0 +1,155 @@
+- type: entity
+  id: RandomHumanoidBlackOpsLeaderSpawner
+  name: Black Ops leader
+  suffix: BlackMesa, Ghost role, Whitelist
+  components:
+  - type: Sprite
+    sprite: Markers/jobs.rsi
+    layers:
+    - state: green
+    - sprite: _BlackM/Clothing/Head/Helmets/blackops_helmet_mask.rsi
+      state: icon
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryFirstLeader
+    - NamesMilitaryLast
+    nameFormat: name-format-standard
+  - type: RandomHumanoidSpawner
+    settings: BlackOpsLeaderSettings
+
+- type: entity
+  id: RandomHumanoidBlackOpsOperativeSpawner
+  name: Black Ops operative
+  suffix: BlackMesa, Ghost role, Whitelist
+  components:
+  - type: Sprite
+    sprite: Markers/jobs.rsi
+    layers:
+    - state: green
+    - sprite: _BlackM/Clothing/Head/Helmets/blackops_helmet.rsi
+      state: icon
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryFirst
+    - NamesMilitaryLast
+    nameFormat: name-format-standard
+  - type: RandomHumanoidSpawner
+    settings: BlackOpsOperativeSettings
+
+- type: entity
+  id: RandomHumanoidBlackOpsReconSpawner
+  name: Black Ops recon
+  suffix: BlackMesa, Ghost role, Whitelist
+  components:
+  - type: Sprite
+    sprite: Markers/jobs.rsi
+    layers:
+    - state: green
+    - sprite: _BlackM/Clothing/Head/Helmets/blackops_helmet_nvg.rsi
+      state: icon
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryFirst
+    - NamesMilitaryLast
+    nameFormat: name-format-standard
+  - type: RandomHumanoidSpawner
+    settings: BlackOpsReconSettings
+
+- type: randomHumanoidSettings
+  id: BlackOpsLeaderSettings
+  parent: EventHumanMindShielded
+  components:
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
+  - type: GhostRole
+    name: ghost-role-name-blackops-leader
+    description: ghost-role-description-blackops-leader
+    rules: ghost-role-rules-blackops
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
+    job: BlackOpsLeader
+    skills:
+    - All
+    raffle:
+      settings: short
+  - type: GhostTakeoverAvailable
+  - type: Loadout
+    prototypes: [ BlackOpsLeaderGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryFirstLeader
+    - NamesMilitaryLast
+    nameFormat: name-format-standard
+
+- type: randomHumanoidSettings
+  id: BlackOpsOperativeSettings
+  parent: EventHumanMindShielded
+  components:
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
+  - type: GhostRole
+    name: ghost-role-name-blackops-operative
+    description: ghost-role-description-blackops-operative
+    rules: ghost-role-rules-blackops
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
+    job: BlackOpsOperative
+    skills:
+    - All
+    raffle:
+      settings: short
+  - type: GhostTakeoverAvailable
+  - type: Loadout
+    prototypes: [ BlackOpsOperativeGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryFirst
+    - NamesMilitaryLast
+    nameFormat: name-format-standard
+
+- type: randomHumanoidSettings
+  id: BlackOpsReconSettings
+  parent: EventHumanMindShielded
+  components:
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
+  - type: GhostRole
+    name: ghost-role-name-blackops-recon
+    description: ghost-role-description-blackops-recon
+    rules: ghost-role-rules-blackops
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
+    job: BlackOpsRecon
+    skills:
+    - All
+    raffle:
+      settings: short
+  - type: GhostTakeoverAvailable
+  - type: Loadout
+    prototypes: [ BlackOpsReconGear ]
+  - type: RandomMetadata
+    nameSegments:
+    - NamesMilitaryFirst
+    - NamesMilitaryLast
+    nameFormat: name-format-standard

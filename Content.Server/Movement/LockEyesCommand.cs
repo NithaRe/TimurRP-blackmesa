@@ -5,7 +5,8 @@
 
 using Content.Server.Administration;
 using Content.Shared.Administration;
-using Content.Shared.Movement.Systems;
+using Content.Shared.CCVar;
+using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 
 namespace Content.Server.Movement;
@@ -13,7 +14,7 @@ namespace Content.Server.Movement;
 [AdminCommand(AdminFlags.Fun)]
 public sealed class LockEyesCommand : LocalizedEntityCommands
 {
-    [Dependency] private readonly SharedMoverController _controller = default!;
+    [Dependency] private readonly IConfigurationManager _cfg = default!; // BlackM
 
     public override string Command => $"lockeyes";
 
@@ -31,6 +32,7 @@ public sealed class LockEyesCommand : LocalizedEntityCommands
             return;
         }
 
-        _controller.CameraRotationLocked = value;
+        // BlackM
+        _cfg.SetCVar(CCVars.CameraRotationLocked, value);
     }
 }
