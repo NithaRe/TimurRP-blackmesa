@@ -292,7 +292,7 @@
     - id: HoPIDCard
     - id: IDComputerCircuitboard
     #- id: ComputerFundingAllocationFlatpack # Goobstation #CorvaxGoob-QuarterMaster-finance
-    - id: ComputerCargoRequestServiceFlatpack # Goobstation 
+    - id: ComputerCargoRequestServiceFlatpack # Goobstation
     - id: PrinterDocFlatpack #CorvaxGoob-Docprinter
     - id: RubberStampApproved
     - id: RubberStampDenied
@@ -470,7 +470,7 @@
     - id: ClothingBeltUtilityFilled
 #    - id: ClothingHeadsetAltScience # BlackM
 #    - id: DoorRemoteResearch # BlackM
-    - id: HandTeleporter
+#    - id: HandTeleporter BlackM
     #- id: ProtolatheMachineCircuitboard # Goobstation - Science Techfab
     - id: ResearchComputerCircuitboard
     - id: ComputerCargoRequestScienceFlatpack # Goobstation

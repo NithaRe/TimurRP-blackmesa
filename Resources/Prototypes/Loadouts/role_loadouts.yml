@@ -126,13 +126,14 @@
     - FacilityManagerGlasses #BlackM
     - FacilityManagerShoes #BlackM
     - CaptainBackpack
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - CaptainEnvirohelm
     - CaptainEnvirosuit
     - CaptainEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobHeadOfPersonnel
@@ -146,13 +147,14 @@
     - HoPBackpack
     - HoPOuterClothing
     - HoPGloves
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - HoPEnvirohelm
     - HoPEnvirosuit
     - HoPEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 # Silicons
 - type: roleLoadout
@@ -179,13 +181,14 @@
     - PassengerOuterClothing
     - PassengerShoes
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - AssistantEnvirohelm
     - AssistantEnvirosuit
     - AssistantEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobBartender
@@ -197,13 +200,14 @@
     - CommonBackpack
     - BartenderOuterClothing
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - BartenderEnvirohelm
     - BartenderEnvirosuit
     - BartenderEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobServiceWorker
@@ -213,12 +217,13 @@
     - BartenderJumpsuit
     - CommonBackpack
     - Glasses
-    - Survival
+#    - Survival BlackM
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - ServiceWorkerEnvirohelm
     - ServiceWorkerEnvirosuit
     - ServiceWorkerEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobChef
@@ -231,13 +236,14 @@
     - CommonBackpack
     - ChefOuterClothing
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - ChefEnvirohelm
     - ChefEnvirosuit
     - ChefEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobLibrarian
@@ -247,13 +253,14 @@
     - LibrarianJumpsuit
     - CommonBackpack
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - LibrarianEnvirohelm
     - LibrarianEnvirosuit
     - LibrarianEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobLawyer
@@ -264,13 +271,14 @@
     - LawyerJumpsuit
     - CommonBackpack
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - LawyerEnvirohelm
     - LawyerEnvirosuit
     - LawyerEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobChaplain
@@ -284,13 +292,14 @@
     - CommonBackpack
     - ChaplainOuterClothing
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - ChaplainEnvirohelm
     - ChaplainEnvirosuit
     - ChaplainEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobJanitor
@@ -303,7 +312,7 @@
     - CommonBackpack
     - JanitorOuterClothing
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - JanitorPlunger
     - GroupSpeciesBreathTool
@@ -311,6 +320,7 @@
     - JanitorEnvirohelm
     - JanitorEnvirosuit
     - JanitorEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobBotanist
@@ -322,13 +332,14 @@
     - BotanistBackpack
     - BotanistOuterClothing
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - BotanistEnvirohelm
     - BotanistEnvirosuit
     - BotanistEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobClown
@@ -342,12 +353,13 @@
     - ClownOuterClothing
     - ClownShoes
     - Glasses
-    - SurvivalClown
+#    - SurvivalClown BlackM
     - Trinkets
     # Goobstation - EE Plasmeme Change.
     - ClownEnvirohelm
     - ClownEnvirosuit
     - ClownEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobMime
@@ -363,12 +375,13 @@
     - MimeBelt
     - MimeGloves
     - Glasses
-    - SurvivalMime
+#    - SurvivalMime BlackM
     - Trinkets
     # Goobstation - EE Plasmeme Change.
     - MimeEnvirohelm
     - MimeEnvirosuit
     - MimeEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobMusician
@@ -380,7 +393,7 @@
     - MusicianJumpsuit
     - CommonBackpack
     - MusicianOuterClothing
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - Instruments
     - GroupSpeciesBreathTool
@@ -388,6 +401,7 @@
     - MusicianEnvirohelm
     - MusicianEnvirosuit
     - MusicianEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 # Cargo
 - type: roleLoadout
@@ -402,13 +416,14 @@
     - QuartermasterOuterClothing
     - QuartermasterShoes
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - QuartermasterEnvirohelm
     - QuartermasterEnvirosuit
     - QuartermasterEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobCargoTechnician
@@ -421,13 +436,14 @@
     - CargoTechnicianOuterClothing
     - CargoTechnicianShoes
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - CargoTechnicianEnvirohelm
     - CargoTechnicianEnvirosuit
     - CargoTechnicianEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobSalvageSpecialist
@@ -440,13 +456,14 @@
     - SalvageSpecialistOuterClothing
     - SalvageSpecialistShoes
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - SalvageEnvirohelm
     - SalvageEnvirosuit
     - SalvageEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 # Engineering
 - type: roleLoadout
@@ -460,13 +477,14 @@
     - ChiefEngineerNeck
     - ChiefEngineerOuterClothing
     - ChiefEngineerShoes
-    - SurvivalExtended
+#    - SurvivalExtended BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - ChiefEngineerEnvirohelm
     - ChiefEngineerEnvirosuit
     - ChiefEngineerEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobTechnicalAssistant
@@ -475,13 +493,14 @@
     - GroupTankHarness
     - TechnicalAssistantJumpsuit
     - StationEngineerBackpack
-    - SurvivalExtended
+#    - SurvivalExtended BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - TechnicalAssistantEnvirohelm
     - TechnicalAssistantEnvirosuit
     - TechnicalAssistantEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobStationEngineer
@@ -495,13 +514,14 @@
     - StationEngineerShoes
     - StationEngineerID
     - EngineeringWelder # CorvaxGoob-loadouts
-    - SurvivalExtended
+#    - SurvivalExtended BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - StationEngineerEnvirohelm
     - StationEngineerEnvirosuit
     - StationEngineerEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobAtmosphericTechnician
@@ -514,13 +534,14 @@
     - AtmosphericTechnicianOuterClothing
     - AtmosphericTechnicianShoes
     - EngineeringWelder # CorvaxGoob-loadouts
-    - SurvivalExtended
+#    - SurvivalExtended BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - AtmosEnvirohelm
     - AtmosEnvirosuit
     - AtmosEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 # Science
 - type: roleLoadout
@@ -536,13 +557,14 @@
     - ScientistGloves
     - ResearchDirectorShoes
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - ResearchDirectorEnvirosuit
     - ResearchDirectorEnvirohelm
     - ResearchDirectorEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobScientist
@@ -558,13 +580,14 @@
     - ScientistShoes
     - ScientistPDA
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - ScientistEnvirohelm
     - ScientistEnvirosuit
     - ScientistEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobResearchAssistant
@@ -574,13 +597,14 @@
     - ResearchAssistantJumpsuit
     - ScientistBackpack
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - ResearchAssistantEnvirohelm
     - ResearchAssistantEnvirosuit
     - ResearchAssistantEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 # Security
 - type: roleLoadout
@@ -596,13 +620,14 @@
     - HeadofSecurityOuterClothing
     - HeadofSecurityShoes # Goobstation edit
     - HeadofSecurityGloves
-    - SurvivalSecurity
+#    - SurvivalSecurity  BlackM
     - Trinkets
     - GroupSpeciesBreathToolSecurity
     # Goobstation - EE Plasmeme Change.
     - HeadofSecurityEnvirohelm
     - HeadofSecurityEnvirosuit
     - HeadofSecurityEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobWarden
@@ -616,13 +641,14 @@
     - SecurityBelt
     - WardenOuterClothing
     - SecurityShoes
-    - SurvivalSecurity
+#    - SurvivalSecurity BlackM
     - Trinkets
     - GroupSpeciesBreathToolSecurity
     # Goobstation - EE Plasmeme Change.
     - WardenEnvirohelm
     - WardenEnvirosuit
     - WardenEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobSecurityOfficer
@@ -637,13 +663,14 @@
     - SecurityNeck
     - SecurityPDA
     - SecurityBelt
-    - SurvivalSecurity
+#    - SurvivalSecurity BlackM
     - Trinkets
     - GroupSpeciesBreathToolSecurity
     # Goobstation - EE Plasmeme Change.
     - SecurityOfficerEnvirohelm
     - SecurityOfficerEnvirosuit
     - SecurityOfficerEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobDetective
@@ -656,13 +683,14 @@
     - DetectiveOuterClothing
     - SecurityShoes
     - DetectiveGloves
-    - SurvivalSecurity
+#    - SurvivalSecurity BlackM
     - Trinkets
     - GroupSpeciesBreathToolSecurity
     # Goobstation - EE Plasmeme Change.
     - DetectiveEnvirohelm
     - DetectiveEnvirosuit
     - DetectiveEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobSecurityCadet
@@ -671,7 +699,7 @@
     - SecurityCadetJumpsuit
     - SecurityBackpack
     - SecurityMelee # Goobstation
-    - SurvivalSecurity
+#    - SurvivalSecurity BlackM
     - SecurityNeck
     - SecurityOuterClothing # Goobstation - Why not.
     - Trinkets
@@ -680,6 +708,7 @@
     - SecurityCadetEnvirohelm
     - SecurityCadetEnvirosuit
     - SecurityCadetEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 # Medical
 - type: roleLoadout
@@ -696,13 +725,14 @@
     - ChiefMedicalOfficerOuterClothing
     #  - ChiefMedicalOfficerNeck #blackM
     - ChiefMedicalOfficerShoes
-    - SurvivalMedical
+#    - SurvivalMedical BlackM
     - Trinkets
     - GroupSpeciesBreathToolMedical
     # Goobstation - EE Plasmeme Change.
     - ChiefMedicalOfficerEnvirohelm
     - ChiefMedicalOfficerEnvirosuit
     - ChiefMedicalOfficerEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobMedicalDoctor
@@ -718,13 +748,14 @@
     - MedicalDoctorOuterClothing
     - MedicalShoes
     - MedicalDoctorPDA
-    - SurvivalMedical
+#    - SurvivalMedical BlackM
     - Trinkets
     - GroupSpeciesBreathToolMedical
     # Goobstation - EE Plasmeme Change.
     - MedicalDoctorEnvirohelm
     - MedicalDoctorEnvirosuit
     - MedicalDoctorEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobMedicalIntern
@@ -734,13 +765,14 @@
     - GroupTankHarness
     - MedicalInternJumpsuit
     - MedicalBackpack
-    - SurvivalMedical
+#    - SurvivalMedical BlackM
     - Trinkets
     - GroupSpeciesBreathToolMedical
     # Goobstation - EE Plasmeme Change.
     - MedicalInternEnvirohelm
     - MedicalInternEnvirosuit
     - MedicalInternEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobChemist
@@ -754,13 +786,14 @@
     - ChemistBackpack
     - ChemistOuterClothing
     - MedicalShoes
-    - SurvivalMedical
+#    - SurvivalMedical BlackM
     - Trinkets
     - GroupSpeciesBreathToolMedical
     # Goobstation - EE Plasmeme Change.
     - ChemistEnvirohelm
     - ChemistEnvirosuit
     - ChemistEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobParamedic
@@ -775,13 +808,14 @@
     - MedicalBackpack
     - ParamedicOuterClothing
     - ParamedicShoes
-    - SurvivalMedical
+#    - SurvivalMedical BlackM
     - Trinkets
     - GroupSpeciesBreathToolMedical
     # Goobstation - EE Plasmeme Change.
     - ParamedicEnvirohelm
     - ParamedicEnvirosuit
     - ParamedicEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 # Wildcards
 - type: roleLoadout
@@ -793,13 +827,14 @@
     - GroupTankHarness
     - CommonBackpack
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - ZookeeperEnvirohelm
     - ZookeeperEnvirosuit
     - ZookeeperEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobReporter
@@ -810,13 +845,14 @@
     - ReporterOuterClothing # Goobstation - Bodycams
     - CommonBackpack
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - ReporterEnvirohelm
     - ReporterEnvirosuit
     - ReporterEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobPsychologist
@@ -826,13 +862,14 @@
     - PsychologistJumpsuit
     - MedicalBackpack
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - PsychologistEnvirohelm
     - PsychologistEnvirosuit
     - PsychologistEnvirogloves
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: JobBoxer
@@ -843,12 +880,13 @@
     - BoxerGloves
     - CommonBackpack
     - Glasses
-    - Survival
+#    - Survival BlackM
     - Trinkets
     - GroupSpeciesBreathTool
     # Goobstation - EE Plasmeme Change.
     - BoxerEnvirohelm
     - BoxerEnvirosuit
+    - BaseSurvivalEquipment # BlackM
 
 # These loadouts are used for non-crew spawns, like off-station antags and event mobs
 # They will be used without player configuration, thus they will only ever apply what is forced by MinLimit
@@ -871,36 +909,41 @@
 - type: roleLoadout
   id: RoleSurvivalStandard
   groups:
-    - Survival
+#    - Survival BlackM
     - GroupSpeciesBreathTool
     - GroupTankHarness
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: RoleSurvivalClown
   groups:
-    - SurvivalClown
+#    - SurvivalClown BlackM
     - GroupTankHarness
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: RoleSurvivalExtended
   groups:
-    - SurvivalExtended
+#    - SurvivalExtended BlackM
     - GroupSpeciesBreathTool
     - GroupTankHarness
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: RoleSurvivalMedical
   groups:
-    - SurvivalMedical
+#    - SurvivalMedical BlackM
     - GroupSpeciesBreathToolMedical
     - GroupTankHarness
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: RoleSurvivalSecurity
   groups:
-    - SurvivalSecurity
+#    - SurvivalSecurity BlackM
     - GroupSpeciesBreathToolSecurity
     - GroupTankHarness
+    - BaseSurvivalEquipment # BlackM
 
 - type: roleLoadout
   id: RoleSurvivalSyndicate

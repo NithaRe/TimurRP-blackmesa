@@ -75,3 +75,21 @@
   id: ClothingOuterBioScientist
   equipment:
     outerClothing: ClothingOuterBioScientist
+
+- type: loadout
+  id: LoadoutBaseSurvivalBlackM
+  storage:
+    back:
+    - EmergencyOxygenTankFilled
+    - ClothingMaskBreath
+    - BoxMRE
+    - Flare
+    - EmergencyMedipen
+
+- type: loadoutGroup
+  id: BaseSurvivalEquipment
+  name: loadout-group-tank-harness
+  minLimit: 1
+  hidden: true
+  loadouts:
+  - LoadoutBaseSurvivalBlackM
