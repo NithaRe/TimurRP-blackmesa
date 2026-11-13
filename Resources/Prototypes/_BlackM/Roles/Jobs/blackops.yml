@@ -3,6 +3,7 @@
   name: department-blackops
   description: department-blackops-description
   editorHidden: false
+  showEventRoles: true
   color: "#1c1c22"
   roles:
   - BlackOpsLeader
