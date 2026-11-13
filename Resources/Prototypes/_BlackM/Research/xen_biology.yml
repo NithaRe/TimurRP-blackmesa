@@ -71,10 +71,10 @@
     sprite: Objects/Specific/Medical/medipen.rsi
     state: firstaid
   discipline: Xen
-  tier: 2
-  cost: 7500
+  tier: 1
+  cost: 5000
   recipeUnlocks:
   - XenInfectionSerumAutoInjector
-  position: -9,1
+  position: -8,1
   technologyPrerequisites:
-  - AbnormalArtifactManipulation
+  - BasicXenoArcheology

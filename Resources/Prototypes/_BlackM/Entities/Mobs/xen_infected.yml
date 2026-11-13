@@ -11,8 +11,8 @@
     templateId: XenInfected
   - type: RandomHumanoidAppearance
   - type: Zombie
-    baseZombieInfectionChance: 0.1
-    minZombieInfectionChance: 0.1
+    baseZombieInfectionChance: 0.03
+    minZombieInfectionChance: 0
   - type: MobThresholds
     thresholds:
       0: Alive

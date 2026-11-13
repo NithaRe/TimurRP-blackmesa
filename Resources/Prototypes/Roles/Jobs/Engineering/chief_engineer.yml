@@ -134,15 +134,8 @@
   description: job-description-ce
   playTimeTracker: JobChiefEngineer
   requirements:
-    - !type:RoleTimeRequirement
-      role: JobAtmosphericTechnician
-      time: 0 # BlackM 18000 #5 hrs
-    - !type:RoleTimeRequirement
-      role: JobStationEngineer
-      time: 0 # BlackM 21600 #6 hrs
-    - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 0 # BlackM 36000 #10 hrs
+    - !type:OverallPlaytimeRequirement
+      time: 1800 # 30 minutes overall
     - !type:SpeciesRequirement # Goob - None Felinid
       inverted: true
       species:

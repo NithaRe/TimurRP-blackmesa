@@ -1,4 +1,6 @@
 ﻿zen-catalyst-ui-title = Катализатор Зена
+zen-catalyst-announcer = Биологический контроль
+zen-catalyst-announce-wave = В комплексе зафиксировано появление Зен-заражённых. Соблюдайте осторожность.
 zen-catalyst-ui-active = Катализатор активен.
 zen-catalyst-ui-inactive = Катализатор неактивен.
 zen-catalyst-ui-description = Периодически открывает разломы в случайных местах комплекса, порождая зен заражённых.

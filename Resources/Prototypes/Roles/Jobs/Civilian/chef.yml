@@ -79,6 +79,7 @@
 
 - type: job
   id: Chef
+  setPreference: false
   name: job-name-chef
   description: job-description-chef
   playTimeTracker: JobChef

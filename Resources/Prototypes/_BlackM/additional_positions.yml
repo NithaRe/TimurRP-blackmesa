@@ -62,37 +62,10 @@
   color: "#6FA8C4"
 
 - type: additionalPosition
-  id: ExtraBartender
-  name: hire-position-bartender
+  id: ExtraServiceworker
+  name: hire-position-serviceworker
   department: hire-position-dept-service
   departmentOrder: 5
-  description: hire-position-bartender-desc
-  badge: BadgeService
-  color: "#6FAF7A"
-
-- type: additionalPosition
-  id: ExtraChef
-  name: hire-position-chef
-  department: hire-position-dept-service
-  departmentOrder: 5
-  description: hire-position-chef-desc
-  badge: BadgeService
-  color: "#6FAF7A"
-
-- type: additionalPosition
-  id: ExtraBotanist
-  name: hire-position-botanist
-  department: hire-position-dept-service
-  departmentOrder: 5
-  description: hire-position-botanist-desc
-  badge: BadgeService
-  color: "#6FAF7A"
-
-- type: additionalPosition
-  id: ExtraJanitor
-  name: hire-position-janitor
-  department: hire-position-dept-service
-  departmentOrder: 5
-  description: hire-position-janitor-desc
+  description: hire-position-serviceworker-desc
   badge: BadgeService
   color: "#6FAF7A"

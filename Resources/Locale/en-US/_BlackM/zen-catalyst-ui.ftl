@@ -1,4 +1,6 @@
 ﻿zen-catalyst-ui-title = Xen Catalyst
+zen-catalyst-announcer = Biological Monitoring
+zen-catalyst-announce-wave = Xen infected detected inside the facility. Exercise caution.
 zen-catalyst-ui-active = Catalyst active.
 zen-catalyst-ui-inactive = No active catalysts.
 zen-catalyst-ui-description = Periodically opens rifts at random locations throughout the facility.

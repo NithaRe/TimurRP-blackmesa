@@ -1,4 +1,6 @@
 job-name-bmesa-research-director = Научный Руководитель
+department-blackm-unqualified = Персонал без квалификации
+department-blackm-unqualified-description = Помогайте сотрудникам комплекса и получите уже наконец работу!
 job-description-bmesa-research-director = Руководит научными исследованиями на объекте Блэк Меса.
 job-supervisors-bmesa-research-director = администрации
 

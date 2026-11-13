@@ -662,6 +662,10 @@ namespace Content.Client.Chat.UI
 
         protected override Control BuildBubble(ChatMessage message, string speechStyleClass, Color? fontColor = null, Texture? icon = null) // BlackM: Added icon parameter
         {
+            if (speechStyleClass == "loocBox")
+                return BuildTextBubble("LOOC: " + FormattedMessage.EscapeText(message.Message), fontColor, icon,
+                    typewriter: false, speechStyleClass);
+
             var speakerName = SharedChatSystem.GetStringInsideTag(message, "BubbleHeader");
 
             var content = SharedChatSystem.GetStringInsideTag(message, "BubbleContent");

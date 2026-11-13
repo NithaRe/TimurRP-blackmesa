@@ -163,7 +163,10 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSlots # Goobstation - Slots Based Survival Boxes
+    - FoodSnackNutribrick
+    - DrinkWaterBottleFull
+    - EmergencyMedipen
+    - Flare
 
 - type: loadout
   id: EmergencyNitrogen
@@ -258,7 +261,10 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSlotsEngineering # Goobstation - Slots Based Survival Boxes
+    - FoodSnackNutribrick
+    - DrinkWaterBottleFull
+    - EmergencyMedipen
+    - Flare
 
 - type: loadout
   id: EmergencyNitrogenExtended
@@ -277,7 +283,10 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSlotsMedical # Goobstation - Slots Based Survival Boxes
+    - FoodSnackNutribrick
+    - DrinkWaterBottleFull
+    - EmergencyMedipen
+    - Flare
 
 - type: loadout
   id: EmergencyNitrogenMedical
@@ -296,7 +305,10 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSlotsSecurity # Goobstation - Slots Based Survival Boxes
+    - FoodSnackNutribrick
+    - DrinkWaterBottleFull
+    - EmergencyMedipen
+    - Flare
 
 - type: loadout
   id: EmergencyNitrogenSecurity

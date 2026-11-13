@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Linq;
+using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
 using Content.Server.Station.Systems;
 using Content.Shared._BlackM.ZenCatalyst;
@@ -20,6 +21,7 @@ public sealed class ZenCatalystSystem : EntitySystem
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
     [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
+    [Dependency] private readonly ChatSystem _chat = default!;
 
     private EntityUid? _statusEntity;
     private float _statusAccumulator;
@@ -123,6 +125,7 @@ public sealed class ZenCatalystSystem : EntitySystem
         if (!IsStationGrid(gridUid.Value))
             return;
 
+        var spawned = false;
         for (var i = 0; i < catalyst.SpawnAmount; i++)
         {
             if (!TryGetRandomGridCoordinates(gridUid.Value, grid, catalyst, out var coords))
@@ -130,7 +133,15 @@ public sealed class ZenCatalystSystem : EntitySystem
 
             var protoId = _random.Pick(catalyst.ZenMobPrototypes);
             Spawn(protoId, coords);
+            spawned = true;
         }
+
+        if (spawned)
+            _chat.DispatchStationAnnouncement(
+                uid,
+                Loc.GetString("zen-catalyst-announce-wave"),
+                Loc.GetString("zen-catalyst-announcer"),
+                playDefaultSound: false);
     }
 
     private bool TryGetRandomGridCoordinates(EntityUid gridUid, MapGridComponent grid, ZenCatalystComponent catalyst, out EntityCoordinates coords)

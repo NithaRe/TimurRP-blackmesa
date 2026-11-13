@@ -19,14 +19,8 @@ hire-position-medicaldoctor-desc = Лечение пациентов.
 hire-position-surgeon = Хирург
 hire-position-surgeon-desc = Хирургические операции.
 hire-position-dept-service = Сервисный отдел
-hire-position-bartender = Бартендер
-hire-position-bartender-desc = Бар и напитки.
-hire-position-chef = Повар
-hire-position-chef-desc = Кухня.
-hire-position-botanist = Ботаник
-hire-position-botanist-desc = Гидропоника.
-hire-position-janitor = Уборщик
-hire-position-janitor-desc = Чистота в комплексе.
+hire-position-serviceworker = Сотрудник сервиса
+hire-position-serviceworker-desc = Кухня, бар, гидропоника и поддержание чистоты в комплексе.
 
 hire-terminal-log-auto = Автоматически
 hire-terminal-popup-already-has = У этого паспорта уже есть дополнительная должность.

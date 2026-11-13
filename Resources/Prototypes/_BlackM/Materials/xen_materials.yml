@@ -1,4 +1,13 @@
 - type: material
+  id: XenCreatureSample
+  stackEntity: XenSampleCapsuleGeneric
+  name: materials-xen-creature-sample
+  unit: materials-unit-piece
+  icon: { sprite: Objects/Specific/Chemistry/vial.rsi, state: vial-1 }
+  color: "#87a85e"
+  price: 0.6
+
+- type: material
   id: XenCrystalConcentrate
   stackEntity: MaterialXenCrystalConcentrate1
   name: materials-xen-crystal-concentrate

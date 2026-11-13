@@ -189,6 +189,7 @@ research-technology-xen-material-processing = Xen material processing
 research-technology-xen-containment-equipment = Xen containment equipment
 research-technology-xen-weapon-modification = Xen weapon modification
 research-technology-xen-infection-treatment = Xen infection treatment
+materials-xen-creature-sample = Xen creature sample
 research-technology-basic-xen-resonance-stabilization = basic Xen resonance stabilization
 research-technology-advanced-xen-resonance-stabilization = advanced Xen resonance stabilization
 research-technology-precision-xen-resonance-stabilization = precision Xen resonance stabilization

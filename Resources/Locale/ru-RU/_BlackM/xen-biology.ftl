@@ -189,6 +189,7 @@ research-technology-xen-material-processing = переработка Зен-ма
 research-technology-xen-containment-equipment = снаряжение Зен-сдерживания
 research-technology-xen-weapon-modification = модификация оружия Зен-материалами
 research-technology-xen-infection-treatment = лечение Зен-заражения
+materials-xen-creature-sample = образец существа Зена
 research-technology-basic-xen-resonance-stabilization = базовая стабилизация Зен-резонанса
 research-technology-advanced-xen-resonance-stabilization = продвинутая стабилизация Зен-резонанса
 research-technology-precision-xen-resonance-stabilization = прецизионная стабилизация Зен-резонанса

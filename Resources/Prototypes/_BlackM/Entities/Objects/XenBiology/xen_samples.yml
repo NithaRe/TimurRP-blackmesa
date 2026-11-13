@@ -20,6 +20,10 @@
           Spoiled: { color: "#7d8580" }
   - type: XenSampleCapsule
     filled: true
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      XenCreatureSample: 100
   - type: ScientificCrusherInput
     points: 200
     incidentChance: 0.06

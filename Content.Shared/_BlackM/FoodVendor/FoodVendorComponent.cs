@@ -15,10 +15,10 @@ public sealed partial class FoodVendorComponent : Component
     public int Limit = 4;
 
     [DataField]
-    public List<ProtoId<JobPrototype>> CookJobs = new() { "Chef" };
+    public List<ProtoId<JobPrototype>> CookJobs = new() { "ServiceWorker" };
 
     [DataField]
-    public List<string> CookPositions = new() { "ExtraChef" };
+    public List<string> CookPositions = new() { "ExtraServiceworker" };
 
     [DataField, AutoNetworkedField]
     public bool LockWhenCookPresent = true;

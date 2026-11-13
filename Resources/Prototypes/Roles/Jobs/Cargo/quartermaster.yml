@@ -130,15 +130,8 @@
   description: job-description-qm
   playTimeTracker: JobQuartermaster
   requirements:
-    - !type:RoleTimeRequirement
-      role: JobCargoTechnician
-      time: 0 # BlackM 18000 #5 hrs
-    - !type:RoleTimeRequirement
-      role: JobSalvageSpecialist
-      time: 0 # BlackM 9000 #2.5 hrs
-    - !type:DepartmentTimeRequirement
-      department: Cargo
-      time: 0 # BlackM 36000 #10 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1800 # 30 minutes overall
     - !type:SpeciesRequirement # Goob - None Felinid
       inverted: true
       species:

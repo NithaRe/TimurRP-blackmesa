@@ -66,11 +66,11 @@
   categories:
   - Medical
   completetime: 5
+  applyMaterialDiscount: false
   materials:
-    Glass: 100
-    Plastic: 50
-    XenRedSample: 100
-    XenOrganicSubstrate: 100
+    Steel: 100
+    Plastic: 100
+    XenCreatureSample: 100
 
 - type: latheRecipePack
   id: XenInfectionTreatment

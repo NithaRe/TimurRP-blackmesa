@@ -177,6 +177,7 @@ namespace Content.Server.Zombies
         {
             base.Update(frameTime);
             var curTime = _timing.CurTime;
+            UpdateXenBites(curTime);
 
             // Hurt the living infected
             var query = EntityQueryEnumerator<PendingZombieComponent, DamageableComponent, MobStateComponent>();
@@ -304,23 +305,10 @@ namespace Content.Server.Zombies
             return (TryComp<BlockingComponent>(component?.BlockingItem, out var blockComp) && blockComp.IsBlocking);
         }
 
-        private float GetZombieInfectionChance(EntityUid uid, ZombieComponent zombieComponent)
+        private float GetZombieInfectionChance(EntityUid uid, ZombieComponent zombieComponent, float? baseChance = null)
         {
-            var chance = zombieComponent.BaseZombieInfectionChance;
-
-            var armorEv = new CoefficientQueryEvent(ProtectiveSlots);
-            RaiseLocalEvent(uid, armorEv);
-            foreach (var resistanceEffectiveness in zombieComponent.ResistanceEffectiveness.DamageDict)
-            {
-                if (armorEv.DamageModifiers.Coefficients.TryGetValue(resistanceEffectiveness.Key, out var coefficient))
-                {
-                    // Scale the coefficient by the resistance effectiveness, very descriptive I know
-                    // For example. With 30% slash resist (0.7 coeff), but only a 60% resistance effectiveness for slash,
-                    // you'll end up with 1 - (0.3 * 0.6) = 0.82 coefficient, or a 18% resistance
-                    var adjustedCoefficient = 1 - ((1 - coefficient) * resistanceEffectiveness.Value.Float());
-                    chance *= adjustedCoefficient;
-                }
-            }
+            var initialChance = baseChance ?? zombieComponent.BaseZombieInfectionChance;
+            var chance = initialChance;
 
             var zombificationResistanceEv = new ZombificationResistanceQueryEvent(ProtectiveSlots);
             RaiseLocalEvent(uid, zombificationResistanceEv);
@@ -330,7 +318,7 @@ namespace Content.Server.Zombies
 
             chance *= zombificationResistanceEv.TotalCoefficient;
 
-            return MathF.Max(chance, zombieComponent.MinZombieInfectionChance);
+            return MathF.Max(chance, MathF.Min(initialChance, zombieComponent.MinZombieInfectionChance));
         }
 
         private void OnMeleeHit(EntityUid uid, ZombieComponent component, MeleeHitEvent args)
@@ -360,10 +348,12 @@ namespace Content.Server.Zombies
                 }
                 else
                 {
-                    var infectionChance = GetZombieInfectionChance(entity, component);
-                    canBeInfected = !HasComp<ZombieImmuneComponent>(entity) && infectionChance > 0f;
+                    var infectionChance = !HasComp<ZombieImmuneComponent>(entity) && !HasComp<NonSpreaderZombieComponent>(args.User)
+                        ? GetXenBiteInfectionChance(entity, component)
+                        : 0f;
+                    canBeInfected = infectionChance > 0f;
 
-                    if (canBeInfected && !HasComp<NonSpreaderZombieComponent>(args.User) && _random.Prob(infectionChance))
+                    if (canBeInfected && _random.Prob(infectionChance))
                     {
                         EnsureComp<PendingZombieComponent>(entity);
                         EnsureComp<ZombifyOnDeathComponent>(entity);

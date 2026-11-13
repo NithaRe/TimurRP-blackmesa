@@ -73,10 +73,7 @@
             CargoTechnician: [ 2, 4 ]
             ChiefEngineer: [ 1, 1 ]
             StationEngineer: [ 1, 1 ]
-            Chef: [ 1, 2 ]
-            Botanist: [ 1, 2 ]
-            Bartender: [ 1, 1 ]
-            Janitor: [ 1, 2 ]
+            ServiceWorker: [ 4, 7 ]
             Passenger: [ -1, -1 ]
  
         # Goobstation blob-config-start SMALL+

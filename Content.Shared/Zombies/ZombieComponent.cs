@@ -133,7 +133,7 @@ public sealed partial class ZombieComponent : Component
     /// </summary>
     [DataField]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float BaseZombieInfectionChance = 0.1f;
+    public float BaseZombieInfectionChance = 0.03f;
 
     /// <summary>
     /// The minimum infection chance possible. This is simply to prevent
@@ -141,7 +141,7 @@ public sealed partial class ZombieComponent : Component
     /// </summary>
     [DataField]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float MinZombieInfectionChance = 0.05f;
+    public float MinZombieInfectionChance = 0f;
 
     [DataField]
     public SpriteSpecifier? InfectionOverlay = new SpriteSpecifier.Rsi(

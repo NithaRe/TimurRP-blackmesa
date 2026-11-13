@@ -136,18 +136,8 @@
   description: job-description-cmo
   playTimeTracker: JobChiefMedicalOfficer
   requirements:
-    - !type:RoleTimeRequirement
-      role: JobChemist
-      time: 0 # BlackM 18000 #5 hrs
-    - !type:RoleTimeRequirement
-      role: JobMedicalDoctor
-      time: 0 # BlackM 28000 #8 hrs
-    - !type:DepartmentTimeRequirement
-      department: Medical
-      time: 0 # BlackM 36000 #10 hrs
-    - !type:RoleTimeRequirement  # CorvaxGoob
-      role: JobSurgeon
-      time: 0 # BlackM 7200 # CorvaxGoob 2 hrs
+    - !type:OverallPlaytimeRequirement
+      time: 1800 # 30 minutes overall
     - !type:SpeciesRequirement # Goob - None Felinid
       inverted: true
       species:

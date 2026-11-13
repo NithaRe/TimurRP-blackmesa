@@ -511,7 +511,6 @@
     #- SurgeryStatic
     dynamicPacks:
     - XenExperimentEquipment # BlackM added - Xen experiment capacitors
-    - XenInfectionTreatment # BlackM
     - AdvancedTools
     #- ScienceEquipment - Goobstation - Moved to Scifab
     #- ScienceExplosives - Goobstation - Moved to Scifab

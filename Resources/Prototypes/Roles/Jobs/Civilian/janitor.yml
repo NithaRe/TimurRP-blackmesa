@@ -75,6 +75,7 @@
 
 - type: job
   id: Janitor
+  setPreference: false
   name: job-name-janitor
   description: job-description-janitor
   playTimeTracker: JobJanitor

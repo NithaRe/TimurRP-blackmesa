@@ -1,0 +1,8 @@
+﻿- type: department
+  id: BlackMUnqualified
+  name: department-blackm-unqualified
+  description: department-blackm-unqualified-description
+  color: "#B0B0B0"
+  weight: -20
+  roles:
+  - Passenger
