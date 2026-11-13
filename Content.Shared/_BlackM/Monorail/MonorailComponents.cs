@@ -139,6 +139,9 @@ public sealed partial class MonorailCarComponent : Component
     public bool CarryItems = true;
 
     [DataField]
+    public bool CarryCargo = true;
+
+    [DataField]
     public SoundSpecifier? DepartureWarningSound;
 
     [DataField]
@@ -152,6 +155,9 @@ public sealed partial class MonorailCarComponent : Component
 
     [DataField]
     public SoundSpecifier? ArriveSound;
+
+    [DataField]
+    public SoundSpecifier? BrakeSound;
 
     [DataField]
     public Vector2 BodyHalfExtents = new(1.5f, 3.4f);
@@ -257,6 +263,8 @@ public sealed partial class MonorailCarComponent : Component
     [ViewVariables] public float TripTo;
     [ViewVariables] public TimeSpan TripStart;
     [ViewVariables] public float TripDuration;
+    [ViewVariables] public float BrakeAt;
+    [ViewVariables] public bool BrakePlayed;
 
     [ViewVariables] public TimeSpan NextDeparture;
     [ViewVariables] public bool WarningGiven;

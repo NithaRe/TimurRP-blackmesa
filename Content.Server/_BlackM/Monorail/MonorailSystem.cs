@@ -11,6 +11,8 @@ using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Item;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Movement.Pulling.Components;
+using Content.Shared.Movement.Pulling.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Stunnable;
 using Content.Shared.Throwing;
@@ -43,6 +45,7 @@ public sealed partial class MonorailSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly ThrowingSystem _throwing = default!;
     [Dependency] private readonly SharedPointLightSystem _lights = default!;
+    [Dependency] private readonly PullingSystem _pulling = default!;
 
     private static readonly TimeSpan RetryDelay = TimeSpan.FromSeconds(5);
     private static readonly TimeSpan RiderScanInterval = TimeSpan.FromSeconds(0.2);
@@ -63,6 +66,7 @@ public sealed partial class MonorailSystem : EntitySystem
 
     private readonly HashSet<Entity<MobStateComponent>> _mobs = new();
     private readonly HashSet<Entity<ItemComponent>> _items = new();
+    private readonly HashSet<Entity<PullableComponent>> _cargo = new();
     private readonly List<EntityUid> _children = new();
     private readonly List<EntityUid> _pendingSnap = new();
     private readonly HashSet<Entity<MobStateComponent>> _hitMobs = new();
@@ -76,6 +80,8 @@ public sealed partial class MonorailSystem : EntitySystem
     private EntityQuery<StrapComponent> _strapQuery;
     private EntityQuery<MobStateComponent> _mobQuery;
     private EntityQuery<ItemComponent> _itemQuery;
+    private EntityQuery<PullableComponent> _pullableQuery;
+    private EntityQuery<PullerComponent> _pullerQuery;
 
     public override void Initialize()
     {
@@ -88,6 +94,8 @@ public sealed partial class MonorailSystem : EntitySystem
         _strapQuery = GetEntityQuery<StrapComponent>();
         _mobQuery = GetEntityQuery<MobStateComponent>();
         _itemQuery = GetEntityQuery<ItemComponent>();
+        _pullableQuery = GetEntityQuery<PullableComponent>();
+        _pullerQuery = GetEntityQuery<PullerComponent>();
 
         SubscribeLocalEvent<MonorailCarComponent, MapInitEvent>(OnCarMapInit);
         SubscribeLocalEvent<MonorailCarComponent, ExaminedEvent>(OnCarExamined);
@@ -641,7 +649,7 @@ public sealed partial class MonorailSystem : EntitySystem
                 continue;
             }
 
-            if (_mobQuery.HasComp(child) || _itemQuery.HasComp(child))
+            if (_mobQuery.HasComp(child) || _itemQuery.HasComp(child) || _pullableQuery.HasComp(child))
                 _xform.AttachToGridOrMap(child);
         }
     }
@@ -659,7 +667,10 @@ public sealed partial class MonorailSystem : EntitySystem
     private void SetDoors(EntityUid uid, MonorailCarComponent car, bool open, bool playSound = true)
     {
         if (!open && !car.DoorsClosed)
+        {
             ScanBoarding(uid, car, Transform(uid));
+            BreakPullsThroughDoors(uid);
+        }
 
         car.DoorsClosed = !open;
         car.Moving = !open;
@@ -872,6 +883,9 @@ public sealed partial class MonorailSystem : EntitySystem
         car.TripTo = to;
         car.TripStart = now;
         car.TripDuration = TripDuration(MathF.Abs(to - car.Position), car.MaxSpeed, car.Acceleration);
+        var accelTime = car.Acceleration > 0f ? car.MaxSpeed / car.Acceleration : 0f;
+        car.BrakeAt = car.TripDuration - MathF.Min(accelTime, car.TripDuration / 2f);
+        car.BrakePlayed = false;
         car.State = MonorailCarState.Moving;
 
         UpdateHeadlights(car, MathF.Sign(to - car.Position));
@@ -884,6 +898,13 @@ public sealed partial class MonorailSystem : EntitySystem
     {
         var t = (float) (now - car.TripStart).TotalSeconds;
         var dist = MathF.Abs(car.TripTo - car.TripFrom);
+
+        if (!car.BrakePlayed && t >= car.BrakeAt)
+        {
+            car.BrakePlayed = true;
+            _audio.PlayPvs(car.BrakeSound, uid);
+        }
+
         var sign = MathF.Sign(car.TripTo - car.TripFrom);
 
         if (t >= car.TripDuration)
@@ -984,7 +1005,8 @@ public sealed partial class MonorailSystem : EntitySystem
                 continue;
 
             var isMob = _mobQuery.HasComp(child);
-            if (!isMob && !_itemQuery.HasComp(child))
+            var isCargo = !isMob && IsCargo(child, car);
+            if (!isMob && !isCargo && !_itemQuery.HasComp(child))
                 continue;
 
             if (_buckleQuery.TryComp(child, out var buckle) && buckle.Buckled)
@@ -995,7 +1017,7 @@ public sealed partial class MonorailSystem : EntitySystem
             if (InsideFloor(p, ext, -LeaveOutset))
                 continue;
 
-            if (locked && isMob)
+            if (locked && (isMob || isCargo))
             {
                 var clamped = new Vector2(
                     Math.Clamp(p.X, -ext.X + 0.02f, ext.X - 0.02f),
@@ -1031,6 +1053,17 @@ public sealed partial class MonorailSystem : EntitySystem
             TryBoard(uid, car, xform, mob.Owner);
         }
 
+        if (car.CarryCargo)
+        {
+            _cargo.Clear();
+            _lookup.GetEntitiesInRange(xform.Coordinates, range, _cargo, flags: LookupFlags.Uncontained);
+            foreach (var cargo in _cargo)
+            {
+                if (IsCargo(cargo.Owner, car))
+                    TryBoard(uid, car, xform, cargo.Owner);
+            }
+        }
+
         if (!car.CarryItems)
             return;
 
@@ -1039,6 +1072,37 @@ public sealed partial class MonorailSystem : EntitySystem
         foreach (var item in _items)
         {
             TryBoard(uid, car, xform, item.Owner);
+        }
+    }
+
+    private bool IsCargo(EntityUid ent, MonorailCarComponent car)
+    {
+        return car.CarryCargo
+               && _pullableQuery.HasComp(ent)
+               && !_mobQuery.HasComp(ent)
+               && !_itemQuery.HasComp(ent)
+               && !_seatQuery.HasComp(ent);
+    }
+
+    private void BreakPullsThroughDoors(EntityUid uid)
+    {
+        CollectChildren(Transform(uid));
+        foreach (var child in _children)
+        {
+            if (_pullableQuery.TryComp(child, out var pullable) &&
+                pullable.Puller is { } puller &&
+                !IsRiding(puller, uid))
+            {
+                _pulling.TryStopPull(child, pullable, ignoreGrab: true);
+            }
+
+            if (_pullerQuery.TryComp(child, out var pullerComp) &&
+                pullerComp.Pulling is { } pulled &&
+                !IsRiding(pulled, uid) &&
+                _pullableQuery.TryComp(pulled, out var pulledComp))
+            {
+                _pulling.TryStopPull(pulled, pulledComp, ignoreGrab: true);
+            }
         }
     }
 
@@ -1067,7 +1131,7 @@ public sealed partial class MonorailSystem : EntitySystem
 
     #endregion
 
-    #region Collision (v3.2)
+    #region Collision
 
     private void UpdateDoorFixtures(EntityUid uid, MonorailCarComponent car)
     {

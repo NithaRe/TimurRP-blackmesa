@@ -93,7 +93,7 @@
   - type: InteractionOutline
   - type: Sprite
     sprite: _BlackM/Structures/Monorail/hl_monorail_car.rsi
-    drawdepth: Objects
+    drawdepth: HighFloorObjects
     noRot: false
     layers:
     - state: shadow
@@ -254,6 +254,10 @@
         volume: -3
     departSound:
       path: /Audio/_BlackM/Monorail/depart.ogg
+      params:
+        volume: -4
+    brakeSound:
+      path: /Audio/_BlackM/Monorail/brake.ogg
       params:
         volume: -4
     arriveSound:
