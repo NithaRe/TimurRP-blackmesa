@@ -41,6 +41,7 @@
     ClusterBlackM:
       stationProto: StandardNanotrasenStation
       components:
+        - type: NoSpace
         - type: StationEmergencyShuttle
           emergencyShuttlePath: /Maps/Shuttles/emergency_cluster.yml
         - type: StationNameSetup
