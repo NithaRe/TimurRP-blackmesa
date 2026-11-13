@@ -1,0 +1,13 @@
+- type: decal
+  id: BlackMBlackMesa10x4White
+  tags:
+  - BlackM
+  - BlackMesa
+  sprite:
+    sprite: _BlackM/Decals/black_mesa_10x4_white.rsi
+    state: full
+  icon:
+    sprite: _BlackM/Decals/decal_icons.rsi
+    state: black_mesa_10x4_white
+  defaultCleanable: false
+  defaultCustomColor: true
