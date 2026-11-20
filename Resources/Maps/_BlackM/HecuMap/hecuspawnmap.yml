@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/20/2026 10:50:40
-  entityCount: 1244
+  time: 11/20/2026 17:56:21
+  entityCount: 1204
 maps:
 - 1
 grids:
@@ -1233,13 +1233,6 @@ entities:
     - type: Transform
       pos: 5.538931,-5.441918
       parent: 2
-- proto: BoxLethalshot
-  entities:
-  - uid: 1229
-    components:
-    - type: Transform
-      pos: 14.471902,4.7061324
-      parent: 2
 - proto: BoxMRE
   entities:
   - uid: 421
@@ -2275,17 +2268,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 7.5,0.5
       parent: 2
-- proto: ClothingArmorHecuHigh
-  entities:
-  - uid: 887
-    components:
-    - type: Transform
-      parent: 886
-    - type: Clothing
-      inSlotFlag: OUTERCLOTHING
-      inSlot: outerClothing
-    - type: Physics
-      canCollide: False
 - proto: ClothingBeltUtilityFilled
   entities:
   - uid: 985
@@ -2300,17 +2282,6 @@ entities:
     - type: Transform
       pos: 6.32686,-3.5129845
       parent: 2
-- proto: ClothingHeadHelmetBasicHecu
-  entities:
-  - uid: 888
-    components:
-    - type: Transform
-      parent: 886
-    - type: Clothing
-      inSlotFlag: HEAD
-      inSlot: head
-    - type: Physics
-      canCollide: False
 - proto: ClothingHeadHelmetScrap
   entities:
   - uid: 1219
@@ -2318,35 +2289,6 @@ entities:
     - type: Transform
       pos: -2.725305,2.8447535
       parent: 2
-- proto: ClothingMaskGasHECU
-  entities:
-  - uid: 890
-    components:
-    - type: Transform
-      parent: 886
-    - type: Clothing
-      inSlotFlag: MASK
-      inSlot: mask
-    - type: Physics
-      canCollide: False
-- proto: ClothingShoesBootsHecu
-  entities:
-  - uid: 25
-    components:
-    - type: Transform
-      pos: 10.176712,0.31008214
-      parent: 2
-- proto: ClothingUniformJumpsuitHecu
-  entities:
-  - uid: 889
-    components:
-    - type: Transform
-      parent: 886
-    - type: Clothing
-      inSlotFlag: INNERCLOTHING
-      inSlot: jumpsuit
-    - type: Physics
-      canCollide: False
 - proto: CombatMedipen
   entities:
   - uid: 1022
@@ -2486,55 +2428,60 @@ entities:
       parent: 2
 - proto: GunSafe
   entities:
-  - uid: 26
-    components:
-    - type: Transform
-      pos: 14.5,4.5
-      parent: 2
-  - uid: 135
-    components:
-    - type: Transform
-      pos: 14.5,0.5
-      parent: 2
-  - uid: 137
-    components:
-    - type: Transform
-      pos: 13.5,0.5
-      parent: 2
-  - uid: 716
-    components:
-    - type: Transform
-      pos: 11.5,2.5
-      parent: 2
-  - uid: 769
-    components:
-    - type: Transform
-      pos: 15.5,4.5
-      parent: 2
-  - uid: 789
-    components:
-    - type: Transform
-      pos: 15.5,0.5
-      parent: 2
-  - uid: 820
-    components:
-    - type: Transform
-      pos: 16.5,4.5
-      parent: 2
-  - uid: 826
+  - uid: 25
     components:
     - type: Transform
       pos: 10.5,4.5
       parent: 2
-  - uid: 829
+  - uid: 26
     components:
     - type: Transform
       pos: 11.5,4.5
       parent: 2
-  - uid: 837
+  - uid: 31
+    components:
+    - type: Transform
+      pos: 11.5,2.5
+      parent: 2
+  - uid: 52
+    components:
+    - type: Transform
+      pos: 14.5,0.5
+      parent: 2
+  - uid: 66
     components:
     - type: Transform
       pos: 13.5,4.5
+      parent: 2
+  - uid: 71
+    components:
+    - type: Transform
+      pos: 15.5,4.5
+      parent: 2
+  - uid: 110
+    components:
+    - type: Transform
+      pos: 16.5,4.5
+      parent: 2
+  - uid: 135
+    components:
+    - type: Transform
+      pos: 14.5,4.5
+      parent: 2
+  - uid: 137
+    components:
+    - type: Transform
+      pos: 10.5,0.5
+      parent: 2
+  - uid: 155
+    components:
+    - type: Transform
+      pos: 15.5,0.5
+      parent: 2
+  - uid: 446
+    components:
+    - type: Transform
+      pos: 13.5,0.5
       parent: 2
 - proto: HeadHuman
   entities:
@@ -2590,103 +2537,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -4.5,-7.5
       parent: 2
-- proto: MagazineBoxShotgunHighCaliber
-  entities:
-  - uid: 1227
-    components:
-    - type: Transform
-      pos: 13.339089,4.690499
-      parent: 2
-  - uid: 1228
-    components:
-    - type: Transform
-      pos: 13.581277,4.291854
-      parent: 2
-- proto: MagazineLightRifle
-  entities:
-  - uid: 110
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 13.635258,0.4873945
-      parent: 2
-  - uid: 963
-    components:
-    - type: Transform
-      pos: 13.296487,0.4440295
-      parent: 2
-- proto: MagazinePistolHighCapacity
-  entities:
-  - uid: 1225
-    components:
-    - type: Transform
-      pos: 15.307839,0.47529572
-      parent: 2
-  - uid: 1226
-    components:
-    - type: Transform
-      pos: 15.643777,0.45184582
-      parent: 2
-- proto: MagazinePistolSubMachineGun
-  entities:
-  - uid: 1223
-    components:
-    - type: Transform
-      pos: 14.479714,0.63162774
-      parent: 2
-  - uid: 1224
-    components:
-    - type: Transform
-      pos: 14.370339,0.42839688
-      parent: 2
-- proto: MagazineShotgun
-  entities:
-  - uid: 1230
-    components:
-    - type: Transform
-      pos: 14.456277,4.37002
-      parent: 2
-- proto: Mannequin
-  entities:
-  - uid: 886
-    components:
-    - type: Transform
-      pos: 10.5,0.5
-      parent: 2
-    - type: ContainerContainer
-      containers:
-        jumpsuit: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: 889
-        outerClothing: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: 887
-        neck: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: null
-        mask: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: 890
-        eyes: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: null
-        head: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: 888
-        suitstorage: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: null
-        back: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: null
 - proto: MedicalPatchPrefilledBicaridine
   entities:
   - uid: 934
@@ -3095,40 +2945,6 @@ entities:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 7.636628,-5.390459
-      parent: 2
-- proto: ShellShotgunHighCaliberPractice
-  entities:
-  - uid: 1234
-    components:
-    - type: Transform
-      pos: 16.385963,4.8077474
-      parent: 2
-  - uid: 1235
-    components:
-    - type: Transform
-      pos: 16.432838,4.534168
-      parent: 2
-  - uid: 1236
-    components:
-    - type: Transform
-      pos: 16.589088,4.2840376
-      parent: 2
-- proto: ShellShotgunPractice
-  entities:
-  - uid: 1231
-    components:
-    - type: Transform
-      pos: 15.378152,4.768665
-      parent: 2
-  - uid: 1232
-    components:
-    - type: Transform
-      pos: 15.487527,4.541984
-      parent: 2
-  - uid: 1233
-    components:
-    - type: Transform
-      pos: 15.464089,4.3543863
       parent: 2
 - proto: StairDark
   entities:
@@ -7311,132 +7127,6 @@ entities:
     components:
     - type: Transform
       pos: 16.5,6.5
-      parent: 2
-- proto: WeaponPistolViper
-  entities:
-  - uid: 919
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 15.485306,2.760577
-      parent: 2
-  - uid: 920
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 15.942337,2.7957518
-      parent: 2
-  - uid: 921
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 15.555618,2.361932
-      parent: 2
-  - uid: 922
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 15.9189,2.4322817
-      parent: 2
-- proto: WeaponRifleAk
-  entities:
-  - uid: 155
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 13.938431,2.5495307
-      parent: 2
-  - uid: 707
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 13.633743,2.5495307
-      parent: 2
-  - uid: 760
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 13.270462,2.5260804
-      parent: 2
-- proto: WeaponShotgunEnforcer
-  entities:
-  - uid: 717
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 14.7585945,6.5804343
-      parent: 2
-  - uid: 793
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 15.016407,6.5804343
-      parent: 2
-  - uid: 812
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 14.465626,6.556984
-      parent: 2
-- proto: WeaponShotgunImprovised
-  entities:
-  - uid: 754
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 13.515817,6.5362177
-      parent: 2
-  - uid: 757
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 13.234567,6.5284014
-      parent: 2
-  - uid: 794
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 13.843942,6.5362177
-      parent: 2
-- proto: WeaponShotgunSawn
-  entities:
-  - uid: 727
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 15.83672,6.5589385
-      parent: 2
-  - uid: 768
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 15.309376,6.533535
-      parent: 2
-  - uid: 791
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 15.578907,6.556984
-      parent: 2
-- proto: WeaponSubMachineGunBlackMMP5
-  entities:
-  - uid: 66
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 15.063431,2.5612552
-      parent: 2
-  - uid: 71
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 14.266556,2.514356
-      parent: 2
-  - uid: 695
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 14.676712,2.5612552
       parent: 2
 - proto: WindoorSecure
   entities:
