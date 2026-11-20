@@ -9982,6 +9982,8 @@ entities:
       rot: 3.141592653589793 rad
       pos: 1.5,-37.5
       parent: 2
+    - type: BlackMElevatorBoardZone
+      announcementLocationName: Лифт у помещения АМС
 - proto: BlackMElevatorDestination
   entities:
   - uid: 7004

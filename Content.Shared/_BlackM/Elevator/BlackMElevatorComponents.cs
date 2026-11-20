@@ -142,5 +142,6 @@ public sealed partial class BlackMElevatorBoardZoneComponent : Component
     [DataField] public string ElevatorId = "evac";
     [DataField] public float Range = 2.5f;
     [DataField] public string? PointId;
+    [DataField] public string? AnnouncementLocationName;
     [DataField] public List<ProtoId<TagPrototype>> RestrictedTags = new();
 }

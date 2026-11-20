@@ -534,6 +534,24 @@ public sealed class BlackMElevatorSystem : EntitySystem
         if (!string.IsNullOrWhiteSpace(comp.LocationName))
             return Loc.TryGetString(comp.LocationName, out var loc) ? loc : comp.LocationName;
 
+        var locations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var zones = EntityQueryEnumerator<BlackMElevatorBoardZoneComponent>();
+        while (zones.MoveNext(out _, out var zone))
+        {
+            var configuredName = zone.AnnouncementLocationName;
+            if (zone.ElevatorId != comp.Id || !SamePoint(zone.PointId, comp.PointId) ||
+                string.IsNullOrWhiteSpace(configuredName))
+                continue;
+
+            var locationName = Loc.TryGetString(configuredName, out var localizedName)
+                ? localizedName
+                : configuredName;
+            locations.Add(locationName);
+        }
+
+        if (locations.Count > 0)
+            return string.Join(", ", locations);
+
         if (!string.IsNullOrWhiteSpace(comp.PointId))
             return comp.PointId;
 

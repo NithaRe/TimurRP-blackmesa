@@ -485,9 +485,6 @@ public sealed class RappelSystem : SharedRappelSystem
         }
 
         var source = _xform.GetMapCoordinates(user);
-        if (!IsTileFree(source))
-            return;
-
         if (!TryAllocateLanding(point, out var landing))
         {
             _popup.PopupEntity(Loc.GetString("rappel-marker-blocked"), rope, user, PopupType.SmallCaution);
