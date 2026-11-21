@@ -1,0 +1,141 @@
+- type: decal
+  id: BlackMCritTrailBase
+  abstract: true
+  tags: ["dirty"]
+  showMenu: false
+  defaultCleanable: true
+  defaultCustomColor: true
+  defaultSnap: false
+
+- type: decal
+  id: BlackMCritTrailLight0
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: trail-light-0
+
+- type: decal
+  id: BlackMCritTrailLight1
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: trail-light-1
+
+- type: decal
+  id: BlackMCritTrailLight2
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: trail-light-2
+
+- type: decal
+  id: BlackMCritTrailLight3
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: trail-light-3
+
+- type: decal
+  id: BlackMCritTrailHeavy0
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: trail-heavy-0
+
+- type: decal
+  id: BlackMCritTrailHeavy1
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: trail-heavy-1
+
+- type: decal
+  id: BlackMCritTrailHeavy2
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: trail-heavy-2
+
+- type: decal
+  id: BlackMCritTrailHeavy3
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: trail-heavy-3
+
+- type: decal
+  id: BlackMCritDrops0
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: drops-0
+
+- type: decal
+  id: BlackMCritDrops1
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: drops-1
+
+- type: decal
+  id: BlackMCritDrops2
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: drops-2
+
+- type: decal
+  id: BlackMCritDrops3
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: drops-3
+
+- type: decal
+  id: BlackMCritDrops4
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: drops-4
+
+- type: decal
+  id: BlackMCritDrops5
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: drops-5
+
+- type: decal
+  id: BlackMCritHandLeft
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: hand-left
+
+- type: decal
+  id: BlackMCritHandRight
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: hand-right
+
+- type: decal
+  id: BlackMBloodSplat0
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: splat-0
+
+- type: decal
+  id: BlackMBloodSplat1
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: splat-1
+
+- type: decal
+  id: BlackMBloodSplat2
+  parent: BlackMCritTrailBase
+  sprite:
+    sprite: _BlackM/Decals/crit_blood_trail.rsi
+    state: splat-2

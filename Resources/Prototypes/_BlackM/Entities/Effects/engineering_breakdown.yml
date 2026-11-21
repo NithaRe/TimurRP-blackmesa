@@ -1,0 +1,131 @@
+- type: entity
+  id: BreakdownEffectBase
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    noRot: true
+    anchored: false
+  - type: Sprite
+    sprite: _BlackM/Effects/EngineeringBreakdown/breakdown_fx.rsi
+    drawdepth: Effects
+    noRot: true
+
+- type: entity
+  id: BreakdownSparksLoop
+  parent: BreakdownEffectBase
+  components:
+  - type: Sprite
+    layers:
+    - state: scorch
+    - state: sparks
+      shader: unshaded
+  - type: PointLight
+    radius: 2
+    energy: 1.6
+    color: "#FFB347"
+    netsync: false
+
+- type: entity
+  id: BreakdownSparksLoopSmall
+  parent: BreakdownEffectBase
+  components:
+  - type: Sprite
+    layers:
+    - state: sparks
+      shader: unshaded
+      scale: 0.7,0.7
+  - type: PointLight
+    radius: 1.3
+    energy: 1
+    color: "#FFD27F"
+    netsync: false
+
+- type: entity
+  id: BreakdownSmokeLoop
+  parent: BreakdownEffectBase
+  components:
+  - type: Sprite
+    layers:
+    - state: scorch
+    - state: smoke
+
+- type: entity
+  id: BreakdownSteamLoop
+  parent: BreakdownEffectBase
+  components:
+  - type: Sprite
+    layers:
+    - state: steam
+  - type: AmbientSound
+    volume: -8
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/gas_hiss.ogg
+
+- type: entity
+  id: BreakdownArcLoop
+  parent: BreakdownEffectBase
+  components:
+  - type: Sprite
+    layers:
+    - state: scorch
+    - state: arc
+      shader: unshaded
+  - type: PointLight
+    radius: 3
+    energy: 2.5
+    color: "#6FD3FF"
+    netsync: false
+  - type: AmbientSound
+    volume: -6
+    range: 6
+    sound:
+      path: /Audio/Ambience/Objects/emf_buzz.ogg
+
+- type: entity
+  id: BreakdownArcLoopSmall
+  parent: BreakdownEffectBase
+  components:
+  - type: Sprite
+    layers:
+    - state: arc
+      shader: unshaded
+      scale: 0.6,0.6
+  - type: PointLight
+    radius: 1.5
+    energy: 1.2
+    color: "#9B8CFF"
+    netsync: false
+
+- type: entity
+  id: BreakdownSparksBurst
+  parent: BreakdownEffectBase
+  components:
+  - type: Sprite
+    layers:
+    - state: sparks_burst
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 0.48
+  - type: PointLight
+    radius: 2.5
+    energy: 2
+    color: "#FFC46B"
+    netsync: false
+
+- type: entity
+  id: BreakdownArcBurst
+  parent: BreakdownEffectBase
+  components:
+  - type: Sprite
+    layers:
+    - state: arc_burst
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 0.4
+  - type: PointLight
+    radius: 3
+    energy: 2.5
+    color: "#7FDBFF"
+    netsync: false

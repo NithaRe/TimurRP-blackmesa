@@ -18,6 +18,7 @@
 // SPDX-License-Identifier: MIT
 
 using System.Numerics;
+using Content.Shared._BlackM.CritCrawl; // BlackM
 using Content.Shared.Mobs;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
@@ -59,13 +60,19 @@ public sealed class DamageOverlay : Overlay
     private float _oldOxygenLevel = 0f;
 
     /// <summary>
-    /// Handles the white overlay when crit.
+    /// Handles the red heartbeat overlay when crit. BlackM edit
     /// </summary>
     public float CritLevel = 0f;
 
     private float _oldCritLevel = 0f;
 
     public float DeadLevel = 1f;
+
+    // BlackM start - red heartbeat crit overlay
+    private float _crawlBlend = 1f;
+
+    private CritCrawlSystem? _critCrawl;
+    // BlackM end
 
     public DamageOverlay()
     {
@@ -189,7 +196,8 @@ public sealed class DamageOverlay : Overlay
             _oldPainLevel = PainLevel;
         }
 
-        level = State != MobState.Critical ? _oldOxygenLevel : 1f;
+        // BlackM edit start
+        level = State == MobState.Alive ? _oldOxygenLevel : 0f;
 
         if (level > 0f)
         {
@@ -200,29 +208,7 @@ public sealed class DamageOverlay : Overlay
 
             var outerRadius = outerMaxLevel - level * (outerMaxLevel - outerMinLevel);
             var innerRadius = innerMaxLevel - level * (innerMaxLevel - innerMinLevel);
-
-            float outerDarkness;
-            float critTime;
-
-            // If in crit then just fix it; also pulse it very occasionally so they can see more.
-            if (_oldCritLevel > 0f)
-            {
-                var adjustedTime = time * 2f;
-                critTime = MathF.Max(0, MathF.Sin(adjustedTime) + 2 * MathF.Sin(2 * adjustedTime / 4f) + MathF.Sin(adjustedTime / 4f) - 3f);
-
-                if (critTime > 0f)
-                {
-                    outerDarkness = 1f - critTime / 1.5f;
-                }
-                else
-                {
-                    outerDarkness = 1f;
-                }
-            }
-            else
-            {
-                outerDarkness = MathF.Min(0.98f, 0.3f * MathF.Log(level) + 1f);
-            }
+            var outerDarkness = MathF.Min(0.98f, 0.3f * MathF.Log(level) + 1f);
 
             _oxygenShader.SetParameter("time", 0.0f);
             _oxygenShader.SetParameter("color", new Vector3(0f, 0f, 0f));
@@ -237,32 +223,80 @@ public sealed class DamageOverlay : Overlay
 
         level = State != MobState.Dead ? _oldCritLevel : DeadLevel;
 
+        var crawlTarget = State == MobState.Critical && LocalCanCrawl() ? 1f : 0f;
+        if (!MathHelper.CloseTo(_crawlBlend, crawlTarget, 0.001f))
+            _crawlBlend += GetDiff(crawlTarget - _crawlBlend, lastFrameTime * 0.4f);
+        else
+            _crawlBlend = crawlTarget;
+
         if (level > 0f)
         {
-            float outerMaxLevel = 2.0f * distance;
-            float outerMinLevel = 1.0f * distance;
-            float innerMaxLevel = 0.6f * distance;
-            float innerMinLevel = 0.02f * distance;
+            var blend = _crawlBlend;
 
-            var outerRadius = outerMaxLevel - level * (outerMaxLevel - outerMinLevel);
-            var innerRadius = innerMaxLevel - level * (innerMaxLevel - innerMinLevel);
+            var period = MathHelper.Lerp(1.6f, 0.85f, blend);
+            var beat = Heartbeat(time, period) * MathHelper.Lerp(0.6f, 1f, blend);
 
-            var pulse = MathF.Max(0f, MathF.Sin(time));
+            var vignetteColor = Vector3.Lerp(new Vector3(0.22f, 0.0f, 0.01f), new Vector3(0.5f, 0.02f, 0.03f), blend);
+            var outerMax = 1.4f * distance;
+            var outerMin = MathHelper.Lerp(0.32f, 0.55f, blend) * distance;
+            var innerMax = 0.5f * distance;
+            var innerMin = MathHelper.Lerp(0.06f, 0.2f, blend) * distance;
 
-            // If in crit then just fix it; also pulse it very occasionally so they can see more.
-            _critShader.SetParameter("time", pulse);
-            _critShader.SetParameter("color", new Vector3(1f, 1f, 1f));
-            _critShader.SetParameter("darknessAlphaOuter", 1.0f);
-            _critShader.SetParameter("innerCircleRadius", innerRadius);
-            _critShader.SetParameter("innerCircleMaxRadius", innerRadius + 0.005f * distance);
-            _critShader.SetParameter("outerCircleRadius", outerRadius);
-            _critShader.SetParameter("outerCircleMaxRadius", outerRadius + 0.2f * distance);
-            handle.UseShader(_critShader);
+            var outerRadius = outerMax - level * (outerMax - outerMin);
+            var innerRadius = innerMax - level * (innerMax - innerMin);
+            var vignetteAlpha = MathHelper.Lerp(0.93f, 0.78f, blend) * MathF.Min(1f, level * 1.5f);
+
+            _oxygenShader.SetParameter("time", beat);
+            _oxygenShader.SetParameter("color", vignetteColor);
+            _oxygenShader.SetParameter("darknessAlphaOuter", vignetteAlpha);
+            _oxygenShader.SetParameter("innerCircleRadius", innerRadius);
+            _oxygenShader.SetParameter("innerCircleMaxRadius", innerRadius + 0.06f * distance);
+            _oxygenShader.SetParameter("outerCircleRadius", outerRadius);
+            _oxygenShader.SetParameter("outerCircleMaxRadius", outerRadius + 0.12f * distance);
+            handle.UseShader(_oxygenShader);
             handle.DrawRect(viewport, Color.White);
+
+            if (beat > 0.01f)
+            {
+                var flashColor = Vector3.Lerp(new Vector3(0.55f, 0.0f, 0.02f), new Vector3(1f, 0.08f, 0.06f), blend);
+                var flashOuter = MathHelper.Lerp(0.6f, 0.75f, blend) * distance;
+                var flashInner = MathHelper.Lerp(0.25f, 0.4f, blend) * distance;
+
+                _critShader.SetParameter("time", beat);
+                _critShader.SetParameter("color", flashColor);
+                _critShader.SetParameter("darknessAlphaOuter", MathHelper.Lerp(0.25f, 0.45f, blend) * beat * MathF.Min(1f, level * 1.5f));
+                _critShader.SetParameter("innerCircleRadius", flashInner);
+                _critShader.SetParameter("innerCircleMaxRadius", flashInner + 0.05f * distance);
+                _critShader.SetParameter("outerCircleRadius", flashOuter);
+                _critShader.SetParameter("outerCircleMaxRadius", flashOuter + 0.15f * distance);
+                handle.UseShader(_critShader);
+                handle.DrawRect(viewport, Color.White);
+            }
         }
+        // BlackM edit end
 
         handle.UseShader(null);
     }
+
+    // BlackM start
+    private bool LocalCanCrawl()
+    {
+        if (_playerManager.LocalEntity is not { } ent
+            || !_entityManager.TryGetComponent(ent, out CritCrawlComponent? crawl))
+            return false;
+
+        _critCrawl ??= _entityManager.System<CritCrawlSystem>();
+        return _critCrawl.CanCrawl(ent, crawl);
+    }
+
+    private static float Heartbeat(float time, float period)
+    {
+        var t = time % period / period;
+        var lub = MathF.Exp(-MathF.Pow((t - 0.08f) / 0.055f, 2f));
+        var dub = MathF.Exp(-MathF.Pow((t - 0.3f) / 0.06f, 2f)) * 0.6f;
+        return MathF.Min(1f, lub + dub);
+    }
+    // BlackM end
 
     private float GetDiff(float value, float lastFrameTime)
     {

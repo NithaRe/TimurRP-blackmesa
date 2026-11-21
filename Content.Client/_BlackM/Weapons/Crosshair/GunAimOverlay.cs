@@ -62,8 +62,9 @@ public sealed class GunAimOverlay : Overlay
         if (spread < MinConeSpread)
             return;
 
-        DrawConeEdge(handle, from, Rotate(dir, spread), distance, color, alpha);
-        DrawConeEdge(handle, from, Rotate(dir, -spread), distance, color, alpha);
+        var edge = distance / MathF.Cos(spread);
+        DrawConeEdge(handle, from, Rotate(dir, spread), edge, color, alpha);
+        DrawConeEdge(handle, from, Rotate(dir, -spread), edge, color, alpha);
     }
 
     private static void DrawConeEdge(DrawingHandleWorld handle, Vector2 from, Vector2 dir, float distance, Color color, float alpha)

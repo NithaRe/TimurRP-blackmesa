@@ -43,7 +43,8 @@ public sealed class GunCrosshairSystem : EntitySystem
 
     private const float CooldownThreshold = 0.35f;
     private const float FadeSpeed = 9f;
-    private const float SpreadSharpness = 18f;
+    private const float SpreadRiseSharpness = 45f;
+    private const float SpreadFallSharpness = 11f;
     private const float ColorSharpness = 14f;
     private const float KickDecay = 6f;
 
@@ -204,7 +205,8 @@ public sealed class GunCrosshairSystem : EntitySystem
         _lastAmmo = Ammo;
 
         var spread = GetNextShotSpread(gun, shooter, gunUid, curTime);
-        Spread += (spread - Spread) * (1f - MathF.Exp(-SpreadSharpness * frameTime));
+        var sharpness = spread > Spread ? SpreadRiseSharpness : SpreadFallSharpness;
+        Spread += (spread - Spread) * (1f - MathF.Exp(-sharpness * frameTime));
         Kick = MathF.Max(0f, Kick - frameTime * KickDecay);
 
         var remaining = (float) (gun.NextFire - curTime).TotalSeconds;
