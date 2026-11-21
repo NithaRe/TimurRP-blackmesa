@@ -7,7 +7,7 @@ zen-intervention-ui-stage-calm-desc = При { $thresholds }% происходя
 zen-intervention-ui-stage-breach-title = Прорыв (с { $threshold }%)
 zen-intervention-ui-stage-breach-desc = Один раз открываются разломы: по комплексу появляются существа Зена (×{ $count }).
 zen-intervention-ui-stage-cascade-title = Аномальный разрыв (100%)
-zen-intervention-ui-stage-cascade-desc = Каждые { $minutes } мин. приходит новая волна существ (×{ $count }).
+zen-intervention-ui-stage-cascade-desc = При достижении 100% сразу приходит первая волна (×{ $initialCount }). Затем каждые { $minutes } мин. приходит новая волна существ (×{ $count }).
 
 zen-intervention-ui-next-breach = До прорыва: ~{ $minutes } мин.
 zen-intervention-ui-next-cascade = До аномального разрыва: ~{ $minutes } мин.
