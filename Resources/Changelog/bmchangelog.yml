@@ -1152,3 +1152,12 @@ Entries:
       message: Убран арсенал из карты хеку
   id: 156
   time: '2026-11-21T11:26:14.0000000+00:00'
+# PR #173
+- author: sweekyl
+  changes:
+    - type: Add
+      message: События для инженеров.
+    - type: Add
+      message: Следы крови.
+  id: 157
+  time: '2026-11-21T11:33:10.0000000+00:00'
