@@ -1141,3 +1141,14 @@ Entries:
       message: Паспорта Глав и Ковака теперь сразу с печатью.
   id: 155
   time: '2026-11-21T08:20:46.0000000+00:00'
+# PR #171
+- author: deleteddata271-ship-it
+  changes:
+    - type: Tweak
+      message: Больше нет рпс у хеку
+    - type: Tweak
+      message: М16 получила апгрейд
+    - type: Fix
+      message: Убран арсенал из карты хеку
+  id: 156
+  time: '2026-11-21T11:26:14.0000000+00:00'
