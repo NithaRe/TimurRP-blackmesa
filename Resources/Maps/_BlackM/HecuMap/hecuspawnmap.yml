@@ -45,6 +45,7 @@ entities:
     - type: GridTree
     - type: Broadphase
     - type: OccluderTree
+    - type: NoSpace
     - type: Parallax
       parallax: BlackM
     - type: Gravity
