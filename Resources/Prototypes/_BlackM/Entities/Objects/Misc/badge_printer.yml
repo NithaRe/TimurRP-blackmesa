@@ -19,30 +19,14 @@
         - proto: BadgeWarden
           iconState: security
           department: badge-printer-department-security
-        - proto: BadgeHeadOfSecurity
-          iconState: securityhos
-          max: 1
-          department: badge-printer-department-security
         - proto: BadgeEngineer
           iconState: maintenance
-          department: badge-printer-department-engineering
-        - proto: BadgeChiefEngineer
-          iconState: engineerchief
-          max: 1
           department: badge-printer-department-engineering
         - proto: BadgeSupply
           iconState: supply
           department: badge-printer-department-supply
-        - proto: BadgeQuartermaster
-          iconState: supplychief
-          max: 1
-          department: badge-printer-department-supply
         - proto: BadgeScience
           iconState: science
-          department: badge-printer-department-science
-        - proto: BadgeResearchDirector
-          iconState: sciencechief
-          max: 1
           department: badge-printer-department-science
         - proto: BadgeService
           iconState: service
@@ -50,18 +34,6 @@
         - proto: BadgeMedical
           iconState: medical
           department: badge-printer-department-medical
-        - proto: BadgeChiefMedicalOfficer
-          iconState: medicalchief
-          max: 1
-          department: badge-printer-department-medical
-        - proto: BadgeCommand
-          iconState: command
-          max: 8
-          department: badge-printer-department-command
-        - proto: BadgeCaptain
-          iconState: captain
-          max: 1
-          department: badge-printer-department-command
         - proto: BadgeMaintenance
           iconState: maintenance
           department: badge-printer-department-maintenance

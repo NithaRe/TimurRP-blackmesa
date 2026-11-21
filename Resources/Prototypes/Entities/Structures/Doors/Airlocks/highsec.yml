@@ -127,11 +127,11 @@
       types:
         Blunt: 50
     openSound:
-      path: /Audio/Machines/airlock_open.ogg
+      path: /Audio/_BlackM/airlock_open.ogg #_BlackM
     closeSound:
-      path: /Audio/Machines/airlock_close.ogg
+      path: /Audio/_BlackM/airlock_close.ogg #_BlackM
     denySound:
-      path: /Audio/Machines/airlock_deny.ogg
+      path: /Audio/_BlackM/access_denied.ogg #_BlackM
   - type: Weldable
     fuel: 10
     time: 10

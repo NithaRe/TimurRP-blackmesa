@@ -43,7 +43,7 @@ public sealed partial class HeadcrabCapturedComponent : Component
 public sealed partial class HeadcrabLeapingComponent : Component
 {
     [DataField]
-    public float StaminaDamage = 20f;
+    public float StaminaDamage = 40f;
 
     [ViewVariables]
     public TimeSpan EndTime;
@@ -58,7 +58,7 @@ public sealed partial class HeadcrabLeapEvent : WorldTargetActionEvent
     public float Speed = 6.5f;
 
     [DataField]
-    public float StaminaDamage = 20f;
+    public float StaminaDamage = 40f;
 }
 
 public sealed partial class HeadcrabGrabEvent : WorldTargetActionEvent { }

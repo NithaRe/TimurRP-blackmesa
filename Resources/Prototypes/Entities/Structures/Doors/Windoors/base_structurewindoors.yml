@@ -184,7 +184,7 @@
     closeSound:
       path: /Audio/Machines/windoor_open.ogg
     denySound:
-      path: /Audio/Machines/airlock_deny.ogg
+      path: /Audio/_BlackM/access_denied.ogg #_BlackM
   - type: Airlock
     keepOpenIfClicked: true
     openPanelVisible: true

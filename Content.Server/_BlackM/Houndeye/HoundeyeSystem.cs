@@ -7,7 +7,9 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Effects;
+using Content.Shared.Ghost;
 using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
@@ -99,6 +101,8 @@ public sealed class HoundeyeSystem : EntitySystem
             if (target == uid)
                 continue;
             if (!HasComp<MovementSpeedModifierComponent>(target))
+                continue;
+            if (!HasComp<MobStateComponent>(target) || HasComp<GhostComponent>(target))
                 continue;
 
             var dmg = new DamageSpecifier();
@@ -198,6 +202,8 @@ public sealed class HoundeyeSystem : EntitySystem
         if (target == uid)
             return;
         if (!HasComp<MovementSpeedModifierComponent>(target))
+            return;
+        if (!HasComp<MobStateComponent>(target) || HasComp<GhostComponent>(target))
             return;
         if (!_chargingData.TryGetValue(uid, out var chargeArgs))
             return;

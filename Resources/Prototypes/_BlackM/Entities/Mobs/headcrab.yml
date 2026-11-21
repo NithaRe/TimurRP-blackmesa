@@ -83,7 +83,7 @@
           radius: 0.25
         density: 80
         mask:
-        - MobMask
+        - SmallMobMask
         layer:
         - MobLayer
 

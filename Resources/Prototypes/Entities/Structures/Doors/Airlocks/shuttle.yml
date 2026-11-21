@@ -161,7 +161,7 @@
     closeSound:
       path: /Audio/Effects/docking.ogg
     denySound:
-      path: /Audio/Machines/airlock_deny.ogg
+      path: /Audio/_BlackM/access_denied.ogg #_BlackM
   - type: Airtight
     noAirWhenFullyAirBlocked: false
     airBlockedDirection:

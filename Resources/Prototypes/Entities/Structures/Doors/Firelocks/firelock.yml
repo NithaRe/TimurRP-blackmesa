@@ -170,11 +170,11 @@
         types:
           Blunt: 15
       openSound:
-        path: /Audio/Machines/airlock_open.ogg
+        path: /Audio/_BlackM/airlock_open.ogg #_BlackM
       closeSound:
-        path: /Audio/Machines/airlock_close.ogg
+        path: /Audio/_BlackM/airlock_close.ogg #_BlackM
       denySound:
-        path: /Audio/Machines/airlock_deny.ogg
+        path: /Audio/_BlackM/access_denied.ogg #_BlackM
       openingAnimationTime: 0.6
       closingAnimationTime: 0.6
     - type: Weldable

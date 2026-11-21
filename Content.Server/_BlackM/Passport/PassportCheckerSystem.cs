@@ -1,3 +1,4 @@
+using System;
 using Content.Server.Cargo.Systems;
 using Content.Server.Hands.Systems;
 using Content.Server.Popups;
@@ -6,10 +7,12 @@ using Content.Shared._BlackM.Access;
 using Content.Shared._BlackM.Passport;
 using Content.Shared.Cargo.Components;
 using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Roles;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Server._BlackM.Passport;
@@ -24,6 +27,9 @@ public sealed class PassportCheckerSystem : EntitySystem
     [Dependency] private readonly HandsSystem          _hands     = default!;
     [Dependency] private readonly StationSystem        _station   = default!;
     [Dependency] private readonly CargoSystem          _cargo     = default!;
+    [Dependency] private readonly IPrototypeManager    _proto     = default!;
+
+    private static readonly ProtoId<DepartmentPrototype> UnqualifiedDepartment = "BlackMUnqualified";
 
     private static readonly SoundSpecifier OkSound    = new SoundPathSpecifier("/Audio/_BlackM/Machines/shtamp.ogg");
     private static readonly SoundSpecifier ErrorSound  = new SoundPathSpecifier("/Audio/_BlackM/Machines/shtamp.ogg");
@@ -179,6 +185,12 @@ public sealed class PassportCheckerSystem : EntitySystem
         if (!issuePermit)
             return;
 
+        if (IsUnqualified(passport))
+        {
+            _popup.PopupEntity(Loc.GetString("passport-checker-no-permit-unqualified"), uid, actor);
+            return;
+        }
+
         var permit = Spawn(comp.PermitPrototype, Transform(uid).Coordinates);
         if (TryComp<BadgePrintPermitComponent>(permit, out var permitComp))
         {
@@ -187,6 +199,31 @@ public sealed class PassportCheckerSystem : EntitySystem
         }
 
         _hands.TryPickupAnyHand(actor, permit);
+    }
+
+    private bool IsUnqualified(PassportComponent passport)
+    {
+        var title = passport.JobTitle.Trim();
+        if (string.IsNullOrEmpty(title))
+            return false;
+
+        if (title.Contains("без квалификации", StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        if (!_proto.TryIndex(UnqualifiedDepartment, out var department))
+            return false;
+
+        foreach (var role in department.Roles)
+        {
+            if (string.Equals(role.Id, title, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            if (_proto.TryIndex(role, out var job) &&
+                string.Equals(job.LocalizedName, title, StringComparison.OrdinalIgnoreCase))
+                return true;
+        }
+
+        return false;
     }
 
     private void FineStation(EntityUid checkerUid, int amount, EntityUid actor)
