@@ -1161,3 +1161,12 @@ Entries:
       message: Следы крови.
   id: 157
   time: '2026-11-21T11:33:10.0000000+00:00'
+# PR #174
+- author: NithaRe
+  changes:
+    - type: Tweak
+      message: Нерф голода
+    - type: Tweak
+      message: Зен существа приходят одной волной при включении АМС
+  id: 158
+  time: '2026-11-21T11:35:24.0000000+00:00'
