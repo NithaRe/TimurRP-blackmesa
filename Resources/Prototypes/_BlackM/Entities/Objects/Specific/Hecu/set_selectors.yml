@@ -31,6 +31,7 @@
     - ExGrenade
     - ExGrenade
     - C4
+    - C4
 
 
 - type: selectableSet
@@ -47,6 +48,7 @@
     - BoxLethalshot
     - BoxShotgunIncendiary
     - ExGrenade
+    - C4
     - C4
     - C4
     - XenInfectionSerumAutoInjector
@@ -66,4 +68,5 @@
     - MagazineRifle
     - MagazineBoxRifle
     - ExGrenade
+    - C4
     - C4
