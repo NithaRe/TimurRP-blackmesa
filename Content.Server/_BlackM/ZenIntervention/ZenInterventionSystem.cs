@@ -152,6 +152,7 @@ public sealed class ZenInterventionSystem : EntitySystem
             comp.WaveActive = true;
             comp.NextWaveTime = curTime + comp.WaveInterval;
             Dirty(_singleton!.Value, comp);
+            SpawnWave(comp, comp.InitialWaveSpawnAmount);
             return;
         }
 
@@ -190,12 +191,12 @@ public sealed class ZenInterventionSystem : EntitySystem
             colorOverride: comp.AnnouncementColor);
     }
 
-    public void SpawnWave(ZenInterventionComponent comp)
+    public void SpawnWave(ZenInterventionComponent comp, int? spawnAmount = null)
     {
         if (!TryGetTargetStation(comp, out var stationUid))
             return;
 
-        for (var i = 0; i < comp.WaveSpawnAmount; i++)
+        for (var i = 0; i < (spawnAmount ?? comp.WaveSpawnAmount); i++)
         {
             if (!TryGetRandomStationCoordinates(stationUid, comp, out var coords))
                 continue;

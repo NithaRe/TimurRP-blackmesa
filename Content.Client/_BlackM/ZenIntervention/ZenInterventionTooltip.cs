@@ -145,6 +145,7 @@ public sealed class ZenInterventionTooltip : PanelContainer
         Append(sb, s.Stage == ZenStage.Cascade, ZenStage.Cascade,
             Loc.GetString("zen-intervention-ui-stage-cascade-title"),
             Loc.GetString("zen-intervention-ui-stage-cascade-desc",
+                ("initialCount", s.InitialWaveSpawnAmount.ToString()),
                 ("minutes", ((int) MathF.Max(1f, MathF.Round((float) s.WaveInterval.TotalMinutes))).ToString()),
                 ("count", s.WaveSpawnAmount.ToString())));
 

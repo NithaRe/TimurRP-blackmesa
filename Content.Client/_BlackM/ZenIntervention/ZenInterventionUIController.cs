@@ -132,6 +132,7 @@ public sealed class ZenInterventionUIController : UIController, IOnStateEntered<
                 comp.NextWaveTime,
                 comp.WaveInterval,
                 comp.BreachSpawnAmount,
+                comp.InitialWaveSpawnAmount,
                 comp.WaveSpawnAmount,
                 comp.IntermediateBreachThresholds,
                 comp.IntermediateBreachSpawnAmount));

@@ -30,6 +30,7 @@ public readonly record struct ZenBarState(
     TimeSpan NextWaveTime,
     TimeSpan WaveInterval,
     int BreachSpawnAmount,
+    int InitialWaveSpawnAmount,
     int WaveSpawnAmount,
     IReadOnlyList<float> IntermediateBreachThresholds,
     int IntermediateBreachSpawnAmount)
