@@ -9,6 +9,9 @@
     - id: ClericalError
     - id: CockroachMigration
     - id: ComplexFog # BlackM rule
+    - id: EngineeringBreakdownMinor # BlackM rule
+    - id: EngineeringBreakdownPower # BlackM rule
+    - id: EngineeringBreakdownCascade # BlackM rule
     - id: MassHallucinations
     - id: MimicVendorRule
     - id: PowerGridCheck

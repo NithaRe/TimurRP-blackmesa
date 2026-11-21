@@ -86,6 +86,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Shared._BlackM.CritCrawl; // BlackM
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Buckle.Components;
 using Content.Shared.CombatMode.Pacification;
@@ -114,7 +115,7 @@ public partial class MobStateSystem
     private void SubscribeEvents()
     {
         SubscribeLocalEvent<MobStateComponent, BeforeGettingStrippedEvent>(OnGettingStripped);
-        SubscribeLocalEvent<MobStateComponent, ChangeDirectionAttemptEvent>(CheckAct);
+        SubscribeLocalEvent<MobStateComponent, ChangeDirectionAttemptEvent>(CheckMoveAct); // BlackM edit
         SubscribeLocalEvent<MobStateComponent, UseAttemptEvent>(CheckAct);
         SubscribeLocalEvent<MobStateComponent, AttackAttemptEvent>(CheckAct);
         SubscribeLocalEvent<MobStateComponent, ConsciousAttemptEvent>(CheckConcious);
@@ -126,7 +127,7 @@ public partial class MobStateSystem
         SubscribeLocalEvent<MobStateComponent, DropAttemptEvent>(CheckAct);
         SubscribeLocalEvent<MobStateComponent, PickupAttemptEvent>(CheckAct);
         SubscribeLocalEvent<MobStateComponent, StartPullAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, UpdateCanMoveEvent>(CheckAct);
+        SubscribeLocalEvent<MobStateComponent, UpdateCanMoveEvent>(CheckMoveAct); // BlackM edit
         SubscribeLocalEvent<MobStateComponent, StandAttemptEvent>(CheckAct);
         SubscribeLocalEvent<MobStateComponent, PointAttemptEvent>(CheckAct);
         SubscribeLocalEvent<MobStateComponent, TryingToSleepEvent>(OnSleepAttempt);
@@ -250,6 +251,21 @@ public partial class MobStateSystem
                 break;
         }
     }
+
+    // BlackM start - crit crawling
+    private void CheckMoveAct(EntityUid target, MobStateComponent component, CancellableEntityEventArgs args)
+    {
+        if (component.CurrentState == MobState.Critical)
+        {
+            var ev = new CritCrawlAttemptEvent();
+            RaiseLocalEvent(target, ref ev);
+            if (ev.Allowed)
+                return;
+        }
+
+        CheckAct(target, component, args);
+    }
+    // BlackM end
 
     private void OnEquipAttempt(EntityUid target, MobStateComponent component, IsEquippingAttemptEvent args)
     {

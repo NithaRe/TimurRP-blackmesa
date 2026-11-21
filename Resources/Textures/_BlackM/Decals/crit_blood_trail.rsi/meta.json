@@ -1,0 +1,68 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "BlackM",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "trail-light-0"
+        },
+        {
+            "name": "trail-light-1"
+        },
+        {
+            "name": "trail-light-2"
+        },
+        {
+            "name": "trail-light-3"
+        },
+        {
+            "name": "trail-heavy-0"
+        },
+        {
+            "name": "trail-heavy-1"
+        },
+        {
+            "name": "trail-heavy-2"
+        },
+        {
+            "name": "trail-heavy-3"
+        },
+        {
+            "name": "drops-0"
+        },
+        {
+            "name": "drops-1"
+        },
+        {
+            "name": "drops-2"
+        },
+        {
+            "name": "drops-3"
+        },
+        {
+            "name": "drops-4"
+        },
+        {
+            "name": "drops-5"
+        },
+        {
+            "name": "hand-left"
+        },
+        {
+            "name": "hand-right"
+        },
+        {
+            "name": "splat-0"
+        },
+        {
+            "name": "splat-1"
+        },
+        {
+            "name": "splat-2"
+        }
+    ]
+}

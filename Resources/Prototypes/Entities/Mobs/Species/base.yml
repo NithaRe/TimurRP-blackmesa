@@ -533,6 +533,7 @@
   id: BaseMobSpeciesOrganic
   abstract: true
   components:
+  - type: CritCrawl # BlackM - crawl
   - type: Absorbable # Goobstation - changelings
   - type: OfferItem # CorvaxGoob-Offer
   - type: WraithAbsorbable # Goobstation - wraith

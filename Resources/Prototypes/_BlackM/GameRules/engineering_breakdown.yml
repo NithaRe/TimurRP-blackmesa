@@ -1,0 +1,106 @@
+- type: entity
+  id: EngineeringBreakdownBase
+  parent: BaseStationEventShortDelay
+  abstract: true
+  components:
+  - type: StationEvent
+    startAnnouncement: station-event-engineering-breakdown-start-announcement
+    startAnnouncementColor: "#EFB341"
+    startAudio:
+      path: /Audio/_BlackM/Announcements/Announcers/Blackmesa/warning.ogg
+      params:
+        volume: -2
+    duration: 1200
+    maxDuration: 1260
+    eventType: Maintenance
+    chaos:
+      Power: 60
+
+- type: entity
+  id: EngineeringBreakdownMinor
+  parent: EngineeringBreakdownBase
+  components:
+  - type: StationEvent
+    weight: 8
+    earliestStart: 10
+    reoccurrenceDelay: 15
+    minimumPlayers: 5
+  - type: GameRule
+    chaosScore: 30
+  - type: EngineeringBreakdownRule
+    reward: 15000
+    rewardAccount: Cargo
+    payPartialOnFailure: true
+    minTargets: 2
+    maxTargets: 4
+    deadline: 600
+    reminderInterval: 180
+    escalate: false
+    breakdowns:
+      BreakdownLightShort: 3
+      BreakdownLightBurnout: 2
+      BreakdownVentRupture: 2
+      BreakdownSensorFault: 2
+      BreakdownVendingShort: 1
+
+- type: entity
+  id: EngineeringBreakdownPower
+  parent: EngineeringBreakdownBase
+  components:
+  - type: StationEvent
+    weight: 5
+    earliestStart: 20
+    reoccurrenceDelay: 25
+    minimumPlayers: 10
+  - type: GameRule
+    chaosScore: 55
+  - type: EngineeringBreakdownRule
+    reward: 20000
+    rewardAccount: Cargo
+    payPartialOnFailure: true
+    minTargets: 2
+    maxTargets: 4
+    deadline: 600
+    reminderInterval: 180
+    escalate: true
+    breakdowns:
+      BreakdownApcOverload: 3
+      BreakdownAirlockJam: 2
+      BreakdownLightShort: 2
+      BreakdownSensorFault: 1
+
+- type: entity
+  id: EngineeringBreakdownCascade
+  parent: EngineeringBreakdownBase
+  components:
+  - type: StationEvent
+    weight: 2
+    earliestStart: 35
+    reoccurrenceDelay: 45
+    minimumPlayers: 20
+    maxOccurrences: 1
+    startAnnouncement: station-event-engineering-breakdown-cascade-start-announcement
+    startAnnouncementColor: "#E5463B"
+    startAudio:
+      path: /Audio/Announcements/power_off.ogg
+      params:
+        volume: -2
+    chaos:
+      Power: 150
+  - type: GameRule
+    chaosScore: 90
+  - type: EngineeringBreakdownRule
+    reward: 30000
+    rewardAccount: Cargo
+    payPartialOnFailure: true
+    minTargets: 4
+    maxTargets: 6
+    deadline: 720
+    reminderInterval: 180
+    escalate: true
+    breakdowns:
+      BreakdownPowerNodeArc: 2
+      BreakdownApcOverload: 3
+      BreakdownAirlockJam: 2
+      BreakdownVentRupture: 2
+      BreakdownLightBurnout: 1

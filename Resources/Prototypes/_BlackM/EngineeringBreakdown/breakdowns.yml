@@ -1,0 +1,260 @@
+- type: engineeringBreakdown
+  id: BreakdownApcOverload
+  name: engineering-breakdown-apc-overload-name
+  description: engineering-breakdown-apc-overload-desc
+  reward: 2500
+  whitelist:
+    components:
+    - Apc
+  effects:
+  - ApcBreakerOff
+  steps:
+  - quality: Screwing
+    delay: 2
+    hint: engineering-breakdown-hint-apc-panel
+    done: engineering-breakdown-done-apc-panel
+  - quality: Cutting
+    delay: 4
+    hint: engineering-breakdown-hint-cut-burnt
+    done: engineering-breakdown-done-cut-burnt
+  - quality: Pulsing
+    delay: 3
+    hint: engineering-breakdown-hint-calibrate
+    done: engineering-breakdown-done-calibrate
+  attachedEffect: BreakdownSparksLoop
+  burstEffect: BreakdownSparksBurst
+  burstInterval: 6
+  burstSound:
+    collection: sparks
+    params:
+      volume: -4
+  breakSound:
+    path: /Audio/Effects/Lightning/lightningshock.ogg
+  shockChance: 0.3
+  shockDamage: 12
+  color: "#FF9F1C"
+  severity: 2
+  escalationIntensity: 15
+
+- type: engineeringBreakdown
+  id: BreakdownLightShort
+  name: engineering-breakdown-light-short-name
+  description: engineering-breakdown-light-short-desc
+  reward: 1000
+  whitelist:
+    components:
+    - PoweredLight
+  effects:
+  - LightBlink
+  steps:
+  - quality: Screwing
+    delay: 2
+    hint: engineering-breakdown-hint-light-cover
+    done: engineering-breakdown-done-light-cover
+  - quality: Pulsing
+    delay: 2
+    hint: engineering-breakdown-hint-light-ballast
+    done: engineering-breakdown-done-light-ballast
+  attachedEffect: BreakdownSparksLoopSmall
+  burstEffect: BreakdownSparksBurst
+  burstInterval: 9
+  burstSound:
+    collection: sparks
+    params:
+      volume: -8
+  shockChance: 0.15
+  shockDamage: 6
+  color: "#FFE066"
+  severity: 1
+
+- type: engineeringBreakdown
+  id: BreakdownLightBurnout
+  name: engineering-breakdown-light-burnout-name
+  description: engineering-breakdown-light-burnout-desc
+  reward: 1000
+  whitelist:
+    components:
+    - PoweredLight
+  effects:
+  - PowerDisabled
+  steps:
+  - quality: Prying
+    delay: 2
+    hint: engineering-breakdown-hint-light-pry
+    done: engineering-breakdown-done-light-pry
+  - quality: Cutting
+    delay: 3
+    hint: engineering-breakdown-hint-cut-burnt
+    done: engineering-breakdown-done-cut-burnt
+  - quality: Screwing
+    delay: 2
+    hint: engineering-breakdown-hint-light-cover
+    done: engineering-breakdown-done-light-cover
+  attachedEffect: BreakdownSmokeLoop
+  color: "#C9A227"
+  severity: 1
+
+- type: engineeringBreakdown
+  id: BreakdownVentRupture
+  name: engineering-breakdown-vent-rupture-name
+  description: engineering-breakdown-vent-rupture-desc
+  reward: 1000
+  whitelist:
+    components:
+    - GasVentPump
+    - GasVentScrubber
+  effects:
+  - PowerDisabled
+  steps:
+  - quality: Welding
+    delay: 5
+    fuel: 5
+    hint: engineering-breakdown-hint-weld-crack
+    done: engineering-breakdown-done-weld-crack
+  - quality: Anchoring
+    delay: 3
+    hint: engineering-breakdown-hint-tighten
+    done: engineering-breakdown-done-tighten
+  attachedEffect: BreakdownSteamLoop
+  burstSound:
+    path: /Audio/Ambience/Objects/gas_hiss.ogg
+    params:
+      volume: -6
+  burstInterval: 8
+  color: "#7FD8FF"
+  severity: 1
+
+- type: engineeringBreakdown
+  id: BreakdownSensorFault
+  name: engineering-breakdown-sensor-fault-name
+  description: engineering-breakdown-sensor-fault-desc
+  reward: 1000
+  whitelist:
+    components:
+    - AirAlarm
+    - FireAlarm
+  effects:
+  - PowerDisabled
+  steps:
+  - quality: Screwing
+    delay: 2
+    hint: engineering-breakdown-hint-sensor-open
+    done: engineering-breakdown-done-sensor-open
+  - quality: Pulsing
+    delay: 4
+    hint: engineering-breakdown-hint-sensor-flash
+    done: engineering-breakdown-done-sensor-flash
+  attachedEffect: BreakdownArcLoopSmall
+  burstEffect: BreakdownArcBurst
+  burstInterval: 10
+  burstSound:
+    path: /Audio/Effects/Lightning/lightningshock.ogg
+    params:
+      volume: -10
+  shockChance: 0.2
+  shockDamage: 8
+  color: "#9B8CFF"
+  severity: 1
+
+- type: engineeringBreakdown
+  id: BreakdownAirlockJam
+  name: engineering-breakdown-airlock-jam-name
+  description: engineering-breakdown-airlock-jam-desc
+  reward: 2500
+  whitelist:
+    components:
+    - Airlock
+    - DoorBolt
+    requireAll: true
+  effects:
+  - BoltDoor
+  steps:
+  - quality: Screwing
+    delay: 2
+    hint: engineering-breakdown-hint-airlock-panel
+    done: engineering-breakdown-done-airlock-panel
+  - quality: Pulsing
+    delay: 3
+    hint: engineering-breakdown-hint-airlock-servo
+    done: engineering-breakdown-done-airlock-servo
+  - quality: Anchoring
+    delay: 3
+    hint: engineering-breakdown-hint-tighten
+    done: engineering-breakdown-done-tighten
+  attachedEffect: BreakdownSparksLoopSmall
+  burstEffect: BreakdownSparksBurst
+  burstInterval: 8
+  burstSound:
+    collection: sparks
+    params:
+      volume: -6
+  shockChance: 0.2
+  shockDamage: 8
+  color: "#FF6B6B"
+  severity: 2
+
+- type: engineeringBreakdown
+  id: BreakdownVendingShort
+  name: engineering-breakdown-vending-short-name
+  description: engineering-breakdown-vending-short-desc
+  reward: 1000
+  whitelist:
+    components:
+    - VendingMachine
+  effects:
+  - PowerDisabled
+  steps:
+  - quality: Screwing
+    delay: 2
+    hint: engineering-breakdown-hint-apc-panel
+    done: engineering-breakdown-done-apc-panel
+  - quality: Cutting
+    delay: 3
+    hint: engineering-breakdown-hint-cut-burnt
+    done: engineering-breakdown-done-cut-burnt
+  attachedEffect: BreakdownSmokeLoop
+  color: "#B5B5B5"
+  severity: 1
+
+- type: engineeringBreakdown
+  id: BreakdownPowerNodeArc
+  name: engineering-breakdown-power-node-name
+  description: engineering-breakdown-power-node-desc
+  reward: 5000
+  whitelist:
+    components:
+    - PowerNetworkBattery
+  effects:
+  - BatteryOffline
+  steps:
+  - quality: Prying
+    delay: 3
+    hint: engineering-breakdown-hint-node-pry
+    done: engineering-breakdown-done-node-pry
+  - quality: Cutting
+    delay: 4
+    hint: engineering-breakdown-hint-cut-burnt
+    done: engineering-breakdown-done-cut-burnt
+  - quality: Welding
+    delay: 5
+    fuel: 5
+    hint: engineering-breakdown-hint-node-weld
+    done: engineering-breakdown-done-node-weld
+  - quality: Pulsing
+    delay: 3
+    hint: engineering-breakdown-hint-calibrate
+    done: engineering-breakdown-done-calibrate
+  attachedEffect: BreakdownArcLoop
+  burstEffect: BreakdownArcBurst
+  burstInterval: 5
+  burstSound:
+    path: /Audio/Effects/Lightning/lightningshock.ogg
+    params:
+      volume: -3
+  breakSound:
+    path: /Audio/Effects/Lightning/lightningshock.ogg
+  shockChance: 0.45
+  shockDamage: 20
+  color: "#4FC3FF"
+  severity: 3
+  escalationIntensity: 30

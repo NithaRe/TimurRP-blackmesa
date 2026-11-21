@@ -1,0 +1,17 @@
+- type: soundCollection
+  id: BlackMCritCrawl
+  files:
+  - /Audio/Effects/rustle1.ogg
+  - /Audio/Effects/rustle2.ogg
+  - /Audio/Effects/rustle3.ogg
+  - /Audio/Effects/rustle4.ogg
+  - /Audio/Effects/rustle5.ogg
+
+- type: soundCollection
+  id: BlackMCritCrawlWet
+  files:
+  - /Audio/Effects/Footsteps/blood1.ogg
+  - /Audio/Effects/Footsteps/blood2.ogg
+  - /Audio/Effects/Footsteps/blood3.ogg
+  - /Audio/Effects/Footsteps/blood4.ogg
+  - /Audio/Effects/Footsteps/blood5.ogg
