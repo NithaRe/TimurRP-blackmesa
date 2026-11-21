@@ -31,7 +31,7 @@
       path: /Audio/_BlackM/Ams/ams_hum_idle.ogg
   - type: InteractionOutline
   - type: Ams
-    chargeTime: 300
+    chargeTime: 600
     activeDuration: 300
     detonationDelay: 60
     requireSample: true

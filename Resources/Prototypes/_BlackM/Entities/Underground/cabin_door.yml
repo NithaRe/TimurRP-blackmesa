@@ -14,6 +14,6 @@
     bumpOpen: true
     clickOpen: true
     openSound:
-      path: /Audio/Machines/airlock_open.ogg
+      path: /Audio/_BlackM/airlock_open.ogg
     closeSound:
-      path: /Audio/Machines/airlock_close.ogg
+      path: /Audio/_BlackM/airlock_close.ogg

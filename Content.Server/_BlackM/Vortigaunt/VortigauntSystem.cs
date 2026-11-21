@@ -14,6 +14,7 @@ using Content.Shared.Effects;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.NPC.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Physics;
 using Content.Shared.Stunnable;
@@ -42,6 +43,7 @@ public sealed class VortigauntSystem : EntitySystem
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly ActionBlockerSystem _blocker = default!;
     [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
+    [Dependency] private readonly NpcFactionSystem _faction = default!;
 
     private static readonly SoundSpecifier LightningSound =
         new SoundPathSpecifier("/Audio/_BlackM/vortigaunt/lightning.ogg");
@@ -110,7 +112,7 @@ public sealed class VortigauntSystem : EntitySystem
 
         var clickPos = _transform.ToMapCoordinates(args.Target);
 
-        var firstTarget = FindClosestTarget(uid, clickPos, ClickTargetRadius, new HashSet<EntityUid> { uid }, uid);
+        var firstTarget = FindClosestTarget(uid, clickPos, ClickTargetRadius, new HashSet<EntityUid> { uid }, uid, uid);
 
         if (firstTarget == null)
             return;
@@ -136,7 +138,7 @@ public sealed class VortigauntSystem : EntitySystem
 
             var currentPos = _transform.GetMapCoordinates(current);
 
-            var next = FindClosestTarget(current, currentPos, args.ChainRange, hitTargets, current);
+            var next = FindClosestTarget(current, currentPos, args.ChainRange, hitTargets, current, uid);
 
             if (next == null)
                 break;
@@ -146,12 +148,21 @@ public sealed class VortigauntSystem : EntitySystem
         }
     }
 
+    private bool IsAlly(EntityUid source, EntityUid target)
+    {
+        if (source == target)
+            return true;
+
+        return _faction.IsEntityFriendly(source, target) || _faction.IsEntityFriendly(target, source);
+    }
+
     private EntityUid? FindClosestTarget(
         EntityUid losFrom,
         MapCoordinates center,
         float range,
         HashSet<EntityUid> exclude,
-        EntityUid ignoreSelf)
+        EntityUid ignoreSelf,
+        EntityUid attacker)
     {
         EntityUid? best = null;
         var bestDist = float.MaxValue;
@@ -163,6 +174,8 @@ public sealed class VortigauntSystem : EntitySystem
             if (!HasComp<MobStateComponent>(ent))
                 continue;
             if (_mobState.IsDead(ent))
+                continue;
+            if (IsAlly(attacker, ent))
                 continue;
 
             var pos = _transform.GetMapCoordinates(ent);
@@ -347,6 +360,8 @@ public sealed class VortigauntSystem : EntitySystem
             if (!HasComp<MobStateComponent>(target))
                 continue;
             if (_mobState.IsDead(target))
+                continue;
+            if (IsAlly(uid, target))
                 continue;
 
             if (!HasLineOfSight(uid, target))

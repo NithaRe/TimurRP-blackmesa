@@ -41,6 +41,12 @@ public sealed class PassportSystem : EntitySystem
         "Captain",
     };
 
+    private static readonly string[] AutoApprovedDepartments =
+    {
+        "Security",
+        "Command",
+    };
+
     private static readonly string[] CityKeys =
     {
         "passport-city-1",
@@ -247,7 +253,16 @@ public sealed class PassportSystem : EntitySystem
         comp.Stamp          = PassportStampState.None;
         comp.Badges         = _achievements.GetBadgesFor(characterUid);
 
-        if (!IsImmuneJobId(jobId))
+        if (IsAutoApprovedJobId(jobId))
+        {
+            comp.HasBureaucraticError = false;
+            comp.ErrorField           = string.Empty;
+            comp.ErrorValue           = string.Empty;
+            comp.Checked              = true;
+            comp.CheckedBy            = _loc.GetString("passport-auto-checked-by");
+            comp.Stamp                = PassportStampState.Approved;
+        }
+        else if (!IsImmuneJobId(jobId))
             TryApplyBureaucraticError(comp);
 
         Dirty(passportUid, comp);
@@ -360,6 +375,26 @@ public sealed class PassportSystem : EntitySystem
 
     private static bool IsImmuneJobId(string jobId)
         => ImmuneJobIds.Contains(jobId);
+
+    private bool IsAutoApprovedJobId(string jobId)
+    {
+        if (string.IsNullOrEmpty(jobId))
+            return false;
+
+        foreach (var departmentId in AutoApprovedDepartments)
+        {
+            if (!_proto.TryIndex<DepartmentPrototype>(departmentId, out var department))
+                continue;
+
+            foreach (var role in department.Roles)
+            {
+                if (string.Equals(role.Id, jobId, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+        }
+
+        return false;
+    }
 
     private static string BuildSignature(string surname, string name)
     {

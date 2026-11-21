@@ -63,3 +63,6 @@ passport-checker-fine = Комплекс оштрафован на { $amount } �
 passport-verb-show = Показать паспорт
 passport-show-popup = { $user } показывает паспорт { $target }.
 passport-verb-admin-view = Посмотреть паспорт
+
+passport-checker-no-permit-unqualified = Паспорт одобрен, но персоналу без квалификации разрешение на печать ключей не выдаётся.
+passport-auto-checked-by = Служба безопасности (автоматически)

@@ -17,6 +17,14 @@
       delay: 0.5
     - type: AccessButton
       port: Pressed
+      soundAllow:
+        path: /Audio/_BlackM/access_granted.ogg
+        params:
+          volume: -11.4
+      soundDeny:
+        path: /Audio/_BlackM/access_denied.ogg
+        params:
+          volume: -7.2
     - type: Rotatable
     - type: DeviceNetwork
       deviceNetId: Wireless

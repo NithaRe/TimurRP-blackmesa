@@ -281,6 +281,10 @@ public sealed class AmsSystem : EntitySystem
             LockSample(uid, ams, cart);
 
         SetStatus(uid, ams, AmsStatus.Synchronizing);
+
+        if (_zenIntervention.TryGetComponent(out var zen))
+            _zenIntervention.SetLevel(zen.MaxLevel);
+
         Announce(Loc.GetString("ams-announce-sync-started", ("minutes", Minutes(ams.ChargeTime))),
             SyncAnnounceSound, Color.Gray);
         _audio.PlayPvs(PowerUpSound, uid, AudioParams.Default.WithMaxDistance(16f));
