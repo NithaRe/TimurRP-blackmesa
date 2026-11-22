@@ -202,7 +202,7 @@
     - id: BoxAutoinjectorCartidges
     - id: ClothingBackpackDuffelSurgeryFilled
     - id: ClothingHandsGlovesLatex
-    - id: ClothingOuterHardsuitBrigmedic
+#    - id: ClothingOuterHardsuitBrigmedic BlackM
     - id: OxygenTankFilled
     - id: NitrogenTankFilled
     - id: ClothingUniformJumpskirtOfLife
