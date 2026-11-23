@@ -10,7 +10,7 @@ public enum AchievementKind : byte
     Manual,
 }
 [Prototype("blackmAchievement")]
-public sealed class AchievementPrototype : IPrototype
+public sealed partial class AchievementPrototype : IPrototype
 {
     [IdDataField]
     public string ID { get; private set; } = default!;

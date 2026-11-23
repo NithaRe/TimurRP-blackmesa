@@ -32,7 +32,8 @@ namespace Content.Server.Power.Nodes
             if (!xform.Anchored || grid == null)
                 yield break;
 
-            var gridIndex = grid.TileIndicesFor(xform.Coordinates);
+            var maps = entMan.System<SharedMapSystem>();
+            var gridIndex = maps.TileIndicesFor(grid.Owner, grid, xform.Coordinates);
 
             // While we go over adjacent nodes, we build a list of blocked directions due to
             // incoming or outgoing wire terminals.

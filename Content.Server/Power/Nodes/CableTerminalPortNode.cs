@@ -33,7 +33,8 @@ namespace Content.Server.Power.Nodes
             if (!xform.Anchored || grid == null)
                 yield break;
 
-            var gridIndex = grid.TileIndicesFor(xform.Coordinates);
+            var maps = entMan.System<SharedMapSystem>();
+            var gridIndex = maps.TileIndicesFor(grid.Owner, grid, xform.Coordinates);
 
             var nodes = NodeHelpers.GetCardinalNeighborNodes(nodeQuery, grid, gridIndex, includeSameTile: false);
             foreach (var (dir, node) in nodes)

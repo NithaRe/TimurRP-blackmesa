@@ -31,6 +31,7 @@ using Content.Shared.Smoking;
 using Content.Shared.Smoking.Components; // Shitmed Change
 using Content.Shared.Smoking.Systems; // Shitmed Change
 using Content.Shared.Temperature;
+using Content.Shared.Timing;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -46,6 +47,7 @@ namespace Content.Server.Light.EntitySystems
         [Dependency] private readonly SharedPointLightSystem _lights = default!;
         [Dependency] private readonly TransformSystem _transformSystem = default!;
 
+        [Dependency] private readonly EntityTimerSystem _entityTimers = default!;
         private readonly HashSet<Entity<MatchstickComponent>> _litMatches = new();
 
         public override void Initialize()
@@ -111,8 +113,11 @@ namespace Content.Server.Light.EntitySystems
             // Change state
             SetState((matchstick, component), SmokableState.Lit); // Shitmed Change
             _litMatches.Add(matchstick);
-            matchstick.Owner.SpawnTimer(component.Duration * 1000, delegate
+            _entityTimers.Schedule(matchstick.Owner, TimeSpan.FromSeconds(component.Duration), delegate
             {
+                if (component.Deleted)
+                    return;
+
                 SetState((matchstick, component), SmokableState.Burnt); // Shitmed Change
                 _litMatches.Remove(matchstick);
             });

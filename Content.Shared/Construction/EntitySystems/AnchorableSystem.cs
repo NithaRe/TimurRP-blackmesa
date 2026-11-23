@@ -41,6 +41,7 @@ namespace Content.Shared.Construction.EntitySystems;
 public sealed partial class AnchorableSystem : EntitySystem
 {
     [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly PullingSystem _pulling = default!;
@@ -304,7 +305,7 @@ public sealed partial class AnchorableSystem : EntitySystem
         if (!TryComp<MapGridComponent>(gridUid, out var grid))
             return false;
 
-        var tileIndices = grid.TileIndicesFor(coordinates);
+        var tileIndices = _map.TileIndicesFor(gridUid.Value, grid, coordinates);
         return TileFree(grid, tileIndices, anchorBody.CollisionLayer, anchorBody.CollisionMask);
     }
 
@@ -314,7 +315,7 @@ public sealed partial class AnchorableSystem : EntitySystem
     /// <param name="grid"></param>
     public bool TileFree(MapGridComponent grid, Vector2i gridIndices, int collisionLayer = 0, int collisionMask = 0)
     {
-        var enumerator = grid.GetAnchoredEntitiesEnumerator(gridIndices);
+        var enumerator = _map.GetAnchoredEntitiesEnumerator(grid.Owner, grid, gridIndices);
 
         while (enumerator.MoveNext(out var ent))
         {
@@ -353,7 +354,8 @@ public sealed partial class AnchorableSystem : EntitySystem
         if (!TryComp<MapGridComponent>(gridUid, out var grid))
             return false;
 
-        var enumerator = grid.GetAnchoredEntitiesEnumerator(grid.LocalToTile(location));
+        var tileIndices = _map.LocalToTile(gridUid.Value, grid, location);
+        var enumerator = _map.GetAnchoredEntitiesEnumerator(gridUid.Value, grid, tileIndices);
 
         while (enumerator.MoveNext(out var entity))
         {
