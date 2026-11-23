@@ -12,7 +12,7 @@ namespace Content.Client
         [STAThread]
         public static void Main(string[] args)
         {
-            ContentStart.Start(args);
+            ContentStart.Start(["--cvar", "loading.show_debug=true", .. args]);
         }
     }
 }
