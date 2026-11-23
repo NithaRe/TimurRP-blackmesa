@@ -68,5 +68,6 @@ entities:
     components:
     - type: Transform
       anchored: False
-      parent: 3
+      pos: -0.5,-0.5
+      parent: 2
 ...

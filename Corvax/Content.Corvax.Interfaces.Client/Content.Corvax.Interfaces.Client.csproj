@@ -1,13 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <Import Project="..\..\RobustToolbox\Imports\Client.props" />
+
   <ItemGroup>
-    <ProjectReference Include="..\..\RobustToolbox\Robust.Client\Robust.Client.csproj">
-      <Private>false</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Content.Corvax.Interfaces.Shared\Content.Corvax.Interfaces.Shared.csproj" />
   </ItemGroup>
 </Project>

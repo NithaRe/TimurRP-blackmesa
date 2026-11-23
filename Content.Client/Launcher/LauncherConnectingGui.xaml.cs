@@ -213,6 +213,13 @@ namespace Content.Client.Launcher
         private void ConnectionStateChanged(ClientConnectionState state)
         {
             ConnectStatus.Text = Loc.GetString($"connecting-state-{state}");
+            ConnectProgress.Value = state switch
+            {
+                ClientConnectionState.EstablishingConnection => 1,
+                ClientConnectionState.Handshake => 2,
+                ClientConnectionState.Connected => 3,
+                _ => 0,
+            };
         }
     }
 }

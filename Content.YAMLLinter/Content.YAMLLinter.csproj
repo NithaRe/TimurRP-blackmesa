@@ -11,21 +11,24 @@ SPDX-License-Identifier: MIT
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
+        <StartupObject>Content.YAMLLinter.Program</StartupObject>
+        <GenerateProgramFile>false</GenerateProgramFile>
+        <IsTestProject>false</IsTestProject>
         <TargetFramework>$(TargetFramework)</TargetFramework>
         <OutputPath>..\bin\Content.YAMLLinter\</OutputPath>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ServerGarbageCollection>true</ServerGarbageCollection>
     </PropertyGroup>
 
+    <Import Project="..\RobustToolbox\Imports\Client.props" />
+    <Import Project="..\RobustToolbox\Imports\Server.props" />
+    <Import Project="..\RobustToolbox\Imports\Shared.props" />
+
   <ItemGroup>
       <ProjectReference Include="..\Content.Client\Content.Client.csproj" />
       <ProjectReference Include="..\Content.Server\Content.Server.csproj" />
       <ProjectReference Include="..\Content.Shared\Content.Shared.csproj" />
       <ProjectReference Include="..\Content.IntegrationTests\Content.IntegrationTests.csproj" />
-      <ProjectReference Include="..\RobustToolbox\Robust.Client\Robust.Client.csproj" />
-      <ProjectReference Include="..\RobustToolbox\Robust.Server\Robust.Server.csproj" />
-      <ProjectReference Include="..\RobustToolbox\Robust.Shared.Maths\Robust.Shared.Maths.csproj" />
-      <ProjectReference Include="..\RobustToolbox\Robust.Shared\Robust.Shared.csproj" />
     </ItemGroup>
 
   <ItemGroup>

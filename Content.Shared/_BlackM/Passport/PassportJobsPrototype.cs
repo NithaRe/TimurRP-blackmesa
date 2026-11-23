@@ -3,11 +3,11 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared._BlackM.Passport;
 
 [Prototype("passportJobs")]
-public sealed class PassportJobsPrototype : IPrototype
+public sealed partial class PassportJobsPrototype : IPrototype
 {
     [IdDataField]
-    public string ID { get; } = default!;
+    public string ID { get; private set; } = default!;
 
     [DataField("jobs")]
-    public HashSet<string> Jobs { get; } = new();
+    public HashSet<string> Jobs { get; private set; } = new();
 }

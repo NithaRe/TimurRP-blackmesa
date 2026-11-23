@@ -131,6 +131,7 @@ using Content.Server.Atmos.Components;
 using Content.Server.Stunnable;
 using Content.Server.Temperature.Components;
 using Content.Server.Temperature.Systems;
+using Content.Shared.Timing;
 using Content.Server.Damage.Components;
 using Content.Goobstation.Common.CCVar;
 using Content.Shared._Goobstation.Wizard.Spellblade;
@@ -169,6 +170,7 @@ namespace Content.Server.Atmos.EntitySystems
     public sealed class FlammableSystem : EntitySystem
     {
         [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
+        [Dependency] private readonly EntityTimerSystem _entityTimers = default!;
         [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
         [Dependency] private readonly StunSystem _stunSystem = default!;
         [Dependency] private readonly TemperatureSystem _temperatureSystem = default!;
@@ -582,9 +584,11 @@ namespace Content.Server.Atmos.EntitySystems
             //goob edit stunmeta or something
             _stunSystem.KnockdownOrStun(uid, TimeSpan.FromSeconds(2f));
 
-            // TODO FLAMMABLE: Make this not use TimerComponent...
-            uid.SpawnTimer(2000, () =>
+            _entityTimers.Schedule(uid, TimeSpan.FromSeconds(2), () =>
             {
+                if (flammable.Deleted)
+                    return;
+
                 flammable.Resisting = false;
                 flammable.FireStacks -= flammable.FirestackFade * 10f; // EE Plasmamen Change
                 UpdateAppearance(uid, flammable);

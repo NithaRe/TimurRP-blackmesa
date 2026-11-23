@@ -139,6 +139,7 @@ using Content.Shared.Light.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
+using Content.Shared.Timing;
 using Robust.Shared.Audio.Systems;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Damage.Components;
@@ -154,6 +155,7 @@ namespace Content.Server.Light.EntitySystems
     public sealed class PoweredLightSystem : EntitySystem
     {
         [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency] private readonly EntityTimerSystem _entityTimers = default!;
         [Dependency] private readonly SharedAmbientSoundSystem _ambientSystem = default!;
         [Dependency] private readonly LightBulbSystem _bulbSystem = default!;
         [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
@@ -445,9 +447,10 @@ namespace Content.Server.Light.EntitySystems
             light.LastGhostBlink = time;
 
             ToggleBlinkingLight(uid, light, true);
-            uid.SpawnTimer(light.GhostBlinkingTime, () =>
+            _entityTimers.Schedule(uid, light.GhostBlinkingTime, () =>
             {
-                ToggleBlinkingLight(uid, light, false);
+                if (!light.Deleted)
+                    ToggleBlinkingLight(uid, light, false);
             });
 
             args.Handled = true;
