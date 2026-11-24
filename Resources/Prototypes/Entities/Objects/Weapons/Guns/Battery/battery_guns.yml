@@ -827,6 +827,9 @@
   - type: StaticPrice
     price: 100
   - type: Gun
+    minAngle: 2
+    maxAngle: 16
+    angleIncrease: 3
     fireRate: 2
     #projectileSpeed: 35 # Goobstation - nuh uh
     soundGunshot:

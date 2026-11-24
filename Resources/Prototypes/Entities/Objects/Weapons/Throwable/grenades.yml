@@ -184,7 +184,11 @@
   parent: [GrenadeBase, BaseSyndicateContraband]
   id: ExGrenade
   components:
-  - type: ExplodeOnTrigger
+  - type: Sprite # BlackM Start
+    sprite: _BlackM/Objects/Weapons/Grenades/m67.rsi
+  - type: Appearance
+  - type: TimerTriggerVisuals
+  - type: ExplodeOnTrigger # BlackM End
     keysIn:
     - timer
   - type: Explosive
@@ -208,7 +212,7 @@
   id: GrenadeFlashBang
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Grenades/flashbang.rsi
+    sprite: _BlackM/Objects/Weapons/Grenades/flashbang.rsi # BlackM
   - type: FlashOnTrigger
     keysIn:
     - timer
@@ -596,7 +600,7 @@
   description: A tactical grenade that releases a large, long-lasting cloud of smoke when used.
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Grenades/smoke.rsi
+    sprite: _BlackM/Objects/Weapons/Grenades/smoke.rsi
   - type: SmokeOnTrigger
     keysIn:
     - timer
