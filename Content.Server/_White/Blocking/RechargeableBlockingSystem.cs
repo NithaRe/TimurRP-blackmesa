@@ -19,12 +19,12 @@ using Content.Shared.PowerCell.Components;
 
 namespace Content.Server._White.Blocking;
 
-public sealed class RechargeableBlockingSystem : EntitySystem
+public sealed partial class RechargeableBlockingSystem : EntitySystem
 {
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly ItemToggleSystem _itemToggle = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
+    [Dependency] private BatterySystem _battery = default!;
+    [Dependency] private ItemToggleSystem _itemToggle = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private PowerCellSystem _powerCell = default!;
 
     public override void Initialize()
     {

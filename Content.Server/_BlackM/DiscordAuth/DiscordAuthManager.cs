@@ -23,14 +23,14 @@ using Robust.Shared.Player;
 
 namespace Content.Server._BlackM.DiscordAuth;
 
-public sealed class DiscordAuthManager : IServerDiscordAuthManager
+public sealed partial class DiscordAuthManager : IServerDiscordAuthManager
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IServerNetManager _netManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IStatusHost _statusHost = default!;
-    [Dependency] private readonly IResourceManager _resourceManager = default!;
-    [Dependency] private readonly ITaskManager _taskManager = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IServerNetManager _netManager = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
+    [Dependency] private IStatusHost _statusHost = default!;
+    [Dependency] private IResourceManager _resourceManager = default!;
+    [Dependency] private ITaskManager _taskManager = default!;
 
     public event EventHandler<ICommonSession>? PlayerVerified;
 

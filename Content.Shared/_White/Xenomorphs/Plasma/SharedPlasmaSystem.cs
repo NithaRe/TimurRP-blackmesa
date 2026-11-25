@@ -4,9 +4,9 @@ using Content.Shared.Alert;
 
 namespace Content.Shared._White.Xenomorphs.Plasma;
 
-public abstract class SharedPlasmaSystem : EntitySystem
+public abstract partial class SharedPlasmaSystem : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
+    [Dependency] private AlertsSystem _alerts = default!;
 
     public override void Initialize()
     {

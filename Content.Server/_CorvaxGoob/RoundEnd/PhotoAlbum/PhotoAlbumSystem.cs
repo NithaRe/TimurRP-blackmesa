@@ -11,13 +11,13 @@ using Robust.Server.Containers;
 using Robust.Server.Player;
 
 namespace Content.Server._CorvaxGoob.RoundEnd.PhotoAlbum;
-public sealed class PhotoAlbumSystem : EntitySystem
+public sealed partial class PhotoAlbumSystem : EntitySystem
 {
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly TagSystem _tags = default!;
+    [Dependency] private ContainerSystem _container = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private TagSystem _tags = default!;
 
     public override void Initialize()
     {

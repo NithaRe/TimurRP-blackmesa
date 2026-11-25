@@ -39,10 +39,10 @@ namespace Content.Server.Stack
     ///     This is a good example for learning how to code in an ECS manner.
     /// </summary>
     [UsedImplicitly]
-    public sealed class StackSystem : SharedStackSystem
+    public sealed partial class StackSystem : SharedStackSystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly SharedUserInterfaceSystem _ui = default!; // Goobstation - Custom stack splitting dialog
+        [Dependency] private IPrototypeManager _prototypeManager = default!;
+        [Dependency] private SharedUserInterfaceSystem _ui = default!; // Goobstation - Custom stack splitting dialog
 
         public static readonly int[] DefaultSplitAmounts = { 1, 5, 10, 20, 30, 50 };
 

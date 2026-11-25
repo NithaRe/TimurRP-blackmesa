@@ -6,10 +6,10 @@ using DrawDepth = Content.Shared.DrawDepth.DrawDepth;
 
 namespace Content.Client._BlackM.Rappel;
 
-public sealed class RappelDebrisVisualsSystem : EntitySystem
+public sealed partial class RappelDebrisVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     private const float BounceHeight = 0.08f;
 

@@ -20,13 +20,13 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._DV.CosmicCult.Abilities;
 
-public sealed class CosmicLapseSystem : EntitySystem
+public sealed partial class CosmicLapseSystem : EntitySystem
 {
-    [Dependency] private readonly CosmicCultSystem _cult = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly DivineInterventionSystem _divineIntervention = default!;
+    [Dependency] private CosmicCultSystem _cult = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private PolymorphSystem _polymorph = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private DivineInterventionSystem _divineIntervention = default!;
 
     private static readonly ProtoId<PolymorphPrototype> HumanLapse = "CosmicLapseMobHuman";
 

@@ -14,9 +14,9 @@ using Robust.Shared.Map.Components;
 
 namespace Content.Shared._Starlight.VentCrawling;
 
-public sealed class SharedVentTubeSystem : EntitySystem
+public sealed partial class SharedVentTubeSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency] private SharedMapSystem _mapSystem = default!;
 
     public EntityUid? NextTubeFor(EntityUid target, Direction nextDirection, VentCrawlerTubeComponent? targetTube = null)
     {

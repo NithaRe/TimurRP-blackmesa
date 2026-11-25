@@ -6,10 +6,10 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.Monorail;
 
-public sealed class MonorailArrivalBoardVisualsSystem : EntitySystem
+public sealed partial class MonorailArrivalBoardVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     private const string TextPath = "Effects/text.rsi";
     private const string KeyPrefix = "mrb";

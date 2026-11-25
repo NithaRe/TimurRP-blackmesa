@@ -7,9 +7,9 @@ using Content.Shared.Weapons.Ranged;
 namespace Content.Shared._EinsteinEngines.Power.Systems;
 
 // Goobstation - Energycrit: BatteryDrinkerSystem verb prediction
-public abstract class SharedBatteryDrinkerSystem : EntitySystem
+public abstract partial class SharedBatteryDrinkerSystem : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
+    [Dependency] private ItemSlotsSystem _itemSlots = default!;
 
     /// <summary>
     ///     Find an item that a battery drinker can drink from without using BatterySystem

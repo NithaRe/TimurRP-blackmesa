@@ -10,9 +10,9 @@ using Content.Shared.EntityEffects;
 
 namespace Content.Server.Tiles;
 
-public sealed class TileEntityEffectSystem : EntitySystem
+public sealed partial class TileEntityEffectSystem : EntitySystem
 {
-    [Dependency] private readonly SharedEntityEffectSystem _effect = default!; // goob edit - use system instead
+    [Dependency] private SharedEntityEffectSystem _effect = default!; // goob edit - use system instead
 
     public override void Initialize()
     {

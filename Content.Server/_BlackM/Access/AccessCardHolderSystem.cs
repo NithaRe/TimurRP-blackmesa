@@ -11,12 +11,12 @@ using Robust.Shared.Containers;
 
 namespace Content.Server._BlackM.Access;
 
-public sealed class AccessCardHolderSystem : SharedAccessCardHolderSystem
+public sealed partial class AccessCardHolderSystem : SharedAccessCardHolderSystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
 
     private static readonly SoundSpecifier SoundInsert = new SoundPathSpecifier(
         "/Audio/_Goobstation/Items/handling/card_pickup.ogg")

@@ -8,11 +8,11 @@ using Content.Shared.Stunnable;
 
 namespace Content.Server._DV.CosmicCult.Abilities;
 
-public sealed class CosmicReturnSystem : EntitySystem
+public sealed partial class CosmicReturnSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private SharedStunSystem _stun = default!;
 
     public override void Initialize()
     {

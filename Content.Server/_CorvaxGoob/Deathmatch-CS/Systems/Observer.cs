@@ -7,11 +7,11 @@ using Content.Shared.Mobs.Systems;
 
 namespace Content.Server._CorvaxGoob.Deathmatch_CS.Systems;
 
-public sealed class CSObserver : EntitySystem
+public sealed partial class CSObserver : EntitySystem
 {
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly CSRuleSystem _csRuleSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
+    [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private CSRuleSystem _csRuleSystem = default!;
+    [Dependency] private MobStateSystem _mobStateSystem = default!;
 
     public override void Initialize()
     {

@@ -43,21 +43,21 @@ using Robust.Shared.Random;
 
 namespace Content.Server.ImmovableRod;
 
-public sealed class ImmovableRodSystem : EntitySystem
+public sealed partial class ImmovableRodSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly DestructibleSystem _destructible = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!; // Goobstation
-    [Dependency] private readonly TagSystem _tag = default!; // Goobstation
-    [Dependency] private readonly StunSystem _stun = default!; // Goobstation
+    [Dependency] private BodySystem _bodySystem = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private DestructibleSystem _destructible = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private EntityStorageSystem _entityStorage = default!; // Goobstation
+    [Dependency] private TagSystem _tag = default!; // Goobstation
+    [Dependency] private StunSystem _stun = default!; // Goobstation
 
     private static readonly ProtoId<TagPrototype> IgnoreTag = "IgnoreImmovableRod"; // Goobstation
 

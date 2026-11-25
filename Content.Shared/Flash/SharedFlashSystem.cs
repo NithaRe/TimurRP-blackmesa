@@ -18,11 +18,7 @@ using Content.Shared.Charges.Components;
 using Content.Shared.Charges.Systems;
 using Content.Shared.Examine;
 using Content.Shared.Eye.Blinding.Components;
-using Content.Shared.Charges.Components;
-using Content.Shared.Charges.Systems;
-using Content.Shared.Examine;
 using Content.Shared._BlackM.Rappel; // BlackM
-using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Flash.Components;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction.Events;
@@ -44,27 +40,24 @@ using System.Linq;
 using Content.Goobstation.Common.Flash;
 using Content.Shared.Mobs.Components; // Goobstation
 using Content.Shared.Movement.Systems;
-using Robust.Shared.Random;
-using Robust.Shared.Timing;
-using System.Linq;
 
 namespace Content.Shared.Flash;
 
-public abstract class SharedFlashSystem : EntitySystem
+public abstract partial class SharedFlashSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedChargesSystem _sharedCharges = default!;
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly MovementModStatusSystem _movementMod = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedChargesSystem _sharedCharges = default!;
+    [Dependency] private EntityLookupSystem _entityLookup = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private ExamineSystemShared _examine = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedStunSystem _stun = default!;
+    [Dependency] private MovementModStatusSystem _movementMod = default!;
+    [Dependency] private TagSystem _tag = default!;
+    [Dependency] private StatusEffectsSystem _statusEffectsSystem = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private UseDelaySystem _useDelay = default!;
 
     private EntityQuery<StatusEffectsComponent> _statusEffectsQuery;
     private EntityQuery<DamagedByFlashingComponent> _damagedByFlashingQuery;

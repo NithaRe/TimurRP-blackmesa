@@ -13,13 +13,13 @@ using Robust.Shared.IoC;
 
 namespace Content.Server._BlackM.Kovak;
 
-public sealed class KovakHelmetSystem : EntitySystem
+public sealed partial class KovakHelmetSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ClothingSystem _clothing = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SpeechBarksSystem _barks = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private ClothingSystem _clothing = default!;
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private SpeechBarksSystem _barks = default!;
 
     public override void Initialize()
     {

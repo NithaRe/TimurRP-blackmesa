@@ -19,13 +19,13 @@ namespace Content.Shared.Repairable;
 
 public sealed partial class RepairableSystem : EntitySystem
 {
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;          // Goob edit
-    [Dependency] private readonly HealingSystem _healingSystem = default!;          // Goob edit
-    [Dependency] private readonly WoundSystem _wounds = default!;                   // Goob edit
+    [Dependency] private SharedToolSystem _toolSystem = default!;
+    [Dependency] private DamageableSystem _damageableSystem = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private SharedBodySystem _bodySystem = default!;          // Goob edit
+    [Dependency] private HealingSystem _healingSystem = default!;          // Goob edit
+    [Dependency] private WoundSystem _wounds = default!;                   // Goob edit
 
     public override void Initialize()
     {

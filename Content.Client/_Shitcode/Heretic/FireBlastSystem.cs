@@ -4,9 +4,9 @@ using Robust.Client.GameObjects;
 
 namespace Content.Client._Shitcode.Heretic;
 
-public sealed class FireBlastSystem : SharedFireBlastSystem
+public sealed partial class FireBlastSystem : SharedFireBlastSystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {

@@ -8,9 +8,9 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.BattleMusic;
 
-public sealed class BattleMusicSystem : EntitySystem
+public sealed partial class BattleMusicSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private const float BattleTimeout = 20f;
 

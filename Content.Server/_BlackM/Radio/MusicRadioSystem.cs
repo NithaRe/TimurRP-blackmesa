@@ -9,12 +9,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Radio;
 
-public sealed class MusicRadioSystem : EntitySystem
+public sealed partial class MusicRadioSystem : EntitySystem
 {
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private AppearanceSystem _appearance = default!;
+    [Dependency] private UserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {

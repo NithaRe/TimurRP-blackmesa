@@ -2,9 +2,9 @@ using Robust.Client.Graphics;
 
 namespace Content.Client._BlackM.PullHand;
 
-public sealed class PullHandSystem : EntitySystem
+public sealed partial class PullHandSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlays = default!;
+    [Dependency] private IOverlayManager _overlays = default!;
 
     public override void Initialize()
     {

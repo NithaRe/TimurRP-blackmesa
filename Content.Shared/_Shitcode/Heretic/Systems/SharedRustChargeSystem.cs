@@ -19,12 +19,12 @@ using Robust.Shared.Physics.Events;
 
 namespace Content.Shared._Shitcode.Heretic.Systems;
 
-public abstract class SharedRustChargeSystem : EntitySystem
+public abstract partial class SharedRustChargeSystem : EntitySystem
 {
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private TagSystem _tag = default!;
+    [Dependency] private SharedStunSystem _stun = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {

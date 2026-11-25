@@ -24,13 +24,13 @@ namespace Content.Goobstation.Server.Voice;
 /// Server-side manager for voice chat functionality.
 /// Handles Lidgren UDP connections and decodes Opus audio.
 /// </summary>
-public sealed class VoiceChatServerManager : IVoiceChatServerManager, IPostInjectInit
+public sealed partial class VoiceChatServerManager : IVoiceChatServerManager, IPostInjectInit
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
+    [Dependency] private IEntityManager _entityManager = default!;
+    [Dependency] private INetManager _netManager = default!;
+    [Dependency] private IGameTiming _gameTiming = default!;
 
     private ISawmill _sawmill = default!;
 

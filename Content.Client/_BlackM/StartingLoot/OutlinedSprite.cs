@@ -5,9 +5,9 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._BlackM.StartingLoot;
 
-public sealed class OutlinedSprite : Control
+public sealed partial class OutlinedSprite : Control
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
 
     private static readonly Vector2[] Dirs =
     {

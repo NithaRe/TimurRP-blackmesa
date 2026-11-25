@@ -26,10 +26,10 @@ using Content.Shared._Shitmed.Medical.Surgery.Wounds.Components;
 using Content.Shared.Heretic.Components.PathSpecific; // Shitmed Change
 namespace Content.Shared.Heretic.EntitySystems.PathSpecific;
 
-public sealed class ChampionStanceSystem : EntitySystem
+public sealed partial class ChampionStanceSystem : EntitySystem
 {
-    [Dependency] private readonly MobThresholdSystem _threshold = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifierSystem = default!;
+    [Dependency] private MobThresholdSystem _threshold = default!;
+    [Dependency] private MovementSpeedModifierSystem _movementSpeedModifierSystem = default!;
 
     public override void Initialize()
     {

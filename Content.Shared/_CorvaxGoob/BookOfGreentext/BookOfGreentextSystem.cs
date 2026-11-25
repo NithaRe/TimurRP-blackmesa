@@ -4,10 +4,10 @@ using Content.Shared.Popups;
 
 namespace Content.Shared._CorvaxGoob.BookOfGreentext;
 
-public sealed class BookOfGreentextSystem : EntitySystem
+public sealed partial class BookOfGreentextSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
 
 
     public override void Initialize()

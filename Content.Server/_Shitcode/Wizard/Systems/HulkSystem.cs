@@ -26,16 +26,16 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._Goobstation.Wizard.Systems;
 
-public sealed class HulkSystem : SharedHulkSystem
+public sealed partial class HulkSystem : SharedHulkSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PhysicsSystem _physics = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
-    [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private PhysicsSystem _physics = default!;
+    [Dependency] private AppearanceSystem _appearance = default!;
+    [Dependency] private HumanoidAppearanceSystem _humanoidAppearance = default!;
+    [Dependency] private GunSystem _gun = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private ChatSystem _chat = default!;
 
     public override void Initialize()
     {

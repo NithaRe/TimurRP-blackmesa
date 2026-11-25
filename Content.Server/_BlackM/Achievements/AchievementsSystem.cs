@@ -18,12 +18,12 @@ public sealed class PlayerAchievementData
     public List<string> Granted { get; set; } = new();
     public List<string> Selected { get; set; } = new();
 }
-public sealed class AchievementsSystem : EntitySystem
+public sealed partial class AchievementsSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager       _proto    = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTime = default!;
-    [Dependency] private readonly IResourceManager        _res      = default!;
-    [Dependency] private readonly IChatManager            _chat     = default!;
+    [Dependency] private IPrototypeManager       _proto    = default!;
+    [Dependency] private PlayTimeTrackingManager _playTime = default!;
+    [Dependency] private IResourceManager        _res      = default!;
+    [Dependency] private IChatManager            _chat     = default!;
 
     private static readonly ResPath FilePath = new("/blackm/achievements.json");
     private static readonly ResPath DirPath = new("/blackm");

@@ -18,7 +18,7 @@ namespace Content.Server.Fluids.EntitySystems;
 
 public sealed partial class PuddleSystem
 {
-    [Dependency] private readonly OpenableSystem _openable = default!;
+    [Dependency] private OpenableSystem _openable = default!;
 
     private void InitializeTransfers()
     {

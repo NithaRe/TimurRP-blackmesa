@@ -22,8 +22,8 @@ namespace Content.Client._DV.CosmicCult;
 
 public sealed partial class CosmicCultSystem : SharedCosmicCultSystem
 {
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
 
     private readonly ResPath _rsiPath = new("/Textures/_DV/CosmicCult/Effects/ability_siphonvfx.rsi");
 

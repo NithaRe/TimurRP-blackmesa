@@ -4,10 +4,10 @@ using Robust.Client.Player;
 
 namespace Content.Client._BlackM.Monorail;
 
-public sealed class MonorailInteriorSystem : EntitySystem
+public sealed partial class MonorailInteriorSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlayManager = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private IOverlayManager _overlayManager = default!;
+    [Dependency] private IPlayerManager _player = default!;
 
     private MonorailInteriorOverlay _overlay = default!;
 

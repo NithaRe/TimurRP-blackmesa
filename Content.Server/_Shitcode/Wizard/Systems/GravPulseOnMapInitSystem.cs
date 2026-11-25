@@ -10,9 +10,9 @@ using Content.Server.Singularity.EntitySystems;
 
 namespace Content.Server._Goobstation.Wizard.Systems;
 
-public sealed class GravPulseOnMapInitSystem : EntitySystem
+public sealed partial class GravPulseOnMapInitSystem : EntitySystem
 {
-    [Dependency] private readonly GravityWellSystem _gravityWell = default!;
+    [Dependency] private GravityWellSystem _gravityWell = default!;
 
     public override void Initialize()
     {

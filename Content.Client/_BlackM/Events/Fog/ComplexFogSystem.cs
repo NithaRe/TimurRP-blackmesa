@@ -7,11 +7,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Events.Fog;
 
-public sealed class ComplexFogSystem : EntitySystem
+public sealed partial class ComplexFogSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlayManager = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IOverlayManager _overlayManager = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private const float PresenceFadeTime = 2.5f;
 

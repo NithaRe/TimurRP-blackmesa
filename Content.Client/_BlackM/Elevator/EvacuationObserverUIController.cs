@@ -11,12 +11,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Elevator;
 
-public sealed class EvacuationObserverUIController : UIController,
+public sealed partial class EvacuationObserverUIController : UIController,
     IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IEntityNetworkManager _net = default!;
+    [Dependency] private IEntityManager _entities = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IEntityNetworkManager _net = default!;
 
     private PanelContainer? _panel;
     private Button? _toggle;

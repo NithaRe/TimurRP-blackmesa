@@ -18,9 +18,9 @@ using Content.Shared.Temperature.Components;
 
 namespace Content.Shared._Goobstation.Heretic.Systems;
 
-public abstract class SharedVoidCurseSystem : EntitySystem
+public abstract partial class SharedVoidCurseSystem : EntitySystem
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _modifier = default!;
+    [Dependency] private MovementSpeedModifierSystem _modifier = default!;
 
     public override void Initialize()
     {

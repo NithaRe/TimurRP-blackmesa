@@ -18,11 +18,11 @@ using Content.Shared._Shitmed.Spawners.EntitySystems; // Shitmed Change
 
 namespace Content.Shared.Friends.Systems;
 
-public sealed class PettableFriendSystem : EntitySystem
+public sealed partial class PettableFriendSystem : EntitySystem
 {
-    [Dependency] private readonly NpcFactionSystem _factionException = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private NpcFactionSystem _factionException = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private UseDelaySystem _useDelay = default!;
 
     private EntityQuery<FactionExceptionComponent> _exceptionQuery;
     private EntityQuery<UseDelayComponent> _useDelayQuery;

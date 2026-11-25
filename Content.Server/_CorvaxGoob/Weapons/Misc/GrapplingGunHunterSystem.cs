@@ -4,9 +4,9 @@ using Content.Shared.StatusEffect;
 
 namespace Content.Server._CorvaxGoob.Weapons.Misc;
 
-public sealed class GrapplingGunHunterSystem : SharedGrapplingGunHunterSystem
+public sealed partial class GrapplingGunHunterSystem : SharedGrapplingGunHunterSystem
 {
-    [Dependency] private readonly StunSystem _stun = default!;
+    [Dependency] private StunSystem _stun = default!;
 
     public override void Initialize()
     {

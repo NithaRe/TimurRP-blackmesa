@@ -17,11 +17,11 @@ using Content.Shared.Teleportation;
 
 namespace Content.Goobstation.Server.Teleportation.Systems;
 
-public sealed class RandomTeleportSystem : EntitySystem
+public sealed partial class RandomTeleportSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _alog = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly SharedRandomTeleportSystem _sharedRtp = default!;
+    [Dependency] private IAdminLogManager _alog = default!;
+    [Dependency] private StackSystem _stack = default!;
+    [Dependency] private SharedRandomTeleportSystem _sharedRtp = default!;
 
     public override void Initialize()
     {

@@ -25,21 +25,21 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Weapons.Crosshair;
 
-public sealed class GunCrosshairSystem : EntitySystem
+public sealed partial class GunCrosshairSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlay = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly IInputManager _input = default!;
-    [Dependency] private readonly IStateManager _state = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
+    [Dependency] private IOverlayManager _overlay = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IEyeManager _eye = default!;
+    [Dependency] private IInputManager _input = default!;
+    [Dependency] private IStateManager _state = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IUserInterfaceManager _ui = default!;
+    [Dependency] private IResourceCache _cache = default!;
+    [Dependency] private GunSystem _gun = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private ActionBlockerSystem _actionBlocker = default!;
 
     private const float CooldownThreshold = 0.35f;
     private const float FadeSpeed = 9f;

@@ -95,7 +95,7 @@ namespace Content.Client.Forensics
     [GenerateTypedNameReferences]
     public sealed partial class ForensicScannerMenu : DefaultWindow
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency] private IGameTiming _gameTiming = default!;
 
         public ForensicScannerMenu()
         {

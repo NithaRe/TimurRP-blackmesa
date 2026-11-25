@@ -6,9 +6,9 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._BlackM.Ghost.Customization;
 
-public sealed class GhostCustomizationVisualsSystem : EntitySystem
+public sealed partial class GhostCustomizationVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
 
     public override void Initialize()
     {

@@ -14,12 +14,12 @@ using Robust.Shared.Physics.Systems;
 
 namespace Content.Shared._EinsteinEngines.HeightAdjust;
 
-public sealed class HeightAdjustSystem : EntitySystem
+public sealed partial class HeightAdjustSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedContentEyeSystem _eye = default!;
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private SharedContentEyeSystem _eye = default!;
+    [Dependency] private SharedHumanoidAppearanceSystem _appearance = default!;
+    [Dependency] private IConfigurationManager _config = default!;
 
 
     /// <summary>

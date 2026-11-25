@@ -153,7 +153,6 @@ using Content.Shared._Lavaland.Weapons.Ranged.Events; // Lavaland Change
 using Content.Shared._CorvaxGoob.Skills;
 using Content.Goobstation.Common.Weapons.NoWieldNeeded;
 using Content.Server._CorvaxGoob.Skills;
-using Content.Shared._Lavaland.Weapons.Ranged.Events;
 using Robust.Server.GameObjects; // Goobstation
 using Content.Goobstation.Common.Weapons.Ranged;
 using Content.Shared._Shitmed.Targeting;
@@ -164,21 +163,21 @@ namespace Content.Server.Weapons.Ranged.Systems;
 
 public sealed partial class GunSystem : SharedGunSystem
 {
-    [Dependency] private readonly DamageExamineSystem _damageExamine = default!;
-    [Dependency] private readonly PricingSystem _pricing = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
-    [Dependency] private readonly ProjectileTraumaSystem _projectileTrauma = default!; // BlackM
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly SkillsSystem _skills = default!; // CorvaxGoob-Skills
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private DamageExamineSystem _damageExamine = default!;
+    [Dependency] private PricingSystem _pricing = default!;
+    [Dependency] private SharedColorFlashEffectSystem _color = default!;
+    [Dependency] private ProjectileTraumaSystem _projectileTrauma = default!; // BlackM
+    [Dependency] private SharedStaminaSystem _stamina = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private PowerCellSystem _powerCell = default!;
+    [Dependency] private SkillsSystem _skills = default!; // CorvaxGoob-Skills
+    [Dependency] private SharedMapSystem _map = default!;
 
     // Goobstation
-    [Dependency] private readonly FlammableSystem _flammable = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private FlammableSystem _flammable = default!;
+    [Dependency] private TransformSystem _transform = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     private const float DamagePitchVariation = 0.05f;
     private float _crawlHitzoneSize; // Goobstation

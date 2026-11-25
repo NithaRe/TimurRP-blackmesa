@@ -28,7 +28,7 @@ namespace Content.Client._Shitmed.UserInterface.Systems.PartStatus.Widgets;
 [GenerateTypedNameReferences]
 public sealed partial class PartStatusControl : UIWidget
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
     private readonly Dictionary<TargetBodyPart, TextureRect> _partStatusControls;
     private readonly PartStatusUIController _controller;
     public event Action<GUIBoundKeyEventArgs>? OnMouseDown;

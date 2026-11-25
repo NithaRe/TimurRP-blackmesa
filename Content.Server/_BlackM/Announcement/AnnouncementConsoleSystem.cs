@@ -25,21 +25,21 @@ using Robust.Shared.Utility;
 
 namespace Content.Server._BlackM.Announcement;
 
-public sealed class AnnouncementConsoleSystem : EntitySystem
+public sealed partial class AnnouncementConsoleSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly SharedIdCardSystem _idCard = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedJobSystem _jobs = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvs = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IChatManager _chat = default!;
+    [Dependency] private IAdminLogManager _adminLog = default!;
+    [Dependency] private UserInterfaceSystem _ui = default!;
+    [Dependency] private AccessReaderSystem _accessReader = default!;
+    [Dependency] private SharedIdCardSystem _idCard = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private SharedJobSystem _jobs = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private PvsOverrideSystem _pvs = default!;
+    [Dependency] private PopupSystem _popup = default!;
 
     private static readonly TimeSpan DeliveryDelay = TimeSpan.FromSeconds(0.35);
     private const float PvsExtraSeconds = 8f;

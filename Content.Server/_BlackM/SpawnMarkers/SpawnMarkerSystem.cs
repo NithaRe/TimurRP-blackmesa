@@ -3,10 +3,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.SpawnMarkers;
 
-public sealed class SpawnMarkerSystem : EntitySystem
+public sealed partial class SpawnMarkerSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _timing   = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IGameTiming _timing   = default!;
 
     public override void Initialize()
     {

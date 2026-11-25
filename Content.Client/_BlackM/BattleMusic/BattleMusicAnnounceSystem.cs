@@ -9,10 +9,10 @@ using Robust.Shared.Maths;
 
 namespace Content.Client._BlackM.BattleMusic;
 
-public sealed class BattleMusicAnnounceSystem : EntitySystem
+public sealed partial class BattleMusicAnnounceSystem : EntitySystem
 {
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
-    [Dependency] private readonly IResourceCache _resCache = default!;
+    [Dependency] private IUserInterfaceManager _ui = default!;
+    [Dependency] private IResourceCache _resCache = default!;
 
     private const float ShowDuration = 3.5f;
     private const float FadeInDuration = 0.35f;

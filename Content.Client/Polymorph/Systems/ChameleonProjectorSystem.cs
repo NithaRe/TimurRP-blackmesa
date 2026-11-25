@@ -14,10 +14,10 @@ using Robust.Client.GameObjects;
 
 namespace Content.Client.Polymorph.Systems;
 
-public sealed class ChameleonProjectorSystem : SharedChameleonProjectorSystem
+public sealed partial class ChameleonProjectorSystem : SharedChameleonProjectorSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     private EntityQuery<AppearanceComponent> _appearanceQuery;
     private EntityQuery<SpriteComponent> _spriteQuery;

@@ -8,8 +8,8 @@ namespace Content.Server.Radio.EntitySystems;
 
 public sealed partial class RadioSystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly RadioSfxSystem _radioSfx = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private RadioSfxSystem _radioSfx = default!;
 
     private const string StaticChars = "#%&*@~";
 

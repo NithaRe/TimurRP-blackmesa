@@ -29,13 +29,13 @@ namespace Content.Shared.Humanoid
     /// <summary>
     /// Figure out how to name a humanoid with these extensions.
     /// </summary>
-    public sealed class NamingSystem : EntitySystem
+    public sealed partial class NamingSystem : EntitySystem
     {
         private static readonly ProtoId<SpeciesPrototype> FallbackSpecies = "Human";
 
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly RomanNamingSystem _romanNamingSystem = default!; // EE Plasmeme Change
+        [Dependency] private IRobustRandom _random = default!;
+        [Dependency] private IPrototypeManager _prototypeManager = default!;
+        [Dependency] private RomanNamingSystem _romanNamingSystem = default!; // EE Plasmeme Change
 
         public string GetName(string species, Gender? gender = null)
         {

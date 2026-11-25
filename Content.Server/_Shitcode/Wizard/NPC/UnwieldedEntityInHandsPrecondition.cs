@@ -14,7 +14,7 @@ namespace Content.Server._Goobstation.Wizard.NPC;
 
 public sealed partial class UnwieldedEntityInHandsPrecondition : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private IEntityManager _entManager = default!;
 
     [DataField]
     public bool Invert;

@@ -10,12 +10,12 @@ using Robust.Shared.Network;
 
 namespace Content.Shared._Shitcode.Heretic.Systems;
 
-public sealed class CosmosComboSystem : EntitySystem
+public sealed partial class CosmosComboSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private INetManager _net = default!;
 
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {

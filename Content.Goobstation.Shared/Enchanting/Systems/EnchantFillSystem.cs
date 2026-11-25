@@ -10,9 +10,9 @@ namespace Content.Goobstation.Shared.Enchanting.Systems;
 /// <summary>
 /// Adds enchants on mapinit for <see cref="EnchantFillComponent"/>.
 /// </summary>
-public sealed class EnchantFillSystem : EntitySystem
+public sealed partial class EnchantFillSystem : EntitySystem
 {
-    [Dependency] private readonly EnchantingSystem _enchanting = default!;
+    [Dependency] private EnchantingSystem _enchanting = default!;
 
     public override void Initialize()
     {

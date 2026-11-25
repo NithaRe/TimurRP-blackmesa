@@ -38,13 +38,13 @@ using YamlDotNet.RepresentationModel;
 namespace Content.Client._BlackM.Rules;
 
 /// <summary>Owns an isolated, paused client copy of the entrance and two presentation-only actors.</summary>
-public sealed class RulesArrivalScene : Control
+public sealed partial class RulesArrivalScene : Control
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IComponentFactory _components = default!;
-    [Dependency] private readonly IClientPreferencesManager _preferences = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private IEntityManager _entities = default!;
+    [Dependency] private IComponentFactory _components = default!;
+    [Dependency] private IClientPreferencesManager _preferences = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
     private readonly ScalingViewport _viewport;
     private MainViewport? _screenPreview;
     private readonly Robust.Shared.Graphics.Eye _eye = new() { DrawFov = false, DrawLight = true, Zoom = new Vector2(1.0f) };

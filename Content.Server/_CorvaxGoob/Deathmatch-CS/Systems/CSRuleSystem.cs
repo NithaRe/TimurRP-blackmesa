@@ -17,12 +17,12 @@ using System.Linq;
 
 namespace Content.Server._CorvaxGoob.Deathmatch_CS.Systems;
 
-public sealed class CSRuleSystem : GameRuleSystem<CSRuleComponent>
+public sealed partial class CSRuleSystem : GameRuleSystem<CSRuleComponent>
 {
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly IGameMapManager _gameMapManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
+    [Dependency] private MapSystem _map = default!;
+    [Dependency] private IGameMapManager _gameMapManager = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private MobStateSystem _mobStateSystem = default!;
 
     private List<Session> _sessions = new();
     public List<Session> Sessions => _sessions;

@@ -23,8 +23,8 @@ namespace Content.Server._Shitmed.Antags.Abductor;
 
 public sealed partial class AbductorSystem : SharedAbductorSystem
 {
-    [Dependency] private readonly NumberObjectiveSystem _number = default!;
-    [Dependency] private readonly SharedItemSwitchSystem _itemSwitch = default!;
+    [Dependency] private NumberObjectiveSystem _number = default!;
+    [Dependency] private SharedItemSwitchSystem _itemSwitch = default!;
     public void InitializeConsole()
     {
         SubscribeLocalEvent<AbductorConsoleComponent, BeforeActivatableUIOpenEvent>(OnBeforeActivatableUIOpen);

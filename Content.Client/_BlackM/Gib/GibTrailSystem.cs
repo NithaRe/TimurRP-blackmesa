@@ -4,10 +4,10 @@ using Robust.Shared.Physics.Components;
 
 namespace Content.Client._BlackM.Gib;
 
-public sealed class GibTrailSystem : EntitySystem
+public sealed partial class GibTrailSystem : EntitySystem
 {
-    [Dependency] private readonly GibBurstSystem _burst = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency] private GibBurstSystem _burst = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
 
     private const float Spacing = 0.28f;
 

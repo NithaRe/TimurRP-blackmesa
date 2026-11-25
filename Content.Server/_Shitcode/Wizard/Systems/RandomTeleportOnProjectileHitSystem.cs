@@ -13,10 +13,10 @@ using Content.Shared.Whitelist;
 
 namespace Content.Server._Goobstation.Wizard.Systems;
 
-public sealed class RandomTeleportOnProjectileHitSystem : EntitySystem
+public sealed partial class RandomTeleportOnProjectileHitSystem : EntitySystem
 {
-    [Dependency] private readonly SharedRandomTeleportSystem _teleport = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private SharedRandomTeleportSystem _teleport = default!;
+    [Dependency] private EntityWhitelistSystem _whitelist = default!;
 
     public override void Initialize()
     {

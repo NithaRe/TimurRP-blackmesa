@@ -15,10 +15,10 @@ namespace Content.Client._EstacaoPirata.Cards.Card;
 /// <summary>
 /// This handles...
 /// </summary>
-public sealed class CardSystem : EntitySystem
+public sealed partial class CardSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _spriteSystem = default!;
-    [Dependency] private readonly CardSpriteSystem _cardSpriteSystem = default!;
+    [Dependency] private SpriteSystem _spriteSystem = default!;
+    [Dependency] private CardSpriteSystem _cardSpriteSystem = default!;
     /// <inheritdoc/>
     public override void Initialize()
     {

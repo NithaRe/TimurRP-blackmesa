@@ -10,7 +10,7 @@ namespace Content.Client._BlackM.Options;
 [GenerateTypedNameReferences]
 public sealed partial class BlackMTab : Control
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     public BlackMTab()
     {

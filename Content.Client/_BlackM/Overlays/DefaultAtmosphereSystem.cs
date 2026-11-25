@@ -9,10 +9,10 @@ namespace Content.Client._BlackM.Overlays;
 /// <summary>
 /// global shader
 /// </summary>
-public sealed class DefaultAtmosphereSystem : EntitySystem
+public sealed partial class DefaultAtmosphereSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlay = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private IOverlayManager _overlay = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     private DefaultOverlay? _overlayInstance;
 

@@ -17,10 +17,10 @@ using Robust.Shared.Player;
 
 namespace Content.Server._Goobstation.Wizard.Systems;
 
-public sealed class WizardJauntSystem : EntitySystem
+public sealed partial class WizardJauntSystem : EntitySystem
 {
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
+    [Dependency] private TransformSystem _transform = default!;
+    [Dependency] private AudioSystem _audio = default!;
 
     public override void Initialize()
     {

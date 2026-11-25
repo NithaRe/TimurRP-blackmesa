@@ -5,9 +5,9 @@ using Robust.Shared.Random;
 
 namespace Content.Goobstation.Server.Mimery;
 
-public sealed class EntityEffectOnProjectileHitSystem : EntitySystem
+public sealed partial class EntityEffectOnProjectileHitSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     public override void Initialize()
     {

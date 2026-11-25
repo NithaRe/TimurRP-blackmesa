@@ -26,9 +26,9 @@ namespace Content.Client._Shitcode.Wizard.MagicMirror;
 [GenerateTypedNameReferences]
 public sealed partial class WizardMirrorWindow : DefaultWindow
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly MarkingManager _markingManager = default!;
+    [Dependency] private IEntityManager _entManager = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private MarkingManager _markingManager = default!;
     private readonly LobbyUIController _controller;
 
     public HashSet<ProtoId<SpeciesPrototype>>? AllowedSpecies;

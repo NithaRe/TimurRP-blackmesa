@@ -10,15 +10,15 @@ using Robust.Shared.Containers;
 
 namespace Content.Server._CorvaxGoob.MedipenRefiller;
 
-public sealed class MedipenRefillerSystem : EntitySystem
+public sealed partial class MedipenRefillerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly EntityManager _entityManage = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private ItemSlotsSystem _itemSlots = default!;
+    [Dependency] private UserInterfaceSystem _userInterface = default!;
+    [Dependency] private MetaDataSystem _meta = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private AppearanceSystem _appearance = default!;
+    [Dependency] private EntityManager _entityManage = default!;
 
     public const string InputSlotName = "beakerSlot";
     public const string MedipenSlotName = "medipenSlot";

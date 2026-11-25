@@ -19,20 +19,20 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Access;
 
-public sealed class BadgePrinterSystem : EntitySystem
+public sealed partial class BadgePrinterSystem : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly AccessCardHolderSystem _accessCardHolder = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly PassportSystem _passport = default!;
+    [Dependency] private ItemSlotsSystem _itemSlots = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private UserInterfaceSystem _ui = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private AccessReaderSystem _accessReader = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private AccessCardHolderSystem _accessCardHolder = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private PassportSystem _passport = default!;
 
     public override void Initialize()
     {

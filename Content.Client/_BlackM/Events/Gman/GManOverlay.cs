@@ -5,9 +5,9 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Events.Gman;
 
-public sealed class GManOverlay : Overlay
+public sealed partial class GManOverlay : Overlay
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowEntities;
 

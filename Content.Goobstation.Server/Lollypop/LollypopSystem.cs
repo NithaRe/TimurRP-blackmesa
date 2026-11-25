@@ -15,17 +15,17 @@ using Robust.Shared.Timing;
 
 namespace Content.Goobstation.Server.Lollypop;
 
-public sealed class LollypopSystem : EntitySystem
+public sealed partial class LollypopSystem : EntitySystem
 {
 
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IngestionSystem _ingestion = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly StomachSystem _stomach = default!;
-    [Dependency] private readonly ReactiveSystem _reaction = default!;
-    [Dependency] private readonly BodySystem _body = default!;
-    [Dependency] private readonly FlavorProfileSystem _flavorProfile = default!;
-    [Dependency] private readonly IGameTiming _time = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private IngestionSystem _ingestion = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private StomachSystem _stomach = default!;
+    [Dependency] private ReactiveSystem _reaction = default!;
+    [Dependency] private BodySystem _body = default!;
+    [Dependency] private FlavorProfileSystem _flavorProfile = default!;
+    [Dependency] private IGameTiming _time = default!;
 
     public override void Initialize()
     {

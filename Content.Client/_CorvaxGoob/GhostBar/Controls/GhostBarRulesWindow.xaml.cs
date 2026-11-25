@@ -11,7 +11,7 @@ namespace Content.Client._CorvaxGoob.GhostBar.Controls
     [GenerateTypedNameReferences]
     public sealed partial class GhostBarRulesWindow : DefaultWindow
     {
-        [Dependency] private readonly IConfigurationManager _cfg = IoCManager.Resolve<IConfigurationManager>();
+        [Dependency] private IConfigurationManager _cfg = IoCManager.Resolve<IConfigurationManager>();
         private float _timer;
 
         public event Action? SpawnButtonPressed;

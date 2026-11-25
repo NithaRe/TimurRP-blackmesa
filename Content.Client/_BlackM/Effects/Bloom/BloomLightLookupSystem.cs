@@ -7,9 +7,9 @@ using Robust.Shared.Physics;
 
 namespace Content.Client._BlackM.Effects.Bloom;
 
-public sealed class BloomLightLookupSystem : ComponentTreeSystem<BloomLightLookupComponent, BloomLightMarkerComponent>
+public sealed partial class BloomLightLookupSystem : ComponentTreeSystem<BloomLightLookupComponent, BloomLightMarkerComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     protected override bool DoFrameUpdate => true;
     protected override bool DoTickUpdate => false;

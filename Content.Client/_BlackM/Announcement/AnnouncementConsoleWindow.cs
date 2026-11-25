@@ -10,9 +10,9 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.Announcement;
 
-public sealed class AnnouncementConsoleWindow : DefaultWindow
+public sealed partial class AnnouncementConsoleWindow : DefaultWindow
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public event Action<string, string>? OnSendPressed;
 

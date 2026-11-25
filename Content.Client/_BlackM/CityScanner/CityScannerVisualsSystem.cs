@@ -5,10 +5,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.CityScanner;
 
-public sealed class CityScannerVisualsSystem : EntitySystem
+public sealed partial class CityScannerVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     private const float Height = 0.12f;
     private const float Amplitude = 0.05f;

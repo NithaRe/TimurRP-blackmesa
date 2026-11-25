@@ -140,23 +140,23 @@ namespace Content.Server.GameTicking.Rules;
 
 // goobstation - heavily edited.
 // do not touch unless you want to shoot yourself in the leg
-public sealed class TraitorRuleSystem : GameRuleSystem<TraitorRuleComponent>
+public sealed partial class TraitorRuleSystem : GameRuleSystem<TraitorRuleComponent>
 {
     private static readonly Color TraitorCodewordColor = Color.FromHex("#cc3b3b");
 
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly SharedJobSystem _jobs = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedRoleCodewordSystem _roleCodewordSystem = default!;
-    [Dependency] private readonly SharedRoleSystem _roleSystem = default!;
-    [Dependency] private readonly UplinkSystem _uplink = default!;
-    [Dependency] private readonly CodewordSystem _codewordSystem = default!;
-    [Dependency] private readonly PopupSystem _popup = default!; // goob edit
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // goob edit
-    [Dependency] private readonly GoobCommonUplinkSystem _goobUplink = default!;
+    [Dependency] private AntagSelectionSystem _antag = default!;
+    [Dependency] private SharedJobSystem _jobs = default!;
+    [Dependency] private MindSystem _mindSystem = default!;
+    [Dependency] private NpcFactionSystem _npcFaction = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedRoleCodewordSystem _roleCodewordSystem = default!;
+    [Dependency] private SharedRoleSystem _roleSystem = default!;
+    [Dependency] private UplinkSystem _uplink = default!;
+    [Dependency] private CodewordSystem _codewordSystem = default!;
+    [Dependency] private PopupSystem _popup = default!; // goob edit
+    [Dependency] private IConfigurationManager _cfg = default!; // goob edit
+    [Dependency] private GoobCommonUplinkSystem _goobUplink = default!;
 
     public override void Initialize()
     {

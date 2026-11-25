@@ -5,10 +5,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Gib;
 
-public sealed class GibFadeSystem : EntitySystem
+public sealed partial class GibFadeSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     public override void FrameUpdate(float frameTime)
     {

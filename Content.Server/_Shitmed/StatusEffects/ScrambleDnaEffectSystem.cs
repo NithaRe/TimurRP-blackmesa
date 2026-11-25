@@ -21,14 +21,14 @@ using Content.Shared.Forensics.Components;
 
 namespace Content.Server._Shitmed.StatusEffects;
 
-public sealed class ScrambleDnaEffectSystem : EntitySystem
+public sealed partial class ScrambleDnaEffectSystem : EntitySystem
 {
 
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
-    [Dependency] private readonly ForensicsSystem _forensicsSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IdentitySystem _identity = default!;
+    [Dependency] private HumanoidAppearanceSystem _humanoidAppearance = default!;
+    [Dependency] private ForensicsSystem _forensicsSystem = default!;
+    [Dependency] private MetaDataSystem _metaData = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IdentitySystem _identity = default!;
     public override void Initialize()
     {
         SubscribeLocalEvent<ScrambleDnaEffectComponent, ComponentInit>(OnInit);

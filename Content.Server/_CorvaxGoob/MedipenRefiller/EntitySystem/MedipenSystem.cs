@@ -7,11 +7,11 @@ using Content.Shared.Chemistry.EntitySystems.Hypospray;
 
 namespace Content.Server._CorvaxGoob.MedipenRefiller;
 
-public sealed class MedipenSystem : EntitySystem
+public sealed partial class MedipenSystem : EntitySystem
 {
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private TagSystem _tag = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
 
     private static readonly ProtoId<TagPrototype> TrashTag = "Trash";
     public override void Initialize()

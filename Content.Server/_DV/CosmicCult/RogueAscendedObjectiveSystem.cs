@@ -4,9 +4,9 @@ using Content.Shared.Objectives.Components;
 
 namespace Content.Server._DV.CosmicCult;
 
-public sealed class RogueAscendedObjectiveSystem : EntitySystem
+public sealed partial class RogueAscendedObjectiveSystem : EntitySystem
 {
-    [Dependency] private readonly NumberObjectiveSystem _number = default!;
+    [Dependency] private NumberObjectiveSystem _number = default!;
 
     public override void Initialize() =>
         SubscribeLocalEvent<RogueInfectionConditionComponent, ObjectiveGetProgressEvent>(OnGetInfectionProgress);

@@ -33,8 +33,8 @@ namespace Content.Server.GameTicking.Rules;
 
 public abstract partial class GameRuleSystem<T> where T: IComponent
 {
-    [Dependency] private readonly StationSystem _station = default!; // Goobstation
-    [Dependency] private readonly TurfSystem _turf = default!; // Goobstation
+    [Dependency] private StationSystem _station = default!; // Goobstation
+    [Dependency] private TurfSystem _turf = default!; // Goobstation
 
     protected EntityQueryEnumerator<ActiveGameRuleComponent, T, GameRuleComponent> QueryActiveRules()
     {

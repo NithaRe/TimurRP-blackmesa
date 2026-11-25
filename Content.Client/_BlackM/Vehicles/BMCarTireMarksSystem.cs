@@ -8,11 +8,11 @@ using Robust.Shared.Timing;
 namespace Content.Client._BlackM.Vehicles;
 
 // Client-only skid marks, nothing is networked.
-public sealed class BMCarTireMarksSystem : EntitySystem
+public sealed partial class BMCarTireMarksSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
 
     private const string MarkPrototype = "BMCarTireMark";
     private const float SampleTime = 0.05f;

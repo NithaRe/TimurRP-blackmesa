@@ -8,10 +8,10 @@ using System.Linq;
 namespace Content.Server._CorvaxGoob.Animation;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class PlayAnimationCommand : IConsoleCommand
+public sealed partial class PlayAnimationCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IEntityManager _entityManager = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
 
     public string Command => "playanimation";
 

@@ -47,13 +47,13 @@ namespace Content.Server.Traitor.Uplink;
 
 // goobstation - heavily edited. fuck newstore
 // do not touch unless you want to shoot yourself in the leg
-public sealed class UplinkSystem : EntitySystem
+public sealed partial class UplinkSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly SharedSubdermalImplantSystem _subdermalImplant = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly GoobCommonUplinkSystem _goobUplink = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private StoreSystem _store = default!;
+    [Dependency] private SharedSubdermalImplantSystem _subdermalImplant = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private GoobCommonUplinkSystem _goobUplink = default!;
 
     public static readonly ProtoId<CurrencyPrototype> TelecrystalCurrencyPrototype = "Telecrystal";
     private static readonly EntProtoId FallbackUplinkImplant = "UplinkImplant";

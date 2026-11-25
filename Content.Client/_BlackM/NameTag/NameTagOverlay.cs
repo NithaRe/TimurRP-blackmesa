@@ -8,12 +8,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.NameTag;
 
-public sealed class NameTagOverlay : Overlay
+public sealed partial class NameTagOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IResourceCache _cache = default!;
+    [Dependency] private IUserInterfaceManager _ui = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private readonly SharedTransformSystem _transform;
     private readonly Font _font;

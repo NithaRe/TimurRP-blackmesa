@@ -4,9 +4,9 @@ using Robust.Client.Graphics;
 
 namespace Content.Client._BlackM.ChatImage;
 
-public sealed class ChatImageSystem : EntitySystem
+public sealed partial class ChatImageSystem : EntitySystem
 {
-    [Dependency] private readonly IClyde _clyde = default!;
+    [Dependency] private IClyde _clyde = default!;
 
     private const int MaxFrames = 64; // защита на стороне клиента
 

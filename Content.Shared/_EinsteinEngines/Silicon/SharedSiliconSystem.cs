@@ -14,10 +14,10 @@ using Content.Goobstation.Common.Mind;
 namespace Content.Shared._EinsteinEngines.Silicon.Systems;
 
 
-public sealed class SharedSiliconChargeSystem : EntitySystem
+public sealed partial class SharedSiliconChargeSystem : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
+    [Dependency] private AlertsSystem _alertsSystem = default!;
+    [Dependency] private ItemSlotsSystem _itemSlots = default!;
 
     public override void Initialize()
     {

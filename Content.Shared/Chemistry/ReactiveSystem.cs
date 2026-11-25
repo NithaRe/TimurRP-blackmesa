@@ -49,12 +49,12 @@ using System.Linq;
 namespace Content.Shared.Chemistry;
 
 [UsedImplicitly]
-public sealed class ReactiveSystem : EntitySystem
+public sealed partial class ReactiveSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedEntityEffectSystem _effects = default!; // goob edit
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IRobustRandom _robustRandom = default!;
+    [Dependency] private ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private SharedEntityEffectSystem _effects = default!; // goob edit
 
     public void DoEntityReaction(EntityUid uid, Solution solution, ReactionMethod method)
     {

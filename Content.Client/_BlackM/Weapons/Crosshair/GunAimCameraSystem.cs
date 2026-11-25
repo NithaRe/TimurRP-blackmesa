@@ -20,14 +20,14 @@ public sealed partial class GunAimCameraComponent : Component
     public Vector2 Offset;
 }
 
-public sealed class GunAimCameraSystem : EntitySystem
+public sealed partial class GunAimCameraSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly IInputManager _input = default!;
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
-    [Dependency] private readonly GunCrosshairSystem _crosshair = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IEyeManager _eye = default!;
+    [Dependency] private IInputManager _input = default!;
+    [Dependency] private IUserInterfaceManager _ui = default!;
+    [Dependency] private GunCrosshairSystem _crosshair = default!;
 
     private const float MaxDistance = 4f;
     private const float Deadzone = 0.1f;

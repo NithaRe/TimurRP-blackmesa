@@ -100,17 +100,17 @@ using Content.Shared.Interaction.Components; // Goobstation - anythingburgers
 
 namespace Content.Shared.Nutrition.EntitySystems;
 
-public sealed class FoodSequenceSystem : SharedFoodSequenceSystem
+public sealed partial class FoodSequenceSystem : SharedFoodSequenceSystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!; // Goobstation - anythingburgers
+    [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private MetaDataSystem _metaData = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private TagSystem _tag = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedItemSystem _item = default!; // Goobstation - anythingburgers
     public override void Initialize()
     {
         base.Initialize();

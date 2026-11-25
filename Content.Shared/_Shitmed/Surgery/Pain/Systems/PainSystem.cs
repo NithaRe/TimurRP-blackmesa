@@ -33,24 +33,24 @@ namespace Content.Shared._Shitmed.Medical.Surgery.Pain.Systems;
 
 public sealed partial class PainSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedBodySystem _body = default!;
+    [Dependency] private INetManager _net = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedBodySystem _body = default!;
 
-    [Dependency] private readonly SharedAudioSystem _IHaveNoMouthAndIMustScream = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedJitteringSystem _jitter = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
+    [Dependency] private SharedAudioSystem _IHaveNoMouthAndIMustScream = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedJitteringSystem _jitter = default!;
+    [Dependency] private SharedStunSystem _stun = default!;
 
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
 
-    [Dependency] private readonly StandingStateSystem _standing = default!;
+    [Dependency] private StandingStateSystem _standing = default!;
 
-    [Dependency] private readonly WoundSystem _wound = default!;
-    [Dependency] private readonly ConsciousnessSystem _consciousness = default!;
-    [Dependency] private readonly TraumaSystem _trauma = default!;
+    [Dependency] private WoundSystem _wound = default!;
+    [Dependency] private ConsciousnessSystem _consciousness = default!;
+    [Dependency] private TraumaSystem _trauma = default!;
 
     private bool _screamsEnabled = false;
     private float _screamChance = 0.20f;

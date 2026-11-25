@@ -16,15 +16,15 @@ using static Robust.Client.Animations.AnimationTrackProperty;
 
 namespace Content.Client._BlackM.ItemMotion;
 
-public sealed class ItemMotionSystem : EntitySystem
+public sealed partial class ItemMotionSystem : EntitySystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _anim = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly WalkBobSystem _walkBob = default!;
+    [Dependency] private AnimationPlayerSystem _anim = default!;
+    [Dependency] private IEyeManager _eye = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private WalkBobSystem _walkBob = default!;
 
     private const string PlaceKey = "blackm-item-place";
     private const string LandKey = "blackm-item-land";

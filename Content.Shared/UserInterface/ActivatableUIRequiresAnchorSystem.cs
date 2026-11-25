@@ -10,9 +10,9 @@ namespace Content.Shared.UserInterface;
 /// <summary>
 /// <see cref="ActivatableUIRequiresAnchorComponent"/>
 /// </summary>
-public sealed class ActivatableUIRequiresAnchorSystem : EntitySystem
+public sealed partial class ActivatableUIRequiresAnchorSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {

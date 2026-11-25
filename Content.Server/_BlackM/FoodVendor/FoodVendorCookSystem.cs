@@ -15,15 +15,15 @@ namespace Content.Server._BlackM.FoodVendor;
 /// <summary>
 /// Periodically looks for a living, connected cook and locks or unlocks food vendors.
 /// </summary>
-public sealed class FoodVendorCookSystem : EntitySystem
+public sealed partial class FoodVendorCookSystem : EntitySystem
 {
     private static readonly TimeSpan CheckInterval = TimeSpan.FromSeconds(2);
 
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedJobSystem _jobs = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedJobSystem _jobs = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedPowerReceiverSystem _power = default!;
 
     private readonly HashSet<string> _jobsPresent = new();
     private readonly HashSet<string> _positionsPresent = new();

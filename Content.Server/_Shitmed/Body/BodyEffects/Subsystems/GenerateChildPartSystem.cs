@@ -18,10 +18,10 @@ using System.Numerics;
 
 namespace Content.Server._Shitmed.BodyEffects.Subsystems;
 
-public sealed class GenerateChildPartSystem : EntitySystem
+public sealed partial class GenerateChildPartSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private SharedBodySystem _bodySystem = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
     public override void Initialize()
     {
         base.Initialize();

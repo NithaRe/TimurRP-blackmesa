@@ -25,7 +25,7 @@ namespace Content.Shared.Fluids;
 
 public abstract partial class SharedPuddleSystem
 {
-    [Dependency] protected readonly OpenableSystem Openable = default!;
+    [Dependency] protected OpenableSystem Openable = default!;
 
     protected virtual void InitializeSpillable()
     {

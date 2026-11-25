@@ -20,10 +20,10 @@ namespace Content.Client._EinsteinEngines.Flight;
 /// <summary>
 /// Handles offsetting an entity while flying
 /// </summary>
-public sealed class FlyingVisualizerSystem : EntitySystem
+public sealed partial class FlyingVisualizerSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly SpriteSystem _spriteSystem = default!;
+    [Dependency] private IPrototypeManager _protoMan = default!;
+    [Dependency] private SpriteSystem _spriteSystem = default!;
     public override void Initialize()
     {
         base.Initialize();

@@ -27,23 +27,23 @@ using Robust.Shared.Player;
 
 namespace Content.Server._BlackM.Vortigaunt;
 
-public sealed class VortigauntSystem : EntitySystem
+public sealed partial class VortigauntSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly DamageableSystem _damage = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _colorFlash = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly NpcFactionSystem _faction = default!;
+    [Dependency] private SharedActionsSystem _actions = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private DamageableSystem _damage = default!;
+    [Dependency] private SharedStunSystem _stun = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private DoAfterSystem _doAfter = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedColorFlashEffectSystem _colorFlash = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private ActionBlockerSystem _blocker = default!;
+    [Dependency] private BloodstreamSystem _bloodstream = default!;
+    [Dependency] private NpcFactionSystem _faction = default!;
 
     private static readonly SoundSpecifier LightningSound =
         new SoundPathSpecifier("/Audio/_BlackM/vortigaunt/lightning.ogg");

@@ -16,10 +16,10 @@ using Content.Shared.Weapons.Melee.Events;
 
 namespace Content.Server._EinsteinEngines.TelescopicBaton;
 
-public sealed class KnockdownOnHitSystem : EntitySystem
+public sealed partial class KnockdownOnHitSystem : EntitySystem
 {
-    [Dependency] private readonly StunSystem _stun = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!; // Goobstation
+    [Dependency] private StunSystem _stun = default!;
+    [Dependency] private MobStateSystem _mobState = default!; // Goobstation
 
     public override void Initialize()
     {

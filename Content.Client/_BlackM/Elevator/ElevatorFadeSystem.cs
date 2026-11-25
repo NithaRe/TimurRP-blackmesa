@@ -5,9 +5,9 @@ using Robust.Shared.IoC;
 
 namespace Content.Client._BlackM.Elevator;
 
-public sealed class ElevatorFadeSystem : EntitySystem
+public sealed partial class ElevatorFadeSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlays = default!;
+    [Dependency] private IOverlayManager _overlays = default!;
 
     private ElevatorFadeOverlay? _overlay;
 

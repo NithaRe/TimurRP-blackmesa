@@ -15,9 +15,9 @@ using Robust.Shared.Random;
 
 namespace Content.Server._White.StoreDiscount;
 
-public sealed class StoreDiscountSystem : EntitySystem
+public sealed partial class StoreDiscountSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     public void ApplyDiscounts(IEnumerable<ListingData> listings, StoreComponent store)
     {

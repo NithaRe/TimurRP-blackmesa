@@ -4,9 +4,9 @@ using Content.Shared.Station.Components;
 
 namespace Content.Server._BlackM.Events.Fog;
 
-public sealed class ComplexFogRule : StationEventSystem<ComplexFogRuleComponent>
+public sealed partial class ComplexFogRule : StationEventSystem<ComplexFogRuleComponent>
 {
-    [Dependency] private readonly ComplexFogSystem _fog = default!;
+    [Dependency] private ComplexFogSystem _fog = default!;
 
     protected override void Started(EntityUid uid, ComplexFogRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {

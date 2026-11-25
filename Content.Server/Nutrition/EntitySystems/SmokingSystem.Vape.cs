@@ -22,7 +22,6 @@ using Content.Server.Nutrition.Components;
 using Content.Server.Popups;
 using Content.Shared.Atmos;
 using Content.Shared.Body.Components;
-using Content.Shared.Atmos;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
 using Content.Shared.Emag.Systems;
@@ -30,7 +29,6 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Nutrition;
 using Content.Shared.Nutrition.EntitySystems;
-using Content.Shared.Atmos;
 
 /// <summary>
 /// System for vapes
@@ -39,12 +37,12 @@ namespace Content.Server.Nutrition.EntitySystems
 {
     public sealed partial class SmokingSystem
     {
-        [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-        [Dependency] private readonly EmagSystem _emag = default!;
-        [Dependency] private readonly IngestionSystem _ingestion = default!;
-        [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
+        [Dependency] private DoAfterSystem _doAfterSystem = default!;
+        [Dependency] private DamageableSystem _damageableSystem = default!;
+        [Dependency] private EmagSystem _emag = default!;
+        [Dependency] private IngestionSystem _ingestion = default!;
+        [Dependency] private ExplosionSystem _explosionSystem = default!;
+        [Dependency] private PopupSystem _popupSystem = default!;
 
         private void InitializeVapes()
         {

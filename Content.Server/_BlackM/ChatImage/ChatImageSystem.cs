@@ -16,12 +16,12 @@ using Robust.Shared.Utility;
 
 namespace Content.Server._BlackM.ChatImage;
 
-public sealed class ChatImageSystem : EntitySystem
+public sealed partial class ChatImageSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly ITaskManager _task = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IChatManager _chat = default!;
+    [Dependency] private ITaskManager _task = default!;
+    [Dependency] private IAdminLogManager _adminLog = default!;
 
     private int _nextId = 1;
 

@@ -13,13 +13,13 @@ using Robust.Shared.Player;
 
 namespace Content.Server._BlackM.Passport;
 
-public sealed class PassportShowSystem : EntitySystem
+public sealed partial class PassportShowSystem : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands     = default!;
-    [Dependency] private readonly InventorySystem   _inventory = default!;
-    [Dependency] private readonly PopupSystem       _popup     = default!;
-    [Dependency] private readonly PassportSystem    _passport  = default!;
-    [Dependency] private readonly IAdminManager     _admin     = default!;
+    [Dependency] private SharedHandsSystem _hands     = default!;
+    [Dependency] private InventorySystem   _inventory = default!;
+    [Dependency] private PopupSystem       _popup     = default!;
+    [Dependency] private PassportSystem    _passport  = default!;
+    [Dependency] private IAdminManager     _admin     = default!;
 
     private const string PassportSlot = "passport";
 

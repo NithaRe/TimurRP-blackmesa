@@ -27,7 +27,7 @@ namespace Content.Shared._Shitmed.Medical.Surgery.Wounds.Systems;
 /// </summary>
 public partial class WoundSystem
 {
-    [Dependency] private readonly PainSystem _pain = default!;
+    [Dependency] private PainSystem _pain = default!;
 
     // Updates pain state after wounds are healed and starts pain decay
     /// <param name="woundable">The entity on which to update the pain state</param>

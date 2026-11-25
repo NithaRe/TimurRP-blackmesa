@@ -6,11 +6,11 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Player;
 
 namespace Content.Client._CorvaxGoob.Chat;
-public sealed class ChatSystem : EntitySystem
+public sealed partial class ChatSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     private float _announcementsVolume = 0.0f;
 

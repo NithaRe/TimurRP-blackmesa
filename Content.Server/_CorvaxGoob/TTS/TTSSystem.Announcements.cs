@@ -11,8 +11,8 @@ using Robust.Shared.Player;
 namespace Content.Server._CorvaxGoob.TTS;
 public sealed partial class TTSSystem
 {
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private StationSystem _stationSystem = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     private static bool _isPlaying;
     private static TimeSpan _sendTTSAt;

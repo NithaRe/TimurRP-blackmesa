@@ -11,13 +11,13 @@ using Robust.Shared.Network;
 
 namespace Content.Shared._BlackM.FoodVendor;
 
-public sealed class FoodVendorSystem : EntitySystem
+public sealed partial class FoodVendorSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedVendingMachineSystem _vending = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
-    [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private INetManager _net = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedVendingMachineSystem _vending = default!;
+    [Dependency] private SharedPowerReceiverSystem _power = default!;
+    [Dependency] private AccessReaderSystem _access = default!;
 
     public override void Initialize()
     {

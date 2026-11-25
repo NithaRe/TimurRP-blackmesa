@@ -11,10 +11,10 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.HireTerminal.UI;
 
-public sealed class HireTerminalWindow : DefaultWindow
+public sealed partial class HireTerminalWindow : DefaultWindow
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IEntityManager _entMan = default!;
 
     private static readonly Color BgDark     = Color.FromHex("#1B1B1E");
     private static readonly Color BgPanel    = Color.FromHex("#242427");

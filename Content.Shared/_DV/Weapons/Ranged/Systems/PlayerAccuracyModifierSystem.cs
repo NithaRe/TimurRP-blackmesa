@@ -9,9 +9,9 @@ using Content.Shared.Whitelist;
 
 namespace Content.Shared._DV.Weapons.Ranged.Systems;
 
-public sealed class GunAccuracyModifierSystem : EntitySystem
+public sealed partial class GunAccuracyModifierSystem : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private EntityWhitelistSystem _whitelist = default!;
 
     public override void Initialize()
     {

@@ -6,9 +6,9 @@ using Robust.Shared.Audio;
 
 namespace Content.Client._BlackM.Audio;
 
-public sealed class BlackMAudioEffectStateSystem : EntitySystem
+public sealed partial class BlackMAudioEffectStateSystem : EntitySystem
 {
-    [Dependency] private readonly BlackMAudioEffectsManagerSystem _effectsManager = default!;
+    [Dependency] private BlackMAudioEffectsManagerSystem _effectsManager = default!;
 
     private EntityQuery<BlackMAudioEffectStateComponent> _stateQuery;
 

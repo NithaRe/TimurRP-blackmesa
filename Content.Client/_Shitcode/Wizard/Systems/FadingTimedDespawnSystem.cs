@@ -11,10 +11,10 @@ using Robust.Client.GameObjects;
 
 namespace Content.Client._Shitcode.Wizard.Systems;
 
-public sealed class FadingTimedDespawnSystem : SharedFadingTimedDespawnSystem
+public sealed partial class FadingTimedDespawnSystem : SharedFadingTimedDespawnSystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _animationSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private AnimationPlayerSystem _animationSystem = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {

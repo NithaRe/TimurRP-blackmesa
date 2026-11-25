@@ -10,9 +10,9 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.Kovak;
 
-public sealed class KovakHelmetSystem : EntitySystem
+public sealed partial class KovakHelmetSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private TimeSpan _lastSent = TimeSpan.Zero;
     private static readonly TimeSpan SendCooldown = TimeSpan.FromSeconds(0.5);

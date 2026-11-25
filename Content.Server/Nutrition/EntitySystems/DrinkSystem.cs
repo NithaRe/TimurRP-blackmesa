@@ -79,7 +79,6 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
-using Content.Shared.EntityEffects.Effects;
 using Content.Goobstation.Maths.FixedPoint;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.IdentityManagement;
@@ -97,10 +96,10 @@ using Robust.Shared.Utility;
 
 namespace Content.Server.Nutrition.EntitySystems;
 
-public sealed class DrinkSystem : SharedDrinkSystem
+public sealed partial class DrinkSystem : SharedDrinkSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
 
     public override void Initialize()
     {

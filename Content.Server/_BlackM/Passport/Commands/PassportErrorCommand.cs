@@ -9,9 +9,9 @@ using Robust.Shared.IoC;
 namespace Content.Server._BlackM.Passport.Commands;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class PassportErrorCommand : IConsoleCommand
+public sealed partial class PassportErrorCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency] private IEntityManager _entMan = default!;
 
     public string Command     => "passport_error";
     public string Description => "passport-error-command-description";

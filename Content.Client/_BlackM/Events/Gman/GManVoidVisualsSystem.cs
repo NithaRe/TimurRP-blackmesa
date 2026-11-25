@@ -5,9 +5,9 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Events.Gman;
 
-public sealed class GManVoidVisualsSystem : EntitySystem
+public sealed partial class GManVoidVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private const float GrowTime = 0.6f;
 

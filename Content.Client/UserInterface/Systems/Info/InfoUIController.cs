@@ -32,15 +32,15 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client.UserInterface.Systems.Info;
 
-public sealed class InfoUIController : UIController, IOnStateExited<GameplayState>
+public sealed partial class InfoUIController : UIController, IOnStateExited<GameplayState>
 {
-    [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
-    [Dependency] private readonly IBaseClient _baseClient = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IAudioManager _audioManager = default!; // #BlackM
-    [Dependency] private readonly IResourceCache _resourceCache = default!; // #BlackM
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!; // #BlackM
+    [Dependency] private IClientConsoleHost _consoleHost = default!;
+    [Dependency] private IBaseClient _baseClient = default!;
+    [Dependency] private INetManager _netManager = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private IAudioManager _audioManager = default!; // #BlackM
+    [Dependency] private IResourceCache _resourceCache = default!; // #BlackM
+    [Dependency] private IEntitySystemManager _entitySystemManager = default!; // #BlackM
 
     private RulesArrivalPopup? _rulesPopup; // BlackM: arrival and paper folder.
     private RulesAndInfoWindow? _infoWindow;

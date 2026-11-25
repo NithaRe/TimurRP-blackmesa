@@ -8,9 +8,9 @@ namespace Content.Shared._CorvaxGoob.Photo;
 
 public abstract partial class SharedPhotoSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly SharedMaterialStorageSystem _material = default!;
+    [Dependency] private ActionBlockerSystem _actionBlockerSystem = default!;
+    [Dependency] private AlertsSystem _alerts = default!;
+    [Dependency] private SharedMaterialStorageSystem _material = default!;
 
     public override void Initialize()
     {

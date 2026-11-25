@@ -21,7 +21,7 @@ namespace Content.Goobstation.Server.Blob;
 
 public sealed partial class PickBlobPodZombifyTargetOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private IEntityManager _entManager = default!;
     private NpcFactionSystem _factions = default!;
     private MobStateSystem _mobSystem = default!;
 

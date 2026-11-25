@@ -77,7 +77,6 @@ using Content.Shared.Body.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Medical.Cryogenics;
 using Content.Shared.MedicalScanner;
-using Content.Shared.UserInterface;
 using Content.Shared.Verbs;
 using Content.Shared.Bed.Sleep; // Shitmed Change
 using Robust.Server.GameObjects;
@@ -87,13 +86,13 @@ namespace Content.Server.Medical;
 
 public sealed partial class CryoPodSystem : SharedCryoPodSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly GasCanisterSystem _gasCanisterSystem = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly SleepingSystem _sleepingSystem = default!; // Shitmed change
+    [Dependency] private AtmosphereSystem _atmosphereSystem = default!;
+    [Dependency] private SharedActionsSystem _actionsSystem = default!;
+    [Dependency] private GasCanisterSystem _gasCanisterSystem = default!;
+    [Dependency] private NodeContainerSystem _nodeContainer = default!;
+    [Dependency] private SharedUserInterfaceSystem _uiSystem = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency] private SleepingSystem _sleepingSystem = default!; // Shitmed change
 
     public override void Initialize()
     {

@@ -9,11 +9,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._BlackM.Access.Systems;
 
-public abstract class SharedAccessButtonSystem : EntitySystem
+public abstract partial class SharedAccessButtonSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] protected readonly SharedAccessCardHolderSystem CardHolder = default!;
-    [Dependency] protected readonly SharedContainerSystem Container = default!;
+    [Dependency] protected IGameTiming Timing = default!;
+    [Dependency] protected SharedAccessCardHolderSystem CardHolder = default!;
+    [Dependency] protected SharedContainerSystem Container = default!;
 
     public override void Initialize()
     {

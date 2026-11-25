@@ -6,11 +6,11 @@ using Robust.Shared.Audio.Systems;
 
 namespace Content.Server._BlackM.Access;
 
-public sealed class AccessButtonSystem : SharedAccessButtonSystem
+public sealed partial class AccessButtonSystem : SharedAccessButtonSystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private DeviceLinkSystem _deviceLink = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     protected override bool TryPress(EntityUid uid, EntityUid card, EntityUid user, AccessButtonComponent component)
     {

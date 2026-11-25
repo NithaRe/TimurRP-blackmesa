@@ -17,18 +17,18 @@ using Robust.Shared.Random;
 
 namespace Content.Shared._EinsteinEngines.Revolutionary;
 
-public sealed class RevolutionaryConverterSystem : EntitySystem
+public sealed partial class RevolutionaryConverterSystem : EntitySystem
 {
     private static readonly ProtoId<LocalizedDatasetPrototype> RevConvertSpeechProto = "RevolutionaryConverterSpeech";
 
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedChatSystem _chat = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedLanguageSystem _language = default!;
-    [Dependency] private readonly SharedChargesSystem _chargesSystem = default!;
-    [Dependency] private readonly SharedFlashSystem _flash = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private SharedChatSystem _chat = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private SharedLanguageSystem _language = default!;
+    [Dependency] private SharedChargesSystem _chargesSystem = default!;
+    [Dependency] private SharedFlashSystem _flash = default!;
 
     private LocalizedDatasetPrototype? _speechLocalization;
 

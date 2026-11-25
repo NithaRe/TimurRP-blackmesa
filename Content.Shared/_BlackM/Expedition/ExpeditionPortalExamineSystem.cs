@@ -3,9 +3,9 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._BlackM.Expedition;
 
-public sealed class ExpeditionPortalExamineSystem : EntitySystem
+public sealed partial class ExpeditionPortalExamineSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override void Initialize()
     {

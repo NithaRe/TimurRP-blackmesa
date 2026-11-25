@@ -3,10 +3,10 @@ using Content.Shared.Popups;
 
 namespace Content.Shared._BlackM.Monorail;
 
-public sealed class MonorailSeatSystem : EntitySystem
+public sealed partial class MonorailSeatSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
 
     public override void Initialize()
     {

@@ -20,9 +20,9 @@ namespace Content.Client._EinsteinEngines.Power.Systems;
 ///     and shouldn't have existed in the first place. Because of this, the logic has to be copied
 ///     and shoved into the client too!
 /// </remarks>
-public sealed class BatteryDrinkerSystem : SharedBatteryDrinkerSystem
+public sealed partial class BatteryDrinkerSystem : SharedBatteryDrinkerSystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private EntityWhitelistSystem _whitelist = default!;
 
     public override void Initialize()
     {

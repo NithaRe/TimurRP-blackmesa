@@ -3,11 +3,11 @@ using Robust.Client.Player;
 
 namespace Content.Client._CorvaxGoob.TintedWindow;
 
-public sealed class TintedWindowSystem : EntitySystem
+public sealed partial class TintedWindowSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly OccluderSystem _occluder = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
+    [Dependency] private OccluderSystem _occluder = default!;
 
     public override void FrameUpdate(float frameTime) // _BlackM: moved from Update, visuals once per frame
     {

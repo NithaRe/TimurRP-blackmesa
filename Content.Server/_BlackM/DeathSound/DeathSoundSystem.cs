@@ -4,10 +4,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.DeathSound;
 
-public sealed class DeathSoundSystem : EntitySystem
+public sealed partial class DeathSoundSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override void Initialize()
     {

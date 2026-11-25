@@ -4,9 +4,9 @@ using Robust.Shared.Audio.Components;
 
 namespace Content.Client._BlackM.Audio;
 
-public sealed class BlackMReverbEntryPointSystem : EntitySystem
+public sealed partial class BlackMReverbEntryPointSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private IPlayerManager _player = default!;
 
     public override void Initialize()
     {

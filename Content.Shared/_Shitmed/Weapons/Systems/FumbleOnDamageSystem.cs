@@ -9,10 +9,10 @@ using Content.Shared.Wieldable.Components;
 
 namespace Content.Shared._Shitmed.Weapons.Systems;
 
-public sealed class FumbleOnDamageSystem : EntitySystem
+public sealed partial class FumbleOnDamageSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
 
     public override void Initialize()
     {

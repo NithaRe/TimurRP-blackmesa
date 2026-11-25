@@ -13,10 +13,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._White.Animations;
 
-public sealed class FlipOnHitSystem : SharedFlipOnHitSystem
+public sealed partial class FlipOnHitSystem : SharedFlipOnHitSystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _animationSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private AnimationPlayerSystem _animationSystem = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override void Initialize()
     {

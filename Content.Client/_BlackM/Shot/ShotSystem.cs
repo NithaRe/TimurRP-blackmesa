@@ -19,18 +19,18 @@ using Robust.Shared.Random;
 
 namespace Content.Client._BlackM.Shot;
 
-public sealed class ShotSystem : EntitySystem, IShotWorld
+public sealed partial class ShotSystem : EntitySystem, IShotWorld
 {
-    [Dependency] private readonly IOverlayManager _overlays = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly IMapManager _mapMan = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private IOverlayManager _overlays = default!;
+    [Dependency] private IResourceCache _cache = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
+    [Dependency] private IEyeManager _eye = default!;
+    [Dependency] private IMapManager _mapMan = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     private const float TrailSpacing = 0.22f;
 

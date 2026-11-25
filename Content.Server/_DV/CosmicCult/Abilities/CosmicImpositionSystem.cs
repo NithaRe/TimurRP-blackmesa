@@ -13,11 +13,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._DV.CosmicCult.Abilities;
 
-public sealed class CosmicImpositionSystem : EntitySystem
+public sealed partial class CosmicImpositionSystem : EntitySystem
 {
-    [Dependency] private readonly CosmicCultSystem _cult = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private CosmicCultSystem _cult = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {

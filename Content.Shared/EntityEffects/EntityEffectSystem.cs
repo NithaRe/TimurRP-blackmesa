@@ -24,7 +24,7 @@ public sealed partial class SharedEntityEffectSystem : EntitySystem
         }
     }
 
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private List<EntityEffectQueueEntry> _queue = new();
 

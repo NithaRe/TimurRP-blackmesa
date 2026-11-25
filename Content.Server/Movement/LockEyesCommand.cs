@@ -12,9 +12,9 @@ using Robust.Shared.Console;
 namespace Content.Server.Movement;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class LockEyesCommand : LocalizedEntityCommands
+public sealed partial class LockEyesCommand : LocalizedEntityCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // BlackM
+    [Dependency] private IConfigurationManager _cfg = default!; // BlackM
 
     public override string Command => $"lockeyes";
 

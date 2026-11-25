@@ -6,9 +6,9 @@ using Robust.Shared.Player;
 
 namespace Content.Client._BlackM.Passport;
 
-public sealed class PassportShowClientSystem : EntitySystem
+public sealed partial class PassportShowClientSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     private static readonly SoundSpecifier FlipSound  = new SoundCollectionSpecifier("PassportPageFlip");
     private static readonly SoundSpecifier OpenSound  = new SoundPathSpecifier("/Audio/_BlackM/Passport/cover_open.ogg");

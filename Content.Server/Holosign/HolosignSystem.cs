@@ -28,16 +28,16 @@ using Robust.Shared.Physics.Components; // Goobstation
 
 namespace Content.Server.Holosign;
 
-public sealed class HolosignSystem : EntitySystem
+public sealed partial class HolosignSystem : EntitySystem
 {
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private PowerCellSystem _powerCell = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
 
     // Goobstation start
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private TagSystem _tag = default!;
+    [Dependency] private IMapManager _mapManager = default!;
 
     private EntityQuery<PhysicsComponent> _physicsQuery;
     // Goobstation end

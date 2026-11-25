@@ -117,18 +117,18 @@ using Content.Server._CorvaxGoob.Skills;
 
 namespace Content.Server.Kitchen.EntitySystems;
 
-public sealed class SharpSystem : EntitySystem
+public sealed partial class SharpSystem : EntitySystem
 {
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly SharedDestructibleSystem _destructibleSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly ContainerSystem _containerSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SkillsSystem _skills = default!; // CorvaxGoob-Skills
+    [Dependency] private BodySystem _bodySystem = default!;
+    [Dependency] private SharedDestructibleSystem _destructibleSystem = default!;
+    [Dependency] private SharedDoAfterSystem _doAfterSystem = default!;
+    [Dependency] private SharedPopupSystem _popupSystem = default!;
+    [Dependency] private ContainerSystem _containerSystem = default!;
+    [Dependency] private MobStateSystem _mobStateSystem = default!;
+    [Dependency] private TransformSystem _transform = default!;
+    [Dependency] private IRobustRandom _robustRandom = default!;
+    [Dependency] private ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private SkillsSystem _skills = default!; // CorvaxGoob-Skills
 
     private const float ButcherDelayModifierWithoutSkill = 5; // CorvaxGoob-Skills
 

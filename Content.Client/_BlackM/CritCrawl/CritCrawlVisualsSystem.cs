@@ -4,10 +4,10 @@ using Robust.Client.GameObjects;
 
 namespace Content.Client._BlackM.CritCrawl;
 
-public sealed class CritCrawlVisualsSystem : EntitySystem
+public sealed partial class CritCrawlVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly CritCrawlSystem _crawl = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private CritCrawlSystem _crawl = default!;
 
     private sealed class CrawlVisualState
     {

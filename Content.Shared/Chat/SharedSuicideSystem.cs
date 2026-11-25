@@ -20,14 +20,14 @@ using Content.Shared.Mobs.Systems;
 
 namespace Content.Shared.Chat;
 
-public sealed class SharedSuicideSystem : EntitySystem
+public sealed partial class SharedSuicideSystem : EntitySystem
 {
     private static readonly ProtoId<DamageTypePrototype> FallbackDamageType = "Blunt";
 
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ConsciousnessSystem _consciousness = default!; // Shitmed Change
-    [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!; // Goobstation
+    [Dependency] private DamageableSystem _damageableSystem = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private ConsciousnessSystem _consciousness = default!; // Shitmed Change
+    [Dependency] private MobThresholdSystem _mobThresholdSystem = default!; // Goobstation
 
     /// <summary>
     /// Applies lethal damage spread out across the damage types given.

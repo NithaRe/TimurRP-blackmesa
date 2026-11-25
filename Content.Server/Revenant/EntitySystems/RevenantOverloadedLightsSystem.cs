@@ -14,9 +14,9 @@ namespace Content.Server.Revenant.EntitySystems;
 /// <summary>
 /// This handles...
 /// </summary>
-public sealed class RevenantOverloadedLightsSystem : SharedRevenantOverloadedLightsSystem
+public sealed partial class RevenantOverloadedLightsSystem : SharedRevenantOverloadedLightsSystem
 {
-    [Dependency] private readonly BeamSystem _beam = default!;
+    [Dependency] private BeamSystem _beam = default!;
 
     protected override void OnZap(Entity<RevenantOverloadedLightsComponent> lights)
     {

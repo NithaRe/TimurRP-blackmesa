@@ -2,9 +2,9 @@ using Robust.Client.Graphics;
 
 namespace Content.Client._BlackM.EngineeringBreakdown;
 
-public sealed class RepairNavigatorSystem : EntitySystem
+public sealed partial class RepairNavigatorSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlay = default!;
+    [Dependency] private IOverlayManager _overlay = default!;
 
     private RepairNavigatorOverlay? _navOverlay;
 

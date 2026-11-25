@@ -7,10 +7,10 @@ using Robust.Shared.Console;
 namespace Content.Server._CorvaxGoob.Administration.Commands;
 
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class CaptureCommand : IConsoleCommand
+public sealed partial class CaptureCommand : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IEntityManager _manager = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IEntityManager _manager = default!;
 
     public string Command => "capturescreen";
     public string Description => Loc.GetString("cmd-capturescreen-desc");

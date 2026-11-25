@@ -10,10 +10,10 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._BlackM.Guidebook;
 
-public sealed class NewPlayerGuideSystem : EntitySystem
+public sealed partial class NewPlayerGuideSystem : EntitySystem
 {
-    [Dependency] private readonly PlayTimeTrackingManager _playTime = default!;
-    [Dependency] private readonly SharedStationSpawningSystem _stationSpawning = default!;
+    [Dependency] private PlayTimeTrackingManager _playTime = default!;
+    [Dependency] private SharedStationSpawningSystem _stationSpawning = default!;
 
     private static readonly TimeSpan NewPlayerThreshold = TimeSpan.FromHours(10);
     private static readonly ProtoId<StartingGearPrototype> NewPlayerGuideGear = "BlackMNewPlayerGuideGear";

@@ -30,9 +30,9 @@ namespace Content.Client.Administration.UI
     [GenerateTypedNameReferences]
     public sealed partial class AdminAnnounceWindow : DefaultWindow
     {
-        [Dependency] private readonly ILocalizationManager _localization = default!;
-        [Dependency] private readonly IConfigurationManager _cfgManager = default!; // CorvaxGoob-TTS
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!; // CorvaxGoob-TTS
+        [Dependency] private ILocalizationManager _localization = default!;
+        [Dependency] private IConfigurationManager _cfgManager = default!; // CorvaxGoob-TTS
+        [Dependency] private IPrototypeManager _prototypeManager = default!; // CorvaxGoob-TTS
 
         private List<TTSVoicePrototype> _voiceList = new(); // CorvaxGoob-TTS
 

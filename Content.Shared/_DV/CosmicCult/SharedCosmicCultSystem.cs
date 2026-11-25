@@ -9,10 +9,10 @@ using Robust.Shared.Player;
 
 namespace Content.Shared._DV.CosmicCult;
 
-public abstract class SharedCosmicCultSystem : EntitySystem
+public abstract partial class SharedCosmicCultSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedRoleSystem _role = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private SharedRoleSystem _role = default!;
 
     public override void Initialize()
     {

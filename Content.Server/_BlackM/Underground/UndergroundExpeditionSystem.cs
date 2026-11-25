@@ -25,7 +25,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Underground;
 
-public sealed class UndergroundExpeditionSystem : EntitySystem
+public sealed partial class UndergroundExpeditionSystem : EntitySystem
 {
     private const int MaxGenerationAttempts = 5;
     private static readonly TimeSpan BoardingDuration = TimeSpan.FromSeconds(35);
@@ -43,21 +43,21 @@ public sealed class UndergroundExpeditionSystem : EntitySystem
     private static readonly SoundPathSpecifier ErrorSound = new("/Audio/_BlackM/Interface/Terminal/term_error.ogg");
     private static readonly SoundPathSpecifier LocatorSound = new("/Audio/Items/locator_beep.ogg");
 
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly UndergroundMapSystem _sites = default!;
-    [Dependency] private readonly UndergroundCabinSystem _cabins = default!;
-    [Dependency] private readonly UndergroundCargoSystem _cargo = default!;
-    [Dependency] private readonly BlackMElevatorSystem _elevators = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transforms = default!;
-    [Dependency] private readonly CargoSystem _cargoBank = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private UndergroundMapSystem _sites = default!;
+    [Dependency] private UndergroundCabinSystem _cabins = default!;
+    [Dependency] private UndergroundCargoSystem _cargo = default!;
+    [Dependency] private BlackMElevatorSystem _elevators = default!;
+    [Dependency] private SharedMapSystem _maps = default!;
+    [Dependency] private UserInterfaceSystem _ui = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedTransformSystem _transforms = default!;
+    [Dependency] private CargoSystem _cargoBank = default!;
+    [Dependency] private StationSystem _station = default!;
     public override void Initialize()
     {
         base.Initialize();

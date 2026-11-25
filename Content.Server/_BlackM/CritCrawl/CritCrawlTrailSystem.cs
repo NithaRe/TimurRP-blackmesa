@@ -12,14 +12,14 @@ using Robust.Shared.Random;
 
 namespace Content.Server._BlackM.CritCrawl;
 
-public sealed class CritCrawlTrailSystem : EntitySystem
+public sealed partial class CritCrawlTrailSystem : EntitySystem
 {
-    [Dependency] private readonly CritCrawlSystem _crawl = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private CritCrawlSystem _crawl = default!;
+    [Dependency] private DecalSystem _decals = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutions = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     private static readonly string[] LightTrail =
         { "BlackMCritTrailLight0", "BlackMCritTrailLight1", "BlackMCritTrailLight2", "BlackMCritTrailLight3" };

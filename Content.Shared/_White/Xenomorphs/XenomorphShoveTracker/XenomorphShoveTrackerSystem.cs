@@ -6,10 +6,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._White.Xenomorphs.XenomorphShoveTracker;
 
-public sealed class XenomorphShoveTrackerSystem : EntitySystem
+public sealed partial class XenomorphShoveTrackerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedStunSystem _stun = default!;
 
 
     public override void Initialize()

@@ -9,11 +9,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.ZenIntervention;
 
-public sealed class ZenInterventionUIController : UIController, IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>
+public sealed partial class ZenInterventionUIController : UIController, IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>
 {
     private const float GapFromToolbar = 4f;
 
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private IEntityManager _entityManager = default!;
 
     private ZenInterventionBarControl? _bar;
     private ZenCatalystIndicatorControl? _catalyst;

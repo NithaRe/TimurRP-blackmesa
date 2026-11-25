@@ -17,12 +17,12 @@ public enum PhraseWheelAccessResult : byte
     Revoked,
 }
 
-public sealed class PhraseWheelSystem : SharedPhraseWheelSystem
+public sealed partial class PhraseWheelSystem : SharedPhraseWheelSystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SpeechBarksSystem _barks = default!;
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private SpeechBarksSystem _barks = default!;
 
     private static readonly AudioParams SpeakAudio = AudioParams.Default.WithVolume(6f).WithMaxDistance(15f);
     private static readonly AudioParams WhisperAudio = AudioParams.Default.WithVolume(2f).WithMaxDistance(5f);

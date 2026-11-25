@@ -11,10 +11,10 @@ using Content.Shared.Buckle.Components;
 
 namespace Content.Goobstation.Server.IgniteOnBuckle;
 
-public sealed class IgniteOnBuckleSystem : EntitySystem
+public sealed partial class IgniteOnBuckleSystem : EntitySystem
 {
 
-    [Dependency] private readonly FlammableSystem _flammable = default!;
+    [Dependency] private FlammableSystem _flammable = default!;
     public override void Initialize()
     {
         base.Initialize();

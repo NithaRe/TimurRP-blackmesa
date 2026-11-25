@@ -20,11 +20,11 @@ namespace Content.Client._CorvaxGoob.AppearanceConverter;
 [GenerateTypedNameReferences]
 public sealed partial class AppearanceConverterWindow : FancyWindow
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IClipboardManager _clipboard = null!;
+    [Dependency] private IEntityManager _entityManager = default!;
+    [Dependency] private IGameTiming _gameTiming = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IClipboardManager _clipboard = null!;
 
     private readonly HumanoidAppearanceSystem _humanoidAppearance;
 

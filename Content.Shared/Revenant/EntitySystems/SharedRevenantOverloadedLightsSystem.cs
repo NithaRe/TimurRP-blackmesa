@@ -16,9 +16,9 @@ namespace Content.Shared.Revenant.EntitySystems;
 /// <summary>
 /// This handles...
 /// </summary>
-public abstract class SharedRevenantOverloadedLightsSystem : EntitySystem
+public abstract partial class SharedRevenantOverloadedLightsSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBeamSystem _beam = default!; // Goobstation
+    [Dependency] private SharedBeamSystem _beam = default!; // Goobstation
 
     public override void Update(float frameTime)
     {

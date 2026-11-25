@@ -10,12 +10,12 @@ using Robust.Shared.Maths;
 
 namespace Content.Server._BlackM.Megaphone;
 
-public sealed class MegaphoneSystem : EntitySystem
+public sealed partial class MegaphoneSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private UseDelaySystem _useDelay = default!;
+    [Dependency] private ILocalizationManager _loc = default!;
 
     private static readonly Color MegaphoneColor = Color.FromHex("#F1C40F");
 

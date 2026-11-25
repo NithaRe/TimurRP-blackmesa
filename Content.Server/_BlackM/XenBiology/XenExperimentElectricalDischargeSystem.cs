@@ -5,12 +5,12 @@ using Content.Shared.StatusEffect;
 
 namespace Content.Server._BlackM.XenBiology;
 
-public sealed class XenExperimentElectricalDischargeSystem : EntitySystem
+public sealed partial class XenExperimentElectricalDischargeSystem : EntitySystem
 {
-    [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
-    [Dependency] private readonly EmpSystem _emp = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private ElectrocutionSystem _electrocution = default!;
+    [Dependency] private EmpSystem _emp = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {

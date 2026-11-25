@@ -15,14 +15,14 @@ namespace Content.Client._BlackM.SpeechBarks;
 
 public sealed record BarkVoice(SoundSpecifier Sound, float Pitch, float Variation, float Speed, BarkMode Mode);
 
-public sealed class SpeechBarksSystem : EntitySystem
+public sealed partial class SpeechBarksSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private const float BaseVolume = -6f;
     private const float WhisperVolume = -6f;

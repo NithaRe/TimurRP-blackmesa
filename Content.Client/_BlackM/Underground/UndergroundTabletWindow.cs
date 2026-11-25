@@ -13,10 +13,10 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.Underground;
 
-public sealed class UndergroundTabletWindow : DefaultWindow
+public sealed partial class UndergroundTabletWindow : DefaultWindow
 {
-    [Dependency] private readonly IResourceCache _resources = default!;
-    [Dependency] private readonly IEntityManager _entities = default!;
+    [Dependency] private IResourceCache _resources = default!;
+    [Dependency] private IEntityManager _entities = default!;
     public event Action? ReturnRequested;
     private readonly PanelContainer _targetPanel;
     private readonly TextureRect _targetIcon;

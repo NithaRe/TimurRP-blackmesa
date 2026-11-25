@@ -13,11 +13,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Events.Gman;
 
-public sealed class GManWalkerSystem : EntitySystem
+public sealed partial class GManWalkerSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly VisibilitySystem _visibility = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
+    [Dependency] private VisibilitySystem _visibility = default!;
 
     private const string WalkerProto = "BMGManWalker";
     private const string VoidProto = "BMGManVoidRect";

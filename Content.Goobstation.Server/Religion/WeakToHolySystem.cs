@@ -27,15 +27,15 @@ using Content.Shared._Shitmed.Damage; // Shitmed Change
 
 namespace Content.Goobstation.Shared.Religion;
 
-public sealed class WeakToHolySystem : EntitySystem
+public sealed partial class WeakToHolySystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly GoobBibleSystem _goobBible = default!;
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly WoundSystem _wound = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private DamageableSystem _damageableSystem = default!;
+    [Dependency] private InventorySystem _inventorySystem = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private GoobBibleSystem _goobBible = default!;
+    [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private WoundSystem _wound = default!;
+    [Dependency] private UseDelaySystem _useDelay = default!;
     public override void Initialize()
     {
         base.Initialize();

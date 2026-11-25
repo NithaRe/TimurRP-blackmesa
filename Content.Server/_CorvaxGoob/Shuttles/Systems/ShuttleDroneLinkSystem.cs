@@ -4,9 +4,9 @@ using Content.Shared.DeviceLinking.Events;
 
 namespace Content.Server._CorvaxGoob.Shuttles.Systems;
 
-public sealed class ShuttleDroneLinkSystem : EntitySystem
+public sealed partial class ShuttleDroneLinkSystem : EntitySystem
 {
-    [Dependency] private readonly ShuttleConsoleSystem _shuttleConsole = default!;
+    [Dependency] private ShuttleConsoleSystem _shuttleConsole = default!;
 
     public const string RemoteDroneTag = "DroneShuttleLinkable";
 

@@ -46,9 +46,9 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server.Magic;
 
-public sealed class MagicSystem : SharedMagicSystem
+public sealed partial class MagicSystem : SharedMagicSystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private ChatSystem _chat = default!;
 
     public override void Initialize()
     {

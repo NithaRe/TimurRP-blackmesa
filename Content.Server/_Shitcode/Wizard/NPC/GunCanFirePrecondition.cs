@@ -19,7 +19,7 @@ namespace Content.Server._Goobstation.Wizard.NPC;
 /// </summary>
 public sealed partial class GunCanFirePrecondition : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private IEntityManager _entManager = default!;
 
     [DataField]
     public bool Invert;

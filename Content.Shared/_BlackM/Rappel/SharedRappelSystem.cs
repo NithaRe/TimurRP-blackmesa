@@ -10,10 +10,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._BlackM.Rappel;
 
-public abstract class SharedRappelSystem : EntitySystem
+public abstract partial class SharedRappelSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
+    [Dependency] private ActionBlockerSystem _blocker = default!;
+    [Dependency] protected IGameTiming Timing = default!;
 
     public override void Initialize()
     {

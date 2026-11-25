@@ -10,11 +10,11 @@ using Robust.Shared.Physics.Controllers;
 
 namespace Content.Shared._BlackM.Vehicles.Systems;
 
-public sealed class BMCarController : VirtualController
+public sealed partial class BMCarController : VirtualController
 {
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
+    [Dependency] private SharedMoverController _mover = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedGravitySystem _gravity = default!;
 
     private const float StopEpsilonSq = 0.0025f;
     private const float MovingSpeed = 0.3f;

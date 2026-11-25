@@ -7,10 +7,10 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._BlackM.Access.Systems;
 
-public abstract class SharedAccessCardHolderSystem : EntitySystem
+public abstract partial class SharedAccessCardHolderSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedAccessSystem _access = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private SharedAccessSystem _access = default!;
 
     public override void Initialize()
     {

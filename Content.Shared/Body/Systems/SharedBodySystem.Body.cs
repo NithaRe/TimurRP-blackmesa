@@ -83,16 +83,16 @@ public partial class SharedBodySystem
      * - Each "connection" is a body part (e.g. arm, hand, etc.) and each part can also contain organs.
      */
 
-    [Dependency] private readonly GibbingSystem _gibbingSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
+    [Dependency] private GibbingSystem _gibbingSystem = default!;
+    [Dependency] private SharedAudioSystem _audioSystem = default!;
 
     // Shitmed Change Start
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly WoundSystem _woundSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly TraumaSystem _trauma = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private ItemSlotsSystem _slots = default!;
+    [Dependency] private WoundSystem _woundSystem = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private TraumaSystem _trauma = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
     // Shitmed Change End
 
     private const float GibletLaunchImpulse = 8;

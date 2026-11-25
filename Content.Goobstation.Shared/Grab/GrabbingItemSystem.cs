@@ -15,9 +15,9 @@ using Content.Shared.Weapons.Melee.Events;
 
 namespace Content.Goobstation.Shared.Grab;
 
-public sealed class GrabbingItemSystem : EntitySystem
+public sealed partial class GrabbingItemSystem : EntitySystem
 {
-    [Dependency] private readonly PullingSystem _pulling = default!;
+    [Dependency] private PullingSystem _pulling = default!;
 
     public override void Initialize()
     {

@@ -3,9 +3,9 @@ using Robust.Client.GameObjects;
 
 namespace Content.Client._CorvaxGoob.BookOfGreentext;
 
-public sealed class BookOfGreentextSystem : EntitySystem
+public sealed partial class BookOfGreentextSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
     public override void Initialize()
     {
         base.Initialize();

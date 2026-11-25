@@ -12,14 +12,14 @@ using Robust.Shared.Prototypes;
 namespace Content.Server._BlackM.PhraseWheel;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class PhraseWheelCommand : LocalizedCommands
+public sealed partial class PhraseWheelCommand : LocalizedCommands
 {
     private const string AllArg = "all";
     private const string RevokeAllArg = "revokeall";
 
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IPrototypeManager _protos = default!;
+    [Dependency] private IPlayerManager _players = default!;
+    [Dependency] private IEntityManager _entities = default!;
+    [Dependency] private IPrototypeManager _protos = default!;
 
     public override string Command => "phrasewheel";
 

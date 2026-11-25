@@ -6,11 +6,11 @@ using Content.Shared.Mobs.Systems;
 
 namespace Content.Server._BlackM.Elevator;
 
-public sealed class EvacuationObserverSystem : EntitySystem
+public sealed partial class EvacuationObserverSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private GhostSystem _ghost = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
 
     public override void Initialize()
     {

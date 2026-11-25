@@ -15,10 +15,10 @@ using static Robust.Client.UserInterface.Controls.BoxContainer;
 
 namespace Content.Client._BlackM.Lobby.Terminal;
 
-public sealed class LobbyChangelogPanel : PanelContainer
+public sealed partial class LobbyChangelogPanel : PanelContainer
 {
-    [Dependency] private readonly ChangelogManager _changelog = default!;
-    [Dependency] private readonly IResourceCache _resCache = default!;
+    [Dependency] private ChangelogManager _changelog = default!;
+    [Dependency] private IResourceCache _resCache = default!;
     private const string PreferredChangelog = "BlackM";
 
     private static readonly Color TextColor = Color.FromHex("#E9D8B4");

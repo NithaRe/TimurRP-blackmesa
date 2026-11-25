@@ -34,11 +34,11 @@ using Robust.Shared.Timing;
 namespace Content.Client.UserInterface.Systems.Ghost;
 
 // TODO hud refactor BEFORE MERGE fix ghost gui being too far up
-public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSystem>
+public sealed partial class GhostUIController : UIController, IOnSystemChanged<GhostSystem>
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // CorvaxGoob-GhostBar
-    [Dependency] private readonly IEntityNetworkManager _net = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IConfigurationManager _cfg = default!; // CorvaxGoob-GhostBar
+    [Dependency] private IEntityNetworkManager _net = default!;
+    [Dependency] private IGameTiming _timing = default!;
     [UISystemDependency] private readonly GhostSystem? _system = default;
 
     private GhostGui? Gui => UIManager.GetActiveUIWidgetOrNull<GhostGui>();

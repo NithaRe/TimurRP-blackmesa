@@ -21,17 +21,17 @@ namespace Content.Server._BlackM.Expedition;
 [ByRefEvent]
 public record struct ExpeditionPortalEnteredEvent(EntityUid MapUid);
 
-public sealed class ExpeditionPortalSystem : EntitySystem
+public sealed partial class ExpeditionPortalSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambient = default!;
-    [Dependency] private readonly SharedPointLightSystem _light = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
+    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private StationSystem _station = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedAmbientSoundSystem _ambient = default!;
+    [Dependency] private SharedPointLightSystem _light = default!;
 
     public const string ExitProto = "ExpeditionPortalExit";
 

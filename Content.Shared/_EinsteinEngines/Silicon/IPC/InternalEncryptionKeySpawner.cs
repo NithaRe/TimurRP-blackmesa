@@ -10,9 +10,9 @@ using Robust.Shared.Containers;
 
 namespace Content.Shared._EinsteinEngines.Silicon.IPC;
 
-public sealed class InternalEncryptionKeySpawner : EntitySystem
+public sealed partial class InternalEncryptionKeySpawner : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
 
     /// <summary>
     /// Inserts an IPC's encryption key from starting gear headset.

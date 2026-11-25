@@ -3,9 +3,9 @@ using Content.Shared.Movement.Events;
 
 namespace Content.Shared._BlackM.VoidFall;
 
-public abstract class SharedBlackMVoidFallSystem : EntitySystem
+public abstract partial class SharedBlackMVoidFallSystem : EntitySystem
 {
-    [Dependency] protected readonly ActionBlockerSystem Blocker = default!;
+    [Dependency] protected ActionBlockerSystem Blocker = default!;
 
     public override void Initialize()
     {

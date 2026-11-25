@@ -10,9 +10,9 @@ using Robust.Client.GameObjects;
 
 namespace Content.Client.Light.Visualizers;
 
-public sealed class LightBulbSystem : VisualizerSystem<LightBulbComponent>
+public sealed partial class LightBulbSystem : VisualizerSystem<LightBulbComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     protected override void OnAppearanceChange(EntityUid uid, LightBulbComponent comp, ref AppearanceChangeEvent args)
     {

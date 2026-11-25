@@ -11,16 +11,16 @@ using Robust.Shared.Map;
 
 namespace Content.Client._BlackM.Rappel;
 
-public sealed class RappelSystem : SharedRappelSystem
+public sealed partial class RappelSystem : SharedRappelSystem
 {
-    [Dependency] private readonly IOverlayManager _overlay = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly ContentEyeSystem _contentEye = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedCameraRecoilSystem _recoil = default!;
-    [Dependency] private readonly SharedPointLightSystem _lights = default!;
+    [Dependency] private IOverlayManager _overlay = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private ContentEyeSystem _contentEye = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedCameraRecoilSystem _recoil = default!;
+    [Dependency] private SharedPointLightSystem _lights = default!;
 
     private const float ShakeInterval = 0.035f;
     private const float SwingGravity = 42f;

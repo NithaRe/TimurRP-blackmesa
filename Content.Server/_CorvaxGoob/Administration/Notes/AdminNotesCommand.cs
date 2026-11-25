@@ -9,10 +9,10 @@ using Robust.Shared.Console;
 namespace Content.Server._CorvaxGoob.Administration.Notes;
 
 [AdminCommand(AdminFlags.EditNotes)]
-public sealed class CreateAdminNoteCommand : IConsoleCommand
+public sealed partial class CreateAdminNoteCommand : IConsoleCommand
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IAdminNotesManager _adminNotes = default!;
+    [Dependency] private IServerDbManager _db = default!;
+    [Dependency] private IAdminNotesManager _adminNotes = default!;
 
     public string Command => "createadminnote";
     public string Description => Loc.GetString("cmd-create-admin-note-command-desc");

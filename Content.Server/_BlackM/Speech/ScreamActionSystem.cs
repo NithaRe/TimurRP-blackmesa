@@ -4,9 +4,9 @@ using Content.Shared.Speech.Components;
 namespace Content.Server._BlackM.Speech;
 
 // Почему губы её вырезали?
-public sealed class ScreamActionSystem : EntitySystem
+public sealed partial class ScreamActionSystem : EntitySystem
 {
-    [Dependency] private readonly ActionsSystem _actions = default!;
+    [Dependency] private ActionsSystem _actions = default!;
 
     public override void Initialize()
     {

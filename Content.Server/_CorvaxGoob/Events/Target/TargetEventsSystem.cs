@@ -7,12 +7,12 @@ using Robust.Server.GameObjects;
 
 namespace Content.Server._CorvaxGoob.Events;
 
-public sealed class TargetEventsSystem : EntitySystem
+public sealed partial class TargetEventsSystem : EntitySystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _animation = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-    [Dependency] private readonly SparksSystem _sparks = default!; 
-    [Dependency] private readonly TransformSystem _xform = default!;
+    [Dependency] private AnimationPlayerSystem _animation = default!;
+    [Dependency] private StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private SparksSystem _sparks = default!;
+    [Dependency] private TransformSystem _xform = default!;
 
     public override void Initialize()
     {

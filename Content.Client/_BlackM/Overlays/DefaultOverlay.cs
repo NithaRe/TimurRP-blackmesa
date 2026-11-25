@@ -6,9 +6,9 @@ using Robust.Shared.Maths;
 
 namespace Content.Client._BlackM.Overlays;
 
-public sealed class DefaultOverlay : Overlay
+public sealed partial class DefaultOverlay : Overlay
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
 
     // use WorldSpace
     public override OverlaySpace Space => OverlaySpace.WorldSpace;

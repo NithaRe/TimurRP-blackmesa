@@ -18,7 +18,7 @@ namespace Content.Server.Zombies;
 
 public sealed partial class ZombieSystem
 {
-    [Dependency] private readonly MobThresholdSystem _xenThresholds = default!;
+    [Dependency] private MobThresholdSystem _xenThresholds = default!;
 
     private void ReduceXenInfectedThresholds(EntityUid uid)
     {

@@ -13,12 +13,12 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.StartingLoot;
 
-public sealed class StartingLootPanel : Control
+public sealed partial class StartingLootPanel : Control
 {
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IEntitySystemManager _sys = default!;
+    [Dependency] private IResourceCache _cache = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IEntitySystemManager _sys = default!;
 
     private static readonly ResPath DiceRsi = new("/Textures/Objects/Fun/dice.rsi");
     private const string BagState = "dicebag";

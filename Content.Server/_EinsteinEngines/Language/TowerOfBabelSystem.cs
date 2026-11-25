@@ -5,9 +5,9 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._EinsteinEngines.Language;
 
-public sealed class TowerOfBabelSystem : EntitySystem
+public sealed partial class TowerOfBabelSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
 
     public override void Initialize()
     {

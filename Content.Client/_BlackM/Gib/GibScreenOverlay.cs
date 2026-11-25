@@ -9,9 +9,9 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Gib;
 
-public sealed class GibScreenOverlay : Overlay
+public sealed partial class GibScreenOverlay : Overlay
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     private const string Path = "/Textures/_BlackM/Effects/Gib/";
 

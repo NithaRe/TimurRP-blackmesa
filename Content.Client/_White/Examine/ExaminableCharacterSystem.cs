@@ -11,9 +11,9 @@ using Robust.Shared.Utility;
 using Content.Client.UserInterface.Systems.Chat;
 namespace Content.Client._White.Examine;
 
-public sealed class ExaminableCharacterSystem : EntitySystem
+public sealed partial class ExaminableCharacterSystem : EntitySystem
 {
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
+    [Dependency] private IUserInterfaceManager _ui = default!;
 
     public override void Initialize()
     {

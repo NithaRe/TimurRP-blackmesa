@@ -10,12 +10,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Rappel;
 
-public sealed class RappelSelfOverlay : Overlay
+public sealed partial class RappelSelfOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IClyde _clyde = default!;
+    [Dependency] private IEntityManager _entities = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IClyde _clyde = default!;
 
     private readonly SharedTransformSystem _transform;
     private readonly SpriteSystem _sprites;

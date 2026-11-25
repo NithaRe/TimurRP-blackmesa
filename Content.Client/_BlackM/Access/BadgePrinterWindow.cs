@@ -15,9 +15,9 @@ using System.Numerics;
 
 namespace Content.Client._BlackM.Access;
 
-public sealed class BadgePrinterWindow : DefaultWindow
+public sealed partial class BadgePrinterWindow : DefaultWindow
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency] private IEntityManager _entMan = default!;
 
     public event Action<List<string>>? OnPrintPressed;
     public event Action? OnEjectPressed;

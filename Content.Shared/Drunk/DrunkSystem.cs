@@ -22,14 +22,14 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Drunk;
 
-public abstract class SharedDrunkSystem : EntitySystem
+public abstract partial class SharedDrunkSystem : EntitySystem
 {
     public static readonly ProtoId<StatusEffectPrototype> DrunkKey = "Drunk";
 
-    [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
-    [Dependency] private readonly SharedSlurredSystem _slurredSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!; // Goob - needed to calculate remaining status time. 
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // Goob - used to get the CVar setting. 
+    [Dependency] private StatusEffectsSystem _statusEffectsSystem = default!;
+    [Dependency] private SharedSlurredSystem _slurredSystem = default!;
+    [Dependency] private IGameTiming _timing = default!; // Goob - needed to calculate remaining status time.
+    [Dependency] private IConfigurationManager _cfg = default!; // Goob - used to get the CVar setting.
 
     public void TryApplyDrunkenness(EntityUid uid, float boozePower, bool applySlur = true,
         StatusEffectsComponent? status = null)

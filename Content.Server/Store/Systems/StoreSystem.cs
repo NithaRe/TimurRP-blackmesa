@@ -48,10 +48,10 @@ namespace Content.Server.Store.Systems;
 // do not touch unless you want to shoot yourself in the leg
 public sealed partial class StoreSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly StoreDiscountSystem _storeDiscount = default!; // WD EDIT
-    [Dependency] private readonly PolymorphSystem _polymorph = default!; // goob edit
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private StoreDiscountSystem _storeDiscount = default!; // WD EDIT
+    [Dependency] private PolymorphSystem _polymorph = default!; // goob edit
 
     public override void Initialize()
     {

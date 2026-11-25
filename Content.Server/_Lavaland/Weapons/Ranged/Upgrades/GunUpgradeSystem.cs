@@ -35,10 +35,10 @@ using Robust.Shared.Containers;
 
 namespace Content.Server._Lavaland.Weapons.Ranged.Upgrades;
 
-public sealed class GunUpgradeSystem : SharedGunUpgradeSystem
+public sealed partial class GunUpgradeSystem : SharedGunUpgradeSystem
 {
-    [Dependency] private readonly PressureEfficiencyChangeSystem _pressure = default!;
-    [Dependency] private readonly SharedEntityEffectSystem _entityEffect = default!;
+    [Dependency] private PressureEfficiencyChangeSystem _pressure = default!;
+    [Dependency] private SharedEntityEffectSystem _entityEffect = default!;
 
     public override void Initialize()
     {

@@ -14,18 +14,18 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Events.Gman;
 
-public sealed class GManEventSystem : EntitySystem
+public sealed partial class GManEventSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ILightManager _lightMan = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IUserInterfaceManager _uiMan = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _playerMan = default!;
+    [Dependency] private IOverlayManager _overlayMan = default!;
+    [Dependency] private IEyeManager _eyeManager = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private ILightManager _lightMan = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IUserInterfaceManager _uiMan = default!;
+    [Dependency] private IPrototypeManager _protoMan = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IPlayerManager _playerMan = default!;
 
     private const string GlowShaderId = "GManGlowOutline";
 

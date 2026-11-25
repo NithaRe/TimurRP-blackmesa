@@ -70,26 +70,26 @@ using Content.Server.Polymorph.Systems;
 
 namespace Content.Server.Heretic.EntitySystems;
 
-public sealed class GhoulSystem : EntitySystem
+public sealed partial class GhoulSystem : EntitySystem
 {
     private static readonly ProtoId<HTNCompoundPrototype> Compound = "HereticSummonCompound";
     private static readonly EntProtoId<MindRoleComponent> GhoulRole = "MindRoleGhoul";
 
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly RejuvenateSystem _rejuvenate = default!;
-    [Dependency] private readonly NpcFactionSystem _faction = default!;
-    [Dependency] private readonly MobThresholdSystem _threshold = default!;
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly StorageSystem _storage = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly HTNSystem _htn = default!;
-    [Dependency] private readonly SharedRoleSystem _role = default!;
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private AntagSelectionSystem _antag = default!;
+    [Dependency] private HumanoidAppearanceSystem _humanoid = default!;
+    [Dependency] private RejuvenateSystem _rejuvenate = default!;
+    [Dependency] private NpcFactionSystem _faction = default!;
+    [Dependency] private MobThresholdSystem _threshold = default!;
+    [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private StorageSystem _storage = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private HandsSystem _hands = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private NPCSystem _npc = default!;
+    [Dependency] private HTNSystem _htn = default!;
+    [Dependency] private SharedRoleSystem _role = default!;
+    [Dependency] private PolymorphSystem _polymorph = default!;
 
     public override void Initialize()
     {

@@ -9,13 +9,13 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Rappel;
 
-public sealed class RappelRopeOverlay : Overlay
+public sealed partial class RappelRopeOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IResourceCache _resources = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IResourceCache _resources = default!;
 
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private IPlayerManager _player = default!;
 
     private readonly SharedTransformSystem _xform;
     private readonly RappelSystem _rappel;
@@ -95,10 +95,10 @@ public sealed class RappelRopeOverlay : Overlay
     }
 }
 
-public sealed class RappelConsoleOverlay : Overlay
+public sealed partial class RappelConsoleOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private readonly RappelSystem _rappel;
 

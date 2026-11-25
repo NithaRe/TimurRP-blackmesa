@@ -9,11 +9,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._BlackM.ProjectileTrauma;
 
-public sealed class ProjectileTraumaSystem : EntitySystem
+public sealed partial class ProjectileTraumaSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movement = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private INetManager _net = default!;
+    [Dependency] private MovementSpeedModifierSystem _movement = default!;
 
     private const float MinimumDamage = 1f;
     private const float FullStrengthDamage = 20f;

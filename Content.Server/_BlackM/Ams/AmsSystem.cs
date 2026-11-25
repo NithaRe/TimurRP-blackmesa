@@ -53,35 +53,35 @@ public sealed class AmsDetonatedEvent : EntityEventArgs
 {
 }
 
-public sealed class AmsSystem : EntitySystem
+public sealed partial class AmsSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambient = default!;
-    [Dependency] private readonly SharedPointLightSystem _pointLight = default!;
-    [Dependency] private readonly PoweredLightSystem _poweredLight = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly BlackMElevatorSystem _elevator = default!;
-    [Dependency] private readonly SharedDoorSystem _door = default!;
-    [Dependency] private readonly ZenInterventionSystem _zenIntervention = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly AmsRoundEndSystem _amsRoundEnd = default!;
-    [Dependency] private readonly AmsAchievementsSystem _amsAchievements = default!;
-    [Dependency] private readonly SharedStackSystem _stack = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IPlayerManager _players = default!;
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private SharedAmbientSoundSystem _ambient = default!;
+    [Dependency] private SharedPointLightSystem _pointLight = default!;
+    [Dependency] private PoweredLightSystem _poweredLight = default!;
+    [Dependency] private ItemSlotsSystem _itemSlots = default!;
+    [Dependency] private BlackMElevatorSystem _elevator = default!;
+    [Dependency] private SharedDoorSystem _door = default!;
+    [Dependency] private ZenInterventionSystem _zenIntervention = default!;
+    [Dependency] private DecalSystem _decals = default!;
+    [Dependency] private ExplosionSystem _explosion = default!;
+    [Dependency] private RoundEndSystem _roundEnd = default!;
+    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private AmsRoundEndSystem _amsRoundEnd = default!;
+    [Dependency] private AmsAchievementsSystem _amsAchievements = default!;
+    [Dependency] private SharedStackSystem _stack = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private PullingSystem _pulling = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
 
     private readonly Dictionary<(EntityUid Machine, EntityUid Part), EntityUid> _partInsertActors = new();
 

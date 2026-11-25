@@ -24,13 +24,13 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using System.Collections.Generic;
 
-public sealed class EmoteOnDamageSystem : EntitySystem
+public sealed partial class EmoteOnDamageSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
+    [Dependency] private IGameTiming _gameTiming = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private ChatSystem _chatSystem = default!;
+    [Dependency] private MobThresholdSystem _mobThreshold = default!;
 
     public override void Initialize()
     {

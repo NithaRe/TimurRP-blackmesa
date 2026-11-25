@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace Content.Server._CorvaxGoob.Photo;
 
-public sealed class CaptureSystem : EntitySystem
+public sealed partial class CaptureSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EuiManager _eui = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private EuiManager _eui = default!;
+    [Dependency] private IChatManager _chat = default!;
 
     private List<CaptureScreenRequest> _captureScreenRequests = new();
 
