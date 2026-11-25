@@ -14,6 +14,7 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Tag;
 using Content.Shared.Movement.Pulling.Systems;
+using Content.Shared.NPC.Systems;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.EntitySerialization;
 using Robust.Shared.EntitySerialization.Systems;
@@ -43,6 +44,24 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
     [Dependency] private TagSystem _tag = default!;
     [Dependency] private StationSpawningSystem _stationSpawning = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private NpcFactionSystem _factions = default!;
+
+    private const string XenFaction = "BlackMXen";
+
+    public bool CanTransport(EntityUid entity)
+    {
+        if (_factions.IsMember(entity, XenFaction))
+            return false;
+
+        var children = Transform(entity).ChildEnumerator;
+        while (children.MoveNext(out var child))
+        {
+            if (!TerminatingOrDeleted(child) && !CanTransport(child))
+                return false;
+        }
+
+        return true;
+    }
 
     public override void Initialize()
     {
@@ -248,7 +267,7 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
         foreach (var entity in cargo)
         {
             if (TerminatingOrDeleted(entity) || entity == elevator || entity == origin || entity == destination ||
-                offsets.ContainsKey(entity))
+                offsets.ContainsKey(entity) || !CanTransport(entity))
             {
                 return false;
             }
@@ -298,7 +317,7 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
                     // A caller must keep the cabin isolated while the trip is running.
                     var entityXform = Transform(entity);
                     if (entityXform.GridUid != Transform(uid).GridUid ||
-                        entityXform.ParentUid != Transform(uid).GridUid || entityXform.Anchored)
+                        entityXform.ParentUid != Transform(uid).GridUid || entityXform.Anchored || !CanTransport(entity))
                     {
                         succeeded = false;
                         continue;
@@ -503,11 +522,19 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
         return found;
     }
 
-    public bool TryStartRandomEvacuation(string elevatorId, out string location)
+    public bool TryStartRandomEvacuation(string elevatorId, EntityUid boardingGrid, out string location)
     {
         location = string.Empty;
-        var candidates = new List<BlackMElevatorComponent>();
 
+        var boardingZones = new List<Entity<BlackMElevatorBoardZoneComponent>>();
+        var zones = EntityQueryEnumerator<BlackMElevatorBoardZoneComponent, TransformComponent>();
+        while (zones.MoveNext(out var uid, out var zone, out var xform))
+        {
+            if (zone.ElevatorId == elevatorId && xform.GridUid == boardingGrid)
+                boardingZones.Add((uid, zone));
+        }
+
+        var candidates = new List<(BlackMElevatorComponent Elevator, EntityUid BoardingZone)>();
         var q = EntityQueryEnumerator<BlackMElevatorComponent>();
         while (q.MoveNext(out _, out var comp))
         {
@@ -517,45 +544,53 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
             if (comp.Enabled)
                 return false;
 
-            candidates.Add(comp);
+            foreach (var zone in boardingZones)
+            {
+                if (string.IsNullOrEmpty(comp.PointId) || SamePoint(comp.PointId, zone.Comp.PointId))
+                    candidates.Add((comp, zone.Owner));
+            }
         }
 
         if (candidates.Count == 0)
             return false;
 
-        var chosen = candidates[_random.Next(candidates.Count)];
-        chosen.Enabled = true;
-        location = GetLocationName(chosen);
+        var (elevator, boardingZone) = _random.Pick(candidates);
+        elevator.ActiveBoardingZone = boardingZone;
+        elevator.Enabled = true;
+        location = GetLocationName(elevator);
         return true;
     }
 
-    public string GetLocationName(BlackMElevatorComponent comp)
+    private string GetLocationName(BlackMElevatorComponent comp)
     {
+        if (TryComp<BlackMElevatorBoardZoneComponent>(comp.ActiveBoardingZone, out var zone) &&
+            !string.IsNullOrWhiteSpace(zone.AnnouncementLocationName))
+        {
+            return Loc.TryGetString(zone.AnnouncementLocationName, out var localizedName)
+                ? localizedName
+                : zone.AnnouncementLocationName;
+        }
+
         if (!string.IsNullOrWhiteSpace(comp.LocationName))
             return Loc.TryGetString(comp.LocationName, out var loc) ? loc : comp.LocationName;
 
-        var locations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        var zones = EntityQueryEnumerator<BlackMElevatorBoardZoneComponent>();
-        while (zones.MoveNext(out _, out var zone))
-        {
-            var configuredName = zone.AnnouncementLocationName;
-            if (zone.ElevatorId != comp.Id || !SamePoint(zone.PointId, comp.PointId) ||
-                string.IsNullOrWhiteSpace(configuredName))
-                continue;
-
-            var locationName = Loc.TryGetString(configuredName, out var localizedName)
-                ? localizedName
-                : configuredName;
-            locations.Add(locationName);
-        }
-
-        if (locations.Count > 0)
-            return string.Join(", ", locations);
+        if (!string.IsNullOrWhiteSpace(zone?.PointId))
+            return zone.PointId;
 
         if (!string.IsNullOrWhiteSpace(comp.PointId))
             return comp.PointId;
 
         return Loc.GetString("blackm-elevator-evac-location-unknown");
+    }
+
+    private bool IsBoardingPoint(BlackMElevatorComponent comp, string? pointId, EntityUid? grid)
+    {
+        if (comp.ActiveBoardingZone is not { } activeZone)
+            return SamePoint(comp.PointId, pointId);
+
+        return TryComp<BlackMElevatorBoardZoneComponent>(activeZone, out var zone) &&
+            TryComp<TransformComponent>(activeZone, out var zoneXform) &&
+            zoneXform.GridUid == grid && SamePoint(zone.PointId, pointId);
     }
 
     private static bool SamePoint(string? a, string? b)
@@ -769,12 +804,14 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
         var q = EntityQueryEnumerator<BlackMElevatorComponent>();
         while (q.MoveNext(out _, out var comp))
         {
-            if (!comp.Evacuation || comp.Id != id || !SamePoint(comp.PointId, ent.Comp.PointId))
+            if (!comp.Evacuation || comp.Id != id || !IsBoardingPoint(comp, ent.Comp.PointId, Transform(ent).GridUid))
                 continue;
 
             args.PushMarkup(StatusText(comp));
             return;
         }
+
+        args.PushMarkup(Loc.GetString("blackm-elevator-examine-disabled"));
     }
 
     private string StatusText(BlackMElevatorComponent comp)
@@ -807,12 +844,12 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
 
         while (q.MoveNext(out _, out var zone, out var xform))
         {
-            if (zone.ElevatorId != comp.Id || !SamePoint(zone.PointId, comp.PointId))
+            if (zone.ElevatorId != comp.Id || !IsBoardingPoint(comp, zone.PointId, xform.GridUid))
                 continue;
 
             foreach (var ent in _lookup.GetEntitiesInRange<MobStateComponent>(xform.Coordinates, zone.Range))
             {
-                if (_mobState.IsDead(ent.Owner) || !HasComp<ActorComponent>(ent.Owner))
+                if (_mobState.IsDead(ent.Owner) || !HasComp<ActorComponent>(ent.Owner) || !CanTransport(ent.Owner))
                     continue;
 
                 if (zone.RestrictedTags.Count > 0 && _tag.HasAnyTag(ent.Owner, zone.RestrictedTags))
@@ -833,7 +870,7 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
         var query = EntityQueryEnumerator<ItemComponent, TransformComponent>();
         while (query.MoveNext(out var item, out _, out var xform))
         {
-            if (xform.GridUid != grid || xform.ParentUid != grid || xform.Anchored ||
+            if (xform.GridUid != grid || xform.ParentUid != grid || xform.Anchored || !CanTransport(item) ||
                 (TryComp<PhysicsComponent>(item, out var physics) && physics.BodyType == BodyType.Static))
             {
                 continue;
@@ -850,7 +887,7 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
 
         while (zones.MoveNext(out _, out var zone, out var zoneXform))
         {
-            if (zone.ElevatorId != comp.Id || !SamePoint(zone.PointId, comp.PointId) ||
+            if (zone.ElevatorId != comp.Id || !IsBoardingPoint(comp, zone.PointId, zoneXform.GridUid) ||
                 zoneXform.GridUid == null || zoneXform.ParentUid != zoneXform.GridUid ||
                 !TryPickSpawn(elevatorGrid, out var spawn, comp.PointId))
             {
@@ -862,7 +899,7 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
                 var itemUid = item.Owner;
                 if (!moved.Add(itemUid) || !TryComp<TransformComponent>(itemUid, out var itemXform) ||
                     itemXform.GridUid != zoneXform.GridUid || itemXform.ParentUid != zoneXform.GridUid ||
-                    itemXform.Anchored ||
+                    itemXform.Anchored || !CanTransport(itemUid) ||
                     (TryComp<PhysicsComponent>(itemUid, out var physics) && physics.BodyType == BodyType.Static))
                 {
                     continue;
@@ -946,10 +983,10 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
 
     private void SayAtBoarding(BlackMElevatorComponent comp, string text)
     {
-        var q = EntityQueryEnumerator<BlackMElevatorDispatcherComponent>();
-        while (q.MoveNext(out var uid, out var disp))
+        var q = EntityQueryEnumerator<BlackMElevatorDispatcherComponent, TransformComponent>();
+        while (q.MoveNext(out var uid, out var disp, out var xform))
         {
-            if (disp.ElevatorId != comp.Id || !SamePoint(disp.PointId, comp.PointId))
+            if (disp.ElevatorId != comp.Id || !IsBoardingPoint(comp, disp.PointId, xform.GridUid))
                 continue;
 
             _chatSystem.TrySendInGameICMessage(uid, text, InGameICChatType.Speak,
@@ -1036,7 +1073,7 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
 
     private void CleanPassengers(BlackMElevatorComponent comp)
     {
-        comp.Passengers.RemoveWhere(p => TerminatingOrDeleted(p));
-        comp.Waiting.RemoveWhere(p => TerminatingOrDeleted(p));
+        comp.Passengers.RemoveWhere(p => TerminatingOrDeleted(p) || !CanTransport(p));
+        comp.Waiting.RemoveWhere(p => TerminatingOrDeleted(p) || !CanTransport(p));
     }
 }

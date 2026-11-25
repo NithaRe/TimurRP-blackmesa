@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 11/21/2026 11:51:56
-  entityCount: 14970
+  entityCount: 14972
 maps:
 - 1
 grids:
@@ -10419,16 +10419,38 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 4.5,16.5
       parent: 2
+    - type: BlackMElevatorDispatcher
+      pointId: arrivals
   - uid: 14778
     components:
     - type: Transform
       pos: -81.5,-91.5
       parent: 2
+    - type: BlackMElevatorDispatcher
+      pointId: science-bridge
   - uid: 14779
     components:
     - type: Transform
       pos: -35.5,-126.5
       parent: 2
+    - type: BlackMElevatorDispatcher
+      pointId: infected-maintenance
+  - uid: 14989
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 0.5,-112.5
+      parent: 2
+    - type: BlackMElevatorDispatcher
+      pointId: cart-line
+  - uid: 14990
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 25.5,-142.5
+      parent: 2
+    - type: BlackMElevatorDispatcher
+      pointId: cargo-medical
 - proto: BlackMElevatorBoardZone
   entities:
   - uid: 14621
@@ -10438,6 +10460,7 @@ entities:
       pos: -81.5,-93.5
       parent: 2
     - type: BlackMElevatorBoardZone
+      pointId: science-bridge
       announcementLocationName: Лифт у научного отдела и мостика
   - uid: 14624
     components:
@@ -10446,6 +10469,7 @@ entities:
       pos: -35.5,-128.5
       parent: 2
     - type: BlackMElevatorBoardZone
+      pointId: infected-maintenance
       announcementLocationName: Станция монорельса у заражения техов
   - uid: 14625
     components:
@@ -10454,6 +10478,7 @@ entities:
       pos: 0.5,-110.5
       parent: 2
     - type: BlackMElevatorBoardZone
+      pointId: cart-line
       announcementLocationName: Лифт под главной линии направления вагонеток
   - uid: 14626
     components:
@@ -10462,6 +10487,7 @@ entities:
       pos: 27.5,-142.5
       parent: 2
     - type: BlackMElevatorBoardZone
+      pointId: cargo-medical
       announcementLocationName: Лифт у грузового и медицинского секторов
   - uid: 14627
     components:
@@ -10470,6 +10496,7 @@ entities:
       pos: 6.5,16.5
       parent: 2
     - type: BlackMElevatorBoardZone
+      pointId: arrivals
       announcementLocationName: Центральный лифт комплекса в прибытие
 - proto: BlackMElevatorDestination
   entities:
