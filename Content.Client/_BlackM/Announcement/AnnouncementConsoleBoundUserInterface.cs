@@ -30,7 +30,12 @@ public sealed class AnnouncementConsoleBoundUserInterface : BoundUserInterface
     {
         base.UpdateState(state);
 
-        if (state is AnnouncementConsoleBuiState cast)
-            _window?.UpdateState(cast);
+        if (state is AnnouncementConsoleBuiState cast && _window != null)
+        {
+            if (cast.Personal)
+                _window.Title = Loc.GetString("ent-ActionBlackMPortableBroadcaster");
+
+            _window.UpdateState(cast);
+        }
     }
 }

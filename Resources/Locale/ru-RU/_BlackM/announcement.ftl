@@ -27,3 +27,6 @@ blackm-announce-window-placeholder = Введите текст объявлен�
 blackm-announce-window-send = В эфир
 blackm-announce-window-no-access = Нет доступа
 blackm-announce-window-cooldown = Перезарядка: {$seconds} с
+
+ent-ActionBlackMPortableBroadcaster = Портативный вещатель
+    .desc = Передайте объявление по комплексу.

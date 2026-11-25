@@ -6,13 +6,19 @@ using Content.Server.Radio.Components;
 using Content.Shared._BlackM.Announcement;
 using Content.Shared.Access;
 using Content.Shared.Access.Systems;
+using Content.Shared.ActionBlocker;
+using Content.Shared.Actions;
 using Content.Shared.Chat;
 using Content.Shared.Database;
+using Content.Shared.GameTicking;
 using Content.Shared.Ghost;
+using Content.Shared.Humanoid;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Inventory;
 using Content.Shared.Mind;
+using Content.Shared.Mind.Components;
 using Content.Shared.Radio.Components;
+using Content.Shared.Roles;
 using Content.Shared.Roles.Jobs;
 using Robust.Server.GameObjects;
 using Robust.Server.GameStates;
@@ -40,6 +46,16 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private PvsOverrideSystem _pvs = default!;
     [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private SharedActionsSystem _actions = default!;
+    [Dependency] private ActionBlockerSystem _actionBlocker = default!;
+
+    private static readonly EntProtoId PortableAction = "ActionBlackMPortableBroadcaster";
+    private static readonly EntProtoId PortableBroadcaster = "BlackMPortableBroadcaster";
+    private static readonly HashSet<ProtoId<JobPrototype>> BroadcasterJobs = new()
+    {
+        "Captain", "HeadOfPersonnel", "HeadOfSecurity", "ChiefEngineer", "ChiefMedicalOfficer",
+        "ResearchDirector", "Quartermaster",
+    };
 
     private static readonly TimeSpan DeliveryDelay = TimeSpan.FromSeconds(0.35);
     private const float PvsExtraSeconds = 8f;
@@ -55,6 +71,9 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
 
         SubscribeLocalEvent<AnnouncementConsoleComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<AnnouncementConsoleComponent, AnnouncementConsoleSendMessage>(OnSend);
+        SubscribeLocalEvent<AnnouncementConsoleComponent, OpenPortableBroadcasterEvent>(OnOpenPortableBroadcaster);
+        SubscribeLocalEvent<MindContainerComponent, MindAddedMessage>(OnMindAdded);
+        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawned);
 
         _player.PlayerStatusChanged += OnPlayerStatusChanged;
     }
@@ -64,6 +83,54 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
         base.Shutdown();
         _player.PlayerStatusChanged -= OnPlayerStatusChanged;
         _overrides.Clear();
+    }
+
+    private void OnPlayerSpawned(PlayerSpawnCompleteEvent ev)
+    {
+        if (ev.JobId != null && BroadcasterJobs.Contains(ev.JobId))
+            GivePortableBroadcaster(ev.Mob);
+    }
+
+    private void OnMindAdded(EntityUid uid, MindContainerComponent component, MindAddedMessage ev)
+    {
+        if (HasComp<HumanoidAppearanceComponent>(uid) &&
+            _jobs.MindTryGetJobId(ev.Mind, out var job) && job is { } jobId && BroadcasterJobs.Contains(jobId))
+            GivePortableBroadcaster(uid);
+    }
+
+    private void GivePortableBroadcaster(EntityUid uid)
+    {
+        if (!_proto.Index(PortableBroadcaster).TryGetComponent<AnnouncementConsoleComponent>(out var portable))
+            return;
+
+        var console = EnsureComp<AnnouncementConsoleComponent>(uid);
+        if (console.Personal)
+            return;
+
+        console.Personal = true;
+        console.Cooldown = portable.Cooldown;
+        console.MaxLength = portable.MaxLength;
+        console.Channels = new List<ProtoId<AnnouncementChannelPrototype>>(portable.Channels);
+        console.IgnoreChannelAccess = portable.IgnoreChannelAccess;
+        console.Duration = portable.Duration;
+        _ui.SetUi(uid, AnnouncementConsoleUiKey.Key, new InterfaceData("AnnouncementConsoleBoundUserInterface"));
+        _actions.AddAction(uid, PortableAction);
+    }
+
+    private bool CanUseConsole(Entity<AnnouncementConsoleComponent> ent, EntityUid user)
+    {
+        if (!ent.Comp.Personal)
+            return _accessReader.IsAllowed(user, ent.Owner);
+
+        return user == ent.Owner && _actionBlocker.CanInteract(user, user) &&
+            _mind.TryGetMind(user, out var mind, out _) &&
+            _jobs.MindTryGetJobId(mind, out var job) && job is { } jobId && BroadcasterJobs.Contains(jobId);
+    }
+
+    private void OnOpenPortableBroadcaster(Entity<AnnouncementConsoleComponent> ent, ref OpenPortableBroadcasterEvent ev)
+    {
+        if (!ev.Handled && ent.Comp.Personal && CanUseConsole(ent, ev.Performer))
+            ev.Handled = _ui.TryToggleUi(ent.Owner, AnnouncementConsoleUiKey.Key, ev.Performer);
     }
 
     private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
@@ -87,7 +154,7 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
 
     private void UpdateUi(Entity<AnnouncementConsoleComponent> ent, EntityUid actor)
     {
-        var hasAccess = _accessReader.IsAllowed(actor, ent.Owner);
+        var hasAccess = CanUseConsole(ent, actor);
         var tags = _accessReader.FindAccessTags(actor);
 
         var channels = new List<AnnouncementChannelEntry>();
@@ -103,7 +170,8 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
         GetSenderInfo(actor, out var name, out var job);
 
         _ui.SetUiState(ent.Owner, AnnouncementConsoleUiKey.Key,
-            new AnnouncementConsoleBuiState(channels, ent.Comp.NextAnnouncement, ent.Comp.MaxLength, name, job, hasAccess));
+            new AnnouncementConsoleBuiState(channels, ent.Comp.NextAnnouncement, ent.Comp.MaxLength, name, job, hasAccess,
+                ent.Comp.Personal));
     }
 
     private static bool HasChannelAccess(AnnouncementChannelPrototype channel, ICollection<ProtoId<AccessLevelPrototype>> tags)
@@ -151,7 +219,7 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
             return;
         }
 
-        if (!_accessReader.IsAllowed(user, ent.Owner))
+        if (!CanUseConsole(ent, user))
         {
             _popup.PopupEntity(Loc.GetString("blackm-announce-popup-denied"), ent.Owner, user);
             return;
