@@ -11,11 +11,11 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._BlackM.Audio;
 
-public sealed class BlackMEchoSystem : EntitySystem
+public sealed partial class BlackMEchoSystem : EntitySystem
 {
-    [Dependency] private readonly BlackMAudioEffectStateSystem _effectState = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private BlackMAudioEffectStateSystem _effectState = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IPlayerManager _player = default!;
 
     private static readonly ProtoId<AudioPresetPrototype> StandardPreset = "Room";
     private static readonly ProtoId<AudioPresetPrototype> StrongPreset = "Bathroom";

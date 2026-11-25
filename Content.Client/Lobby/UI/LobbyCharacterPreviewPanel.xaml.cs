@@ -63,11 +63,11 @@ namespace Content.Client.Lobby.UI;
 [GenerateTypedNameReferences]
 public sealed partial class LobbyCharacterPreviewPanel : Control
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private IEntityManager _entManager = default!;
     // BlackM start
-    [Dependency] private readonly IClientPreferencesManager _prefs = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
+    [Dependency] private IClientPreferencesManager _prefs = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IResourceCache _cache = default!;
 
     private float _refreshTimer;
     private static readonly Direction[] Facings = { Direction.South, Direction.West, Direction.North, Direction.East };

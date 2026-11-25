@@ -10,13 +10,13 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.StartingLoot;
 
-public sealed class StartingLootVoteSystem : EntitySystem
+public sealed partial class StartingLootVoteSystem : EntitySystem
 {
-    [Dependency] private readonly IVoteManager _votes = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
+    [Dependency] private IVoteManager _votes = default!;
+    [Dependency] private GameTicker _ticker = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IChatManager _chat = default!;
 
     public bool Enabled { get; private set; }
 

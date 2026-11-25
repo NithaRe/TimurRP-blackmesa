@@ -6,9 +6,7 @@
 using Content.Shared.Actions;
 ﻿using Content.Shared.Interaction;
 ﻿using Robust.Shared.GameStates;
-using Content.Shared.Interaction;
 using Content.Shared.Physics;
-using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Actions.Components;

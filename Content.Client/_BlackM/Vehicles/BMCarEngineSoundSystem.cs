@@ -6,9 +6,9 @@ using Robust.Shared.Player;
 
 namespace Content.Client._BlackM.Vehicles;
 
-public sealed class BMCarEngineSoundSystem : EntitySystem
+public sealed partial class BMCarEngineSoundSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     private const float SilentDb = -60f;
     private static readonly float[] LayerPitch = { 1f, 1.28f, 1.6f };

@@ -52,10 +52,10 @@ namespace Content.Client.Weather;
 
 public sealed partial class WeatherSystem : SharedWeatherSystem // Goob edit - made partial
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private MapSystem _mapSystem = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {

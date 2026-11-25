@@ -7,12 +7,12 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.ZenIntervention;
 
-public sealed class ZenCatalystTooltip : PanelContainer
+public sealed partial class ZenCatalystTooltip : PanelContainer
 {
     private const string Dim = "#8D90AD";
     private const string Light = "#E6E8F2";
     private const string ActiveColor = ZenInterventionPalette.CalmHex;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private readonly ZenCatalystIndicatorControl _indicator;
     private readonly Label _title;

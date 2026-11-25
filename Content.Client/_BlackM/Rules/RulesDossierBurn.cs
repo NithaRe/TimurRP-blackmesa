@@ -9,11 +9,11 @@ using Robust.Shared.Graphics.RSI;
 namespace Content.Client._BlackM.Rules;
 
 /// <summary>Renders the signed folder through a burn mask without altering the rules document.</summary>
-public sealed class RulesDossierBurn : Control
+public sealed partial class RulesDossierBurn : Control
 {
-    [Dependency] private readonly IClyde _clyde = default!;
-    [Dependency] private readonly IResourceCache _resources = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private IClyde _clyde = default!;
+    [Dependency] private IResourceCache _resources = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
     private IRenderTexture? _paper;
     private ShaderInstance? _shader;
     private readonly Texture _closedLighter;

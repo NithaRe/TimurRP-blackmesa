@@ -26,19 +26,19 @@ namespace Content.Server._BlackM.Cargo;
 
 public enum CargoRoute : byte { NotConfigured, Accepted, Rejected }
 
-public sealed class CargoLogisticsSystem : EntitySystem
+public sealed partial class CargoLogisticsSystem : EntitySystem
 {
-    [Dependency] private readonly CargoSystem _cargo = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
+    [Dependency] private CargoSystem _cargo = default!;
+    [Dependency] private StationSystem _station = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private PullingSystem _pulling = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private ActionBlockerSystem _blocker = default!;
+    [Dependency] private SharedGravitySystem _gravity = default!;
 
     private static readonly SoundPathSpecifier StartSound =
         new("/Audio/Machines/warning_buzzer.ogg", AudioParams.Default.WithVolume(-4f).WithMaxDistance(12f));

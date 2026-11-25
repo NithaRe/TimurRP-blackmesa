@@ -22,9 +22,9 @@ namespace Content.Server._Shitmed.DelayedDeath;
 
 public partial class DelayedDeathSystem : EntitySystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!; // Goobstation
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private SharedPopupSystem _popupSystem = default!; // Goobstation
 
     public override void Initialize()
     {

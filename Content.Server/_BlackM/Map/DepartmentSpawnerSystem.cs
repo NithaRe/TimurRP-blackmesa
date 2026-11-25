@@ -13,15 +13,15 @@ using Robust.Shared.Utility;
 
 namespace Content.Server._BlackM.Map;
 
-public sealed class DepartmentSpawnerSystem : EntitySystem
+public sealed partial class DepartmentSpawnerSystem : EntitySystem
 {
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly GridFixtureSystem _fixtures = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private MapLoaderSystem _loader = default!;
+    [Dependency] private SharedMapSystem _maps = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private GridFixtureSystem _fixtures = default!;
+    [Dependency] private DecalSystem _decals = default!;
+    [Dependency] private AtmosphereSystem _atmos = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     public override void Initialize()
     {

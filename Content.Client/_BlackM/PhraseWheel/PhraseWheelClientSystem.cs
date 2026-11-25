@@ -10,10 +10,10 @@ using Robust.Shared.Maths;
 
 namespace Content.Client._BlackM.PhraseWheel;
 
-public sealed class PhraseWheelClientSystem : SharedPhraseWheelSystem
+public sealed partial class PhraseWheelClientSystem : SharedPhraseWheelSystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
+    [Dependency] private IUserInterfaceManager _ui = default!;
 
     public override void Initialize()
     {

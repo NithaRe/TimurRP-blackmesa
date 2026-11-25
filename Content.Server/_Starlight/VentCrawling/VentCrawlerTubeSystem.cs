@@ -27,18 +27,18 @@ using Content.Server.Inventory;
 using Content.Shared.Hands.EntitySystems;
 
 namespace Content.Server._Starlight.VentCrawling;
-public sealed class VentCrawlerTubeSystem : EntitySystem
+public sealed partial class VentCrawlerTubeSystem : EntitySystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedVentCrawableSystem _ventCrawableSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly VentCrawlerTubeSystem _VentCrawlerTubeSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private readonly ServerInventorySystem _inventory = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private IMapManager _mapManager = default!;
+    [Dependency] private SharedMapSystem _mapSystem = default!;
+    [Dependency] private SharedVentCrawableSystem _ventCrawableSystem = default!;
+    [Dependency] private SharedContainerSystem _containerSystem = default!;
+    [Dependency] private VentCrawlerTubeSystem _VentCrawlerTubeSystem = default!;
+    [Dependency] private SharedDoAfterSystem _doAfterSystem = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private SharedMoverController _mover = default!;
+    [Dependency] private ServerInventorySystem _inventory = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
 
     public override void Initialize()
     {

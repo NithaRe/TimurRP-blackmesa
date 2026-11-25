@@ -13,9 +13,9 @@ using Content.Server.Administration.Managers;
 namespace Content.Server.Administration.Logs.Converters;
 
 [AdminLogConverter]
-public sealed class EntityStringRepresentationConverter : AdminLogConverter<EntityStringRepresentation>
+public sealed partial class EntityStringRepresentationConverter : AdminLogConverter<EntityStringRepresentation>
 {
-    [Dependency] private readonly IAdminManager _adminManager = default!;
+    [Dependency] private IAdminManager _adminManager = default!;
 
     public override void Write(Utf8JsonWriter writer, EntityStringRepresentation value, JsonSerializerOptions options)
     {

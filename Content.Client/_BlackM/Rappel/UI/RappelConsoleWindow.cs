@@ -14,11 +14,11 @@ using CameraEye = Robust.Shared.Graphics.Eye;
 
 namespace Content.Client._BlackM.Rappel.UI;
 
-public sealed class RappelConsoleWindow : DefaultWindow
+public sealed partial class RappelConsoleWindow : DefaultWindow
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
 
     public event Action<Vector2>? OnSelectPoint;
     public event Action? OnClearPoint;

@@ -5,10 +5,10 @@ using Robust.Shared.Physics.Components;
 
 namespace Content.Server._BlackM.Doors;
 
-public sealed class BlackMWideDoorSafetySystem : EntitySystem
+public sealed partial class BlackMWideDoorSafetySystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private SharedMapSystem _map = default!;
 
     private readonly HashSet<Entity<PhysicsComponent>> _intersecting = new();
 

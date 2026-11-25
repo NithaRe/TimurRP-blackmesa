@@ -20,10 +20,10 @@ using Content.Shared.Weapons.Melee.Events;
 
 namespace Content.Server._Shitmed.ItemSwitch;
 
-public sealed class ItemSwitchSystem : SharedItemSwitchSystem
+public sealed partial class ItemSwitchSystem : SharedItemSwitchSystem
 {
-    [Dependency] private readonly SharedItemSwitchSystem _itemSwitch = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
+    [Dependency] private SharedItemSwitchSystem _itemSwitch = default!;
+    [Dependency] private BatterySystem _battery = default!;
     public override void Initialize()
     {
         base.Initialize();

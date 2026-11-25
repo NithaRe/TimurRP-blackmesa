@@ -13,9 +13,9 @@ using Content.Shared.Physics;
 
 namespace Content.Server._Goobstation.Wizard.Systems;
 
-public sealed class TeslaBlastSystem : SharedTeslaBlastSystem
+public sealed partial class TeslaBlastSystem : SharedTeslaBlastSystem
 {
-    [Dependency] private readonly LightningSystem _lightning = default!;
+    [Dependency] private LightningSystem _lightning = default!;
 
     public override void ShootRandomLightnings(EntityUid performer,
         float power,

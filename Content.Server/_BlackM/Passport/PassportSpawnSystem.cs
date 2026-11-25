@@ -11,13 +11,13 @@ using Robust.Shared.Random;
 
 namespace Content.Server._BlackM.Passport;
 
-public sealed class PassportSpawnSystem : EntitySystem
+public sealed partial class PassportSpawnSystem : EntitySystem
 {
-    [Dependency] private readonly PassportSystem       _passport = default!;
-    [Dependency] private readonly InventorySystem      _inv      = default!;
-    [Dependency] private readonly IPrototypeManager    _proto    = default!;
-    [Dependency] private readonly ILocalizationManager _loc      = default!;
-    [Dependency] private readonly IRobustRandom        _random   = default!;
+    [Dependency] private PassportSystem       _passport = default!;
+    [Dependency] private InventorySystem      _inv      = default!;
+    [Dependency] private IPrototypeManager    _proto    = default!;
+    [Dependency] private ILocalizationManager _loc      = default!;
+    [Dependency] private IRobustRandom        _random   = default!;
 
     private const string PassportJobsPrototypeId = "PassportJobsDefault";
 

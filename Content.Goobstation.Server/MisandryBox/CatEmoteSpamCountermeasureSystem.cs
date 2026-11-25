@@ -17,12 +17,12 @@ using System;
 namespace Content.Goobstation.Server.MisandryBox;
 
 // Now that's a mouthful
-public sealed class CatEmoteSpamCountermeasureSystem : EntitySystem
+public sealed partial class CatEmoteSpamCountermeasureSystem : EntitySystem
 {
-    [Dependency] private readonly ThunderstrikeSystem _thunderstrike = default!;
-    [Dependency] private readonly IRobustRandom _rand = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private ThunderstrikeSystem _thunderstrike = default!;
+    [Dependency] private IRobustRandom _rand = default!;
+    [Dependency] private IChatManager _chat = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
 
     private const float ClearInterval = 20.0f;
     private const float PitchModulo = 0.08f;

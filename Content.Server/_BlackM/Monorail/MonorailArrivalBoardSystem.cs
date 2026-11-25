@@ -4,12 +4,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Monorail;
 
-public sealed class MonorailArrivalBoardSystem : EntitySystem
+public sealed partial class MonorailArrivalBoardSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly MonorailSystem _monorail = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
+    [Dependency] private MonorailSystem _monorail = default!;
 
     private static readonly TimeSpan UpdateInterval = TimeSpan.FromSeconds(0.5);
     private static readonly TimeSpan StopSearchInterval = TimeSpan.FromSeconds(10);

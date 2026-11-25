@@ -13,7 +13,7 @@ namespace Content.Client._BlackM.Passport.UI;
 [GenerateTypedNameReferences]
 public sealed partial class PassportCheckerWindow : DefaultWindow
 {
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
+    [Dependency] private IResourceCache _resourceCache = default!;
 
     private static readonly Color NormalBg   = Color.FromHex("#6B5B36");
     private static readonly Color SelectedBg = Color.FromHex("#F1C40F");

@@ -11,9 +11,9 @@ using Content.Goobstation.Shared.Teleportation.Components;
 
 namespace Content.Server._Shitmed.StatusEffects;
 
-public sealed class ScrambleLocationEffectSystem : EntitySystem
+public sealed partial class ScrambleLocationEffectSystem : EntitySystem
 {
-    [Dependency] private readonly SharedRandomTeleportSystem _teleportSys = default!;
+    [Dependency] private SharedRandomTeleportSystem _teleportSys = default!;
     public override void Initialize()
     {
         SubscribeLocalEvent<ScrambleLocationEffectComponent, ComponentInit>(OnInit);

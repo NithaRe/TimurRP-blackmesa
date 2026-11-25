@@ -9,12 +9,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._White.Xenomorphs.Acid;
 
-public abstract class SharedXenomorphAcidSystem : EntitySystem
+public abstract partial class SharedXenomorphAcidSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly PlasmaCostActionSystem _plasmaCost = default!; // Goobstation
+    [Dependency] protected IGameTiming Timing = default!;
+    [Dependency] private INetManager _net = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private PlasmaCostActionSystem _plasmaCost = default!; // Goobstation
 
     public override void Initialize()
     {

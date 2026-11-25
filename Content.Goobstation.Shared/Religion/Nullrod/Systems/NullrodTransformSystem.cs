@@ -14,11 +14,11 @@ using Robust.Shared.Network;
 
 namespace Content.Goobstation.Shared.Religion.Nullrod;
 
-public sealed class NullrodTransformSystem : EntitySystem
+public sealed partial class NullrodTransformSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private INetManager _netManager = default!;
+    [Dependency] private TagSystem _tagSystem = default!;
 
 
     public override void Initialize()

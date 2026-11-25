@@ -27,14 +27,14 @@ namespace Content.Client._Shitmed.Medical.Surgery.Wounds;
 /// <summary>
 /// Handles visual representation of wounds and damage on body parts
 /// </summary>
-public sealed class WoundableVisualsSystem : VisualizerSystem<WoundableVisualsComponent>
+public sealed partial class WoundableVisualsSystem : VisualizerSystem<WoundableVisualsComponent>
 {
     #region Dependencies
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly WoundSystem _wound = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private WoundSystem _wound = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
     #endregion
     #region Constants
     private const float AltBleedingSpriteChance = 0.15f;

@@ -10,9 +10,9 @@ using Robust.Shared.Audio.Systems;
 
 namespace Content.Shared._Goobstation.Wizard.HighFrequencyBlade;
 
-public sealed class LightAttackDamageMultiplierSystem : EntitySystem
+public sealed partial class LightAttackDamageMultiplierSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {

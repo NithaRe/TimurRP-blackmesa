@@ -14,9 +14,9 @@ namespace Content.Goobstation.Shared.GrabReleaseBind;
 /// <summary>
 /// This handle binding the resist grab key
 /// </summary>
-public sealed class GrabReleaseBindSystem : EntitySystem
+public sealed partial class GrabReleaseBindSystem : EntitySystem
 {
-    [Dependency] private readonly PullingSystem _pullingSystem = default!;
+    [Dependency] private PullingSystem _pullingSystem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()

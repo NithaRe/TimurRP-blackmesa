@@ -14,9 +14,9 @@ namespace Content.Shared._EinsteinEngines.Silicon.Death;
 /// <remarks>
 ///     This is horrible.
 /// </remarks>
-public abstract class SharedSiliconDeathSystem : EntitySystem
+public abstract partial class SharedSiliconDeathSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBatteryDrinkerSystem _drinker = default!;
+    [Dependency] private SharedBatteryDrinkerSystem _drinker = default!;
 
     public override void Initialize()
     {

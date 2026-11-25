@@ -53,7 +53,7 @@ public sealed partial class GeneralRecord : Control
 {
     public Action<uint>? OnDeletePressed;
 
-    [Dependency] private readonly IClipboardManager _clipboard = null!;
+    [Dependency] private IClipboardManager _clipboard = null!;
     public GeneralRecord(GeneralStationRecord record, bool canDelete, uint? id)
     {
         RobustXamlLoader.Load(this);

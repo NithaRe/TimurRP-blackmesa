@@ -4,10 +4,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Goobstation.Shared.MomentumSteering;
 
-public sealed class MomentumSteeringSystem : CommonMomentumSteeringSystem
+public sealed partial class MomentumSteeringSystem : CommonMomentumSteeringSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedJitteringSystem _jittering = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedJitteringSystem _jittering = default!;
 
     public override void TryApplyMomentumJitter(EntityUid uid, MomentumSteeringComponent comp, float speed)
     {

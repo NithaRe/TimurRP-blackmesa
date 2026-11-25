@@ -5,10 +5,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Events.Fog;
 
-public sealed class ComplexFogSystem : EntitySystem
+public sealed partial class ComplexFogSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     public void StartFog(EntityUid uid, float fadeIn, float density, Color color)
     {

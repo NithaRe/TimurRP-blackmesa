@@ -8,10 +8,10 @@ using Content.Shared.Interaction;
 
 namespace Content.Server.Heretic.EntitySystems;
 
-public sealed class ShadowCloakSystem : SharedShadowCloakSystem
+public sealed partial class ShadowCloakSystem : SharedShadowCloakSystem
 {
-    [Dependency] private readonly IdentitySystem _identity = default!;
-    [Dependency] private readonly ProtectiveBladeSystem _blade = default!;
+    [Dependency] private IdentitySystem _identity = default!;
+    [Dependency] private ProtectiveBladeSystem _blade = default!;
 
     private const float SustainedDamageReductionInterval = 1f;
     private float _accumulator;

@@ -34,26 +34,26 @@ using Robust.Shared.Utility;
 
 namespace Content.Server._BlackM.EngineeringBreakdown;
 
-public sealed class BreakdownSystem : EntitySystem
+public sealed partial class BreakdownSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ApcSystem _apc = default!;
-    [Dependency] private readonly PoweredLightSystem _light = default!;
-    [Dependency] private readonly PowerReceiverSystem _receiver = default!;
-    [Dependency] private readonly SharedDoorSystem _door = default!;
-    [Dependency] private readonly ToolSystem _tool = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedJobSystem _job = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly NavMapSystem _navMap = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private ApcSystem _apc = default!;
+    [Dependency] private PoweredLightSystem _light = default!;
+    [Dependency] private PowerReceiverSystem _receiver = default!;
+    [Dependency] private SharedDoorSystem _door = default!;
+    [Dependency] private ToolSystem _tool = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private ElectrocutionSystem _electrocution = default!;
+    [Dependency] private ExplosionSystem _explosion = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private SharedJobSystem _job = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private NavMapSystem _navMap = default!;
 
     private static readonly ProtoId<DepartmentPrototype> EngineeringDepartment = "Engineering";
     private static readonly SoundSpecifier RepairedSound = new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg");

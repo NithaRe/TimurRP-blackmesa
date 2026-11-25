@@ -7,7 +7,7 @@ namespace Content.Client._CorvaxGoob.PowerToggle;
 
 public sealed partial class TogglePowerSystem : SharedTogglePowerSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override void Initialize()
     {

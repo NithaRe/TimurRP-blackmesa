@@ -8,7 +8,7 @@ namespace Content.Shared._CorvaxGoob.OfferItem;
 
 public abstract partial class SharedOfferItemSystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
+    [Dependency] private ActionBlockerSystem _actionBlocker = default!;
 
     private void InitializeInteractions()
     {

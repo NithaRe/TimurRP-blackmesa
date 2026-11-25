@@ -26,18 +26,18 @@ using Content.Shared.Stunnable;
 
 namespace Content.Server._EinsteinEngines.Silicon.Death;
 
-public sealed class SiliconDeathSystem : SharedSiliconDeathSystem
+public sealed partial class SiliconDeathSystem : SharedSiliconDeathSystem
 {
-    [Dependency] private readonly SleepingSystem _sleep = default!;
-    [Dependency] private readonly StatusEffectsSystem _status = default!;
-    [Dependency] private readonly SiliconChargeSystem _silicon = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearanceSystem = default!;
+    [Dependency] private SleepingSystem _sleep = default!;
+    [Dependency] private StatusEffectsSystem _status = default!;
+    [Dependency] private SiliconChargeSystem _silicon = default!;
+    [Dependency] private HumanoidAppearanceSystem _humanoidAppearanceSystem = default!;
     // Goobstation Start - Energycrit
-    [Dependency] private readonly SharedCombatModeSystem _combat = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private SharedCombatModeSystem _combat = default!;
+    [Dependency] private SharedActionsSystem _actions = default!;
+    [Dependency] private StandingStateSystem _standing = default!;
+    [Dependency] private SharedStunSystem _stun = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
     // Goobstation End - Energycrit
 
     public override void Initialize()

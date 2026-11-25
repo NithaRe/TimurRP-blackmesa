@@ -13,10 +13,10 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.Underground;
 
-public sealed class UndergroundConsoleWindow : DefaultWindow
+public sealed partial class UndergroundConsoleWindow : DefaultWindow
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IResourceCache _resources = default!;
+    [Dependency] private IEntityManager _entities = default!;
+    [Dependency] private IResourceCache _resources = default!;
     public event Action? StartRequested;
     public event Action<UndergroundMission>? MissionSelected;
     public event Action? ClaimRequested;

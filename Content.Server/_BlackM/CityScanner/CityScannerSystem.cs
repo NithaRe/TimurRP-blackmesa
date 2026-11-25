@@ -22,22 +22,22 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.CityScanner;
 
-public sealed class CityScannerSystem : EntitySystem
+public sealed partial class CityScannerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedFlashSystem _flash = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly ServerInventorySystem _inventory = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedFlashSystem _flash = default!;
+    [Dependency] private SharedInteractionSystem _interaction = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private ThrowingSystem _throwing = default!;
+    [Dependency] private MetaDataSystem _meta = default!;
+    [Dependency] private NPCSystem _npc = default!;
+    [Dependency] private ServerInventorySystem _inventory = default!;
 
     private static readonly TimeSpan SearchDelay = TimeSpan.FromSeconds(0.5);
     private static readonly TimeSpan LostInterestCooldown = TimeSpan.FromSeconds(30);

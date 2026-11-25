@@ -14,11 +14,11 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Content.Client._BlackM.Rappel.UI
 {
-    public sealed class RappelCameraViewport : Control, IViewportControl
+    public sealed partial class RappelCameraViewport : Control, IViewportControl
     {
-        [Dependency] private readonly IClyde _clyde = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IInputManager _inputManager = default!;
+        [Dependency] private IClyde _clyde = default!;
+        [Dependency] private IEntityManager _entityManager = default!;
+        [Dependency] private IInputManager _inputManager = default!;
 
         private IClydeViewport? _viewport;
         private IEye? _eye;

@@ -30,8 +30,8 @@ namespace Content.Client.Materials.UI;
 [GenerateTypedNameReferences]
 public sealed partial class MaterialStorageControl : ScrollContainer
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!; // Goobstation
+    [Dependency] private IEntityManager _entityManager = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!; // Goobstation
     private readonly SiloSystem _silo; // Goobstation
     private readonly TagSystem _tagSystem; // Goobstation
 

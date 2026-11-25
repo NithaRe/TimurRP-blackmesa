@@ -25,19 +25,19 @@ using Robust.Shared.Configuration;
 
 namespace Content.Server._CorvaxGoob.Ghostbar;
 
-public sealed class GhostBarSystem : EntitySystem
+public sealed partial class GhostBarSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly StationSpawningSystem _spawningSystem = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly GhostRoleSystem _ghostRole = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private SharedMapSystem _mapSystem = default!;
+    [Dependency] private MapLoaderSystem _mapLoader = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private GameTicker _ticker = default!;
+    [Dependency] private StationSpawningSystem _spawningSystem = default!;
+    [Dependency] private MindSystem _mindSystem = default!;
+    [Dependency] private IEntityManager _entityManager = default!;
+    [Dependency] private ActionsSystem _actions = default!;
+    [Dependency] private GhostRoleSystem _ghostRole = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     private static readonly List<ProtoId<JobPrototype>> _jobComponents = new()
     {

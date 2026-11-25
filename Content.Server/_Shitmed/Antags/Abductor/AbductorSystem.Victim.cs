@@ -19,10 +19,10 @@ namespace Content.Server._Shitmed.Antags.Abductor;
 
 public sealed partial class AbductorSystem : SharedAbductorSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogManager = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly RoleSystem _role = default!;
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
+    [Dependency] private IAdminLogManager _adminLogManager = default!;
+    [Dependency] private MindSystem _mind = default!;
+    [Dependency] private RoleSystem _role = default!;
+    [Dependency] private AntagSelectionSystem _antag = default!;
 
     private static readonly string DefaultAbductorVictimRule = "AbductorVictim";
     public void InitializeVictim()

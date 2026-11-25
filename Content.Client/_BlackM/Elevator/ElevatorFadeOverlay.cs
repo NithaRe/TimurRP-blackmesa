@@ -8,10 +8,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Elevator;
 
-public sealed class ElevatorFadeOverlay : Overlay
+public sealed partial class ElevatorFadeOverlay : Overlay
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IResourceCache _cache = default!;
 
     public override OverlaySpace Space => OverlaySpace.ScreenSpace;
 

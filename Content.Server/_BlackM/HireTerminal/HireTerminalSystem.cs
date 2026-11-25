@@ -26,22 +26,22 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Server._BlackM.HireTerminal;
 
-public sealed class HireTerminalSystem : EntitySystem
+public sealed partial class HireTerminalSystem : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem     _itemSlots = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui        = default!;
-    [Dependency] private readonly SharedAudioSystem   _audio     = default!;
-    [Dependency] private readonly PopupSystem         _popup     = default!;
-    [Dependency] private readonly HandsSystem         _hands     = default!;
-    [Dependency] private readonly StationSystem       _station   = default!;
-    [Dependency] private readonly PassportSystem      _passport  = default!;
-    [Dependency] private readonly GameTicker          _ticker    = default!;
-    [Dependency] private readonly MobStateSystem      _mob       = default!;
-    [Dependency] private readonly IPrototypeManager   _proto     = default!;
-    [Dependency] private readonly IPlayerManager      _players   = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly ChatSystem          _chat       = default!;
-    [Dependency] private readonly IGameTiming         _timing    = default!;
+    [Dependency] private ItemSlotsSystem     _itemSlots = default!;
+    [Dependency] private UserInterfaceSystem _ui        = default!;
+    [Dependency] private SharedAudioSystem   _audio     = default!;
+    [Dependency] private PopupSystem         _popup     = default!;
+    [Dependency] private HandsSystem         _hands     = default!;
+    [Dependency] private StationSystem       _station   = default!;
+    [Dependency] private PassportSystem      _passport  = default!;
+    [Dependency] private GameTicker          _ticker    = default!;
+    [Dependency] private MobStateSystem      _mob       = default!;
+    [Dependency] private IPrototypeManager   _proto     = default!;
+    [Dependency] private IPlayerManager      _players   = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private ChatSystem          _chat       = default!;
+    [Dependency] private IGameTiming         _timing    = default!;
 
     private static readonly SoundSpecifier SuccessSound = new SoundPathSpecifier("/Audio/_BlackM/Announcements/terminal_success.ogg");
     private static readonly SoundSpecifier ErrorSound   = new SoundPathSpecifier("/Audio/_BlackM/Announcements/terminal_alert.ogg");

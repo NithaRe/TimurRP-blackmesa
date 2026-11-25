@@ -21,18 +21,18 @@ using Robust.Shared.Random;
 
 namespace Content.Server._BlackM.Passport;
 
-public sealed class PassportSystem : EntitySystem
+public sealed partial class PassportSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem  _ui     = default!;
-    [Dependency] private readonly HandsSystem          _hands  = default!;
-    [Dependency] private readonly InventorySystem      _inv    = default!;
-    [Dependency] private readonly ILocalizationManager _loc    = default!;
-    [Dependency] private readonly IPrototypeManager    _proto  = default!;
-    [Dependency] private readonly IRobustRandom        _random = default!;
-    [Dependency] private readonly PopupSystem          _popup  = default!;
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
-    [Dependency] private readonly AchievementsSystem _achievements = default!;
+    [Dependency] private UserInterfaceSystem  _ui     = default!;
+    [Dependency] private HandsSystem          _hands  = default!;
+    [Dependency] private InventorySystem      _inv    = default!;
+    [Dependency] private ILocalizationManager _loc    = default!;
+    [Dependency] private IPrototypeManager    _proto  = default!;
+    [Dependency] private IRobustRandom        _random = default!;
+    [Dependency] private PopupSystem          _popup  = default!;
+    [Dependency] private SharedHumanoidAppearanceSystem _humanoid = default!;
+    [Dependency] private PvsOverrideSystem _pvsOverride = default!;
+    [Dependency] private AchievementsSystem _achievements = default!;
 
     private const float BureaucraticErrorChance = 0.10f;
 

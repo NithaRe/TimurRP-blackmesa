@@ -8,12 +8,12 @@ using System.Linq;
 
 namespace Content.Server._CorvaxGoob.Announcer;
 
-public sealed class AnnouncerSystem : EntitySystem
+public sealed partial class AnnouncerSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private IConfigurationManager _configManager = default!;
+    [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     private bool _enabled;
     private AnnouncerPrototype? _announcerToday = null;

@@ -14,15 +14,15 @@ using Content.Server.Mail.Components;
 namespace Content.Server.Mail;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class MailToCommand : IConsoleCommand
+public sealed partial class MailToCommand : IConsoleCommand
 {
     public string Command => "mailto";
     public string Description => Loc.GetString("command-mailto-description", ("requiredComponent", nameof(MailReceiverComponent)));
     public string Help => Loc.GetString("command-mailto-help", ("command", Command));
 
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+    [Dependency] private IEntityManager _entityManager = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IEntitySystemManager _entitySystemManager = default!;
 
     private readonly string _blankMailPrototype = "MailAdminFun";
     private readonly string _blankLargeMailPrototype = "MailLargeAdminFun"; // Frontier: large mail
@@ -131,14 +131,14 @@ public sealed class MailToCommand : IConsoleCommand
 }
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class MailNowCommand : IConsoleCommand
+public sealed partial class MailNowCommand : IConsoleCommand
 {
     public string Command => "mailnow";
     public string Description => Loc.GetString("command-mailnow");
     public string Help => Loc.GetString("command-mailnow-help", ("command", Command));
 
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+    [Dependency] private IEntityManager _entityManager = default!;
+    [Dependency] private IEntitySystemManager _entitySystemManager = default!;
 
     public async void Execute(IConsoleShell shell, string argStr, string[] args)
     {

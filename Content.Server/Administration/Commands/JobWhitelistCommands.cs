@@ -17,13 +17,13 @@ using Robust.Shared.Prototypes;
 namespace Content.Server.Administration.Commands;
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class JobWhitelistAddCommand : LocalizedCommands
+public sealed partial class JobWhitelistAddCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private IServerDbManager _db = default!;
+    [Dependency] private JobWhitelistManager _jobWhitelist = default!;
+    [Dependency] private IPlayerLocator _playerLocator = default!;
+    [Dependency] private IPlayerManager _players = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
 
     public override string Command => "jobwhitelistadd";
 
@@ -93,11 +93,11 @@ public sealed class JobWhitelistAddCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class GetJobWhitelistCommand : LocalizedCommands
+public sealed partial class GetJobWhitelistCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private IServerDbManager _db = default!;
+    [Dependency] private IPlayerLocator _playerLocator = default!;
+    [Dependency] private IPlayerManager _players = default!;
 
     public override string Command => "jobwhitelistget";
 
@@ -145,13 +145,13 @@ public sealed class GetJobWhitelistCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class RemoveJobWhitelistCommand : LocalizedCommands
+public sealed partial class RemoveJobWhitelistCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private IServerDbManager _db = default!;
+    [Dependency] private JobWhitelistManager _jobWhitelist = default!;
+    [Dependency] private IPlayerLocator _playerLocator = default!;
+    [Dependency] private IPlayerManager _players = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
 
     public override string Command => "jobwhitelistremove";
 

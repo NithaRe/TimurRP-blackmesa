@@ -18,20 +18,20 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Gib;
 
-public sealed class GibSystem : EntitySystem
+public sealed partial class GibSystem : EntitySystem
 {
-    [Dependency] private readonly BodySystem _body = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly SharedCameraRecoilSystem _recoil = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapMan = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly IComponentFactory _compFactory = default!;
+    [Dependency] private BodySystem _body = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private SharedCameraRecoilSystem _recoil = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IMapManager _mapMan = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private IComponentFactory _compFactory = default!;
 
     private EntityQuery<OccluderComponent> _occluders;
 

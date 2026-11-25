@@ -15,7 +15,7 @@ namespace Content.Client._CorvaxGoob.Photo.UI;
 [GenerateTypedNameReferences]
 public sealed partial class PhotoCameraWindow : FancyWindow
 {
-    [Dependency] private readonly IResourceCache _cache = default!;
+    [Dependency] private IResourceCache _cache = default!;
 
     public Vector2 MoveInput = Vector2.Zero;
     public float ZoomInput = 0;

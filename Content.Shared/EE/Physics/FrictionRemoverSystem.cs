@@ -12,9 +12,9 @@ using Robust.Shared.Physics.Systems;
 
 namespace Content.Shared.Physics;
 
-public sealed class FrictionRemoverSystem : EntitySystem
+public sealed partial class FrictionRemoverSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
 
 
     public override void Initialize()

@@ -5,10 +5,10 @@ using Robust.Shared.Console;
 namespace Content.Server._CorvaxGoob.Skills.Commands;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class GrantAllSkillsCommand : IConsoleCommand
+public sealed partial class GrantAllSkillsCommand : IConsoleCommand
 {
-    [Dependency] private readonly ILocalizationManager _localization = default!;
-    [Dependency] private readonly IEntityManager _entity = default!;
+    [Dependency] private ILocalizationManager _localization = default!;
+    [Dependency] private IEntityManager _entity = default!;
 
     public string Command => "grantallskills";
 

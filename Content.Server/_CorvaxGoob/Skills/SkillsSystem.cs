@@ -6,11 +6,11 @@ using Robust.Shared.Configuration;
 
 namespace Content.Server._CorvaxGoob.Skills;
 
-public sealed class SkillsSystem : EntitySystem
+public sealed partial class SkillsSystem : EntitySystem
 {
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency] private TagSystem _tag = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
 
     [ValidatePrototypeId<TagPrototype>]
     public const string SkillsTag = "Skills";

@@ -13,9 +13,9 @@ using DrawDepth = Content.Shared.DrawDepth.DrawDepth;
 
 namespace Content.Client._BlackM.Gib;
 
-public sealed class GibParticleOverlay : Overlay
+public sealed partial class GibParticleOverlay : Overlay
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     private const string Path = "/Textures/_BlackM/Effects/Gib/";
     private const int MaxParticles = 1400;

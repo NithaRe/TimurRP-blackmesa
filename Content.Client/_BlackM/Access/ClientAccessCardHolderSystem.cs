@@ -4,9 +4,9 @@ using Robust.Shared.Containers;
 
 namespace Content.Client._BlackM.Access;
 
-public sealed class ClientAccessCardHolderSystem : EntitySystem
+public sealed partial class ClientAccessCardHolderSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
 
     public override void Initialize()
     {

@@ -14,11 +14,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._Starlight.VentCrawling;
 
-public sealed class VentCrawlingSystem : EntitySystem
+public sealed partial class VentCrawlingSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly SubFloorHideSystem _subFloorHideSystem = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private SubFloorHideSystem _subFloorHideSystem = default!;
 
     public override void Update(float frameTime)
     {

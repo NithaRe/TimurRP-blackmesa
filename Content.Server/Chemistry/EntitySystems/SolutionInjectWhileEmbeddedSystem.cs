@@ -22,14 +22,14 @@ namespace Content.Server.Chemistry.EntitySystems;
 /// <summary>
 /// System for handling injecting into an entity while a projectile is embedded.
 /// </summary>
-public sealed class SolutionInjectWhileEmbeddedSystem : EntitySystem
+public sealed partial class SolutionInjectWhileEmbeddedSystem : EntitySystem
 {
-	[Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+	[Dependency] private IGameTiming _gameTiming = default!;
+    [Dependency] private BloodstreamSystem _bloodstream = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private TagSystem _tag = default!;
 
     public override void Initialize()
     {

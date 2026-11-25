@@ -6,11 +6,11 @@ using Robust.Client.Graphics;
 
 namespace Content.Client._CorvaxGoob.QuantumTelepad;
 
-public sealed class QuantumTelepadSystem : EntitySystem
+public sealed partial class QuantumTelepadSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly AnimationPlayerSystem _player = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private AnimationPlayerSystem _player = default!;
 
     private static readonly Robust.Client.Animations.Animation TelepadBeamAnimation = new()
     {

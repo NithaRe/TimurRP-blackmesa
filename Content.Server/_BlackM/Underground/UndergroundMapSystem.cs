@@ -25,19 +25,19 @@ namespace Content.Server._BlackM.Underground;
 
 public sealed record UndergroundGeneratedMap(EntityUid Map, MapId MapId, IReadOnlyList<Dungeon> Dungeons, Vector2i LandingTile, EntityUid LandingDispatcher, int Seed);
 
-public sealed class UndergroundMapSystem : EntitySystem
+public sealed partial class UndergroundMapSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly SharedTransformSystem _transforms = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly ITileDefinitionManager _tiles = default!;
-    [Dependency] private readonly TagSystem _tags = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly DungeonSystem _dungeons = default!;
-    [Dependency] private readonly AnchorableSystem _anchorable = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private SharedMapSystem _maps = default!;
+    [Dependency] private SharedTransformSystem _transforms = default!;
+    [Dependency] private IMapManager _mapManager = default!;
+    [Dependency] private ITileDefinitionManager _tiles = default!;
+    [Dependency] private TagSystem _tags = default!;
+    [Dependency] private AtmosphereSystem _atmosphere = default!;
+    [Dependency] private DecalSystem _decals = default!;
+    [Dependency] private DungeonSystem _dungeons = default!;
+    [Dependency] private AnchorableSystem _anchorable = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
 
     private const string DungeonPrototype = "BlackMUndergroundComplex";
     private const string CorridorPalettePrototype = "BlackMUndergroundCorridorPalette";

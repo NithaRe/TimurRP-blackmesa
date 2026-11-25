@@ -17,11 +17,11 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Goobstation.Silo;
 
-public abstract class SharedSiloSystem : EntitySystem
+public abstract partial class SharedSiloSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] protected readonly SharedDeviceLinkSystem DeviceLink = default!;
-    [Dependency] protected readonly SharedMaterialStorageSystem _materialStorage = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] protected SharedDeviceLinkSystem DeviceLink = default!;
+    [Dependency] protected SharedMaterialStorageSystem _materialStorage = default!;
 
     private bool _siloEnabled;
 

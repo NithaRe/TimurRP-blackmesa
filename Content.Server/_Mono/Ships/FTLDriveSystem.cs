@@ -5,9 +5,9 @@ using Content.Shared.Power;
 
 namespace Content.Server._Mono.Ships;
 
-public sealed class FTLDriveSystem : EntitySystem
+public sealed partial class FTLDriveSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
 
     private readonly HashSet<Entity<FTLDriveGeneratorComponent>> _drives = new();
 

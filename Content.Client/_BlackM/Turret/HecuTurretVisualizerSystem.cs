@@ -4,10 +4,10 @@ using Robust.Shared.GameStates;
 
 namespace Content.Client._BlackM.Turret;
 
-public sealed class HecuTurretVisualizerSystem : EntitySystem
+public sealed partial class HecuTurretVisualizerSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {

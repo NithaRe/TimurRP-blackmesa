@@ -18,11 +18,11 @@ using Robust.Shared.Player;
 namespace Content.Client.RoundEnd;
 
 [UsedImplicitly]
-public sealed class RoundEndSummaryUIController : UIController,
+public sealed partial class RoundEndSummaryUIController : UIController,
     IOnSystemLoaded<ClientGameTicker>
 {
-    [Dependency] private readonly IInputManager _input = default!;
-    [Dependency] private readonly IFileDialogManager _fileDialogManager = default!; // CorvaxGoob-PhotoCamera
+    [Dependency] private IInputManager _input = default!;
+    [Dependency] private IFileDialogManager _fileDialogManager = default!; // CorvaxGoob-PhotoCamera
 
     private RoundEndSummaryWindow? _window;
 

@@ -2,9 +2,9 @@ using Content.Shared._BlackM.Achievements;
 using Content.Shared.GameTicking;
 
 namespace Content.Server._BlackM.Achievements;
-public sealed class AmsAchievementsSystem : EntitySystem
+public sealed partial class AmsAchievementsSystem : EntitySystem
 {
-    [Dependency] private readonly AchievementsSystem _achievements = default!;
+    [Dependency] private AchievementsSystem _achievements = default!;
     private readonly HashSet<EntityUid> _countedParts = new();
 
     public override void Initialize()

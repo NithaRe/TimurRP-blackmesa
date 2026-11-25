@@ -18,7 +18,7 @@ namespace Content.Client._BlackM.Rules;
 [GenerateTypedNameReferences]
 public sealed partial class RulesArrivalPopup : Control
 {
-    [Dependency] private readonly IResourceCache _resources = default!;
+    [Dependency] private IResourceCache _resources = default!;
     private enum Stage { Starting, ScreenSetup, FadingIn, Walking, Reading, Burning, Leaving, FadingOut, Finished }
     private readonly HashSet<BoundKeyFunction> _movement = new();
     private bool _greeted;

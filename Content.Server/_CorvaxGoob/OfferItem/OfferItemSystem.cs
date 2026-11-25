@@ -5,10 +5,10 @@ using Content.Shared.Hands.EntitySystems;
 
 namespace Content.Server._CorvaxGoob.OfferItem;
 
-public sealed class OfferItemSystem : SharedOfferItemSystem
+public sealed partial class OfferItemSystem : SharedOfferItemSystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private AlertsSystem _alertsSystem = default!;
 
     private float _offerAcc = 0;
     private const float OfferAccMax = 3f;

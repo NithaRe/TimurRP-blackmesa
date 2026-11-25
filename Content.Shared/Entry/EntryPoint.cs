@@ -50,14 +50,14 @@ using Robust.Shared.Utility;
 
 namespace Content.Shared.Entry
 {
-    public sealed class EntryPoint : GameShared
+    public sealed partial class EntryPoint : GameShared
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-        [Dependency] private readonly IResourceManager _resMan = default!;
-        [Dependency] private readonly IReflectionManager _refMan = default!; // Goobstation - Module Throws
-        [Dependency] private readonly ISandboxHelper _sandbox = default!; // Goobstation - Module Throws
-        [Dependency] private readonly INetManager _net = default!; // Goobstation - Module Throws
+        [Dependency] private IPrototypeManager _prototypeManager = default!;
+        [Dependency] private ITileDefinitionManager _tileDefinitionManager = default!;
+        [Dependency] private IResourceManager _resMan = default!;
+        [Dependency] private IReflectionManager _refMan = default!; // Goobstation - Module Throws
+        [Dependency] private ISandboxHelper _sandbox = default!; // Goobstation - Module Throws
+        [Dependency] private INetManager _net = default!; // Goobstation - Module Throws
 
         private readonly ResPath _ignoreFileDirectory = new("/IgnoredPrototypes/");
 

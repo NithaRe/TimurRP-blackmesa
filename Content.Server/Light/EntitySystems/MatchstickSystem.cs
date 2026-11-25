@@ -38,16 +38,16 @@ using Robust.Shared.Audio.Systems;
 
 namespace Content.Server.Light.EntitySystems
 {
-    public sealed class MatchstickSystem : SharedMatchstickSystem // Shitmed Change
+    public sealed partial class MatchstickSystem : SharedMatchstickSystem // Shitmed Change
     {
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedItemSystem _item = default!;
-        [Dependency] private readonly SharedPointLightSystem _lights = default!;
-        [Dependency] private readonly TransformSystem _transformSystem = default!;
+        [Dependency] private AtmosphereSystem _atmosphereSystem = default!;
+        [Dependency] private SharedAppearanceSystem _appearance = default!;
+        [Dependency] private SharedAudioSystem _audio = default!;
+        [Dependency] private SharedItemSystem _item = default!;
+        [Dependency] private SharedPointLightSystem _lights = default!;
+        [Dependency] private TransformSystem _transformSystem = default!;
 
-        [Dependency] private readonly EntityTimerSystem _entityTimers = default!;
+        [Dependency] private EntityTimerSystem _entityTimers = default!;
         private readonly HashSet<Entity<MatchstickComponent>> _litMatches = new();
 
         public override void Initialize()

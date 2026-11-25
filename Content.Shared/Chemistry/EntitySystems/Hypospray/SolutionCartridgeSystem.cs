@@ -11,12 +11,12 @@ using Robust.Shared.Network; //Goobstation
 
 namespace Content.Shared.Chemistry.EntitySystems.Hypospray;
 
-public sealed class SolutionCartridgeSystem : EntitySystem
+public sealed partial class SolutionCartridgeSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!; // Goobstation
+    [Dependency] private SharedSolutionContainerSystem _solution = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private INetManager _net = default!; // Goobstation
 
     public override void Initialize()
     {

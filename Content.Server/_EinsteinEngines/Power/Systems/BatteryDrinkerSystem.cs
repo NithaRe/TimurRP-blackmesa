@@ -30,18 +30,18 @@ using Content.Shared.Whitelist;
 namespace Content.Server._EinsteinEngines.Power;
 
 // Goobstation - Energycrit: Create SharedBatteryDrinkerSystem and Client BatteryDrinkerSystem so client can predict drink verbs
-public sealed class BatteryDrinkerSystem : SharedBatteryDrinkerSystem
+public sealed partial class BatteryDrinkerSystem : SharedBatteryDrinkerSystem
 {
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SiliconChargeSystem _silicon = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly ChargerSystem _chargers = default!; // Goobstation
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!; // Goobstation - Energycrit
+    [Dependency] private ItemSlotsSystem _slots = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private BatterySystem _battery = default!;
+    [Dependency] private SiliconChargeSystem _silicon = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private PowerCellSystem _powerCell = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private ChargerSystem _chargers = default!; // Goobstation
+    [Dependency] private EntityWhitelistSystem _whitelist = default!; // Goobstation - Energycrit
 
     public override void Initialize()
     {

@@ -14,12 +14,12 @@ using Robust.Shared.Configuration;
 
 namespace Content.Server._EinsteinEngines.HeightAdjust;
 
-public sealed class BloodstreamAdjustSystem : EntitySystem
+public sealed partial class BloodstreamAdjustSystem : EntitySystem
 {
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly ContestsSystem _contests = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private BloodstreamSystem _bloodstream = default!;
+    [Dependency] private IConfigurationManager _config = default!;
+    [Dependency] private ContestsSystem _contests = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
 
     public override void Initialize()
     {

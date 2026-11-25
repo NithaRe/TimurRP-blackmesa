@@ -9,11 +9,11 @@ namespace Content.Server._Mono.Projectiles.TargetSeeking;
 /// <summary>
 /// Handles the logic for target-seeking projectiles.
 /// </summary>
-public sealed class TargetSeekingSystem : EntitySystem
+public sealed partial class TargetSeekingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = null!;
-    [Dependency] private readonly RotateToFaceSystem _rotateToFace = null!;
-    [Dependency] private readonly PhysicsSystem _physics = null!;
+    [Dependency] private SharedTransformSystem _transform = null!;
+    [Dependency] private RotateToFaceSystem _rotateToFace = null!;
+    [Dependency] private PhysicsSystem _physics = null!;
 
     public override void Initialize()
     {

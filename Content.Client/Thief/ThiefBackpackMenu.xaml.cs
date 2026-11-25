@@ -46,7 +46,7 @@ namespace Content.Client.Thief;
 [GenerateTypedNameReferences]
 public sealed partial class ThiefBackpackMenu : FancyWindow
 {
-    [Dependency] private readonly IEntitySystemManager _sysMan = default!;
+    [Dependency] private IEntitySystemManager _sysMan = default!;
     private readonly SpriteSystem _spriteSystem;
 
     public event Action? OnApprove;

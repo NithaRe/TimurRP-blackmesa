@@ -13,9 +13,9 @@ namespace Content.Shared._Goobstation.Wizard.FadingTimedDespawn;
 /// <summary>
 /// This is a copy of SharedTimedDespawnSystem with some modifications
 /// </summary>
-public abstract class SharedFadingTimedDespawnSystem : EntitySystem
+public abstract partial class SharedFadingTimedDespawnSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
+    [Dependency] protected IGameTiming Timing = default!;
 
     private readonly HashSet<EntityUid> _queuedDespawnEntities = new();
 

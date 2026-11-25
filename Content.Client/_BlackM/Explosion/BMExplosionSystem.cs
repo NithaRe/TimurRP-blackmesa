@@ -17,18 +17,18 @@ namespace Content.Client._BlackM.Explosion;
 /// <summary>
 /// Client-only replacement for the vanilla explosion visuals.
 /// </summary>
-public sealed class BMExplosionSystem : EntitySystem
+public sealed partial class BMExplosionSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPointLightSystem _lights = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private IOverlayManager _overlayMan = default!;
+    [Dependency] private IResourceCache _cache = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedPointLightSystem _lights = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     private const string ScorchProto = "BMExplosionScorch";
     private const string LightProto = "ExplosionLight";

@@ -57,11 +57,11 @@ internal static class BadgeCommandHelper
     }
 }
 [AdminCommand(AdminFlags.Admin)]
-public sealed class GiveBadgeCommand : IConsoleCommand
+public sealed partial class GiveBadgeCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IPlayerManager _players = default!;
 
     public string Command     => "givebadge";
     public string Description => "blackm-badge-give-description";
@@ -110,11 +110,11 @@ public sealed class GiveBadgeCommand : IConsoleCommand
     }
 }
 [AdminCommand(AdminFlags.Admin)]
-public sealed class TakeBadgeCommand : IConsoleCommand
+public sealed partial class TakeBadgeCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IPlayerManager _players = default!;
 
     public string Command     => "takebadge";
     public string Description => "blackm-badge-take-description";
@@ -157,11 +157,11 @@ public sealed class TakeBadgeCommand : IConsoleCommand
     }
 }
 [AdminCommand(AdminFlags.Admin)]
-public sealed class BadgesCommand : IConsoleCommand
+public sealed partial class BadgesCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IPlayerManager _players = default!;
 
     public string Command     => "badges";
     public string Description => "blackm-badge-list-description";
@@ -195,10 +195,10 @@ public sealed class BadgesCommand : IConsoleCommand
     }
 }
 [AdminCommand(AdminFlags.Admin)]
-public sealed class BadgeStatCommand : IConsoleCommand
+public sealed partial class BadgeStatCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IPlayerManager _players = default!;
 
     public string Command     => "badgestat";
     public string Description => "blackm-badge-stat-description";

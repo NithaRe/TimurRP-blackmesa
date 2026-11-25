@@ -7,9 +7,9 @@ using Robust.Shared.Localization;
 namespace Content.Server._BlackM.ChatImage;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class SendImageCommand : IConsoleCommand
+public sealed partial class SendImageCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency] private IEntityManager _entMan = default!;
 
     public string Command => "sendimg";
     public string Description => Loc.GetString("cmd-sendimg-desc");

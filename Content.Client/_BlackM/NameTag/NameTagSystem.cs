@@ -2,9 +2,9 @@ using Robust.Client.Graphics;
 
 namespace Content.Client._BlackM.NameTag;
 
-public sealed class NameTagSystem : EntitySystem
+public sealed partial class NameTagSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlays = default!;
+    [Dependency] private IOverlayManager _overlays = default!;
 
     public override void Initialize()
     {

@@ -9,11 +9,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.EyeTrail;
 
-public sealed class EyeTrailOverlay : Overlay
+public sealed partial class EyeTrailOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
 
     // bad data).
     private const float MaxSegmentTiles = 2f;

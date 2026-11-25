@@ -9,12 +9,12 @@ using Content.Shared.Trigger.Components.Effects;
 
 namespace Content.Shared.Trigger.Systems;
 
-public sealed class UncuffOnTriggerSystem : EntitySystem
+public sealed partial class UncuffOnTriggerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedCuffableSystem _cuffable = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!; //goob
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!; //goob
-    [Dependency] private readonly SharedTransformSystem _transform = default!; //goob
+    [Dependency] private SharedCuffableSystem _cuffable = default!;
+    [Dependency] private SharedStunSystem _stun = default!; //goob
+    [Dependency] private SharedDoAfterSystem _doAfter = default!; //goob
+    [Dependency] private SharedTransformSystem _transform = default!; //goob
 
     public override void Initialize()
     {

@@ -8,10 +8,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Events.Fog;
 
-public sealed class ComplexFogOverlay : Overlay
+public sealed partial class ComplexFogOverlay : Overlay
 {
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IResourceCache _cache = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private const string CloudsPath = "/Textures/_BlackM/Effects/Fog/fog_clouds.png";
     private const string WispsPath = "/Textures/_BlackM/Effects/Fog/fog_wisps.png";

@@ -5,7 +5,7 @@ using Robust.Shared.Maths;
 
 namespace Content.Client._BlackM.Cargo;
 
-public sealed class HeavyCargoVisualSystem : EntitySystem
+public sealed partial class HeavyCargoVisualSystem : EntitySystem
 {
     private const int BaseLayer = 0;
     private const int BlockedLayer = 1;
@@ -16,8 +16,8 @@ public sealed class HeavyCargoVisualSystem : EntitySystem
     private const float VanishTime = 0.9f;
     private const float AppearTime = 0.3f;
 
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     private readonly record struct Original(Vector2 Scale, Color Color, bool Visible);
     private readonly record struct ActiveLift(EntityUid Parent, Vector2 Center, Angle Rotation, float Half,

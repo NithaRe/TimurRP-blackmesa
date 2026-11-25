@@ -217,18 +217,18 @@ internal sealed partial class ChatManager : IChatManager
         { "revolutionary", "#aa00ff" }
     };
 
-    [Dependency] private readonly IReplayRecordingManager _replay = default!;
-    [Dependency] private readonly IServerNetManager _netManager = default!;
-    [Dependency] private readonly IMoMMILink _mommiLink = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IServerPreferencesManager _preferencesManager = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly INetConfigurationManager _netConfigManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly PlayerRateLimitManager _rateLimitManager = default!;
+    [Dependency] private IReplayRecordingManager _replay = default!;
+    [Dependency] private IServerNetManager _netManager = default!;
+    [Dependency] private IMoMMILink _mommiLink = default!;
+    [Dependency] private IAdminManager _adminManager = default!;
+    [Dependency] private IAdminLogManager _adminLogger = default!;
+    [Dependency] private IServerPreferencesManager _preferencesManager = default!;
+    [Dependency] private IConfigurationManager _configurationManager = default!;
+    [Dependency] private INetConfigurationManager _netConfigManager = default!;
+    [Dependency] private IEntityManager _entityManager = default!;
+    [Dependency] private PlayerRateLimitManager _rateLimitManager = default!;
     private ISharedSponsorsManager? _sponsorsManager; // CorvaxGoob-Sponsors
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
+    [Dependency] private ISharedPlayerManager _player = default!;
     //[Dependency] private readonly LinkAccountManager _linkAccount = default!; // RMC - Patreon // CorvaxGoob-Coins
 
     /// <summary>

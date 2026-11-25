@@ -30,18 +30,18 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Goobstation.Wizard.Teleport;
 
-public sealed class WizardTeleportSystem : SharedWizardTeleportSystem
+public sealed partial class WizardTeleportSystem : SharedWizardTeleportSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly PullingSystem _pullingSystem = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly WizardRuleSystem _wizard = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SpellsSystem _spells = default!;
+    [Dependency] private UserInterfaceSystem _uiSystem = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private PullingSystem _pullingSystem = default!;
+    [Dependency] private ActionsSystem _actions = default!;
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private WizardRuleSystem _wizard = default!;
+    [Dependency] private TransformSystem _transform = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private SpellsSystem _spells = default!;
 
     private static readonly EntProtoId SmokeProto = "AdminInstantEffectSmoke10";
 

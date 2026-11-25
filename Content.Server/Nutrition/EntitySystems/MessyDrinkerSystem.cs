@@ -7,12 +7,12 @@ using Robust.Shared.Random;
 
 namespace Content.Server.Nutrition.EntitySystems;
 
-public sealed class MessyDrinkerSystem : EntitySystem
+public sealed partial class MessyDrinkerSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IngestionSystem _ingestion = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IngestionSystem _ingestion = default!;
+    [Dependency] private PuddleSystem _puddle = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {

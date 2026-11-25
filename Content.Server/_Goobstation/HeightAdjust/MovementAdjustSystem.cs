@@ -11,9 +11,9 @@ using Content.Shared._EinsteinEngines.Flight;
 
 namespace Content.Server._Goobstation.HeightAdjust;
 
-public sealed class MovementAdjustSystem : EntitySystem
+public sealed partial class MovementAdjustSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
+    [Dependency] private IConfigurationManager _config = default!;
 
     public override void Initialize()
     {

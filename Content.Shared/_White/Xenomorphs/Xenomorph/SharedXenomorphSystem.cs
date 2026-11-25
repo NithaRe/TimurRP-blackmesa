@@ -4,10 +4,10 @@ using Content.Shared.Tag;
 
 namespace Content.Shared._White.Xenomorphs.Xenomorph;
 
-public abstract class SharedXenomorphSystem : EntitySystem
+public abstract partial class SharedXenomorphSystem : EntitySystem
 {
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private TagSystem _tag = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
 
     [ValidatePrototypeId<TagPrototype>]
     private const string XenomorphItemTag = "XenomorphItem";

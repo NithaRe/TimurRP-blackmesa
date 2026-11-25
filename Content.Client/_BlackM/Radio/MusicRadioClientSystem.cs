@@ -12,12 +12,12 @@ using Robust.Shared.Player;
 
 namespace Content.Client._BlackM.Radio;
 
-public sealed class MusicRadioClientSystem : EntitySystem
+public sealed partial class MusicRadioClientSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IStateManager _state = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IStateManager _state = default!;
 
     private float _volumeAdjustment;
 

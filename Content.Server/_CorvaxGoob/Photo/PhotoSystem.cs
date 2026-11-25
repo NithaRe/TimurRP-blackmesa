@@ -16,16 +16,16 @@ namespace Content.Server._CorvaxGoob.Photo;
 
 public sealed partial class PhotoSystem : SharedPhotoSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly MaterialStorageSystem _material = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly UseDelaySystem _delay = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTime = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private UserInterfaceSystem _userInterface = default!;
+    [Dependency] private HandsSystem _hands = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private MaterialStorageSystem _material = default!;
+    [Dependency] private TransformSystem _transform = default!;
+    [Dependency] private UseDelaySystem _delay = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private PlayTimeTrackingManager _playTime = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IPlayerManager _player = default!;
 
     //96 KB
     const int MAX_SIZE = 1024 * 96;

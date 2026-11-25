@@ -29,12 +29,12 @@ using Content.Shared._Shitmed.Medical.Surgery.Traumas.Systems;
 
 namespace Content.Shared.Eye.Blinding.Systems;
 
-public sealed class BlindableSystem : EntitySystem
+public sealed partial class BlindableSystem : EntitySystem
 {
-    [Dependency] private readonly BlurryVisionSystem _blurriness = default!;
-    [Dependency] private readonly EyeClosingSystem _eyelids = default!;
-    [Dependency] private readonly SharedBodySystem _body = default!; // Shitmed Change
-    [Dependency] private readonly TraumaSystem _trauma = default!; // Shitmed Change
+    [Dependency] private BlurryVisionSystem _blurriness = default!;
+    [Dependency] private EyeClosingSystem _eyelids = default!;
+    [Dependency] private SharedBodySystem _body = default!; // Shitmed Change
+    [Dependency] private TraumaSystem _trauma = default!; // Shitmed Change
 
     public override void Initialize()
     {

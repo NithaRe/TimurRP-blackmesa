@@ -23,16 +23,16 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Goobstation.Wizard.Systems;
 
-public sealed class SanguineStrikeSystem : SharedSanguineStrikeSystem
+public sealed partial class SanguineStrikeSystem : SharedSanguineStrikeSystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PointLightSystem _light = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodStream = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private PointLightSystem _light = default!;
+    [Dependency] private TransformSystem _transform = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private BloodstreamSystem _bloodStream = default!;
+    [Dependency] private SharedSolutionContainerSystem _solution = default!;
+    [Dependency] private PuddleSystem _puddle = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
 
     public override void Initialize()
     {

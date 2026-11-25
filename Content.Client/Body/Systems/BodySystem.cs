@@ -19,10 +19,10 @@ using Robust.Shared.Utility;
 
 namespace Content.Client.Body.Systems;
 
-public sealed class BodySystem : SharedBodySystem
+public sealed partial class BodySystem : SharedBodySystem
 {
     // Shitmed Change Start
-    [Dependency] private readonly MarkingManager _markingManager = default!;
+    [Dependency] private MarkingManager _markingManager = default!;
 
     private void ApplyMarkingToPart(MarkingPrototype markingPrototype,
         IReadOnlyList<Color>? colors,

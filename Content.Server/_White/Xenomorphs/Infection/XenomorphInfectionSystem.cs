@@ -9,13 +9,13 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._White.Xenomorphs.Infection;
 
-public sealed class XenomorphInfectionSystem : EntitySystem
+public sealed partial class XenomorphInfectionSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedEntityEffectSystem _effect = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private ContainerSystem _container = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private SharedEntityEffectSystem _effect = default!;
 
     public override void Initialize()
     {

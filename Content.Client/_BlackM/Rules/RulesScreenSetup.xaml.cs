@@ -11,8 +11,8 @@ namespace Content.Client._BlackM.Rules;
 [GenerateTypedNameReferences]
 public sealed partial class RulesScreenSetup : Control
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IUserInterfaceManager _ui = default!;
     private readonly int _originalWidth;
     private readonly int _originalScale;
     private readonly bool _originalStretch;

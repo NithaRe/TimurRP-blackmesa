@@ -7,10 +7,10 @@ using Content.Shared.IdentityManagement;
 
 namespace Content.Shared._EinsteinEngines.Forensics.Systems;
 
-public abstract class SharedScentTrackerSystem : EntitySystem
+public abstract partial class SharedScentTrackerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
+    [Dependency] private SharedPopupSystem _popupSystem = default!;
+    [Dependency] private SharedDoAfterSystem _doAfterSystem = default!;
     public override void Initialize()
     {
         SubscribeLocalEvent<ScentTrackerComponent, GetVerbsEvent<InnateVerb>>(AddVerbs);

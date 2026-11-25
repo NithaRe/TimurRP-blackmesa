@@ -9,11 +9,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.SpeechBarks;
 
-public sealed class SpeechBarksSystem : EntitySystem
+public sealed partial class SpeechBarksSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private bool _enabled;
 

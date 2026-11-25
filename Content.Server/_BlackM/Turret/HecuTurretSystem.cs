@@ -14,18 +14,18 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Turret;
 
-public sealed class HecuTurretSystem : EntitySystem
+public sealed partial class HecuTurretSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambient = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private ExamineSystemShared _examine = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private TagSystem _tag = default!;
+    [Dependency] private SharedGunSystem _gun = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedAmbientSoundSystem _ambient = default!;
 
     private readonly HashSet<Entity<MobStateComponent>> _mobs = new();
 

@@ -9,14 +9,14 @@ using System.Numerics;
 
 namespace Content.Client._CorvaxGoob.Photo.UI;
 
-public sealed class PhotoCameraBoundUserInterface : BoundUserInterface
+public sealed partial class PhotoCameraBoundUserInterface : BoundUserInterface
 {
     private readonly EyeSystem _eyeSystem;
     private readonly PhotoSystem _photoSystem;
     private readonly TransformSystem _transform;
 
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly IAudioManager _audioManager = default!;
+    [Dependency] private IResourceCache _cache = default!;
+    [Dependency] private IAudioManager _audioManager = default!;
 
     [ViewVariables]
     private PhotoCameraWindow? _window;

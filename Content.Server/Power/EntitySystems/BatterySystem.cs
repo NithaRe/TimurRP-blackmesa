@@ -44,10 +44,10 @@ using Robust.Shared.Timing;
 namespace Content.Server.Power.EntitySystems
 {
     [UsedImplicitly]
-    public sealed class BatterySystem : EntitySystem
+    public sealed partial class BatterySystem : EntitySystem
     {
-        [Dependency] private readonly SharedContainerSystem _containers = default!; // WD EDIT
-        [Dependency] private readonly IGameTiming Timing = default!;
+        [Dependency] private SharedContainerSystem _containers = default!; // WD EDIT
+        [Dependency] private IGameTiming Timing = default!;
 
         private EntityQuery<EmpDisabledComponent> _disabledQuery; // Goobstation
 

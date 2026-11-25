@@ -71,17 +71,17 @@ namespace Content.Shared.Humanoid;
 ///     you still need a local copy so that players can set up their
 ///     characters.
 /// </summary>
-public abstract class SharedHumanoidAppearanceSystem : EntitySystem
+public abstract partial class SharedHumanoidAppearanceSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ISerializationManager _serManager = default!;
-    [Dependency] private readonly HeightAdjustSystem _heightAdjust = default!; // Goobstation: port EE height/width sliders
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly GrammarSystem _grammarSystem = default!;
+    [Dependency] private IConfigurationManager _cfgManager = default!;
+    [Dependency] private INetManager _netManager = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private ISerializationManager _serManager = default!;
+    [Dependency] private HeightAdjustSystem _heightAdjust = default!; // Goobstation: port EE height/width sliders
+    [Dependency] private MarkingManager _markingManager = default!;
+    [Dependency] private GrammarSystem _grammarSystem = default!;
     private ISharedSponsorsManager? _sponsors;
-    [Dependency] private readonly SharedIdentitySystem _identity = default!;
+    [Dependency] private SharedIdentitySystem _identity = default!;
 
     // CorvaxGoob-TTS-Start
     public const string DefaultVoice = "Garithos";

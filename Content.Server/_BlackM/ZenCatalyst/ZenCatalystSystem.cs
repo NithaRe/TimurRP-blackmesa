@@ -12,16 +12,16 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.ZenCatalyst;
-public sealed class ZenCatalystSystem : EntitySystem
+public sealed partial class ZenCatalystSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private StationSystem _station = default!;
+    [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private PvsOverrideSystem _pvsOverride = default!;
+    [Dependency] private ChatSystem _chat = default!;
 
     private EntityUid? _statusEntity;
     private float _statusAccumulator;

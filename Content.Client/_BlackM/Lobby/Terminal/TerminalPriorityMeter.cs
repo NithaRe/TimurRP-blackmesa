@@ -7,7 +7,7 @@ using Robust.Shared.Input;
 
 namespace Content.Client._BlackM.Lobby.Terminal;
 
-public sealed class TerminalPriorityMeter : Control
+public sealed partial class TerminalPriorityMeter : Control
 {
     private const float CellW = 62f;
     private const float CellH = 22f;
@@ -25,7 +25,7 @@ public sealed class TerminalPriorityMeter : Control
     private static readonly Color SelectedText = Color.FromHex("#FFD166");
     private static readonly Color IdleText = Color.FromHex("#D4A04D");
 
-    [Dependency] private readonly IResourceCache _cache = default!;
+    [Dependency] private IResourceCache _cache = default!;
     private readonly Font _font;
 
     private string[] _labels = Array.Empty<string>();

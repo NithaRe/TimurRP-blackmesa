@@ -15,16 +15,16 @@ using Robust.Shared.Enums;
 
 namespace Content.Server._BlackM.Ams;
 
-public sealed class AmsRoundEndSystem : EntitySystem
+public sealed partial class AmsRoundEndSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
 
     private const string EvacuationElevatorId = "evac";
 
     private static readonly TimeSpan CheckInterval = TimeSpan.FromSeconds(1);
 
-    [Dependency] private readonly Robust.Shared.Timing.IGameTiming _timing = default!;
+    [Dependency] private Robust.Shared.Timing.IGameTiming _timing = default!;
 
     private TimeSpan _nextCheck;
     private bool _tracking;

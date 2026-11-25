@@ -35,10 +35,10 @@ namespace Content.Server.Implants;
 
 public sealed partial class ImplanterSystem : SharedImplanterSystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SkillsSystem _skills = default!; // CorvaxGoob-Skills
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private SkillsSystem _skills = default!; // CorvaxGoob-Skills
 
     // CorvaxGoob-Skills-Start
     private const float ImplantDelayModifierWithoutSkill = 10;

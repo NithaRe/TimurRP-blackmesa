@@ -4,10 +4,10 @@ using CVars = Content.Shared._CorvaxGoob.CCCVars.CCCVars;
 
 namespace Content.Server._CorvaxGoob.Jobs;
 
-public sealed class MrpJobServerSystem : EntitySystem
+public sealed partial class MrpJobServerSystem : EntitySystem
 {
-    [Dependency] private readonly StationJobsSystem _stationJobs = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private StationJobsSystem _stationJobs = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     public override void Initialize()
     {

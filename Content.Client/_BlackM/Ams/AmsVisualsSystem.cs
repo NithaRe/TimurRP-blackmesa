@@ -9,10 +9,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Ams;
 
-public sealed class AmsVisualsSystem : EntitySystem
+public sealed partial class AmsVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private const int Layer = 0;
     private const float SyncIntroDuration = 1.6f;

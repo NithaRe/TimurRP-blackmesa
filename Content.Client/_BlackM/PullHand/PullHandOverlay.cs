@@ -14,11 +14,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.PullHand;
 
-public sealed class PullHandOverlay : Overlay
+public sealed partial class PullHandOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IResourceCache _cache = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private readonly SharedTransformSystem _transform;
     private readonly InventorySystem _inventory;

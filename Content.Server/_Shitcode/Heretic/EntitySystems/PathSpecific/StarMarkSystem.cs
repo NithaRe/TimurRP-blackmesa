@@ -5,9 +5,9 @@ using Content.Shared._Shitcode.Heretic.Systems;
 
 namespace Content.Server._Shitcode.Heretic.EntitySystems.PathSpecific;
 
-public sealed class StarMarkSystem : SharedStarMarkSystem
+public sealed partial class StarMarkSystem : SharedStarMarkSystem
 {
-    [Dependency] private readonly AirtightSystem _airtight = default!;
+    [Dependency] private AirtightSystem _airtight = default!;
 
     protected override void InitializeCosmicField(Entity<CosmicFieldComponent> field, int strength)
     {

@@ -47,11 +47,11 @@ namespace Content.Shared.Mobs.Systems;
 
 public sealed partial class MobThresholdSystem : EntitySystem
 {
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly WoundSystem _wound = default!; // Shitmed Change
-    [Dependency] private readonly SharedBodySystem _body = default!; // Shitmed Change
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private MobStateSystem _mobStateSystem = default!;
+    [Dependency] private AlertsSystem _alerts = default!;
+    [Dependency] private WoundSystem _wound = default!; // Shitmed Change
+    [Dependency] private SharedBodySystem _body = default!; // Shitmed Change
+    [Dependency] private INetManager _net = default!;
     public override void Initialize()
     {
         SubscribeLocalEvent<MobThresholdsComponent, ComponentGetState>(OnGetState);

@@ -25,10 +25,10 @@ namespace Content.Shared.Body.Systems;
 [UsedImplicitly]
 public abstract partial class SharedBloodstreamSystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly WoundSystem _wound = default!;
-    [Dependency] private readonly ConsciousnessSystem _consciousness = default!;
-    [Dependency] private readonly SharedBodySystem _body = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private WoundSystem _wound = default!;
+    [Dependency] private ConsciousnessSystem _consciousness = default!;
+    [Dependency] private SharedBodySystem _body = default!;
 
     private void InitializeWounds()
     {

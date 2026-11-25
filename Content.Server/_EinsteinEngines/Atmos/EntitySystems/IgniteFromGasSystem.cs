@@ -20,12 +20,12 @@ using Content.Shared.Mobs.Components;
 
 namespace Content.Server._EinsteinEngines.Atmos.EntitySystems;
 
-public sealed class IgniteFromGasSystem : EntitySystem
+public sealed partial class IgniteFromGasSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly FlammableSystem _flammable = default!;
+    [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private AtmosphereSystem _atmos = default!;
+    [Dependency] private FlammableSystem _flammable = default!;
 
     // All ignitions tick at the same time because FlammableSystem is also the same
     private const float UpdateTimer = 1f;

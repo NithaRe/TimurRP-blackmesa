@@ -10,10 +10,10 @@ using System.Linq;
 namespace Content.Server._CorvaxGoob.Administration.Commands;
 
 [AdminCommand(AdminFlags.Playtime)]
-public sealed class DatabasePlaytimeGetTrackerCommand : IConsoleCommand
+public sealed partial class DatabasePlaytimeGetTrackerCommand : IConsoleCommand
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private IServerDbManager _db = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
 
     public string Command => "databaseplaytime_gettracker";
     public string Description => Loc.GetString("cmd-database-playtime_gettracker-desc");
@@ -75,10 +75,10 @@ public sealed class DatabasePlaytimeGetTrackerCommand : IConsoleCommand
 }
 
 [AdminCommand(AdminFlags.Playtime)]
-public sealed class DatabasePlaytimeAddTrackerTimeCommand : IConsoleCommand
+public sealed partial class DatabasePlaytimeAddTrackerTimeCommand : IConsoleCommand
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private IServerDbManager _db = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
     public string Command => "databaseplaytime_addtracker";
     public string Description => Loc.GetString("cmd-database-playtime_addrole-desc");
     public string Help => Loc.GetString("cmd-database-playtime_addrole-help", ("command", Command));

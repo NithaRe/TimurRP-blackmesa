@@ -31,12 +31,12 @@ using Robust.Shared.Prototypes;
 namespace Content.Server.Announcements;
 
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class AnnounceCommand : LocalizedEntityCommands
+public sealed partial class AnnounceCommand : LocalizedEntityCommands
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly TTSSystem _tts = default!; // CorvaxGoob-TTS
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IResourceManager _res = default!;
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private TTSSystem _tts = default!; // CorvaxGoob-TTS
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IResourceManager _res = default!;
 
     public override string Command => "announce";
     public override string Description => Loc.GetString("cmd-announce-desc");

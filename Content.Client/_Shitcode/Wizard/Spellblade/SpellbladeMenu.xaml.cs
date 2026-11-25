@@ -20,8 +20,8 @@ namespace Content.Client._Shitcode.Wizard.Spellblade;
 [GenerateTypedNameReferences]
 public sealed partial class SpellbladeMenu : RadialMenu
 {
-    [Dependency] private readonly EntityManager _entManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
+    [Dependency] private EntityManager _entManager = default!;
+    [Dependency] private IPrototypeManager _protoManager = default!;
 
     private SpriteSystem _sprites;
 

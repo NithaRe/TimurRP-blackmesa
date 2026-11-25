@@ -12,9 +12,9 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.Shot;
 
-public sealed class ShotOverlay : Overlay
+public sealed partial class ShotOverlay : Overlay
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     private const string Path = "/Textures/_BlackM/Effects/Shot/";
     private const int MaxTrailPoints = 2500;

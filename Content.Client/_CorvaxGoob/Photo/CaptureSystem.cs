@@ -5,9 +5,9 @@ using System.IO;
 
 namespace Content.Client._CorvaxGoob.Photo;
 
-public sealed class CaptureSystem : EntitySystem
+public sealed partial class CaptureSystem : EntitySystem
 {
-    [Dependency] private readonly IClyde _clyde = default!;
+    [Dependency] private IClyde _clyde = default!;
 
     public override void Initialize()
     {

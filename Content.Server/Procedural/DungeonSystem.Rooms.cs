@@ -24,7 +24,7 @@ namespace Content.Server.Procedural;
 
 public sealed partial class DungeonSystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private IMapManager _mapManager = default!;
 
     // Temporary caches.
     private readonly HashSet<EntityUid> _entitySet = new();

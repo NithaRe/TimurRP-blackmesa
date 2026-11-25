@@ -26,16 +26,16 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Goobstation.Wizard.Systems;
 
-public sealed class WizardMirrorSystem : SharedWizardMirrorSystem
+public sealed partial class WizardMirrorSystem : SharedWizardMirrorSystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly GrammarSystem _grammar = default!;
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private HumanoidAppearanceSystem _humanoid = default!;
+    [Dependency] private MarkingManager _markingManager = default!;
+    [Dependency] private GrammarSystem _grammar = default!;
+    [Dependency] private PolymorphSystem _polymorph = default!;
+    [Dependency] private MetaDataSystem _meta = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private MindSystem _mind = default!;
 
     public override void Initialize()
     {

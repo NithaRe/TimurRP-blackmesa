@@ -112,12 +112,10 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Nutrition.Components;
 using System.Linq;
 using Content.Shared.Administration.Logs;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Organ;
 using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Database;
 using Content.Shared.Forensics;
@@ -131,12 +129,9 @@ using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs.Systems;
-using Content.Shared.Nutrition.Components;
 using Content.Shared.Popups;
 using Content.Shared.Nutrition;
 using Content.Shared.Nutrition.EntitySystems;
-using Content.Shared.Nutrition.Components;
-using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Storage;
 using Content.Shared.Tag;
@@ -155,21 +150,21 @@ namespace Content.Shared.Nutrition.EntitySystems;
 /// Handles feeding attempts both on yourself and on the target.
 /// </summary>
 [Obsolete("Migration to Content.Shared.Nutrition.EntitySystems.IngestionSystem is required")]
-public sealed class FoodSystem : EntitySystem
+public sealed partial class FoodSystem : EntitySystem
 {
-    [Dependency] private readonly FlavorProfileSystem _flavorProfile = default!;
-    [Dependency] private readonly IngestionSystem _ingestion = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedStackSystem _stack = default!;
-    [Dependency] private readonly StomachSystem _stomach = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly TagSystem _tag = default!; // Goob
+    [Dependency] private FlavorProfileSystem _flavorProfile = default!;
+    [Dependency] private IngestionSystem _ingestion = default!;
+    [Dependency] private ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedStackSystem _stack = default!;
+    [Dependency] private StomachSystem _stomach = default!;
+    [Dependency] private EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private TagSystem _tag = default!; // Goob
 
     private static readonly ProtoId<TagPrototype> UnedibleTag = "Unedible"; // Goobstaion
 

@@ -3,10 +3,10 @@ using Robust.Client.GameObjects;
 
 namespace Content.Client._CorvaxGoob.MedipenRefiller;
 
-public sealed class MedipenSystem : EntitySystem
+public sealed partial class MedipenSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
     public override void Initialize()
     {
         base.Initialize();

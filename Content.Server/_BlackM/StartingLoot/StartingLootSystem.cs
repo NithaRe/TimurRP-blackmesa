@@ -11,17 +11,17 @@ using Robust.Shared.Random;
 
 namespace Content.Server._BlackM.StartingLoot;
 
-public sealed class StartingLootSystem : EntitySystem
+public sealed partial class StartingLootSystem : EntitySystem
 {
     private const string PoolId = "BlackMDefault";
     private const bool GiveOnLateJoin = true;
 
-    [Dependency] private readonly StartingLootVoteSystem _vote = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private StartingLootVoteSystem _vote = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private SharedStorageSystem _storage = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
 
     private readonly HashSet<NetUserId> _givenThisRound = new();
 

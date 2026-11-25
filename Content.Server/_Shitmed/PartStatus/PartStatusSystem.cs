@@ -29,21 +29,20 @@ using Content.Shared.Examine;
 using Content.Goobstation.Maths.FixedPoint;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Verbs;
-using Robust.Shared.Utility;
 using Content.Shared.HealthExaminable;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server._Shitmed.PartStatus;
 
-public sealed class PartStatusSystem : EntitySystem
+public sealed partial class PartStatusSystem : EntitySystem
 {
-    [Dependency] private readonly WoundSystem _woundSystem = default!;
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly TraumaSystem _trauma = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
+    [Dependency] private WoundSystem _woundSystem = default!;
+    [Dependency] private BodySystem _bodySystem = default!;
+    [Dependency] private MobStateSystem _mobStateSystem = default!;
+    [Dependency] private TraumaSystem _trauma = default!;
+    [Dependency] private IChatManager _chat = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private ExamineSystemShared _examineSystem = default!;
 
     private static readonly IReadOnlyList<BodyPartType> BodyPartOrder = new List<BodyPartType>
     {

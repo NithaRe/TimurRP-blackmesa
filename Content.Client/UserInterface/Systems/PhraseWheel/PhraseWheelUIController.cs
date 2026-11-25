@@ -16,16 +16,16 @@ using Robust.Shared.Timing;
 namespace Content.Client.UserInterface.Systems.PhraseWheel;
 
 [UsedImplicitly]
-public sealed class PhraseWheelUIController : UIController, IOnStateChanged<GameplayState>
+public sealed partial class PhraseWheelUIController : UIController, IOnStateChanged<GameplayState>
 {
     private const string RecentId = "__recent";
     private const int MaxRecent = 8;
     private static readonly Color RecentAccent = new(0.55f, 0.55f, 0.62f);
 
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IResourceCache _resCache = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IResourceCache _resCache = default!;
 
-    [Dependency] private readonly IEntitySystemManager _systems = default!;
+    [Dependency] private IEntitySystemManager _systems = default!;
 
     private PhraseWheelClientSystem _phraseSystem => _systems.GetEntitySystem<PhraseWheelClientSystem>();
 

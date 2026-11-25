@@ -13,9 +13,9 @@ using Content.Shared.Eye.Blinding.Components;
 
 namespace Content.Goobstation.Shared.Changeling.Systems;
 
-public abstract class SharedChangelingSystem : EntitySystem
+public abstract partial class SharedChangelingSystem : EntitySystem
 {
-    [Dependency] protected readonly SharedBodySystem Body = default!;
+    [Dependency] protected SharedBodySystem Body = default!;
 
     public override void Initialize()
     {

@@ -126,14 +126,14 @@ using Content.Shared.Whitelist;
 namespace Content.Server.Power.EntitySystems;
 
 [UsedImplicitly]
-internal sealed class ChargerSystem : EntitySystem
+internal sealed partial class ChargerSystem : EntitySystem
 {
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!; // Goobstation
+    [Dependency] private ContainerSystem _container = default!;
+    [Dependency] private PowerCellSystem _powerCell = default!;
+    [Dependency] private BatterySystem _battery = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private InventorySystem _inventory = default!; // Goobstation
 
     public override void Initialize()
     {

@@ -17,12 +17,12 @@ public sealed partial class BlackMElevatorShakeComponent : Component
     public Vector2 Offset;
 }
 
-public sealed class ElevatorShakeSystem : EntitySystem
+public sealed partial class ElevatorShakeSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedContentEyeSystem _eye = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedContentEyeSystem _eye = default!;
 
     private const float RumbleAmp = 0.03f;
     private const float SwayAmp = 0.025f;

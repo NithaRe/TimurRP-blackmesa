@@ -7,8 +7,8 @@ namespace Content.Server.Research.Systems;
 
 public sealed partial class ResearchSystem
 {
-    [Dependency] private readonly StationSystem _rewardStations = default!;
-    [Dependency] private readonly ChatSystem _rewardChat = default!;
+    [Dependency] private StationSystem _rewardStations = default!;
+    [Dependency] private ChatSystem _rewardChat = default!;
 
     private void AnnounceResearchReward(EntityUid client, TechnologyPrototype technology)
     {

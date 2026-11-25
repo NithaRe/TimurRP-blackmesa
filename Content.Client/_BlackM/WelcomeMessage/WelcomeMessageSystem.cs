@@ -13,12 +13,12 @@ using Robust.Shared.Player;
 
 namespace Content.Client._BlackM.WelcomeMessage;
 
-public sealed class WelcomeMessageSystem : EntitySystem
+public sealed partial class WelcomeMessageSystem : EntitySystem
 {
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
-    [Dependency] private readonly IResourceCache _res = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private IUserInterfaceManager _ui = default!;
+    [Dependency] private IResourceCache _res = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     private static readonly string[] FontStack =
     {

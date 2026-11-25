@@ -10,9 +10,9 @@ using Robust.Shared.Prototypes;
 namespace Content.Client._White.ListViewSelector;
 
 [UsedImplicitly]
-public sealed class ListViewSelectorBUI(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
+public sealed partial class ListViewSelectorBUI(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
 
     private FancyWindow _window = new();
     private BoxContainer? _itemsContainer;

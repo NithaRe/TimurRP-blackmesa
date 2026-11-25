@@ -10,11 +10,11 @@ using Robust.Shared.Physics.Dynamics.Joints;
 
 namespace Content.Client._CorvaxGoob.Weapons.Misc;
 
-public sealed class GrapplingGunHunterSystem : SharedGrapplingGunHunterSystem
+public sealed partial class GrapplingGunHunterSystem : SharedGrapplingGunHunterSystem
 {
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly InputSystem _input = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private HandsSystem _hands = default!;
+    [Dependency] private InputSystem _input = default!;
+    [Dependency] private IPlayerManager _player = default!;
 
     public override void Update(float frameTime)
     {

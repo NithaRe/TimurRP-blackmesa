@@ -9,10 +9,10 @@ using Robust.Shared.Network;
 
 namespace Content.Shared._Goobstation.Wizard.ForceWall;
 
-public sealed class SpawnAnimationSystem : EntitySystem
+public sealed partial class SpawnAnimationSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private INetManager _net = default!;
 
     public override void Initialize()
     {

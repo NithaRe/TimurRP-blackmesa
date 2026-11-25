@@ -7,10 +7,10 @@ using System.Linq;
 namespace Content.Server._CorvaxGoob.Announcer;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class ForceSetAnnouncerCommand : IConsoleCommand
+public sealed partial class ForceSetAnnouncerCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entity = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private IEntityManager _entity = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
 
     public string Command => "forcesetannouncer";
     public string Description => Loc.GetString("force-set-announcer-command-description", ("command", Command));

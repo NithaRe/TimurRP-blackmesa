@@ -6,13 +6,13 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.PhraseWheel;
 
-public sealed class PhraseWheelIconOverlaySystem : EntitySystem
+public sealed partial class PhraseWheelIconOverlaySystem : EntitySystem
 {
     private static readonly TimeSpan MaxSoundHold = TimeSpan.FromSeconds(15);
 
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IResourceCache _resCache = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IResourceCache _resCache = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override void Initialize()
     {

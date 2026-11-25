@@ -11,10 +11,10 @@ using Content.Shared.Revolutionary.Components;
 
 namespace Content.Server.Revolutionary;
 
-public sealed class RevolutionarySystem : SharedRevolutionarySystem  // Goob Station - Revolutionary Language (entire class body)
+public sealed partial class RevolutionarySystem : SharedRevolutionarySystem  // Goob Station - Revolutionary Language (entire class body)
 {
-    [Dependency] private readonly LanguageSystem _languageSystem = default!;
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
+    [Dependency] private LanguageSystem _languageSystem = default!;
+    [Dependency] private PolymorphSystem _polymorph = default!;
 
     public override void Initialize()
     {

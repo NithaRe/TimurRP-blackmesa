@@ -10,10 +10,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Environment;
 
-public sealed class NoSpaceSystem : EntitySystem
+public sealed partial class NoSpaceSystem : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private AtmosphereSystem _atmos = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private static readonly TimeSpan RefillDelay = TimeSpan.FromSeconds(3);
 

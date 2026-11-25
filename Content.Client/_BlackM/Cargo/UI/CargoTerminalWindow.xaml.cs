@@ -25,10 +25,10 @@ namespace Content.Client._BlackM.Cargo.UI;
 [GenerateTypedNameReferences]
 public sealed partial class CargoTerminalWindow : BaseWindow
 {
-    [Dependency] private readonly IEntityManager _entity = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IResourceCache _resources = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IEntityManager _entity = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private IResourceCache _resources = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private EntityUid _owner;
     private EntityUid? _station;

@@ -10,10 +10,10 @@ using Robust.Shared.Player;
 
 namespace Content.Client._BlackM.BattleMusic;
 
-public sealed class BattleMusicClientSystem : EntitySystem
+public sealed partial class BattleMusicClientSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     private static readonly SoundSpecifier BattleMusicPath = new SoundPathSpecifier("/Audio/_BlackM/Battlemusic/battle_music.ogg");
 

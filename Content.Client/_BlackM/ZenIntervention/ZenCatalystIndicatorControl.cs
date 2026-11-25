@@ -7,7 +7,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._BlackM.ZenIntervention;
 
-public sealed class ZenCatalystIndicatorControl : PanelContainer
+public sealed partial class ZenCatalystIndicatorControl : PanelContainer
 {
     public const float DesignWidth = ZenInterventionBarControl.DesignWidth;
     public const float DesignHeight = ZenInterventionBarControl.DesignHeight;
@@ -16,7 +16,7 @@ public sealed class ZenCatalystIndicatorControl : PanelContainer
     private static readonly Color InactiveColor = Color.FromHex("#7B7E9E");
     private static readonly Color EmptyCrystal = Color.FromHex("#666B8A");
     private static readonly Color HoverColor = Color.FromHex("#9699BB");
-    [Dependency] private readonly IResourceCache _resources = default!;
+    [Dependency] private IResourceCache _resources = default!;
 
     private readonly Texture _icon;
     private readonly StyleBoxFlat _panelStyle;

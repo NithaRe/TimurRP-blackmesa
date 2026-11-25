@@ -11,9 +11,9 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._Shitcode.Wizard.Systems;
 
-public sealed class ActionTargetMarkSystem : EntitySystem
+public sealed partial class ActionTargetMarkSystem : EntitySystem
 {
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency] private TransformSystem _transform = default!;
 
     private static readonly EntProtoId MarkProto = "ActionTargetMark";
 

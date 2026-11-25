@@ -9,12 +9,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Events.Gman;
 
-public sealed class GManEventSystem : EntitySystem
+public sealed partial class GManEventSystem : EntitySystem
 {
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly GManWalkerSystem _walker = default!;
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
+    [Dependency] private SharedStunSystem _stun = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private GManWalkerSystem _walker = default!;
+    [Dependency] private SharedEyeSystem _eye = default!;
 
     private const float EventDuration = 36f;
 

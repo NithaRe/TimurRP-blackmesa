@@ -8,10 +8,10 @@ using Robust.Shared.Localization;
 namespace Content.Server._BlackM.NameTag;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class SetNameTagCommand : IConsoleCommand
+public sealed partial class SetNameTagCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IPlayerManager _players = default!;
 
     public string Command => "setnametag";
     public string Description => Loc.GetString("cmd-setnametag-desc");

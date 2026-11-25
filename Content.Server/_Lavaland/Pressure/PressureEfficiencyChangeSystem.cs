@@ -35,10 +35,10 @@ using Content.Shared.Wieldable;
 
 namespace Content.Server._Lavaland.Pressure;
 
-public sealed class PressureEfficiencyChangeSystem : EntitySystem
+public sealed partial class PressureEfficiencyChangeSystem : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly SharedBodySystem _body = default!;
+    [Dependency] private AtmosphereSystem _atmos = default!;
+    [Dependency] private SharedBodySystem _body = default!;
 
     public override void Initialize()
     {

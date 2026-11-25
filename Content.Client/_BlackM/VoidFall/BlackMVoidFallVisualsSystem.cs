@@ -7,11 +7,11 @@ using Robust.Shared.Random;
 
 namespace Content.Client._BlackM.VoidFall;
 
-public sealed class BlackMVoidFallVisualsSystem : SharedBlackMVoidFallSystem
+public sealed partial class BlackMVoidFallVisualsSystem : SharedBlackMVoidFallSystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _anim = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private AnimationPlayerSystem _anim = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     private const string AnimationKey = "blackm_void_fall";
 

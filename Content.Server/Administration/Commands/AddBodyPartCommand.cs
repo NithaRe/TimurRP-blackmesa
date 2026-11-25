@@ -27,9 +27,9 @@ using Robust.Shared.Console;
 namespace Content.Server.Administration.Commands;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class AddBodyPartCommand : LocalizedEntityCommands
+public sealed partial class AddBodyPartCommand : LocalizedEntityCommands
 {
-    [Dependency] private readonly BodySystem _bodySystem = default!;
+    [Dependency] private BodySystem _bodySystem = default!;
 
     public override string Command => "addbodypart";
     public override string Description => "Adds a given entity to a containing body.";

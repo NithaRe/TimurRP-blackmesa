@@ -22,15 +22,15 @@ public sealed partial class AmsShakeComponent : Component
     public Vector2 Offset;
 }
 
-public sealed class AmsEffectsSystem : EntitySystem
+public sealed partial class AmsEffectsSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlays = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly SharedContentEyeSystem _eye = default!;
+    [Dependency] private IOverlayManager _overlays = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
+    [Dependency] private SharedContentEyeSystem _eye = default!;
 
     public sealed class Blast
     {

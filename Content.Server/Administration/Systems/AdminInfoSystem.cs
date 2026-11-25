@@ -13,11 +13,11 @@ using Content.Shared.Database;
 
 namespace Content.Server.Administration.Systems;
 
-public sealed class AdminInfoSystem : EntitySystem
+public sealed partial class AdminInfoSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IPlayerLocator _locator = default!;
+    [Dependency] private IAdminLogManager _adminLog = default!;
+    [Dependency] private IChatManager _chatManager = default!;
+    [Dependency] private IPlayerLocator _locator = default!;
 
     public override void Initialize()
     {

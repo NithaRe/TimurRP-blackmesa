@@ -14,8 +14,8 @@ namespace Content.Shared.Movement.Systems;
 
 public abstract partial class SharedMoverController
 {
-    [Dependency] private readonly INetConfigurationManager _netConfig = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
+    [Dependency] private INetConfigurationManager _netConfig = default!;
+    [Dependency] private ISharedPlayerManager _player = default!;
 
     private void InitializeCVars()
     {

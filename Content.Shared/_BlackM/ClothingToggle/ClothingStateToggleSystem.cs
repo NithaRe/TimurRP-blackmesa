@@ -11,12 +11,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._BlackM.ClothingToggle;
 
-public sealed class ClothingStateToggleSystem : EntitySystem
+public sealed partial class ClothingStateToggleSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly ClothingSystem _clothing     = default!;
-    [Dependency] private readonly SharedAudioSystem _audio     = default!;
-    [Dependency] private readonly IGameTiming _timing          = default!;
+    [Dependency] private SharedActionsSystem _actions = default!;
+    [Dependency] private ClothingSystem _clothing     = default!;
+    [Dependency] private SharedAudioSystem _audio     = default!;
+    [Dependency] private IGameTiming _timing          = default!;
 
     public override void Initialize()
     {

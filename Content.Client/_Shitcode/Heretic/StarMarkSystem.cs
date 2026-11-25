@@ -4,9 +4,9 @@ using Robust.Client.GameObjects;
 
 namespace Content.Client._Shitcode.Heretic;
 
-public sealed class StarMarkSystem : SharedStarMarkSystem
+public sealed partial class StarMarkSystem : SharedStarMarkSystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {

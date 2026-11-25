@@ -14,12 +14,12 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._BlackM.Ghost.Customization;
 
-public sealed class GhostCustomizationSystem : EntitySystem
+public sealed partial class GhostCustomizationSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
+    [Dependency] private UserInterfaceSystem _ui = default!;
+    [Dependency] private IServerDbManager _dbManager = default!;
 
     private readonly Dictionary<NetUserId, bool> _whitelistCache = new();
 

@@ -13,12 +13,12 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.EngineeringBreakdown;
 
-public sealed class RepairNavigatorOverlay : Overlay
+public sealed partial class RepairNavigatorOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IEyeManager _eye = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private readonly SharedTransformSystem _transform;
     private readonly Texture _arrow;

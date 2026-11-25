@@ -10,11 +10,11 @@ using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Shared._BlackM.Audio;
 
-public sealed class BlackMAudioEffectsManagerSystem : EntitySystem
+public sealed partial class BlackMAudioEffectsManagerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private INetManager _net = default!;
 
     private readonly Dictionary<ProtoId<AudioPresetPrototype>, EntityUid> _cachedEffects = new();
 

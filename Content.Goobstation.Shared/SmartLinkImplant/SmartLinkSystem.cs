@@ -8,10 +8,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Goobstation.Shared.SmartLinkImplant;
 
-public sealed class SmartLinkSystem : EntitySystem
+public sealed partial class SmartLinkSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override void Initialize()
     {

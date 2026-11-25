@@ -20,9 +20,9 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared.Body.Systems;
 public partial class SharedBodySystem
 {
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private SharedHumanoidAppearanceSystem _humanoid = default!;
+    [Dependency] private MarkingManager _markingManager = default!;
+    [Dependency] private INetManager _net = default!;
 
     private void InitializePartAppearances()
     {

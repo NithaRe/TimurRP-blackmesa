@@ -21,7 +21,7 @@ namespace Content.Server.Nutrition.EntitySystems
 {
     public sealed partial class SmokingSystem
     {
-        [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+        [Dependency] private ItemSlotsSystem _itemSlotsSystem = default!;
 
         private void InitializePipes()
         {

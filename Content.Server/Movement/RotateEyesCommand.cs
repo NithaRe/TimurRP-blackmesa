@@ -12,9 +12,9 @@ using Robust.Shared.Console;
 namespace Content.Server.Movement;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class RotateEyesCommand : LocalizedEntityCommands
+public sealed partial class RotateEyesCommand : LocalizedEntityCommands
 {
-    [Dependency] private readonly SharedMoverController _controller = default!; // BlackM
+    [Dependency] private SharedMoverController _controller = default!; // BlackM
 
     public override string Command => "rotateeyes";
 

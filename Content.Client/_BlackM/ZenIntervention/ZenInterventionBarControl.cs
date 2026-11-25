@@ -69,7 +69,7 @@ public static class ZenInterventionPalette
     };
 }
 
-public sealed class ZenInterventionBarControl : PanelContainer
+public sealed partial class ZenInterventionBarControl : PanelContainer
 {
     public const float DesignWidth = 36f;
     public const float DesignHeight = 62f;
@@ -92,7 +92,7 @@ public sealed class ZenInterventionBarControl : PanelContainer
     private static readonly Color Lavender = Color.FromHex("#7b7e9e");
     private static readonly Color CrystalEmpty = Color.FromHex("#666b8a");
 
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
+    [Dependency] private IResourceCache _resourceCache = default!;
 
     private readonly StyleBoxFlat _panelStyle;
     private Texture? _crystal;

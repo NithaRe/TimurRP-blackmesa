@@ -12,16 +12,16 @@ using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Client._BlackM.StartingLoot;
 
-public sealed class StartingLootUISystem : EntitySystem
+public sealed partial class StartingLootUISystem : EntitySystem
 {
     private const string BagFallSound = "/Audio/Effects/holy.ogg";
     private const string BagLandSound = "/Audio/Effects/hit_kick.ogg";
     private const string BagClickSound = "/Audio/Effects/rustle1.ogg";
     private const string DiceRollSound = "/Audio/Items/Dice/dice1.ogg";
 
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
-    [Dependency] private readonly IResourceManager _res = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private IUserInterfaceManager _ui = default!;
+    [Dependency] private IResourceManager _res = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     private StartingLootPanel? _panel;
     private bool _pending;

@@ -15,14 +15,14 @@ using Robust.Shared.Audio.Systems;
 
 namespace Content.Shared._EinsteinEngines.Items;
 
-public sealed class RestrictedMeleeSystem : EntitySystem
+public sealed partial class RestrictedMeleeSystem : EntitySystem
 {
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
+    [Dependency] private SharedStunSystem _stun = default!;
+    [Dependency] private SharedPopupSystem _popupSystem = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private SharedAudioSystem _audioSystem = default!;
+    [Dependency] private EntityWhitelistSystem _entityWhitelist = default!;
 
     public override void Initialize()
     {

@@ -17,17 +17,17 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Server._BlackM.Passport;
 
-public sealed class PassportCheckerSystem : EntitySystem
+public sealed partial class PassportCheckerSystem : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem     _itemSlots = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui         = default!;
-    [Dependency] private readonly SharedAudioSystem    _audio     = default!;
-    [Dependency] private readonly PassportSystem       _passport  = default!;
-    [Dependency] private readonly PopupSystem          _popup     = default!;
-    [Dependency] private readonly HandsSystem          _hands     = default!;
-    [Dependency] private readonly StationSystem        _station   = default!;
-    [Dependency] private readonly CargoSystem          _cargo     = default!;
-    [Dependency] private readonly IPrototypeManager    _proto     = default!;
+    [Dependency] private ItemSlotsSystem     _itemSlots = default!;
+    [Dependency] private UserInterfaceSystem _ui         = default!;
+    [Dependency] private SharedAudioSystem    _audio     = default!;
+    [Dependency] private PassportSystem       _passport  = default!;
+    [Dependency] private PopupSystem          _popup     = default!;
+    [Dependency] private HandsSystem          _hands     = default!;
+    [Dependency] private StationSystem        _station   = default!;
+    [Dependency] private CargoSystem          _cargo     = default!;
+    [Dependency] private IPrototypeManager    _proto     = default!;
 
     private static readonly ProtoId<DepartmentPrototype> UnqualifiedDepartment = "BlackMUnqualified";
 

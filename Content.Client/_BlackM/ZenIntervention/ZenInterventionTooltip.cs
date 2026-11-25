@@ -12,12 +12,12 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.ZenIntervention;
 
-public sealed class ZenInterventionTooltip : PanelContainer
+public sealed partial class ZenInterventionTooltip : PanelContainer
 {
     private const string Dim = "#8d90ad";
     private const string Light = "#e6e8f2";
 
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private readonly ZenInterventionBarControl _bar;
     private readonly Label _title;

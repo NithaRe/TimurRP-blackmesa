@@ -23,15 +23,15 @@ using Robust.Shared.Random;
 
 namespace Content.Server._BlackM.PersonalObjectives;
 
-public sealed class PersonalObjectivesSystem : EntitySystem
+public sealed partial class PersonalObjectivesSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
-    [Dependency] private readonly NpcFactionSystem _faction = default!;
-    [Dependency] private readonly SharedCargoSystem _cargo = default!;
-    [Dependency] private readonly AmsRoundEndSystem _amsRoundEnd = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private SharedObjectivesSystem _objectives = default!;
+    [Dependency] private NpcFactionSystem _faction = default!;
+    [Dependency] private SharedCargoSystem _cargo = default!;
+    [Dependency] private AmsRoundEndSystem _amsRoundEnd = default!;
 
     private static readonly ProtoId<NpcFactionPrototype>[] XenFactions = { "BlackMXen" };
 

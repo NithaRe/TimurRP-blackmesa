@@ -5,9 +5,9 @@ using Robust.Shared.Enums;
 
 namespace Content.Client._BlackM.Monorail;
 
-public sealed class MonorailInteriorOverlay : Overlay
+public sealed partial class MonorailInteriorOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private IEntityManager _entManager = default!;
 
     private readonly MonorailInteriorSystem _system;
     private readonly SharedTransformSystem _xform;

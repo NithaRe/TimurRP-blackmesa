@@ -18,11 +18,11 @@ public enum UndergroundCargoMoveResult : byte
     PartialFailure,
 }
 
-public sealed class UndergroundCargoSystem : EntitySystem
+public sealed partial class UndergroundCargoSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transforms = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!;
+    [Dependency] private SharedTransformSystem _transforms = default!;
+    [Dependency] private PullingSystem _pulling = default!;
+    [Dependency] private SharedBuckleSystem _buckle = default!;
 
     public bool TryCollect(EntityUid origin, float halfWidth, out List<EntityUid> cargo)
     {

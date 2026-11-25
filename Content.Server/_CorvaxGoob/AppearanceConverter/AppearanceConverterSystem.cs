@@ -27,22 +27,22 @@ using System.Numerics;
 
 namespace Content.Server._CorvaxGoob.AppearanceConverter;
 
-public sealed class AppearanceConverterSystem : EntitySystem
+public sealed partial class AppearanceConverterSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
-    [Dependency] private readonly GrammarSystem _grammar = default!;
-    [Dependency] private readonly SharedIdentitySystem _identity = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SparksSystem _sparks = default!;
-    [Dependency] private readonly TypingIndicatorSystem _typingIndicator = default!;
-    [Dependency] private readonly HeightAdjustSystem _heightAdjust = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private PopupSystem _popupSystem = default!;
+    [Dependency] private UserInterfaceSystem _userInterface = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private HumanoidAppearanceSystem _humanoidAppearance = default!;
+    [Dependency] private GrammarSystem _grammar = default!;
+    [Dependency] private SharedIdentitySystem _identity = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private MetaDataSystem _meta = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SparksSystem _sparks = default!;
+    [Dependency] private TypingIndicatorSystem _typingIndicator = default!;
+    [Dependency] private HeightAdjustSystem _heightAdjust = default!;
 
     public override void Initialize()
     {

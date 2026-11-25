@@ -19,12 +19,12 @@ namespace Content.Server.Heretic.EntitySystems;
 
 public sealed partial class HereticKnowledgeSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedActionsSystem _action = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly HereticRitualSystem _ritual = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private SharedActionsSystem _action = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private HereticRitualSystem _ritual = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private ActionContainerSystem _actionContainer = default!;
 
     public HereticKnowledgePrototype GetKnowledge(ProtoId<HereticKnowledgePrototype> id)
         => _proto.Index(id);

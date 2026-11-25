@@ -15,10 +15,10 @@ using Content.Shared._Shitmed.Spawners.EntitySystems; // Shitmed Change
 
 namespace Content.Server.Spawners.EntitySystems;
 
-public sealed class SpawnerSystem : EntitySystem
+public sealed partial class SpawnerSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityTimerSystem _entityTimers = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private EntityTimerSystem _entityTimers = default!;
 
     public override void Initialize()
     {

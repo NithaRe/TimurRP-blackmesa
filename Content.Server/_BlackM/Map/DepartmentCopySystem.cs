@@ -21,16 +21,16 @@ using YamlDotNet.RepresentationModel;
 
 namespace Content.Server._BlackM.Map;
 
-public sealed class DepartmentCopySystem : EntitySystem
+public sealed partial class DepartmentCopySystem : EntitySystem
 {
-    [Dependency] private readonly IAdminManager _admins = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly MappingSystem _mapping = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IAdminManager _admins = default!;
+    [Dependency] private MapLoaderSystem _loader = default!;
+    [Dependency] private SharedMapSystem _maps = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private DecalSystem _decals = default!;
+    [Dependency] private AtmosphereSystem _atmos = default!;
+    [Dependency] private MappingSystem _mapping = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private TimeSpan _nextCopy;
 

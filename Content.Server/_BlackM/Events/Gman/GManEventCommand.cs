@@ -6,10 +6,10 @@ using Robust.Shared.Console;
 namespace Content.Server._BlackM.Events.Gman;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class GManEventCommand : LocalizedCommands
+public sealed partial class GManEventCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntitySystemManager _sysMan = default!;
-    [Dependency] private readonly IPlayerManager _playerMan = default!;
+    [Dependency] private IEntitySystemManager _sysMan = default!;
+    [Dependency] private IPlayerManager _playerMan = default!;
 
     public override string Command => "bm_gman";
 

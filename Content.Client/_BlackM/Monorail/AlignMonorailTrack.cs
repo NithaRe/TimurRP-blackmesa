@@ -9,10 +9,10 @@ using static Robust.Client.Placement.PlacementManager;
 
 namespace Content.Client._BlackM.Monorail;
 
-public sealed class AlignMonorailTrack : SnapgridCenter
+public sealed partial class AlignMonorailTrack : SnapgridCenter
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
+    [Dependency] private IEntityManager _entityManager = default!;
+    [Dependency] private IPrototypeManager _protoManager = default!;
 
     private readonly SharedTransformSystem _transformSystem;
 

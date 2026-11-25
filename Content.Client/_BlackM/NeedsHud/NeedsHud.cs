@@ -11,12 +11,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.NeedsHud;
 
-public sealed class NeedsHud : UIWidget
+public sealed partial class NeedsHud : UIWidget
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IResourceCache _resources = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IEntityManager _entities = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IResourceCache _resources = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private static readonly Color FoodColor = Color.FromHex("#dfaa60");
     private static readonly Color WaterColor = Color.FromHex("#66c5da");

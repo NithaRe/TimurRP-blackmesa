@@ -8,12 +8,12 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._CorvaxGoob.Animation;
 
-public sealed class PrototypedAnimationPlayerSystem : EntitySystem
+public sealed partial class PrototypedAnimationPlayerSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _component = default!;
-    [Dependency] private readonly AnimationPlayerSystem _anim = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private IComponentFactory _component = default!;
+    [Dependency] private AnimationPlayerSystem _anim = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     private const string AnimationKey = "prototyped-animation";
 

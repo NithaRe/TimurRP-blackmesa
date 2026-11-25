@@ -7,10 +7,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._BlackM.PhraseWheel;
 
-public abstract class SharedPhraseWheelSystem : EntitySystem
+public abstract partial class SharedPhraseWheelSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
+    [Dependency] private ActionBlockerSystem _actionBlocker = default!;
+    [Dependency] protected IGameTiming Timing = default!;
 
     public bool IsCategoryAllowed(PhraseWheelComponent comp, ProtoId<PhraseWheelCategoryPrototype> category)
     {

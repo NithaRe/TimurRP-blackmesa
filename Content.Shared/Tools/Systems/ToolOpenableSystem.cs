@@ -82,10 +82,10 @@ using Content.Shared.Verbs;
 
 namespace Content.Shared.Tools.EntitySystems;
 
-public sealed class ToolOpenableSystem : EntitySystem
+public sealed partial class ToolOpenableSystem : EntitySystem
 {
-    [Dependency] private readonly SharedToolSystem _tool = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SharedToolSystem _tool = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {

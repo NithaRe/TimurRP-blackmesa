@@ -20,9 +20,9 @@ namespace Content.Client._BlackM.Achievements.UI;
 [GenerateTypedNameReferences]
 public sealed partial class AchievementsWindow : PassportFramelessWindow
 {
-    [Dependency] private readonly IPrototypeManager    _prototype = default!;
-    [Dependency] private readonly IResourceCache       _resources = default!;
-    [Dependency] private readonly IEntitySystemManager _sysMan    = default!;
+    [Dependency] private IPrototypeManager    _prototype = default!;
+    [Dependency] private IResourceCache       _resources = default!;
+    [Dependency] private IEntitySystemManager _sysMan    = default!;
 
     private const float IconSize = 64f;
     private const float SlotSize = 72f;

@@ -15,9 +15,9 @@ using static Robust.Client.UserInterface.Control;
 namespace Content.Client._Shitmed.Antags.Abductor;
 
 [UsedImplicitly]
-public sealed class AbductorConsoleBui : BoundUserInterface
+public sealed partial class AbductorConsoleBui : BoundUserInterface
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
+    [Dependency] private IEntityManager _entities = default!;
 
     [ViewVariables]
     private AbductorConsoleWindow? _window;

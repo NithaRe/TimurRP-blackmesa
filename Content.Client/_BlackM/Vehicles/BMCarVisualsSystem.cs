@@ -6,10 +6,10 @@ using Robust.Shared.Physics.Components;
 
 namespace Content.Client._BlackM.Vehicles;
 
-public sealed class BMCarVisualsSystem : EntitySystem
+public sealed partial class BMCarVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
 
     private const int TireFrames = 3;
     private const float SampleTime = 0.05f;

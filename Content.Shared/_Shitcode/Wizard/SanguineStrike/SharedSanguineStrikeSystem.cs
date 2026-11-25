@@ -23,11 +23,11 @@ using Content.Shared._Shitmed.Medical.Surgery.Pain.Systems; // Shitmed Change
 
 namespace Content.Shared._Goobstation.Wizard.SanguineStrike;
 
-public abstract class SharedSanguineStrikeSystem : EntitySystem
+public abstract partial class SharedSanguineStrikeSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly PainSystem _pain = default!;
-    [Dependency] private readonly ConsciousnessSystem _consciousness = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private PainSystem _pain = default!;
+    [Dependency] private ConsciousnessSystem _consciousness = default!;
 
     public override void Initialize()
     {

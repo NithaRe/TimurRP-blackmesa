@@ -7,11 +7,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.AltActionEffect;
 
-public sealed class AltActionEffectOverlay : Overlay
+public sealed partial class AltActionEffectOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IEntityManager _entMan = default!;
+    [Dependency] private IResourceCache _cache = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private readonly AltActionEffectSystem _system;
     private readonly SharedTransformSystem _transform;

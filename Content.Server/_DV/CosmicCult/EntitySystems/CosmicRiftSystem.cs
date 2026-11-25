@@ -20,11 +20,11 @@ using Robust.Shared.Audio.Systems;
 
 namespace Content.Server._DV.CosmicCult.EntitySystems;
 
-public sealed class CosmicRiftSystem : EntitySystem
+public sealed partial class CosmicRiftSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private PopupSystem _popup = default!;
 
     public override void Initialize()
     {

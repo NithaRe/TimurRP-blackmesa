@@ -4,11 +4,11 @@ using Content.Shared._Shitmed.Body.Organ;
 
 namespace Content.Goobstation.Shared.Augments;
 
-public abstract class SharedAugmentPowerCellSystem : EntitySystem
+public abstract partial class SharedAugmentPowerCellSystem : EntitySystem
 {
-    [Dependency] protected readonly AugmentSystem Augment = default!;
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] protected readonly SharedPowerCellSystem _powerCell = default!;
+    [Dependency] protected AugmentSystem Augment = default!;
+    [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] protected SharedPowerCellSystem _powerCell = default!;
 
     public override void Initialize()
     {

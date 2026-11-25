@@ -7,9 +7,9 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._BlackM.Lobby.Terminal;
 
-public sealed class TerminalMenu : BoxContainer
+public sealed partial class TerminalMenu : BoxContainer
 {
-    [Dependency] private readonly IResourceCache _cache = default!;
+    [Dependency] private IResourceCache _cache = default!;
 
     private readonly HashSet<Button> _configured = new();
 

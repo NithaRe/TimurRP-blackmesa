@@ -76,7 +76,6 @@
 
 using System.Numerics;
 using Content.Server.Body.Components;
-using System.Numerics;
 using Content.Server.Ghost;
 using Content.Server.Humanoid;
 using Content.Shared._Shitmed.Body.Part;
@@ -95,20 +94,19 @@ using Robust.Shared.Timing;
 
 // Shitmed Change
 using System.Linq;
-using Content.Shared.Body.Events;
 using Content.Shared.Gibbing.Events;
 
 namespace Content.Server.Body.Systems;
 
 public sealed partial class BodySystem : SharedBodySystem // Shitmed change: made partial
 {
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!; // Shitmed Change
-    [Dependency] private readonly GhostSystem _ghostSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!; // Shitmed Change
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
+    [Dependency] private BloodstreamSystem _bloodstream = default!; // Shitmed Change
+    [Dependency] private GhostSystem _ghostSystem = default!;
+    [Dependency] private IGameTiming _gameTiming = default!;
+    [Dependency] private HumanoidAppearanceSystem _humanoidSystem = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!; // Shitmed Change
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private SharedMindSystem _mindSystem = default!;
 
     public override void Initialize()
     {

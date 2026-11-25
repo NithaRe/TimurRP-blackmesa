@@ -8,12 +8,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._BlackM.ForceField;
 
-public sealed class SharedPassportForceFieldSystem : EntitySystem
+public sealed partial class SharedPassportForceFieldSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override void Initialize()
     {

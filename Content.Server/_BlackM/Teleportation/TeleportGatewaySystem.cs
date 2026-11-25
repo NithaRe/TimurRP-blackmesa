@@ -6,11 +6,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Teleportation;
 
-public sealed class TeleportGatewaySystem : EntitySystem
+public sealed partial class TeleportGatewaySystem : EntitySystem
 {
-    [Dependency] private readonly LinkedEntitySystem _link = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private LinkedEntitySystem _link = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override void Initialize()
     {

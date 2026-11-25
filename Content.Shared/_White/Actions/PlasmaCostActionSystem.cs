@@ -7,10 +7,10 @@ using Content.Shared.Actions.Events;
 
 namespace Content.Shared._White.Actions;
 
-public sealed class PlasmaCostActionSystem : EntitySystem
+public sealed partial class PlasmaCostActionSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedPlasmaSystem _plasma = default!;
+    [Dependency] private SharedActionsSystem _actions = default!;
+    [Dependency] private SharedPlasmaSystem _plasma = default!;
 
     public override void Initialize()
     {

@@ -7,11 +7,11 @@ namespace Content.Shared._Shitmed.Medical.Surgery.Consciousness.Systems;
 
 public sealed partial class ConsciousnessSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private INetManager _net = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly PainSystem _pain = default!;
+    [Dependency] private MobStateSystem _mobStateSystem = default!;
+    [Dependency] private PainSystem _pain = default!;
 
     public override void Initialize()
     {

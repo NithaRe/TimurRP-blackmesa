@@ -48,15 +48,15 @@ using Content.Shared.Chemistry.Reagent; // Goobstation
 
 namespace Content.Server.Chemistry.EntitySystems;
 
-public sealed class InjectorSystem : SharedInjectorSystem
+public sealed partial class InjectorSystem : SharedInjectorSystem
 {
-    [Dependency] private readonly BloodstreamSystem _blood = default!;
-    [Dependency] private readonly ReactiveSystem _reactiveSystem = default!;
-    [Dependency] private readonly OpenableSystem _openable = default!;
-    [Dependency] private readonly SkillsSystem _skills = default!; // CorvaxGoob-Skills
+    [Dependency] private BloodstreamSystem _blood = default!;
+    [Dependency] private ReactiveSystem _reactiveSystem = default!;
+    [Dependency] private OpenableSystem _openable = default!;
+    [Dependency] private SkillsSystem _skills = default!; // CorvaxGoob-Skills
 
     private const float DelayModifierWithoutSkill = 5; // CorvaxGoob-Skills
-    [Dependency] private readonly IGameTiming _timing = default!; // Goobstation
+    [Dependency] private IGameTiming _timing = default!; // Goobstation
 
     public override void Initialize()
     {

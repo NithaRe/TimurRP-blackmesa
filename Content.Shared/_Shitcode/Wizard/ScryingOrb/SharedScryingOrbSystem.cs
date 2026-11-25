@@ -11,10 +11,10 @@ using Content.Shared.Inventory;
 
 namespace Content.Shared._Goobstation.Wizard.ScryingOrb;
 
-public abstract class SharedScryingOrbSystem : EntitySystem
+public abstract partial class SharedScryingOrbSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
 
     public bool IsScryingOrbEquipped(EntityUid uid)
     {

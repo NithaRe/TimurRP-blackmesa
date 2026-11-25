@@ -8,10 +8,10 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._BlackM.Announcement;
 
-public sealed class AnnouncementBroadcastSystem : EntitySystem
+public sealed partial class AnnouncementBroadcastSystem : EntitySystem
 {
-    [Dependency] private readonly IResourceCache _res = default!;
-    [Dependency] private readonly WelcomeMessageSystem _welcome = default!;
+    [Dependency] private IResourceCache _res = default!;
+    [Dependency] private WelcomeMessageSystem _welcome = default!;
 
     private const string FallbackPortrait = "/Textures/_BlackM/Interface/welcome_portrait.png";
 

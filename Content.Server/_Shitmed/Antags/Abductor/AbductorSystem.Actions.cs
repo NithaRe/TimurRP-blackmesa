@@ -20,9 +20,9 @@ namespace Content.Server._Shitmed.Antags.Abductor;
 
 public sealed partial class AbductorSystem : SharedAbductorSystem
 {
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
-    [Dependency] private readonly PullingSystem _pullingSystem = default!;
+    [Dependency] private SharedAudioSystem _audioSystem = default!;
+    [Dependency] private SharedColorFlashEffectSystem _color = default!;
+    [Dependency] private PullingSystem _pullingSystem = default!;
 
     private static readonly EntProtoId<ActionComponent> SendYourself = "ActionSendYourself";
     private static readonly EntProtoId<ActionComponent> ExitAction = "ActionExitConsole";

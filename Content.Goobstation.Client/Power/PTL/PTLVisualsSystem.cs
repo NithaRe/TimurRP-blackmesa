@@ -11,7 +11,7 @@ namespace Content.Goobstation.Client.Power.PTL;
 
 public sealed partial class PTLVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _time = default!;
+    [Dependency] private IGameTiming _time = default!;
 
     public override void FrameUpdate(float frameTime) // _BlackM: moved from Update, visuals once per frame
     {

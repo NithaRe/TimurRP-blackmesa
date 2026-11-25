@@ -5,10 +5,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.AltActionEffect;
 
-public sealed class AltActionEffectSystem : EntitySystem
+public sealed partial class AltActionEffectSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IOverlayManager _overlays = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IOverlayManager _overlays = default!;
 
     private static readonly TimeSpan DedupeTime = TimeSpan.FromSeconds(0.6);
 

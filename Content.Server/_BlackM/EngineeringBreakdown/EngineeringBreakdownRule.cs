@@ -17,10 +17,10 @@ using Robust.Shared.Utility;
 
 namespace Content.Server._BlackM.EngineeringBreakdown;
 
-public sealed class EngineeringBreakdownRule : StationEventSystem<EngineeringBreakdownRuleComponent>
+public sealed partial class EngineeringBreakdownRule : StationEventSystem<EngineeringBreakdownRuleComponent>
 {
-    [Dependency] private readonly BreakdownSystem _breakdown = default!;
-    [Dependency] private readonly CargoSystem _cargo = default!;
+    [Dependency] private BreakdownSystem _breakdown = default!;
+    [Dependency] private CargoSystem _cargo = default!;
 
     public override void Initialize()
     {

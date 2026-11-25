@@ -8,9 +8,9 @@ namespace Content.Server._BlackM.Underground;
 
 public sealed record UndergroundCabin(EntityUid Map, MapId MapId, EntityUid Grid, EntityUid Controller, EntityUid Origin);
 
-public sealed class UndergroundCabinSystem : EntitySystem
+public sealed partial class UndergroundCabinSystem : EntitySystem
 {
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
+    [Dependency] private MapLoaderSystem _loader = default!;
     private static readonly ResPath CabinPath = new("/Maps/_BlackM/Underground/elevator_cabin.yml");
     private const string CabinId = "underground-expedition";
 

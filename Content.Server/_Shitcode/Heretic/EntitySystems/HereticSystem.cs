@@ -58,25 +58,25 @@ using Content.Server.Polymorph.Systems;
 
 namespace Content.Server.Heretic.EntitySystems;
 
-public sealed class HereticSystem : EntitySystem
+public sealed partial class HereticSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly HereticKnowledgeSystem _knowledge = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly SharedJobSystem _job = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly ObjectivesSystem _objectives = default!;
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private StoreSystem _store = default!;
+    [Dependency] private HereticKnowledgeSystem _knowledge = default!;
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private SharedEyeSystem _eye = default!;
+    [Dependency] private AntagSelectionSystem _antag = default!;
+    [Dependency] private SharedJobSystem _job = default!;
+    [Dependency] private ActionsSystem _actions = default!;
+    [Dependency] private ObjectivesSystem _objectives = default!;
+    [Dependency] private PolymorphSystem _polymorph = default!;
 
-    [Dependency] private readonly IRobustRandom _rand = default!;
-    [Dependency] private readonly IPlayerManager _playerMan = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IChatManager _chatMan = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private IRobustRandom _rand = default!;
+    [Dependency] private IPlayerManager _playerMan = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IChatManager _chatMan = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     private float _timer;
     private const float PassivePointCooldown = 20f * 60f;

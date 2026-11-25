@@ -21,13 +21,13 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._BlackM.WalkBob;
 
-public sealed class WalkBobSystem : EntitySystem
+public sealed partial class WalkBobSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IEyeManager _eye = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private StandingStateSystem _standing = default!;
 
     private const float KickCooldown = 0.05f;
     private const float FallbackSprintThreshold = 3.5f;

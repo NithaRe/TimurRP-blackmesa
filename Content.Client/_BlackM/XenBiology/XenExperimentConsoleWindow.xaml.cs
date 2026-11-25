@@ -11,7 +11,7 @@ namespace Content.Client._BlackM.XenBiology;
 [GenerateTypedNameReferences]
 public sealed partial class XenExperimentConsoleWindow : DefaultWindow
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
 
     private readonly List<XenExperimentPrototype> _experiments = [];
     private XenExperimentConsoleBoundUserInterfaceState? _state;

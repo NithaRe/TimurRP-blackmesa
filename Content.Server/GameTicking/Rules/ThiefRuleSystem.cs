@@ -25,9 +25,9 @@ using Content.Shared.Humanoid;
 
 namespace Content.Server.GameTicking.Rules;
 
-public sealed class ThiefRuleSystem : GameRuleSystem<ThiefRuleComponent>
+public sealed partial class ThiefRuleSystem : GameRuleSystem<ThiefRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
+    [Dependency] private AntagSelectionSystem _antag = default!;
 
     public override void Initialize()
     {

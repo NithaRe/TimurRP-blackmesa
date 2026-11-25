@@ -4,9 +4,9 @@ using Content.Shared.Damage;
 
 namespace Content.Server._White.Xenomorphs.Acid;
 
-public sealed class XenomorphAcidSystem : SharedXenomorphAcidSystem
+public sealed partial class XenomorphAcidSystem : SharedXenomorphAcidSystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
 
     public override void Update(float frameTime)
     {

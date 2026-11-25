@@ -10,9 +10,9 @@ using Content.Shared.Alert;
 
 namespace Content.Server._Goobstation.Wizard.Systems;
 
-public sealed class CurseOfByondSystem : EntitySystem
+public sealed partial class CurseOfByondSystem : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
+    [Dependency] private AlertsSystem _alertsSystem = default!;
     public override void Initialize()
     {
         base.Initialize();

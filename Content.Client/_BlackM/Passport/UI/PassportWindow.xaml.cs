@@ -20,8 +20,8 @@ namespace Content.Client._BlackM.Passport.UI;
 [GenerateTypedNameReferences]
 public sealed partial class PassportWindow : PassportFramelessWindow
 {
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private IResourceCache _resourceCache = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
     private const float PortraitViewSize = 300f;
     private const float PortraitOffsetX  = -64f;
     private const float PortraitOffsetY  = 0f;

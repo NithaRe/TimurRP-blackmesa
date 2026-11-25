@@ -6,10 +6,10 @@ using Content.Shared.Weapons.Ranged.Systems;
 
 namespace Content.Shared._White.Weapons.Ranged.Systems;
 
-public sealed class PlasmaAmmoProviderSystem : EntitySystem
+public sealed partial class PlasmaAmmoProviderSystem : EntitySystem
 {
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly SharedPlasmaSystem _plasma = default!;
+    [Dependency] private SharedGunSystem _gun = default!;
+    [Dependency] private SharedPlasmaSystem _plasma = default!;
 
     public override void Initialize()
     {

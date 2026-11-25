@@ -7,9 +7,9 @@ using Robust.Shared.Random;
 
 namespace Content.Server._DV.StationEvents.Events;
 
-public sealed class RandomMultipleSpawnRule : StationEventSystem<RandomMultipleSpawnRuleComponent>
+public sealed partial class RandomMultipleSpawnRule : StationEventSystem<RandomMultipleSpawnRuleComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     protected override void Started(EntityUid uid, RandomMultipleSpawnRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {

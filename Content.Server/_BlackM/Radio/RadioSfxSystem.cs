@@ -13,12 +13,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.Radio;
 
-public sealed class RadioSfxSystem : EntitySystem
+public sealed partial class RadioSfxSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IPlayerManager _players = default!;
 
     private readonly Dictionary<NetUserId, float> _volume = new();
 

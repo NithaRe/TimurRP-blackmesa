@@ -16,12 +16,12 @@ using Content.Shared.Throwing;
 
 namespace Content.Server._Goobstation.Wizard.Systems;
 
-public sealed class ThrownLightningSystem : EntitySystem
+public sealed partial class ThrownLightningSystem : EntitySystem
 {
-    [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!;
-    [Dependency] private readonly SpellsSystem _spells = default!;
-    [Dependency] private readonly SparksSystem _sparks = default!;
+    [Dependency] private ElectrocutionSystem _electrocution = default!;
+    [Dependency] private SharedStaminaSystem _stamina = default!;
+    [Dependency] private SpellsSystem _spells = default!;
+    [Dependency] private SparksSystem _sparks = default!;
 
     public override void Initialize()
     {

@@ -15,10 +15,10 @@ using Robust.Shared.Prototypes;
 namespace Content.Client._Shitcode.Wizard.Spellblade;
 
 [UsedImplicitly]
-public sealed class SpellbladeBoundUserInterface : BoundUserInterface
+public sealed partial class SpellbladeBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly IClyde _displayManager = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
+    [Dependency] private IClyde _displayManager = default!;
+    [Dependency] private IInputManager _inputManager = default!;
 
     private SpellbladeMenu? _menu;
 

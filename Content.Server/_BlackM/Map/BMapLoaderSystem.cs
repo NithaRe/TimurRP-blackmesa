@@ -11,11 +11,11 @@ using Robust.Shared.Utility;
 
 namespace Content.Server._BlackM.Map;
 
-public sealed class BMapLoaderSystem : EntitySystem
+public sealed partial class BMapLoaderSystem : EntitySystem
 {
-    [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency] private MapLoaderSystem _mapLoader = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private StationSystem _station = default!;
 
     public override void Initialize()
     {

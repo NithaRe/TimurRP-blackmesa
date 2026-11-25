@@ -16,11 +16,11 @@ using Content.Shared.Wieldable.Components;
 
 namespace Content.Shared._Goobstation.Weapons.FoldingWeapon;
 
-public sealed class FoldingWeaponSystem : EntitySystem
+public sealed partial class FoldingWeaponSystem : EntitySystem
 {
-    [Dependency] private readonly SharedWieldableSystem _wieldable = default!;
-    [Dependency] private readonly ClothingSystem _clothing = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
+    [Dependency] private SharedWieldableSystem _wieldable = default!;
+    [Dependency] private ClothingSystem _clothing = default!;
+    [Dependency] private SharedItemSystem _item = default!;
 
     public override void Initialize()
     {

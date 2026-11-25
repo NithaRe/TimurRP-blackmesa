@@ -28,12 +28,12 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Goobstation.Wizard.Spellblade;
 
-public abstract class SharedSpellbladeSystem : EntitySystem
+public abstract partial class SharedSpellbladeSystem : EntitySystem
 {
-    [Dependency] protected readonly UseDelaySystem UseDelay = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] private   readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private   readonly SharedHandsSystem _hands = default!;
+    [Dependency] protected UseDelaySystem UseDelay = default!;
+    [Dependency] protected SharedAudioSystem Audio = default!;
+    [Dependency] private   IPrototypeManager _protoManager = default!;
+    [Dependency] private   SharedHandsSystem _hands = default!;
 
     public override void Initialize()
     {

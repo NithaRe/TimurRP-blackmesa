@@ -9,10 +9,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._BlackM.WelcomeMessage;
 
-public sealed class WelcomeMessageSystem : EntitySystem
+public sealed partial class WelcomeMessageSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     private static readonly TimeSpan Delay = TimeSpan.FromSeconds(2.5);
 

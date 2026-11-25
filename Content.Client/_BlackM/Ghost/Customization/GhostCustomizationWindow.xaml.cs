@@ -17,8 +17,8 @@ namespace Content.Client._BlackM.Ghost.Customization;
 [GenerateTypedNameReferences]
 public sealed partial class GhostCustomizationWindow : FancyWindow
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IEntityManager _entManager = default!;
 
     private static readonly Color AccentTeal = Color.FromHex("#4FD1C5");
 

@@ -144,23 +144,23 @@ using Content.Shared.Tag;
 using Content.Shared._CorvaxNext.Silicons.Borgs.Components;
 namespace Content.Server.Silicons.Laws;
 
-public sealed class SiliconLawSystem : SharedSiliconLawSystem
+public sealed partial class SiliconLawSystem : SharedSiliconLawSystem
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!; // goob logging
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
+    [Dependency] private IChatManager _chatManager = default!;
+    [Dependency] private IAdminLogManager _adminLogger = default!; // goob logging
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private SharedRoleSystem _roles = default!;
+    [Dependency] private StationSystem _station = default!;
+    [Dependency] private UserInterfaceSystem _userInterface = default!;
+    [Dependency] private EmagSystem _emag = default!;
 
     // Goobstation
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly IonStormSystem _ionStorm = default!;
-    [Dependency] private readonly ResearchSystem _research = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!; // Corvax-Next-AiRemoteControl
+    [Dependency] private IRobustRandom _robustRandom = default!;
+    [Dependency] private IonStormSystem _ionStorm = default!;
+    [Dependency] private ResearchSystem _research = default!;
+    [Dependency] private RadioSystem _radio = default!;
+    [Dependency] private TagSystem _tagSystem = default!; // Corvax-Next-AiRemoteControl
 
 
 

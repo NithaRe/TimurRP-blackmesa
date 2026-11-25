@@ -4,9 +4,9 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._CorvaxGoob.BookOfGreentext;
 
-public sealed class CurseOfBookOfGreentextSystem : EntitySystem
+public sealed partial class CurseOfBookOfGreentextSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private EntityQuery<ContainerManagerComponent> _containerQuery;
 

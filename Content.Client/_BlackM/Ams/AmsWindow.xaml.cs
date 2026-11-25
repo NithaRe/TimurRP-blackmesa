@@ -21,8 +21,8 @@ namespace Content.Client._BlackM.Ams;
 [GenerateTypedNameReferences]
 public sealed partial class AmsWindow : FancyWindow
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IEntityManager _entMan = default!;
 
     private const string PartsRsiPath = "/Textures/_BlackM/Objects/ams_parts.rsi";
 

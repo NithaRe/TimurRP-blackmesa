@@ -5,10 +5,10 @@ using Robust.Shared.Random;
 
 namespace Content.Server._BlackM.RandomVariant;
 
-public sealed class RandomVariantSystem : EntitySystem
+public sealed partial class RandomVariantSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
 
     // Starting gear equips the item right after its MapInit, so the swap waits for the next update.
     private readonly List<EntityUid> _pending = new();

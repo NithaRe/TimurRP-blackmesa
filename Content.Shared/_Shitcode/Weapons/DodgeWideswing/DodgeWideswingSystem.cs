@@ -13,11 +13,11 @@ using Robust.Shared.Random;
 
 namespace Content.Shared._Goobstation.Weapons.DodgeWideswing;
 
-public sealed class DodgeWideswingSystem : EntitySystem
+public sealed partial class DodgeWideswingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedStaminaSystem _stamina = default!;
 
     public override void Initialize()
     {

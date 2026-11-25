@@ -102,21 +102,21 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared.Damage
 {
-    public sealed class DamageableSystem : EntitySystem
+    public sealed partial class DamageableSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly INetManager _netMan = default!;
-        [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-        [Dependency] private readonly IConfigurationManager _config = default!;
-        [Dependency] private readonly SharedChemistryGuideDataSystem _chemistryGuideData = default!;
+        [Dependency] private IPrototypeManager _prototypeManager = default!;
+        [Dependency] private SharedAppearanceSystem _appearance = default!;
+        [Dependency] private INetManager _netMan = default!;
+        [Dependency] private MobThresholdSystem _mobThreshold = default!;
+        [Dependency] private IConfigurationManager _config = default!;
+        [Dependency] private SharedChemistryGuideDataSystem _chemistryGuideData = default!;
 
         // Shitmed Dependencies
-        [Dependency] private readonly SharedBodySystem _body = default!;
-        [Dependency] private readonly WoundSystem _wounds = default!;
-        [Dependency] private readonly IRobustRandom _LETSGOGAMBLINGEXCLAMATIONMARKEXCLAMATIONMARK = default!;
-        [Dependency] private readonly IComponentFactory _factory = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency] private SharedBodySystem _body = default!;
+        [Dependency] private WoundSystem _wounds = default!;
+        [Dependency] private IRobustRandom _LETSGOGAMBLINGEXCLAMATIONMARKEXCLAMATIONMARK = default!;
+        [Dependency] private IComponentFactory _factory = default!;
+        [Dependency] private IGameTiming _timing = default!;
         private EntityQuery<AppearanceComponent> _appearanceQuery;
         private EntityQuery<DamageableComponent> _damageableQuery;
         private EntityQuery<MindContainerComponent> _mindContainerQuery;
