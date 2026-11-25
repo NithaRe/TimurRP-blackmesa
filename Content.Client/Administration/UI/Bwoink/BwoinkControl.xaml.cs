@@ -141,14 +141,12 @@ namespace Content.Client.Administration.UI.Bwoink
         public AdminAHelpUIHandler AHelpHelper = default!;
 
         private PlayerInfo? _currentPlayer;
+        private NetUserId? _currentChannel; // BlackM edit
 
         public BwoinkControl()
         {
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
-
-            var newPlayerThreshold = 0;
-            _cfg.OnValueChanged(CCVars.NewPlayerThreshold, (val) => { newPlayerThreshold = val; }, true);
 
             var uiController = _ui.GetUIController<AHelpUIController>();
             if (uiController.UIHelper is not AdminAHelpUIHandler helper)
@@ -161,12 +159,24 @@ namespace Content.Client.Administration.UI.Bwoink
 
             AdminOnly.OnToggled += args => PlaySound.Disabled = args.Pressed;
 
+            // BlackM start
+            ChannelSelector.KeepSelectionWhenFiltered = true;
             ChannelSelector.OnSelectionChanged += sel =>
             {
                 _currentPlayer = sel;
-                SwitchToChannel(sel?.SessionId);
+                if (sel != null)
+                    SwitchToChannel(sel.SessionId);
+                else
+                    UpdateButtons();
                 ChannelSelector.PlayerListContainer.DirtyList();
             };
+            ChannelSelector.OnListUpdated += () =>
+            {
+                if (_currentPlayer == null && _currentChannel is { } channel)
+                    SelectListedChannel(channel);
+            };
+
+            // BlackM end
 
             ChannelSelector.OverrideText += (info, text) =>
             {
@@ -205,6 +215,7 @@ namespace Content.Client.Administration.UI.Bwoink
             // </summary>
             bool IsNewPlayer(PlayerInfo info)
             {
+                var newPlayerThreshold = _cfg.GetCVar(CCVars.NewPlayerThreshold); // BlackM edit
                 // Don't show every disconnected player as new, don't show 0-minute players as new if threshold is
                 if (newPlayerThreshold <= 0 || info.OverallPlaytime is null && !info.Connected)
                     return false;
@@ -213,24 +224,25 @@ namespace Content.Client.Administration.UI.Bwoink
                         || info.OverallPlaytime < TimeSpan.FromMinutes(newPlayerThreshold));
             }
 
+            // BlackM start
             ChannelSelector.Comparison = (a, b) =>
             {
-                var ach = AHelpHelper.EnsurePanel(a.SessionId);
-                var bch = AHelpHelper.EnsurePanel(b.SessionId);
+                AHelpHelper.TryGetChannel(a.SessionId, out var ach);
+                AHelpHelper.TryGetChannel(b.SessionId, out var bch);
 
                 // Pinned players first
                 if (a.IsPinned != b.IsPinned)
                     return a.IsPinned ? -1 : 1;
 
                 // Then, any chat with unread messages.
-                var aUnread = ach.Unread > 0;
-                var bUnread = bch.Unread > 0;
+                var aUnread = ach is { Unread: > 0 };
+                var bUnread = bch is { Unread: > 0 };
                 if (aUnread != bUnread)
                     return aUnread ? -1 : 1;
 
                 // Then, any chat with recent messages from the current round
-                var aRecent = a.ActiveThisRound && ach.LastMessage != DateTime.MinValue;
-                var bRecent = b.ActiveThisRound && bch.LastMessage != DateTime.MinValue;
+                var aRecent = a.ActiveThisRound && ach is { LastMessage: var aTime } && aTime != DateTime.MinValue;
+                var bRecent = b.ActiveThisRound && bch is { LastMessage: var bTime } && bTime != DateTime.MinValue;
                 if (aRecent != bRecent)
                     return aRecent ? -1 : 1;
 
@@ -265,9 +277,11 @@ namespace Content.Client.Administration.UI.Bwoink
                 }
 
                 // Finally, sort by the most recent message.
-                return bch.LastMessage.CompareTo(ach.LastMessage);
+                return (bch?.LastMessage ?? DateTime.MinValue).CompareTo(ach?.LastMessage ?? DateTime.MinValue);
             };
 
+
+            // BlackM end
 
             Bans.OnPressed += _ =>
             {
@@ -312,29 +326,51 @@ namespace Content.Client.Administration.UI.Bwoink
             };
         }
 
+        // BlackM start
         public void OnBwoink(NetUserId channel)
         {
             ChannelSelector.PopulateList();
+            if (_currentChannel == null && AHelpHelper.IsOpen)
+                SelectChannel(channel);
         }
 
-
-        public void SelectChannel(NetUserId channel)
+        private bool SelectListedChannel(NetUserId channel)
         {
             if (!ChannelSelector.PlayerInfo.TryFirstOrDefault(
                 i => i.SessionId == channel, out var info))
-                return;
-
-            // clear filter if we're trying to select a channel for a player that isn't currently filtered
-            // i.e. through the message verb.
+                return false;
             var data = new PlayerListData(info);
             if (!ChannelSelector.PlayerListContainer.Data.Contains(data))
+                return false;
+
+            ChannelSelector.PlayerListContainer.Select(data);
+            return true;
+        }
+
+        public void SelectChannel(NetUserId channel)
+        {
+            if (!SelectListedChannel(channel))
             {
                 ChannelSelector.StopFiltering();
+                if (!SelectListedChannel(channel))
+                {
+                    _currentPlayer = null;
+                    SwitchToChannel(channel);
+                }
             }
+        }
+
+        public void OnWindowOpened()
+        {
+            if (_currentChannel is { } channel)
+                AHelpHelper.EnsurePanel(channel).MarkRead();
+            else if (AHelpHelper.GetMostRecentUnreadChannel() is { } unread)
+                SelectChannel(unread);
 
             ChannelSelector.PopulateList();
-            ChannelSelector.PlayerListContainer.Select(data);
         }
+
+        // BlackM end
 
         public void UpdateButtons()
         {
@@ -390,35 +426,25 @@ namespace Content.Client.Administration.UI.Bwoink
             return sb.ToString();
         }
 
-        private void SwitchToChannel(NetUserId? ch)
+        // BlackM start
+        private void SwitchToChannel(NetUserId channel)
         {
             UpdateButtons();
-
-            AHelpHelper.HideAllPanels();
-            if (ch != null)
-            {
-                var panel = AHelpHelper.EnsurePanel(ch.Value);
-                panel.Visible = true;
-            }
+            if (_currentChannel != channel)
+                AHelpHelper.HideAllPanels();
+            _currentChannel = channel;
+            var panel = AHelpHelper.EnsurePanel(channel);
+            panel.Visible = true;
+            if (AHelpHelper.IsOpen)
+                panel.MarkRead();
         }
 
-        public void PopulateList()
+        [Obsolete]
+        protected override void Dispose(bool disposing)
         {
-            // Maintain existing pin statuses
-            var pinnedPlayers = ChannelSelector.PlayerInfo.Where(p => p.IsPinned).ToDictionary(p => p.SessionId);
-
-            ChannelSelector.PopulateList();
-
-            // Restore pin statuses
-            foreach (var player in ChannelSelector.PlayerInfo)
-            {
-                if (pinnedPlayers.TryGetValue(player.SessionId, out var pinnedPlayer))
-                {
-                    player.IsPinned = pinnedPlayer.IsPinned;
-                }
-            }
-
-            UpdateButtons();
+            _adminManager.AdminStatusUpdated -= UpdateButtons;
+            base.Dispose(disposing);
         }
+        // BlackM end
     }
 }

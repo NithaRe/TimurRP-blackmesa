@@ -1,3 +1,4 @@
+using Content.Shared.Actions;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._BlackM.Announcement;
@@ -7,6 +8,8 @@ public enum AnnouncementConsoleUiKey : byte
 {
     Key
 }
+
+public sealed partial class OpenPortableBroadcasterEvent : InstantActionEvent;
 
 [Serializable, NetSerializable]
 public sealed class AnnouncementChannelEntry
@@ -34,6 +37,7 @@ public sealed class AnnouncementConsoleBuiState : BoundUserInterfaceState
     public string SenderName;
     public string SenderJob;
     public bool HasAccess;
+    public bool Personal;
 
     public AnnouncementConsoleBuiState(
         List<AnnouncementChannelEntry> channels,
@@ -41,7 +45,8 @@ public sealed class AnnouncementConsoleBuiState : BoundUserInterfaceState
         int maxLength,
         string senderName,
         string senderJob,
-        bool hasAccess)
+        bool hasAccess,
+        bool personal)
     {
         Channels = channels;
         NextAnnouncement = nextAnnouncement;
@@ -49,6 +54,7 @@ public sealed class AnnouncementConsoleBuiState : BoundUserInterfaceState
         SenderName = senderName;
         SenderJob = senderJob;
         HasAccess = hasAccess;
+        Personal = personal;
     }
 }
 

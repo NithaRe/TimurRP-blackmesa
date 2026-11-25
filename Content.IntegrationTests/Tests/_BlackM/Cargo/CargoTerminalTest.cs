@@ -28,6 +28,7 @@ public sealed class CargoTerminalTest
         EntityUid owner = default;
         EntityUid station = default;
         CargoConsoleInterfaceState state = null!;
+        CargoProductPrototype fuel = null!;
         var prototypes = client.ResolveDependency<IPrototypeManager>();
 
         await client.WaitAssertion(() =>
@@ -36,15 +37,15 @@ public sealed class CargoTerminalTest
             client.EntMan.AddComponent<CargoOrderConsoleComponent>(owner);
             station = client.EntMan.SpawnEntity(null, MapCoordinates.Nullspace);
             client.EntMan.AddComponent<StationBankAccountComponent>(station);
-            var capacitor = prototypes.Index<CargoProductPrototype>("XenExperimentCapacitorMk3Product");
+            fuel = prototypes.Index<CargoProductPrototype>("EngineAmeJarHighCapacity");
             var sample = prototypes.Index<CargoProductPrototype>("XenRedSampleProduct");
             state = new CargoConsoleInterfaceState("Black Mesa", 1, 20, client.EntMan.GetNetEntity(station),
             [
-                new CargoOrderData(1, capacitor.Product, capacitor.Name, 2500, 2, "Researcher", "Test", "Cargo", 0),
+                new CargoOrderData(1, fuel.Product, fuel.Name, fuel.Cost, 2, "Researcher", "Test", "Cargo", 0),
                 new CargoOrderData(2, sample.Product, sample.Name, 1000, 1, "Scientist", "Test", "Science", 0),
                 new CargoOrderData(3, sample.Product, sample.Name, 1000, 1, "Researcher", "Test", "Cargo", 0) { Approved = true },
             ],
-            ["XenExperimentCapacitorMk3Product", "XenRedSampleProduct", "AmsPartCoreProduct"]);
+            [fuel.ID, "XenRedSampleProduct", "EngineAmeJar"]);
             window = new CargoTerminalWindow();
             window.Initialize(owner, "Researcher");
             window.UpdateState(state);
@@ -52,8 +53,8 @@ public sealed class CargoTerminalTest
 
             Assert.That(window.FindControl<BoxContainer>("ProductList").ChildCount, Is.EqualTo(3));
             Assert.That(window.FindControl<BoxContainer>("OrderList").ChildCount, Is.EqualTo(2));
-            Assert.That(window.FindControl<Label>("PendingTotalLabel").Text, Is.EqualTo(5000.ToString("N0", CultureInfo.CurrentCulture)));
-            Assert.That(window.FindControl<Label>("RemainingLabel").Text, Is.EqualTo((-3000).ToString("N0", CultureInfo.CurrentCulture)));
+            Assert.That(window.FindControl<Label>("PendingTotalLabel").Text, Is.EqualTo((2 * fuel.Cost).ToString("N0", CultureInfo.CurrentCulture)));
+            Assert.That(window.FindControl<Label>("RemainingLabel").Text, Is.EqualTo((2000 - 2 * fuel.Cost).ToString("N0", CultureInfo.CurrentCulture)));
             Assert.That(window.FindControl<Button>("SubmitButton").Disabled, Is.True);
         });
 
@@ -67,8 +68,9 @@ public sealed class CargoTerminalTest
             }
         }
 
-        var firstProduct = window.FindControl<BoxContainer>("ProductList").Children.OfType<BaseButton>().First();
-        await Click(firstProduct);
+        var fuelProduct = window.FindControl<BoxContainer>("ProductList").Children.OfType<BaseButton>()
+            .Single(button => button.ToolTip == fuel.Name + "\n" + fuel.Description);
+        await Click(fuelProduct);
         await client.WaitAssertion(() =>
         {
             Assert.That(window.FindControl<Button>("SubmitButton").Disabled, Is.False);
@@ -98,8 +100,9 @@ public sealed class CargoTerminalTest
             }
         });
         var submitted = false;
-        window.OrderSubmitted += (_, amount, requester, reason) =>
+        window.OrderSubmitted += (productId, amount, requester, reason) =>
         {
+            Assert.That(productId, Is.EqualTo(fuel.ID));
             Assert.That(amount, Is.EqualTo(2));
             Assert.That(requester, Is.EqualTo("Researcher"));
             Assert.That(reason, Is.EqualTo("Keep draft"));

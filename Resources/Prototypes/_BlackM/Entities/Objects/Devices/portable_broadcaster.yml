@@ -29,3 +29,14 @@
     interfaces:
       enum.AnnouncementConsoleUiKey.Key:
         type: AnnouncementConsoleBoundUserInterface
+
+- type: entity
+  parent: BaseAction
+  id: ActionBlackMPortableBroadcaster
+  name: Portable broadcaster
+  description: Send an announcement to the complex.
+  components:
+  - type: Action
+    icon: { sprite: _BlackM/Objects/Devices/portable_broadcaster.rsi, state: icon }
+  - type: InstantAction
+    event: !type:OpenPortableBroadcasterEvent

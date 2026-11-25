@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared._BlackM.Headcrab;
 using Content.Goobstation.Shared.Overlays;
 using Content.Server.DoAfter;
@@ -6,8 +7,13 @@ using Content.Shared.Actions;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
+using Content.Shared.Hands;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Humanoid;
+using Content.Shared.Interaction.Components;
 using Content.Shared.Inventory;
+using Content.Shared.Inventory.VirtualItem;
 using Content.Shared.Mind;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -17,6 +23,7 @@ using Content.Shared.Throwing;
 using Content.Shared.Rejuvenate;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Containers;
 using Robust.Shared.Physics.Events;
 using Content.Server.Chat.Systems;
 using Content.Shared.NPC.Systems;
@@ -38,6 +45,8 @@ public sealed partial class HeadcrabSystem : EntitySystem
     [Dependency] private SharedMindSystem _mind = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private SharedContainerSystem _containers = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private ChatSystem _chat = default!;
     [Dependency] private NpcFactionSystem _factionSystem = default!;
@@ -51,6 +60,7 @@ public sealed partial class HeadcrabSystem : EntitySystem
 
     private static readonly int HeadcrabSoundCount = 6;
     private static readonly ProtoId<NpcFactionPrototype> XenFaction = "BlackMXen";
+    private const string CapturedItemsContainer = "blackm-captured-items";
 
     private readonly HashSet<EntityUid> _recentlyHit = new();
 
@@ -68,6 +78,9 @@ public sealed partial class HeadcrabSystem : EntitySystem
 
         SubscribeLocalEvent<HeadcrabCapturedComponent, EntitySpokeEvent>(OnCapturedSpeak);
         SubscribeLocalEvent<HeadcrabCapturedComponent, ComponentStartup>(OnCapturedStartup);
+        SubscribeLocalEvent<HeadcrabCapturedComponent, ComponentShutdown>(OnCapturedShutdown);
+        SubscribeLocalEvent<HeadcrabCapturedComponent, HandCountChangedEvent>(OnCapturedHandCountChanged);
+        SubscribeLocalEvent<HeadcrabCapturedComponent, MobStateChangedEvent>(OnCapturedMobStateChanged);
 
         SubscribeLocalEvent<TransformSpeechEvent>(OnTransformSpeech);
     }
@@ -237,11 +250,20 @@ public sealed partial class HeadcrabSystem : EntitySystem
         if (!_mind.TryGetMind(uid, out var mindId, out var mind))
             return;
 
-        if (_inventory.TryGetSlotEntity(target, "head", out _))
-            _inventory.TryUnequip(target, "head", force: true, silent: true);
+        if (TerminatingOrDeleted(target) || HasComp<HeadcrabCapturedComponent>(target) ||
+            !_inventory.TryGetSlotContainer(target, "head", out var headSlot, out _))
+            return;
 
-        var helmet = Spawn("ClothingHeadHeadcrab", Transform(target).Coordinates);
-        _inventory.TryEquip(target, helmet, "head", force: true, silent: true);
+        var headwear = headSlot.ContainedEntity;
+        if (headwear is { } item && !StashCapturedItem(target, item))
+            return;
+
+        if (!_inventory.SpawnItemInSlot(target, "head", "ClothingHeadHeadcrab", silent: true, force: true))
+        {
+            if (headwear is { } storedItem && _containers.TryGetContainingContainer(storedItem, out var stash))
+                MoveCapturedItem(storedItem, stash, headSlot);
+            return;
+        }
 
         EnsureComp<HeadcrabCapturedComponent>(target);
 
@@ -255,6 +277,8 @@ public sealed partial class HeadcrabSystem : EntitySystem
 
     private void OnCapturedStartup(EntityUid uid, HeadcrabCapturedComponent comp, ComponentStartup args)
     {
+        LimitCapturedHands((uid, comp));
+
         var vision = EnsureComp<NightVisionComponent>(uid);
         vision.Color = Color.FromHex("#808080");
         vision.ActivateSound = null;
@@ -263,6 +287,86 @@ public sealed partial class HeadcrabSystem : EntitySystem
 
         _factionSystem.ClearFactions(uid, dirty: false);
         _factionSystem.AddFaction(uid, XenFaction);
+    }
+
+    private void OnCapturedHandCountChanged(Entity<HeadcrabCapturedComponent> ent, ref HandCountChangedEvent args)
+    {
+        LimitCapturedHands(ent);
+    }
+
+    private void LimitCapturedHands(Entity<HeadcrabCapturedComponent> ent)
+    {
+        if (ent.Comp.UpdatingHands || TerminatingOrDeleted(ent) ||
+            !TryComp<HandsComponent>(ent, out var hands) || hands.Count < 2)
+            return;
+
+        var holder = (ent.Owner, hands);
+        var extraHands = _hands.EnumerateHands(holder).Skip(1).ToArray();
+        ent.Comp.UpdatingHands = true;
+        try
+        {
+            foreach (var hand in extraHands)
+            {
+                if (_hands.TryGetHeldItem(holder, hand, out var item) &&
+                    !HasComp<VirtualItemComponent>(item) && !TerminatingOrDeleted(item) &&
+                    !StashCapturedItem(ent, item.Value))
+                    continue;
+
+                _hands.RemoveHand(holder, hand);
+            }
+        }
+        finally
+        {
+            ent.Comp.UpdatingHands = false;
+        }
+    }
+
+    private bool StashCapturedItem(EntityUid body, EntityUid item)
+    {
+        if (!_containers.TryGetContainingContainer(item, out var source) || source.Owner != body)
+            return false;
+
+        var stash = _containers.EnsureContainer<Container>(body, CapturedItemsContainer);
+        return MoveCapturedItem(item, source, stash);
+    }
+
+    private bool MoveCapturedItem(EntityUid item, BaseContainer source, BaseContainer destination)
+    {
+        var unremoveable = CompOrNull<UnremoveableComponent>(item);
+        if (unremoveable != null)
+            RemComp(item, unremoveable);
+
+        var removed = _containers.Remove(item, source, reparent: false, force: true);
+        var moved = removed && _containers.Insert(item, destination, force: true);
+        if (removed && !moved)
+            _containers.Insert(item, source, force: true);
+
+        if (unremoveable != null && !TerminatingOrDeleted(item))
+        {
+            var restored = EnsureComp<UnremoveableComponent>(item);
+            restored.DeleteOnDrop = unremoveable.DeleteOnDrop;
+            Dirty(item, restored);
+        }
+
+        return moved;
+    }
+
+    private void OnCapturedMobStateChanged(EntityUid uid, HeadcrabCapturedComponent comp, MobStateChangedEvent args)
+    {
+        if (args.NewMobState == MobState.Dead)
+            ReleaseCapturedItems(uid);
+    }
+
+    private void OnCapturedShutdown(EntityUid uid, HeadcrabCapturedComponent comp, ComponentShutdown args)
+    {
+        if (!TerminatingOrDeleted(uid))
+            ReleaseCapturedItems(uid);
+    }
+
+    private void ReleaseCapturedItems(EntityUid uid)
+    {
+        if (_containers.TryGetContainer(uid, CapturedItemsContainer, out var stash))
+            _containers.EmptyContainer(stash, force: true);
     }
 
     private void OnCapturedSpeak(EntityUid uid, HeadcrabCapturedComponent comp, EntitySpokeEvent args)

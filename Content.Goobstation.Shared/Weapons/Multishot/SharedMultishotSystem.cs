@@ -28,6 +28,7 @@ using Content.Shared.Examine;
 using Content.Shared.Hands;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Item; // BlackM edit
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
@@ -60,31 +61,34 @@ public sealed partial class SharedMultishotSystem : EntitySystem
         SubscribeAllEvent<RequestShootEvent>(OnRequestShoot);
     }
 
+    // BlackM start
     private void OnRequestShoot(RequestShootEvent msg, EntitySessionEventArgs args)
     {
         var user = args.SenderSession.AttachedEntity;
 
-        if (user == null ||
-            !_combatSystem.IsInCombatMode(user))
+        if (user is not { } shooter || !_combatSystem.IsInCombatMode(shooter) ||
+            HasComp<ItemComponent>(shooter) ||
+            !_gunSystem.TryGetGun(shooter, out var activeGun, out _) ||
+            activeGun != GetEntity(msg.Gun) || !HasComp<MultishotComponent>(activeGun))
             return;
 
-        var gunsEnumerator = GetMultishotGuns(user.Value);
+        var activePrototype = MetaData(activeGun).EntityPrototype;
         var shootCoords = GetCoordinates(msg.Coordinates);
         var target = GetEntity(msg.Target);
 
-        foreach(var gun in gunsEnumerator)
+        foreach (var (gunEnt, gunComp, _) in GetMultishotGuns(shooter))
         {
-            var (gunEnt, gunComp, _) = gun;
-
-            if (!HasComp<MultishotComponent>(GetEntity(msg.Gun)) && gunEnt != GetEntity(msg.Gun))
+            if (gunEnt != activeGun && (activePrototype == null || MetaData(gunEnt).EntityPrototype?.ID != activePrototype.ID))
                 continue;
 
             if (gunComp.Target == null || !gunComp.BurstActivated || !gunComp.LockOnTargetBurst)
                 gunComp.Target = target;
 
-            _gunSystem.AttemptShoot(user.Value, gunEnt, gunComp, shootCoords);
+            _gunSystem.AttemptShoot(shooter, gunEnt, gunComp, shootCoords);
         }
     }
+
+    // BlackM end
 
     private void OnGunShot(EntityUid uid, MultishotComponent comp, ref GunShotEvent args)
     {
@@ -143,39 +147,44 @@ public sealed partial class SharedMultishotSystem : EntitySystem
         args.MinAngle = args.MinAngle * comp.SpreadMultiplier + Angle.FromDegrees(comp.SpreadAddition);
     }
 
+    // BlackM start
     private void OnEquipWeapon(Entity<MultishotComponent> multishotWeapon, ref GotEquippedHandEvent args)
     {
-        var gunsEnumerator = GetMultishotGuns(args.User);
-
-        if (gunsEnumerator.Count < 2)
-            return;
-
-        foreach (var gun in gunsEnumerator)
-        {
-            gun.Item3.MultishotAffected = true;
-            Dirty(gun.Item1, gun.Item3);
-            _gunSystem.RefreshModifiers(gun.Item1);
-        }
+        RefreshHeldWeapons(args.User);
     }
 
     private void OnUnequipWeapon(Entity<MultishotComponent> multishotWeapon, ref GotUnequippedHandEvent args)
     {
-        var gunsEnumerator = GetMultishotGuns(args.User);
+        SetMultishotAffected(multishotWeapon, false);
+        RefreshHeldWeapons(args.User, multishotWeapon.Owner);
+    }
 
-        multishotWeapon.Comp.MultishotAffected = false;
-        _gunSystem.RefreshModifiers(multishotWeapon.Owner);
-        Dirty(multishotWeapon);
-
-        if (gunsEnumerator.Count >= 2)
-            return;
-
-        foreach (var gun in gunsEnumerator)
+    private void RefreshHeldWeapons(EntityUid user, EntityUid? excludedGun = null)
+    {
+        var guns = GetMultishotGuns(user);
+        foreach (var (uid, _, component) in guns)
         {
-            gun.Item3.MultishotAffected = false;
-            Dirty(gun.Item1, gun.Item3);
-            _gunSystem.RefreshModifiers(gun.Item1);
+            if (uid == excludedGun)
+                continue;
+
+            var prototype = MetaData(uid).EntityPrototype;
+            var paired = prototype != null && guns.Any(other =>
+                other.Item1 != uid && other.Item1 != excludedGun && MetaData(other.Item1).EntityPrototype?.ID == prototype.ID);
+            SetMultishotAffected((uid, component), paired);
         }
     }
+
+    private void SetMultishotAffected(Entity<MultishotComponent> gun, bool affected)
+    {
+        if (gun.Comp.MultishotAffected == affected)
+            return;
+
+        gun.Comp.MultishotAffected = affected;
+        Dirty(gun);
+        _gunSystem.RefreshModifiers(gun.Owner);
+    }
+
+    // BlackM end
 
     private void OnExamined(Entity<MultishotComponent> ent, ref ExaminedEvent args)
     {

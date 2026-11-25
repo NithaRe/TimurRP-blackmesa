@@ -47,7 +47,7 @@ namespace Content.Client.Administration.UI.Bwoink
             OnOpen += () =>
             {
                 Bwoink.ChannelSelector.StopFiltering();
-                Bwoink.PopulateList();
+                Bwoink.OnWindowOpened(); // BlackM edit
             };
         }
     }

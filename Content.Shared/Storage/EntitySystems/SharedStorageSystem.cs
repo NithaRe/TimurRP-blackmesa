@@ -105,6 +105,7 @@
 using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Shared._BlackM.Headcrab; // BlackM edit
 using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Logs;
 using Content.Shared.CCVar;
@@ -1940,6 +1941,11 @@ public abstract partial class SharedStorageSystem : EntitySystem
 
         if (playerSession.AttachedEntity is not { Valid: true } playerEnt || !Exists(playerEnt))
             return;
+
+        // BlackM start
+        if (HasComp<HeadcrabCapturedComponent>(playerEnt))
+            return;
+        // BlackM end
 
         if (!_inventory.TryGetSlotEntity(playerEnt, slot, out var storageEnt))
             return;

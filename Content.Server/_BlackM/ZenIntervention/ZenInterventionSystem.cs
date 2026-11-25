@@ -29,10 +29,14 @@ public sealed partial class ZenInterventionSystem : EntitySystem
     [Dependency] private GameTicker _gameTicker = default!;
 
     private const float SyncInterval = 1f;
+    private static readonly TimeSpan AmsSurgeDuration = TimeSpan.FromMinutes(1);
 
     private EntityUid? _singleton;
     private bool _roundWasActive;
     private float _syncAccumulator;
+    private readonly Queue<EntProtoId> _amsSpawns = new();
+    private TimeSpan _amsSpawnInterval;
+    private TimeSpan _nextAmsSpawn;
 
     public override void Initialize()
     {
@@ -46,6 +50,7 @@ public sealed partial class ZenInterventionSystem : EntitySystem
         _singleton = null;
         _roundWasActive = false;
         _syncAccumulator = 0f;
+        _amsSpawns.Clear();
     }
 
     public override void Update(float frameTime)
@@ -75,6 +80,7 @@ public sealed partial class ZenInterventionSystem : EntitySystem
         Grow(uid, comp, frameTime);
         CheckBreach(comp);
         CheckWave(comp);
+        UpdateAmsSurge(comp);
     }
 
     private void Grow(EntityUid uid, ZenInterventionComponent comp, float frameTime)
@@ -95,7 +101,7 @@ public sealed partial class ZenInterventionSystem : EntitySystem
         }
     }
 
-    private void CheckBreach(ZenInterventionComponent comp)
+    private void CheckBreach(ZenInterventionComponent comp, bool gradual = false)
     {
         foreach (var threshold in comp.IntermediateBreachThresholds)
         {
@@ -109,7 +115,7 @@ public sealed partial class ZenInterventionSystem : EntitySystem
             }
 
             if (comp.TriggeredIntermediateBreaches.Add(threshold))
-                TriggerBreach(comp, comp.IntermediateBreachSpawnAmount, intermediate: true);
+                TriggerBreach(comp, comp.IntermediateBreachSpawnAmount, intermediate: true, gradual: gradual);
         }
 
         if (comp.Level < comp.BreachThreshold)
@@ -129,10 +135,10 @@ public sealed partial class ZenInterventionSystem : EntitySystem
         comp.BreachTriggered = true;
         Dirty(_singleton!.Value, comp);
 
-        TriggerBreach(comp);
+        TriggerBreach(comp, gradual: gradual);
     }
 
-    private void CheckWave(ZenInterventionComponent comp)
+    private void CheckWave(ZenInterventionComponent comp, bool gradual = false)
     {
         if (comp.Level < comp.MaxLevel)
         {
@@ -152,7 +158,7 @@ public sealed partial class ZenInterventionSystem : EntitySystem
             comp.WaveActive = true;
             comp.NextWaveTime = curTime + comp.WaveInterval;
             Dirty(_singleton!.Value, comp);
-            SpawnWave(comp, comp.InitialWaveSpawnAmount);
+            SpawnWave(comp, comp.InitialWaveSpawnAmount, gradual);
             return;
         }
 
@@ -162,11 +168,69 @@ public sealed partial class ZenInterventionSystem : EntitySystem
         comp.NextWaveTime = curTime + comp.WaveInterval;
         Dirty(_singleton!.Value, comp);
 
-        SpawnWave(comp);
+        SpawnWave(comp, gradual: gradual);
     }
 
-    public void TriggerBreach(ZenInterventionComponent comp, int? spawnAmount = null, bool intermediate = false)
+    public bool StartAmsSurge()
     {
+        if (!TryGetComponent(out var comp))
+            return false;
+
+        SetLevel(comp.MaxLevel);
+        if (!comp.Enabled)
+            return false;
+
+        var now = _timing.CurTime;
+        var previousCount = _amsSpawns.Count;
+        CheckBreach(comp, gradual: true);
+        if (comp.WaveActive && comp.NextWaveTime > now && comp.NextWaveTime <= now + AmsSurgeDuration)
+            SpawnWave(comp, gradual: true);
+        else
+            CheckWave(comp, gradual: true);
+        if (_amsSpawns.Count == previousCount)
+            return false;
+
+        _amsSpawnInterval = AmsSurgeDuration / _amsSpawns.Count;
+        _nextAmsSpawn = now + _amsSpawnInterval;
+        comp.NextWaveTime = now + AmsSurgeDuration + comp.WaveInterval;
+        Dirty(_singleton!.Value, comp);
+
+        _chatSystem.DispatchGlobalAnnouncement(
+            Loc.GetString("zen-intervention-announce-ams-surge"),
+            sender: Loc.GetString("zen-intervention-announcer-sender"),
+            announcementSound: comp.WaveSound,
+            colorOverride: comp.AnnouncementColor ?? Color.Red);
+        return true;
+    }
+
+    private void UpdateAmsSurge(ZenInterventionComponent comp)
+    {
+        if (_amsSpawns.Count == 0 || _timing.CurTime < _nextAmsSpawn)
+            return;
+
+        _nextAmsSpawn += _amsSpawnInterval;
+        var prototype = _amsSpawns.Dequeue();
+        if (TryGetTargetStation(comp, out var station) && TryGetRandomStationCoordinates(station, comp, out var coords))
+            Spawn(prototype, coords);
+    }
+
+    private void QueueAmsSpawns(List<EntProtoId> prototypes, int count)
+    {
+        if (prototypes.Count == 0)
+            return;
+
+        for (var i = 0; i < count; i++)
+            _amsSpawns.Enqueue(_random.Pick(prototypes));
+    }
+
+    public void TriggerBreach(ZenInterventionComponent comp, int? spawnAmount = null, bool intermediate = false, bool gradual = false)
+    {
+        if (gradual)
+        {
+            QueueAmsSpawns(comp.BreachMobPrototypes, spawnAmount ?? comp.BreachSpawnAmount);
+            return;
+        }
+
         if (!TryGetTargetStation(comp, out var stationUid))
             return;
 
@@ -191,9 +255,15 @@ public sealed partial class ZenInterventionSystem : EntitySystem
             colorOverride: comp.AnnouncementColor);
     }
 
-    public void SpawnWave(ZenInterventionComponent comp, int? spawnAmount = null)
+    public void SpawnWave(ZenInterventionComponent comp, int? spawnAmount = null, bool gradual = false)
     {
-        if (!TryGetTargetStation(comp, out var stationUid))
+        if (gradual)
+        {
+            QueueAmsSpawns(comp.WaveMobPrototypes, spawnAmount ?? comp.WaveSpawnAmount);
+            return;
+        }
+
+        if (comp.WaveMobPrototypes.Count == 0 || !TryGetTargetStation(comp, out var stationUid))
             return;
 
         for (var i = 0; i < (spawnAmount ?? comp.WaveSpawnAmount); i++)
@@ -201,7 +271,7 @@ public sealed partial class ZenInterventionSystem : EntitySystem
             if (!TryGetRandomStationCoordinates(stationUid, comp, out var coords))
                 continue;
 
-            Spawn(comp.WaveMobPrototype, coords);
+            Spawn(_random.Pick(comp.WaveMobPrototypes), coords);
         }
 
         _chatSystem.DispatchStationAnnouncement(
@@ -351,6 +421,7 @@ public sealed partial class ZenInterventionSystem : EntitySystem
         comp.BreachTriggered = false;
         comp.WaveActive = false;
         comp.NextWaveTime = TimeSpan.Zero;
+        _amsSpawns.Clear();
         _syncAccumulator = 0f;
         Dirty(_singleton!.Value, comp);
     }

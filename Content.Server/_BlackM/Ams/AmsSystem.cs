@@ -282,11 +282,9 @@ public sealed partial class AmsSystem : EntitySystem
 
         SetStatus(uid, ams, AmsStatus.Synchronizing);
 
-        if (_zenIntervention.TryGetComponent(out var zen))
-            _zenIntervention.SetLevel(zen.MaxLevel);
-
+        var surgeAnnounced = _zenIntervention.StartAmsSurge();
         Announce(Loc.GetString("ams-announce-sync-started", ("minutes", Minutes(ams.ChargeTime))),
-            SyncAnnounceSound, Color.Gray);
+            SyncAnnounceSound, Color.Gray, playSound: !surgeAnnounced);
         _audio.PlayPvs(PowerUpSound, uid, AudioParams.Default.WithMaxDistance(16f));
         TurnOffAllLights(uid);
         PushUi(uid, ams);
@@ -314,7 +312,8 @@ public sealed partial class AmsSystem : EntitySystem
 
         Try("evacuation", () =>
         {
-            if (_elevator.TryStartRandomEvacuation(EvacuationElevatorId, out var location))
+            if (Transform(uid).GridUid is { } grid &&
+                _elevator.TryStartRandomEvacuation(EvacuationElevatorId, grid, out var location))
                 Announce(Loc.GetString("ams-announce-evac-available", ("location", location)), AnnounceSound, Color.Gray);
             else
                 Log.Warning($"AMS: лифт эвакуации '{EvacuationElevatorId}' не найден или уже запущен.");
@@ -834,12 +833,12 @@ public sealed partial class AmsSystem : EntitySystem
         _savedEmergencyColors.Clear();
     }
 
-    private void Announce(string message, SoundPathSpecifier sound, Color color)
+    private void Announce(string message, SoundPathSpecifier sound, Color color, bool playSound = true)
     {
         _chat.DispatchGlobalAnnouncement(
             message,
             sender: Loc.GetString("ams-announce-sender"),
-            playSound: true,
+            playSound: playSound,
             announcementSound: sound,
             colorOverride: color);
     }

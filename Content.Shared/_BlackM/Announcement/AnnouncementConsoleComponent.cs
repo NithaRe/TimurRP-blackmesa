@@ -6,6 +6,9 @@ namespace Content.Shared._BlackM.Announcement;
 [RegisterComponent, AutoGenerateComponentPause]
 public sealed partial class AnnouncementConsoleComponent : Component
 {
+    [ViewVariables]
+    public bool Personal;
+
     [DataField]
     public List<ProtoId<AnnouncementChannelPrototype>> Channels = new();
 

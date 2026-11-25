@@ -60,7 +60,12 @@ public sealed partial class ZenInterventionComponent : Component
     public int WaveSpawnAmount = 3;
 
     [DataField, AutoNetworkedField]
-    public EntProtoId WaveMobPrototype = "MobXenInfected";
+    public List<EntProtoId> WaveMobPrototypes = new()
+    {
+        "MobHeadcrabStationBlackM",
+        "MobHoundeyeStationBlackM",
+        "MobVortigauntStationBlackM",
+    };
 
     [DataField]
     public int MaxPlacementAttempts = 20;
