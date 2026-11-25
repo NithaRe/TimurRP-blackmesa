@@ -81,6 +81,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Shared._BlackM.Headcrab; // BlackM edit
 using Content.Shared.DisplacementMap;
 using Content.Shared.Inventory.Events;
 // Shitmed Change
@@ -188,6 +189,11 @@ public partial class InventorySystem : EntitySystem
     {
         if (args.SenderSession.AttachedEntity is not { Valid: true } uid)
             return;
+
+        // BlackM start
+        if (HasComp<HeadcrabCapturedComponent>(uid))
+            return;
+        // BlackM end
 
         if (TryGetSlotEntity(uid, ev.Slot, out var entityUid) && TryComp<StorageComponent>(entityUid, out var storageComponent))
         {

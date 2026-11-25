@@ -33,6 +33,7 @@ using System.Linq;
 using Content.Client.Clothing;
 using Content.Client.Examine;
 using Content.Client.Verbs.UI;
+using Content.Shared._BlackM.Headcrab; // BlackM edit
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
@@ -74,6 +75,10 @@ namespace Content.Client.Inventory
             SubscribeLocalEvent<InventorySlotsComponent, LocalPlayerDetachedEvent>(OnPlayerDetached);
 
             SubscribeLocalEvent<InventoryComponent, ComponentShutdown>(OnShutdown);
+            // BlackM start
+            SubscribeLocalEvent<HeadcrabCapturedComponent, ComponentStartup>(OnHeadcrabCaptureStarted);
+            SubscribeLocalEvent<HeadcrabCapturedComponent, ComponentShutdown>(OnHeadcrabCaptureEnded);
+            // BlackM end
 
             SubscribeLocalEvent<InventorySlotsComponent, DidEquipEvent>((_, comp, args) =>
                 _equipEventsQueue.Enqueue((comp, args)));
@@ -145,6 +150,20 @@ namespace Content.Client.Inventory
         {
             OnLinkInventorySlots?.Invoke(uid, component);
         }
+
+        // BlackM start
+        private void OnHeadcrabCaptureStarted(Entity<HeadcrabCapturedComponent> ent, ref ComponentStartup args)
+        {
+            if (ent.Owner == _playerManager.LocalEntity)
+                ReloadInventory();
+        }
+
+        private void OnHeadcrabCaptureEnded(Entity<HeadcrabCapturedComponent> ent, ref ComponentShutdown args)
+        {
+            if (ent.Owner == _playerManager.LocalEntity && !TerminatingOrDeleted(ent))
+                ReloadInventory();
+        }
+        // BlackM end
 
         protected override void OnInit(Entity<InventoryComponent> ent, ref ComponentInit args)
         {

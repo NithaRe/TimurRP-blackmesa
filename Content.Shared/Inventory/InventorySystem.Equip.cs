@@ -101,6 +101,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Diagnostics.CodeAnalysis;
+using Content.Shared._BlackM.Headcrab; // BlackM edit
 using Content.Shared.Armor;
 using Content.Shared.Clothing.Components;
 using Content.Shared.DoAfter;
@@ -180,6 +181,11 @@ public abstract partial class InventorySystem
     {
         if (eventArgs.SenderSession.AttachedEntity is not { Valid: true } actor)
             return;
+
+        // BlackM start
+        if (HasComp<HeadcrabCapturedComponent>(actor))
+            return;
+        // BlackM end
 
         if (!TryComp(actor, out InventoryComponent? inventory) || !TryComp<HandsComponent>(actor, out var hands))
             return;

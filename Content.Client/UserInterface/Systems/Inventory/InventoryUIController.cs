@@ -29,6 +29,7 @@ using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.Gameplay;
 using Content.Client.UserInterface.Systems.Inventory.Controls;
 using Content.Client.UserInterface.Systems.Inventory.Widgets;
+using Content.Shared._BlackM.Headcrab; // BlackM edit
 using Content.Client.UserInterface.Systems.Inventory.Windows;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Hands.Components;
@@ -138,6 +139,7 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
         {
             _inventoryButton = button;
             _inventoryButton.Pressed += InventoryButtonPressed;
+            button.Visible = _playerInventory?.SlotData.Values.Any(data => !data.HasSlotGroup) == true; // BlackM edit
         }
     }
 
@@ -248,6 +250,11 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
 
     public void ToggleStrippingMenu()
     {
+        // BlackM start
+        if (_playerInventory == null)
+            return;
+        // BlackM end
+
         UpdateStrippingWindow(_playerInventory);
         if (_strippingWindow!.IsOpen)
         {
@@ -260,6 +267,11 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
 
     public void ToggleInventoryBar()
     {
+        // BlackM start
+        if (_playerInventory == null)
+            return;
+        // BlackM end
+
         if (_inventoryHotbar == null)
         {
             Log.Warning("Tried to toggle inventory bar when none are assigned");
@@ -390,7 +402,7 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
 
     private void AddSlot(SlotData data)
     {
-        if (!_slotGroups.TryGetValue(data.SlotGroup, out var slotGroup))
+        if (_playerInventory == null || !_slotGroups.TryGetValue(data.SlotGroup, out var slotGroup)) // BlackM edit
             return;
 
         var button = CreateSlotButton(data);
@@ -413,6 +425,22 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
     private void LoadSlots(EntityUid clientUid, InventorySlotsComponent clientInv)
     {
         UnloadSlots();
+        // BlackM start
+        if (_entities.TryGetComponent<HeadcrabCapturedComponent>(clientUid, out var captured) &&
+            captured.LifeStage < ComponentLifeStage.Stopping)
+        {
+            if (_inventoryHotbar != null)
+                _inventoryHotbar.Visible = false;
+            if (_strippingWindow != null)
+            {
+                _strippingWindow.InventoryButtons.ClearButtons();
+                _strippingWindow.Close();
+            }
+
+            return;
+        }
+        // BlackM end
+
         _playerUid = clientUid;
         _playerInventory = clientInv;
         foreach (var slotData in clientInv.SlotData.Values)
