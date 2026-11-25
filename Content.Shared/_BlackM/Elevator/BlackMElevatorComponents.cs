@@ -90,6 +90,7 @@ public sealed partial class BlackMElevatorComponent : Component
 
     [ViewVariables] public BlackMElevatorState State = BlackMElevatorState.Idle;
     [ViewVariables] public BlackMElevatorLightMode LightMode = BlackMElevatorLightMode.Normal;
+    [ViewVariables] public EntityUid? ActiveBoardingZone;
     public TimeSpan StateStart;
     public TimeSpan BoardingEnd;
     public TimeSpan NextShake;

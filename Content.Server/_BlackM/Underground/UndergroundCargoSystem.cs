@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Server._BlackM.Elevator;
 using Content.Shared.Buckle;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Item;
@@ -23,6 +24,7 @@ public sealed partial class UndergroundCargoSystem : EntitySystem
     [Dependency] private SharedTransformSystem _transforms = default!;
     [Dependency] private PullingSystem _pulling = default!;
     [Dependency] private SharedBuckleSystem _buckle = default!;
+    [Dependency] private BlackMElevatorSystem _elevators = default!;
 
     public bool TryCollect(EntityUid origin, float halfWidth, out List<EntityUid> cargo)
     {
@@ -58,7 +60,8 @@ public sealed partial class UndergroundCargoSystem : EntitySystem
                 continue;
             }
 
-            cargo.Add(child);
+            if (_elevators.CanTransport(child))
+                cargo.Add(child);
         }
 
         return true;
@@ -84,7 +87,8 @@ public sealed partial class UndergroundCargoSystem : EntitySystem
         var snapshots = new Dictionary<EntityUid, Vector2>();
         foreach (var entity in cargo)
         {
-            if (TerminatingOrDeleted(entity) || entity == origin || entity == destination || snapshots.ContainsKey(entity))
+            if (TerminatingOrDeleted(entity) || entity == origin || entity == destination ||
+                snapshots.ContainsKey(entity) || !_elevators.CanTransport(entity))
                 return UndergroundCargoMoveResult.Rejected;
 
             var xform = Transform(entity);
