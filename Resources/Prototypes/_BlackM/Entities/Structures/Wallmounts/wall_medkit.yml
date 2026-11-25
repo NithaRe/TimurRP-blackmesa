@@ -31,8 +31,8 @@
     maxCharges: 3
     heal:
       groups:
-        Brute: -10
-        Burn: -5
+        Brute: -20
+        Burn: -10
   - type: Destructible
     thresholds:
     - trigger:

@@ -449,7 +449,7 @@
       fly-by: *flybyfixture
   - type: Ammo
   - type: StaminaDamageOnCollide
-    damage: 1
+    damage: 3 #BlackM
   - type: Projectile
     impactEffect: BulletImpactEffectDisabler
     damage:
