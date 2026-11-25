@@ -34,6 +34,7 @@ namespace Content.Client.Administration.UI.Bwoink
         private List<string> PeopleTyping { get; set; } = new();
         public event Action<string>? InputTextChanged;
 
+        // BlackM edit
         public BwoinkPanel(Action<string> messageSender)
         {
             RobustXamlLoader.Load(this);
@@ -46,11 +47,6 @@ namespace Content.Client.Administration.UI.Bwoink
 
             _messageSender = messageSender;
 
-            OnVisibilityChanged += c =>
-            {
-                if (c.Visible)
-                    Unread = 0;
-            };
             SenderLineEdit.OnTextEntered += Input_OnTextEntered;
             SenderLineEdit.OnTextChanged += Input_OnTextChanged;
             UpdateTypingIndicator();
@@ -70,16 +66,29 @@ namespace Content.Client.Administration.UI.Bwoink
             InputTextChanged?.Invoke(args.Text);
         }
 
-        public void ReceiveLine(SharedBwoinkSystem.BwoinkTextMessage message)
+        // BlackM start
+        public void MarkRead()
         {
-            if (!Visible)
+            Unread = 0;
+        }
+
+        public void ReceiveLine(SharedBwoinkSystem.BwoinkTextMessage message, bool unread = false)
+        {
+            if (unread)
                 Unread++;
 
             var formatted = new FormattedMessage(1);
-            formatted.AddMarkupOrThrow($"[color=gray]{message.SentAt.ToShortTimeString()}[/color] {message.Text}");
+            formatted.PushColor(Color.Gray);
+            formatted.AddText(message.SentAt.ToShortTimeString());
+            formatted.Pop();
+            formatted.AddText(" ");
+            if (!formatted.TryAddMarkup(message.Text, out _))
+                formatted.AddText(message.Text);
             TextOutput.AddMessage(formatted);
             LastMessage = message.SentAt;
         }
+
+        // BlackM end
 
         private void UpdateTypingIndicator()
         {

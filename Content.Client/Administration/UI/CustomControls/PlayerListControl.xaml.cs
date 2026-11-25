@@ -54,6 +54,7 @@ public sealed partial class PlayerListControl : BoxContainer
 
     public Comparison<PlayerInfo>? Comparison;
     public Func<PlayerInfo, string, string>? OverrideText;
+    public bool KeepSelectionWhenFiltered { get; set; } // BlackM edit
 
     public PlayerListControl()
     {
@@ -75,9 +76,14 @@ public sealed partial class PlayerListControl : BoxContainer
     public IReadOnlyList<PlayerInfo> PlayerInfo => _playerList;
 
     public event Action<PlayerInfo?>? OnSelectionChanged;
+    public event Action? OnListUpdated; // BlackM edit
 
+    // BlackM start
     private void PlayerListNoItemSelected()
     {
+        if (_selectedPlayer == null || (KeepSelectionWhenFiltered && _playerList.Contains(_selectedPlayer)))
+            return;
+
         _selectedPlayer = null;
         OnSelectionChanged?.Invoke(null);
     }
@@ -87,19 +93,21 @@ public sealed partial class PlayerListControl : BoxContainer
         if (args == null || data is not PlayerListData { Info: var selectedPlayer })
             return;
 
-        if (selectedPlayer == _selectedPlayer)
+        if (selectedPlayer == _selectedPlayer && (!KeepSelectionWhenFiltered || ReferenceEquals(selectedPlayer, _selectedPlayer)))
             return;
 
         if (args.Event.Function != EngineKeyFunctions.UIClick)
             return;
 
-        OnSelectionChanged?.Invoke(selectedPlayer);
         _selectedPlayer = selectedPlayer;
+        OnSelectionChanged?.Invoke(selectedPlayer);
 
         // update label text. Only required if there is some override (e.g. unread bwoink count).
         if (OverrideText != null && args.Button.Children.FirstOrDefault()?.Children?.FirstOrDefault() is Label label)
             label.Text = GetText(selectedPlayer);
     }
+
+    // BlackM end
 
     private void PlayerListItemKeyBindDown(GUIBoundKeyEventArgs? args, ListData? data)
     {
@@ -115,7 +123,7 @@ public sealed partial class PlayerListControl : BoxContainer
 
     public void StopFiltering()
     {
-        FilterLineEdit.Text = string.Empty;
+        FilterLineEdit.SetText(string.Empty, invokeEvent: true); // BlackM edit
     }
 
     private void FilterList()
@@ -136,11 +144,17 @@ public sealed partial class PlayerListControl : BoxContainer
             _sortedPlayerList.Sort((a, b) => Comparison(a, b));
 
         PlayerListContainer.PopulateList(_sortedPlayerList.Select(info => new PlayerListData(info)).ToList());
-        if (_selectedPlayer != null)
-            PlayerListContainer.Select(new PlayerListData(_selectedPlayer));
+        // BlackM start
+        if (_selectedPlayer is { } previouslySelected &&
+            _sortedPlayerList.FirstOrDefault(info => info.SessionId == previouslySelected.SessionId) is { } selected)
+        {
+            PlayerListContainer.Select(new PlayerListData(selected));
+        }
+        // BlackM end
     }
 
 
+    // BlackM start
     public void PopulateList(IReadOnlyList<PlayerInfo>? players = null)
     {
         // Maintain existing pin statuses
@@ -160,11 +174,20 @@ public sealed partial class PlayerListControl : BoxContainer
         }
 
         if (_selectedPlayer != null && !_playerList.Contains(_selectedPlayer))
-            _selectedPlayer = null;
+            PlayerListNoItemSelected();
 
         FilterList();
+        OnListUpdated?.Invoke();
     }
 
+    [Obsolete]
+    protected override void Dispose(bool disposing)
+    {
+        _adminSystem.PlayerListChanged -= PopulateList;
+        base.Dispose(disposing);
+    }
+
+    // BlackM end
 
     private string GetText(PlayerInfo info)
     {
