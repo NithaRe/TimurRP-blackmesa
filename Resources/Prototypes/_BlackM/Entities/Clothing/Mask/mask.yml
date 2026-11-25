@@ -11,6 +11,7 @@
     state: icon
   - type: Clothing
     sprite: _BlackM/Clothing/Mask/hecugasmask.rsi
+  - type: FlashImmunity
   - type: Armor
     coverage:
     - Head
