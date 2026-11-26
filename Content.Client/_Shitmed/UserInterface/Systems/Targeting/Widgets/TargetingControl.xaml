@@ -16,6 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <TextureRect
             Name="TargetDoll"
             Stretch="KeepAspectCentered"
+            ModulateSelfOverride="#FF9C55"
             SetSize="96 96">
             <PanelContainer
                 SetSize="57 96"

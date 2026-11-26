@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client.Stylesheets;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -20,11 +21,9 @@ public sealed record WelcomeFonts(Font Caption, Font Sender, Font Body);
 
 public sealed class WelcomeMessageControl : Control
 {
-    // Палитра NeedsHud.
-    private static readonly Color PanelColor = Color.FromHex("#222935").WithAlpha(0.96f);
-    private static readonly Color BorderColor = Color.FromHex("#566273");
-    private static readonly Color InsetColor = Color.FromHex("#10151d");
-    private static readonly Color InsetBorderColor = Color.FromHex("#3a4352");
+    private static readonly Color PanelColor = StyleNano.TerminalBlack.WithAlpha(0.96f);
+    private static readonly Color BorderColor = StyleNano.TerminalGreenDim;
+    private static readonly Color InsetColor = Color.FromHex("#24180A");
     private static readonly Color SenderColor = Color.FromHex("#e5e8ed");
     private static readonly Color BodyColor = Color.FromHex("#c6cfdb");
 
@@ -113,7 +112,7 @@ public sealed class WelcomeMessageControl : Control
             _content.AddChild(new PanelContainer
             {
                 MinWidth = 1,
-                PanelOverride = new StyleBoxFlat { BackgroundColor = InsetBorderColor },
+                PanelOverride = new StyleBoxFlat { BackgroundColor = BorderColor },
             });
         }
 
@@ -145,10 +144,9 @@ public sealed class WelcomeMessageControl : Control
 
         column.AddChild(new Label
         {
-            Text = sender,
+            Text = string.Join('\n', Wrap(sender, fonts.Sender, TextWidth)),
             FontOverride = fonts.Sender,
             FontColorOverride = SenderColor,
-            ClipText = true,
         });
 
         column.AddChild(new PanelContainer

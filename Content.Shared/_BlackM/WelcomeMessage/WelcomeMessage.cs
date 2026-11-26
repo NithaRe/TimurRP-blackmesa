@@ -28,7 +28,7 @@ public sealed partial class WelcomeMessageSetPrototype : IPrototype
     public Vector2i PortraitCropSize = Vector2i.Zero;
 
     [DataField]
-    public Color Accent = Color.FromHex("#dfaa60");
+    public Color Accent = Color.FromHex("#FFB52E");
 
     [DataField]
     public List<ProtoId<JobPrototype>> Jobs = new();
