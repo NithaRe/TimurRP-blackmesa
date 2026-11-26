@@ -2,3 +2,7 @@
   id: DefaultAtmosphere
   kind: source
   path: "/Textures/_BlackM/Shaders/default.swsl"
+  params:
+    strength: 1.0
+    grain_amount: 0.0
+    vignette_amount: 0.5

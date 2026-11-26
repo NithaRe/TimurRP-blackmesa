@@ -27,6 +27,15 @@ public sealed class BlackMCVars
     public static readonly CVarDef<bool> DefaultAtmosphereShaderEnabled =
         CVarDef.Create("blackm.default_atmosphere_shader_enabled", false, CVar.CLIENTONLY | CVar.ARCHIVE);
 
+    public static readonly CVarDef<float> AtmosphereShaderStrength =
+        CVarDef.Create("blackm.atmosphere_shader_strength", 1.0f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    public static readonly CVarDef<float> AtmosphereShaderGrain =
+        CVarDef.Create("blackm.atmosphere_shader_grain", 0.0f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    public static readonly CVarDef<float> AtmosphereShaderVignette =
+        CVarDef.Create("blackm.atmosphere_shader_vignette", 0.5f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
     public static readonly CVarDef<bool> BattleMusicEnabled =
         CVarDef.Create("audio.battle_music_enabled", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 

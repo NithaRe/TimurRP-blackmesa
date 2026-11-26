@@ -13,6 +13,9 @@
 
                 <Label Text="{Loc 'ui-options-blackm-graphics-label'}" StyleClasses="LabelKeyText"/>
                 <CheckBox Name="DefaultAtmosphereShaderCheckBox" Text="{Loc 'ui-options-default-atmosphere-shader'}" />
+                <ui:OptionSlider Name="AtmosphereStrengthSlider" Title="{Loc 'ui-options-atmosphere-strength'}" />
+                <ui:OptionSlider Name="AtmosphereGrainSlider" Title="{Loc 'ui-options-atmosphere-grain'}" />
+                <ui:OptionSlider Name="AtmosphereVignetteSlider" Title="{Loc 'ui-options-atmosphere-vignette'}" />
                 <CheckBox Name="ShotEffectsCheckBox" Text="{Loc 'ui-options-shot-effects'}" />
                 <CheckBox Name="ShotTrailsCheckBox" Text="{Loc 'ui-options-shot-trails'}" />
                 <CheckBox Name="ShotImpactsCheckBox" Text="{Loc 'ui-options-shot-impacts'}" />
