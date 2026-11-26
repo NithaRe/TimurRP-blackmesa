@@ -1221,3 +1221,22 @@ Entries:
       message: После захвата хедкрабом в слотах остаётся одна рука.
   id: 161
   time: '2026-11-25T11:11:54.0000000+00:00'
+# PR #182
+- author: sweekyl
+  changes:
+    - type: Add
+      message: Добавлена Доставка!
+    - type: Add
+      message: покупка цвета оос и phrasewheel.
+    - type: Remove
+      message: фейд текст после лифта.
+    - type: Tweak
+      message: реколор needs и wmsg
+    - type: Tweak
+      message: настройки шейдера
+    - type: Tweak
+      message: у брони хеку теперь есть рикошет.
+    - type: Fix
+      message: теперь рикошетит от любых частей тела если надет броник.
+  id: 162
+  time: '2026-11-26T14:24:39.0000000+00:00'
