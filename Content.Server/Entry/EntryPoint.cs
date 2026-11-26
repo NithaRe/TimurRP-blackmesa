@@ -213,6 +213,7 @@ namespace Content.Server.Entry
 
             IoCManager.Register<Content.Corvax.Interfaces.Server.IServerDiscordAuthManager, // blackm ds auth
      Content.Server._BlackM.DiscordAuth.DiscordAuthManager>(); // blackm ds auth
+            IoCManager.Register<Content.Server._BlackM.Shop.ShopEntitlementsManager>(); // BlackM-Shop
 
             foreach (var callback in TestingCallbacks)
             {
@@ -250,6 +251,7 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<ServerInfoManager>().Initialize();
                 IoCManager.Resolve<ServerApi>().Initialize();
                 IoCManager.Resolve<Content.Corvax.Interfaces.Server.IServerDiscordAuthManager>().Initialize(); // blackm ds auth
+                IoCManager.Resolve<Content.Server._BlackM.Shop.ShopEntitlementsManager>().Initialize(); // BlackM-Shop
 
                 _voteManager.Initialize();
                 _updateManager.Initialize();

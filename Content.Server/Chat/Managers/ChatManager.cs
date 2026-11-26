@@ -228,6 +228,7 @@ internal sealed partial class ChatManager : IChatManager
     [Dependency] private IEntityManager _entityManager = default!;
     [Dependency] private PlayerRateLimitManager _rateLimitManager = default!;
     private ISharedSponsorsManager? _sponsorsManager; // CorvaxGoob-Sponsors
+    [Dependency] private Content.Server._BlackM.Shop.ShopEntitlementsManager _shopEntitlements = default!; // BlackM-Shop
     [Dependency] private ISharedPlayerManager _player = default!;
     //[Dependency] private readonly LinkAccountManager _linkAccount = default!; // RMC - Patreon // CorvaxGoob-Coins
 
@@ -473,6 +474,13 @@ internal sealed partial class ChatManager : IChatManager
             wrappedMessage = Loc.GetString("chat-manager-send-ooc-patron-wrap-message", ("patronColor", oocColor), ("playerName", player.Name), ("message", FormattedMessage.EscapeText(message)));
         }
         // CorvaxGoob-Sponsors-End
+
+        // BlackM-Shop-Start
+        if (_shopEntitlements.TryGetOocColor(player.UserId, out var shopOocColor))
+        {
+            wrappedMessage = Loc.GetString("chat-manager-send-ooc-patron-wrap-message-no-icon", ("patronColor", shopOocColor), ("playerName", player.Name), ("message", FormattedMessage.EscapeText(message)));
+        }
+        // BlackM-Shop-End
 
         //TODO: player.Name color, this will need to change the structure of the MsgChatMessage
         ChatMessageToAll(ChatChannel.OOC, message, wrappedMessage, EntityUid.Invalid, hideChat: false, recordReplay: true, colorOverride: colorOverride, author: player.UserId);
