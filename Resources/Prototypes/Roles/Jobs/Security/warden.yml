@@ -189,7 +189,7 @@
     passport: PassportBM #BlackM pass
     ears: ClothingHeadsetAltWarden # Goobstation
     head: ClothingHeadHelmetKovakWarden
-    pocket1: WeaponPistolMk58
+    pocket1: WeaponPistolBlackMGlock17 #BlackM
   storage:
     back:
     - Flash

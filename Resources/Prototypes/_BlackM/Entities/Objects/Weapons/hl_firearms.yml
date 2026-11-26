@@ -26,6 +26,8 @@
     availableModes:
     - SemiAuto
     - FullAuto
+    soundGunshot:
+      path: /Audio/_BlackM/Guns/Gunshots/mp5.ogg
   - type: MagazineVisuals
     magState: mag
     steps: 1
@@ -58,6 +60,9 @@
     soundRack:
       path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg
     autoCycle: false
+  - type: Gun
+    soundGunshot:
+      path: /Audio/_BlackM/Guns/Gunshots/spas12.ogg
 
 
 - type: entity
@@ -86,7 +91,7 @@
     availableModes:
     - SemiAuto
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
+      path: /Audio/_BlackM/Guns/Gunshots/m16.ogg
   - type: GunRequiresWield
   - type: ItemSlots
     slots:
@@ -112,3 +117,22 @@
     zeroVisible: true
   - type: Appearance
 
+
+- type: entity
+  name: Глок 17
+  description: Один из самых популярных пистолетов в мире. Модный прицел идет в подарок.
+  parent: [WeaponPistolMk58]
+  id: WeaponPistolBlackMGlock17
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Weapons/Guns/pistols/glock.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _BlackM/Objects/Weapons/Guns/pistols/glock.rsi
+  - type: Gun
+    soundGunshot:
+      path: /Audio/_BlackM/Guns/Gunshots/gloc.ogg

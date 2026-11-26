@@ -193,7 +193,7 @@
     #gloves: ClothingHandsGlovesCombat - Goobstation, moved to loadouts
     ears: ClothingHeadsetAltSecurity
     head: ClothingHeadHelmetKovakChief #blackm helmet
-    pocket1: WeaponPistolMk58
+    pocket1: WeaponPistolBlackMGlock17 #BlackM
   storage:
     back:
     - Flash

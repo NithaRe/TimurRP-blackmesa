@@ -78,7 +78,7 @@
     gloves: ClothingHandsGlovesLatex
     head: ClothingHeadMirror
     neck: ClothingCloakCmo
-#    id: VisitorPDA # BlackM 
+#    id: VisitorPDA # BlackM
     back: ClothingBackpackMedical
 #    ears: ClothingHeadsetAltMedical # Goobstation # BlackM
     belt: ClothingBeltMedicalFilled
@@ -238,7 +238,7 @@
     mask: ClothingMaskGasSecurity # Goobstation
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterArmorBasic
-    pocket1: WeaponPistolMk58
+    pocket1: WeaponPistolBlackMGlock17 #BlakM
     pocket2: MagazinePistol
   inhand:
   - FlashlightSeclite
@@ -257,7 +257,7 @@
     mask: ClothingMaskGasSecurity # Goobstation
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterArmorBasicSlim
-    pocket1: WeaponPistolMk58
+    pocket1: WeaponPistolBlackMGlock17 #BlackM
     pocket2: MagazinePistol
   inhand:
   - FlashlightSeclite
@@ -275,7 +275,7 @@
     mask: ClothingMaskGasSecurity # Goobstation
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterArmorBasic
-    pocket1: WeaponPistolMk58
+    pocket1: WeaponPistolBlackMGlock17 #BlackM
     pocket2: MagazinePistol
   inhand:
   - FlashlightSeclite
@@ -294,7 +294,7 @@
     mask: ClothingMaskGasSecurity # Goobstation
     eyes: ClothingEyesGlassesSecurity
     outerClothing: ClothingOuterArmorBasicSlim
-    pocket1: WeaponPistolMk58
+    pocket1: WeaponPistolBlackMGlock17 #BlackM
     pocket2: MagazinePistol
   inhand:
   - FlashlightSeclite
