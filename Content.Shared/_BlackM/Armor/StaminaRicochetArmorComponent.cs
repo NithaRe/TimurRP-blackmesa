@@ -16,7 +16,7 @@ public sealed partial class StaminaRicochetArmorComponent : Component
     public SlotFlags SlotFlags = SlotFlags.OUTERCLOTHING;
 
     [DataField]
-    public TargetBodyPart? ProtectedParts = TargetBodyPart.Chest | TargetBodyPart.Groin;
+    public TargetBodyPart? ProtectedParts;
 
     [DataField, AutoNetworkedField]
     public float MaxRicochetChance = 0.85f;
