@@ -183,6 +183,7 @@
     components:
       - type: CommandStaff
       - type: SecurityStaff # goobstation
+      - type: SecurityCommander # BlackM
 
 - type: startingGear
   id: HoSGear

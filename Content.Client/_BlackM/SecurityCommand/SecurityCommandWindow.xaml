@@ -1,0 +1,112 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+                      Title="{Loc 'security-command-window-title'}"
+                      MinSize="980 620"
+                      SetSize="1280 780">
+    <BoxContainer Orientation="Vertical">
+        <PanelContainer>
+            <PanelContainer.PanelOverride>
+                <gfx:StyleBoxFlat BackgroundColor="#14181d" BorderColor="#2a3038" BorderThickness="0 0 0 1" />
+            </PanelContainer.PanelOverride>
+            <BoxContainer Orientation="Horizontal" Margin="8 6" SeparationOverride="8">
+                <Button Name="ToggleSidebarButton" ToolTip="{Loc 'security-command-sidebar-toggle'}" MinSize="32 30" ToggleMode="True" Pressed="True" />
+                <Control HorizontalExpand="True" />
+                <OptionButton Name="GridOption" MinWidth="200" ToolTip="{Loc 'security-command-map-level'}" />
+                <Button Name="RefreshGridsButton" ToolTip="{Loc 'security-command-map-refresh'}" MinSize="32 30" />
+                <Button Name="CenterMeButton" ToolTip="{Loc 'security-command-map-center-me'}" MinSize="32 30" />
+            </BoxContainer>
+        </PanelContainer>
+
+        <BoxContainer Orientation="Horizontal" VerticalExpand="True" Margin="8" SeparationOverride="8">
+            <BoxContainer Name="LeftPanel" Orientation="Vertical" SetWidth="360" MinWidth="260" SeparationOverride="0">
+                <BoxContainer Orientation="Horizontal" SeparationOverride="0">
+                    <Button Name="TabOfficersButton" StyleClasses="OpenRight" ToggleMode="True" HorizontalExpand="True" MinHeight="30" ClipText="True" />
+                    <Button Name="TabSquadsButton" StyleClasses="OpenBoth" ToggleMode="True" HorizontalExpand="True" MinHeight="30" ClipText="True" />
+                    <Button Name="TabOrdersButton" StyleClasses="OpenLeft" ToggleMode="True" HorizontalExpand="True" MinHeight="30" ClipText="True" />
+                </BoxContainer>
+
+                <PanelContainer VerticalExpand="True">
+                    <PanelContainer.PanelOverride>
+                        <gfx:StyleBoxFlat BackgroundColor="#101317" BorderColor="#2a3038" BorderThickness="1" />
+                    </PanelContainer.PanelOverride>
+
+                    <BoxContainer Name="OfficersPage" Orientation="Vertical" Margin="6" SeparationOverride="6">
+                        <Label Text="{Loc 'security-command-officers-help'}" StyleClasses="LabelSubText" ClipText="True" />
+                        <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                            <BoxContainer Name="OfficersList" Orientation="Vertical" SeparationOverride="4" />
+                        </ScrollContainer>
+                    </BoxContainer>
+
+                    <BoxContainer Name="SquadsPage" Orientation="Vertical" Margin="6" SeparationOverride="6" Visible="False">
+                        <PanelContainer Name="SquadCreatePanel">
+                            <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="6">
+                                <Label Text="{Loc 'security-command-squad-new'}" StyleClasses="LabelKeyText" />
+                                <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                                    <LineEdit Name="SquadNameEdit" HorizontalExpand="True" PlaceHolder="{Loc 'security-command-squad-name-placeholder'}" />
+                                    <Button Name="CreateSquadButton" ToolTip="{Loc 'security-command-squad-create'}" MinSize="32 28" MuteSounds="True" />
+                                </BoxContainer>
+                                <BoxContainer Name="SquadColorButtons" Orientation="Horizontal" SeparationOverride="4" />
+                            </BoxContainer>
+                        </PanelContainer>
+                        <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                            <BoxContainer Name="SquadsList" Orientation="Vertical" SeparationOverride="4" />
+                        </ScrollContainer>
+                    </BoxContainer>
+
+                    <BoxContainer Name="OrdersPage" Orientation="Vertical" Margin="6" SeparationOverride="6" Visible="False">
+                        <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                            <BoxContainer Name="OrdersList" Orientation="Vertical" SeparationOverride="4" />
+                        </ScrollContainer>
+                        <Button Name="ClearOrdersButton" StyleClasses="Caution" HorizontalExpand="True" MinHeight="28" MuteSounds="True" />
+                    </BoxContainer>
+                </PanelContainer>
+            </BoxContainer>
+
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="0">
+                <PanelContainer Name="MapPanel" HorizontalExpand="True" VerticalExpand="True" RectClipContent="True">
+                    <PanelContainer.PanelOverride>
+                        <gfx:StyleBoxFlat BackgroundColor="#0b100d" BorderColor="#2a3038" BorderThickness="1" />
+                    </PanelContainer.PanelOverride>
+                </PanelContainer>
+
+                <PanelContainer Name="OrderBar">
+                    <PanelContainer.PanelOverride>
+                        <gfx:StyleBoxFlat BackgroundColor="#14181d" BorderColor="#9B5DE5" BorderThickness="0 2 0 0" />
+                    </PanelContainer.PanelOverride>
+                    <BoxContainer Orientation="Vertical" Margin="8 6" SeparationOverride="6">
+                        <WrapContainer Name="ToolRow" LayoutAxis="Horizontal" EqualSize="True"
+                                       SeparationOverride="4" CrossSeparationOverride="4" />
+
+                        <WrapContainer LayoutAxis="Horizontal" SeparationOverride="8" CrossSeparationOverride="4">
+                            <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                                <Label Text="{Loc 'security-command-target'}" StyleClasses="LabelSubText" VerticalAlignment="Center" />
+                                <OptionButton Name="TargetOption" MinWidth="136" ToolTip="{Loc 'security-command-target'}" />
+                            </BoxContainer>
+                            <BoxContainer Name="ColorButtons" Orientation="Horizontal" SeparationOverride="3" VerticalAlignment="Center" />
+                            <LineEdit Name="OrderText" HorizontalExpand="True" MinWidth="160" PlaceHolder="{Loc 'security-command-text-placeholder'}" />
+                        </WrapContainer>
+
+                        <Label Name="OrderTextError" Text="{Loc 'security-command-hint-need-text'}"
+                               FontColorOverride="#e04a40" Visible="False" />
+
+                        <PanelContainer Name="PlacementPanel" MinHeight="30" Visible="False">
+                            <BoxContainer Orientation="Horizontal" Margin="8 2" SeparationOverride="8">
+                                <TextureRect Name="PlacementIcon" SetSize="18 18" Stretch="KeepAspectCentered" VerticalAlignment="Center" />
+                                <Label Name="PlacementHint" HorizontalExpand="True" ClipText="True" VerticalAlignment="Center" />
+                                <BoxContainer Name="PostTimerBox" Orientation="Horizontal" SeparationOverride="4"
+                                              ToolTip="{Loc 'security-command-post-timer-help'}">
+                                    <Label Text="{Loc 'security-command-post-timer-input'}" StyleClasses="LabelSubText"
+                                           VerticalAlignment="Center" />
+                                    <SpinBox Name="PostDurationInput" MinWidth="75" />
+                                </BoxContainer>
+                                <Button Name="FinishButton" MinHeight="24" MuteSounds="True" />
+                                <Button Name="CancelButton" StyleClasses="Caution" MinHeight="24" MuteSounds="True" />
+                            </BoxContainer>
+                        </PanelContainer>
+                    </BoxContainer>
+                </PanelContainer>
+            </BoxContainer>
+        </BoxContainer>
+    </BoxContainer>
+</controls:FancyWindow>

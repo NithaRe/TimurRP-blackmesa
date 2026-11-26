@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "BlackM",
+  "size": {
+    "x": 16,
+    "y": 16
+  },
+  "states": [
+    {
+      "name": "line"
+    },
+    {
+      "name": "dash"
+    },
+    {
+      "name": "dots"
+    },
+    {
+      "name": "chevron"
+    },
+    {
+      "name": "arrowhead"
+    },
+    {
+      "name": "node"
+    },
+    {
+      "name": "node_start"
+    },
+    {
+      "name": "corner"
+    },
+    {
+      "name": "cursor_dot"
+    }
+  ]
+}

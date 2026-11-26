@@ -76,22 +76,32 @@ public partial class MapGridControl : LayoutContainer
 
     public Vector2 MaxRadarRangeVector => new Vector2(MaxRadarRange, MaxRadarRange);
 
-    protected Vector2 MidPointVector => new Vector2(MidPoint, MidPoint);
+    private readonly bool _useAvailableSize;
+
+    protected Vector2 MidPointVector => _useAvailableSize ? (Vector2) PixelSize / 2f : new Vector2(MidPoint);
 
     protected int MidPoint => SizeFull / 2;
     protected int SizeFull => (int) ((UIDisplayRadius + MinimapMargin) * 2 * UIScale);
-    protected int ScaledMinimapRadius => (int) (UIDisplayRadius * UIScale);
+    protected int ScaledMinimapRadius => _useAvailableSize
+        ? Math.Max(1, Math.Min(PixelSize.X, PixelSize.Y) / 2 - (int) (MinimapMargin * UIScale))
+        : (int) (UIDisplayRadius * UIScale);
     protected float MinimapScale => WorldRange != 0 ? ScaledMinimapRadius / WorldRange : 0f;
 
     public event Action<float>? WorldRangeChanged;
 
     public MapGridControl() : this(32f, 32f, 32f) {}
 
-    public MapGridControl(float minRange, float maxRange, float range)
+    public MapGridControl(float minRange, float maxRange, float range) : this(minRange, maxRange, range, false) {}
+
+    protected MapGridControl(float minRange, float maxRange, float range, bool useAvailableSize)
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
-        SetSize = new Vector2(SizeFull, SizeFull);
+        _useAvailableSize = useAvailableSize;
+        if (useAvailableSize)
+            InheritChildMeasure = false;
+        else
+            SetSize = new Vector2(SizeFull);
         RectClipContent = true;
         MouseFilter = MouseFilterMode.Stop;
         ActualRadarRange = WorldRange;
@@ -140,7 +150,8 @@ public partial class MapGridControl : LayoutContainer
             return;
 
         Recentering = false;
-        Offset -= new Vector2(args.Relative.X, -args.Relative.Y) / MidPoint * WorldRange;
+        var dragScale = _useAvailableSize ? UIScale / MinimapScale : WorldRange / MidPoint;
+        Offset -= new Vector2(args.Relative.X, -args.Relative.Y) * dragScale;
     }
 
     protected override void MouseWheel(GUIMouseWheelEventArgs args)

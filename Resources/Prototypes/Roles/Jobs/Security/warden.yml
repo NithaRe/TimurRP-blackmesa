@@ -180,6 +180,7 @@
   - !type:AddComponentSpecial # goobstation
     components:
       - type: SecurityStaff
+      - type: SecurityCommander # BlackM
 
 - type: startingGear
   id: WardenGear
