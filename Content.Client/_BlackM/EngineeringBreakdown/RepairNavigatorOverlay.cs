@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Numerics;
+using Content.Client._BlackM.Overlays;
 using Content.Shared._BlackM.EngineeringBreakdown;
 using Content.Shared.Ghost;
 using Robust.Client.GameObjects;
@@ -21,12 +22,9 @@ public sealed class RepairNavigatorOverlay : Overlay
     [Dependency] private readonly IGameTiming _timing = default!;
 
     private readonly SharedTransformSystem _transform;
-    private readonly Texture _arrow;
+    private readonly NavigationArrow _arrow;
     private readonly Texture _marker;
 
-    private const string Rsi = "/Textures/_BlackM/Interface/EngineeringBreakdown/navigator.rsi";
-    private const int MaxArrows = 4;
-    private const float ArrowRadius = 92f;
     private const float HideArrowDistance = 1.5f;
 
     public override OverlaySpace Space => OverlaySpace.ScreenSpace;
@@ -36,8 +34,8 @@ public sealed class RepairNavigatorOverlay : Overlay
         IoCManager.InjectDependencies(this);
         var sprite = _entMan.System<SpriteSystem>();
         _transform = _entMan.System<SharedTransformSystem>();
-        _arrow = sprite.Frame0(new SpriteSpecifier.Rsi(new ResPath(Rsi), "arrow"));
-        _marker = sprite.Frame0(new SpriteSpecifier.Rsi(new ResPath(Rsi), "marker"));
+        _arrow = new NavigationArrow(sprite);
+        _marker = sprite.Frame0(new SpriteSpecifier.Rsi(NavigationArrow.NavigatorRsi, "marker"));
     }
 
     private bool TryGetNavigator(out EntityUid local, out RepairNavigatorComponent nav)
@@ -96,7 +94,7 @@ public sealed class RepairNavigatorOverlay : Overlay
             handle.DrawTextureRect(_marker, UIBox2.FromDimensions(pos, size), m.Color.WithAlpha(alpha));
         }
 
-        for (var i = 0; i < Math.Min(MaxArrows, markers.Count); i++)
+        for (var i = 0; i < Math.Min(NavigationArrow.MaxArrows, markers.Count); i++)
         {
             var m = markers[i];
             var distance = (m.Position - playerMap.Position).Length();
@@ -104,22 +102,7 @@ public sealed class RepairNavigatorOverlay : Overlay
                 continue;
 
             var targetScreen = _eye.MapToScreen(new MapCoordinates(m.Position, m.Map)).Position;
-            var delta = targetScreen - playerScreen;
-            if (delta.LengthSquared() < 0.01f)
-                continue;
-
-            var dir = Vector2.Normalize(delta);
-            var nearest = i == 0;
-            var scale = (nearest ? 1.1f : 0.8f) * uiScale;
-            var alpha = nearest ? 0.9f : 0.5f;
-            var radius = ArrowRadius * uiScale + (nearest ? MathF.Sin(time * 4f) * 4f * uiScale : 0f);
-            var center = playerScreen + dir * radius;
-            var angle = new Angle(MathF.Atan2(dir.X, -dir.Y));
-            var size = new Vector2(32f, 32f) * scale;
-
-            handle.SetTransform(Matrix3Helpers.CreateTransform(center, angle));
-            handle.DrawTextureRect(_arrow, UIBox2.FromDimensions(-size / 2f, size), m.Color.WithAlpha(alpha));
-            handle.SetTransform(Matrix3x2.Identity);
+            _arrow.Draw(handle, playerScreen, targetScreen, uiScale, time, i == 0, m.Color);
         }
     }
 }

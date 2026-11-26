@@ -132,7 +132,10 @@ public partial class NavMapControl : MapGridControl
         Pressed = true,
     };
 
-    public NavMapControl() : base(MinDisplayedRange, MaxDisplayedRange, DefaultDisplayedRange)
+    public NavMapControl() : this(false) {}
+
+    protected NavMapControl(bool useAvailableSize)
+        : base(MinDisplayedRange, MaxDisplayedRange, DefaultDisplayedRange, useAvailableSize)
     {
         IoCManager.InjectDependencies(this);
 
@@ -154,7 +157,7 @@ public partial class NavMapControl : MapGridControl
             },
             VerticalExpand = false,
             HorizontalExpand = true,
-            SetWidth = 650f,
+            SetWidth = useAvailableSize ? float.NaN : 650f,
             Children =
             {
                 new BoxContainer()
@@ -187,6 +190,17 @@ public partial class NavMapControl : MapGridControl
         };
 
         AddChild(topContainer);
+        if (useAvailableSize)
+        {
+            _zoom.ClipText = true;
+            _beacons.ClipText = true;
+            _beacons.HorizontalAlignment = HAlignment.Stretch;
+            _recenter.ClipText = true;
+            _recenter.HorizontalAlignment = HAlignment.Stretch;
+            SetAnchorPreset(topContainer, LayoutPreset.TopWide);
+            SetGrowHorizontal(topContainer, GrowDirection.Constrain);
+        }
+
         topPanel.Measure(Vector2Helpers.Infinity);
 
         _recenter.OnPressed += args =>

@@ -1,0 +1,25 @@
+- type: entity
+  parent: BaseAction
+  id: ActionBMSecurityCommand
+  name: Тактическое командование
+  description: меню управления ковак.
+  components:
+  - type: Action
+    useDelay: 1
+    itemIconStyle: NoItem
+    icon: { sprite: Clothing/Head/Hats/beret_hos.rsi, state: icon }
+  - type: InstantAction
+    event: !type:OpenSecurityCommandActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionBMSecurityMap
+  name: Карта задач СБ
+  description: Открыть тактическую карту.
+  components:
+  - type: Action
+    useDelay: 1
+    itemIconStyle: NoItem
+    icon: { sprite: Interface/Actions/pai-map.rsi, state: icon }
+  - type: InstantAction
+    event: !type:OpenSecurityMapActionEvent
