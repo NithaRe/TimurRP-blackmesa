@@ -3,7 +3,6 @@ blackm-elevator-ann-depth1 = Текущая глубина: 120 метров.
 blackm-elevator-ann-warning = ВНИМАНИЕ: нестабильность подвеса. Держитесь!
 blackm-elevator-ann-depth2 = Глубина: 340 метров. Давление в норме.
 blackm-elevator-ann-soon = Торможение. Прибытие через несколько секунд.
-blackm-elevator-fade-text = Прибытие в комплекс...
 blackm-elevator-arrived = Вы прибыли в комплекс.
 blackm-evac-observer-title = Поздравляем с эвакуацией!
 blackm-evac-observer-message = Можете понаблюдать за концом смены из безопасного места.

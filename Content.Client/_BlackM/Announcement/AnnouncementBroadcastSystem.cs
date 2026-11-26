@@ -1,5 +1,6 @@
 using Content.Client._BlackM.WelcomeMessage;
 using Content.Client.Resources;
+using Content.Client.Stylesheets;
 using Content.Shared._BlackM.Announcement;
 using Robust.Client.GameObjects;
 using Robust.Client.ResourceManagement;
@@ -97,7 +98,7 @@ public sealed partial class AnnouncementBroadcastSystem : EntitySystem
             ev.Title,
             ev.Text,
             speaker == null ? _res.GetTexture(FallbackPortrait) : null,
-            ev.Accent,
+            StyleNano.TerminalGreen,
             ev.Duration,
             _welcome.GetFonts(),
             speaker);

@@ -1,6 +1,9 @@
 ui-options-blackm-audio-label = Аудио
 ui-options-blackm-graphics-label = Графика
-ui-options-default-atmosphere-shader = Шейдер (Повышенная гамма).
+ui-options-default-atmosphere-shader = шейдер
+ui-options-atmosphere-strength = Сила шейдера
+ui-options-atmosphere-grain = Зерно (по умолчанию выкл.)
+ui-options-atmosphere-vignette = Виньетка
 ui-options-echo-enabled = Эффект эха
 ui-options-echo-strong-preset = Усиленное эхо
 ui-options-battle-music-volume = Громкость боевой музыки

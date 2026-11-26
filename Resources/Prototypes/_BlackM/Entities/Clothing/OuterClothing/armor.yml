@@ -32,6 +32,9 @@
     knockdownTimeDelta: -2
   - type: StaminaResistance
     damageCoefficient: 0.76
+  - type: StaminaRicochetArmor
+    maxRicochetChance: 0.30
+    minRicochetChance: 0.05
 
 - type: entity
   parent: [ClothingOuterBaseMedium, AllowSuitStorageClothing, BaseSecurityContraband]
@@ -67,6 +70,9 @@
     knockdownTimeDelta: -2
   - type: StaminaResistance
     damageCoefficient: 0.76
+  - type: StaminaRicochetArmor
+    maxRicochetChance: 0.30
+    minRicochetChance: 0.05
 
 - type: entity
   parent: ClothingOuterBaseMedium

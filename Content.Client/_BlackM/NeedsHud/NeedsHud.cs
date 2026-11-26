@@ -1,4 +1,5 @@
 using Content.Client.Popups;
+using Content.Client.Stylesheets;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Popups;
@@ -18,8 +19,6 @@ public sealed partial class NeedsHud : UIWidget
     [Dependency] private IResourceCache _resources = default!;
     [Dependency] private IGameTiming _timing = default!;
 
-    private static readonly Color FoodColor = Color.FromHex("#dfaa60");
-    private static readonly Color WaterColor = Color.FromHex("#66c5da");
     private static readonly Color WarningColor = Color.FromHex("#e8bb58");
     private static readonly Color CriticalColor = Color.FromHex("#f07064");
     private static readonly TimeSpan InitialDelay = TimeSpan.FromSeconds(2);
@@ -39,8 +38,10 @@ public sealed partial class NeedsHud : UIWidget
     {
         IoCManager.InjectDependencies(this);
         var font = new VectorFont(_resources.GetResource<FontResource>("/Fonts/_BlackM/Bubble/Grand9KPixelCyrillic.ttf"), 11);
-        _food = new NeedRow(Loc.GetString("blackm-needs-food"), FoodColor, font);
-        _water = new NeedRow(Loc.GetString("blackm-needs-water"), WaterColor, font);
+        var foodIcon = _resources.GetResource<RSIResource>("/Textures/Interface/Alerts/hunger.rsi").RSI["peckish"].Frame0;
+        var waterIcon = _resources.GetResource<RSIResource>("/Textures/Interface/Alerts/thirst.rsi").RSI["thirsty"].Frame0;
+        _food = new NeedRow(Loc.GetString("blackm-needs-food"), font, foodIcon);
+        _water = new NeedRow(Loc.GetString("blackm-needs-water"), font, waterIcon);
         _container = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
@@ -152,21 +153,18 @@ public sealed partial class NeedsHud : UIWidget
 
     private sealed class NeedRow : PanelContainer
     {
-        private readonly Color _normalColor;
         private readonly Label _status;
-        private readonly Label _percent;
         private readonly ProgressBar _bar;
         private readonly StyleBoxFlat _fill;
 
-        public NeedRow(string title, Color normalColor, Font font)
+        public NeedRow(string title, Font font, Texture icon)
         {
-            _normalColor = normalColor;
             MouseFilter = MouseFilterMode.Ignore;
             MinWidth = 132;
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = Color.FromHex("#222935").WithAlpha(0.94f),
-                BorderColor = Color.FromHex("#566273"),
+                BackgroundColor = StyleNano.TerminalBlack.WithAlpha(0.94f),
+                BorderColor = StyleNano.TerminalGreenDim,
                 BorderThickness = new Thickness(1),
                 ContentMarginLeftOverride = 5,
                 ContentMarginRightOverride = 5,
@@ -174,10 +172,23 @@ public sealed partial class NeedsHud : UIWidget
                 ContentMarginBottomOverride = 4,
             };
 
-            var name = new Label { Text = title, FontOverride = font, FontColorOverride = Color.FromHex("#e5e8ed") };
+            var name = new Label
+            {
+                Text = title,
+                FontOverride = font,
+                FontColorOverride = StyleNano.TerminalGreen,
+                VerticalAlignment = VAlignment.Center,
+            };
             _status = new Label { FontOverride = font, Margin = new Thickness(5, 0, 0, 0) };
-            _percent = new Label { FontOverride = font, FontColorOverride = Color.FromHex("#c6cfdb") };
-            _fill = new StyleBoxFlat { BackgroundColor = normalColor };
+            var iconView = new TextureRect
+            {
+                Texture = icon,
+                SetSize = new(24, 24),
+                CanShrink = true,
+                Stretch = TextureRect.StretchMode.KeepAspectCentered,
+                MouseFilter = MouseFilterMode.Ignore,
+            };
+            _fill = new StyleBoxFlat { BackgroundColor = StyleNano.TerminalGreen };
             _bar = new ProgressBar
             {
                 MinValue = 0,
@@ -185,14 +196,14 @@ public sealed partial class NeedsHud : UIWidget
                 MinHeight = 6,
                 HorizontalExpand = true,
                 VerticalAlignment = VAlignment.Center,
-                BackgroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#10151d") },
+                BackgroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = StyleNano.TerminalGreenDim.WithAlpha(0.25f) },
                 ForegroundStyleBoxOverride = _fill,
             };
 
             var heading = new BoxContainer
             {
                 Orientation = BoxContainer.LayoutOrientation.Horizontal,
-                Children = { name, new Control { HorizontalExpand = true }, _percent },
+                Children = { name, new Control { HorizontalExpand = true }, iconView },
             };
             AddChild(new BoxContainer
             {
@@ -214,12 +225,11 @@ public sealed partial class NeedsHud : UIWidget
         {
             var fraction = Math.Clamp(value / maximum, 0f, 1f);
             _bar.Value = fraction;
-            _percent.Text = $"{(int) MathF.Round(fraction * 100f)}%";
             var color = stage switch
             {
                 NeedStage.Critical => CriticalColor,
                 NeedStage.Warning => WarningColor,
-                _ => _normalColor,
+                _ => StyleNano.TerminalGreen,
             };
             _fill.BackgroundColor = color;
             _status.FontColorOverride = color;

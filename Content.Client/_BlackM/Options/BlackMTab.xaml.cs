@@ -34,6 +34,12 @@ public sealed partial class BlackMTab : Control
         Control.AddOptionCheckBox(BlackMCVars.EchoStrongPreset, EchoStrongPresetCheckBox);
         Control.AddOptionCheckBox(BlackMCVars.BattleMusicEnabled, BattleMusicEnabledCheckBox);
         Control.AddOptionCheckBox(BlackMCVars.DefaultAtmosphereShaderEnabled, DefaultAtmosphereShaderCheckBox);
+        Control.AddOptionPercentSlider(BlackMCVars.AtmosphereShaderStrength, AtmosphereStrengthSlider)
+            .ImmediateValueChanged += value => _cfg.SetCVar(BlackMCVars.AtmosphereShaderStrength, value);
+        Control.AddOptionPercentSlider(BlackMCVars.AtmosphereShaderGrain, AtmosphereGrainSlider, 0f, 0.5f)
+            .ImmediateValueChanged += value => _cfg.SetCVar(BlackMCVars.AtmosphereShaderGrain, value);
+        Control.AddOptionPercentSlider(BlackMCVars.AtmosphereShaderVignette, AtmosphereVignetteSlider)
+            .ImmediateValueChanged += value => _cfg.SetCVar(BlackMCVars.AtmosphereShaderVignette, value);
         Control.AddOptionCheckBox(BlackMCVars.ShotEffectsEnabled, ShotEffectsCheckBox);
         Control.AddOptionCheckBox(BlackMCVars.ShotTrailsEnabled, ShotTrailsCheckBox);
         Control.AddOptionCheckBox(BlackMCVars.ShotImpactsEnabled, ShotImpactsCheckBox);

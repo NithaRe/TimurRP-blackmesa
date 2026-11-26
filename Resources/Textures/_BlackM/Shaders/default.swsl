@@ -1,44 +1,63 @@
 uniform sampler2D SCREEN_TEXTURE;
 
-const highp float Gamma = 0.92;
-const highp float Exposure = 1.06;
-const highp vec3 ColorTone = vec3(0.98, 1.0, 1.03);
+uniform highp float strength;
+uniform highp float grain_amount;
+uniform highp float vignette_amount;
 
-const highp float AberrationScale = 0.0;
-const highp float VignetteStrength = 0.14;
-const highp float ShadowLift = 0.03;
+highp float hash12(highp vec2 p)
+{
+    highp vec3 p3 = fract(vec3(p.xyx) * 0.1031);
+    p3 += dot(p3, p3.yzx + 33.33);
+    return fract((p3.x + p3.y) * p3.z);
+}
 
-const highp float HighlightContrast = 1.35;
-const highp vec3 ShadowTint = vec3(0.94, 1.0, 1.05);
-const highp vec3 HighlightTint = vec3(1.05, 1.0, 0.93);
-const highp float Saturation = 1.18;
+highp float luma(highp vec3 c)
+{
+    return dot(c, vec3(0.2126, 0.7152, 0.0722));
+}
 
-void fragment() {
-    highp float r = zTextureSpec(SCREEN_TEXTURE, UV + vec2(AberrationScale, 0.0)).r;
-    highp float g = zTextureSpec(SCREEN_TEXTURE, UV).g;
-    highp float b = zTextureSpec(SCREEN_TEXTURE, UV - vec2(AberrationScale, 0.0)).b;
-    highp vec3 color = vec3(r, g, b);
+void fragment()
+{
+    highp vec2 uv = FRAGCOORD.xy * SCREEN_PIXEL_SIZE;
+    highp vec3 src = zTextureSpec(SCREEN_TEXTURE, uv).rgb;
+    highp vec3 col = src;
 
-    color = pow(color, vec3(Gamma));
-    color *= Exposure * ColorTone;
+    highp float l = luma(col);
+    highp float sat = max(col.r, max(col.g, col.b)) - min(col.r, min(col.g, col.b));
+    col = mix(vec3(l), col, 1.0 + 0.14 * (1.0 - sat));
 
-    highp float luma = zGrayscale(color);
-    highp float highlightMask = smoothstep(0.15, 0.75, luma);
-    highp vec3 contrasted = (color - 0.5) * HighlightContrast + 0.5;
-    color = mix(color, contrasted, highlightMask);
+    l = luma(clamp(col, 0.0, 1.0));
+    highp float warmW = smoothstep(0.15, 0.75, l);
+    highp vec3 warm = vec3(1.035, 1.005, 0.950);   // янтарный свет ламп
+    highp vec3 cool = vec3(0.975, 0.995, 1.030);   // бетон / тени
+    col *= mix(cool, warm, warmW);
 
-    highp vec3 splitTint = mix(ShadowTint, HighlightTint, luma);
-    color *= splitTint;
+    highp vec3 cc = clamp(col, 0.0, 1.0);
+    highp vec3 s = cc * cc * (3.0 - 2.0 * cc);
+    col = mix(col, s, 0.16);
 
-    color = mix(vec3(ShadowLift), color, 1.0 - ShadowLift);
+    highp vec3 over = max(col - vec3(0.82), vec3(0.0));
+    col -= over * over * 1.4;
 
-    highp float finalLuma = zGrayscale(color);
-    color = mix(vec3(finalLuma), color, Saturation);
+    highp vec2 centered = uv - vec2(0.5, 0.5);
+    highp float dist = length(centered) * 1.41421356;
+    highp float vig = smoothstep(0.25, 1.0, dist);
+    vig = vig * (0.6 + 0.4 * vig);
+    col *= 1.0 - clamp(vignette_amount, 0.0, 1.0) * 0.75 * vig;
 
-    highp vec2 centered_uv = UV - 0.5;
-    highp float dist = length(centered_uv);
-    highp float vignette = smoothstep(1.1, 0.6, dist);
-    color = mix(color, color * vignette, VignetteStrength);
+    col = mix(src, col, strength);
 
-    COLOR = vec4(clamp(color, 0.0, 1.0), 1.0);
+    highp vec2 gp = floor(FRAGCOORD.xy);
+
+    if (grain_amount > 0.001)
+    {
+        highp float frame = floor(TIME * 12.0);
+        highp float n = hash12(gp + frame * 37.17) - 0.5;
+        highp float gw = 1.0 - smoothstep(0.35, 0.9, luma(clamp(col, 0.0, 1.0)));
+        col += n * clamp(grain_amount, 0.0, 0.5) * strength * 0.022 * gw;
+    }
+
+    col += (hash12(gp + 91.7) - 0.5) / 255.0;
+
+    COLOR = vec4(clamp(col, 0.0, 1.0), 1.0);
 }
