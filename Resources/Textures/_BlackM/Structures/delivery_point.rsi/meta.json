@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "BlackM",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "med",
+      "delays": [
+        [
+          1.2,
+          0.6
+        ]
+      ]
+    },
+    {
+      "name": "med_incoming",
+      "delays": [
+        [
+          0.15,
+          0.15,
+          0.15,
+          0.15
+        ]
+      ]
+    },
+    {
+      "name": "eng",
+      "delays": [
+        [
+          1.2,
+          0.6
+        ]
+      ]
+    },
+    {
+      "name": "eng_incoming",
+      "delays": [
+        [
+          0.15,
+          0.15,
+          0.15,
+          0.15
+        ]
+      ]
+    },
+    {
+      "name": "sci",
+      "delays": [
+        [
+          1.2,
+          0.6
+        ]
+      ]
+    },
+    {
+      "name": "sci_incoming",
+      "delays": [
+        [
+          0.15,
+          0.15,
+          0.15,
+          0.15
+        ]
+      ]
+    },
+    {
+      "name": "serv",
+      "delays": [
+        [
+          1.2,
+          0.6
+        ]
+      ]
+    },
+    {
+      "name": "serv_incoming",
+      "delays": [
+        [
+          0.15,
+          0.15,
+          0.15,
+          0.15
+        ]
+      ]
+    },
+    {
+      "name": "sec",
+      "delays": [
+        [
+          1.2,
+          0.6
+        ]
+      ]
+    },
+    {
+      "name": "sec_incoming",
+      "delays": [
+        [
+          0.15,
+          0.15,
+          0.15,
+          0.15
+        ]
+      ]
+    }
+  ]
+}

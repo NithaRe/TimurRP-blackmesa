@@ -1,0 +1,303 @@
+- type: entity
+  parent: BaseComputerAiAccess
+  id: ComputerCargoDelivery
+  name: delivery terminal
+  description: Dispatches cargo drones that carry crates from the cargo pad to department drop points.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: request
+    - map: ["computerLayerKeys"]
+      state: generic_keys
+    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      state: generic_panel_open
+  - type: CargoDeliveryTerminal
+    crateWhitelist:
+      components:
+      - CargoDeliveryCrate
+    contentsBlacklist:
+      components:
+      - NukeDisk
+  - type: ActiveRadio
+    channels:
+    - Supply
+  - type: AccessReader
+    access: [["Cargo"]]
+  - type: ActivatableUI
+    key: enum.CargoDeliveryTerminalUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CargoDeliveryTerminalUiKey.Key:
+        type: CargoDeliveryTerminalBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Computer
+    board: CargoDeliveryComputerCircuitboard
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#b89f25"
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: CargoDeliveryComputerCircuitboard
+  name: delivery terminal board
+  description: A computer printed circuit board for a delivery terminal.
+  components:
+  - type: Sprite
+    state: cpu_supply
+  - type: ComputerBoard
+    prototype: ComputerCargoDelivery
+
+- type: entity
+  id: CargoDeliveryPad
+  name: delivery drone pad
+  description: Put a delivery crate here. A drone will pick it up.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: CargoDeliveryPad
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _BlackM/Structures/delivery_point.rsi
+    drawdepth: FloorObjects
+    layers:
+    - state: eng
+  - type: Clickable
+  - type: InteractionOutline
+
+- type: entity
+  id: CargoDeliveryDrone
+  name: delivery drone "Sipukha"
+  description: A cargo delivery drone. Shooting it down is a crime, and an expensive one for cargo.
+  placement:
+    mode: PlaceFree
+  components:
+  - type: CargoDeliveryDrone
+  - type: Sprite
+    sprite: _BlackM/Mobs/sipukha.rsi
+    drawdepth: Mobs
+    noRot: true
+    layers:
+    - state: sipukha
+      map: ["enum.CargoDeliveryDroneVisualLayers.Base"]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.CargoDeliveryDroneVisuals.State:
+        enum.CargoDeliveryDroneVisualLayers.Base:
+          Flying: { state: sipukha }
+          Carrying: { state: sipukha_carry }
+          Downed: { state: sipukha_dead }
+  - type: Physics
+    bodyType: Kinematic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 10
+        hard: true
+        layer:
+        - FlyingMobLayer
+  - type: ContainerContainer
+    containers:
+      cargo_delivery_crate: !type:ContainerSlot
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:EmptyAllContainersBehaviour
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: PointLight
+    radius: 1.5
+    energy: 0.8
+    color: "#ffb347"
+  - type: Clickable
+  - type: InteractionOutline
+
+- type: entity
+  parent: CratePrivateSecure
+  id: CrateCargoDelivery
+  name: delivery crate
+  description: A secure crate for drone delivery. Once sent, only the destination department can unlock it.
+  components:
+  - type: CargoDeliveryCrate
+  - type: Icon
+    sprite: Structures/Storage/Crates/privatecrate_secure.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/privatecrate_secure.rsi
+  - type: StaticPrice
+    price: 20
+
+- type: entity
+  abstract: true
+  id: CargoDeliveryPointBase
+  name: delivery drop point
+  description: A marked landing plate for cargo delivery drones.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _BlackM/Structures/delivery_point.rsi
+    drawdepth: FloorObjects
+    layers:
+    - state: med
+      map: ["enum.CargoDeliveryPointVisualLayers.Base"]
+  - type: Appearance
+  - type: Clickable
+  - type: InteractionOutline
+  - type: PointLight
+    radius: 1.2
+    energy: 0.6
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+
+- type: entity
+  parent: CargoDeliveryPointBase
+  id: CargoDeliveryPointMedical
+  name: medical delivery point
+  description: Drone drop point of the medical department. Crates delivered here open with medical access.
+  components:
+  - type: CargoDeliveryPoint
+    department: Medical
+    radioChannel: Medical
+    access: [ Medical ]
+  - type: Sprite
+    sprite: _BlackM/Structures/delivery_point.rsi
+    drawdepth: FloorObjects
+    layers:
+    - state: med
+      map: ["enum.CargoDeliveryPointVisualLayers.Base"]
+  - type: GenericVisualizer
+    visuals:
+      enum.CargoDeliveryPointVisuals.Incoming:
+        enum.CargoDeliveryPointVisualLayers.Base:
+          True: { state: med_incoming }
+          False: { state: med }
+  - type: PointLight
+    color: "#52B4E9"
+
+- type: entity
+  parent: CargoDeliveryPointBase
+  id: CargoDeliveryPointEngineering
+  name: engineering delivery point
+  description: Drone drop point of the engineering department. Crates delivered here open with engineering access.
+  components:
+  - type: CargoDeliveryPoint
+    department: Engineering
+    radioChannel: Engineering
+    access: [ Engineering ]
+  - type: Sprite
+    sprite: _BlackM/Structures/delivery_point.rsi
+    drawdepth: FloorObjects
+    layers:
+    - state: eng
+      map: ["enum.CargoDeliveryPointVisualLayers.Base"]
+  - type: GenericVisualizer
+    visuals:
+      enum.CargoDeliveryPointVisuals.Incoming:
+        enum.CargoDeliveryPointVisualLayers.Base:
+          True: { state: eng_incoming }
+          False: { state: eng }
+  - type: PointLight
+    color: "#EFB341"
+
+- type: entity
+  parent: CargoDeliveryPointBase
+  id: CargoDeliveryPointScience
+  name: science delivery point
+  description: Drone drop point of the science department. Crates delivered here open with research access.
+  components:
+  - type: CargoDeliveryPoint
+    department: Science
+    radioChannel: Science
+    access: [ Research ]
+  - type: Sprite
+    sprite: _BlackM/Structures/delivery_point.rsi
+    drawdepth: FloorObjects
+    layers:
+    - state: sci
+      map: ["enum.CargoDeliveryPointVisualLayers.Base"]
+  - type: GenericVisualizer
+    visuals:
+      enum.CargoDeliveryPointVisuals.Incoming:
+        enum.CargoDeliveryPointVisualLayers.Base:
+          True: { state: sci_incoming }
+          False: { state: sci }
+  - type: PointLight
+    color: "#D381C9"
+
+- type: entity
+  parent: CargoDeliveryPointBase
+  id: CargoDeliveryPointSecurity
+  name: KOVAK delivery point
+  description: Drone drop point for KOVAK. Crates delivered here open with security access.
+  components:
+  - type: CargoDeliveryPoint
+    department: Security
+    radioChannel: Security
+    access: [ Security ]
+  - type: Sprite
+    sprite: _BlackM/Structures/delivery_point.rsi
+    drawdepth: FloorObjects
+    layers:
+    - state: sec
+      map: ["enum.CargoDeliveryPointVisualLayers.Base"]
+  - type: GenericVisualizer
+    visuals:
+      enum.CargoDeliveryPointVisuals.Incoming:
+        enum.CargoDeliveryPointVisualLayers.Base:
+          True: { state: sec_incoming }
+          False: { state: sec }
+  - type: PointLight
+    color: "#8C5FEB"
+
+- type: entity
+  parent: CargoDeliveryPointBase
+  id: CargoDeliveryPointService
+  name: service delivery point
+  description: Drone drop point for the service department. Crates delivered here open with service access.
+  components:
+  - type: CargoDeliveryPoint
+    department: Civilian
+    radioChannel: Service
+    access: [ Service ]
+  - type: Sprite
+    sprite: _BlackM/Structures/delivery_point.rsi
+    drawdepth: FloorObjects
+    layers:
+    - state: serv
+      map: ["enum.CargoDeliveryPointVisualLayers.Base"]
+  - type: GenericVisualizer
+    visuals:
+      enum.CargoDeliveryPointVisuals.Incoming:
+        enum.CargoDeliveryPointVisualLayers.Base:
+          True: { state: serv_incoming }
+          False: { state: serv }
+  - type: PointLight
+    color: "#64CD64"
