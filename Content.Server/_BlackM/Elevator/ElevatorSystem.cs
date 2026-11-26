@@ -429,7 +429,8 @@ public sealed partial class BlackMElevatorSystem : EntitySystem
         if (!comp.FadedOut && elapsed >= comp.DescentTime - comp.FadeOutLead)
         {
             comp.FadedOut = true;
-            SendFade(comp.Passengers, true, comp.FadeOutLead, Loc.GetString(comp.FadeText));
+            var fadeText = comp.FadeText is { } textId ? Loc.GetString(textId) : null;
+            SendFade(comp.Passengers, true, comp.FadeOutLead, fadeText);
         }
 
         if (elapsed >= comp.DescentTime)

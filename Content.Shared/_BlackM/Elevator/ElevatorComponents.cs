@@ -54,7 +54,7 @@ public sealed partial class BlackMElevatorComponent : Component
     [DataField] public LocId DepartingMessage = "blackm-elevator-evac-departing";
     [DataField] public LocId CountdownStartMessage = "blackm-elevator-countdown-start";
     [DataField] public LocId CancelMessage = "blackm-elevator-cancel";
-    [DataField] public LocId FadeText = "blackm-elevator-fade-text";
+    [DataField] public LocId? FadeText;
 
     [DataField] public string DestinationId = "default";
 
