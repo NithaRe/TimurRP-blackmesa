@@ -45,7 +45,7 @@
 - type: guideEntry
   id: Xenoarchaeology
   name: guide-entry-zen-crystal-research
-  text: "/ServerInfo/Guidebook/_BlackM/CrystalResearch.xml"
+  text: "/ServerInfo/_BlackM/Guidebook/CrystalResearch.xml"
 
 - type: guideEntry
   id: Robotics
