@@ -109,10 +109,7 @@
     - id: ClothingBeltSecurityFilled
     - id: Flash
     - id: ClothingEyesGlassesSecurity
-    - id: ClothingHandsGlovesCombat
     - id: ClothingShoesBootsJack
-    - id: ClothingOuterCoatWarden
-    - id: ClothingOuterWinterWarden
     - id: RubberStampWarden
 #    - id: DoorRemoteArmory # BlackM
     #- id: HoloprojectorSecurity Goob, its in your belt
@@ -125,11 +122,9 @@
     - id: WeaponEnergyShotgun # Goobstation
     - id: ClothingHandsGlovesKravMaga # Goobstation - Martial Arts
     - id: BoxLethalInjection # Goobstation
-    - id: ClothingHeadsetAltWarden # Goobstation
     - id: Multitool # Goobstation
     - id: Wrench # Goobstation
     - id: ContrabandDetectorFlatpack # Goobstation
-    - id: SecurityMegaphone # goob - loudspeakers
 
 - type: entityTable
   id: FillLockerWardenHarduit
