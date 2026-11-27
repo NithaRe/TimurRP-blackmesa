@@ -8,6 +8,7 @@
 
 - type: antag
   id: Pirate
+  name: roles-antag-pirate-name
   antagonist: true
   setPreference: false
   objective: roles-antag-syndicate-agent-objective

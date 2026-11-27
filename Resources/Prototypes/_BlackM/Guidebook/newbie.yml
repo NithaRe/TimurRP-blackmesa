@@ -4,5 +4,5 @@
 
 - type: guideEntry
   id: Newbie
-  name: Новый сотрудник
+  name: guide-entry-blackm-new-employee
   text: "/ServerInfo/_BlackM/Guidebook/Newbie.xml"

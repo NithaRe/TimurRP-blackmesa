@@ -46,7 +46,7 @@ public sealed partial class StyleRequirement : JobRequirement
 
         foreach (var s in Styles)
         {
-            sb.Append("\n" + Loc.GetString($"marking-{s.Id}"));
+            sb.Append("\n" + _mark.GetLocalizedName(s.Id));
         }
 
         var style = profile.Appearance.HairStyleId;

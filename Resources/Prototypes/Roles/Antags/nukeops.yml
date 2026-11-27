@@ -96,10 +96,10 @@
 
 - type: antag
   id: Nukeops
-  name: Агент HECU
+  name: roles-antag-blackm-hecu-agent-name
   antagonist: true
   setPreference: false # BlackM
-  objective: Вы — могильщик, посланный правительством, чтобы уничтожить всех свидетелей и замести следы каскадного резонанса.
+  objective: roles-antag-blackm-hecu-agent-objective
   requirements:
   - !type:OverallPlaytimeRequirement
     time: 0 # BlackM 36000 # 10 hours - Goobstation
@@ -137,10 +137,10 @@
 
 - type: antag
   id: NukeopsCommander
-  name: Руководитель Комплекса отряда HECU
+  name: roles-antag-blackm-hecu-commander-name
   antagonist: true
   setPreference: false # BlackM
-  objective: Вы — командир карательной группы HECU, получивший приказ не только зачистить комплекс, но и гарантировать, что ни один ваш подчинённый не покинет Чёрную Мезу живым.
+  objective: roles-antag-blackm-hecu-commander-objective
   requirements:
   - !type:OverallPlaytimeRequirement
     time: 0 # BlackM 90000 # 25 hours - Goobstation

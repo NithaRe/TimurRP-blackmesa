@@ -17,6 +17,7 @@ namespace Content.Shared.Humanoid.Markings
     public sealed partial class MarkingManager
     {
         [Dependency] private IPrototypeManager _prototypeManager = default!;
+        [Dependency] private ILocalizationManager _loc = default!;
 
         private readonly List<MarkingPrototype> _index = new();
         public FrozenDictionary<MarkingCategories, FrozenDictionary<string, MarkingPrototype>> CategorizedMarkings = default!;
@@ -26,6 +27,16 @@ namespace Content.Shared.Humanoid.Markings
         {
             _prototypeManager.PrototypesReloaded += OnPrototypeReload;
             CachePrototypes();
+        }
+
+        public string GetLocalizedName(string id)
+        {
+            return _loc.TryGetString($"marking-{id}", out var name) ? name : id;
+        }
+
+        public string GetLocalizedLayerName(string id, string layer)
+        {
+            return _loc.TryGetString($"marking-{id}-{layer}", out var name) ? name : layer;
         }
 
         private void CachePrototypes()
