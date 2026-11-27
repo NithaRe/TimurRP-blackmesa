@@ -30,3 +30,16 @@ roles-antag-thief-name = Вор
 roles-antag-thief-objective = Пополните свою личную коллекцию имуществом Black Mesa, не прибегая к насилию.
 roles-antag-dragon-name = Космический дракон
 roles-antag-dragon-objective = Создайте армию карпов для захвата квадранта.
+
+roles-antag-blackm-hecu-agent-name = Агент HECU
+roles-antag-blackm-hecu-agent-objective = Вы — могильщик, посланный правительством, чтобы уничтожить всех свидетелей и замести следы каскадного резонанса.
+roles-antag-blackm-hecu-commander-name = Руководитель Комплекса отряда HECU
+roles-antag-blackm-hecu-commander-objective = Вы — командир карательной группы HECU, получивший приказ не только зачистить комплекс, но и гарантировать, что ни один ваш подчинённый не покинет Чёрную Мезу живым.
+roles-antag-blackm-aperture-agent-name = Агент Aperture Science
+roles-antag-blackm-aperture-agent-objective = Ваша корпорация проиграла технологическую гонку и повергла мир в хаос. Вы проникли в «Чёрную Мезу» для проведения диверсий и, возможно, ради мести.
+roles-antag-blackm-biomass-name = Биомасса
+roles-antag-blackm-biomass-objective = Образец кристалла из мира "Зен", вызвал катастрофу. Создавайте зен-существ, расширяйтесь и захватите комплекс. Не дайте разрушить ваше сердце.
+
+roles-antag-mindcontrolled-name = Под контролем разума
+roles-antag-mindcontrolled-objective = Помогайте своему хозяину.
+roles-antag-pirate-name = Космический пират

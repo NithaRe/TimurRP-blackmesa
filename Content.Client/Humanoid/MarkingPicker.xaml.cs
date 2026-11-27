@@ -197,7 +197,7 @@ public sealed partial class MarkingPicker : Control
         }
     }
 
-    private string GetMarkingName(MarkingPrototype marking) => Loc.GetString($"marking-{marking.ID}");
+    private string GetMarkingName(MarkingPrototype marking) => _markingManager.GetLocalizedName(marking.ID);
 
     private List<string> GetMarkingStateNames(MarkingPrototype marking)
     {
@@ -207,10 +207,10 @@ public sealed partial class MarkingPicker : Control
             switch (markingState)
             {
                 case SpriteSpecifier.Rsi rsi:
-                    result.Add(Loc.GetString($"marking-{marking.ID}-{rsi.RsiState}"));
+                    result.Add(_markingManager.GetLocalizedLayerName(marking.ID, rsi.RsiState));
                     break;
                 case SpriteSpecifier.Texture texture:
-                    result.Add(Loc.GetString($"marking-{marking.ID}-{texture.TexturePath.Filename}"));
+                    result.Add(_markingManager.GetLocalizedLayerName(marking.ID, texture.TexturePath.Filename));
                     break;
             }
         }
@@ -235,7 +235,7 @@ public sealed partial class MarkingPicker : Control
         var sortedMarkings = GetMarkings(_selectedMarkingCategory).Values.Where(m =>
             m.ID.ToLower().Contains(filter.ToLower()) ||
             GetMarkingName(m).ToLower().Contains(filter.ToLower())
-        ).OrderBy(p => Loc.GetString(GetMarkingName(p)));
+        ).OrderBy(GetMarkingName);
 
         foreach (var marking in sortedMarkings)
         {

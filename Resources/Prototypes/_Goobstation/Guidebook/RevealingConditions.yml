@@ -5,6 +5,6 @@
 
 - type: guideEntry
   id: Conditions
-  name: "Раскрытие антагонистов" # Corvax-Goob-Locale
+  name: guide-entry-antagonist-disclosure # Corvax-Goob-Locale
   priority: 60
   text: "/ServerInfo/_Goobstation/Guidebook/Antagonist/MetaReveal.xml"

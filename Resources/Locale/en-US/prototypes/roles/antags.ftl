@@ -69,3 +69,16 @@ roles-antag-thief-objective = Add some NT property to your personal collection w
 
 roles-antag-dragon-name = Space Dragon
 roles-antag-dragon-objective = Create a carp army to take over this quadrant.
+
+roles-antag-blackm-hecu-agent-name = HECU Agent
+roles-antag-blackm-hecu-agent-objective = The government sent you to eliminate all witnesses and cover up the resonance cascade.
+roles-antag-blackm-hecu-commander-name = HECU Squad Commander
+roles-antag-blackm-hecu-commander-objective = You command a HECU squad ordered to clear the facility and ensure that none of your subordinates leave Black Mesa alive.
+roles-antag-blackm-aperture-agent-name = Aperture Science Agent
+roles-antag-blackm-aperture-agent-objective = Your corporation lost the technology race and plunged the world into chaos. You've infiltrated Black Mesa to sabotage it and perhaps get revenge.
+roles-antag-blackm-biomass-name = Biomass
+roles-antag-blackm-biomass-objective = A crystal sample from Xen caused a disaster. Create Xen creatures, spread, and take over the facility. Keep your heart from being destroyed.
+
+roles-antag-mindcontrolled-name = Mind-Controlled
+roles-antag-mindcontrolled-objective = Help your master.
+roles-antag-pirate-name = Space Pirate

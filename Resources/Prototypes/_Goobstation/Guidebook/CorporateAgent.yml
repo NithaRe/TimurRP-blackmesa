@@ -6,5 +6,5 @@
 
 - type: guideEntry
   id: CorporateAgents
-  name: "Корпоративный агент" # Corvax-Goob-Locale
+  name: guide-entry-corporate-agent # Corvax-Goob-Locale
   text: "/ServerInfo/_Goobstation/Guidebook/Antagonist/CorporateAgent.xml"

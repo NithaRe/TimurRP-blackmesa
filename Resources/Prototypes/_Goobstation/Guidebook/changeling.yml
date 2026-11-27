@@ -6,12 +6,12 @@
 
 - type: guideEntry
   id: Changelings
-  name: "Генокрады" # Corvax-Goob-Locale
+  name: guide-entry-changelings # Corvax-Goob-Locale
   text: "/ServerInfo/_Goobstation/Guidebook/Antagonist/Changelings.xml"
   children:
   - ChangelingsAbilities
 
 - type: guideEntry
   id: ChangelingsAbilities
-  name: "Способности" # Corvax-Goob-Locale
+  name: guide-entry-changeling-abilities # Corvax-Goob-Locale
   text: "/ServerInfo/_Goobstation/Guidebook/Antagonist/ChangelingsAbilities.xml"

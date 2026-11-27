@@ -1057,11 +1057,13 @@ namespace Content.Client.Lobby.UI
 
             //AntagList.AddChild(new Label { Text = Loc.GetString("humanoid-profile-editor-antag-roll-before-jobs") }); // BLackM
 
-            foreach (var antag in _prototypeManager.EnumeratePrototypes<AntagPrototype>().OrderBy(a => Loc.GetString(a.Name)))
-            {
-                if (!antag.SetPreference)
-                    continue;
+            var antags = _prototypeManager.EnumeratePrototypes<AntagPrototype>()
+                .Where(antag => antag.SetPreference)
+                .Select(antag => (Antag: antag, Title: Loc.GetString(antag.Name)))
+                .OrderBy(entry => entry.Title);
 
+            foreach (var (antag, title) in antags)
+            {
                 var antagContainer = new BoxContainer()
                 {
                     Orientation = LayoutOrientation.Horizontal,
@@ -1073,7 +1075,6 @@ namespace Content.Client.Lobby.UI
                 };
                 selector.OnOpenGuidebook += OnOpenGuidebook;
 
-                var title = Loc.GetString(antag.Name);
                 var description = Loc.GetString(antag.Objective);
                 selector.Setup(items, title, 250, description, guides: antag.Guides);
                 selector.Select(Profile?.AntagPreferences.Contains(antag.ID) == true ? 0 : 1);
@@ -1127,7 +1128,7 @@ namespace Content.Client.Lobby.UI
                             loadout.SetDefault(Profile, _playerManager.LocalSession, _prototypeManager);
                         }
 
-                        OpenLoadout(null, loadout, roleLoadoutProto, Loc.GetString(antag.Name));
+                        OpenLoadout(null, loadout, roleLoadoutProto, title);
                     };
                 }
 

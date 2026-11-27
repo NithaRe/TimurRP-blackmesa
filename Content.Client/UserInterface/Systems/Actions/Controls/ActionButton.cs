@@ -220,24 +220,26 @@ public sealed class ActionButton : Control, IEntityControl
         if (!_entities.TryGetComponent(Action, out MetaDataComponent? metadata))
             return null;
 
-        var name = FormattedMessage.FromMarkupPermissive(Loc.GetString(metadata.EntityName));
-        var decr = FormattedMessage.FromMarkupPermissive(Loc.GetString(metadata.EntityDescription));
+        var name = FormattedMessage.FromMarkupPermissive(metadata.EntityName);
+        var description = FormattedMessage.FromMarkupPermissive(metadata.EntityDescription);
         FormattedMessage? chargesText = null;
 
         // TODO: Don't touch this use an event make callers able to add their own shit for actions or I kill you.
         if (_entities.TryGetComponent(Action, out LimitedChargesComponent? actionCharges))
         {
             var charges = _sharedChargesSys.GetCurrentCharges((Action.Value, actionCharges, null));
-            chargesText = FormattedMessage.FromMarkupPermissive(Loc.GetString($"Charges: {charges.ToString()}/{actionCharges.MaxCharges}"));
+            chargesText = FormattedMessage.FromUnformatted(Loc.GetString("ui-actionslot-charge-count",
+                ("current", charges), ("max", actionCharges.MaxCharges)));
 
             if (_entities.TryGetComponent(Action, out AutoRechargeComponent? autoRecharge))
             {
                 var chargeTimeRemaining = _sharedChargesSys.GetNextRechargeTime((Action.Value, actionCharges, autoRecharge));
-                chargesText.AddText(Loc.GetString($"{Environment.NewLine}Time Til Recharge: {chargeTimeRemaining}"));
+                chargesText.AddText(Environment.NewLine);
+                chargesText.AddText(Loc.GetString("ui-actionslot-recharge-time", ("time", chargeTimeRemaining.ToString())));
             }
         }
 
-        return new ActionAlertTooltip(name, decr, charges: chargesText);
+        return new ActionAlertTooltip(name, description, charges: chargesText);
     }
 
     protected override void ControlFocusExited()

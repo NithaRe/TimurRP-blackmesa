@@ -6,4 +6,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ui-actionslot-charges = Uses left: {$charges}
+ui-actionslot-charge-count = Charges: { $current }/{ $max }
+ui-actionslot-recharge-time = Time until recharge: { $time }
 ui-actionslot-duration = [color=#a10505] {$duration} sec cooldown ({$timeLeft} sec remaining)[/color]

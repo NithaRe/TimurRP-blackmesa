@@ -7,10 +7,10 @@
 
 - type: antag
   id: Blob
-  name: Биомасса # BlackM
+  name: roles-antag-blackm-biomass-name
   antagonist: true
   setPreference: true
-  objective: Образец кристалла из мира "Зен", вызвал катастрофу. Создавайте зен-существ, расширяйтесь и захватите комплекс. Не дайте разрушить ваше сердце.
+  objective: roles-antag-blackm-biomass-objective
 #  guides: [ Blob ] #BlackM
   requirements:
   - !type:OverallPlaytimeRequirement
