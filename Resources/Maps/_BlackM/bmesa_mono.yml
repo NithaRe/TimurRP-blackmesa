@@ -4,7 +4,7 @@ meta:
   engineVersion: 277.2.5
   forkId: ""
   forkVersion: ""
-  time: 11/25/2026 17:15:47
+  time: 11/27/2026 16:52:52
   entityCount: 15151
 maps:
 - 1
@@ -7169,7 +7169,7 @@ entities:
       pos: 56.5,-130.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -30115.885
+      secondsUntilStateChange: -30197.045
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -7219,7 +7219,7 @@ entities:
       pos: 29.5,-142.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -30062.785
+      secondsUntilStateChange: -30143.945
       state: Opening
   - uid: 14145
     components:
@@ -7271,7 +7271,7 @@ entities:
       pos: -8.5,-89.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -75313.36
+      secondsUntilStateChange: -75394.516
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -7294,7 +7294,7 @@ entities:
       pos: 104.5,-57.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -30154.652
+      secondsUntilStateChange: -30235.812
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -7317,7 +7317,7 @@ entities:
       pos: 49.5,-148.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -30075.053
+      secondsUntilStateChange: -30156.213
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -7329,7 +7329,7 @@ entities:
       pos: 51.5,-144.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -30078.219
+      secondsUntilStateChange: -30159.379
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -7465,7 +7465,7 @@ entities:
       pos: -71.5,-66.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -29911.785
+      secondsUntilStateChange: -29992.945
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -43940,7 +43940,7 @@ entities:
     components:
     - type: Transform
       pos: 20.474867,-16.624006
-      parent: 2
+      parent: 15148
   - uid: 14993
     components:
     - type: Transform
@@ -44274,6 +44274,12 @@ entities:
       pos: -66.5,-76.5
       parent: 2
     - type: AnalysisConsole
+      extractSound: !type:SoundPathSpecifier
+        params:
+          volume: 4
+        path: /Audio/Effects/radpulse11.ogg
+      scanFinishedSound: !type:SoundPathSpecifier
+        path: /Audio/Machines/scan_finish.ogg
       analyzerEntity: 8958
     - type: DeviceLinkSource
       linkedPorts:
@@ -44287,6 +44293,12 @@ entities:
       pos: -66.5,-72.5
       parent: 2
     - type: AnalysisConsole
+      extractSound: !type:SoundPathSpecifier
+        params:
+          volume: 4
+        path: /Audio/Effects/radpulse11.ogg
+      scanFinishedSound: !type:SoundPathSpecifier
+        path: /Audio/Machines/scan_finish.ogg
       analyzerEntity: 13676
     - type: DeviceLinkSource
       linkedPorts:
@@ -53637,11 +53649,47 @@ entities:
     - type: Transform
       pos: -69.5,-77.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        zen_crystal_sample: !type:ContainerSlot
+          showEnts: False
+          occludes: False
+          ent: null
+        zen_growth_medium: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        machine_board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        machine_parts: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
   - uid: 13676
     components:
     - type: Transform
       pos: -69.5,-73.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        zen_crystal_sample: !type:ContainerSlot
+          showEnts: False
+          occludes: False
+          ent: null
+        zen_growth_medium: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        machine_board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        machine_parts: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
 - proto: MachineArtifactCrusher
   entities:
   - uid: 9057
@@ -88827,27 +88875,27 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-- proto: WeaponPistolMk58
+- proto: WeaponPistolBlackMGlock17
   entities:
   - uid: 6499
     components:
     - type: Transform
-      pos: 2.434873,-71.38702
+      pos: 2.3968582,-71.406105
       parent: 2
   - uid: 14514
     components:
     - type: Transform
-      pos: 2.5483766,-68.2367
+      pos: 2.4801917,-68.26028
       parent: 2
   - uid: 14515
     components:
     - type: Transform
-      pos: 2.465043,-68.570274
+      pos: 2.5947747,-68.54153
       parent: 2
   - uid: 14517
     components:
     - type: Transform
-      pos: 2.557179,-71.59086
+      pos: 2.5739417,-71.67694
       parent: 2
 - proto: WeaponRifleLecter
   entities:
@@ -89030,7 +89078,7 @@ entities:
       lastSignals:
         DoorStatus: True
     - type: Door
-      secondsUntilStateChange: -18614.062
+      secondsUntilStateChange: -18695.223
       state: Opening
     - type: Airlock
       autoClose: False
@@ -89886,5 +89934,5 @@ entities:
       pos: -13.5,-143.5
       parent: 2
     - type: ZenCatalyst
-      nextSpawnTime: 620.8086817
+      nextSpawnTime: 682.4745741
 ...
