@@ -1,0 +1,68 @@
+﻿- type: zenResearchPerk
+  id: ZenCrewMobility
+  name: zen-research-perk-mobility
+  description: zen-research-perk-mobility-desc
+  speedPerLevel: 0.02
+
+- type: zenResearchPerk
+  id: ZenCrewLogistics
+  name: zen-research-perk-logistics
+  description: zen-research-perk-logistics-desc
+  pullSpeedPerLevel: 0.10
+
+- type: zenResearchPerk
+  id: ZenCrewResistance
+  name: zen-research-perk-resistance
+  description: zen-research-perk-resistance-desc
+  infectionResistancePerLevel: 0.10
+
+- type: zenResearchSupply
+  id: ZenSupplySteel
+  name: zen-research-supply-steel
+  product: SheetSteel
+  cost: 4000
+  stock: 5
+
+- type: zenResearchSupply
+  id: ZenSupplyGlass
+  name: zen-research-supply-glass
+  product: SheetGlass
+  cost: 3500
+  stock: 5
+
+- type: zenResearchSupply
+  id: ZenSupplyPlastic
+  name: zen-research-supply-plastic
+  product: SheetPlastic
+  cost: 5000
+  stock: 4
+
+- type: zenResearchSupply
+  id: ZenSupplyMedicine
+  name: zen-research-supply-medicine
+  product: MedkitFilled
+  cost: 3000
+  stock: 5
+
+- type: zenResearchSupply
+  id: ZenSupplySerum
+  name: zen-research-supply-serum
+  product: XenInfectionSerumAutoInjector
+  cost: 2500
+  stock: 4
+
+- type: zenResearchSupply
+  id: ZenSupplyAmmunition
+  name: zen-research-supply-ammunition
+  product: BoxMagazineRifle
+  cost: 9000
+  stock: 2
+  deliveryTime: 60
+
+- type: zenResearchSupply
+  id: ZenSupplyWeapon
+  name: zen-research-supply-weapon
+  product: WeaponLaserGun
+  cost: 18000
+  stock: 2
+  deliveryTime: 90

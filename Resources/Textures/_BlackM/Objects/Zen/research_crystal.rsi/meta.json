@@ -1,0 +1,47 @@
+{
+    "version":  1,
+    "license":  "CC0-1.0",
+    "copyright":  "Original pixel artwork made for TimurRP using the accompanying generator.",
+    "size":  {
+                 "y":  32,
+                 "x":  32
+             },
+    "states":  [
+                   {
+                       "directions":  1,
+                       "name":  "seed"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "growing"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "mature"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "deposits"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "residue"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "cutter"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "seed-cracks"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "growing-cracks"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "mature-cracks"
+                   }
+               ]
+}

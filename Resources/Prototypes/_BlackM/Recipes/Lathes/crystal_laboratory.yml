@@ -1,0 +1,131 @@
+﻿- type: latheRecipe
+  parent: [BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory]
+  id: ZenCrystalHeaterBoard
+  result: ZenCrystalHeaterBoard
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: ZenCrystalHeaterFlatpack
+  result: ZenCrystalHeaterFlatpack
+  completetime: 6
+  materials:
+    Steel: 1200
+    Glass: 500
+    Plastic: 300
+    Gold: 100
+
+- type: latheRecipe
+  parent: [BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory]
+  id: ZenCrystalCoolerBoard
+  result: ZenCrystalCoolerBoard
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: ZenCrystalCoolerFlatpack
+  result: ZenCrystalCoolerFlatpack
+  completetime: 6
+  materials:
+    Steel: 1200
+    Glass: 500
+    Plastic: 300
+    Gold: 100
+
+- type: latheRecipe
+  parent: [BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory]
+  id: ZenCrystalDischargerBoard
+  result: ZenCrystalDischargerBoard
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: ZenCrystalDischargerFlatpack
+  result: ZenCrystalDischargerFlatpack
+  completetime: 6
+  materials:
+    Steel: 1200
+    Glass: 500
+    Plastic: 300
+    Gold: 100
+
+- type: latheRecipe
+  parent: [BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory]
+  id: ZenCrystalIrradiatorBoard
+  result: ZenCrystalIrradiatorBoard
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: ZenCrystalIrradiatorFlatpack
+  result: ZenCrystalIrradiatorFlatpack
+  completetime: 6
+  materials:
+    Steel: 1200
+    Glass: 500
+    Plastic: 300
+    Gold: 100
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: ZenCrystalScanner
+  result: ZenCrystalScanner
+  completetime: 3
+  materials:
+    Steel: 150
+    Glass: 100
+    Plastic: 100
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: ZenCrystalScraper
+  result: ZenCrystalScraper
+  completetime: 3
+  materials:
+    Steel: 100
+    Plastic: 50
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: ZenCrystalStabilizer
+  result: ZenCrystalStabilizer
+  completetime: 3
+  materials:
+    Glass: 100
+    Plastic: 100
+    Silver: 50
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: ZenCrystalCoolantCartridge
+  result: ZenCrystalCoolantCartridge
+  completetime: 3
+  materials:
+    Steel: 100
+    Glass: 100
+    Plastic: 150
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: ZenCrystalLaboratoryKit
+  result: ZenCrystalLaboratoryKit
+  completetime: 20
+  materials:
+    Steel: 7000
+    Glass: 3000
+    Plastic: 2000
+    Gold: 400
+    Silver: 150
+
+- type: latheRecipePack
+  id: ZenCrystalLaboratoryEquipment
+  recipes:
+  - ZenCrystalHeaterBoard
+  - ZenCrystalHeaterFlatpack
+  - ZenCrystalCoolerBoard
+  - ZenCrystalCoolerFlatpack
+  - ZenCrystalDischargerBoard
+  - ZenCrystalDischargerFlatpack
+  - ZenCrystalIrradiatorBoard
+  - ZenCrystalIrradiatorFlatpack
+  - ZenCrystalScanner
+  - ZenCrystalScraper
+  - ZenCrystalStabilizer
+  - ZenCrystalCoolantCartridge
+  - ZenCrystalLaboratoryKit

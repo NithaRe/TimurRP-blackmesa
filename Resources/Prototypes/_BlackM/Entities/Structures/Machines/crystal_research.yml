@@ -1,0 +1,51 @@
+﻿- type: entity
+  parent: MachineArtifactAnalyzer
+  id: MachineZenCrystalResonator
+  name: Xen crystal resonator
+  description: Extracts research data from a cultivated and studied Xen crystal, gradually exhausting it.
+  components:
+  - type: ZenCrystalChamber
+    resonator: true
+  - type: Machine
+    board: ZenCrystalResonatorMachineCircuitboard
+  - type: PointLight
+    color: "#78b66c"
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: ZenCrystalResonatorMachineCircuitboard
+  name: Xen crystal resonator machine board
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: MachineZenCrystalResonator
+    stackRequirements:
+      Manipulator: 1
+      Glass: 5
+
+- type: entity
+  parent: BaseItem
+  id: ZenMineralGrowthMedium
+  name: mineral growth medium cartridge
+  description: A sealed single-use cartridge of mineral growth medium for a Xen crystal chamber.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Chemistry/bottle.rsi
+    state: bottle-1
+    color: "#94bfe6"
+  - type: Item
+    size: Small
+  - type: ZenGrowthMedium
+    medium: Mineral
+
+- type: entity
+  parent: ZenMineralGrowthMedium
+  id: ZenOrganicGrowthMedium
+  name: organic growth medium cartridge
+  description: A sealed single-use cartridge of organic growth medium for a Xen crystal chamber.
+  components:
+  - type: Sprite
+    color: "#97cc7b"
+  - type: ZenGrowthMedium
+    medium: Organic

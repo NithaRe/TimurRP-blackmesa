@@ -1,0 +1,55 @@
+{
+    "version":  1,
+    "license":  "CC0-1.0",
+    "copyright":  "Original pixel artwork made for TimurRP using the accompanying generator.",
+    "size":  {
+                 "y":  32,
+                 "x":  32
+             },
+    "states":  [
+                   {
+                       "directions":  1,
+                       "name":  "base"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "closed"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "open"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "powered"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "active"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "resonator"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "resonator-active"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "sample-seed"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "sample-growing"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "sample-mature"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "sample-deposits"
+                   }
+               ]
+}
