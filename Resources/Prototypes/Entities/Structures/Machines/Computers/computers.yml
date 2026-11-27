@@ -773,8 +773,8 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ComputerAnalysisConsole
-  name: analysis console
-  description: A computer used to interface with the artifact analyzer.
+  name: Xen research terminal
+  description: A terminal for complex-wide scientific improvements and research supply deliveries.
   components:
   - type: Sprite
     layers:
@@ -789,7 +789,9 @@
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
       state: generic_panel_open
   - type: ResearchClient
-  - type: AnalysisConsole
+  - type: ZenResearchConsole
+  - type: AccessReader
+    access: [["Research"]]
   - type: DeviceList
   - type: DeviceNetwork
     deviceNetId: Wired
@@ -798,11 +800,11 @@
     ports:
       - ArtifactAnalyzerSender
   - type: ActivatableUI
-    key: enum.ArtifactAnalyzerUiKey.Key
+    key: enum.ZenCrystalUiKey.Console
   - type: UserInterface
     interfaces:
-      enum.ArtifactAnalyzerUiKey.Key:
-        type: AnalysisConsoleBoundUserInterface
+      enum.ZenCrystalUiKey.Console:
+        type: ZenResearchConsoleBoundUserInterface
       enum.ResearchClientUiKey.Key:
         type: ResearchClientBoundUserInterface
       enum.WiresUiKey.Key:

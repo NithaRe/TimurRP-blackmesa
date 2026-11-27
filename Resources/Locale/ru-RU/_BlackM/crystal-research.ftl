@@ -8,7 +8,7 @@ ent-ZenOrganicGrowthMedium = картридж органической сред�
     .desc = Одноразовый герметичный картридж питательной среды для выращивания зен-кристаллов.
 
 zen-crystal-examine = Состояние образца: { $stage }.
-zen-crystal-stage-structure = раскрытие структуры
+zen-crystal-stage-structure = требуется вмешательство
 zen-crystal-stage-growth = выращивание
 zen-crystal-stage-mature = готов к финальному анализу
 zen-crystal-stage-researched = исследован
@@ -35,7 +35,7 @@ zen-crystal-increase-intensity = Воздействие подходит, но �
 zen-crystal-decrease-intensity = Воздействие подходит, но слишком интенсивно. Нестабильность выросла на 5 пунктов.
 zen-crystal-layer-opened = Слой { $step } из 3 раскрыт. Доступно повторное сканирование.
 zen-crystal-instability-warning = ВНИМАНИЕ: нестабильность критическая. Рекомендуется стабилизация.
-zen-crystal-incident = Произошёл разряд. Камера повреждена, будущий ресурс образца снижен на 10 процентных пунктов.
+zen-crystal-incident = Аварийный разряд: камера повреждена, находившиеся рядом получили ожоги. Качество образца снижено на 20 процентных пунктов.
 zen-crystal-stabilized = Нестабильность снижена на 35 пунктов.
 zen-crystal-growth-clue = Структура подготовлена к росту. Требуется { $medium }, температура { $temperature } °C с допуском ±5 °C.
 zen-crystal-growth-started = Питательная среда введена. Выращивание запущено.
@@ -77,6 +77,7 @@ zen-crystal-ui-readings = Слои: { $step }/3 | Нестабильность: 
 zen-crystal-ui-energy = Ресурс: { $energy } / { $capacity }
 
 zen-research-ui-title = РНД / Развитие и снабжение комплекса
+zen-research-no-access = Для управления терминалом необходим доступ научного отдела.
 zen-research-ui-perks = Улучшения комплекса
 zen-research-ui-supplies = Снабжение
 zen-research-ui-balance = Научные прорывы: { $breakthroughs } | Очки исследования: { $points }

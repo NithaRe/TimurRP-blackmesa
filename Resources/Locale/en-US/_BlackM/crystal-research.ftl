@@ -8,7 +8,7 @@ ent-ZenOrganicGrowthMedium = organic growth medium cartridge
     .desc = A sealed single-use growth medium cartridge for a Xen crystal chamber.
 
 zen-crystal-examine = Sample condition: { $stage }.
-zen-crystal-stage-structure = structure analysis
+zen-crystal-stage-structure = intervention required
 zen-crystal-stage-growth = cultivation
 zen-crystal-stage-mature = ready for final analysis
 zen-crystal-stage-researched = researched
@@ -35,7 +35,7 @@ zen-crystal-increase-intensity = Suitable exposure, insufficient intensity. Inst
 zen-crystal-decrease-intensity = Suitable exposure, excessive intensity. Instability increased by 5 points.
 zen-crystal-layer-opened = Layer { $step } of 3 opened. Another scan is available.
 zen-crystal-instability-warning = WARNING: critical instability. Stabilization recommended.
-zen-crystal-incident = Electrical discharge. Chamber damaged; future sample capacity reduced by 10 percentage points.
+zen-crystal-incident = Emergency discharge: chamber damaged, nearby creatures burned. Sample quality reduced by 20 percentage points.
 zen-crystal-stabilized = Instability reduced by 35 points.
 zen-crystal-growth-clue = Structure ready for cultivation. Required: { $medium }, temperature { $temperature } C, tolerance +/-5 C.
 zen-crystal-growth-started = Medium supplied. Cultivation started.
@@ -77,6 +77,7 @@ zen-crystal-ui-readings = Layers: { $step }/3 | Instability: { $instability }%
 zen-crystal-ui-energy = Capacity: { $energy } / { $capacity }
 
 zen-research-ui-title = R&D / Complex Development and Supply
+zen-research-no-access = Research access is required to operate this terminal.
 zen-research-ui-perks = Complex improvements
 zen-research-ui-supplies = Supplies
 zen-research-ui-balance = Scientific breakthroughs: { $breakthroughs } | Research points: { $points }

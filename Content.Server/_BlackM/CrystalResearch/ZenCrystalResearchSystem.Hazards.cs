@@ -1,9 +1,7 @@
-﻿using Content.Server.Power.EntitySystems;
-using Content.Shared._BlackM.CrystalResearch;
+﻿using Content.Shared._BlackM.CrystalResearch;
 using Content.Shared.Damage;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
-using Content.Shared.Verbs;
 using Robust.Shared.Audio;
 
 namespace Content.Server._BlackM.CrystalResearch;
@@ -16,13 +14,13 @@ public sealed partial class ZenCrystalResearchSystem
     private static bool HasGrowthBonus(ZenCrystalResearchComponent sample) =>
         sample.AcceleratedGrowthSeconds >= sample.GrowthDuration * 0.5f;
 
-    private static string HazardStatus(ZenCrystalResearchComponent sample)
+    public static string HazardStatus(ZenCrystalResearchComponent sample)
     {
         if (!sample.Runaway)
             return string.Empty;
         return sample.BreachRemaining > 0f
-            ? Loc.GetString("zen-lab-breach-countdown", ("seconds", (int) Math.Ceiling(sample.BreachRemaining)))
-            : Loc.GetString("zen-lab-runaway-status");
+            ? Robust.Shared.Localization.Loc.GetString("zen-lab-breach-countdown", ("seconds", (int) Math.Ceiling(sample.BreachRemaining)))
+            : Robust.Shared.Localization.Loc.GetString("zen-lab-runaway-status");
     }
 
     private void BeginRunaway(Entity<ZenCrystalResearchComponent> sample)
@@ -125,7 +123,7 @@ public sealed partial class ZenCrystalResearchSystem
         foreach (var mob in _lookup.GetEntitiesInRange<MobStateComponent>(_transform.GetMapCoordinates(source), radius))
         {
             if (_interaction.InRangeUnobstructed(source, mob.Owner, radius))
-                _damage.TryChangeDamage(mob.Owner, damage);
+                _damage.TryChangeDamage(mob.Owner, damage, origin: source, canMiss: false);
         }
     }
 
@@ -168,28 +166,10 @@ public sealed partial class ZenCrystalResearchSystem
         Spawn("MobHoundeyeStationBlackM", coordinates);
     }
 
-    private void OnQuenchVerb(Entity<ZenCrystalResearchComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
-    {
-        if (!args.CanAccess || !args.CanInteract || !ent.Comp.Runaway)
-            return;
-        if (!TryComp<ZenCrystalChamberComponent>(ent.Comp.ActiveMachine, out var chamber) || !chamber.LidOpen)
-            return;
-        var user = args.User;
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = Loc.GetString("zen-lab-quench"),
-            Act = () =>
-            {
-                if (TryComp<ZenCrystalChamberComponent>(ent.Comp.ActiveMachine, out var current) && current.LidOpen &&
-                    _interaction.InRangeUnobstructed(user, ent.Owner))
-                    Quench((ent.Comp.ActiveMachine!.Value, current), ent, user);
-            },
-        });
-    }
-
     private void Quench(Entity<ZenCrystalChamberComponent> chamber, Entity<ZenCrystalResearchComponent> sample, EntityUid user)
     {
-        if (chamber.Comp.Resonator || sample.Comp.Stage is ZenCrystalStage.Researched or ZenCrystalStage.Exhausted)
+        if (chamber.Comp.Resonator || (!sample.Comp.Runaway && sample.Comp.Instability < 65f) ||
+            sample.Comp.Stage is ZenCrystalStage.Researched or ZenCrystalStage.Exhausted)
             return;
         sample.Comp.Instability = 0f;
         sample.Comp.Temperature = 20f;

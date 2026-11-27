@@ -44,10 +44,8 @@
 
 - type: guideEntry
   id: Xenoarchaeology
-  name: guide-entry-xenoarchaeology
-  text: "/ServerInfo/Guidebook/Science/Xenoarchaeology.xml"
-  children:
-  - ArtifactReports
+  name: guide-entry-zen-crystal-research
+  text: "/ServerInfo/Guidebook/_BlackM/CrystalResearch.xml"
 
 - type: guideEntry
   id: Robotics

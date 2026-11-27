@@ -16,6 +16,30 @@
   description: zen-research-perk-resistance-desc
   infectionResistancePerLevel: 0.10
 
+- type: zenResearchPerk
+  id: ZenCrewEndurance
+  name: zen-research-perk-endurance
+  description: zen-research-perk-endurance-desc
+  staminaResistancePerLevel: 0.05
+
+- type: zenResearchPerk
+  id: ZenCrewThermal
+  name: zen-research-perk-thermal
+  description: zen-research-perk-thermal-desc
+  thermalResistancePerLevel: 0.05
+
+- type: zenResearchPerk
+  id: ZenCrewRadiation
+  name: zen-research-perk-radiation
+  description: zen-research-perk-radiation-desc
+  radiationResistancePerLevel: 0.10
+
+- type: zenResearchPerk
+  id: ZenCrewDetoxification
+  name: zen-research-perk-detox
+  description: zen-research-perk-detox-desc
+  poisonResistancePerLevel: 0.05
+
 - type: zenResearchSupply
   id: ZenSupplySteel
   name: zen-research-supply-steel
@@ -39,6 +63,7 @@
 
 - type: zenResearchSupply
   id: ZenSupplyMedicine
+  category: Medical
   name: zen-research-supply-medicine
   product: MedkitFilled
   cost: 3000
@@ -46,6 +71,7 @@
 
 - type: zenResearchSupply
   id: ZenSupplySerum
+  category: Medical
   name: zen-research-supply-serum
   product: XenInfectionSerumAutoInjector
   cost: 2500
@@ -53,6 +79,7 @@
 
 - type: zenResearchSupply
   id: ZenSupplyAmmunition
+  category: Armory
   name: zen-research-supply-ammunition
   product: BoxMagazineRifle
   cost: 9000
@@ -61,6 +88,7 @@
 
 - type: zenResearchSupply
   id: ZenSupplyWeapon
+  category: Armory
   name: zen-research-supply-weapon
   product: WeaponLaserGun
   cost: 18000

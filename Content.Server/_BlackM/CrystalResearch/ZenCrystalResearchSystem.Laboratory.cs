@@ -5,6 +5,7 @@ using Content.Shared.DeviceLinking;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Verbs;
 using Content.Shared.Damage;
 using Content.Shared.Popups;
@@ -21,8 +22,10 @@ public sealed partial class ZenCrystalResearchSystem
     [Dependency] private SharedInteractionSystem _interaction = default!;
     [Dependency] private BatterySystem _battery = default!;
     [Dependency] private BeamSystem _beam = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
 
     private const string MediumSlot = "zen_growth_medium";
+    private const string SampleSlot = "zen_crystal_sample";
     private const string CoolantSlot = "zen_coolant";
     private const string CapacitorSlot = "zen_capacitor";
     private float _emitterUiAccumulator;
@@ -30,31 +33,40 @@ public sealed partial class ZenCrystalResearchSystem
     private void InitializeLaboratory()
     {
         SubscribeLocalEvent<ZenCrystalLabToolComponent, AfterInteractEvent>(OnToolInteract);
-        SubscribeLocalEvent<ZenCrystalLabToolComponent, UseInHandEvent>(OnToolUse);
         SubscribeLocalEvent<ZenCrystalLabToolComponent, ZenCrystalToolDoAfterEvent>(OnToolFinished);
         SubscribeLocalEvent<ZenCrystalChamberComponent, GetVerbsEvent<AlternativeVerb>>(OnChamberVerbs);
         SubscribeLocalEvent<ZenCrystalChamberComponent, MapInitEvent>(OnChamberInit);
-        SubscribeLocalEvent<ZenCrystalChamberComponent, EntInsertedIntoContainerMessage>(OnMediumChanged);
+        SubscribeLocalEvent<ZenCrystalChamberComponent, ZenCrystalCloseLidEvent>(OnCloseLid);
         SubscribeLocalEvent<ZenCrystalEmitterComponent, ComponentShutdown>(OnEmitterShutdown);
         SubscribeLocalEvent<ZenGrowthMediumComponent, ExaminedEvent>(OnMediumExamined);
         SubscribeLocalEvent<ZenCrystalCoolantComponent, ExaminedEvent>(OnCoolantExamined);
-        Subs.BuiEvents<ZenCrystalEmitterComponent>(ZenCrystalUiKey.Emitter, subs =>
-        {
-            subs.Event<BoundUIOpenedEvent>(OnEmitterOpened);
-            subs.Event<ZenCrystalEmitterCommandMessage>(OnEmitterCommand);
-        });
+        Subs.BuiEvents<ZenCrystalEmitterComponent>(ZenCrystalUiKey.Emitter,
+            subs =>
+            {
+                subs.Event<BoundUIOpenedEvent>(OnEmitterOpened);
+                subs.Event<ZenCrystalEmitterCommandMessage>(OnEmitterCommand);
+            });
     }
 
     private void OnChamberInit(Entity<ZenCrystalChamberComponent> ent, ref MapInitEvent args)
     {
         if (!ent.Comp.Resonator)
+        {
             _slots.SetLock(ent, MediumSlot, !ent.Comp.LidOpen);
+            _slots.SetLock(ent, SampleSlot, !ent.Comp.LidOpen);
+        }
+        UpdateSampleVisibility(ent);
     }
 
-    private void OnMediumChanged(Entity<ZenCrystalChamberComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void UpdateSampleVisibility(Entity<ZenCrystalChamberComponent> ent)
     {
-        if (args.Container.ID == MediumSlot)
-            UpdateUi(ent);
+        if (!_slots.TryGetSlot(ent, SampleSlot, out var slot) || slot.ContainerSlot is not { } container)
+            return;
+        var visible = !ent.Comp.Resonator && ent.Comp.LidOpen;
+        if (container.ShowContents == visible)
+            return;
+        container.ShowContents = visible;
+        Dirty(ent.Owner, Comp<ContainerManagerComponent>(ent));
     }
 
     private void OnMediumExamined(Entity<ZenGrowthMediumComponent> ent, ref ExaminedEvent args) =>
@@ -73,19 +85,32 @@ public sealed partial class ZenCrystalResearchSystem
         return true;
     }
 
-    private bool HasGrowthMedium(EntityUid machine, ZenCrystalResearchComponent sample) =>
-        TryGetGrowthMedium(machine, out var medium) && medium.Comp.Medium == sample.Medium;
-
-    private bool ConsumeGrowthMedium(Entity<ZenCrystalChamberComponent> ent, ZenGrowthMedium required)
+    private void FeedCurrentTask(Entity<ZenCrystalChamberComponent> ent, Entity<ZenCrystalResearchComponent> sample, EntityUid user)
     {
-        if (!TryGetGrowthMedium(ent, out var medium) || medium.Comp.Medium != required || medium.Comp.Spent)
+        if (sample.Comp.Runaway || sample.Comp.Stage != ZenCrystalStage.Structure || sample.Comp.ScannedStep != sample.Comp.Step ||
+            sample.Comp.Step >= sample.Comp.Tasks.Count || sample.Comp.Tasks[sample.Comp.Step].Type != ZenCrystalTaskType.Medium)
+            return;
+        var task = sample.Comp.Tasks[sample.Comp.Step];
+        if (!TryGetGrowthMedium(ent, out var medium) || medium.Comp.Spent)
         {
-            ent.Comp.Status = Loc.GetString("zen-lab-fresh-medium-required", ("medium", Loc.GetString(MediumKey(required))));
-            return false;
+            ent.Comp.Status = Loc.GetString("zen-lab-fresh-medium-required", ("medium", Loc.GetString(MediumKey(task.Medium))));
+            return;
         }
         medium.Comp.Spent = true;
         Dirty(medium);
-        return true;
+        if (medium.Comp.Medium != task.Medium)
+        {
+            FailedTask(ent, sample, "zen-lab-wrong-medium", 20f);
+            return;
+        }
+        CompleteTask(ent, sample, Name(user));
+    }
+
+    private void OnCloseLid(Entity<ZenCrystalChamberComponent> ent, ref ZenCrystalCloseLidEvent args)
+    {
+        if (ent.Comp.Resonator || !ent.Comp.LidOpen)
+            return;
+        ToggleLid(ent, args.User);
     }
 
     private void OnChamberVerbs(Entity<ZenCrystalChamberComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
@@ -96,27 +121,48 @@ public sealed partial class ZenCrystalResearchSystem
         args.Verbs.Add(new AlternativeVerb
         {
             Text = Loc.GetString(ent.Comp.LidOpen ? "zen-lab-close-lid" : "zen-lab-open-lid"),
+            Priority = 20,
             Act = () => ToggleLid(ent, user),
         });
+        if (TryCrystal(ent, out var sample) && sample.Comp.Runaway)
+        {
+            args.Verbs.Add(new AlternativeVerb
+            {
+                Text = Loc.GetString("zen-lab-quench"),
+                Act = () =>
+                {
+                    if (_interaction.InRangeUnobstructed(user, ent.Owner) && TryCrystal(ent, out var current))
+                        Quench(ent, current, user);
+                },
+            });
+        }
     }
 
     private void ToggleLid(Entity<ZenCrystalChamberComponent> ent, EntityUid user)
     {
-        if (!_interaction.InRangeUnobstructed(user, ent.Owner) || ent.Comp.Operation != null || ent.Comp.ActiveEmitter != null)
+        if (!_interaction.InRangeUnobstructed(user, ent.Owner) || ent.Comp.Operation != null ||
+            ent.Comp.ActiveEmitter != null)
             return;
         ent.Comp.LidOpen = !ent.Comp.LidOpen;
+        Dirty(ent);
+        UpdateSampleVisibility(ent);
         ent.Comp.Running = false;
         _slots.SetLock(ent, MediumSlot, !ent.Comp.LidOpen);
-        if (!ent.Comp.LidOpen && TryCrystal(ent, out var sample) && sample.Comp.Stage == ZenCrystalStage.Growth &&
-            sample.Comp.GrowthStarted)
+        _slots.SetLock(ent, SampleSlot, !ent.Comp.LidOpen);
+        if (ent.Comp.LidOpen && TryCrystal(ent, out var exposed) && exposed.Comp.Runaway)
         {
-            if (NeedsService(sample.Comp) && sample.Comp.GrowthCheckpoints == 0 && ConsumeGrowthMedium(ent, sample.Comp.Medium))
-            {
-                sample.Comp.GrowthCheckpoints++;
-                Log(sample.Comp, Loc.GetString("zen-lab-medium-replaced"), Name(user));
-            }
-            ent.Comp.Running = !NeedsService(sample.Comp) && HasGrowthMedium(ent, sample.Comp);
+            DamageNearby(ent, 2f, 8, 0);
+            Spawn("ZenCrystalHeatPulse", Transform(ent).Coordinates);
+            _popup.PopupEntity(Loc.GetString("zen-lab-lid-vent"), ent, PopupType.LargeCaution);
         }
+        if (!ent.Comp.LidOpen && TryCrystal(ent, out var sample))
+        {
+            if (sample.Comp.Stage == ZenCrystalStage.Growth && !sample.Comp.Runaway)
+                ent.Comp.Running = true;
+            else
+                FeedCurrentTask(ent, sample, user);
+        }
+
         _popup.PopupEntity(Loc.GetString(ent.Comp.LidOpen ? "zen-lab-lid-open" : "zen-lab-lid-closed"), ent, user);
         UpdateUi(ent);
     }
@@ -129,12 +175,30 @@ public sealed partial class ZenCrystalResearchSystem
             sample = (target, crystal);
             return true;
         }
-        return TryComp<ZenCrystalChamberComponent>(target, out var chamber) && TryCrystal((target, chamber), out sample);
+
+        return TryComp<ZenCrystalChamberComponent>(target, out var chamber) &&
+               TryCrystal((target, chamber), out sample);
     }
 
     private void OnToolInteract(Entity<ZenCrystalLabToolComponent> ent, ref AfterInteractEvent args)
     {
-        if (args.Handled || !args.CanReach || args.Target is not { } target || !ToolSample(target, out var sample))
+        if (args.Handled || !args.CanReach || args.Target is not { } target)
+            return;
+        if (ent.Comp.Tool == ZenCrystalTool.Splitter)
+        {
+            if (!TryComp<ZenCrystalRawComponent>(target, out var raw) || raw.Split)
+                return;
+            args.Handled = true;
+            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.Delay,
+                new ZenCrystalToolDoAfterEvent(), ent, target: target, used: ent.Owner)
+            {
+                BreakOnDamage = true,
+                BreakOnMove = true,
+                NeedHand = true,
+            });
+            return;
+        }
+        if (!ToolSample(target, out var sample))
             return;
         args.Handled = true;
         if (ent.Comp.Tool != ZenCrystalTool.Scanner)
@@ -145,17 +209,25 @@ public sealed partial class ZenCrystalResearchSystem
                 _popup.PopupEntity(Loc.GetString("zen-lab-tool-needs-open-lid"), sample, args.User);
                 return;
             }
-            if (ent.Comp.Tool == ZenCrystalTool.Scraper &&
-                (sample.Comp.Stage != ZenCrystalStage.Growth || sample.Comp.GrowthCheckpoints != 1 || !NeedsService(sample.Comp)))
+
+            if (sample.Comp.Stage is ZenCrystalStage.Researched or ZenCrystalStage.Exhausted)
                 return;
             if (ent.Comp.Tool == ZenCrystalTool.Stabilizer && sample.Comp.Instability <= 0f)
                 return;
         }
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.Delay,
-            new ZenCrystalToolDoAfterEvent { Step = sample.Comp.Step, Stage = sample.Comp.Stage },
-            ent, target: sample.Owner, used: ent.Owner)
+
+        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager,
+            args.User,
+            ent.Comp.Delay,
+            new ZenCrystalToolDoAfterEvent
+            {
+                Step = sample.Comp.Step, Stage = sample.Comp.Stage, Sample = GetNetEntity(sample.Owner),
+            },
+            ent,
+            target: target,
+            used: ent.Owner)
         {
-            BreakOnDamage = true,
+            BreakOnDamage = ent.Comp.Tool != ZenCrystalTool.Stabilizer || !sample.Comp.Runaway,
             BreakOnMove = true,
             NeedHand = true,
         });
@@ -163,21 +235,48 @@ public sealed partial class ZenCrystalResearchSystem
 
     private void OnToolFinished(Entity<ZenCrystalLabToolComponent> ent, ref ZenCrystalToolDoAfterEvent args)
     {
-        if (args.Cancelled || args.Handled || args.Target is not { } target || !ToolSample(target, out var sample) ||
+        if (args.Cancelled || args.Handled || args.Target is not { } target || TerminatingOrDeleted(target))
+            return;
+        if (ent.Comp.Tool == ZenCrystalTool.Splitter)
+        {
+            if (!TryComp<ZenCrystalRawComponent>(target, out var raw) || raw.Split ||
+                !_interaction.InRangeUnobstructed(args.User, target))
+                return;
+            args.Handled = true;
+            raw.Split = true;
+            var coordinates = Transform(target).Coordinates;
+            Spawn("ZenCrystalSample", coordinates.Offset(new System.Numerics.Vector2(-0.15f, 0f)));
+            Spawn("ZenCrystalSample", coordinates.Offset(new System.Numerics.Vector2(0.15f, 0f)));
+            Spawn("ZenCrystalScanPulse", coordinates);
+            _audio.PlayPvs(new SoundPathSpecifier("/Audio/Machines/scan_finish.ogg"), target);
+            QueueDel(target);
+            return;
+        }
+        if (!ToolSample(target, out var sample) || GetNetEntity(sample.Owner) != args.Sample ||
             sample.Comp.Step != args.Step || sample.Comp.Stage != args.Stage)
             return;
         args.Handled = true;
         if (ent.Comp.Tool == ZenCrystalTool.Scanner)
         {
+            if (!_zenResearch.RegisterSample(sample, args.User))
+                return;
             sample.Comp.ScannedStep = sample.Comp.Step;
-            var report = sample.Comp.Stage == ZenCrystalStage.Structure && sample.Comp.Step < sample.Comp.ActivationDoses.Count
-                ? ScanReport(sample.Comp) : sample.Comp.Stage == ZenCrystalStage.Growth ? GrowthClue(sample.Comp) :
-                    Loc.GetString("zen-crystal-examine", ("stage", Loc.GetString(StageKey(sample.Comp.Stage))));
-            Log(sample.Comp, report, Name(args.User));
-            ent.Comp.Sample = sample.Owner;
+            sample.Comp.CurrentTask = sample.Comp.Stage == ZenCrystalStage.Structure
+                ? ScanReport(sample.Comp) : Loc.GetString(sample.Comp.Stage == ZenCrystalStage.Growth
+                    ? "zen-lab-task-growing" : sample.Comp.Stage == ZenCrystalStage.Mature
+                        ? "zen-lab-task-finalize" : sample.Comp.Stage == ZenCrystalStage.Exhausted
+                            ? "zen-lab-task-recycle" : "zen-lab-task-resonate");
+            Log(sample.Comp, sample.Comp.CurrentTask, Name(args.User));
+
+            if (TryComp<ZenCrystalChamberComponent>(sample.Comp.ActiveMachine, out var camera))
+            {
+                camera.Status = Loc.GetString("zen-lab-protocol-ready");
+                UpdateUi((sample.Comp.ActiveMachine!.Value, camera));
+            }
+
             Spawn("ZenCrystalScanPulse", Transform(sample).Coordinates);
             _audio.PlayPvs(new SoundPathSpecifier("/Audio/Machines/scan_finish.ogg"), sample);
-            ShowScanner(ent, args.User);
+            _popup.PopupEntity(Loc.GetString("zen-lab-scan-uploaded", ("number", sample.Comp.SampleNumber)), ent, args.User);
         }
         else
         {
@@ -186,12 +285,17 @@ public sealed partial class ZenCrystalResearchSystem
                 return;
             if (ent.Comp.Tool == ZenCrystalTool.Scraper)
             {
-                if (sample.Comp.GrowthCheckpoints != 1 || !NeedsService(sample.Comp))
-                    return;
-                sample.Comp.GrowthCheckpoints++;
-                Log(sample.Comp, Loc.GetString("zen-lab-deposits-removed"), Name(args.User));
-                Spawn("ZenCrystalDeposit", Transform(sample).Coordinates);
+                Entity<ZenCrystalChamberComponent> machine = (sample.Comp.ActiveMachine!.Value, chamber);
+                if (sample.Comp.Stage != ZenCrystalStage.Structure || sample.Comp.ScannedStep != sample.Comp.Step ||
+                    sample.Comp.Step >= sample.Comp.Tasks.Count || sample.Comp.Tasks[sample.Comp.Step].Type != ZenCrystalTaskType.Scrape)
+                    FailedTask(machine, sample, "zen-lab-wrong-scrape", 20f);
+                else
+                {
+                    Spawn("ZenCrystalDeposit", Transform(machine).Coordinates);
+                    CompleteTask(machine, sample, Name(args.User));
+                }
             }
+
             else
             {
                 if (sample.Comp.Instability <= 0f || TerminatingOrDeleted(ent))
@@ -201,38 +305,60 @@ public sealed partial class ZenCrystalResearchSystem
                 Spawn("ZenCrystalColdPulse", Transform(sample).Coordinates);
                 QueueDel(ent);
             }
+
             UpdateUi((sample.Comp.ActiveMachine!.Value, chamber));
         }
+
         UpdateVisuals(sample);
     }
 
     private string ScanReport(ZenCrystalResearchComponent sample)
     {
-        var low = (int) (MathF.Floor(sample.ActivationDoses[sample.Step] / 10f) * 10f);
-        var high = (int) (MathF.Ceiling((sample.ActivationDoses[sample.Step] + sample.DoseTolerances[sample.Step]) / 10f) * 10f);
-        return Loc.GetString("zen-lab-scan-report",
-            ("property", Loc.GetString("zen-lab-property-" + sample.Sequence[sample.Step].ToString().ToLowerInvariant())),
-            ("low", low), ("high", high));
-    }
-
-    private void OnToolUse(Entity<ZenCrystalLabToolComponent> ent, ref UseInHandEvent args)
-    {
-        if (!args.Handled && ent.Comp.Tool == ZenCrystalTool.Scanner)
+        if (sample.Step >= sample.Tasks.Count)
+            return Loc.GetString("zen-lab-task-finalize");
+        var task = sample.Tasks[sample.Step];
+        return task.Type switch
         {
-            args.Handled = true;
-            ShowScanner(ent, args.User);
-        }
+            ZenCrystalTaskType.Temperature => Loc.GetString("zen-lab-task-temperature",
+                ("target", task.Target.ToString("F1")), ("tolerance", task.Tolerance.ToString("F1"))),
+            ZenCrystalTaskType.Electricity or ZenCrystalTaskType.Radiation => Loc.GetString("zen-lab-task-dose",
+                ("apparatus", Loc.GetString(task.Type == ZenCrystalTaskType.Electricity ? "ent-ZenCrystalDischarger" : "ent-ZenCrystalIrradiator")),
+                ("low", task.Target.ToString("F1")), ("high", (task.Target + task.Tolerance).ToString("F1"))),
+            ZenCrystalTaskType.Medium => Loc.GetString("zen-lab-task-medium", ("medium", Loc.GetString(MediumKey(task.Medium)))),
+            _ => Loc.GetString("zen-lab-task-scrape"),
+        };
     }
 
-    private void ShowScanner(Entity<ZenCrystalLabToolComponent> ent, EntityUid user)
+    private static bool MatchesTask(ZenCrystalExposure exposure, ZenCrystalResearchTask task) => task.Type switch
     {
-        if (!TryComp<ZenCrystalResearchComponent>(ent.Comp.Sample, out var crystal))
-            return;
-        var state = SampleState((ent.Comp.Sample!.Value, crystal));
-        state.ReadOnly = true;
-        state.Powered = true;
-        _ui.SetUiState(ent.Owner, ZenCrystalUiKey.Chamber, state);
-        _ui.TryOpenUi(ent.Owner, ZenCrystalUiKey.Chamber, user);
+        ZenCrystalTaskType.Temperature => exposure is ZenCrystalExposure.Heat or ZenCrystalExposure.Cold,
+        ZenCrystalTaskType.Electricity => exposure == ZenCrystalExposure.Electricity,
+        ZenCrystalTaskType.Radiation => exposure == ZenCrystalExposure.Radiation,
+        _ => false,
+    };
+
+    private static bool PulseReady(ZenCrystalChamberComponent chamber, ZenCrystalResearchComponent sample)
+    {
+        if (sample.Stage != ZenCrystalStage.Structure || sample.Step >= sample.Tasks.Count)
+            return false;
+        var task = sample.Tasks[sample.Step];
+        if (!MatchesTask(chamber.Exposure, task))
+            return false;
+        return task.Type == ZenCrystalTaskType.Temperature
+            ? Math.Abs(sample.Temperature - task.Target) <= task.Tolerance
+            : !chamber.DoseOverloaded && chamber.AppliedDose >= task.Target && chamber.AppliedDose <= task.Target + task.Tolerance;
+    }
+
+    private void FailedTask(Entity<ZenCrystalChamberComponent> ent, Entity<ZenCrystalResearchComponent> sample,
+        string reason, float instability)
+    {
+        sample.Comp.Quality = Math.Max(0.1f, sample.Comp.Quality - 0.05f);
+        var message = Loc.GetString(reason);
+        Log(sample.Comp, message);
+        ChangeInstability(ent, sample, instability);
+        if (sample.Comp.Stage != ZenCrystalStage.Exhausted)
+            ent.Comp.Status = message;
+        _popup.PopupEntity(message, ent, PopupType.MediumCaution);
     }
 
     private bool FindChamber(Entity<ZenCrystalEmitterComponent> ent, out Entity<ZenCrystalChamberComponent> chamber)
@@ -249,6 +375,7 @@ public sealed partial class ZenCrystalResearchSystem
                 if (pair.Source == "ZenCrystalExposure" && pair.Sink == "ZenCrystalInput")
                     relevant = true;
             }
+
             if (!relevant || !TryComp<ZenCrystalChamberComponent>(uid, out var comp) || comp.Resonator)
                 continue;
             if (found)
@@ -256,67 +383,76 @@ public sealed partial class ZenCrystalResearchSystem
             chamber = (uid, comp);
             found = true;
         }
+
         return found;
     }
 
-    private void OnEmitterOpened(Entity<ZenCrystalEmitterComponent> ent, ref BoundUIOpenedEvent args) => UpdateEmitterUi(ent);
-    private void OnEmitterShutdown(Entity<ZenCrystalEmitterComponent> ent, ref ComponentShutdown args) => StopEmitter(ent, false);
+    private void OnEmitterOpened(Entity<ZenCrystalEmitterComponent> ent, ref BoundUIOpenedEvent args) =>
+        UpdateEmitterUi(ent);
+
+    private void OnEmitterShutdown(Entity<ZenCrystalEmitterComponent> ent, ref ComponentShutdown args) =>
+        StopEmitter(ent, false);
 
     private void OnEmitterCommand(Entity<ZenCrystalEmitterComponent> ent, ref ZenCrystalEmitterCommandMessage args)
     {
-        if (!float.IsFinite(args.Power) || !float.IsFinite(args.Temperature) || args.Power is < 2f or > 12f ||
-            args.Temperature is < -20f or > 80f || !this.IsPowered(ent, EntityManager) || !Transform(ent).Anchored)
+        if (!this.IsPowered(ent, EntityManager) || !Transform(ent).Anchored)
             return;
-        if (args.Toggle && ent.Comp.Active)
+        if (ent.Comp.Active)
             StopEmitter(ent, true);
         else
-        {
-            if (!ent.Comp.Active)
-            {
-                ent.Comp.Power = args.Power;
-                ent.Comp.TargetTemperature = args.Temperature;
-            }
-            if (args.Toggle)
-                StartEmitter(ent, args.Actor);
-        }
-        Dirty(ent);
+            StartEmitter(ent, args.Actor);
         UpdateEmitterUi(ent);
     }
 
     private void StartEmitter(Entity<ZenCrystalEmitterComponent> ent, EntityUid user)
     {
-        if (!FindChamber(ent, out var chamber) || !_interaction.InRangeUnobstructed(ent.Owner, chamber.Owner, ent.Comp.Range))
+        if (!FindChamber(ent, out var chamber) ||
+            !_interaction.InRangeUnobstructed(ent.Owner, chamber.Owner, ent.Comp.Range))
         {
             ent.Comp.Status = Loc.GetString("zen-lab-link-required");
             return;
         }
+
         if (!TryCrystal(chamber, out var sample) || chamber.Comp.LidOpen || chamber.Comp.Operation != null ||
             !this.IsPowered(chamber, EntityManager) || !Transform(chamber).Anchored)
         {
             ent.Comp.Status = Loc.GetString("zen-lab-chamber-not-ready");
             return;
         }
-        if (sample.Comp.Stage == ZenCrystalStage.Structure)
+
+        if (ent.Comp.Exposure is ZenCrystalExposure.Electricity or ZenCrystalExposure.Cold && GetConsumable(ent) <= 0f)
         {
-            if (chamber.Comp.ActiveEmitter != null || sample.Comp.ScannedStep != sample.Comp.Step)
-            {
-                ent.Comp.Status = Loc.GetString("zen-lab-scan-required");
-                return;
-            }
-            chamber.Comp.ActiveEmitter = ent.Owner;
-            chamber.Comp.Exposure = ent.Comp.Exposure;
-            chamber.Comp.AppliedDose = 0f;
-            chamber.Comp.DoseOverloaded = false;
-            if (sample.Comp.PulseAttempts++ > 0)
-                ChangeInstability(chamber, sample, 4f);
-        }
-        else if (sample.Comp.Stage != ZenCrystalStage.Growth ||
-                 ent.Comp.Exposure is not (ZenCrystalExposure.Heat or ZenCrystalExposure.Cold))
+            ent.Comp.Status = Loc.GetString("zen-lab-resource-missing");
             return;
+        }
+
+        var containment = sample.Comp.Runaway && ent.Comp.Exposure == ZenCrystalExposure.Cold;
+        if (sample.Comp.Runaway && !containment)
+        {
+            ent.Comp.Status = Loc.GetString("zen-lab-runaway-apparatus");
+            return;
+        }
+        if (chamber.Comp.ActiveEmitter != null || (!containment && (sample.Comp.Runaway ||
+            sample.Comp.Stage != ZenCrystalStage.Structure || sample.Comp.Step >= sample.Comp.Tasks.Count ||
+            sample.Comp.ScannedStep != sample.Comp.Step)))
+        {
+            ent.Comp.Status = Loc.GetString("zen-lab-scan-required");
+            return;
+        }
+        chamber.Comp.ActiveEmitter = ent.Owner;
+        chamber.Comp.Exposure = ent.Comp.Exposure;
+        chamber.Comp.AppliedDose = 0f;
+        chamber.Comp.ExposureSeconds = 0f;
+        chamber.Comp.DoseOverloaded = false;
+        sample.Comp.PulseAttempts++;
+
+
         ent.Comp.Chamber = chamber.Owner;
+        ent.Comp.ContainmentCooling = containment;
         ent.Comp.Operator = user;
         ent.Comp.Active = true;
         ent.Comp.Status = Loc.GetString("zen-lab-apparatus-running");
+        SetApparatusLocks(ent, true);
         _ambient.SetAmbience(ent, true);
         Dirty(ent);
     }
@@ -326,99 +462,72 @@ public sealed partial class ZenCrystalResearchSystem
         if (!TryComp<ZenCrystalEmitterComponent>(uid, out var emitter))
             return;
         emitter.Active = false;
+        emitter.Status = Loc.GetString(evaluate ? "zen-crystal-paused" : "zen-lab-apparatus-interrupted");
+        SetApparatusLocks((uid, emitter), false);
         _ambient.SetAmbience(uid, false);
         if (TryComp<ZenCrystalChamberComponent>(emitter.Chamber, out var comp) && comp.ActiveEmitter == uid)
         {
             Entity<ZenCrystalChamberComponent> chamber = (emitter.Chamber!.Value, comp);
             comp.ActiveEmitter = null;
-            if (TryCrystal(chamber, out var sample) && sample.Comp.Stage == ZenCrystalStage.Structure && comp.AppliedDose > 0f)
+            if (TryCrystal(chamber, out var sample) && !sample.Comp.Runaway && !emitter.ContainmentCooling && sample.Comp.Stage == ZenCrystalStage.Structure &&
+                comp.ExposureSeconds > 0f)
             {
                 if (evaluate)
+                {
                     FinishPulse(chamber, sample, emitter);
+                    emitter.Status = comp.Status;
+                }
                 else
                     ChangeInstability(chamber, sample, 10f);
             }
+
             UpdateUi(chamber);
         }
+
         emitter.Chamber = null;
+        emitter.ContainmentCooling = false;
         Dirty(uid, emitter);
         UpdateEmitterUi((uid, emitter));
     }
 
-    private void FinishPulse(Entity<ZenCrystalChamberComponent> chamber, Entity<ZenCrystalResearchComponent> sample,
-        ZenCrystalEmitterComponent emitter)
+    private void FinishPulse(Entity<ZenCrystalChamberComponent> chamber,
+        Entity<ZenCrystalResearchComponent> sample, ZenCrystalEmitterComponent emitter)
     {
-        var data = sample.Comp;
-        var lower = data.ActivationDoses[data.Step];
-        var upper = lower + data.DoseTolerances[data.Step];
-        string result;
-        if (emitter.Exposure != data.Sequence[data.Step])
+        if (PulseReady(chamber.Comp, sample.Comp))
         {
-            ChangeInstability(chamber, sample, 25f);
-            result = Loc.GetString("zen-lab-incompatible-exposure");
-        }
-        else if (chamber.Comp.DoseOverloaded || chamber.Comp.AppliedDose > upper)
-            result = Loc.GetString("zen-lab-pulse-overloaded");
-        else if (chamber.Comp.AppliedDose < lower)
-        {
+            var incidents = sample.Comp.Incidents;
             ChangeInstability(chamber, sample, 8f);
-            result = Loc.GetString("zen-lab-pulse-short");
-        }
-        else
-        {
-            data.Step++;
-            data.PulseAttempts = 0;
-            ChangeInstability(chamber, sample, 15f);
-            result = Loc.GetString("zen-crystal-layer-opened", ("step", data.Step));
-            Spawn("ZenCrystalResearchPulse", Transform(sample).Coordinates);
-            _audio.PlayPvs(new SoundPathSpecifier("/Audio/Machines/scan_finish.ogg"), sample);
-            if (data.Step == data.Sequence.Count)
+            if (sample.Comp.Stage != ZenCrystalStage.Exhausted)
             {
-                data.Stage = ZenCrystalStage.Growth;
-                result += "\n" + GrowthClue(data);
+                CompleteTask(chamber, sample, emitter.Operator is { } user && !Deleted(user) ? Name(user) : null);
+                if (incidents != sample.Comp.Incidents || sample.Comp.Runaway)
+                    chamber.Comp.Running = false;
             }
         }
-        chamber.Comp.Status = result;
-        Log(data, result, emitter.Operator is { } user && !Deleted(user) ? Name(user) : null);
+        else
+            FailedTask(chamber, sample, chamber.Comp.DoseOverloaded ? "zen-lab-pulse-overloaded" : "zen-lab-task-failed", 20f);
         UpdateVisuals(sample);
     }
 
-    private void ChangeInstability(Entity<ZenCrystalChamberComponent> chamber, Entity<ZenCrystalResearchComponent> sample, float amount)
+    private void ChangeInstability(Entity<ZenCrystalChamberComponent> chamber,
+        Entity<ZenCrystalResearchComponent> sample, float amount)
     {
-        var previous = sample.Comp.Instability;
-        sample.Comp.Instability = Math.Max(0f, previous + amount);
-        if (previous < 75f && sample.Comp.Instability >= 75f)
-        {
-            _popup.PopupEntity(Loc.GetString("zen-crystal-instability-warning"), sample, PopupType.LargeCaution);
-            Spawn("ZenCrystalWarningPulse", Transform(sample).Coordinates);
-            _audio.PlayPvs(new SoundCollectionSpecifier("sparks"), sample);
-        }
-        if (sample.Comp.Instability < 100f)
+        if (sample.Comp.Stage == ZenCrystalStage.Exhausted)
             return;
-        sample.Comp.Instability = 60f;
-        sample.Comp.Incidents++;
-        sample.Comp.Quality = Math.Max(0.5f, sample.Comp.Quality - 0.1f);
-        _damage.TryChangeDamage(chamber, new DamageSpecifier { DamageDict = new() { { "Heat", 10 } } });
-        Spawn("EffectTeslaSparks", Transform(sample).Coordinates);
-        Log(sample.Comp, Loc.GetString("zen-crystal-incident"));
-        if (sample.Comp.Incidents >= 2)
-        {
-            Spawn("ZenCrystalBreachPulse", Transform(sample).Coordinates);
-            Spawn("MobHeadcrabStationBlackM", Transform(chamber).Coordinates);
-            _popup.PopupEntity(Loc.GetString("zen-lab-local-breach"), chamber, PopupType.LargeCaution);
-        }
+        sample.Comp.Instability = Math.Clamp(sample.Comp.Instability + amount, 0f, 100f);
+        if (sample.Comp.Instability >= RunawayThreshold)
+            BeginRunaway(sample);
     }
 
     private string Reaction(Entity<ZenCrystalChamberComponent> chamber, ZenCrystalResearchComponent sample)
     {
-        if (chamber.Comp.ActiveEmitter == null || sample.Stage != ZenCrystalStage.Structure || sample.Step >= sample.ActivationDoses.Count)
+        if (chamber.Comp.ActiveEmitter == null || sample.Stage != ZenCrystalStage.Structure || sample.Step >= sample.Tasks.Count)
             return string.Empty;
-        if (chamber.Comp.Exposure != sample.Sequence[sample.Step])
+        if (!MatchesTask(chamber.Comp.Exposure, sample.Tasks[sample.Step]))
             return Loc.GetString("zen-lab-reaction-chaotic");
-        if (chamber.Comp.AppliedDose > sample.ActivationDoses[sample.Step] + sample.DoseTolerances[sample.Step])
+        if (chamber.Comp.DoseOverloaded)
             return Loc.GetString("zen-lab-reaction-fracture");
-        return Loc.GetString(chamber.Comp.AppliedDose >= sample.ActivationDoses[sample.Step]
-            ? "zen-lab-reaction-stable" : "zen-lab-reaction-building");
+        return Loc.GetString(PulseReady(chamber.Comp, sample) ? "zen-lab-reaction-stable" : "zen-lab-reaction-building");
     }
 
     private bool ConsumeApparatusResource(Entity<ZenCrystalEmitterComponent> ent, float frameTime)
@@ -433,10 +542,37 @@ public sealed partial class ZenCrystalResearchSystem
             return false;
         var spent = (0.2f + ent.Comp.Power * 0.03f) * frameTime;
         if (coolant.Remaining < spent)
+        {
+            coolant.Remaining = 0f;
+            Dirty(item, coolant);
             return false;
+        }
+
         coolant.Remaining -= spent;
         Dirty(item, coolant);
         return true;
+    }
+
+    private void SetApparatusLocks(Entity<ZenCrystalEmitterComponent> ent, bool locked)
+    {
+        if (!HasComp<ItemSlotsComponent>(ent))
+            return;
+        if (ent.Comp.Exposure == ZenCrystalExposure.Cold)
+            _slots.SetLock(ent, CoolantSlot, locked);
+        else if (ent.Comp.Exposure == ZenCrystalExposure.Electricity)
+            _slots.SetLock(ent, CapacitorSlot, locked);
+    }
+
+    private float GetConsumable(Entity<ZenCrystalEmitterComponent> ent)
+    {
+        if (ent.Comp.Exposure == ZenCrystalExposure.Cold && _slots.TryGetSlot(ent, CoolantSlot, out var coolantSlot) &&
+            TryComp<ZenCrystalCoolantComponent>(coolantSlot.Item, out var coolant))
+            return coolant.Remaining;
+        if (ent.Comp.Exposure == ZenCrystalExposure.Electricity &&
+            _slots.TryGetSlot(ent, CapacitorSlot, out var slot) &&
+            TryComp<Content.Server.Power.Components.BatteryComponent>(slot.Item, out var battery))
+            return battery.CurrentCharge;
+        return -1f;
     }
 
     private void UpdateLaboratory(float frameTime)
@@ -445,9 +581,9 @@ public sealed partial class ZenCrystalResearchSystem
         var updateUi = _emitterUiAccumulator >= 0.25f;
         if (updateUi)
             _emitterUiAccumulator = 0f;
-        var chambers = EntityQueryEnumerator<ZenCrystalChamberComponent>();
-        while (chambers.MoveNext(out _, out var chamber))
-            chamber.Temperature += (20f - chamber.Temperature) * Math.Min(1f, frameTime * 0.006f);
+        var samples = EntityQueryEnumerator<ZenCrystalResearchComponent>();
+        while (samples.MoveNext(out _, out var sampleData))
+            sampleData.Temperature += (20f - sampleData.Temperature) * Math.Min(1f, frameTime * 0.006f);
 
         var query = EntityQueryEnumerator<ZenCrystalEmitterComponent>();
         while (query.MoveNext(out var uid, out var emitter))
@@ -465,31 +601,49 @@ public sealed partial class ZenCrystalResearchSystem
                     StopEmitter(uid, false);
                     continue;
                 }
-                if (sample.Comp.Stage == ZenCrystalStage.Structure && chamber.Comp.ActiveEmitter == uid)
+
+                if (emitter.ContainmentCooling)
                 {
-                    chamber.Comp.AppliedDose += emitter.Power * frameTime;
-                    if (emitter.Exposure != sample.Comp.Sequence[sample.Comp.Step])
-                        ChangeInstability(chamber, sample, 4f * frameTime);
-                    else if (chamber.Comp.AppliedDose > sample.Comp.ActivationDoses[sample.Comp.Step] + sample.Comp.DoseTolerances[sample.Comp.Step])
+                    if (!sample.Comp.Runaway)
                     {
-                        ChangeInstability(chamber, sample, chamber.Comp.DoseOverloaded ? 6f * frameTime : 25f);
-                        chamber.Comp.DoseOverloaded = true;
+                        StopEmitter(uid, false);
+                        continue;
                     }
-                }
-                else if (sample.Comp.Stage == ZenCrystalStage.Growth)
-                {
-                    var direction = emitter.Exposure == ZenCrystalExposure.Heat ? 1f : -1f;
-                    var delta = emitter.TargetTemperature - chamber.Comp.Temperature;
-                    if (delta * direction > 0f)
-                        chamber.Comp.Temperature += direction * Math.Min(Math.Abs(delta), emitter.Power * frameTime * 0.6f);
-                    if (emitter.Exposure == ZenCrystalExposure.Cold)
-                        ChangeInstability(chamber, sample, -frameTime * 0.2f);
+                    sample.Comp.Temperature = Math.Max(-40f, sample.Comp.Temperature - 2.5f * frameTime);
                 }
                 else
                 {
-                    StopEmitter(uid, false);
-                    continue;
+                    if (sample.Comp.Runaway || sample.Comp.Stage != ZenCrystalStage.Structure || sample.Comp.Step >= sample.Comp.Tasks.Count)
+                    {
+                        StopEmitter(uid, false);
+                        continue;
+                    }
+                    chamber.Comp.ExposureSeconds += frameTime;
+                    if (emitter.Exposure is ZenCrystalExposure.Heat or ZenCrystalExposure.Cold)
+                        sample.Comp.Temperature = Math.Clamp(sample.Comp.Temperature +
+                            (emitter.Exposure == ZenCrystalExposure.Heat ? 2.5f : -2.5f) * frameTime, -40f, 120f);
+                    else
+                        chamber.Comp.AppliedDose += emitter.Power * frameTime;
+                    var task = sample.Comp.Tasks[sample.Comp.Step];
+                    if (!MatchesTask(emitter.Exposure, task))
+                        ChangeInstability(chamber, sample, 6f * frameTime);
+                    else
+                    {
+                        var overloaded = task.Type == ZenCrystalTaskType.Temperature
+                            ? emitter.Exposure == ZenCrystalExposure.Heat
+                                ? sample.Comp.Temperature > task.Target + task.Tolerance
+                                : sample.Comp.Temperature < task.Target - task.Tolerance
+                            : chamber.Comp.AppliedDose > task.Target + task.Tolerance;
+                        if (overloaded)
+                        {
+                            var penalty = chamber.Comp.DoseOverloaded ? 8f * frameTime : 30f;
+                            chamber.Comp.DoseOverloaded = true;
+                            ChangeInstability(chamber, sample, penalty);
+                        }
+                    }
                 }
+                if (!emitter.Active || sample.Comp.Stage == ZenCrystalStage.Exhausted)
+                    continue;
                 emitter.EffectAccumulator += frameTime;
                 if (emitter.EffectAccumulator >= 0.65f)
                 {
@@ -499,6 +653,7 @@ public sealed partial class ZenCrystalResearchSystem
                     Spawn("ZenCrystal" + suffix + "Pulse", Transform(sample).Coordinates);
                 }
             }
+
             if (updateUi)
                 UpdateEmitterUi(ent);
         }
@@ -509,8 +664,7 @@ public sealed partial class ZenCrystalResearchSystem
         var state = new ZenCrystalEmitterState
         {
             Exposure = ent.Comp.Exposure,
-            Power = ent.Comp.Power,
-            TargetTemperature = ent.Comp.TargetTemperature,
+            Power = ent.Comp.Exposure is ZenCrystalExposure.Heat or ZenCrystalExposure.Cold ? 2.5f : ent.Comp.Power,
             Active = ent.Comp.Active,
             Powered = this.IsPowered(ent, EntityManager) && Transform(ent).Anchored,
             Status = ent.Comp.Status,
@@ -523,18 +677,23 @@ public sealed partial class ZenCrystalResearchSystem
             state.Dose = chamber.Comp.AppliedDose;
             if (TryCrystal(chamber, out var sample))
             {
+                state.HasSample = true;
+                state.SampleTemperature = MathF.Round(sample.Comp.Temperature, 1);
                 state.Instability = sample.Comp.Instability;
+                state.Hazard = HazardStatus(sample.Comp);
                 if (ent.Comp.Active)
-                    state.Status = sample.Comp.Stage == ZenCrystalStage.Structure ? Reaction(chamber, sample.Comp) :
-                        Loc.GetString("zen-lab-temperature-live", ("temperature", MathF.Round(chamber.Comp.Temperature, 1)));
+                    state.Status = ent.Comp.ContainmentCooling ? Loc.GetString("zen-lab-containment-cooling") : sample.Comp.Stage == ZenCrystalStage.Structure
+                        ? Reaction(chamber, sample.Comp)
+                        : Loc.GetString("zen-lab-task-growing");
             }
         }
-        if (ent.Comp.Exposure == ZenCrystalExposure.Cold && _slots.TryGetSlot(ent, CoolantSlot, out var coolantSlot) &&
-            TryComp<ZenCrystalCoolantComponent>(coolantSlot.Item, out var coolant))
-            state.Consumable = coolant.Remaining;
-        if (ent.Comp.Exposure == ZenCrystalExposure.Electricity && _slots.TryGetSlot(ent, CapacitorSlot, out var slot) &&
-            TryComp<Content.Shared.Power.Components.BatteryComponent>(slot.Item, out var battery))
-            state.Consumable = battery.CurrentCharge;
+
+        state.Consumable = GetConsumable(ent);
+        if (ent.Comp.Exposure == ZenCrystalExposure.Cold)
+            state.ConsumableCapacity = 120f;
+        else if (_slots.TryGetSlot(ent, CapacitorSlot, out var slot) &&
+                 TryComp<Content.Server.Power.Components.BatteryComponent>(slot.Item, out var battery))
+            state.ConsumableCapacity = battery.MaxCharge;
         _ui.SetUiState(ent.Owner, ZenCrystalUiKey.Emitter, state);
     }
 }

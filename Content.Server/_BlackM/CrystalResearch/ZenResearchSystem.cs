@@ -4,6 +4,7 @@ using Content.Server.Power.EntitySystems;
 using Content.Server.Research.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared._BlackM.CrystalResearch;
+using Content.Shared._BlackM.Headcrab;
 using Content.Shared.Access.Systems;
 using Content.Shared.GameTicking;
 using Content.Shared.Ghost;
@@ -11,8 +12,10 @@ using Content.Shared.Humanoid;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Popups;
 using Content.Shared.Research.Components;
 using Content.Shared.Roles.Jobs;
+using Content.Shared.Tag;
 using Content.Shared.Zombies;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
@@ -31,6 +34,8 @@ public sealed class ZenResearchSystem : EntitySystem
     [Dependency] private SharedMindSystem _mind = default!;
     [Dependency] private SharedJobSystem _jobs = default!;
     [Dependency] private MovementSpeedModifierSystem _movement = default!;
+    [Dependency] private TagSystem _tags = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
 
     private float _accumulator;
 
@@ -38,11 +43,12 @@ public sealed class ZenResearchSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnSpawned);
-        Subs.BuiEvents<ZenResearchConsoleComponent>(ZenCrystalUiKey.Console, subs =>
-        {
-            subs.Event<BoundUIOpenedEvent>(OnOpened);
-            subs.Event<ZenResearchPurchaseMessage>(OnPurchase);
-        });
+        Subs.BuiEvents<ZenResearchConsoleComponent>(ZenCrystalUiKey.Console,
+            subs =>
+            {
+                subs.Event<BoundUIOpenedEvent>(OnOpened);
+                subs.Event<ZenResearchPurchaseMessage>(OnPurchase);
+            });
     }
 
     private void OnSpawned(PlayerSpawnCompleteEvent args)
@@ -62,13 +68,14 @@ public sealed class ZenResearchSystem : EntitySystem
                _station.GetOwningStation(server.Value) == station && this.IsPowered(server.Value, EntityManager);
     }
 
-    public bool TryAward(EntityUid machine)
+    public bool TryAward(EntityUid machine, int amount = 1)
     {
         if (!CanAward(machine) || _station.GetOwningStation(machine) is not { } station)
             return false;
         var research = EnsureComp<ZenResearchStationComponent>(station);
-        research.Breakthroughs++;
-        _chat.DispatchStationAnnouncement(machine, Loc.GetString("zen-research-breakthrough-announcement"),
+        research.Breakthroughs += amount;
+        _chat.DispatchStationAnnouncement(machine,
+            Loc.GetString(amount > 1 ? "zen-lab-bonus-announcement" : "zen-research-breakthrough-announcement"),
             Loc.GetString("zen-research-announcement-sender"));
         UpdateConsoles();
         return true;
@@ -76,9 +83,33 @@ public sealed class ZenResearchSystem : EntitySystem
 
     private void OnOpened(Entity<ZenResearchConsoleComponent> ent, ref BoundUIOpenedEvent args) => UpdateUi(ent);
 
+    public bool RegisterSample(Entity<ZenCrystalResearchComponent> sample, EntityUid user)
+    {
+        if (_station.GetOwningStation(user) is not { } station)
+        {
+            _popup.PopupEntity(Loc.GetString("zen-lab-scan-no-station"), sample, user);
+            return false;
+        }
+        if (sample.Comp.LaboratoryStation != station)
+        {
+            var data = EnsureComp<ZenResearchStationComponent>(station);
+            sample.Comp.LaboratoryStation = station;
+            sample.Comp.SampleNumber = data.NextSampleNumber++;
+            if (!data.Samples.Contains(sample))
+                data.Samples.Add(sample);
+        }
+        return true;
+    }
+
     private void OnPurchase(Entity<ZenResearchConsoleComponent> ent, ref ZenResearchPurchaseMessage args)
     {
-        if (!this.IsPowered(ent, EntityManager) || !Transform(ent).Anchored || !_access.IsAllowed(args.Actor, ent.Owner) ||
+        if (!_access.IsAllowed(args.Actor, ent.Owner))
+        {
+            _popup.PopupEntity(Loc.GetString("zen-research-no-access"), ent, args.Actor);
+            return;
+        }
+
+        if (!this.IsPowered(ent, EntityManager) || !Transform(ent).Anchored ||
             _station.GetOwningStation(ent.Owner) is not { } station ||
             !_research.TryGetClientServer(ent, out var server, out var serverComp) ||
             _station.GetOwningStation(server.Value) != station || !this.IsPowered(server.Value, EntityManager))
@@ -95,25 +126,29 @@ public sealed class ZenResearchSystem : EntitySystem
             research.Breakthroughs -= perk.Costs[level];
             research.Perks[perk.ID] = level + 1;
             RefreshCrew();
-            _chat.DispatchStationAnnouncement(ent, Loc.GetString("zen-research-perk-announcement",
-                    ("perk", Loc.GetString(perk.Name)), ("level", level + 1)),
+            _chat.DispatchStationAnnouncement(ent,
+                Loc.GetString("zen-research-perk-announcement",
+                    ("perk", Loc.GetString(perk.Name)),
+                    ("level", level + 1)),
                 Loc.GetString("zen-research-announcement-sender"));
         }
         else
         {
             if (!_prototypes.TryIndex<ZenResearchSupplyPrototype>(args.Id, out var supply) || supply.Cost <= 0 ||
-                serverComp.Points < supply.Cost || research.Deliveries.Count >= 5 ||
+                serverComp.Points < supply.Cost || research.Deliveries.Count(d => !d.Delivered) >= 5 ||
                 research.Purchased.GetValueOrDefault(supply.ID) >= supply.Stock)
                 return;
             _research.ModifyServerPoints(server.Value, -supply.Cost, serverComp);
             research.Purchased[supply.ID] = research.Purchased.GetValueOrDefault(supply.ID) + 1;
             research.Deliveries.Add(new ZenResearchDelivery
             {
+                Number = research.NextOrderNumber++,
                 Supply = supply.ID,
                 Destination = ent.Owner,
                 Remaining = (float) supply.DeliveryTime.TotalSeconds,
             });
         }
+
         UpdateConsoles();
     }
 
@@ -132,6 +167,8 @@ public sealed class ZenResearchSystem : EntitySystem
             for (var i = research.Deliveries.Count - 1; i >= 0; i--)
             {
                 var delivery = research.Deliveries[i];
+                if (delivery.Delivered)
+                    continue;
                 delivery.Remaining = Math.Max(0f, delivery.Remaining - elapsed);
                 if (delivery.Remaining > 0f || !_prototypes.TryIndex(delivery.Supply, out var supply))
                     continue;
@@ -148,41 +185,46 @@ public sealed class ZenResearchSystem : EntitySystem
                         break;
                     }
                 }
+
                 if (!IsReceiver(delivery.Destination, station))
                     continue;
                 Spawn(supply.Product, Transform(delivery.Destination).Coordinates);
-                research.Deliveries.RemoveAt(i);
+                delivery.Delivered = true;
             }
+            // Retain recent completed orders without letting the station history grow forever.
+            while (research.Deliveries.Count(d => d.Delivered) > 30)
+                research.Deliveries.RemoveAt(research.Deliveries.FindIndex(d => d.Delivered));
         }
+
         RefreshCrew();
         UpdateConsoles();
     }
 
     private bool IsReceiver(EntityUid uid, EntityUid station) => !TerminatingOrDeleted(uid) &&
-        HasComp<ZenResearchConsoleComponent>(uid) && _station.GetOwningStation(uid) == station &&
-        Transform(uid).Anchored && this.IsPowered(uid, EntityManager);
+                                                                 HasComp<ZenResearchConsoleComponent>(uid) &&
+                                                                 _station.GetOwningStation(uid) == station &&
+                                                                 Transform(uid).Anchored &&
+                                                                 this.IsPowered(uid, EntityManager);
 
     private void RefreshCrew()
     {
         var query = EntityQueryEnumerator<MindContainerComponent, HumanoidAppearanceComponent>();
         while (query.MoveNext(out var uid, out var container, out _))
         {
-            var eligible = container.Mind is { } mind &&
-                           TryComp<ZenResearchCrewMemberComponent>(mind, out var membership) &&
-                           TryComp<ZenResearchStationComponent>(membership.Station, out var stationResearch) &&
-                           _jobs.MindTryGetJobId(mind, out var job) && job != null &&
-                           _stationJobs.GetJobs(membership.Station).ContainsKey(job.Value) &&
-                           !HasComp<GhostComponent>(uid) && !HasComp<ZombieComponent>(uid);
-            if (!eligible)
+            if (container.Mind is not { } mind ||
+                !TryComp<ZenResearchCrewMemberComponent>(mind, out var membership) ||
+                !TryComp<ZenResearchStationComponent>(membership.Station, out var data) ||
+                !_jobs.MindTryGetJobId(mind, out var job) || job == null ||
+                !_stationJobs.GetJobs(membership.Station).ContainsKey(job.Value) ||
+                HasComp<GhostComponent>(uid) || HasComp<ZombieComponent>(uid) ||
+                HasComp<HeadcrabCapturedComponent>(uid) || _tags.HasTag(uid, "HECU"))
             {
                 RemCompDeferred<ZenResearchCrewBonusComponent>(uid);
                 continue;
             }
 
-            // Resolve again after the eligibility check to keep the station identity explicit.
-            var member = Comp<ZenResearchCrewMemberComponent>(container.Mind!.Value);
-            var data = Comp<ZenResearchStationComponent>(member.Station);
             float speed = 0f, pull = 0f, resistance = 0f;
+            float stamina = 0f, thermal = 0f, radiation = 0f, poison = 0f;
             foreach (var (id, level) in data.Perks)
             {
                 if (!_prototypes.TryIndex<ZenResearchPerkPrototype>(id, out var perk))
@@ -190,14 +232,25 @@ public sealed class ZenResearchSystem : EntitySystem
                 speed += perk.SpeedPerLevel * level;
                 pull += perk.PullSpeedPerLevel * level;
                 resistance += perk.InfectionResistancePerLevel * level;
+                stamina += perk.StaminaResistancePerLevel * level;
+                thermal += perk.ThermalResistancePerLevel * level;
+                radiation += perk.RadiationResistancePerLevel * level;
+                poison += perk.PoisonResistancePerLevel * level;
             }
+
             var bonus = EnsureComp<ZenResearchCrewBonusComponent>(uid);
             if (MathHelper.CloseTo(bonus.Speed, speed) && MathHelper.CloseTo(bonus.PullSpeed, pull) &&
-                MathHelper.CloseTo(bonus.InfectionResistance, resistance))
+                MathHelper.CloseTo(bonus.InfectionResistance, resistance) &&
+                MathHelper.CloseTo(bonus.StaminaResistance, stamina) && MathHelper.CloseTo(bonus.ThermalResistance, thermal) &&
+                MathHelper.CloseTo(bonus.RadiationResistance, radiation) && MathHelper.CloseTo(bonus.PoisonResistance, poison))
                 continue;
             bonus.Speed = speed;
             bonus.PullSpeed = pull;
             bonus.InfectionResistance = Math.Clamp(resistance, 0f, 0.9f);
+            bonus.StaminaResistance = Math.Clamp(stamina, 0f, 0.5f);
+            bonus.ThermalResistance = Math.Clamp(thermal, 0f, 0.5f);
+            bonus.RadiationResistance = Math.Clamp(radiation, 0f, 0.5f);
+            bonus.PoisonResistance = Math.Clamp(poison, 0f, 0.5f);
             Dirty(uid, bonus);
             _movement.RefreshMovementSpeedModifiers(uid);
         }
@@ -233,23 +286,44 @@ public sealed class ZenResearchSystem : EntitySystem
                 state.Connected = true;
                 state.Points = serverComp.Points;
             }
+
             foreach (var perk in _prototypes.EnumeratePrototypes<ZenResearchPerkPrototype>().OrderBy(p => p.ID))
             {
                 var level = research.Perks.GetValueOrDefault(perk.ID);
-                state.Perks.Add(new ZenResearchPerkEntry(perk.ID, Loc.GetString(perk.Name), Loc.GetString(perk.Description),
-                    level, perk.Costs.Count, level < perk.Costs.Count ? perk.Costs[level] : 0));
+                state.Perks.Add(new ZenResearchPerkEntry(perk.ID,
+                    Loc.GetString(perk.Name),
+                    Loc.GetString(perk.Description),
+                    level,
+                    perk.Costs.Count,
+                    level < perk.Costs.Count ? perk.Costs[level] : 0));
             }
+
             foreach (var supply in _prototypes.EnumeratePrototypes<ZenResearchSupplyPrototype>().OrderBy(p => p.ID))
-                state.Supplies.Add(new ZenResearchSupplyEntry(supply.ID, Loc.GetString(supply.Name), supply.Product.Id,
-                    supply.Cost, Math.Max(0, supply.Stock - research.Purchased.GetValueOrDefault(supply.ID)),
-                    (int) Math.Ceiling(supply.DeliveryTime.TotalSeconds)));
+                state.Supplies.Add(new ZenResearchSupplyEntry(supply.ID,
+                    Loc.GetString(supply.Name),
+                    supply.Product.Id,
+                    supply.Cost,
+                    Math.Max(0, supply.Stock - research.Purchased.GetValueOrDefault(supply.ID)),
+                    (int) Math.Ceiling(supply.DeliveryTime.TotalSeconds),
+                    supply.Category));
             foreach (var delivery in research.Deliveries)
             {
                 if (_prototypes.TryIndex(delivery.Supply, out var supply))
-                    state.Deliveries.Add(Loc.GetString("zen-research-delivery", ("name", Loc.GetString(supply.Name)),
-                        ("seconds", (int) Math.Ceiling(delivery.Remaining))));
+                    state.Deliveries.Add(new ZenResearchOrderEntry(delivery.Number, Loc.GetString(supply.Name),
+                        (int) Math.Ceiling(delivery.Remaining), delivery.Delivered));
+            }
+            foreach (var uid in research.Samples)
+            {
+                if (!TryComp<ZenCrystalResearchComponent>(uid, out var sample) ||
+                    sample.LaboratoryStation != station || TerminatingOrDeleted(uid))
+                    continue;
+                state.Samples.Add(new ZenResearchSampleEntry(sample.SampleNumber, Name(uid),
+                    Loc.GetString("zen-crystal-stage-" + sample.Stage.ToString().ToLowerInvariant()),
+                    sample.Runaway ? ZenCrystalResearchSystem.HazardStatus(sample) : sample.CurrentTask,
+                    string.Join("\n\n", sample.Journal)));
             }
         }
+
         _ui.SetUiState(ent.Owner, ZenCrystalUiKey.Console, state);
     }
 }

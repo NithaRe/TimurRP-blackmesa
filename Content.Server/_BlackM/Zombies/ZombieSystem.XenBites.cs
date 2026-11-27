@@ -1,4 +1,5 @@
 ﻿using Content.Shared.Zombies;
+using Content.Shared._BlackM.CrystalResearch;
 
 #pragma warning disable IDE0130
 namespace Content.Server.Zombies;
@@ -27,6 +28,8 @@ public sealed partial class ZombieSystem
 
         var bites = Math.Clamp(exposure.Bites, 0, XenBiteChances.Length - 1);
         var chance = GetZombieInfectionChance(target, zombie, XenBiteChances[bites]);
+        if (TryComp<ZenResearchCrewBonusComponent>(target, out var bonus))
+            chance *= 1f - bonus.InfectionResistance;
 
         // Fully protective equipment must not accumulate infectious bites.
         if (chance > 0f)

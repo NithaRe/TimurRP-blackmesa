@@ -1,8 +1,6 @@
 ﻿using Robust.Client.Graphics;
-using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
-using static Robust.Client.UserInterface.StylesheetHelpers;
 
 namespace Content.Client._BlackM.CrystalResearch;
 
@@ -70,36 +68,4 @@ internal static class ZenResearchUi
         BackgroundStyleBoxOverride = new StyleBoxFlat(Color.FromHex("#303436")),
         ForegroundStyleBoxOverride = new StyleBoxFlat(color),
     };
-
-    public static Stylesheet Styles(IResourceCache resources)
-    {
-        var font = new VectorFont(resources.GetResource<FontResource>("/Fonts/RobotoMono/RobotoMono-Regular.ttf"), 12);
-        var regular = new StyleBoxFlat(Color.FromHex("#252B2D"))
-        {
-            BorderColor = Color.FromHex("#505855"),
-            BorderThickness = new Thickness(0, 0, 0, 1),
-            ContentMarginLeftOverride = 8,
-            ContentMarginRightOverride = 8,
-            ContentMarginTopOverride = 6,
-            ContentMarginBottomOverride = 6,
-        };
-        var active = new StyleBoxFlat(Color.FromHex("#3D382B"))
-        {
-            BorderColor = Amber,
-            BorderThickness = new Thickness(2, 0, 0, 0),
-            ContentMarginLeftOverride = 8,
-            ContentMarginRightOverride = 8,
-            ContentMarginTopOverride = 6,
-            ContentMarginBottomOverride = 6,
-        };
-        return new Stylesheet(new StyleRule[]
-        {
-            Element<Label>().Prop("font", font).Prop("font-color", Color.FromHex("#E1E1DA")),
-            Element<RichTextLabel>().Prop("font", font).Prop("font-color", Color.FromHex("#CDD1CA")),
-            Element<Button>().Prop("stylebox", regular),
-            Element<Button>().Pseudo("hover").Prop("stylebox", active),
-            Element<Button>().Pseudo("pressed").Prop("stylebox", active),
-            Element<Button>().Pseudo("disabled").Prop("modulate-self", Color.FromHex("#777777")),
-        });
-    }
 }

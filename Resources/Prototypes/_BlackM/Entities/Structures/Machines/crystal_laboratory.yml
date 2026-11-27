@@ -15,6 +15,7 @@
   parent: [BaseMachinePowered, SmallConstructibleMachine]
   components:
   - type: ZenCrystalEmitter
+  - type: DragDropTargetable
   - type: Physics
     bodyType: Static
   - type: Fixtures
@@ -28,7 +29,7 @@
   - type: Transform
     anchored: true
   - type: ApcPowerReceiver
-    powerLoad: 1200
+    powerLoad: 300
     needsPower: true
   - type: DeviceNetwork
     deviceNetId: Wired
@@ -63,8 +64,13 @@
   - type: ZenCrystalEmitter
     exposure: Heat
   - type: Sprite
-    sprite: Structures/Piping/Atmospherics/Portable/portable_sheater.rsi
-    state: sheaterOff
+    sprite: _BlackM/Structures/Machines/crystal_apparatus.rsi
+    layers:
+    - state: heater
+    - state: heater-active
+      visible: false
+      shader: unshaded
+      map: ["enum.ZenCrystalApparatusLayers.Active"]
     noRot: true
   - type: Machine
     board: ZenCrystalHeaterBoard
@@ -77,8 +83,13 @@
   - type: ZenCrystalEmitter
     exposure: Cold
   - type: Sprite
-    sprite: Structures/Piping/Atmospherics/thermomachine.rsi
-    state: freezerOff
+    sprite: _BlackM/Structures/Machines/crystal_apparatus.rsi
+    layers:
+    - state: cooler
+    - state: cooler-active
+      visible: false
+      shader: unshaded
+      map: ["enum.ZenCrystalApparatusLayers.Active"]
     noRot: true
   - type: Machine
     board: ZenCrystalCoolerBoard
@@ -100,8 +111,14 @@
   - type: ZenCrystalEmitter
     exposure: Electricity
   - type: Sprite
-    sprite: Structures/Power/Generation/Singularity/emitter.rsi
-    state: emitter
+    sprite: _BlackM/Structures/Machines/crystal_apparatus.rsi
+    noRot: true
+    layers:
+    - state: discharger
+    - state: discharger-active
+      visible: false
+      shader: unshaded
+      map: ["enum.ZenCrystalApparatusLayers.Active"]
   - type: Machine
     board: ZenCrystalDischargerBoard
   - type: ItemSlots
@@ -122,8 +139,14 @@
   - type: ZenCrystalEmitter
     exposure: Radiation
   - type: Sprite
-    sprite: Structures/Power/Generation/Singularity/collector.rsi
-    state: ca_off
+    sprite: _BlackM/Structures/Machines/crystal_apparatus.rsi
+    noRot: true
+    layers:
+    - state: irradiator
+    - state: irradiator-active
+      visible: false
+      shader: unshaded
+      map: ["enum.ZenCrystalApparatusLayers.Active"]
   - type: Machine
     board: ZenCrystalIrradiatorBoard
 
@@ -226,10 +249,8 @@
   - type: ZenCrystalLabTool
     tool: Scanner
     delay: 3
-  - type: UserInterface
-    interfaces:
-      enum.ZenCrystalUiKey.Chamber:
-        type: ZenCrystalChamberBoundUserInterface
+  - type: Item
+    size: Small
   - type: GuideHelp
     guides: [Xenoarchaeology]
 
@@ -244,6 +265,22 @@
   - type: ZenCrystalLabTool
     tool: Scraper
     delay: 5
+  - type: Item
+    size: Small
+
+- type: entity
+  id: ZenCrystalCutter
+  parent: BaseItem
+  name: crystal splitting chisel
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Zen/research_crystal.rsi
+    state: cutter
+  - type: Item
+    size: Small
+  - type: ZenCrystalLabTool
+    tool: Splitter
+    delay: 6
 
 - type: entity
   id: ZenCrystalStabilizer
@@ -257,6 +294,8 @@
   - type: ZenCrystalLabTool
     tool: Stabilizer
     delay: 6
+  - type: Item
+    size: Tiny
 
 - type: entity
   id: ZenCrystalCoolantCartridge
@@ -269,6 +308,8 @@
     color: "#80C1D4"
   - type: ZenCrystalCoolant
     remaining: 120
+  - type: Item
+    size: Small
 
 - type: entity
   id: ZenCrystalDeposit
@@ -276,10 +317,8 @@
   name: inert crystal deposits
   components:
   - type: Sprite
-    sprite: _BlackM/Objects/Zen/crystal.rsi
-    state: crystal_zen
-    scale: 0.35,0.35
-    color: "#6C7973"
+    sprite: _BlackM/Objects/Zen/research_crystal.rsi
+    state: residue
   - type: Item
     size: Tiny
   - type: StaticPrice
@@ -293,9 +332,9 @@
   - type: Item
     size: Huge
   - type: Storage
-    maxItemSize: Huge
+    maxItemSize: Large
     grid:
-    - 0,0,13,11
+    - 0,0,7,7
   - type: StorageFill
     contents:
     - id: ZenCrystalHeaterFlatpack
@@ -304,6 +343,7 @@
     - id: ZenCrystalIrradiatorFlatpack
     - id: ZenCrystalScanner
     - id: ZenCrystalScraper
+    - id: ZenCrystalCutter
     - id: ZenCrystalCoolantCartridge
       amount: 2
     - id: ZenCrystalStabilizer
@@ -314,4 +354,4 @@
       amount: 2
     - id: PowerCellHigh
       amount: 2
-    - id: NetworkConfigurator
+    - id: Multitool

@@ -1,11 +1,91 @@
 ﻿- type: entity
-  parent: MachineArtifactAnalyzer
+  parent: [BaseMachinePowered, SmallConstructibleMachine]
   id: MachineZenCrystalResonator
   name: Xen crystal resonator
   description: Extracts research data from a cultivated and studied Xen crystal, gradually exhausting it.
   components:
+  - type: Sprite
+    sprite: _BlackM/Structures/Machines/crystal_chamber.rsi
+    noRot: true
+    drawdepth: HighFloorObjects
+    layers:
+    - state: resonator
+    - sprite: _BlackM/Objects/Zen/research_crystal.rsi
+      state: mature
+      visible: false
+      offset: 0,0.125
+      map: ["enum.ZenCrystalChamberVisuals.Sample"]
+    - state: resonator-active
+      visible: false
+      shader: unshaded
+      map: ["enum.ZenCrystalChamberVisuals.Active"]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ZenCrystalChamberVisuals.Sample:
+        enum.ZenCrystalChamberVisuals.Sample:
+          none: { visible: false }
+          seed: { visible: true, state: seed, color: "#FFFFFF" }
+          growing: { visible: true, state: growing, color: "#FFFFFF" }
+          mature: { visible: true, state: mature, color: "#FFFFFF" }
+          dim: { visible: true, state: mature, color: "#9A9A9A" }
+          exhausted: { visible: true, state: mature, color: "#565E58" }
+      enum.ZenCrystalChamberVisuals.Active:
+        enum.ZenCrystalChamberVisuals.Active:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      sensor:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 190
+        mask: [MachineMask]
+        layer: [Impassable, MidImpassable, LowImpassable]
+        hard: false
+  - type: ApcPowerReceiver
+    powerLoad: 400
+    needsPower: true
   - type: ZenCrystalChamber
     resonator: true
+  - type: DragDropTargetable
+  - type: ContainerContainer
+    containers:
+      zen_crystal_sample: !type:ContainerSlot
+        showEnts: false
+        occludes: false
+  - type: ItemSlots
+    slots:
+      zen_crystal_sample:
+        name: zen-lab-slot-sample
+        whitelist:
+          components: [ZenCrystalResearch]
+        insertVerbText: zen-lab-insert-sample
+        ejectVerbText: zen-lab-eject-sample
+        insertSuccessPopup: zen-lab-sample-installed
+        ejectOnInteract: true
+        swap: false
+        occludesLight: false
+  - type: ResearchClient
+  - type: ActivatableUI
+    key: enum.ZenCrystalUiKey.Chamber
+  - type: UserInterface
+    interfaces:
+      enum.ZenCrystalUiKey.Chamber:
+        type: ZenCrystalChamberBoundUserInterface
+      enum.ResearchClientUiKey.Key:
+        type: ResearchClientBoundUserInterface
+  - type: AmbientSound
+    enabled: false
+    sound: /Audio/Machines/scan_loop.ogg
+    range: 5
+    volume: -12
+  - type: GuideHelp
+    guides: [Xenoarchaeology]
   - type: Machine
     board: ZenCrystalResonatorMachineCircuitboard
   - type: PointLight
