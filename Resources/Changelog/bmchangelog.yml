@@ -1261,3 +1261,14 @@ Entries:
       message: Реворк РНД
   id: 165
   time: '2026-11-27T10:01:12.0000000+00:00'
+# PR #185
+- author: deleteddata271-ship-it
+  changes:
+    - type: Add
+      message: Глок-17 добавлен в билд  и он заменил мк56
+    - type: Tweak
+      message: Спрайт м16 допилен
+    - type: Tweak
+      message: Заменены звуки у м16, мп5, спас-12.
+  id: 166
+  time: '2026-11-27T11:21:02.0000000+00:00'
