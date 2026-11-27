@@ -4,8 +4,8 @@ meta:
   engineVersion: 277.2.5
   forkId: ""
   forkVersion: ""
-  time: 11/25/2026 15:04:06
-  entityCount: 666
+  time: 11/27/2026 11:56:23
+  entityCount: 663
 maps:
 - 1
 grids:
@@ -515,17 +515,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 9.5,-2.5
       parent: 2
-    - type: DeviceLinkSource
-      linkedPorts:
-        577:
-        - - Pressed
-          - Toggle
-        578:
-        - - Pressed
-          - Toggle
-        579:
-        - - Pressed
-          - Toggle
     - type: Fixtures
       fixtures: {}
   - uid: 666
@@ -534,17 +523,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 11.5,-2.5
       parent: 2
-    - type: DeviceLinkSource
-      linkedPorts:
-        577:
-        - - Pressed
-          - Toggle
-        578:
-        - - Pressed
-          - Toggle
-        579:
-        - - Pressed
-          - Toggle
     - type: Fixtures
       fixtures: {}
 - proto: AirlockBrigLocked
@@ -575,23 +553,6 @@ entities:
     components:
     - type: Transform
       pos: 24.5,4.5
-      parent: 2
-- proto: AirlockMaintLocked
-  entities:
-  - uid: 577
-    components:
-    - type: Transform
-      pos: 10.5,-1.5
-      parent: 2
-  - uid: 578
-    components:
-    - type: Transform
-      pos: 10.5,-0.5
-      parent: 2
-  - uid: 579
-    components:
-    - type: Transform
-      pos: 10.5,0.5
       parent: 2
 - proto: AlwaysPoweredWallLight
   entities:
