@@ -137,6 +137,15 @@ public sealed partial class ArtifactCrusherSystem : SharedArtifactCrusherSystem
         var coords = Transform(ent).Coordinates;
         foreach (var contained in contents)
         {
+            var output = new ArtifactCrusherOutputEvent(coords);
+            RaiseLocalEvent(contained, ref output);
+            if (output.Handled)
+            {
+                foreach (var product in output.Output)
+                    ContainerSystem.Insert((product, null, null, null), crusher.OutputContainer);
+                Del(contained);
+                continue;
+            }
             if (_whitelistSystem.IsWhitelistPass(crusher.CrushingWhitelist, contained))
             {
                 var amount = _random.Next(crusher.MinFragments, crusher.MaxFragments);

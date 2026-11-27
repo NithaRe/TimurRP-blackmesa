@@ -387,8 +387,8 @@
 - type: entity
   id: ArtifactAnalyzerMachineCircuitboard
   parent: BaseMachineCircuitboard
-  name: artifact analyzer machine board
-  description: A machine printed circuit board for an artifact analyzer.
+  name: Xen crystal research chamber machine board
+  description: A machine printed circuit board for a Xen crystal research chamber.
   components:
     - type: Sprite
       state: science

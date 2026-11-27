@@ -6,6 +6,9 @@
   placement:
     mode: PlaceFree
   components:
+  - type: ZenCrystalRaw
+  - type: Item
+    size: Ginormous
   - type: Sprite
     sprite: _BlackM/Objects/Zen/crystal.rsi
     state: crystal_zen
@@ -65,3 +68,36 @@
   - type: Tag
     tags:
     - ZenCrystal
+
+- type: entity
+  id: ZenCrystalSample
+  parent: BaseItem
+  name: Xen crystal sample
+  description: A crystal seed cut from a natural Xen crystal. It can be studied and cultivated in a laboratory.
+  components:
+  - type: Item
+    size: Small
+  - type: ZenCrystalResearch
+  - type: ZenCrystalVisuals
+  - type: Sprite
+    sprite: _BlackM/Objects/Zen/research_crystal.rsi
+    noRot: true
+    layers:
+    - state: seed
+      map: ["enum.ZenCrystalVisualLayers.Base"]
+    - state: seed
+      shader: unshaded
+      visible: false
+      map: ["enum.ZenCrystalVisualLayers.Glow"]
+    - state: deposits
+      visible: false
+      map: ["enum.ZenCrystalVisualLayers.Deposits"]
+    - state: seed-cracks
+      visible: false
+      map: ["enum.ZenCrystalVisualLayers.Cracks"]
+  - type: PointLight
+    radius: 1.5
+    energy: 1
+    color: "#EAC94D"
+  - type: StaticPrice
+    price: 0

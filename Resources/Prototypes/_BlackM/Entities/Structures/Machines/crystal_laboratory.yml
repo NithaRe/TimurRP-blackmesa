@@ -1,0 +1,357 @@
+﻿- type: sourcePort
+  id: ZenCrystalExposure
+  name: zen-lab-port-output
+  description: zen-lab-port-output-desc
+  defaultLinks: [ZenCrystalInput]
+
+- type: sinkPort
+  id: ZenCrystalInput
+  name: zen-lab-port-input
+  description: zen-lab-port-input-desc
+
+- type: entity
+  abstract: true
+  id: BaseZenCrystalApparatus
+  parent: [BaseMachinePowered, SmallConstructibleMachine]
+  components:
+  - type: ZenCrystalEmitter
+  - type: DragDropTargetable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.3,0.3,0.3"
+        density: 190
+        mask: [MachineMask]
+        layer: [MachineLayer]
+  - type: Transform
+    anchored: true
+  - type: ApcPowerReceiver
+    powerLoad: 300
+    needsPower: true
+  - type: DeviceNetwork
+    deviceNetId: Wired
+    receiveFrequencyId: BasicDevice
+  - type: DeviceList
+  - type: DeviceLinkSource
+    range: 4
+    ports: [ZenCrystalExposure]
+  - type: ActivatableUI
+    key: enum.ZenCrystalUiKey.Emitter
+  - type: UserInterface
+    interfaces:
+      enum.ZenCrystalUiKey.Emitter:
+        type: ZenCrystalEmitterBoundUserInterface
+  - type: PointLight
+    radius: 1.5
+    energy: 0.2
+    color: "#91BFA8"
+  - type: AmbientSound
+    enabled: false
+    sound: /Audio/Machines/scan_loop.ogg
+    range: 5
+    volume: -12
+  - type: GuideHelp
+    guides: [Xenoarchaeology]
+
+- type: entity
+  id: ZenCrystalHeater
+  parent: BaseZenCrystalApparatus
+  name: crystal thermal inducer
+  components:
+  - type: ZenCrystalEmitter
+    exposure: Heat
+  - type: Sprite
+    sprite: _BlackM/Structures/Machines/crystal_apparatus.rsi
+    layers:
+    - state: heater
+    - state: heater-active
+      visible: false
+      shader: unshaded
+      map: ["enum.ZenCrystalApparatusLayers.Active"]
+    noRot: true
+  - type: Machine
+    board: ZenCrystalHeaterBoard
+
+- type: entity
+  id: ZenCrystalCooler
+  parent: BaseZenCrystalApparatus
+  name: crystal cooling unit
+  components:
+  - type: ZenCrystalEmitter
+    exposure: Cold
+  - type: Sprite
+    sprite: _BlackM/Structures/Machines/crystal_apparatus.rsi
+    layers:
+    - state: cooler
+    - state: cooler-active
+      visible: false
+      shader: unshaded
+      map: ["enum.ZenCrystalApparatusLayers.Active"]
+    noRot: true
+  - type: Machine
+    board: ZenCrystalCoolerBoard
+  - type: ItemSlots
+    slots:
+      zen_coolant:
+        name: zen-lab-slot-coolant
+        whitelist:
+          components: [ZenCrystalCoolant]
+        insertVerbText: zen-lab-insert-coolant
+        ejectVerbText: zen-lab-eject-coolant
+        swap: true
+
+- type: entity
+  id: ZenCrystalDischarger
+  parent: BaseZenCrystalApparatus
+  name: crystal pulse discharger
+  components:
+  - type: ZenCrystalEmitter
+    exposure: Electricity
+  - type: Sprite
+    sprite: _BlackM/Structures/Machines/crystal_apparatus.rsi
+    noRot: true
+    layers:
+    - state: discharger
+    - state: discharger-active
+      visible: false
+      shader: unshaded
+      map: ["enum.ZenCrystalApparatusLayers.Active"]
+  - type: Machine
+    board: ZenCrystalDischargerBoard
+  - type: ItemSlots
+    slots:
+      zen_capacitor:
+        name: zen-lab-slot-capacitor
+        whitelist:
+          tags: [PowerCell]
+        insertVerbText: zen-lab-insert-capacitor
+        ejectVerbText: zen-lab-eject-capacitor
+        swap: true
+
+- type: entity
+  id: ZenCrystalIrradiator
+  parent: BaseZenCrystalApparatus
+  name: crystal irradiation unit
+  components:
+  - type: ZenCrystalEmitter
+    exposure: Radiation
+  - type: Sprite
+    sprite: _BlackM/Structures/Machines/crystal_apparatus.rsi
+    noRot: true
+    layers:
+    - state: irradiator
+    - state: irradiator-active
+      visible: false
+      shader: unshaded
+      map: ["enum.ZenCrystalApparatusLayers.Active"]
+  - type: Machine
+    board: ZenCrystalIrradiatorBoard
+
+- type: entity
+  abstract: true
+  id: BaseZenCrystalApparatusBoard
+  parent: BaseMachineCircuitboard
+  components:
+  - type: Sprite
+    state: science
+
+- type: entity
+  id: ZenCrystalHeaterBoard
+  parent: BaseZenCrystalApparatusBoard
+  name: crystal thermal inducer board
+  components:
+  - type: MachineBoard
+    prototype: ZenCrystalHeater
+    stackRequirements:
+      Manipulator: 1
+      Glass: 2
+
+- type: entity
+  id: ZenCrystalCoolerBoard
+  parent: BaseZenCrystalApparatusBoard
+  name: crystal cooling unit board
+  components:
+  - type: MachineBoard
+    prototype: ZenCrystalCooler
+    stackRequirements:
+      Manipulator: 1
+      Glass: 2
+
+- type: entity
+  id: ZenCrystalDischargerBoard
+  parent: BaseZenCrystalApparatusBoard
+  name: crystal pulse discharger board
+  components:
+  - type: MachineBoard
+    prototype: ZenCrystalDischarger
+    stackRequirements:
+      Manipulator: 1
+      Glass: 2
+
+- type: entity
+  id: ZenCrystalIrradiatorBoard
+  parent: BaseZenCrystalApparatusBoard
+  name: crystal irradiation unit board
+  components:
+  - type: MachineBoard
+    prototype: ZenCrystalIrradiator
+    stackRequirements:
+      Manipulator: 1
+      Glass: 2
+
+- type: entity
+  id: ZenCrystalHeaterFlatpack
+  parent: BaseFlatpack
+  name: crystal thermal inducer flatpack
+  categories: []
+  components:
+  - type: Flatpack
+    entity: ZenCrystalHeater
+
+- type: entity
+  id: ZenCrystalCoolerFlatpack
+  parent: BaseFlatpack
+  name: crystal cooling unit flatpack
+  categories: []
+  components:
+  - type: Flatpack
+    entity: ZenCrystalCooler
+
+- type: entity
+  id: ZenCrystalDischargerFlatpack
+  parent: BaseFlatpack
+  name: crystal pulse discharger flatpack
+  categories: []
+  components:
+  - type: Flatpack
+    entity: ZenCrystalDischarger
+
+- type: entity
+  id: ZenCrystalIrradiatorFlatpack
+  parent: BaseFlatpack
+  name: crystal irradiation unit flatpack
+  categories: []
+  components:
+  - type: Flatpack
+    entity: ZenCrystalIrradiator
+
+- type: entity
+  id: ZenCrystalScanner
+  parent: BaseItem
+  name: crystal spectrometer
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Research/anomalyscanner.rsi
+    state: icon
+  - type: ZenCrystalLabTool
+    tool: Scanner
+    delay: 3
+  - type: Item
+    size: Small
+  - type: GuideHelp
+    guides: [Xenoarchaeology]
+
+- type: entity
+  id: ZenCrystalScraper
+  parent: BaseItem
+  name: crystal sample scraper
+  components:
+  - type: Sprite
+    sprite: _Shitmed/Objects/Specific/Medical/Surgery/scalpel.rsi
+    state: scalpel
+  - type: ZenCrystalLabTool
+    tool: Scraper
+    delay: 5
+  - type: Item
+    size: Small
+
+- type: entity
+  id: ZenCrystalCutter
+  parent: BaseItem
+  name: crystal splitting chisel
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Zen/research_crystal.rsi
+    state: cutter
+  - type: Item
+    size: Small
+  - type: ZenCrystalLabTool
+    tool: Splitter
+    delay: 6
+
+- type: entity
+  id: ZenCrystalStabilizer
+  parent: BaseItem
+  name: resonance stabilizer ampoule
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Chemistry/bottle.rsi
+    state: bottle-1
+    color: "#DAB46C"
+  - type: ZenCrystalLabTool
+    tool: Stabilizer
+    delay: 6
+  - type: Item
+    size: Tiny
+
+- type: entity
+  id: ZenCrystalCoolantCartridge
+  parent: BaseItem
+  name: crystal cooler cartridge
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Chemistry/bottle.rsi
+    state: bottle-1
+    color: "#80C1D4"
+  - type: ZenCrystalCoolant
+    remaining: 120
+  - type: Item
+    size: Small
+
+- type: entity
+  id: ZenCrystalDeposit
+  parent: BaseItem
+  name: inert crystal deposits
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Zen/research_crystal.rsi
+    state: residue
+  - type: Item
+    size: Tiny
+  - type: StaticPrice
+    price: 0
+
+- type: entity
+  id: ZenCrystalLaboratoryKit
+  parent: BoxCardboard
+  name: crystal laboratory equipment kit
+  components:
+  - type: Item
+    size: Huge
+  - type: Storage
+    maxItemSize: Large
+    grid:
+    - 0,0,7,7
+  - type: StorageFill
+    contents:
+    - id: ZenCrystalHeaterFlatpack
+    - id: ZenCrystalCoolerFlatpack
+    - id: ZenCrystalDischargerFlatpack
+    - id: ZenCrystalIrradiatorFlatpack
+    - id: ZenCrystalScanner
+    - id: ZenCrystalScraper
+    - id: ZenCrystalCutter
+    - id: ZenCrystalCoolantCartridge
+      amount: 2
+    - id: ZenCrystalStabilizer
+      amount: 3
+    - id: ZenMineralGrowthMedium
+      amount: 2
+    - id: ZenOrganicGrowthMedium
+      amount: 2
+    - id: PowerCellHigh
+      amount: 2
+    - id: Multitool

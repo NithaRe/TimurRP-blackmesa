@@ -1,0 +1,43 @@
+{
+    "version":  1,
+    "license":  "CC0-1.0",
+    "copyright":  "Original pixel artwork made for TimurRP using the accompanying generator.",
+    "size":  {
+                 "y":  32,
+                 "x":  32
+             },
+    "states":  [
+                   {
+                       "directions":  1,
+                       "name":  "heater"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "heater-active"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "cooler"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "cooler-active"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "discharger"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "discharger-active"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "irradiator"
+                   },
+                   {
+                       "directions":  1,
+                       "name":  "irradiator-active"
+                   }
+               ]
+}

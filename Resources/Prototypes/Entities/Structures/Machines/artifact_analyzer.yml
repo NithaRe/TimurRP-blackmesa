@@ -22,18 +22,45 @@
 - type: entity
   id: MachineArtifactAnalyzer
   parent: [ BaseMachinePowered, SmallConstructibleMachine ]
-  name: artifact analyzer
-  description: A platform capable of performing analysis on various types of artifacts.
+  name: Xen crystal research chamber
+  description: A chamber for controlled exposure and cultivation of Xen crystals.
   components:
   - type: Sprite
     noRot: true
-    sprite: Structures/Machines/artifact_analyzer.rsi
+    sprite: _BlackM/Structures/Machines/crystal_cultivator.rsi
+    offset: 0,0.25
     drawdepth: HighFloorObjects
     layers:
-    - state: icon
-    - state: unshaded
+    - state: base
+    - sprite: _BlackM/Objects/Zen/research_crystal.rsi
+      state: seed
+      offset: 0,-0.25
+      visible: false
+      map: ["enum.ZenCrystalChamberVisuals.Sample"]
+    - sprite: _BlackM/Objects/Zen/research_crystal.rsi
+      state: deposits
+      offset: 0,-0.25
+      visible: false
+      map: ["enum.ZenCrystalChamberVisuals.Deposits"]
+    - sprite: _BlackM/Objects/Zen/research_crystal.rsi
+      state: seed-cracks
+      offset: 0,-0.25
+      visible: false
+      map: ["enum.ZenCrystalChamberVisuals.Cracks"]
+    - state: closed
+      map: ["enum.ZenCrystalChamberVisuals.LidOpen"]
+    - state: powered
       shader: unshaded
       map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: active
+      shader: unshaded
+      visible: false
+      map: ["enum.ZenCrystalChamberVisuals.Active"]
+    - state: active
+      shader: unshaded
+      color: "#FF5F4A"
+      visible: false
+      map: ["enum.ZenCrystalChamberVisuals.Alarm"]
   - type: Physics
     bodyType: Static
     canCollide: true
@@ -49,33 +76,57 @@
         shape:
           !type:PhysShapeAabb
           bounds: "-0.35,-0.35,0.35,0.35"
-        mask:
-        - Impassable
-        - HighImpassable
-        - MidImpassable
-      fix2:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.35,-0.35,0.35,0.35"
         density: 190
         mask:
         - MachineMask
+        # Keep the visible sample reachable over the low machine body.
         layer:
-        - Impassable
         - MidImpassable
         - LowImpassable
         - BulletImpassable
-        hard: False
   - type: Transform
     anchored: true
   - type: ApcPowerReceiver
-    powerLoad: 12000
-    needsPower: false #only turns on when scanning
-  - type: ArtifactAnalyzer
-  - type: ItemPlacer
-    whitelist:
-      components:
-      - XenoArtifact
+    powerLoad: 500
+    needsPower: true
+  - type: ZenCrystalChamber
+    lidOpen: true
+  - type: DragDropTargetable
+  - type: ContainerContainer
+    containers:
+      zen_crystal_sample: !type:ContainerSlot
+        showEnts: false
+        occludes: false
+  - type: ItemSlots
+    slots:
+      zen_crystal_sample:
+        name: zen-lab-slot-sample
+        whitelist:
+          components: [ZenCrystalResearch]
+        insertVerbText: zen-lab-insert-sample
+        ejectVerbText: zen-lab-eject-sample
+        lockedFailPopup: zen-lab-sample-lid-closed
+        insertSuccessPopup: zen-lab-sample-installed
+        ejectOnInteract: false
+        swap: false
+        occludesLight: false
+        priority: 10
+      zen_growth_medium:
+        name: zen-lab-slot-medium
+        whitelist:
+          components: [ZenGrowthMedium]
+        insertVerbText: zen-lab-insert-medium
+        ejectVerbText: zen-lab-eject-medium
+        swap: true
+  - type: ResearchClient
+  - type: ActivatableUI
+    key: enum.ZenCrystalUiKey.Chamber
+  - type: UserInterface
+    interfaces:
+      enum.ZenCrystalUiKey.Chamber:
+        type: ZenCrystalChamberBoundUserInterface
+      enum.ResearchClientUiKey.Key:
+        type: ResearchClientBoundUserInterface
   - type: DeviceNetwork
     deviceNetId: Wired
     receiveFrequencyId: BasicDevice
@@ -83,12 +134,13 @@
   - type: DeviceLinkSink
     ports:
       - ArtifactAnalyzerReceiver
+      - ZenCrystalInput
   - type: Machine
     board: ArtifactAnalyzerMachineCircuitboard
   - type: PointLight
     radius: 1.5
-    energy: 1.6
-    color: "#b53ca1"
+    energy: 0.35
+    color: "#8EBBA4"
   - type: GuideHelp
     guides:
     - Xenoarchaeology
@@ -96,6 +148,36 @@
   - type: Appearance
   - type: GenericVisualizer
     visuals:
+      enum.ZenCrystalChamberVisuals.Sample:
+        enum.ZenCrystalChamberVisuals.Sample:
+          none: { visible: false }
+          seed: { visible: true, state: seed, color: "#FFFFFF" }
+          growing: { visible: true, state: growing, color: "#FFFFFF" }
+          mature: { visible: true, state: mature, color: "#FFFFFF" }
+          dim: { visible: true, state: mature, color: "#9A9A9A" }
+          exhausted: { visible: true, state: mature, color: "#565E58" }
+      enum.ZenCrystalChamberVisuals.Deposits:
+        enum.ZenCrystalChamberVisuals.Deposits:
+          True: { visible: true }
+          False: { visible: false }
+      enum.ZenCrystalChamberVisuals.Cracks:
+        enum.ZenCrystalChamberVisuals.Cracks:
+          none: { visible: false }
+          seed: { visible: true, state: seed-cracks }
+          growing: { visible: true, state: growing-cracks }
+          mature: { visible: true, state: mature-cracks }
+      enum.ZenCrystalChamberVisuals.Alarm:
+        enum.ZenCrystalChamberVisuals.Alarm:
+          True: { visible: true }
+          False: { visible: false }
+      enum.ZenCrystalChamberVisuals.LidOpen:
+        enum.ZenCrystalChamberVisuals.LidOpen:
+          True: { state: open }
+          False: { state: closed }
+      enum.ZenCrystalChamberVisuals.Active:
+        enum.ZenCrystalChamberVisuals.Active:
+          True: { visible: true }
+          False: { visible: false }
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
           True: { visible: true }
@@ -111,6 +193,7 @@
     crushingWhitelist:
       components:
       - XenoArtifact
+      - ZenCrystalSpent
     crushingDamage:
       types:
         Blunt: 10
@@ -150,6 +233,7 @@
     whitelist:
       components:
       - XenoArtifact
+      - ZenCrystalSpent
       tags:
       - CanPilot # People
       - VimPilot # Pets

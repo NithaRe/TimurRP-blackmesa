@@ -183,6 +183,8 @@
     runningState: icon
     staticPacks:
     - AmsPartsPack
+    - ZenCrystalResearchEquipment
+    - ZenCrystalLaboratoryEquipment
     - SharedBoardsStatic
     - EngineeringBoardsStatic
     - CircuitFloorsStatic

@@ -1,0 +1,32 @@
+﻿- type: latheRecipe
+  parent: [BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory]
+  id: ZenCrystalResonatorMachineCircuitboard
+  result: ZenCrystalResonatorMachineCircuitboard
+
+- type: latheRecipe
+  id: ZenMineralGrowthMedium
+  result: ZenMineralGrowthMedium
+  categories: [Tools]
+  completetime: 3
+  materials:
+    Glass: 100
+    Steel: 100
+    Plastic: 50
+
+- type: latheRecipe
+  id: ZenOrganicGrowthMedium
+  result: ZenOrganicGrowthMedium
+  categories: [Tools]
+  completetime: 3
+  materials:
+    Glass: 100
+    Plastic: 150
+
+- type: latheRecipePack
+  id: ZenCrystalResearchEquipment
+  recipes:
+  - ZenCrystalResonatorMachineCircuitboard
+  - ArtifactAnalyzerMachineCircuitboard
+  - AnalysisComputerCircuitboard
+  - ZenMineralGrowthMedium
+  - ZenOrganicGrowthMedium

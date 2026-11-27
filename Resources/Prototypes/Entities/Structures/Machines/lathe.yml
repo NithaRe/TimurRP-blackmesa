@@ -506,7 +506,9 @@
     runningState: building
     unlitIdleState: unlit
     unlitRunningState: unlit-building
-    #staticPacks: - Goobstation - Move static recipes to autolathe
+    staticPacks:
+    - ZenCrystalResearchEquipment
+    - ZenCrystalLaboratoryEquipment
     #- ChemistryStatic
     #- SurgeryStatic
     dynamicPacks:
@@ -587,6 +589,8 @@
     runningState: building
     staticPacks:
     #- ScienceBoardsStatic - Goobstation - Moved to Scifab
+    - ZenCrystalResearchEquipment
+    - ZenCrystalLaboratoryEquipment
     - ServiceBoardsStatic
     - CargoBoardsStatic
     #- MedicalBoardsStatic - Goobstation - Moved to Scifab and Medfab

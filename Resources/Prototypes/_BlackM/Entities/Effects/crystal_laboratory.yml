@@ -1,0 +1,126 @@
+﻿- type: entity
+  abstract: true
+  id: BaseZenCrystalLabBeam
+  categories: [HideSpawnMenu]
+  components:
+  - type: Sprite
+    sprite: Effects/lightning.rsi
+    drawdepth: Effects
+    layers:
+    - state: lightning_1
+      shader: unshaded
+  - type: Physics
+    canCollide: false
+  - type: Beam
+  - type: TimedDespawn
+    lifetime: 0.45
+  - type: Tag
+    tags: [HideContextMenu]
+
+- type: entity
+  id: ZenCrystalBeamHeat
+  parent: BaseZenCrystalLabBeam
+  components:
+  - type: Sprite
+    color: "#E6AD69B0"
+
+- type: entity
+  id: ZenCrystalBeamCold
+  parent: BaseZenCrystalLabBeam
+  components:
+  - type: Sprite
+    color: "#86C8D7B0"
+
+- type: entity
+  id: ZenCrystalBeamElectricity
+  parent: BaseZenCrystalLabBeam
+  components:
+  - type: Sprite
+    color: "#D1DCEFFF"
+
+- type: entity
+  id: ZenCrystalBeamRadiation
+  parent: BaseZenCrystalLabBeam
+  components:
+  - type: Sprite
+    color: "#A4D075A0"
+
+- type: entity
+  id: ZenCrystalResearchPulse
+  parent: EffectSparks
+  components:
+  - type: Sprite
+    color: "#9DDBAF"
+    scale: 1.3,1.3
+  - type: PointLight
+    radius: 2
+    energy: 1.5
+    color: "#9DDBAF"
+
+- type: entity
+  id: ZenCrystalScanPulse
+  parent: ZenCrystalResearchPulse
+  components:
+  - type: Sprite
+    color: "#A2CFD9"
+    scale: 0.7,0.7
+
+- type: entity
+  id: ZenCrystalGrowthPulse
+  parent: ZenCrystalResearchPulse
+  components:
+  - type: Sprite
+    scale: 0.5,0.5
+  - type: PointLight
+    energy: 0.5
+
+- type: entity
+  id: ZenCrystalWarningPulse
+  parent: ZenCrystalResearchPulse
+  components:
+  - type: Sprite
+    color: "#E96F61"
+    scale: 1.5,1.5
+  - type: PointLight
+    color: "#E96F61"
+
+- type: entity
+  id: ZenCrystalBreachPulse
+  parent: ZenCrystalWarningPulse
+  components:
+  - type: TimedDespawn
+    lifetime: 1.5
+  - type: Sprite
+    scale: 2.5,2.5
+    color: "#85E6B8"
+  - type: PointLight
+    radius: 3
+    color: "#85E6B8"
+
+- type: entity
+  id: ZenCrystalHeatPulse
+  parent: EffectSparks
+  components:
+  - type: Sprite
+    color: "#E4A16B"
+    scale: 0.7,0.7
+
+- type: entity
+  id: ZenCrystalColdPulse
+  parent: EffectSparks
+  components:
+  - type: Sprite
+    color: "#85CDDD"
+    scale: 0.8,0.8
+
+- type: entity
+  id: ZenCrystalElectricityPulse
+  parent: EffectSparks
+
+- type: entity
+  id: ZenCrystalRadiationPulse
+  parent: EffectSparks
+  components:
+  - type: Sprite
+    color: "#A6D877"
+    scale: 0.9,0.9
