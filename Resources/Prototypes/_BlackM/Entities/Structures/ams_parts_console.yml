@@ -23,9 +23,24 @@
   abstract: true
   parent: BaseComputer
   id: BaseAmsPartFabricator
-  name: AMS component fabrication console
-  description: A specialized fabrication console. Load raw materials to manufacture its assigned AMS component.
+  name: AMS part fabricator
+  description: A specialized fabricator. Uses a dedicated component and raw materials to manufacture one type of AMS part.
   components:
+  - type: CargoSellBlacklist
+  - type: Construction
+    graph: AmsPartFabricator
+    node: assembled
+    deconstructionTarget: null
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+      - !type:DoActsBehavior
+        acts: [Destruction]
   - type: Sprite
     layers:
     - state: computer
@@ -49,7 +64,7 @@
   - type: UserInterface
     interfaces:
       enum.LatheUiKey.Key:
-        type: LatheBoundUserInterface
+        type: AmsPartFabricatorBoundUserInterface
       enum.WiresUiKey.Key:
         type: WiresBoundUserInterface
   - type: GenericVisualizer
@@ -73,7 +88,7 @@
 - type: entity
   parent: BaseAmsPartFabricator
   id: ComputerAmsCoilFabricator
-  name: AMS coil fabrication console
+  name: AMS part fabricator - coil
   components:
   - type: Lathe
     staticPacks: [AmsCoilConsolePack]
@@ -83,7 +98,7 @@
 - type: entity
   parent: BaseAmsPartFabricator
   id: ComputerAmsLensFabricator
-  name: AMS focusing lens fabrication console
+  name: AMS part fabricator - focusing lens
   components:
   - type: Lathe
     staticPacks: [AmsLensConsolePack]
@@ -93,7 +108,7 @@
 - type: entity
   parent: BaseAmsPartFabricator
   id: ComputerAmsCellFabricator
-  name: AMS power cell fabrication console
+  name: AMS part fabricator - power cell
   components:
   - type: Lathe
     staticPacks: [AmsCellConsolePack]
@@ -103,7 +118,7 @@
 - type: entity
   parent: BaseAmsPartFabricator
   id: ComputerAmsStabilizerFabricator
-  name: AMS stabilizer fabrication console
+  name: AMS part fabricator - stabilizer
   components:
   - type: Lathe
     staticPacks: [AmsStabilizerConsolePack]
@@ -113,7 +128,7 @@
 - type: entity
   parent: BaseAmsPartFabricator
   id: ComputerAmsCasingFabricator
-  name: AMS casing fabrication console
+  name: AMS part fabricator - casing
   components:
   - type: Lathe
     staticPacks: [AmsCasingConsolePack]
@@ -131,7 +146,7 @@
 - type: entity
   parent: BaseAmsPartFabricatorCircuitboard
   id: AmsCoilFabricatorCircuitboard
-  name: AMS coil fabrication console board
+  name: AMS coil fabricator board
   components:
   - type: ComputerBoard
     prototype: ComputerAmsCoilFabricator
@@ -139,7 +154,7 @@
 - type: entity
   parent: BaseAmsPartFabricatorCircuitboard
   id: AmsLensFabricatorCircuitboard
-  name: AMS focusing lens fabrication console board
+  name: AMS focusing lens fabricator board
   components:
   - type: ComputerBoard
     prototype: ComputerAmsLensFabricator
@@ -147,7 +162,7 @@
 - type: entity
   parent: BaseAmsPartFabricatorCircuitboard
   id: AmsCellFabricatorCircuitboard
-  name: AMS power cell fabrication console board
+  name: AMS power cell fabricator board
   components:
   - type: ComputerBoard
     prototype: ComputerAmsCellFabricator
@@ -155,7 +170,7 @@
 - type: entity
   parent: BaseAmsPartFabricatorCircuitboard
   id: AmsStabilizerFabricatorCircuitboard
-  name: AMS stabilizer fabrication console board
+  name: AMS stabilizer fabricator board
   components:
   - type: ComputerBoard
     prototype: ComputerAmsStabilizerFabricator
@@ -163,7 +178,7 @@
 - type: entity
   parent: BaseAmsPartFabricatorCircuitboard
   id: AmsCasingFabricatorCircuitboard
-  name: AMS casing fabrication console board
+  name: AMS casing fabricator board
   components:
   - type: ComputerBoard
     prototype: ComputerAmsCasingFabricator

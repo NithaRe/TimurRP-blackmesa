@@ -27,40 +27,51 @@
   id: AmsPartCoil #BlackM
   result: AmsPartCoil
   completetime: 3
+  applyMaterialDiscount: false
   materials:
-    Steel: 485
-    Silver: 726
+    AmsCoilComponent: 100
+    Steel: 18000
+    Silver: 10000
 
 - type: latheRecipe
   id: AmsPartLens #BlackM
   result: AmsPartLens
   completetime: 3
+  applyMaterialDiscount: false
   materials:
-    Glass: 968
-    Silver: 242
+    AmsLensComponent: 100
+    Glass: 18000
+    Silver: 10000
+    Gold: 4500
 
 - type: latheRecipe
   id: AmsPartCell #BlackM
   result: AmsPartCell
   completetime: 3
+  applyMaterialDiscount: false
   materials:
-    Steel: 485
-    Plastic: 242
-    Uranium: 242
+    AmsCellComponent: 100
+    Steel: 18000
+    Plastic: 18000
+    Uranium: 4500
 
 - type: latheRecipe
   id: AmsPartStabilizer #BlackM
   result: AmsPartStabilizer
   completetime: 3
+  applyMaterialDiscount: false
   materials:
-    Steel: 726
-    Glass: 242
-    Silver: 242
+    AmsStabilizerComponent: 100
+    Steel: 18000
+    Glass: 18000
+    Silver: 10000
 
 - type: latheRecipe
   id: AmsPartCasing #BlackM
   result: AmsPartCasing
   completetime: 3
+  applyMaterialDiscount: false
   materials:
-    Steel: 600
-    Plastic: 120
+    AmsCasingComponent: 100
+    Steel: 18000
+    Plastic: 18000

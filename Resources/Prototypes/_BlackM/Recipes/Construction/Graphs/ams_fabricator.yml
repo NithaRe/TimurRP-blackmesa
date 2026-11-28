@@ -1,0 +1,5 @@
+﻿- type: constructionGraph
+  id: AmsPartFabricator
+  start: assembled
+  graph:
+  - node: assembled

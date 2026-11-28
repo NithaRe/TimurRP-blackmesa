@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using Content.Client.Cargo.Systems;
+using Content.Client.Materials;
 using Content.Client.Stylesheets;
 using Content.Shared.Cargo;
 using Content.Shared.Cargo.BUI;
@@ -291,6 +292,7 @@ public sealed partial class CargoTerminalWindow : BaseWindow
     {
         AmsGuideList.DisposeAllChildren();
         var researchCost = _prototype.Index<TechnologyPrototype>("AmsPartsResearch").Cost;
+        var storage = _entity.System<MaterialStorageSystem>();
         foreach (var id in new[] { "AmsPartCore", "AmsPartCoil", "AmsPartLens", "AmsPartCell", "AmsPartStabilizer", "AmsPartCasing" })
         {
             var part = _prototype.Index<EntityPrototype>(id);
@@ -323,7 +325,12 @@ public sealed partial class CargoTerminalWindow : BaseWindow
             row.AddChild(heading);
             var description = new RichTextLabel();
             var materials = _prototype.TryIndex<LatheRecipePrototype>(id, out var recipe)
-                ? recipe.Materials.Select(material => (material.Key.Id.ToLowerInvariant(), (object) material.Value)).ToArray()
+                ? recipe.Materials.Select(material =>
+                {
+                    var prototype = _prototype.Index(material.Key);
+                    var count = (double) material.Value / storage.GetSheetVolume(prototype);
+                    return (material.Key.Id.ToLowerInvariant(), (object) count);
+                }).ToArray()
                 : Array.Empty<(string, object)>();
             description.SetMessage(Loc.GetString($"ams-parts-acquisition-{id}", materials.Append(("points", (object) researchCost)).ToArray()));
             row.AddChild(description);
