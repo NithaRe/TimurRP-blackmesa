@@ -9,6 +9,7 @@ using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Maths;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.Client._BlackM.Underground;
@@ -16,6 +17,7 @@ namespace Content.Client._BlackM.Underground;
 public sealed partial class UndergroundConsoleWindow : DefaultWindow
 {
     [Dependency] private IEntityManager _entities = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private IResourceCache _resources = default!;
     public event Action? StartRequested;
     public event Action<UndergroundMission>? MissionSelected;
@@ -29,6 +31,9 @@ public sealed partial class UndergroundConsoleWindow : DefaultWindow
     private readonly RichTextLabel _instructions;
     private readonly Label _progress;
     private readonly Label _reward;
+    private readonly BoxContainer _amsRewardRow;
+    private readonly TextureRect _amsRewardIcon;
+    private readonly RichTextLabel _amsRewardName;
     private readonly TextureRect _targetIcon;
     private readonly ContainerButton _start;
     private readonly Label _startText;
@@ -132,6 +137,19 @@ public sealed partial class UndergroundConsoleWindow : DefaultWindow
         rewardRow.AddChild(rewardText);
         rewardText.AddChild(Text(Loc.GetString("underground-terminal-team-reward"), UndergroundConsoleStylesheet.Muted));
         _reward = Text("", UndergroundConsoleStylesheet.Amber); rewardText.AddChild(_reward);
+
+        _amsRewardRow = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            SeparationOverride = 8,
+            Visible = false,
+        };
+        column.AddChild(_amsRewardRow);
+        _amsRewardIcon = Icon(null, 44);
+        _amsRewardRow.AddChild(_amsRewardIcon);
+        _amsRewardName = Wrapped(color: UndergroundConsoleStylesheet.Amber);
+        _amsRewardName.VerticalAlignment = VAlignment.Center;
+        _amsRewardRow.AddChild(_amsRewardName);
 
         var loot = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 8 };
         column.AddChild(loot);
@@ -270,6 +288,18 @@ public sealed partial class UndergroundConsoleWindow : DefaultWindow
         _instructions.SetMessage(Loc.GetString(UndergroundMissions.IsItem(state.Mission) ? "underground-terminal-item-instructions" : UndergroundMissions.IsSample(state.Mission) ? "underground-terminal-sample-instructions" : "underground-terminal-hunt-instructions"), defaultColor: UndergroundConsoleStylesheet.Muted);
         _progress.Text = Loc.GetString("underground-mission-progress", ("current", state.Progress), ("goal", UndergroundMissions.Goal(state.Mission)));
         _reward.Text = Loc.GetString("underground-terminal-amount", ("amount", UndergroundMissions.RewardAmount(state.Mission)));
+        if (state.Phase != UndergroundConsolePhase.Offline && UndergroundMissions.AmsReward(state.Mission) is { } amsReward)
+        {
+            var prototype = _prototypes.Index(amsReward);
+            _amsRewardIcon.Texture = _entities.System<SpriteSystem>().GetPrototypeIcon(prototype).Default;
+            _amsRewardName.SetMessage(prototype.Name, defaultColor: UndergroundConsoleStylesheet.Amber);
+            _amsRewardRow.Visible = true;
+        }
+        else
+        {
+            _amsRewardRow.Visible = false;
+        }
+
         _targetIcon.Texture = state.Mission switch
         {
             UndergroundMission.LostResearchDisk => _disk,

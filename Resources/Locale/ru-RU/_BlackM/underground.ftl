@@ -126,5 +126,5 @@ ent-BlackMUndergroundLostPulseRifle = сломанная импульсная в
 underground-station-elevator-ready = Лифт подземных экспедиций готов к спуску. Экспедиционной группе прибыть к лифту.
 underground-station-elevator-boarding = Начата посадка в лифт подземной экспедиции. Отправление через {$seconds} секунд.
 underground-station-mission-paid = Подземная экспедиция вернулась. Контракт выполнен, на счёт комплекса начислено {$amount} кредитов.
-underground-station-ams-reward = За успешные экспедиции комплекс получил деталь АМС. Она доставлена к лифту.
+underground-station-ams-reward = Не забудьте забрать награду за контракт у консоли экспедиций. Выданная деталь — { $part }.
 underground-station-recovered = Сбой лифта подземных экспедиций устранён. Лифт снова доступен.

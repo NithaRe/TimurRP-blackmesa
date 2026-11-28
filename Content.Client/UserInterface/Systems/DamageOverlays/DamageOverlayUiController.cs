@@ -168,6 +168,15 @@ public sealed partial class DamageOverlayUiController : UIController
             if (!EntityManager.TryGetComponent<ConsciousnessComponent>(entity, out var consciousness))
                 return;
 
+            var currentConsciousness = consciousness.Consciousness;
+            var painRange = consciousness.Cap - consciousness.Threshold;
+            _overlay.PainLevel = painRange > 0 && mobState.CurrentState is MobState.Alive or MobState.Critical
+                ? FixedPoint2.Clamp((consciousness.Cap - currentConsciousness) / painRange, 0f, 1f).Float()
+                : 0f;
+
+            if (_overlay.PainLevel < 0.05f)
+                _overlay.PainLevel = 0f;
+
             switch (mobState.CurrentState)
             {
                 // Why the fuck is this the correct formatting??? Im gonna fucking kill someone.
@@ -176,42 +185,26 @@ public sealed partial class DamageOverlayUiController : UIController
                         _overlay.CritLevel = 0;
                         _overlay.DeadLevel = 0;
 
-                        if (consciousness.Consciousness <= 0 || consciousness.Consciousness >= consciousness.Cap)
+                        if (painRange > 0 && currentConsciousness < consciousness.Cap &&
+                            _consciousness.TryGetNerveSystem(entity, out var nerveSys) &&
+                            _consciousness.TryGetConsciousnessModifier(entity, nerveSys.Value, out var modifier, "Suffocation"))
                         {
-                            _overlay.PainLevel = 0;
-                            return;
-                        }
-
-                        _overlay.PainLevel = FixedPoint2.Min(1f,
-                            (consciousness.Cap - consciousness.Consciousness) / (consciousness.Cap - consciousness.Threshold))
-                            .Float();
-
-                        if (_consciousness.TryGetNerveSystem(_playerManager.LocalEntity!.Value, out var nerveSys) &&
-                            _consciousness.TryGetConsciousnessModifier(_playerManager.LocalEntity!.Value, nerveSys.Value, out var modifier, "Suffocation"))
-                        {
-                            _overlay.OxygenLevel = FixedPoint2.Min(1f, modifier.Value.Change / (consciousness.Cap - consciousness.Threshold)).Float();
-                        }
-
-                        if (_overlay.PainLevel < 0.05f) // Don't show damage overlay if they're near enough to max.
-                        {
-                            _overlay.PainLevel = 0;
+                            _overlay.OxygenLevel = FixedPoint2.Min(1f, modifier.Value.Change / painRange).Float();
                         }
 
                         break;
                     }
                 case MobState.Critical:
                     {
-                        _overlay.CritLevel = FixedPoint2.Min(1f,
-                            (consciousness.Threshold - consciousness.Consciousness) / consciousness.Threshold)
-                            .Float();
+                        _overlay.CritLevel = consciousness.Threshold > 0
+                            ? FixedPoint2.Clamp((consciousness.Threshold - currentConsciousness) / consciousness.Threshold, 0f, 1f).Float()
+                            : 0f;
 
-                        _overlay.PainLevel = 0;
                         _overlay.DeadLevel = 0;
                         break;
                     }
                 case MobState.Dead:
                     {
-                        _overlay.PainLevel = 0;
                         _overlay.CritLevel = 0;
                         break;
                     }
