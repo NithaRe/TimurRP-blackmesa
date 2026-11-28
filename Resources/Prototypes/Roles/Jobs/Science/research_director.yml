@@ -135,6 +135,7 @@
   id: ResearchDirector
   name: job-name-rd
   description: job-description-rd
+  whitelisted: true # BlackM edit
   playTimeTracker: JobResearchDirector
   requirements:
   - !type:OverallPlaytimeRequirement
