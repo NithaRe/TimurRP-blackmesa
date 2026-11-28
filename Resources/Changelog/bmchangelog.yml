@@ -1317,3 +1317,10 @@ Entries:
       message: Реворк цен АМС
   id: 169
   time: '2026-11-28T11:07:16.0000000+00:00'
+# PR #190
+- author: deleteddata271-ship-it
+  changes:
+    - type: Remove
+      message: Все ушки удалены
+  id: 170
+  time: '2026-11-28T11:10:00.0000000+00:00'
