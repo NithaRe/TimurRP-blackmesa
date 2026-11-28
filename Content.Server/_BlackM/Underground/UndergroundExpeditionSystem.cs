@@ -30,10 +30,6 @@ public sealed partial class UndergroundExpeditionSystem : EntitySystem
     private const int MaxGenerationAttempts = 5;
     private static readonly TimeSpan BoardingDuration = TimeSpan.FromSeconds(35);
     private static readonly TimeSpan FaultRecoveryDelay = TimeSpan.FromSeconds(30);
-    private static readonly string[] AmsRewardParts =
-    [
-        "AmsPartCore", "AmsPartCoil", "AmsPartLens", "AmsPartCell", "AmsPartStabilizer", "AmsPartCasing",
-    ];
     private static readonly TimeSpan AnnouncementDelay = TimeSpan.FromSeconds(1);
     private static readonly TimeSpan EarlyReturnDelay = TimeSpan.FromSeconds(60);
     private static readonly SoundPathSpecifier OpenSound = new("/Audio/_BlackM/Interface/Terminal/term_open.ogg");
@@ -240,6 +236,8 @@ public sealed partial class UndergroundExpeditionSystem : EntitySystem
         run.MissionProgress = 1;
         run.MissionRewardAvailable = true;
         QueueDel(args.Used);
+        if (DeliverAmsReward(ent.Owner, run.Mission) is { } pickupReminder)
+            StationAnnounce(ent.Owner, pickupReminder);
         UpdateRun(ent.Owner, run);
         _popup.PopupEntity(Loc.GetString(UndergroundMissions.IsItem(run.Mission) ? "underground-mission-item-accepted" : "underground-mission-sample-accepted"), ent.Owner, args.User);
     }
@@ -540,11 +538,14 @@ public sealed partial class UndergroundExpeditionSystem : EntitySystem
             if (!run.MissionRewardAvailable)
                 return;
 
+            var pickupReminder = DeliverAmsReward(owner, run.Mission);
             var amount = UndergroundMissions.RewardAmount(run.Mission);
             if (_station.GetOwningStation(owner) is not { } station ||
                 !TryComp<StationBankAccountComponent>(station, out var bank))
             {
                 // No station account: keep the manual cash claim at the console as a fallback.
+                if (pickupReminder != null)
+                    StationAnnounce(owner, pickupReminder);
                 return;
             }
 
@@ -553,9 +554,8 @@ public sealed partial class UndergroundExpeditionSystem : EntitySystem
             run.MissionClaimed = true;
             run.MissionProgress = 0;
             _audio.PlayPvs(RewardSound, owner);
-            StationAnnounce(owner, Loc.GetString("underground-station-mission-paid", ("amount", amount)));
-
-            GiveAmsReward(owner, run);
+            var announcement = Loc.GetString("underground-station-mission-paid", ("amount", amount));
+            StationAnnounce(owner, pickupReminder == null ? announcement : $"{announcement} {pickupReminder}");
         }
         catch (Exception e)
         {
@@ -563,20 +563,13 @@ public sealed partial class UndergroundExpeditionSystem : EntitySystem
         }
     }
 
-    private void GiveAmsReward(EntityUid owner, UndergroundRunComponent run)
+    private string? DeliverAmsReward(EntityUid console, UndergroundMission mission)
     {
-        if (run.NextAmsRewardAt <= 0)
-            run.NextAmsRewardAt = _random.Next(2, 4);
+        if (UndergroundMissions.AmsReward(mission) is not { } reward)
+            return null;
 
-        run.CompletedExpeditions++;
-        if (run.CompletedExpeditions < run.NextAmsRewardAt)
-            return;
-
-        run.CompletedExpeditions = 0;
-        run.NextAmsRewardAt = _random.Next(2, 4);
-        var coords = !TerminatingOrDeleted(run.Boarding) ? Transform(run.Boarding).Coordinates : Transform(owner).Coordinates;
-        Spawn(_random.Pick(AmsRewardParts), coords);
-        StationAnnounce(owner, Loc.GetString("underground-station-ams-reward"));
+        var part = Spawn(reward, Transform(console).Coordinates);
+        return Loc.GetString("underground-station-ams-reward", ("part", Name(part)));
     }
 
     private void StationAnnounce(EntityUid source, string message)

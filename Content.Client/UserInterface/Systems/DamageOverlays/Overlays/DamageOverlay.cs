@@ -162,11 +162,8 @@ public sealed partial class DamageOverlay : Overlay
          * innerCircleMaxRadius is what we start at for 0 level for the inner circle
          */
 
-        // Only show pain overlay if there's actual pain and we're not in critical stat
-        // Goobstation start
-        float level = 0f;
-        level = _oldPainLevel;
-        if (_oldPainLevel > 0f && _oldCritLevel <= 0f)
+        // Keep the pain overlay visible underneath the critical heartbeat.
+        if (_oldPainLevel > 0f && State != MobState.Dead)
         {
             var pulseRate = 3f;
             var adjustedTime = time * pulseRate;
@@ -197,7 +194,7 @@ public sealed partial class DamageOverlay : Overlay
         }
 
         // BlackM edit start
-        level = State == MobState.Alive ? _oldOxygenLevel : 0f;
+        var level = State == MobState.Alive ? _oldOxygenLevel : 0f;
 
         if (level > 0f)
         {

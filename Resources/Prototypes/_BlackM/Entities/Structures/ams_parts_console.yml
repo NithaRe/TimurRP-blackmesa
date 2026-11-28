@@ -42,17 +42,17 @@
       - !type:DoActsBehavior
         acts: [Destruction]
   - type: Sprite
+    sprite: _BlackM/Structures/Machines/ams_part_fabricator.rsi
+    offset: 0,0.5
+    noRot: true
     layers:
-    - state: computer
+    - &amsFabricatorBody
+      state: base
       map: ["computerLayerBody"]
-    - state: generic_keyboard
-      map: ["computerLayerKeyboard"]
-    - state: rdcomp
-      map: ["computerLayerScreen"]
-    - state: rd_key
-      map: ["computerLayerKeys"]
-    - state: generic_panel_open
+    - &amsFabricatorPanel
+      state: service-panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
   - type: ApcPowerReceiver
     powerLoad: 1500
   - type: Lathe
@@ -71,25 +71,31 @@
     visuals:
       enum.ComputerVisuals.Powered:
         computerLayerScreen:
-          True: { visible: true, shader: unshaded }
+          True: { visible: true }
           False: { visible: false }
-        computerLayerKeys:
-          True: { visible: true, shader: unshaded }
-          False: { visible: true, shader: shaded }
       enum.WiresVisuals.MaintenancePanelState:
         enum.WiresVisualLayers.MaintenancePanel:
-          True: { visible: false }
-          False: { visible: true }
+          True: { visible: true }
+          False: { visible: false }
       enum.LatheVisuals.IsRunning:
         computerLayerScreen:
-          True: { color: "#92FFC3" }
-          False: { color: "#FFFFFF" }
+          True: { color: "#FFFFFF" }
+          False: { color: "#B0B0B0" }
 
 - type: entity
   parent: BaseAmsPartFabricator
   id: ComputerAmsCoilFabricator
   name: AMS part fabricator - coil
   components:
+  - type: Sprite
+    layers:
+    - *amsFabricatorBody
+    - state: coil
+      map: &amsFabricatorAnimationLayer ["computerLayerScreen"]
+      shader: unshaded
+      color: "#B0B0B0"
+      visible: false
+    - *amsFabricatorPanel
   - type: Lathe
     staticPacks: [AmsCoilConsolePack]
   - type: Computer
@@ -100,6 +106,15 @@
   id: ComputerAmsLensFabricator
   name: AMS part fabricator - focusing lens
   components:
+  - type: Sprite
+    layers:
+    - *amsFabricatorBody
+    - state: lens
+      map: *amsFabricatorAnimationLayer
+      shader: unshaded
+      color: "#B0B0B0"
+      visible: false
+    - *amsFabricatorPanel
   - type: Lathe
     staticPacks: [AmsLensConsolePack]
   - type: Computer
@@ -110,6 +125,15 @@
   id: ComputerAmsCellFabricator
   name: AMS part fabricator - power cell
   components:
+  - type: Sprite
+    layers:
+    - *amsFabricatorBody
+    - state: cell
+      map: *amsFabricatorAnimationLayer
+      shader: unshaded
+      color: "#B0B0B0"
+      visible: false
+    - *amsFabricatorPanel
   - type: Lathe
     staticPacks: [AmsCellConsolePack]
   - type: Computer
@@ -120,6 +144,15 @@
   id: ComputerAmsStabilizerFabricator
   name: AMS part fabricator - stabilizer
   components:
+  - type: Sprite
+    layers:
+    - *amsFabricatorBody
+    - state: stabilizer
+      map: *amsFabricatorAnimationLayer
+      shader: unshaded
+      color: "#B0B0B0"
+      visible: false
+    - *amsFabricatorPanel
   - type: Lathe
     staticPacks: [AmsStabilizerConsolePack]
   - type: Computer
@@ -130,6 +163,15 @@
   id: ComputerAmsCasingFabricator
   name: AMS part fabricator - casing
   components:
+  - type: Sprite
+    layers:
+    - *amsFabricatorBody
+    - state: casing
+      map: *amsFabricatorAnimationLayer
+      shader: unshaded
+      color: "#B0B0B0"
+      visible: false
+    - *amsFabricatorPanel
   - type: Lathe
     staticPacks: [AmsCasingConsolePack]
   - type: Computer

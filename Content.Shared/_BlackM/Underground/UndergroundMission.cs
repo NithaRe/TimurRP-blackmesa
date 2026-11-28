@@ -1,3 +1,4 @@
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._BlackM.Underground;
@@ -38,6 +39,16 @@ public static class UndergroundMissions
     public static string Sample(UndergroundMission mission) => IsHoundeye(mission) ? "BlackMUndergroundHoundeyeSample" : "BlackMUndergroundHeadcrabSample";
     public static string Reward(UndergroundMission mission) => RewardAmount(mission) == 2500 ? "SpaceCash2500" : "SpaceCash1000";
     public static int RewardAmount(UndergroundMission mission) => IsHoundeye(mission) || DurationSeconds(mission) == 300 || IsItem(mission) ? 2500 : 1000;
+
+    public static EntProtoId? AmsReward(UndergroundMission mission) => mission switch
+    {
+        UndergroundMission.HeadcrabHunt => "AmsCoilComponent",
+        UndergroundMission.HoundeyeHunt => "AmsLensComponent",
+        UndergroundMission.HeadcrabSample or UndergroundMission.FastHeadcrabSample => "AmsCellComponent",
+        UndergroundMission.HoundeyeSample => "AmsStabilizerComponent",
+        UndergroundMission.FastHeadcrabHunt => "AmsCasingComponent",
+        _ => null,
+    };
 }
 
 [Serializable, NetSerializable]
