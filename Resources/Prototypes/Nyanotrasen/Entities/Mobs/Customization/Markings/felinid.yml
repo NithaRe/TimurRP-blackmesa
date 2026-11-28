@@ -112,20 +112,6 @@
 # Goobstation - Tajaran since they're fully compatible
 
 - type: marking
-  id: FelinidTailBasic
-  bodyPart: Tail
-  markingCategory: Tail
-  sponsorOnly: false # CorvaxGoob-Sponsors
-  speciesRestriction: [Felinid, Tajaran, Human] # Goobstation - Tajaran
-  sprites:
-  - sprite: Nyanotrasen/Mobs/Customization/felinid_tails.rsi
-    state: basic_tail_tip
-  - sprite: Nyanotrasen/Mobs/Customization/felinid_tails.rsi
-    state: basic_tail_stripes_even
-  - sprite: Nyanotrasen/Mobs/Customization/felinid_tails.rsi
-    state: basic_tail_stripes_odd
-
-- type: marking
   id: FelinidTailBasicWithBow
   bodyPart: Tail
   markingCategory: Tail
