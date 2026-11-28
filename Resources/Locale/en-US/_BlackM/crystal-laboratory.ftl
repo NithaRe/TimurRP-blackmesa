@@ -165,10 +165,13 @@ zen-lab-order-waiting = Awaiting a powered terminal
 zen-lab-order-enroute = In transit | { $seconds } s.
 zen-lab-sample-heading = #{ $number } | { $name }
 zen-research-perk-endurance = Endurance
-zen-research-perk-endurance-desc = Incoming stamina damage reduced by 5% / 10% / 15%.
+zen-research-perk-endurance-desc = Incoming stamina damage reduced by 10% / 20% / 30%.
 zen-research-perk-thermal = Thermal resistance
-zen-research-perk-thermal-desc = Heat and cold damage reduced by 5% / 10% / 15%. Does not replace protective equipment.
+zen-research-perk-thermal-desc = Heat and cold damage reduced by 10% / 20% / 30%. Does not replace protective equipment.
 zen-research-perk-radiation = Radiation adaptation
-zen-research-perk-radiation-desc = Radiation damage reduced by 10% / 20% / 30%.
+zen-research-perk-radiation-desc = Radiation damage reduced by 15% / 30% / 45%.
 zen-research-perk-detox = Detoxification
-zen-research-perk-detox-desc = Poison damage reduced by 5% / 10% / 15%. Does not neutralize reagents or cure infection.
+zen-research-perk-detox-desc = Poison damage reduced by 10% / 20% / 30%. Does not neutralize reagents or cure infection.
+
+ent-BookZenCrystalGuide = R&D crystal cultivation manual
+    .desc = A laboratory worker's notes on cultivating Xen crystals without losing the sample or the laboratory.

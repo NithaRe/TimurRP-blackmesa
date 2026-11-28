@@ -80,3 +80,16 @@
     - state: checkpoint
   - type: Paper
     content: book-text-kpp
+
+- type: entity
+  id: BookZenCrystalGuide
+  parent: BookBase
+  name: R&D crystal cultivation manual
+  description: A laboratory worker's notes on cultivating Xen crystals without losing the sample or the laboratory.
+  components:
+  - type: Sprite
+    sprite: _BlackM/Objects/Misc/rule_books.rsi
+    layers:
+    - state: crystal_research
+  - type: Paper
+    content: book-text-zen-crystals
