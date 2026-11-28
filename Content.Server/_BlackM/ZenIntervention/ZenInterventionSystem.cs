@@ -234,7 +234,10 @@ public sealed partial class ZenInterventionSystem : EntitySystem
         if (!TryGetTargetStation(comp, out var stationUid))
             return;
 
-        for (var i = 0; i < (spawnAmount ?? comp.BreachSpawnAmount); i++)
+        var riftRule = intermediate ? comp.IntermediateBreachRiftRule : comp.BreachRiftRule;
+        var riftsStarted = riftRule != null && _gameTicker.StartGameRule(riftRule.Value.Id);
+
+        for (var i = 0; !riftsStarted && i < (spawnAmount ?? comp.BreachSpawnAmount); i++)
         {
             if (comp.BreachMobPrototypes.Count == 0)
                 break;
@@ -245,6 +248,9 @@ public sealed partial class ZenInterventionSystem : EntitySystem
             var protoId = _random.Pick(comp.BreachMobPrototypes);
             Spawn(protoId, coords);
         }
+
+        if (riftsStarted)
+            return;
 
         _chatSystem.DispatchStationAnnouncement(
             stationUid,
