@@ -73,8 +73,8 @@
       types:
         Slash: 10
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2.8
-    baseSprintSpeed: 3.5
+    baseWalkSpeed: 1.8
+    baseSprintSpeed: 2.5
   - type: Physics
     bodyType: KinematicController
   - type: Fixtures
