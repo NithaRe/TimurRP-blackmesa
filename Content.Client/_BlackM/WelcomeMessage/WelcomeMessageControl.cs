@@ -1,5 +1,5 @@
 using System.Numerics;
-using Content.Client.Stylesheets;
+using System.Text;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -19,33 +19,32 @@ public enum WelcomeSound : byte
 
 public sealed record WelcomeFonts(Font Caption, Font Sender, Font Body);
 
+public sealed record HudMessage(
+    string Sender,
+    string Title,
+    string Text,
+    Texture? Portrait,
+    EntityUid? PortraitEntity,
+    float Duration,
+    Color? ChannelColor = null);
+
 public sealed class WelcomeMessageControl : Control
 {
-    private static readonly Color PanelColor = StyleNano.TerminalBlack.WithAlpha(0.96f);
-    private static readonly Color BorderColor = StyleNano.TerminalGreenDim;
-    private static readonly Color InsetColor = Color.FromHex("#24180A");
-    private static readonly Color SenderColor = Color.FromHex("#e5e8ed");
-    private static readonly Color BodyColor = Color.FromHex("#c6cfdb");
+    private static readonly Color BodyColor = Color.FromHex("#EDEDED");
 
-    public const float TopMargin = 12f;
+    public const float LeftMargin = 14f;
+    private const float PortraitWidth = 112f;
+    private const float PortraitHeight = 96f;
+    private const float PanelPadding = 8f;
+    private const int ColumnGap = 6;
+    private const float SenderPadding = 4f;
+    private const float MaxTextWidth = 560f;
 
-    private const float TextWidth = 320f;
+    private const float OpenTime = 0.20f;
+    private const float TypeDelay = 0.05f;
+    private const float CloseTime = 0.22f;
 
-    private const float PortraitWidth = 120f;
-    private const float PortraitMinHeight = 92f;
-
-    private const float StripHeight = 4f;
-    private const float StripWidth = 0.12f;
-
-    private const float FadeInTime = 0.08f;
-    private const float OpenWidthTime = 0.16f;
-    private const float OpenHeightTime = 0.22f;
-    private const float TypeDelay = 0.06f;
-
-    private const float CloseHeightTime = 0.18f;
-    private const float CloseWidthTime = 0.14f;
-
-    private const float CharsPerSecond = 60f;
+    private const float CharsPerSecond = 70f;
     private const int CharsPerTypeSound = 5;
     private const float MinTypeSoundGap = 0.09f;
 
@@ -66,10 +65,8 @@ public sealed class WelcomeMessageControl : Control
     public bool Finished => _phase == Phase.Done;
 
     private readonly BoxContainer _content;
-    private readonly FrameOverlay _frame;
     private readonly List<(Label Label, string Text)> _lines = new();
     private readonly string _fullText;
-    private readonly float _hold;
 
     private Phase _phase = Phase.Open;
     private float _phaseTime;
@@ -80,14 +77,12 @@ public sealed class WelcomeMessageControl : Control
     private float _holdLeft;
     private bool _hovered;
     private bool _appearPlayed;
+    private bool _typeSoundPlayed;
 
-    private float _openX;
-    private float _openY;
-    private float _laidOutX = -1f;
-    private float _laidOutY = -1f;
+    private float _reveal;
+    private float _laidOut = -1f;
 
-    public WelcomeMessageControl(string sender, string title, string text, Texture? portrait, Color accent,
-        float duration, WelcomeFonts fonts, EntityUid? portraitEntity = null)
+    public WelcomeMessageControl(HudMessage msg, WelcomeFonts fonts, float viewportWidth, float uiScale)
     {
         MouseFilter = MouseFilterMode.Stop;
         RectClipContent = true;
@@ -96,96 +91,105 @@ public sealed class WelcomeMessageControl : Control
         _content = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            SeparationOverride = 0,
-            Margin = new Thickness(3, 1, 1, 3),
-            Modulate = Color.White.WithAlpha(0f),
+            SeparationOverride = ColumnGap,
+            Margin = new Thickness(PanelPadding),
         };
         AddChild(_content);
 
-        if (portrait != null || portraitEntity != null)
-        {
-            _content.AddChild(new PortraitView(portrait, accent, portraitEntity)
-            {
-                MinSize = new Vector2(PortraitWidth, PortraitMinHeight),
-            });
+        var hasPortrait = msg.Portrait != null || msg.PortraitEntity != null;
+        var hasSender = !string.IsNullOrWhiteSpace(msg.Sender);
+        var hasSenderColumn = hasPortrait || hasSender;
+        var availableTextWidth = viewportWidth - 2f * (LeftMargin + PanelPadding);
+        if (hasSenderColumn)
+            availableTextWidth -= PortraitWidth + ColumnGap;
+        var textWidth = viewportWidth > 0f ? Math.Clamp(availableTextWidth, 1f, MaxTextWidth) : MaxTextWidth;
 
-            _content.AddChild(new PanelContainer
+        if (hasSenderColumn)
+        {
+            var senderColumn = new BoxContainer
             {
-                MinWidth = 1,
-                PanelOverride = new StyleBoxFlat { BackgroundColor = BorderColor },
-            });
+                Orientation = BoxContainer.LayoutOrientation.Vertical,
+                SeparationOverride = 0,
+                SetWidth = PortraitWidth,
+                VerticalAlignment = VAlignment.Top,
+            };
+            _content.AddChild(senderColumn);
+
+            if (hasPortrait)
+            {
+                senderColumn.AddChild(new PortraitView(msg.Portrait, msg.PortraitEntity, msg.ChannelColor)
+                {
+                    SetHeight = PortraitHeight,
+                });
+            }
+
+            if (hasSender)
+            {
+                senderColumn.AddChild(new HudLabel
+                {
+                    Text = string.Join('\n', Wrap(msg.Sender, fonts.Sender, PortraitWidth - 2f * SenderPadding, uiScale)),
+                    FontOverride = fonts.Sender,
+                    FontColorOverride = BodyColor,
+                    Align = Label.AlignMode.Center,
+                    Margin = new Thickness(SenderPadding, 2, SenderPadding, 2),
+                });
+            }
         }
+
+        var titleLines = Wrap(msg.Title.ToUpperInvariant(), fonts.Caption, textWidth, uiScale);
+        var bodyLines = msg.Text.Length == 0 ? new List<string>() : Wrap(msg.Text, fonts.Body, textWidth, uiScale);
+        var width = 0f;
+        foreach (var line in titleLines)
+            width = MathF.Max(width, MeasureWidth(line, fonts.Caption, uiScale));
+        foreach (var line in bodyLines)
+            width = MathF.Max(width, MeasureWidth(line, fonts.Body, uiScale));
+        width = MathF.Min(MathF.Ceiling(width), textWidth);
 
         var column = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
             SeparationOverride = 2,
-            MinWidth = TextWidth,
-            VerticalAlignment = VAlignment.Center,
-            Margin = new Thickness(10, 8, 11, 9),
+            SetWidth = width,
+            VerticalAlignment = VAlignment.Top,
         };
         _content.AddChild(column);
 
-        var header = new BoxContainer
+        if (!string.IsNullOrWhiteSpace(msg.Title))
         {
-            Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            SeparationOverride = 6,
-        };
-        column.AddChild(header);
+            var caption = new PanelContainer
+            {
+                HorizontalAlignment = HAlignment.Left,
+                PanelOverride = new StyleBoxFlat
+                {
+                    BorderColor = Color.White,
+                    BorderThickness = new Thickness(0, 0, 0, 1),
+                },
+            };
+            column.AddChild(caption);
+            caption.AddChild(new HudLabel
+            {
+                Text = string.Join('\n', titleLines),
+                FontOverride = fonts.Caption,
+                FontColorOverride = Color.White,
+            });
+        }
 
-        header.AddChild(new Label
+        var lineHeight = fonts.Body.GetHeight(uiScale) / uiScale;
+        foreach (var line in bodyLines)
         {
-            Text = title.ToUpperInvariant(),
-            FontOverride = fonts.Caption,
-            FontColorOverride = accent,
-            HorizontalExpand = true,
-            ClipText = true,
-        });
-
-        column.AddChild(new Label
-        {
-            Text = string.Join('\n', Wrap(sender, fonts.Sender, TextWidth)),
-            FontOverride = fonts.Sender,
-            FontColorOverride = SenderColor,
-        });
-
-        column.AddChild(new PanelContainer
-        {
-            MinHeight = 1,
-            Margin = new Thickness(0, 3, 0, 4),
-            PanelOverride = new StyleBoxFlat { BackgroundColor = BorderColor.WithAlpha(0.6f) },
-        });
-
-        var body = new BoxContainer
-        {
-            Orientation = BoxContainer.LayoutOrientation.Vertical,
-            SeparationOverride = 1,
-        };
-        column.AddChild(body);
-
-        var lineHeight = MeasureText("Аy", fonts.Body).Y;
-        var full = string.Empty;
-        foreach (var line in Wrap(text, fonts.Body, TextWidth))
-        {
-            var label = new Label
+            var label = new HudLabel
             {
                 Text = string.Empty,
                 FontOverride = fonts.Body,
                 FontColorOverride = BodyColor,
-                MinSize = new Vector2(TextWidth, lineHeight),
+                MinHeight = lineHeight,
             };
-            body.AddChild(label);
+            column.AddChild(label);
             _lines.Add((label, line));
-            full += line;
         }
 
-        _fullText = full;
-
-        _frame = new FrameOverlay(accent);
-        AddChild(_frame);
-
-        _hold = MathF.Max(MathF.Max(duration, MinHold), 2f + _fullText.Length / ReadCharsPerSecond);
-        _holdLeft = _hold;
+        _fullText = string.Concat(bodyLines);
+        _holdLeft = MathF.Max(MathF.Max(msg.Duration, MinHold), 2f + _fullText.Length / ReadCharsPerSecond);
     }
 
     public void Skip()
@@ -195,8 +199,7 @@ public sealed class WelcomeMessageControl : Control
             case Phase.Open:
             case Phase.Type:
                 _appearPlayed = true;
-                _openX = 1f;
-                _openY = 1f;
+                _reveal = 1f;
                 Reveal(_fullText.Length, false);
                 _typed = _fullText.Length;
                 SetPhase(Phase.Hold);
@@ -205,6 +208,12 @@ public sealed class WelcomeMessageControl : Control
                 BeginClose();
                 break;
         }
+    }
+
+    public void ForceClose()
+    {
+        SetPhase(Phase.Done);
+        Modulate = Color.White.WithAlpha(0f);
     }
 
     protected override void KeyBindDown(GUIBoundKeyEventArgs args)
@@ -247,10 +256,9 @@ public sealed class WelcomeMessageControl : Control
                     PlaySound?.Invoke(WelcomeSound.Appear);
                 }
 
-                _openX = EaseOut(_phaseTime / OpenWidthTime);
-                _openY = EaseOut((_phaseTime - OpenWidthTime) / OpenHeightTime);
+                _reveal = EaseOut(_phaseTime / OpenTime);
 
-                if (_phaseTime >= OpenWidthTime + OpenHeightTime + TypeDelay)
+                if (_phaseTime >= OpenTime + TypeDelay)
                     SetPhase(_fullText.Length > 0 ? Phase.Type : Phase.Hold);
                 break;
 
@@ -271,10 +279,7 @@ public sealed class WelcomeMessageControl : Control
                 break;
 
             case Phase.Close:
-                _openY = 1f - EaseInOut(_phaseTime / CloseHeightTime);
-                _openX = 1f - EaseInOut((_phaseTime - CloseHeightTime) / CloseWidthTime);
-
-                if (_phaseTime >= CloseHeightTime + CloseWidthTime)
+                if (_phaseTime >= CloseTime)
                     SetPhase(Phase.Done);
                 break;
         }
@@ -285,29 +290,17 @@ public sealed class WelcomeMessageControl : Control
     protected override Vector2 MeasureOverride(Vector2 availableSize)
     {
         _content.Measure(Vector2Helpers.Infinity);
-        _frame.Measure(Vector2Helpers.Infinity);
 
         var full = _content.DesiredSize;
-        var width = Lerp(full.X * StripWidth, full.X, _openX);
-        var height = Lerp(MathF.Min(StripHeight, full.Y), full.Y, _openY);
-
-        return new Vector2(MathF.Round(width), MathF.Round(height));
+        var height = MathF.Max(2f, full.Y * _reveal);
+        return new Vector2(MathF.Round(full.X), MathF.Round(height));
     }
 
     protected override Vector2 ArrangeOverride(Vector2 finalSize)
     {
         var full = _content.DesiredSize;
-        var x = MathF.Round((finalSize.X - full.X) / 2f);
-        _content.Arrange(UIBox2.FromDimensions(new Vector2(x, 0f), full));
-        _frame.Arrange(UIBox2.FromDimensions(Vector2.Zero, finalSize));
-
+        _content.Arrange(UIBox2.FromDimensions(Vector2.Zero, full));
         return finalSize;
-    }
-
-    protected override void Draw(DrawingHandleScreen handle)
-    {
-        base.Draw(handle);
-        handle.DrawRect(new UIBox2(0, 0, PixelWidth, PixelHeight), PanelColor);
     }
 
     private void SetPhase(Phase phase)
@@ -357,8 +350,10 @@ public sealed class WelcomeMessageControl : Control
                     _soundCounter++;
             }
 
-            if (_soundCounter >= CharsPerTypeSound && _sinceTypeSound >= MinTypeSoundGap)
+            if (_soundCounter > 0 && (!_typeSoundPlayed || _soundCounter >= CharsPerTypeSound) &&
+                _sinceTypeSound >= MinTypeSoundGap)
             {
+                _typeSoundPlayed = true;
                 _soundCounter = 0;
                 _sinceTypeSound = 0f;
                 PlaySound?.Invoke(WelcomeSound.Type);
@@ -372,34 +367,18 @@ public sealed class WelcomeMessageControl : Control
     {
         var alpha = _phase switch
         {
-            Phase.Open => Math.Clamp(_phaseTime / FadeInTime, 0f, 1f),
-            Phase.Close => 1f - Math.Clamp((_phaseTime - CloseHeightTime) / CloseWidthTime, 0f, 1f),
+            Phase.Open => Math.Clamp(_phaseTime / (OpenTime * 0.6f), 0f, 1f),
+            Phase.Close => 1f - EaseInOut(_phaseTime / CloseTime),
             Phase.Done => 0f,
             _ => 1f,
         };
         Modulate = Color.White.WithAlpha(alpha);
 
-        _content.Modulate = Color.White.WithAlpha(Math.Clamp((_openY - 0.45f) / 0.55f, 0f, 1f));
-
-        if (!_openX.Equals(_laidOutX) || !_openY.Equals(_laidOutY))
+        if (!_reveal.Equals(_laidOut))
         {
-            _laidOutX = _openX;
-            _laidOutY = _openY;
+            _laidOut = _reveal;
             InvalidateMeasure();
         }
-
-        _frame.Fraction = _phase switch
-        {
-            Phase.Hold => _holdLeft / _hold,
-            Phase.Close or Phase.Done => 0f,
-            _ => 1f,
-        };
-        _frame.Highlight = _hovered;
-    }
-
-    private static float Lerp(float a, float b, float t)
-    {
-        return a + (b - a) * t;
     }
 
     private static float EaseOut(float t)
@@ -414,19 +393,15 @@ public sealed class WelcomeMessageControl : Control
         return t < 0.5f ? 4f * t * t * t : 1f - MathF.Pow(-2f * t + 2f, 3f) / 2f;
     }
 
-    private static Vector2 MeasureText(string text, Font font)
+    private static float MeasureWidth(string text, Font font, float uiScale)
     {
-        var probe = new Label
-        {
-            Text = text.Length == 0 ? " " : text,
-            FontOverride = font,
-        };
-
-        probe.Measure(Vector2Helpers.Infinity);
-        return probe.DesiredSize;
+        var width = 0;
+        foreach (var rune in text.EnumerateRunes())
+            width += font.GetCharMetrics(rune, uiScale)?.Advance ?? 0;
+        return width / uiScale;
     }
 
-    private static List<string> Wrap(string text, Font font, float maxWidth)
+    private static List<string> Wrap(string text, Font font, float maxWidth, float uiScale)
     {
         var lines = new List<string>();
 
@@ -439,7 +414,7 @@ public sealed class WelcomeMessageControl : Control
                 if (current.Length > 0)
                 {
                     var candidate = current + " " + word;
-                    if (MeasureText(candidate, font).X <= maxWidth)
+                    if (MeasureWidth(candidate, font, uiScale) <= maxWidth)
                     {
                         current = candidate;
                         continue;
@@ -449,20 +424,27 @@ public sealed class WelcomeMessageControl : Control
                     current = string.Empty;
                 }
 
-                if (MeasureText(word, font).X <= maxWidth)
+                if (MeasureWidth(word, font, uiScale) <= maxWidth)
                 {
                     current = word;
                     continue;
                 }
 
                 var chunkStart = 0;
-                for (var end = chunkStart + 2; end <= word.Length; end++)
+                var offset = 0;
+                var chunkWidth = 0;
+                foreach (var rune in word.EnumerateRunes())
                 {
-                    if (MeasureText(word.Substring(chunkStart, end - chunkStart), font).X <= maxWidth)
-                        continue;
+                    var advance = font.GetCharMetrics(rune, uiScale)?.Advance ?? 0;
+                    if (offset > chunkStart && (chunkWidth + advance) / uiScale > maxWidth)
+                    {
+                        lines.Add(word[chunkStart..offset]);
+                        chunkStart = offset;
+                        chunkWidth = 0;
+                    }
 
-                    lines.Add(word.Substring(chunkStart, end - 1 - chunkStart));
-                    chunkStart = end - 1;
+                    offset += rune.Utf16SequenceLength;
+                    chunkWidth += advance;
                 }
 
                 current = word.Substring(chunkStart);
@@ -474,23 +456,43 @@ public sealed class WelcomeMessageControl : Control
         return lines;
     }
 
+    private sealed class HudLabel : Label
+    {
+        protected override void Draw(DrawingHandleScreen handle)
+        {
+            var transform = handle.GetTransform();
+            var modulation = handle.Modulate;
+            var offset = MathF.Max(1f, MathF.Round(UIScale));
+
+            handle.SetTransform(Matrix3x2.CreateTranslation(offset, offset) * transform);
+            handle.Modulate = Color.Black.WithAlpha(modulation.A);
+            base.Draw(handle);
+
+            handle.Modulate = modulation;
+            handle.SetTransform(transform);
+            base.Draw(handle);
+        }
+    }
+
     private sealed class PortraitView : Control
     {
-        private const float EntityZoom = 1.45f;
-        private const float EntityTopOffset = 0.06f;
+        private static readonly Color DefaultCameraBackground = Color.FromHex("#AD5019");
+
+        private const float EntityScale = 6f;
+        private const float EntityViewSize = 32f * EntityScale;
 
         private readonly Texture? _texture;
         private readonly SpriteView? _spriteView;
-        private readonly Color _top;
-        private readonly Color _bottom;
-        private readonly Color _floor;
+        private readonly Color _background;
+        private readonly VhsOverlay _vhs;
 
-        public PortraitView(Texture? texture, Color accent, EntityUid? entity = null)
+        public PortraitView(Texture? texture, EntityUid? entity, Color? channelColor)
         {
             _texture = texture;
-            _top = Color.InterpolateBetween(InsetColor, accent, 0.05f);
-            _bottom = Color.InterpolateBetween(InsetColor, accent, 0.42f);
-            _floor = accent.WithAlpha(0.8f);
+            _background = channelColor is { } accent
+                ? Color.InterpolateBetween(accent, Color.Black, 0.32f).WithAlpha(1f)
+                : DefaultCameraBackground;
+            _vhs = new VhsOverlay(channelColor);
             MouseFilter = MouseFilterMode.Ignore;
             RectClipContent = true;
 
@@ -499,116 +501,81 @@ public sealed class WelcomeMessageControl : Control
                 _spriteView = new SpriteView
                 {
                     OverrideDirection = Direction.South,
-                    Stretch = SpriteView.StretchMode.Fill,
+                    Stretch = SpriteView.StretchMode.None,
+                    Scale = new Vector2(EntityScale, EntityScale),
                     MouseFilter = MouseFilterMode.Ignore,
                 };
                 _spriteView.SetEntity(entity.Value);
                 AddChild(_spriteView);
             }
-        }
 
-        protected override Vector2 MeasureOverride(Vector2 availableSize)
-        {
-            _spriteView?.Measure(new Vector2(float.PositiveInfinity, float.PositiveInfinity));
-            return Vector2.Zero;
+            AddChild(_vhs);
         }
 
         protected override Vector2 ArrangeOverride(Vector2 finalSize)
         {
             if (_spriteView != null)
             {
-                var side = MathF.Max(finalSize.X, finalSize.Y) * EntityZoom;
-                var x = (finalSize.X - side) / 2f;
-                var y = -side * EntityTopOffset;
-                _spriteView.Arrange(UIBox2.FromDimensions(new Vector2(x, y), new Vector2(side, side)));
+                var x = MathF.Round((finalSize.X - EntityViewSize) / 2f);
+                _spriteView.Arrange(UIBox2.FromDimensions(new Vector2(x, 2f), new Vector2(EntityViewSize)));
             }
 
+            _vhs.Arrange(UIBox2.FromDimensions(Vector2.Zero, finalSize));
             return finalSize;
         }
 
         protected override void Draw(DrawingHandleScreen handle)
         {
-            base.Draw(handle);
-
-            float w = PixelWidth;
-            float h = PixelHeight;
-            if (w <= 0f || h <= 0f)
+            handle.DrawRect(PixelSizeBox, _background);
+            if (_texture == null || PixelHeight <= 0)
                 return;
 
-            var rows = Math.Max(1, PixelHeight / 2);
-            for (var i = 0; i < rows; i++)
-            {
-                var y0 = MathF.Floor(h * i / rows);
-                var y1 = MathF.Floor(h * (i + 1) / rows);
-                var t = (i + 0.5f) / rows;
-                handle.DrawRect(new UIBox2(0f, y0, w, y1), Color.InterpolateBetween(_top, _bottom, t * t));
-            }
-
-            var line = MathF.Max(1f, MathF.Round(UIScale));
-            handle.DrawRect(new UIBox2(0f, h - line, w, h), _floor);
-
-            if (_texture == null)
-                return;
-
-            var size = _texture.Size;
-            var room = h - line;
-            var fit = MathF.Min(w / Math.Max(1, size.X), room / Math.Max(1, size.Y));
-            var scale = fit >= 1f ? MathF.Floor(fit) : fit;
-
-            var drawW = size.X * scale;
-            var drawH = size.Y * scale;
-            var x = MathF.Floor((w - drawW) / 2f);
-            var y = MathF.Floor(room - drawH);
-
-            handle.DrawTextureRect(_texture, UIBox2.FromDimensions(new Vector2(x, y), new Vector2(drawW, drawH)));
+            var drawWidth = _texture.Width * (float) PixelHeight / _texture.Height;
+            var left = MathF.Round((PixelWidth - drawWidth) / 2f);
+            var size = new Vector2(drawWidth, PixelHeight);
+            handle.DrawTextureRect(_texture, UIBox2.FromDimensions(new Vector2(left, 0f), size));
         }
     }
 
-    private sealed class FrameOverlay : Control
+    private sealed class VhsOverlay(Color? channelColor) : Control
     {
-        private readonly Color _accent;
-        private readonly Color _highlight;
-        private readonly Color _fill;
+        private readonly Color _scanlineColor = (channelColor is { } accent
+            ? Color.InterpolateBetween(Color.Black, accent, 0.18f)
+            : Color.FromHex("#2E1005")).WithAlpha(0.27f);
 
-        public float Fraction = 1f;
-        public bool Highlight;
+        private readonly Color _trackingColor = (channelColor is { } accent
+            ? Color.InterpolateBetween(accent, Color.White, 0.60f)
+            : Color.FromHex("#FFD191")).WithAlpha(0.19f);
 
-        public FrameOverlay(Color accent)
+        private float _elapsed;
+
+        protected override void FrameUpdate(FrameEventArgs args)
         {
-            _accent = accent;
-            _highlight = Color.InterpolateBetween(BorderColor, accent, 0.6f);
-            _fill = accent.WithAlpha(0.85f);
-            MouseFilter = MouseFilterMode.Ignore;
+            _elapsed += args.DeltaSeconds;
         }
 
         protected override void Draw(DrawingHandleScreen handle)
         {
-            base.Draw(handle);
-
-            float w = PixelWidth;
-            float h = PixelHeight;
-            if (w <= 0f || h <= 0f)
+            var width = PixelWidth;
+            var height = PixelHeight;
+            if (width <= 0 || height <= 0)
                 return;
 
-            var s = MathF.Max(1f, MathF.Round(UIScale));
-            var border = Highlight ? _highlight : BorderColor;
+            var pixel = MathF.Max(1f, MathF.Round(UIScale));
+            for (var y = 0f; y < height; y += 3f * pixel)
+                handle.DrawRect(new UIBox2(0, y, width, MathF.Min(height, y + pixel)), _scanlineColor);
 
-            handle.DrawRect(new UIBox2(0f, 0f, w, s), border);
-            handle.DrawRect(new UIBox2(0f, h - s, w, h), border);
-            handle.DrawRect(new UIBox2(w - s, 0f, w, h), border);
-            handle.DrawRect(new UIBox2(0f, 0f, 3f * s, h), _accent);
+            var trackingY = MathF.Floor(_elapsed * 40f * UIScale) % height;
+            handle.DrawRect(new UIBox2(0, trackingY, width, MathF.Min(height, trackingY + 3f * pixel)), _trackingColor);
 
-            var barTop = h - 3f * s;
-            if (barTop <= s)
-                return;
-
-            var x0 = 3f * s;
-            var x1 = w - s;
-            handle.DrawRect(new UIBox2(x0, barTop, x1, h - s), InsetColor);
-
-            var fill = MathF.Round((x1 - x0) * Math.Clamp(Fraction, 0f, 1f));
-            if (fill > 0f)
-                handle.DrawRect(new UIBox2(x0, barTop, x0 + fill, h - s), _fill);
+            var frame = (int) (_elapsed * 12f);
+            for (var i = 0; i < 5; i++)
+            {
+                var x = (frame * 43 + i * 67) % width;
+                var y = (frame * 23 + i * 37) % height;
+                var right = MathF.Min(width, x + (3 + (frame + i * 5) % 12) * pixel);
+                handle.DrawRect(new UIBox2(x, y, right, MathF.Min(height, y + pixel)), _trackingColor);
+            }
         }
     }
 }

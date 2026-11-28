@@ -4,7 +4,6 @@ using Content.Server.Chat.Managers;
 using Content.Server.Popups;
 using Content.Server.Radio.Components;
 using Content.Shared._BlackM.Announcement;
-using Content.Shared._BlackM.Headcrab;
 using Content.Shared.Access;
 using Content.Shared.Access.Systems;
 using Content.Shared.ActionBlocker;
@@ -101,9 +100,6 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
 
     private void GivePortableBroadcaster(EntityUid uid)
     {
-        if (HasComp<HeadcrabCapturedComponent>(uid))
-            return;
-
         if (!_proto.Index(PortableBroadcaster).TryGetComponent<AnnouncementConsoleComponent>(out var portable))
             return;
 
@@ -123,9 +119,6 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
 
     private bool CanUseConsole(Entity<AnnouncementConsoleComponent> ent, EntityUid user)
     {
-        if (HasComp<HeadcrabCapturedComponent>(user))
-            return false;
-
         if (!ent.Comp.Personal)
             return _accessReader.IsAllowed(user, ent.Owner);
 
@@ -290,9 +283,17 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
             _overrides[key] = until;
         }
 
-        var ev = new AnnouncementBroadcastEvent(GetNetEntity(user), sender, title, text, channel.Accent, duration);
-        var filter = Filter.Empty().AddPlayers(recipients);
-        Timer.Spawn(DeliveryDelay, () => RaiseNetworkEvent(ev, filter));
+        var hudSender = job.Length == 0 ? name : $"{name}\n{job}";
+        var ev = new AnnouncementBroadcastEvent(GetNetEntity(user), hudSender, title, text, channel.Accent, duration);
+        Timer.Spawn(DeliveryDelay, () =>
+        {
+            var alive = recipients
+                .Where(s => s.Status == SessionStatus.InGame && s.AttachedEntity != null)
+                .ToList();
+
+            if (alive.Count > 0)
+                RaiseNetworkEvent(ev, Filter.Empty().AddPlayers(alive));
+        });
 
         var wrapped = Loc.GetString("blackm-announce-chat-wrap",
             ("color", channel.Accent.ToHex()),

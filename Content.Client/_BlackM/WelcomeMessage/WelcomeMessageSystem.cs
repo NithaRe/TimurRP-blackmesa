@@ -1,10 +1,13 @@
 using System.Numerics;
+using Content.Client.Gameplay;
 using Content.Client.Resources;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._BlackM.WelcomeMessage;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
+using Robust.Client.Player;
 using Robust.Client.ResourceManagement;
+using Robust.Client.State;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Audio;
@@ -17,6 +20,8 @@ public sealed partial class WelcomeMessageSystem : EntitySystem
 {
     [Dependency] private IUserInterfaceManager _ui = default!;
     [Dependency] private IResourceCache _res = default!;
+    [Dependency] private IStateManager _state = default!;
+    [Dependency] private IPlayerManager _player = default!;
     [Dependency] private SpriteSystem _sprite = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
 
@@ -26,83 +31,104 @@ public sealed partial class WelcomeMessageSystem : EntitySystem
         "/Fonts/NotoSans/NotoSans-Regular.ttf",
     };
 
-    private static readonly string[] SoundAppear =
-    {
-        "/Audio/_BlackM/Radio/receive_1.ogg",
-        "/Audio/_BlackM/Radio/receive_2.ogg",
-        "/Audio/_BlackM/Radio/receive_3.ogg",
-    };
-
-    private static readonly string[] SoundDisappear =
-    {
-        "/Audio/_BlackM/Radio/send_end_1.ogg",
-        "/Audio/_BlackM/Radio/send_end_2.ogg",
-        "/Audio/_BlackM/Radio/send_end_3.ogg",
-    };
-
-    private static readonly string[] SoundType =
-    {
-        "/Audio/_BlackM/Interface/Terminal/term_type.ogg",
-    };
+    private const string SoundAppear = "/Audio/_BlackM/Radio/optional/radio_talk.ogg";
+    private const string SoundDisappear = "/Audio/_BlackM/Radio/optional/radio_important.ogg";
+    private const string SoundType = "/Audio/_BlackM/Interface/Terminal/term_type.ogg";
 
     private const float AppearVolume = -5f;
     private const float DisappearVolume = -7f;
-    private const float TypeVolume = -16f;
+    private const float TypeVolume = -9f;
+    private const float GapSeconds = 0.35f;
 
     private readonly Random _rng = new();
 
     private WelcomeMessageControl? _current;
+    private WelcomeMessageEvent? _pendingWelcome;
     private WelcomeFonts? _fonts;
+    private float _gap;
 
-    public bool IsShowing => _current != null;
+    public bool IsShowing => _current != null || _pendingWelcome != null || _gap > 0f;
+
+    public bool InGameplay => _state.CurrentState is GameplayStateBase && _player.LocalEntity != null;
+
+    public bool CanPresent => InGameplay && !IsShowing;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeNetworkEvent<WelcomeMessageEvent>(OnMessage);
+        _state.OnStateChanged += OnStateChanged;
+    }
+
+    public override void Shutdown()
+    {
+        base.Shutdown();
+        _state.OnStateChanged -= OnStateChanged;
+        Clear();
     }
 
     public WelcomeFonts GetFonts()
     {
         return _fonts ??= new WelcomeFonts(
-            _res.GetFont(FontStack, 11),
-            _res.GetFont(FontStack, 14),
+            _res.GetFont(FontStack, 13),
+            _res.GetFont(FontStack, 9),
             _res.GetFont(FontStack, 12));
+    }
+
+    private void OnStateChanged(StateChangedEventArgs args)
+    {
+        Clear();
+    }
+
+    public void Clear()
+    {
+        if (_current != null)
+        {
+            _current.ForceClose();
+            _current.Orphan();
+        }
+
+        _current = null;
+        _pendingWelcome = null;
+        _gap = 0f;
     }
 
     private void OnMessage(WelcomeMessageEvent ev)
     {
-        _current?.Orphan();
-        _current = null;
+        if (!InGameplay)
+            return;
 
-        var control = new WelcomeMessageControl(
-            ev.Sender,
-            ev.Title,
-            ev.Text,
-            GetPortrait(ev),
-            ev.Accent,
-            ev.Duration,
-            GetFonts());
-
-        control.PlaySound += PlayWelcomeSound;
-
-        var parent = GetParent();
-        parent.AddChild(control);
-
-        if (parent is LayoutContainer)
-        {
-            LayoutContainer.SetAnchorPreset(control, LayoutContainer.LayoutPreset.CenterTop);
-            LayoutContainer.SetGrowHorizontal(control, LayoutContainer.GrowDirection.Both);
-            LayoutContainer.SetMarginLeft(control, 0);
-            LayoutContainer.SetMarginRight(control, 0);
-            LayoutContainer.SetMarginTop(control, WelcomeMessageControl.TopMargin);
-            LayoutContainer.SetMarginBottom(control, WelcomeMessageControl.TopMargin);
-        }
-
-        _current = control;
+        _pendingWelcome = ev;
     }
 
-    public Control GetParent()
+    public bool Present(HudMessage msg)
+    {
+        if (!InGameplay || GetParent() is not { } parent)
+            return false;
+
+        if (_current != null)
+        {
+            _current.ForceClose();
+            _current.Orphan();
+        }
+
+        var control = new WelcomeMessageControl(msg, GetFonts(), parent.Width, parent.UIScale);
+        control.PlaySound += PlayWelcomeSound;
+
+        parent.AddChild(control);
+        LayoutContainer.SetAnchorPreset(control, LayoutContainer.LayoutPreset.CenterLeft);
+        LayoutContainer.SetGrowHorizontal(control, LayoutContainer.GrowDirection.End);
+        LayoutContainer.SetGrowVertical(control, LayoutContainer.GrowDirection.Both);
+        LayoutContainer.SetMarginLeft(control, WelcomeMessageControl.LeftMargin);
+        LayoutContainer.SetMarginRight(control, WelcomeMessageControl.LeftMargin);
+        LayoutContainer.SetMarginTop(control, 0);
+        LayoutContainer.SetMarginBottom(control, 0);
+
+        _current = control;
+        return true;
+    }
+
+    public LayoutContainer? GetParent()
     {
         var screen = _ui.ActiveScreen;
         if (screen != null &&
@@ -112,29 +138,30 @@ public sealed partial class WelcomeMessageSystem : EntitySystem
             return container;
         }
 
-        return (Control?) screen ?? _ui.PopupRoot;
+        return null;
     }
 
-    private Texture? GetPortrait(WelcomeMessageEvent ev)
+    internal static Texture CropPortrait(Texture texture, Vector2i position, Vector2i sizeToKeep)
     {
-        var texture = _sprite.Frame0(ev.Portrait);
         var size = texture.Size;
-
-        if (ev.CropSize.X <= 0 || ev.CropSize.Y <= 0)
+        if (sizeToKeep.X <= 0 || sizeToKeep.Y <= 0)
             return texture;
 
-        var x = Math.Clamp(ev.CropPos.X, 0, Math.Max(0, size.X - 1));
-        var y = Math.Clamp(ev.CropPos.Y, 0, Math.Max(0, size.Y - 1));
-        var w = Math.Min(ev.CropSize.X, size.X - x);
-        var h = Math.Min(ev.CropSize.Y, size.Y - y);
+        var x = Math.Clamp(position.X, 0, Math.Max(0, size.X - 1));
+        var y = Math.Clamp(position.Y, 0, Math.Max(0, size.Y - 1));
+        var w = Math.Min(sizeToKeep.X, size.X - x);
+        var h = Math.Min(sizeToKeep.Y, size.Y - y);
 
         if (w <= 0 || h <= 0)
             return texture;
 
-        return new AtlasTexture(texture, UIBox2.FromDimensions(new Vector2(x, y), new Vector2(w, h)));
+        var region = UIBox2.FromDimensions(new Vector2(x, y), new Vector2(w, h));
+        return texture is AtlasTexture atlas
+            ? new AtlasTexture(atlas.SourceTexture, region.Translated(atlas.SubRegion.TopLeft))
+            : new AtlasTexture(texture, region);
     }
 
-    public void PlayWelcomeSound(WelcomeSound kind)
+    private void PlayWelcomeSound(WelcomeSound kind)
     {
         string path;
         float volume;
@@ -143,15 +170,15 @@ public sealed partial class WelcomeMessageSystem : EntitySystem
         switch (kind)
         {
             case WelcomeSound.Appear:
-                path = SoundAppear[_rng.Next(SoundAppear.Length)];
+                path = SoundAppear;
                 volume = AppearVolume;
                 break;
             case WelcomeSound.Disappear:
-                path = SoundDisappear[_rng.Next(SoundDisappear.Length)];
+                path = SoundDisappear;
                 volume = DisappearVolume;
                 break;
             default:
-                path = SoundType[_rng.Next(SoundType.Length)];
+                path = SoundType;
                 volume = TypeVolume;
                 pitch = 0.92f + (float) _rng.NextDouble() * 0.16f;
                 break;
@@ -165,17 +192,41 @@ public sealed partial class WelcomeMessageSystem : EntitySystem
     {
         base.FrameUpdate(frameTime);
 
-        if (_current is { Finished: true })
+        if (!InGameplay)
         {
+            if (_current != null || _pendingWelcome != null)
+                Clear();
+            return;
+        }
+
+        if (_current != null)
+        {
+            if (!_current.Finished)
+                return;
+
             _current.Orphan();
             _current = null;
+            _gap = GapSeconds;
         }
-    }
 
-    public override void Shutdown()
-    {
-        base.Shutdown();
-        _current?.Orphan();
-        _current = null;
+        if (_gap > 0f)
+        {
+            _gap -= frameTime;
+            if (_gap > 0f)
+                return;
+            _gap = 0f;
+        }
+
+        if (_pendingWelcome is not { } ev)
+            return;
+
+        _pendingWelcome = null;
+        Present(new HudMessage(
+            ev.Sender,
+            ev.Title,
+            ev.Text,
+            CropPortrait(_sprite.Frame0(ev.Portrait), ev.CropPos, ev.CropSize),
+            null,
+            ev.Duration));
     }
 }

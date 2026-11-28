@@ -50,9 +50,10 @@ public sealed partial class WelcomeMessageSystem : EntitySystem
             set.Duration);
 
         var session = ev.Player;
+        var mob = ev.Mob;
         Timer.Spawn(Delay, () =>
         {
-            if (session.Status == SessionStatus.InGame)
+            if (session.Status == SessionStatus.InGame && session.AttachedEntity == mob)
                 RaiseNetworkEvent(msg, session);
         });
     }

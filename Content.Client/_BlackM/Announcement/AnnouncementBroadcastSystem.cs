@@ -1,11 +1,8 @@
 using Content.Client._BlackM.WelcomeMessage;
 using Content.Client.Resources;
-using Content.Client.Stylesheets;
 using Content.Shared._BlackM.Announcement;
 using Robust.Client.GameObjects;
 using Robust.Client.ResourceManagement;
-using Robust.Client.UserInterface;
-using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._BlackM.Announcement;
 
@@ -17,14 +14,11 @@ public sealed partial class AnnouncementBroadcastSystem : EntitySystem
     private const string FallbackPortrait = "/Textures/_BlackM/Interface/welcome_portrait.png";
 
     private const float EntityWaitSeconds = 1.5f;
-    private const float GapSeconds = 0.4f;
     private const int MaxQueue = 6;
 
     private readonly Queue<AnnouncementBroadcastEvent> _queue = new();
     private AnnouncementBroadcastEvent? _pending;
     private float _pendingWait;
-    private float _gap;
-    private WelcomeMessageControl? _current;
 
     public override void Initialize()
     {
@@ -34,6 +28,9 @@ public sealed partial class AnnouncementBroadcastSystem : EntitySystem
 
     private void OnMessage(AnnouncementBroadcastEvent ev)
     {
+        if (!_welcome.InGameplay)
+            return;
+
         while (_queue.Count >= MaxQueue)
         {
             _queue.Dequeue();
@@ -46,23 +43,13 @@ public sealed partial class AnnouncementBroadcastSystem : EntitySystem
     {
         base.FrameUpdate(frameTime);
 
-        if (_current != null)
+        if (!_welcome.InGameplay)
         {
-            if (!_current.Finished)
-                return;
-
-            _current.Orphan();
-            _current = null;
-            _gap = GapSeconds;
-        }
-
-        if (_gap > 0f)
-        {
-            _gap -= frameTime;
+            Reset();
             return;
         }
 
-        if (_welcome.IsShowing)
+        if (!_welcome.CanPresent)
             return;
 
         if (_pending == null)
@@ -87,46 +74,32 @@ public sealed partial class AnnouncementBroadcastSystem : EntitySystem
         if (speaker == null && _pendingWait < EntityWaitSeconds)
             return;
 
-        Show(_pending, speaker);
+        var ev = _pending;
         _pending = null;
-    }
 
-    private void Show(AnnouncementBroadcastEvent ev, EntityUid? speaker)
-    {
-        var control = new WelcomeMessageControl(
+        var portrait = speaker == null
+            ? WelcomeMessageSystem.CropPortrait(_res.GetTexture(FallbackPortrait), new Vector2i(4, 0), new Vector2i(24, 18))
+            : null;
+        _welcome.Present(new HudMessage(
             ev.Sender,
             ev.Title,
             ev.Text,
-            speaker == null ? _res.GetTexture(FallbackPortrait) : null,
-            StyleNano.TerminalGreen,
+            portrait,
+            speaker,
             ev.Duration,
-            _welcome.GetFonts(),
-            speaker);
+            ChannelColor: ev.Accent));
+    }
 
-        control.PlaySound += _welcome.PlayWelcomeSound;
-
-        var parent = _welcome.GetParent();
-        parent.AddChild(control);
-
-        if (parent is LayoutContainer)
-        {
-            LayoutContainer.SetAnchorPreset(control, LayoutContainer.LayoutPreset.CenterTop);
-            LayoutContainer.SetGrowHorizontal(control, LayoutContainer.GrowDirection.Both);
-            LayoutContainer.SetMarginLeft(control, 0);
-            LayoutContainer.SetMarginRight(control, 0);
-            LayoutContainer.SetMarginTop(control, WelcomeMessageControl.TopMargin);
-            LayoutContainer.SetMarginBottom(control, WelcomeMessageControl.TopMargin);
-        }
-
-        _current = control;
+    private void Reset()
+    {
+        _pending = null;
+        _pendingWait = 0f;
+        _queue.Clear();
     }
 
     public override void Shutdown()
     {
         base.Shutdown();
-        _current?.Orphan();
-        _current = null;
-        _pending = null;
-        _queue.Clear();
+        Reset();
     }
 }
