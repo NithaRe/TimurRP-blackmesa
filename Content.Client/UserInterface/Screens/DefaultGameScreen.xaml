@@ -43,14 +43,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <actions:ActionsBar Name="Actions" Access="Protected" />
     </BoxContainer>
     <widgets:GhostGui Name="Ghost" Access="Protected" />
-    <inventory:InventoryGui Name="Inventory" Access="Protected" />
+    <BoxContainer Name="InventoryAndVitals" Orientation="Vertical" HorizontalAlignment="Left"
+                  SeparationOverride="8" MouseFilter="Ignore">
+        <inventory:InventoryGui Name="Inventory" Access="Protected" HorizontalAlignment="Left" />
+    </BoxContainer>
     <hotbar:HotbarGui Name="Hotbar" Access="Protected" />
-    <!-- BlackM start: needs HUD -->
+    <needs:VitalsHud />
     <BoxContainer Name="VitalsAndTargeting" Orientation="Horizontal" VerticalAlignment="Bottom" SeparationOverride="4">
-        <needs:NeedsHud Name="Needs" VerticalAlignment="Bottom" />
         <targeting:TargetingControl Name="Targeting" Access="Protected" />
     </BoxContainer>
-    <!-- BlackM end: needs HUD -->
     <chat:ResizableChatBox Name="Chat" Access="Protected" />
     <alerts:AlertsUI Name="Alerts" Access="Protected" />
 </screens:DefaultGameScreen>

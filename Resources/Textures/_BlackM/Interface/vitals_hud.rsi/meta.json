@@ -1,0 +1,50 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "BlackM",
+    "size": {
+        "x": 24,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "num_0"
+        },
+        {
+            "name": "num_1"
+        },
+        {
+            "name": "num_2"
+        },
+        {
+            "name": "num_3"
+        },
+        {
+            "name": "num_4"
+        },
+        {
+            "name": "num_5"
+        },
+        {
+            "name": "num_6"
+        },
+        {
+            "name": "num_7"
+        },
+        {
+            "name": "num_8"
+        },
+        {
+            "name": "num_9"
+        },
+        {
+            "name": "cross"
+        },
+        {
+            "name": "divider"
+        },
+        {
+            "name": "stamina"
+        }
+    ]
+}
