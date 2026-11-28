@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Shared._BlackM.Headcrab;
+using Content.Shared._BlackM.SecurityCommand;
 using Content.Goobstation.Shared.Overlays;
 using Content.Server.DoAfter;
 using Content.Server.Popups;
@@ -60,6 +61,7 @@ public sealed partial class HeadcrabSystem : EntitySystem
 
     private static readonly int HeadcrabSoundCount = 6;
     private static readonly ProtoId<NpcFactionPrototype> XenFaction = "BlackMXen";
+    private static readonly EntProtoId PortableBroadcasterAction = "ActionBlackMPortableBroadcaster";
     private const string CapturedItemsContainer = "blackm-captured-items";
 
     private readonly HashSet<EntityUid> _recentlyHit = new();
@@ -277,6 +279,12 @@ public sealed partial class HeadcrabSystem : EntitySystem
 
     private void OnCapturedStartup(EntityUid uid, HeadcrabCapturedComponent comp, ComponentStartup args)
     {
+        RemComp<SecurityCommanderComponent>(uid);
+        RemComp<SecurityOrderReceiverComponent>(uid);
+
+        if (_actions.TryGetActionById(uid, PortableBroadcasterAction, out var broadcasterAction))
+            _actions.RemoveAction(broadcasterAction.Value.AsNullable());
+
         LimitCapturedHands((uid, comp));
 
         var vision = EnsureComp<NightVisionComponent>(uid);

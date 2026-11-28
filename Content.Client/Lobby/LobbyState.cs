@@ -192,7 +192,8 @@ namespace Content.Client.Lobby
             Lobby.ReadyButton.OnPressed += OnReadyPressed;
             Lobby.ReadyButton.OnToggled += OnReadyToggled;
             Lobby.DiscordButton.OnPressed += _ => IoCManager.Resolve<IUriOpener>().OpenUri("https://discord.gg/8bvmPnkTPM");
-            Lobby.BoustyButton.OnPressed += _ => IoCManager.Resolve<IUriOpener>().OpenUri("https://boosty.to/sweekyl");
+            Lobby.BoostyIconButton.OnPressed -= OnBoostyPressed;
+            Lobby.BoostyIconButton.OnPressed += OnBoostyPressed;
 
             _gameTicker.InfoBlobUpdated += UpdateLobbyUi;
             _gameTicker.LobbyStatusUpdated += LobbyStatusUpdated;
@@ -217,6 +218,7 @@ namespace Content.Client.Lobby
             //Lobby.CharacterPreview.PatronPerks.OnPressed -= OnPatronPerksPressed; CorvaxGoob-Coins
             Lobby!.ReadyButton.OnPressed -= OnReadyPressed;
             Lobby!.ReadyButton.OnToggled -= OnReadyToggled;
+            Lobby!.BoostyIconButton.OnPressed -= OnBoostyPressed;
 
             // _currentLocalAnimationState = null;
             Lobby = null;
@@ -232,6 +234,11 @@ namespace Content.Client.Lobby
         {
             SetReady(false);
             Lobby?.SwitchState(LobbyGui.LobbyGuiState.CharacterSetup);
+        }
+
+        private static void OnBoostyPressed(BaseButton.ButtonEventArgs args)
+        {
+            IoCManager.Resolve<IUriOpener>().OpenUri("https://boosty.to/timurrp");
         }
 
         // BlackM start

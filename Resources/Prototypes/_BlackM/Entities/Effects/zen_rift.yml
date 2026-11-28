@@ -1,0 +1,29 @@
+- type: entity
+  id: ZenRiftBlackM
+  name: Зен-разлом
+  description: Пульсирующий разрыв пространства. С той стороны что-то шевелится. Оружие против него бессильно.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ZenRift
+  - type: ZenRiftVisuals
+  - type: Transform
+    anchored: false
+  - type: Sprite
+    sprite: _BlackM/Effects/Ams/ams_fx.rsi
+    drawdepth: Effects
+    noRot: true
+    layers:
+    - state: portal
+      shader: unshaded
+  - type: PointLight
+    enabled: true
+    radius: 5
+    energy: 3
+    color: "#5dff3a"
+  - type: AmbientSound
+    range: 7
+    volume: -4
+    sound:
+      path: /Audio/Ambience/anomaly_drone.ogg
+  - type: Clickable
+  - type: InteractionOutline

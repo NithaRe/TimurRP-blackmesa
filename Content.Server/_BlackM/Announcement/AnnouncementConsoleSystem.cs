@@ -4,6 +4,7 @@ using Content.Server.Chat.Managers;
 using Content.Server.Popups;
 using Content.Server.Radio.Components;
 using Content.Shared._BlackM.Announcement;
+using Content.Shared._BlackM.Headcrab;
 using Content.Shared.Access;
 using Content.Shared.Access.Systems;
 using Content.Shared.ActionBlocker;
@@ -100,6 +101,9 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
 
     private void GivePortableBroadcaster(EntityUid uid)
     {
+        if (HasComp<HeadcrabCapturedComponent>(uid))
+            return;
+
         if (!_proto.Index(PortableBroadcaster).TryGetComponent<AnnouncementConsoleComponent>(out var portable))
             return;
 
@@ -119,6 +123,9 @@ public sealed partial class AnnouncementConsoleSystem : EntitySystem
 
     private bool CanUseConsole(Entity<AnnouncementConsoleComponent> ent, EntityUid user)
     {
+        if (HasComp<HeadcrabCapturedComponent>(user))
+            return false;
+
         if (!ent.Comp.Personal)
             return _accessReader.IsAllowed(user, ent.Owner);
 

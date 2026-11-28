@@ -33,6 +33,13 @@ public sealed partial class ZenInterventionComponent : Component
     [DataField, AutoNetworkedField]
     public bool BreachTriggered;
 
+    [DataField]
+    public EntProtoId? IntermediateBreachRiftRule = "ZenRiftInterventionMinor";
+
+    [DataField]
+    public EntProtoId? BreachRiftRule = "ZenRiftInterventionMajor";
+
+
     [DataField, AutoNetworkedField]
     public List<EntProtoId> BreachMobPrototypes = new()
     {

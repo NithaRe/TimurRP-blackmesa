@@ -134,6 +134,7 @@
   id: ChiefMedicalOfficer
   name: job-name-cmo
   description: job-description-cmo
+  whitelisted: true # BlackM edit
   playTimeTracker: JobChiefMedicalOfficer
   requirements:
     - !type:OverallPlaytimeRequirement

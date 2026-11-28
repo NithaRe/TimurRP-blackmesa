@@ -35,7 +35,8 @@ public sealed partial class DefaultGameScreen : InGameScreen
         SetAnchorPreset(ViewportContainer, LayoutPreset.Wide);
         SetAnchorAndMarginPreset(TopLeft, LayoutPreset.TopLeft, margin: 10);
         SetAnchorAndMarginPreset(Ghost, LayoutPreset.BottomWide, margin: 80);
-        SetAnchorAndMarginPreset(Inventory, LayoutPreset.BottomLeft, margin: 5);
+        SetAnchorAndMarginPreset(InventoryAndVitals, LayoutPreset.BottomLeft, LayoutPresetMode.KeepSize, margin: 5);
+        SetGrowVertical(InventoryAndVitals, GrowDirection.Begin);
         SetAnchorAndMarginPreset(Hotbar, LayoutPreset.BottomWide, margin: 5);
         SetAnchorAndMarginPreset(Chat, LayoutPreset.TopRight, margin: 10);
         SetAnchorAndMarginPreset(Alerts, LayoutPreset.TopRight, margin: 10);
@@ -47,12 +48,12 @@ public sealed partial class DefaultGameScreen : InGameScreen
         Chat.OnChatResizeFinish += ChatOnResizeFinish;
         MainViewport.OnResized += ResizeActionContainer;
         MainViewport.OnResized += ResizeAlertsContainer;
-        Inventory.OnResized += ResizeActionContainer;
+        InventoryAndVitals.OnResized += ResizeActionContainer;
     }
 
     private void ResizeActionContainer()
     {
-        float indent = Inventory.Size.Y + TopBar.Size.Y + 40;
+        float indent = InventoryAndVitals.Size.Y + TopBar.Size.Y + 40;
         Actions.ActionsContainer.MaxGridHeight = MainViewport.Size.Y - indent;
     }
 

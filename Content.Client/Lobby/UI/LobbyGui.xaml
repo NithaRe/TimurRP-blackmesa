@@ -101,7 +101,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                     <Label Text="Discord" VAlign="Center" />
                                 </BoxContainer>
                             </Button>
-                            <Button Name="BoustyButton" Access="Public" StyleClasses="LabelButtonBlackM">
+                            <Button Name="BoostyButton" Access="Public" StyleClasses="LabelButtonBlackM">
                                 <BoxContainer Orientation="Horizontal" SeparationOverride="8">
                                     <TextureRect TexturePath="/Textures/_BlackM/Interface/Icons/boosty.png" MinSize="22 22"
                                                  Stretch="KeepAspectCentered" VerticalAlignment="Center" />
@@ -314,7 +314,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
                                                  MouseFilter="Ignore" />
                                 </Button>
-                                <Button Name="BoustyButton" Access="Public" StyleClasses="FlatButtonTerminalBlackM"
+                                <Button Name="BoostyIconButton" Access="Public" StyleClasses="FlatButtonTerminalBlackM"
                                         MinSize="40 40" ToolTip="Boosty">
                                     <TextureRect TexturePath="/Textures/_BlackM/Interface/Icons/boosty.png"
                                                  MinSize="22 22" Stretch="KeepAspectCentered"

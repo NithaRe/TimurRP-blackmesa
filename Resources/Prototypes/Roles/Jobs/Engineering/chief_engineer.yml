@@ -132,6 +132,7 @@
   id: ChiefEngineer
   name: job-name-ce
   description: job-description-ce
+  whitelisted: true # BlackM edit
   playTimeTracker: JobChiefEngineer
   requirements:
     - !type:OverallPlaytimeRequirement

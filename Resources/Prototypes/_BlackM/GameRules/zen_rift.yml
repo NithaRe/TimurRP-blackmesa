@@ -1,0 +1,95 @@
+- type: entity
+  id: ZenRiftBase
+  parent: BaseStationEventShortDelay
+  abstract: true
+  components:
+  - type: StationEvent
+    duration: 1200
+    maxDuration: 1260
+    eventType: HostilesSpawn
+    chaos:
+      Hostile: 60
+
+- type: entity
+  id: ZenRiftMinor
+  parent: ZenRiftBase
+  components:
+  - type: StationEvent
+    weight: 6
+    earliestStart: 15
+    reoccurrenceDelay: 20
+    minimumPlayers: 10
+  - type: GameRule
+    chaosScore: 40
+  - type: ZenRiftRule
+    minRifts: 1
+    maxRifts: 2
+    minMobsPerRift: 3
+    maxMobsPerRift: 5
+    waveReward: 4000
+    killBonus: 400
+    clearBonus: 2500
+
+- type: entity
+  id: ZenRiftMajor
+  parent: ZenRiftBase
+  components:
+  - type: StationEvent
+    weight: 3
+    earliestStart: 35
+    reoccurrenceDelay: 30
+    minimumPlayers: 20
+    maxOccurrences: 2
+  - type: GameRule
+    chaosScore: 80
+  - type: ZenRiftRule
+    minRifts: 3
+    maxRifts: 4
+    minMobsPerRift: 5
+    maxMobsPerRift: 8
+    waveReward: 9000
+    killBonus: 450
+    clearBonus: 6000
+    sweepDuration: 300
+
+- type: entity
+  id: ZenRiftInterventionBase
+  parent: BaseGameRule
+  abstract: true
+  components:
+  - type: StationEvent
+    weight: 0
+    duration: 1200
+    maxDuration: 1260
+    eventType: HostilesSpawn
+
+- type: entity
+  id: ZenRiftInterventionMinor
+  parent: ZenRiftInterventionBase
+  components:
+  - type: ZenRiftRule
+    targetStationName: Комплекс Черная Меза
+    minRifts: 1
+    maxRifts: 2
+    minMobsPerRift: 3
+    maxMobsPerRift: 4
+    openDelay: 180
+    waveReward: 3000
+    killBonus: 350
+    clearBonus: 2000
+
+- type: entity
+  id: ZenRiftInterventionMajor
+  parent: ZenRiftInterventionBase
+  components:
+  - type: ZenRiftRule
+    targetStationName: Комплекс Черная Меза
+    minRifts: 3
+    maxRifts: 5
+    minMobsPerRift: 4
+    maxMobsPerRift: 7
+    openDelay: 170
+    waveReward: 7000
+    killBonus: 400
+    clearBonus: 5000
+    sweepDuration: 300
