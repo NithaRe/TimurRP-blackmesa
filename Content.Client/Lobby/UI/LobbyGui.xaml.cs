@@ -102,7 +102,7 @@ namespace Content.Client.Lobby.UI
                 (CallVoteButton, CallVoteButton.Text ?? Loc.GetString("ui-vote-menu-button"), null),
                 (LeaveButton, LeaveButton.Text ?? Loc.GetString("ui-lobby-leave-button"), null));
             DiscordButton.Label.Visible = false;
-            BoustyButton.Label.Visible = false;
+            BoostyIconButton.Label.Visible = false;
             // SetAnchorPreset(MainContainer, LayoutPreset.Wide);
             SetAnchorPreset(LobbyBase, LayoutPreset.Wide);
             SetAnchorPreset(LobbyBranding, LayoutPreset.Wide);
