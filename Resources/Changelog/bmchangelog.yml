@@ -1279,3 +1279,24 @@ Entries:
       message: фикс локализации.
   id: 167
   time: '2026-11-27T21:02:43.0000000+00:00'
+# PR #189
+- author: sweekyl
+  changes:
+    - type: Tweak
+      message: Худ теперь как в HL!
+    - type: Tweak
+      message: Нерф зен тварей в слюни!
+    - type: Add
+      message: Добавлена система заданий для ковак!
+    - type: Tweak
+      message: АМС синхронизация 600 -> 485 сек!
+    - type: Tweak
+      message: Теперь на всех  главах вайтлист!
+    - type: Tweak
+      message: Новый пул карты!
+    - type: Fix
+      message: Исправлена проблема с actions при захвате хедкрабом!
+    - type: Fix
+      message: Бусти кнопка и ссылка!
+  id: 168
+  time: '2026-11-28T03:44:31.0000000+00:00'
