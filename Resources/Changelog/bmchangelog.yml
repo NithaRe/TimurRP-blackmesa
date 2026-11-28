@@ -1300,3 +1300,20 @@ Entries:
       message: Бусти кнопка и ссылка!
   id: 168
   time: '2026-11-28T03:44:31.0000000+00:00'
+# PR #191
+- author: NithaRe
+  changes:
+    - type: Add
+      message: Терминалы сборки АМС
+    - type: Add
+      message: Книга по выращиванию кристаллов в рнд
+    - type: Tweak
+      message: Бафф научных прорывов
+    - type: Tweak
+      message: Расширены слоты КОВАК
+    - type: Tweak
+      message: Убрана возможность спавна за гражданские профессии.
+    - type: Tweak
+      message: Реворк цен АМС
+  id: 169
+  time: '2026-11-28T11:07:16.0000000+00:00'
