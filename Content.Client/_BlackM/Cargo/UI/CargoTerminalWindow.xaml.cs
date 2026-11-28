@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using Content.Client.Cargo.Systems;
+using Content.Client.Materials;
 using Content.Client.Stylesheets;
 using Content.Shared.Cargo;
 using Content.Shared.Cargo.BUI;
@@ -37,7 +38,6 @@ public sealed partial class CargoTerminalWindow : BaseWindow
     private string? _category;
     private bool _showApproved;
     private bool _amsCatalog;
-    private bool _amsGuideBuilt;
     private float _refreshElapsed;
     private long _pendingTotal;
     private readonly List<CargoProductPrototype> _products = new();
@@ -95,10 +95,13 @@ public sealed partial class CargoTerminalWindow : BaseWindow
         var allowed = _entity.GetComponentOrNull<CargoOrderConsoleComponent>(owner)?.AllowedGroups;
         _amsCatalog = allowed?.Contains("AmsParts") == true;
         AmsGuideTab.Visible = _amsCatalog;
+        CatalogTab.Visible = !_amsCatalog;
         FundsTab.Visible = !_amsCatalog;
+        BalanceLabel.Visible = AccountLabel.Visible = !_amsCatalog;
         if (_amsCatalog)
         {
             HeadingLabel.Text = Loc.GetString("ams-parts-console-heading");
+            PopulateAmsGuide();
             ShowAmsGuide();
         }
         FitToScreen();
@@ -124,8 +127,6 @@ public sealed partial class CargoTerminalWindow : BaseWindow
         }
 
         _products.Sort((left, right) => string.Compare(left.Name, right.Name, StringComparison.CurrentCultureIgnoreCase));
-        if (_amsCatalog && !_amsGuideBuilt && _products.Count > 0)
-            PopulateAmsGuide();
         if (_selected != null)
             _selected = _products.Find(product => product.ID == _selected.ID);
 
@@ -289,9 +290,12 @@ public sealed partial class CargoTerminalWindow : BaseWindow
 
     private void PopulateAmsGuide()
     {
-        _amsGuideBuilt = true;
-        foreach (var product in _products)
+        AmsGuideList.DisposeAllChildren();
+        var researchCost = _prototype.Index<TechnologyPrototype>("AmsPartsResearch").Cost;
+        var storage = _entity.System<MaterialStorageSystem>();
+        foreach (var id in new[] { "AmsPartCore", "AmsPartCoil", "AmsPartLens", "AmsPartCell", "AmsPartStabilizer", "AmsPartCasing" })
         {
+            var part = _prototype.Index<EntityPrototype>(id);
             var row = new BoxContainer
             {
                 Orientation = BoxContainer.LayoutOrientation.Vertical,
@@ -305,7 +309,7 @@ public sealed partial class CargoTerminalWindow : BaseWindow
             };
             heading.AddChild(new TextureRect
             {
-                Texture = _entity.System<SpriteSystem>().Frame0(product.Icon),
+                Texture = _entity.System<SpriteSystem>().GetPrototypeIcon(part).Default,
                 SetSize = new Vector2(24, 24),
                 CanShrink = true,
                 Stretch = TextureRect.StretchMode.KeepAspectCentered,
@@ -313,24 +317,22 @@ public sealed partial class CargoTerminalWindow : BaseWindow
             });
             heading.AddChild(new Label
             {
-                Text = product.Name,
+                Text = part.Name,
                 ClipText = true,
                 HorizontalExpand = true,
                 MouseFilter = MouseFilterMode.Ignore,
             });
-            heading.AddChild(new Label
-            {
-                Text = Money(product.Cost),
-                SetWidth = 82,
-                Align = Label.AlignMode.Right,
-                MouseFilter = MouseFilterMode.Ignore,
-            });
             row.AddChild(heading);
             var description = new RichTextLabel();
-            var materials = _prototype.TryIndex<LatheRecipePrototype>(product.Product.ToString(), out var recipe)
-                ? recipe.Materials.Select(material => (material.Key.Id.ToLowerInvariant(), (object) material.Value)).ToArray()
+            var materials = _prototype.TryIndex<LatheRecipePrototype>(id, out var recipe)
+                ? recipe.Materials.Select(material =>
+                {
+                    var prototype = _prototype.Index(material.Key);
+                    var count = (double) material.Value / storage.GetSheetVolume(prototype);
+                    return (material.Key.Id.ToLowerInvariant(), (object) count);
+                }).ToArray()
                 : Array.Empty<(string, object)>();
-            description.SetMessage(Loc.GetString($"ams-parts-acquisition-{product.Product}", materials));
+            description.SetMessage(Loc.GetString($"ams-parts-acquisition-{id}", materials.Append(("points", (object) researchCost)).ToArray()));
             row.AddChild(description);
             row.AddChild(new PanelContainer { SetHeight = 1, StyleClasses = { "TerminalRule" } });
             AmsGuideList.AddChild(row);
@@ -346,7 +348,7 @@ public sealed partial class CargoTerminalWindow : BaseWindow
 
     private void ShowFunds(bool funds)
     {
-        if (funds && _amsCatalog)
+        if (_amsCatalog)
             return;
         AmsGuideTab.Pressed = AmsGuidePage.Visible = false;
         CatalogTab.Pressed = !funds;

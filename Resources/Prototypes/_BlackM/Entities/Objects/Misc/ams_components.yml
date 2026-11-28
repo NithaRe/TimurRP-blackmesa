@@ -1,0 +1,72 @@
+﻿- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseAmsFabricationComponent
+  components:
+  - type: Item
+    size: Normal
+  - type: Sprite
+    sprite: Objects/Misc/stock_parts.rsi
+  - type: Material
+  - type: Tag
+    tags: [RawMaterial]
+
+- type: entity
+  parent: BaseAmsFabricationComponent
+  id: AmsCoilComponent
+  name: AMS superconducting core
+  description: A superconducting core required to manufacture an AMS coil.
+  components:
+  - type: Sprite
+    state: subspace_ansible
+  - type: PhysicalComposition
+    materialComposition:
+      AmsCoilComponent: 100
+
+- type: entity
+  parent: BaseAmsFabricationComponent
+  id: AmsLensComponent
+  name: AMS optical matrix
+  description: An optical matrix required to manufacture an AMS focusing lens.
+  components:
+  - type: Sprite
+    state: high_micro_laser
+  - type: PhysicalComposition
+    materialComposition:
+      AmsLensComponent: 100
+
+- type: entity
+  parent: BaseAmsFabricationComponent
+  id: AmsCellComponent
+  name: AMS energy module
+  description: An energy module required to manufacture an AMS power cell.
+  components:
+  - type: Sprite
+    state: super_capacitor
+  - type: PhysicalComposition
+    materialComposition:
+      AmsCellComponent: 100
+
+- type: entity
+  parent: BaseAmsFabricationComponent
+  id: AmsStabilizerComponent
+  name: AMS resonance controller
+  description: A resonance controller required to manufacture an AMS stabilizer.
+  components:
+  - type: Sprite
+    state: hyperwave_filter
+  - type: PhysicalComposition
+    materialComposition:
+      AmsStabilizerComponent: 100
+
+- type: entity
+  parent: BaseAmsFabricationComponent
+  id: AmsCasingComponent
+  name: AMS structural frame
+  description: A structural frame required to manufacture an AMS casing.
+  components:
+  - type: Sprite
+    state: super_matter_bin
+  - type: PhysicalComposition
+    materialComposition:
+      AmsCasingComponent: 100

@@ -1,0 +1,39 @@
+﻿- type: material
+  id: AmsCoilComponent
+  stackEntity: AmsCoilComponent
+  name: ent-AmsCoilComponent
+  unit: materials-unit-piece
+  icon: { sprite: Objects/Misc/stock_parts.rsi, state: subspace_ansible }
+  price: 0
+
+- type: material
+  id: AmsLensComponent
+  stackEntity: AmsLensComponent
+  name: ent-AmsLensComponent
+  unit: materials-unit-piece
+  icon: { sprite: Objects/Misc/stock_parts.rsi, state: high_micro_laser }
+  price: 0
+
+- type: material
+  id: AmsCellComponent
+  stackEntity: AmsCellComponent
+  name: ent-AmsCellComponent
+  unit: materials-unit-piece
+  icon: { sprite: Objects/Misc/stock_parts.rsi, state: super_capacitor }
+  price: 0
+
+- type: material
+  id: AmsStabilizerComponent
+  stackEntity: AmsStabilizerComponent
+  name: ent-AmsStabilizerComponent
+  unit: materials-unit-piece
+  icon: { sprite: Objects/Misc/stock_parts.rsi, state: hyperwave_filter }
+  price: 0
+
+- type: material
+  id: AmsCasingComponent
+  stackEntity: AmsCasingComponent
+  name: ent-AmsCasingComponent
+  unit: materials-unit-piece
+  icon: { sprite: Objects/Misc/stock_parts.rsi, state: super_matter_bin }
+  price: 0

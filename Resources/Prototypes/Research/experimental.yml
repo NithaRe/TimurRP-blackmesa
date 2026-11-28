@@ -73,7 +73,7 @@
     state: core 
   discipline: Experimental
   tier: 1
-  cost: 5000
+  cost: 25000
   researchReward: AmsPartCore
   researchRewardAnnouncement: ams-parts-research-reward-announcement
   genericUnlocks:

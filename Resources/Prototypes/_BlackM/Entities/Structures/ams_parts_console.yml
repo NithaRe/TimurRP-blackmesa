@@ -2,7 +2,7 @@
   parent: ComputerCargoOrders
   id: ComputerAmsPartsOrders
   name: AMS components console
-  description: Procurement and acquisition records for all six anti-mass spectrometer components.
+  description: Acquisition records for all six anti-mass spectrometer components. Components cannot be purchased.
   components:
   - type: CargoOrderConsole
     allowedGroups:
@@ -18,3 +18,167 @@
   components:
   - type: ComputerBoard
     prototype: ComputerAmsPartsOrders
+
+- type: entity
+  abstract: true
+  parent: BaseComputer
+  id: BaseAmsPartFabricator
+  name: AMS part fabricator
+  description: A specialized fabricator. Uses a dedicated component and raw materials to manufacture one type of AMS part.
+  components:
+  - type: CargoSellBlacklist
+  - type: Construction
+    graph: AmsPartFabricator
+    node: assembled
+    deconstructionTarget: null
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+      - !type:DoActsBehavior
+        acts: [Destruction]
+  - type: Sprite
+    layers:
+    - state: computer
+      map: ["computerLayerBody"]
+    - state: generic_keyboard
+      map: ["computerLayerKeyboard"]
+    - state: rdcomp
+      map: ["computerLayerScreen"]
+    - state: rd_key
+      map: ["computerLayerKeys"]
+    - state: generic_panel_open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: Lathe
+  - type: MaterialStorage
+    whitelist:
+      tags: [Sheet, RawMaterial, Ingot]
+  - type: ActivatableUI
+    key: enum.LatheUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.LatheUiKey.Key:
+        type: AmsPartFabricatorBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: GenericVisualizer
+    visuals:
+      enum.ComputerVisuals.Powered:
+        computerLayerScreen:
+          True: { visible: true, shader: unshaded }
+          False: { visible: false }
+        computerLayerKeys:
+          True: { visible: true, shader: unshaded }
+          False: { visible: true, shader: shaded }
+      enum.WiresVisuals.MaintenancePanelState:
+        enum.WiresVisualLayers.MaintenancePanel:
+          True: { visible: false }
+          False: { visible: true }
+      enum.LatheVisuals.IsRunning:
+        computerLayerScreen:
+          True: { color: "#92FFC3" }
+          False: { color: "#FFFFFF" }
+
+- type: entity
+  parent: BaseAmsPartFabricator
+  id: ComputerAmsCoilFabricator
+  name: AMS part fabricator - coil
+  components:
+  - type: Lathe
+    staticPacks: [AmsCoilConsolePack]
+  - type: Computer
+    board: AmsCoilFabricatorCircuitboard
+
+- type: entity
+  parent: BaseAmsPartFabricator
+  id: ComputerAmsLensFabricator
+  name: AMS part fabricator - focusing lens
+  components:
+  - type: Lathe
+    staticPacks: [AmsLensConsolePack]
+  - type: Computer
+    board: AmsLensFabricatorCircuitboard
+
+- type: entity
+  parent: BaseAmsPartFabricator
+  id: ComputerAmsCellFabricator
+  name: AMS part fabricator - power cell
+  components:
+  - type: Lathe
+    staticPacks: [AmsCellConsolePack]
+  - type: Computer
+    board: AmsCellFabricatorCircuitboard
+
+- type: entity
+  parent: BaseAmsPartFabricator
+  id: ComputerAmsStabilizerFabricator
+  name: AMS part fabricator - stabilizer
+  components:
+  - type: Lathe
+    staticPacks: [AmsStabilizerConsolePack]
+  - type: Computer
+    board: AmsStabilizerFabricatorCircuitboard
+
+- type: entity
+  parent: BaseAmsPartFabricator
+  id: ComputerAmsCasingFabricator
+  name: AMS part fabricator - casing
+  components:
+  - type: Lathe
+    staticPacks: [AmsCasingConsolePack]
+  - type: Computer
+    board: AmsCasingFabricatorCircuitboard
+
+- type: entity
+  abstract: true
+  parent: BaseComputerCircuitboard
+  id: BaseAmsPartFabricatorCircuitboard
+  components:
+  - type: Sprite
+    state: science
+
+- type: entity
+  parent: BaseAmsPartFabricatorCircuitboard
+  id: AmsCoilFabricatorCircuitboard
+  name: AMS coil fabricator board
+  components:
+  - type: ComputerBoard
+    prototype: ComputerAmsCoilFabricator
+
+- type: entity
+  parent: BaseAmsPartFabricatorCircuitboard
+  id: AmsLensFabricatorCircuitboard
+  name: AMS focusing lens fabricator board
+  components:
+  - type: ComputerBoard
+    prototype: ComputerAmsLensFabricator
+
+- type: entity
+  parent: BaseAmsPartFabricatorCircuitboard
+  id: AmsCellFabricatorCircuitboard
+  name: AMS power cell fabricator board
+  components:
+  - type: ComputerBoard
+    prototype: ComputerAmsCellFabricator
+
+- type: entity
+  parent: BaseAmsPartFabricatorCircuitboard
+  id: AmsStabilizerFabricatorCircuitboard
+  name: AMS stabilizer fabricator board
+  components:
+  - type: ComputerBoard
+    prototype: ComputerAmsStabilizerFabricator
+
+- type: entity
+  parent: BaseAmsPartFabricatorCircuitboard
+  id: AmsCasingFabricatorCircuitboard
+  name: AMS casing fabricator board
+  components:
+  - type: ComputerBoard
+    prototype: ComputerAmsCasingFabricator

@@ -165,10 +165,13 @@ zen-lab-order-waiting = Ожидает работающего терминала
 zen-lab-order-enroute = В пути · { $seconds } с.
 zen-lab-sample-heading = №{ $number } · { $name }
 zen-research-perk-endurance = Выносливость
-zen-research-perk-endurance-desc = Входящий урон выносливости снижен на 5% / 10% / 15%.
+zen-research-perk-endurance-desc = Входящий урон выносливости снижен на 10% / 20% / 30%.
 zen-research-perk-thermal = Термостойкость
-zen-research-perk-thermal-desc = Урон от жара и холода снижен на 5% / 10% / 15%. Не заменяет защитный костюм.
+zen-research-perk-thermal-desc = Урон от жара и холода снижен на 10% / 20% / 30%. Не заменяет защитный костюм.
 zen-research-perk-radiation = Радиоадаптация
-zen-research-perk-radiation-desc = Радиационный урон снижен на 10% / 20% / 30%.
+zen-research-perk-radiation-desc = Радиационный урон снижен на 15% / 30% / 45%.
 zen-research-perk-detox = Детоксикация
-zen-research-perk-detox-desc = Урон от ядов снижен на 5% / 10% / 15%. Не обезвреживает реагенты и не лечит заражение.
+zen-research-perk-detox-desc = Урон от ядов снижен на 10% / 20% / 30%. Не обезвреживает реагенты и не лечит заражение.
+
+ent-BookZenCrystalGuide = руководство НИО по выращиванию зен-кристаллов
+    .desc = Записки сотрудника лаборатории о том, как вырастить зен-кристалл и сохранить рабочее место.

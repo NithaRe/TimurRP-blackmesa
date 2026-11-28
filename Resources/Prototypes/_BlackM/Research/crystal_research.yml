@@ -2,43 +2,43 @@
   id: ZenCrewMobility
   name: zen-research-perk-mobility
   description: zen-research-perk-mobility-desc
-  speedPerLevel: 0.02
+  speedPerLevel: 0.04
 
 - type: zenResearchPerk
   id: ZenCrewLogistics
   name: zen-research-perk-logistics
   description: zen-research-perk-logistics-desc
-  pullSpeedPerLevel: 0.10
+  pullSpeedPerLevel: 0.20
 
 - type: zenResearchPerk
   id: ZenCrewResistance
   name: zen-research-perk-resistance
   description: zen-research-perk-resistance-desc
-  infectionResistancePerLevel: 0.10
+  infectionResistancePerLevel: 0.15
 
 - type: zenResearchPerk
   id: ZenCrewEndurance
   name: zen-research-perk-endurance
   description: zen-research-perk-endurance-desc
-  staminaResistancePerLevel: 0.05
+  staminaResistancePerLevel: 0.10
 
 - type: zenResearchPerk
   id: ZenCrewThermal
   name: zen-research-perk-thermal
   description: zen-research-perk-thermal-desc
-  thermalResistancePerLevel: 0.05
+  thermalResistancePerLevel: 0.10
 
 - type: zenResearchPerk
   id: ZenCrewRadiation
   name: zen-research-perk-radiation
   description: zen-research-perk-radiation-desc
-  radiationResistancePerLevel: 0.10
+  radiationResistancePerLevel: 0.15
 
 - type: zenResearchPerk
   id: ZenCrewDetoxification
   name: zen-research-perk-detox
   description: zen-research-perk-detox-desc
-  poisonResistancePerLevel: 0.05
+  poisonResistancePerLevel: 0.10
 
 - type: zenResearchSupply
   id: ZenSupplySteel

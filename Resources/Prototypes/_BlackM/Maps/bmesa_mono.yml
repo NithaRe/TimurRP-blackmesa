@@ -27,7 +27,7 @@
             Captain: [ 1, 1 ]
             HeadOfSecurity: [ 1, 1 ]
             Warden: [ 1, 1 ]
-            SecurityOfficer: [ 6, 12 ]
+            SecurityOfficer: [ 8, 15 ]
             SecurityCadet: [ 2, 4 ]
             Brigmedic: [ 1, 1 ]
             ResearchDirector: [ 1, 1 ]
@@ -41,10 +41,6 @@
             CargoTechnician: [ 2, 4 ]
             ChiefEngineer: [ 1, 1 ]
             StationEngineer: [ 1, 1 ]
-            Chef: [ 1, 2 ]
-            Botanist: [ 1, 2 ]
-            Bartender: [ 1, 1 ]
-            Janitor: [ 1, 2 ]
             Passenger: [ -1, -1 ]
  
         # Goobstation blob-config-start SMALL+
