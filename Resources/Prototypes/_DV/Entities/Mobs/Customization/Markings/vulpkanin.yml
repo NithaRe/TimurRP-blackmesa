@@ -15,17 +15,6 @@
 # All the Vulpkanin customization
 
 # Ears Markings
-- type: marking
-  id: VulpEar
-  bodyPart: HeadTop
-  markingCategory: HeadTop
-  sponsorOnly: false # CorvaxGoob-Sponsors
-  speciesRestriction: [Vulpkanin, Human]
-  sprites:
-    - sprite: _DV/Mobs/Customization/Vulpkanin/ear_markings.rsi
-      state: vulp
-    - sprite: _DV/Mobs/Customization/Vulpkanin/ear_markings.rsi
-      state: vulp-inner
 
 - type: marking
   id: VulpEarFade
@@ -283,17 +272,6 @@
       state: slash
 
 # Tail Markings
-- type: marking
-  id: VulpTail
-  bodyPart: Tail
-  markingCategory: Tail
-  sponsorOnly: false # CorvaxGoob-Sponsors
-  speciesRestriction: [Vulpkanin, Human]
-  sprites:
-    - sprite: _DV/Mobs/Customization/Vulpkanin/tail_markings.rsi
-      state: vulp
-    - sprite: _DV/Mobs/Customization/Vulpkanin/tail_markings.rsi
-      state: vulp-fade
 
 - type: marking
   id: VulpTailTip
